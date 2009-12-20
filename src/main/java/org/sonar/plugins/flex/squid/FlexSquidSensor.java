@@ -56,7 +56,7 @@ public final class FlexSquidSensor implements Sensor {
     }
   }
 
-  void analyzeFile(File file, ProjectFileSystem projectFileSystem, SensorContext sensorContext) throws IOException {
+  protected void analyzeFile(File file, ProjectFileSystem projectFileSystem, SensorContext sensorContext) throws IOException {
     Reader reader = null;
     try {
       reader = new StringReader(FileUtils.readFileToString(file, projectFileSystem.getSourceCharset().name()));
@@ -66,5 +66,10 @@ public final class FlexSquidSensor implements Sensor {
     } finally {
       IOUtils.closeQuietly(reader);
     }
+  }
+
+  @Override
+  public String toString() {
+    return getClass().getSimpleName();
   }
 }

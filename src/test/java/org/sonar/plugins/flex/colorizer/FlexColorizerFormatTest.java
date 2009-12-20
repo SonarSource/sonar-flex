@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package org.sonar.plugins.flex;
+package org.sonar.plugins.flex.colorizer;
 
 import org.junit.Test;
 import static org.junit.Assert.assertThat;

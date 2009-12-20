@@ -26,7 +26,7 @@ import org.sonar.plugins.flex.Flex;
 public class ClassComplexityDistributionDecorator extends AbstractClassComplexityDistributionDecorator {
 
   public ClassComplexityDistributionDecorator() {
-    super(new Integer[]{0, 3, 10, 20, 30, 60, 90}, Flex.INSTANCE);
+    super(new Integer[]{0, 5, 10, 20, 30, 60, 90}, Flex.INSTANCE);
   }
 
   @Override

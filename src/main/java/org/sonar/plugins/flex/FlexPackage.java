@@ -1,0 +1,102 @@
+/*
+ * Sonar, open source software quality management tool.
+ * Copyright (C) 2009 SonarSource SA
+ * mailto:contact AT sonarsource DOT com
+ *
+ * Sonar is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * Sonar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with Sonar; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ */
+
+package org.sonar.plugins.flex;
+
+import org.sonar.api.resources.Resource;
+import org.sonar.api.resources.Language;
+import org.sonar.api.utils.WildcardPattern;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
+public class FlexPackage implements Resource {
+  public static final String DEFAULT_PACKAGE_NAME = "[default]";
+  private String key;
+
+  public FlexPackage(String key) {
+    this.key = StringUtils.defaultIfEmpty(StringUtils.trim(key), DEFAULT_PACKAGE_NAME);
+  }
+
+  public boolean isDefault() {
+    return StringUtils.equals(getKey(), DEFAULT_PACKAGE_NAME);
+  }
+
+  public String getKey() {
+    return key;
+  }
+
+  public String getScope() {
+    return Resource.SCOPE_SPACE;
+  }
+
+  public String getQualifier() {
+    return Resource.QUALIFIER_PACKAGE;
+  }
+
+  public String getName() {
+    return key;
+  }
+
+  public Resource<?> getParent() {
+    return null;
+  }
+
+  public Language getLanguage() {
+    return Flex.INSTANCE;
+  }
+
+  public boolean matchFilePattern(String antPattern) {
+    String patternWithoutFileSuffix = StringUtils.substringBeforeLast(antPattern, ".");
+    WildcardPattern matcher = WildcardPattern.create(patternWithoutFileSuffix, ".");
+    return matcher.match(getKey());
+  }
+
+  public String getDescription() {
+    return null;
+  }
+
+  public String getLongName() {
+    return null;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof FlexPackage)) {
+      return false;
+    }
+    if (this == obj) {
+      return true;
+    }
+    FlexPackage other = (FlexPackage) obj;
+    return StringUtils.equals(key, other.getKey());
+  }
+
+  @Override
+  public int hashCode() {
+    return key.hashCode();
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this)
+      .append("key", key)
+      .toString();
+  }
+}

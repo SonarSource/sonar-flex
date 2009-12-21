@@ -50,8 +50,8 @@ public class FlexMetricsSensorTest {
   @Before
   public void init() {
     sensor = new FlexMetricsSensor(null);
-    context= mock(SensorContext.class);
-    File xmlFile = FileUtils.toFile(getClass().getResource("/org/sonar/plugins/flex/javancss-raw-report.xml"));
+    context = mock(SensorContext.class);
+    File xmlFile = FileUtils.toFile(getClass().getResource("/org/sonar/plugins/flex/flexmetrics/javancss-raw-report.xml"));
     parser = new XpathParser();
     parser.parse(xmlFile);
   }
@@ -65,24 +65,18 @@ public class FlexMetricsSensorTest {
   }
 
   @Test
-  public void testCollectPackageMeasures() {
-    try {
-      sensor.collectPackageMeasures(parser, context);
-    }
-    catch (ParseException e) {
-    }
+  public void testCollectPackageMeasures() throws ParseException {
+    sensor.collectPackageMeasures(parser, context);
+
     verify(context).saveMeasure(new FlexPackage("com.almirun.common.controllers"), CoreMetrics.COMMENT_LINES, 30.0);
     verify(context).saveMeasure(new FlexPackage("com.almirun.common.events"), CoreMetrics.COMMENT_LINES, 0.0);
     verify(context).saveMeasure(new FlexPackage("com.almirun.common.events"), CoreMetrics.PACKAGES, 1.0);
   }
 
   @Test
-  public void testCollectFileMeasures() {
-    try {
-      sensor.collectFileMeasures(parser, context);
-    }
-    catch (ParseException e) {
-    }
+  public void testCollectFileMeasures() throws ParseException {
+    sensor.collectFileMeasures(parser, context);
+
     verify(context).saveMeasure(new FlexFile("com.almirun.common.util.StringManipulator"), CoreMetrics.NCLOC, 40.0);
     verify(context).saveMeasure(new FlexFile("com.almirun.common.util.TimeFormatter"), CoreMetrics.NCLOC, 73.0);
     verify(context).saveMeasure(new FlexFile("com.almirun.common.util.TimeFormatter"), CoreMetrics.CLASSES, 1.0);
@@ -94,14 +88,11 @@ public class FlexMetricsSensorTest {
   }
 
   @Test
-  public void testcComplexityClassMeasures() {
-    try {
-      sensor.createComplexityClassMeasures(parser, context);
-    }
-    catch (ParseException e) {
-    }
+  public void testcComplexityClassMeasures()  throws ParseException{
+    sensor.createComplexityClassMeasures(parser, context);
+
     verify(context).saveMeasure(new FlexFile("com.almirun.common.data.BatchedQuery"), CoreMetrics.COMPLEXITY, 6.0);
-    verify(context).saveMeasure(eq(new FlexFile("com.almirun.common.data.BatchedQuery")),argThat(
-        new IsMeasure(CoreMetrics.FUNCTION_COMPLEXITY_DISTRIBUTION, "1=3;2=1;4=0;6=0;8=0;10=0;12=0")));
+    verify(context).saveMeasure(eq(new FlexFile("com.almirun.common.data.BatchedQuery")), argThat(
+      new IsMeasure(CoreMetrics.FUNCTION_COMPLEXITY_DISTRIBUTION, "1=3;2=1;4=0;6=0;8=0;10=0;12=0")));
   }
 }

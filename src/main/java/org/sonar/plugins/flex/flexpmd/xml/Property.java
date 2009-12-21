@@ -17,34 +17,30 @@
  * License along with Sonar; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
+package org.sonar.plugins.flex.flexpmd.xml;
 
-package org.sonar.plugins.flex.flexmetrics;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-import org.sonar.api.batch.maven.MavenPluginHandler;
-import org.sonar.api.batch.maven.MavenPlugin;
-import org.sonar.api.resources.Project;
+@XStreamAlias("property")
+public class Property {
 
-public class FlexMetricsMavenPluginHandler implements MavenPluginHandler{
-  public String getGroupId() {
-    return "com.adobe.ac";
-  }
+    @XStreamAsAttribute
+    private String name;
 
-  public String getArtifactId() {
-    return "flex-flexpmd-metrics-maven-plugin";
-  }
+    @XStreamAsAttribute
+    private String value;
 
-  public String getVersion() {
-    return "1.0";
-  }
+    public Property(String name, String value) {
+        this.name = name;
+        this.value = value;
+    }
 
-  public boolean isFixedVersion() {
-    return true;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public String[] getGoals() {
-    return new String[]{"check"};
-  }
-
-  public void configure(Project project, MavenPlugin plugin) {
-  }
+    public String getValue() {
+        return value;
+    }
 }

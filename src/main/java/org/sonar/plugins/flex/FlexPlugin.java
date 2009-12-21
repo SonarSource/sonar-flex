@@ -26,6 +26,9 @@ import org.sonar.plugins.flex.squid.FlexNoSonarFilter;
 import org.sonar.plugins.flex.squid.FlexSquidSensor;
 import org.sonar.plugins.flex.flexmetrics.*;
 import org.sonar.plugins.flex.flexdecorators.*;
+import org.sonar.plugins.flex.flexpmd.FlexPmdSensor;
+import org.sonar.plugins.flex.flexpmd.FlexPmdMavenPluginHandler;
+import org.sonar.plugins.flex.flexpmd.FlexPmdRulesRepository;
 import org.sonar.api.Extension;
 import org.sonar.api.Plugin;
 
@@ -65,6 +68,11 @@ public class FlexPlugin implements Plugin {
 
     list.add(FlexMetricsMavenPluginHandler.class);
     list.add(FlexMetricsSensor.class);
+
+    list.add(FlexPmdSensor.class);
+    list.add(FlexPmdMavenPluginHandler.class);
+    list.add(FlexPmdRulesRepository.class);
+
 
     list.add(FlexSquidSensor.class);
 

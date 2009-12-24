@@ -1,0 +1,3 @@
+<ruleset name="Default Flex Profile">
+    <rule key="com.adobe.ac.pmd.rules.architecture.ViewComponentReferencedInModelRule" priority="INFO" />
+</ruleset>

@@ -30,7 +30,7 @@ public class FlexMetricsMavenPluginHandler implements MavenPluginHandler{
   }
 
   public String getArtifactId() {
-    return "flex-flexpmd-metrics-maven-plugin";
+    return "flex-pmd-metrics-maven-plugin";
   }
 
   public String getVersion() {

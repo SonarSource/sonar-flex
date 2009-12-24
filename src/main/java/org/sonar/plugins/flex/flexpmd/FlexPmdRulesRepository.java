@@ -27,6 +27,7 @@ import org.sonar.api.rules.*;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.flex.Flex;
+import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.flexpmd.xml.Ruleset;
 import org.sonar.plugins.flex.flexpmd.xml.Property;
 import org.sonar.plugins.flex.flexpmd.xml.Rule;
@@ -52,12 +53,12 @@ public class FlexPmdRulesRepository extends AbstractImportableRulesRepository<Fl
   @Override
   public Map<String, String> getBuiltInProfiles() {
     Map<String, String> defaults = new HashMap<String, String>();
-    defaults.put(RulesProfile.SONAR_WAY_NAME, "profile-sonar-way.xml");
+    defaults.put("Default Flex Profile", "default-flex-profile.xml");
     return defaults;
   }
 
   public String exportConfiguration(RulesProfile activeProfile) {
-    Ruleset tree = buildModuleTree(activeProfile.getActiveRulesByPlugin(CoreProperties.PMD_PLUGIN));
+    Ruleset tree = buildModuleTree(activeProfile.getActiveRulesByPlugin(FlexPlugin.PLUGIN_KEY));
     String xmlModules = buildXmlFromModuleTree(tree);
     return addHeaderToXml(xmlModules);
   }
@@ -70,9 +71,9 @@ public class FlexPmdRulesRepository extends AbstractImportableRulesRepository<Fl
   }
 
   protected Ruleset buildModuleTree(List<ActiveRule> activeRules) {
-    Ruleset ruleset = new Ruleset("Sonar PMD rules");
+    Ruleset ruleset = new Ruleset("Sonar FlexPMD rules");
     for (ActiveRule activeRule : activeRules) {
-      if (activeRule.getRule().getPluginName().equals(CoreProperties.PMD_PLUGIN)) {
+      if (activeRule.getRule().getPluginName().equals(FlexPlugin.PLUGIN_KEY)) {
         String configKey = activeRule.getRule().getConfigKey();
         Rule rule = new Rule(configKey, getRulePriorityMapper().to(activeRule.getPriority()));
         List<Property> properties = null;

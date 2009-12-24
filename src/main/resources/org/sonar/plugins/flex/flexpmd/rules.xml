@@ -1,0 +1,25 @@
+<rules>
+  <rule key="com.adobe.ac.pmd.rules.architecture.ViewComponentReferencedInModelRule" priority="MAJOR">
+    <name><![CDATA[A view component should not be referenced in a model class]]></name>
+    <configKey><![CDATA[com.adobe.ac.pmd.rules.architecture.ViewComponentReferencedInModelRule]]></configKey>
+    <category name="Maintainability"/>
+    <description>
+    	<pre><![CDATA[package com.adobe.ac
+				{
+				   import mx.controls.ComboBox; // VIOLATION
+				
+				   public class MyModelClass
+				   {
+				   }
+				}]]></pre>
+		</description>
+  </rule>
+
+
+  <rule key="com.adobe.ac.pmd.rules.architecture.MonkeyPatchingRule" priority="CRITICAL">
+    <name><![CDATA[This class looks to be duplicated with a SDK class]]></name>
+    <configKey><![CDATA[com.adobe.ac.pmd.rules.architecture.MonkeyPatchingRule]]></configKey>
+    <category name="Maintainability"/>
+    <description><![CDATA[<pre>Monkey patching can be a risky undertaking because it is not using intended extensibility points and thus may have unintended consequences or make migration to newer versions of the SDK more difficult</pre>]]></description>
+  </rule>
+</rules>

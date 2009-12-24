@@ -31,7 +31,7 @@ public class FlexPmdMavenPluginHandler implements MavenPluginHandler {
   }
 
   public String getArtifactId() {
-    return "flex-flexpmd-maven-plugin";
+    return "flex-pmd-maven-plugin";
   }
 
   public String getVersion() {

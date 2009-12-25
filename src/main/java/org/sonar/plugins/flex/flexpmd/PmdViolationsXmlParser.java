@@ -30,6 +30,8 @@ import org.sonar.api.resources.JavaFile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.rules.RulesManager;
+import org.sonar.plugins.flex.FlexPlugin;
+import org.sonar.plugins.flex.FlexFile;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -44,7 +46,7 @@ class PmdViolationsXmlParser extends AbstractViolationsStaxParser {
 
   @Override
   protected String keyForPlugin() {
-    return CoreProperties.PMD_PLUGIN;
+    return FlexPlugin.PLUGIN_KEY;
   }
 
   @Override
@@ -74,6 +76,6 @@ class PmdViolationsXmlParser extends AbstractViolationsStaxParser {
 
   @Override
   protected Resource toResource(SMInputCursor resourcesCursor) throws XMLStreamException {
-    return JavaFile.fromAbsolutePath(resourcesCursor.getAttrValue("name"), project.getFileSystem().getSourceDirs(), false);
+    return FlexFile.fromAbsolutePath(resourcesCursor.getAttrValue("name"), project.getFileSystem().getSourceDirs(), false);
   }
 }

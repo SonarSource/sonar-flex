@@ -1,0 +1,10 @@
+<ruleset name="A profile to import">
+  <rule ref="com.adobe.ac.pmd.rules.cairngorm.FatControllerRule" priority="MAJOR"/>
+  <rule ref="com.adobe.ac.pmd.rules.cairngorm.BadCairngormEventNameFormatRule" priority="MAJOR"/>
+  <rule ref="com.adobe.ac.pmd.rules.cairngorm.CairngormEventDispatcherCallExplicitlyRule" priority="CRITICAL"/>
+  <rule ref="com.adobe.ac.pmd.rules.cairngorm.ModelLocatorReferencedMoreThanOncePerClassRule" priority="MAJOR"/>
+  <rule ref="com.adobe.ac.pmd.rules.component.UpdateChildrenNumberInUpdateDisplayListRule" priority="BLOCKER"/>
+  <rule ref="com.adobe.ac.pmd.rules.component.CallLaterDirectlyRule" priority="BLOCKER"/>
+  <rule ref="Fake1" priority="BLOCKER"/>
+  <rule ref="Fake2" priority="CRITICAL"/>
+</ruleset>

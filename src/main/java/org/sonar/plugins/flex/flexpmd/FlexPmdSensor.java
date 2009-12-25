@@ -31,6 +31,7 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.RulesManager;
 import org.sonar.api.utils.XmlParserException;
+import org.sonar.plugins.flex.Flex;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.File;
@@ -50,7 +51,7 @@ public class FlexPmdSensor implements Sensor, DependsUponMavenPlugin, GeneratesV
   public void analyse(Project project, SensorContext context) {
     try {
       AbstractViolationsStaxParser parser = getStaxParser(project, context);
-      File report = new File(project.getFileSystem().getBuildDir(), "flexpmd.xml");
+      File report = new File(project.getFileSystem().getBuildDir(), "pmd.xml");
       parser.parse(report);
 
     } catch (XMLStreamException e) {
@@ -59,8 +60,7 @@ public class FlexPmdSensor implements Sensor, DependsUponMavenPlugin, GeneratesV
   }
 
   public boolean shouldExecuteOnProject(Project project) {
-    return project.getFileSystem().hasJavaSourceFiles() &&
-        (!profile.getActiveRulesByPlugin(CoreProperties.PMD_PLUGIN).isEmpty() || project.getReuseExistingRulesConfig());
+    return project.getLanguage().equals(Flex.INSTANCE);
   }
 
   public MavenPluginHandler getMavenPluginHandler(Project project) {

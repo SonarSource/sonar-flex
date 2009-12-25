@@ -30,10 +30,10 @@ import org.mockito.stubbing.Answer;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.DefaultProjectFileSystem;
-import org.sonar.api.resources.JavaFile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.*;
 import org.sonar.api.test.IsViolation;
+import org.sonar.plugins.flex.FlexFile;
 import org.apache.commons.io.FileUtils;
 
 import javax.xml.stream.XMLStreamException;
@@ -42,6 +42,42 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 
 public class PmdViolationsXmlParserTest {
+
+  @Test
+  public void shouldSaveViolationsOnClasses() throws URISyntaxException, XMLStreamException {
+    SensorContext context = mock(SensorContext.class);
+    parse(context, "/org/sonar/plugins/flex/flexpmd/flexpmd-result-file.xml");
+
+    verify(context, times(30)).saveViolation(argThat(new IsViolationOnFlexClass()));
+    verify(context, times(4)).saveViolation(argThat(new IsViolationOnFlexClass(new FlexFile("ch.hortis.sonar.mvn.ClassWithComments"))));
+
+    Violation wanted = new Violation(null, new FlexFile("ch.hortis.sonar.mvn.ClassWithComments"))
+        .setMessage("Avoid unused local variables such as 'toto'.")
+        .setLineId(22);
+    verify(context, times(1)).saveViolation(argThat(new IsViolation(wanted)));
+  }
+
+  @Test
+  public void defaultPackageShouldBeSetOnclassWithoutPackage() throws URISyntaxException, XMLStreamException {
+    SensorContext context = mock(SensorContext.class);
+    parse(context, "/org/sonar/plugins/flex/pmd-class-without-package.xml");
+    verify(context, times(3)).saveViolation(argThat(new IsViolationOnFlexClass(new FlexFile("ClassOnDefaultPackage"))));
+  }
+
+  @Test
+  public void unknownXMLEntity() throws URISyntaxException, XMLStreamException {
+    SensorContext context = mock(SensorContext.class);
+    parse(context, "/org/sonar/plugins/flex/pmd-result-with-unknown-entity.xml");
+    verify(context, times(2)).saveViolation(argThat(new IsViolationOnFlexClass(new FlexFile("test.Test"))));
+  }
+
+
+  @Test
+  public void ISOControlCharsXMLFile() throws URISyntaxException, XMLStreamException {
+    SensorContext context = mock(SensorContext.class);
+    parse(context, "/org/sonar/plugins/flex/pmd-result-with-control-char.xml");
+    verify(context, times(1)).saveViolation(argThat(new IsViolationOnFlexClass(new FlexFile("test.Test"))));
+  }
 
   private void parse(SensorContext context, String xmlPath) throws URISyntaxException, XMLStreamException {
     DefaultProjectFileSystem fileSystem = mock(DefaultProjectFileSystem.class);
@@ -65,65 +101,29 @@ public class PmdViolationsXmlParserTest {
     parser.parse(xmlFile);
   }
 
-  @Test
-  public void shouldSaveViolationsOnClasses() throws URISyntaxException, XMLStreamException {
-    SensorContext context = mock(SensorContext.class);
-    parse(context, "/org/sonar/plugins/flex/flexpmd/pmd-result.xml");
 
-    verify(context, times(30)).saveViolation(argThat(new IsViolationOnJavaClass()));
-    verify(context, times(4)).saveViolation(argThat(new IsViolationOnJavaClass(new JavaFile("ch.hortis.sonar.mvn.ClassWithComments"))));
+  private class IsViolationOnFlexClass extends BaseMatcher<Violation> {
 
-    Violation wanted = new Violation(null, new JavaFile("ch.hortis.sonar.mvn.ClassWithComments"))
-        .setMessage("Avoid unused local variables such as 'toto'.")
-        .setLineId(22);
-    verify(context, times(1)).saveViolation(argThat(new IsViolation(wanted)));
-  }
-
-  @Test
-  public void defaultPackageShouldBeSetOnclassWithoutPackage() throws URISyntaxException, XMLStreamException {
-    SensorContext context = mock(SensorContext.class);
-    parse(context, "/org/sonar/plugins/flex/flexpmd/pmd-class-without-package.xml");
-    verify(context, times(3)).saveViolation(argThat(new IsViolationOnJavaClass(new JavaFile("ClassOnDefaultPackage"))));
-  }
-
-  @Test
-  public void unknownXMLEntity() throws URISyntaxException, XMLStreamException {
-    SensorContext context = mock(SensorContext.class);
-    parse(context, "/org/sonar/plugins/flex/flexpmd/pmd-result-with-unknown-entity.xml");
-    verify(context, times(2)).saveViolation(argThat(new IsViolationOnJavaClass(new JavaFile("test.Test"))));
-  }
+    private FlexFile flexClass;
 
 
-  @Test
-  public void ISOControlCharsXMLFile() throws URISyntaxException, XMLStreamException {
-    SensorContext context = mock(SensorContext.class);
-    parse(context, "/org/sonar/plugins/flex/flexpmd/pmd-result-with-control-char.xml");
-    verify(context, times(1)).saveViolation(argThat(new IsViolationOnJavaClass(new JavaFile("test.Test"))));
-  }
-
-
-  private class IsViolationOnJavaClass extends BaseMatcher<Violation> {
-
-    private JavaFile javaClass;
-
-    private IsViolationOnJavaClass(JavaFile javaClass) {
-      this.javaClass = javaClass;
+    private IsViolationOnFlexClass(FlexFile flexClass) {
+      this.flexClass = flexClass;
     }
 
-    private IsViolationOnJavaClass() {
+    private IsViolationOnFlexClass() {
     }
 
     public boolean matches(Object o) {
       Violation v = (Violation) o;
-      boolean ok = (v.getResource() != null) && (v.getResource() instanceof JavaFile);
-      if (ok && javaClass != null) {
-        ok = javaClass.equals(v.getResource());
+      boolean ok = (v.getResource() != null) && (v.getResource() instanceof FlexFile);
+      if (ok && flexClass != null) {
+        ok = flexClass.equals(v.getResource());
       }
       return ok;
     }
 
     public void describeTo(Description description) {
-
     }
   }
 }

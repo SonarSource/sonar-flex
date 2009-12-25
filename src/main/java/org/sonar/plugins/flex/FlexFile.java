@@ -139,6 +139,12 @@ public class FlexFile implements Resource<FlexPackage> {
     return null;
   }
 
+  public static FlexFile fromAbsolutePath(String path, List<File> sourceDirs, boolean unitTest) {
+    if (path == null) {
+      return null;
+    }
+    return fromIOFile(new File(path), sourceDirs);
+  }
 
   @Override
   public boolean equals(Object obj) {

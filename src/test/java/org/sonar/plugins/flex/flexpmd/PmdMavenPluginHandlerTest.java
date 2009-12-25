@@ -53,7 +53,7 @@ public class PmdMavenPluginHandlerTest {
     fakeSonarConfig = mock(File.class);
     repo = mock(FlexPmdRulesRepository.class);
     plugin = mock(MavenPlugin.class);
-    handler = new FlexPmdMavenPluginHandler();
+    handler = new FlexPmdMavenPluginHandler(null, null);
   }
   
   @Test

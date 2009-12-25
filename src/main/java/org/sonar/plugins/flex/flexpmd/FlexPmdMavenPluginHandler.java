@@ -23,8 +23,20 @@ package org.sonar.plugins.flex.flexpmd;
 import org.sonar.api.batch.maven.MavenPlugin;
 import org.sonar.api.batch.maven.MavenPluginHandler;
 import org.sonar.api.resources.Project;
+import org.sonar.api.utils.SonarException;
+import org.sonar.api.profiles.RulesProfile;
+
+import java.io.File;
+import java.io.IOException;
 
 public class FlexPmdMavenPluginHandler implements MavenPluginHandler {
+  private RulesProfile rulesProfile;
+  private FlexPmdRulesRepository rulesRepository;
+
+  public FlexPmdMavenPluginHandler(RulesProfile rulesProfile, FlexPmdRulesRepository rulesRepository) {
+    this.rulesProfile = rulesProfile;
+    this.rulesRepository = rulesRepository;
+  }
 
   public String getGroupId() {
     return "com.adobe.ac";
@@ -47,5 +59,17 @@ public class FlexPmdMavenPluginHandler implements MavenPluginHandler {
   }
 
   public void configure(Project project, MavenPlugin plugin) {
+    try {
+        File configFile = saveConfigXml(project);
+        plugin.setParameter("ruleSette", configFile.getCanonicalPath());
+        plugin.setParameter("configLocation", configFile.getCanonicalPath());
+    } catch (IOException e) {
+      throw new SonarException("fail to save the pmd XML configuration", e);
+    }
+  }
+
+  private File saveConfigXml(Project project) throws IOException {
+    String configuration = rulesRepository.exportConfiguration(rulesProfile);
+    return project.getFileSystem().writeToWorkingDirectory(configuration, "pmd.xml");
   }
 }

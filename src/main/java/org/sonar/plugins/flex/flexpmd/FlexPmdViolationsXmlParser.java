@@ -35,11 +35,11 @@ import org.sonar.plugins.flex.FlexFile;
 
 import javax.xml.stream.XMLStreamException;
 
-class PmdViolationsXmlParser extends AbstractViolationsStaxParser {
+class FlexPmdViolationsXmlParser extends AbstractViolationsStaxParser {
 
   private Project project;
 
-  PmdViolationsXmlParser(Project project, SensorContext context, RulesManager rulesManager, RulesProfile profile) {
+  FlexPmdViolationsXmlParser(Project project, SensorContext context, RulesManager rulesManager, RulesProfile profile) {
     super(context, rulesManager, profile);
     this.project = project;
   }
@@ -71,7 +71,8 @@ class PmdViolationsXmlParser extends AbstractViolationsStaxParser {
 
   @Override
   protected String ruleKey(SMInputCursor violationCursor) throws XMLStreamException {
-    return violationCursor.getAttrValue("rule");
+    String ruleKey = "com." + violationCursor.getAttrValue("rule") + "Rule";
+    return ruleKey;
   }
 
   @Override

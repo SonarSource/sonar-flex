@@ -61,8 +61,7 @@ public class FlexPmdMavenPluginHandler implements MavenPluginHandler {
   public void configure(Project project, MavenPlugin plugin) {
     try {
         File configFile = saveConfigXml(project);
-        plugin.setParameter("ruleSette", configFile.getCanonicalPath());
-        plugin.setParameter("configLocation", configFile.getCanonicalPath());
+        plugin.setParameter("ruleddSet", configFile.getCanonicalPath());
     } catch (IOException e) {
       throw new SonarException("fail to save the pmd XML configuration", e);
     }

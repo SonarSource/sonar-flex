@@ -2,9 +2,17 @@
   <rule ref="com.adobe.ac.pmd.rules.cairngorm.FatControllerRule" priority="MAJOR"/>
   <rule ref="com.adobe.ac.pmd.rules.cairngorm.BadCairngormEventNameFormatRule" priority="MAJOR"/>
   <rule ref="com.adobe.ac.pmd.rules.cairngorm.CairngormEventDispatcherCallExplicitlyRule" priority="CRITICAL"/>
-  <rule ref="com.adobe.ac.pmd.rules.cairngorm.ModelLocatorReferencedMoreThanOncePerClassRule" priority="MAJOR"/>
+  <rule ref="com.adobe.ac.pmd.rules.cairngorm.ModelLocatorReferencedMoreThanOncePerClassRule" priority="MAJOR">
+    <properties>
+      <property value="50" name="minimum"/>
+    </properties>
+  </rule>
   <rule ref="com.adobe.ac.pmd.rules.component.UpdateChildrenNumberInUpdateDisplayListRule" priority="BLOCKER"/>
-  <rule ref="com.adobe.ac.pmd.rules.component.CallLaterDirectlyRule" priority="BLOCKER"/>
+  <rule ref="com.adobe.ac.pmd.rules.maintanability.ExcessiveImportRule" priority="BLOCKER">
+    <properties>
+      <property value="50" name="maximum"/>
+    </properties>
+  </rule>
   <rule ref="Fake1" priority="BLOCKER"/>
   <rule ref="Fake2" priority="CRITICAL"/>
 </ruleset>

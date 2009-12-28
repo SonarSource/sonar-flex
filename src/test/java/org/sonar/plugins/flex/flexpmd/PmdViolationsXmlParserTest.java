@@ -32,8 +32,8 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.*;
-import org.sonar.api.test.IsViolation;
 import org.sonar.plugins.flex.FlexFile;
+import org.sonar.plugins.flex.Flex;
 import org.apache.commons.io.FileUtils;
 
 import javax.xml.stream.XMLStreamException;
@@ -46,45 +46,6 @@ public class PmdViolationsXmlParserTest {
   @Test
   public void shouldSaveViolationsOnClasses() throws URISyntaxException, XMLStreamException {
     SensorContext context = mock(SensorContext.class);
-    parse(context, "/org/sonar/plugins/flex/flexpmd/flexpmd-result-file.xml");
-
-    verify(context, times(30)).saveViolation(argThat(new IsViolationOnFlexClass()));
-    verify(context, times(4)).saveViolation(argThat(new IsViolationOnFlexClass(new FlexFile("ch.hortis.sonar.mvn.ClassWithComments"))));
-
-    Violation wanted = new Violation(null, new FlexFile("ch.hortis.sonar.mvn.ClassWithComments"))
-        .setMessage("Avoid unused local variables such as 'toto'.")
-        .setLineId(22);
-    verify(context, times(1)).saveViolation(argThat(new IsViolation(wanted)));
-  }
-
-  @Test
-  public void defaultPackageShouldBeSetOnclassWithoutPackage() throws URISyntaxException, XMLStreamException {
-    SensorContext context = mock(SensorContext.class);
-    parse(context, "/org/sonar/plugins/flex/pmd-class-without-package.xml");
-    verify(context, times(3)).saveViolation(argThat(new IsViolationOnFlexClass(new FlexFile("ClassOnDefaultPackage"))));
-  }
-
-  @Test
-  public void unknownXMLEntity() throws URISyntaxException, XMLStreamException {
-    SensorContext context = mock(SensorContext.class);
-    parse(context, "/org/sonar/plugins/flex/pmd-result-with-unknown-entity.xml");
-    verify(context, times(2)).saveViolation(argThat(new IsViolationOnFlexClass(new FlexFile("test.Test"))));
-  }
-
-
-  @Test
-  public void ISOControlCharsXMLFile() throws URISyntaxException, XMLStreamException {
-    SensorContext context = mock(SensorContext.class);
-    parse(context, "/org/sonar/plugins/flex/pmd-result-with-control-char.xml");
-    verify(context, times(1)).saveViolation(argThat(new IsViolationOnFlexClass(new FlexFile("test.Test"))));
-  }
-
-  private void parse(SensorContext context, String xmlPath) throws URISyntaxException, XMLStreamException {
-    DefaultProjectFileSystem fileSystem = mock(DefaultProjectFileSystem.class);
-    when(fileSystem.getSourceDirs()).thenReturn(Arrays.asList(new File("/test/src/main/java")));
-
-    Project project = mock(Project.class);
-    when(project.getFileSystem()).thenReturn(fileSystem);
 
     RulesManager manager = mock(RulesManager.class);
     when(manager.getPluginRule(anyString(), anyString())).thenAnswer(new Answer<Rule>() {
@@ -93,12 +54,24 @@ public class PmdViolationsXmlParserTest {
         return new Rule((String) args[1], (String) args[1], null, (String) args[0], "");
       }
     });
-    RulesProfile profile = mock(RulesProfile.class);
-    when(profile.getActiveRule(anyString(), anyString())).thenReturn(new ActiveRule(null, null, RulePriority.MINOR));
-    PmdViolationsXmlParser parser = new PmdViolationsXmlParser(project, context, manager, profile);
 
-    File xmlFile = FileUtils.toFile(getClass().getResource(xmlPath));
+    DefaultProjectFileSystem fileSystem = mock(DefaultProjectFileSystem.class);
+    when(fileSystem.getSourceDirs()).thenReturn(Arrays.asList(new File("E:/TestHudson/flex/src")));
+
+    Project project = mock(Project.class);
+    when(project.getFileSystem()).thenReturn(fileSystem);
+
+
+    FlexPmdRulesRepository repository = new FlexPmdRulesRepository(Flex.INSTANCE);
+    RulesProfile profile = repository.getProvidedProfiles().get(0);
+
+    FlexPmdViolationsXmlParser parser = new FlexPmdViolationsXmlParser(project, context, manager, profile);
+
+
+    File xmlFile = FileUtils.toFile(getClass().getResource("/org/sonar/plugins/flex/flexpmd/flexpmd-result-file.xml"));
     parser.parse(xmlFile);
+
+    verify(context, times(18)).saveViolation(argThat(new IsViolationOnFlexClass()));
   }
 
 

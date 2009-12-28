@@ -27,6 +27,7 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.utils.SonarException;
 import org.sonar.api.rules.*;
 import org.sonar.plugins.flex.Flex;
+import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.flexpmd.xml.Ruleset;
 import org.sonar.plugins.flex.flexpmd.xml.Rule;
 import org.sonar.plugins.flex.flexpmd.xml.Property;
@@ -57,15 +58,14 @@ public class FlexPmdRulesRepository extends AbstractImportableRulesRepository<Fl
   }
 
   public String exportConfiguration(RulesProfile activeProfile) {
-/*    Ruleset tree = buildModuleTree(activeProfile.getActiveRulesByPlugin(FlexPlugin.PLUGIN_KEY));
-    String xmlModules = buildXmlFromModuleTree(tree);
-    return addHeaderToXml(xmlModules);*/
-    return null;
+    Ruleset tree = buildRulesetFromActiveProfile(activeProfile.getActiveRulesByPlugin(FlexPlugin.PLUGIN_KEY));
+    String xmlModules = buildXmlFromRuleset(tree);
+    return addHeaderToXml(xmlModules);
   }
 
   public List<ActiveRule> importConfiguration(String configuration, List<org.sonar.api.rules.Rule> rulesRepository) {
     Ruleset ruleSet = buildRuleSetFromXml(configuration);
-    List<ActiveRule> activeRules = buildActiveRulesFromRuleSet(ruleSet, rulesRepository);
+    List<ActiveRule> activeRules = getActiveRulesFromRuleSet(ruleSet, rulesRepository);
     return activeRules;
   }
 
@@ -88,7 +88,7 @@ public class FlexPmdRulesRepository extends AbstractImportableRulesRepository<Fl
     }
   }
 
-  protected List<ActiveRule> buildActiveRulesFromRuleSet(Ruleset ruleset, List<org.sonar.api.rules.Rule> rulesRepository) {
+  protected List<ActiveRule> getActiveRulesFromRuleSet(Ruleset ruleset, List<org.sonar.api.rules.Rule> rulesRepository) {
     List<ActiveRule> activeRules = new ArrayList<ActiveRule>();
     List<Rule> importedRules = ruleset.getRules();
 
@@ -109,8 +109,23 @@ public class FlexPmdRulesRepository extends AbstractImportableRulesRepository<Fl
     return activeRules;
   }
 
+  protected List<ActiveRuleParam> getActiveRuleParams(Rule rule, org.sonar.api.rules.Rule repositoryRule, ActiveRule activeRule) {
+    List<ActiveRuleParam> activeRuleParams = new ArrayList<ActiveRuleParam>();
+    if (rule.getProperties() != null) {
+      for (Property property : rule.getProperties()) {
+        if (repositoryRule.getParams() != null) {
+          for (RuleParam ruleParam : repositoryRule.getParams()) {
+            if (ruleParam.getKey().equals(property.getName())) {
+              activeRuleParams.add(new ActiveRuleParam(activeRule, ruleParam, property.getValue()));
+            }
+          }
+        }
+      }
+    }
+    return activeRuleParams;
+  }
 
-/*  protected Ruleset buildModuleTree(List<ActiveRule> activeRules) {
+  protected Ruleset buildRulesetFromActiveProfile(List<ActiveRule> activeRules) {
     Ruleset ruleset = new Ruleset("Sonar FlexPMD rules");
     for (ActiveRule activeRule : activeRules) {
       if (activeRule.getRule().getPluginName().equals(FlexPlugin.PLUGIN_KEY)) {
@@ -130,7 +145,7 @@ public class FlexPmdRulesRepository extends AbstractImportableRulesRepository<Fl
     return ruleset;
   }
 
-  protected String buildXmlFromModuleTree(Ruleset tree) {
+  protected String buildXmlFromRuleset(Ruleset tree) {
     XStream xstream = new XStream();
     xstream.processAnnotations(Ruleset.class);
     xstream.processAnnotations(Rule.class);
@@ -142,22 +157,5 @@ public class FlexPmdRulesRepository extends AbstractImportableRulesRepository<Fl
   protected String addHeaderToXml(String xmlModules) {
     String header = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
     return header + xmlModules;
-  }
-
-   */
-  private List<ActiveRuleParam> getActiveRuleParams(Rule rule, org.sonar.api.rules.Rule dbRule, ActiveRule activeRule) {
-    List<ActiveRuleParam> activeRuleParams = new ArrayList<ActiveRuleParam>();
-    if (rule.getProperties() != null) {
-      for (Property property : rule.getProperties()) {
-        if (dbRule.getParams() != null) {
-          for (RuleParam ruleParam : dbRule.getParams()) {
-            if (ruleParam.getKey().equals(property.getName())) {
-              activeRuleParams.add(new ActiveRuleParam(activeRule, ruleParam, property.getValue()));
-            }
-          }
-        }
-      }
-    }
-    return activeRuleParams;
   }
 }

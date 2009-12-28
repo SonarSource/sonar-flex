@@ -20,7 +20,6 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
-import org.sonar.api.CoreProperties;
 import org.sonar.api.batch.AbstractViolationsStaxParser;
 import org.sonar.api.batch.GeneratesViolations;
 import org.sonar.api.batch.Sensor;
@@ -68,7 +67,7 @@ public class FlexPmdSensor implements Sensor, DependsUponMavenPlugin, GeneratesV
   }
 
   private AbstractViolationsStaxParser getStaxParser(Project project, SensorContext context) {
-    return new PmdViolationsXmlParser(project, context, rulesManager, profile);
+    return new FlexPmdViolationsXmlParser(project, context, rulesManager, profile);
   }
 
   @Override

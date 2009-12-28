@@ -58,7 +58,7 @@ public class FlexPmdRulesRepository extends AbstractImportableRulesRepository<Fl
   }
 
   public String exportConfiguration(RulesProfile activeProfile) {
-    Ruleset tree = buildRulesetFromActiveProfile(activeProfile.getActiveRulesByPlugin(FlexPlugin.PLUGIN_KEY));
+    Ruleset tree = buildRulesetFromActiveProfile(activeProfile.getActiveRulesByPlugin(FlexPlugin.FLEXPMD_PLUGIN));
     String xmlModules = buildXmlFromRuleset(tree);
     return addHeaderToXml(xmlModules);
   }
@@ -128,7 +128,7 @@ public class FlexPmdRulesRepository extends AbstractImportableRulesRepository<Fl
   protected Ruleset buildRulesetFromActiveProfile(List<ActiveRule> activeRules) {
     Ruleset ruleset = new Ruleset("Sonar FlexPMD rules");
     for (ActiveRule activeRule : activeRules) {
-      if (activeRule.getRule().getPluginName().equals(FlexPlugin.PLUGIN_KEY)) {
+      if (activeRule.getRule().getPluginName().equals(FlexPlugin.FLEXPMD_PLUGIN)) {
         String configKey = activeRule.getRule().getConfigKey();
         Rule rule = new Rule(configKey, getRulePriorityMapper().to(activeRule.getPriority()));
         List<Property> properties = null;

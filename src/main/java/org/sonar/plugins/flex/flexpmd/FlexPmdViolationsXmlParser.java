@@ -46,7 +46,7 @@ class FlexPmdViolationsXmlParser extends AbstractViolationsStaxParser {
 
   @Override
   protected String keyForPlugin() {
-    return FlexPlugin.PLUGIN_KEY;
+    return FlexPlugin.FLEXPMD_PLUGIN;
   }
 
   @Override

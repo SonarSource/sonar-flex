@@ -36,10 +36,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FlexPlugin implements Plugin {
-  public static String PLUGIN_KEY = "flex";
+  public static String FLEXPMD_PLUGIN = "flexpmd";
 
   public String getKey() {
-    return PLUGIN_KEY;
+    return "flex";
   }
 
   public String getName() {

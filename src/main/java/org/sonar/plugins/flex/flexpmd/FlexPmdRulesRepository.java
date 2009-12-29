@@ -21,98 +21,104 @@
 package org.sonar.plugins.flex.flexpmd;
 
 import com.thoughtworks.xstream.XStream;
-import org.apache.commons.io.IOUtils;
 
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.utils.SonarException;
 import org.sonar.api.rules.*;
 import org.sonar.plugins.flex.Flex;
 import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.flexpmd.xml.Ruleset;
-import org.sonar.plugins.flex.flexpmd.xml.Rule;
+import org.sonar.plugins.flex.flexpmd.xml.FlexRule;
 import org.sonar.plugins.flex.flexpmd.xml.Property;
+import org.sonar.plugins.flex.flexpmd.xml.FlexRulesUtils;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.ArrayList;
 
-public class FlexPmdRulesRepository extends AbstractImportableRulesRepository<Flex, FlexPmdRulePriorityMapper> implements ConfigurationExportable {
+public class FlexPmdRulesRepository implements RulesRepository<Flex>, ConfigurationExportable, ConfigurationImportable {
+  private FlexPmdRulePriorityMapper priorityMapper = new FlexPmdRulePriorityMapper();
+  private String resourcePath = "/org/sonar/plugins/flex/flexpmd/";
 
-  public FlexPmdRulesRepository(Flex language) {
-    super(language, new FlexPmdRulePriorityMapper());
+  public Flex getLanguage() {
+    return Flex.INSTANCE;
   }
 
-  @Override
-  public String getRepositoryResourcesBase() {
-    return "org/sonar/plugins/flex/flexpmd";
+  public final List<Rule> getInitialReferential() {
+    return parseReferential(resourcePath + "rules.xml");
   }
 
-  @Override
-  public Map<String, String> getBuiltInProfiles() {
-    Map<String, String> defaults = new HashMap<String, String>();
-    defaults.put("Default Flex Profile", "default-flex-profile.xml");
-    return defaults;
-  }
-
-  public String exportConfiguration(RulesProfile activeProfile) {
-    Ruleset tree = buildRulesetFromActiveProfile(activeProfile.getActiveRulesByPlugin(FlexPlugin.FLEXPMD_PLUGIN));
-    String xmlModules = buildXmlFromRuleset(tree);
-    return addHeaderToXml(xmlModules);
-  }
-
-  public List<ActiveRule> importConfiguration(String configuration, List<org.sonar.api.rules.Rule> rulesRepository) {
-    Ruleset ruleSet = buildRuleSetFromXml(configuration);
-    List<ActiveRule> activeRules = getActiveRulesFromRuleSet(ruleSet, rulesRepository);
-    return activeRules;
-  }
-
-  protected Ruleset buildRuleSetFromXml(String configuration) {
-    InputStream inputStream = null;
-    try {
-      XStream xstream = new XStream();
-      xstream.processAnnotations(Ruleset.class);
-      xstream.processAnnotations(org.sonar.api.rules.Rule.class);
-      xstream.processAnnotations(Property.class);
-
-      inputStream = IOUtils.toInputStream(configuration, "UTF-8");
-      return (Ruleset) xstream.fromXML(inputStream);
+  public List<Rule> parseReferential(String path) {
+    Ruleset ruleset = FlexRulesUtils.buildRuleSetFromXml(path);
+    List<Rule> rulesRepository = new ArrayList<Rule>();
+    for (FlexRule fRule : ruleset.getRules()) {
+      rulesRepository.add(createRepositoryRule(fRule));
     }
-    catch (IOException e) {
-      throw new SonarException("can't read configuration file", e);
-
-    } finally {
-      IOUtils.closeQuietly(inputStream);
-    }
+    return rulesRepository;
   }
 
-  protected List<ActiveRule> getActiveRulesFromRuleSet(Ruleset ruleset, List<org.sonar.api.rules.Rule> rulesRepository) {
+  public final List<RulesProfile> getProvidedProfiles() {
+    List<RulesProfile> profiles = new ArrayList<RulesProfile>();
+    profiles.add(buildProfile("Default Flex Profile", resourcePath + "default-flex-profile.xml"));
+    return profiles;
+  }
+
+  public final RulesProfile buildProfile(String name, String path) {
+    RulesProfile profile = new RulesProfile(name, Flex.KEY);
+    List<ActiveRule> activeRules = importConfiguration(path, getInitialReferential());
+    profile.setActiveRules(activeRules);
+    return profile;
+  }
+
+  public List<ActiveRule> importConfiguration(String path, List<Rule> rulesRepository) {
+    Ruleset ruleset = FlexRulesUtils.buildRuleSetFromXml(path);
     List<ActiveRule> activeRules = new ArrayList<ActiveRule>();
-    List<Rule> importedRules = ruleset.getRules();
-
-    if (importedRules != null && !importedRules.isEmpty()) {
-      for (Rule rule : importedRules) {
-        String ref = rule.getRef();
-        for (org.sonar.api.rules.Rule dbRule : rulesRepository) {
-          if (dbRule.getConfigKey().equals(ref)) {
-            RulePriority rulePriority = getRulePriorityMapper().from(rule.getPriority());
-            ActiveRule activeRule = new ActiveRule(null, dbRule, rulePriority);
-            activeRule.setActiveRuleParams(getActiveRuleParams(rule, dbRule, activeRule));
-            activeRules.add(activeRule);
-            break;
-          }
-        }
+    for (FlexRule fRule : ruleset.getRules()) {
+      ActiveRule activeRule = createActiveRule(fRule, rulesRepository);
+      if (activeRule != null) {
+        activeRules.add(activeRule);
       }
     }
     return activeRules;
   }
 
-  protected List<ActiveRuleParam> getActiveRuleParams(Rule rule, org.sonar.api.rules.Rule repositoryRule, ActiveRule activeRule) {
+  public String exportConfiguration(RulesProfile activeProfile) {
+    Ruleset tree = buildRulesetFromActiveProfile(activeProfile.getActiveRulesByPlugin(FlexPlugin.FLEXPMD_PLUGIN));
+    return FlexRulesUtils.buildXmlFromRuleset(tree);
+  }
+
+  private Rule createRepositoryRule(FlexRule fRule) {
+    RulesCategory category = FlexRulesUtils.matchRuleCategory(fRule.getCategory());
+    RulePriority priority = priorityMapper.from(fRule.getPriority());
+    Rule rule = new Rule(FlexPlugin.FLEXPMD_PLUGIN, fRule.getClazz(), fRule.getMessage(), category, priority);
+    rule.setDescription(fRule.getDescription());
+    List<RuleParam> ruleParams = new ArrayList<RuleParam>();
+    if (fRule.getProperties() != null) {
+      for (Property property : fRule.getProperties()) {
+        RuleParam param = new RuleParam(rule, property.getName(), property.getName(), "i");
+        ruleParams.add(param);
+      }
+    }
+    rule.setParams(ruleParams);
+    return rule;
+  }
+
+  private ActiveRule createActiveRule(FlexRule fRule, List<Rule> rulesRepository) {
+    String clazz = fRule.getClazz();
+    RulePriority fRulePriority = priorityMapper.from(fRule.getPriority());
+    for (Rule rule : rulesRepository) {
+      if (rule.getKey().equals(clazz)) {
+        RulePriority priority = fRulePriority != null ? fRulePriority : rule.getPriority();
+        ActiveRule activeRule = new ActiveRule(null, rule, priority);
+        activeRule.setActiveRuleParams(buildActiveRuleParams(fRule, rule, activeRule));
+        return activeRule;
+      }
+    }
+    return null;
+  }
+
+  protected List<ActiveRuleParam> buildActiveRuleParams(FlexRule flexRule, Rule repositoryRule, ActiveRule activeRule) {
     List<ActiveRuleParam> activeRuleParams = new ArrayList<ActiveRuleParam>();
-    if (rule.getProperties() != null) {
-      for (Property property : rule.getProperties()) {
+    if (flexRule.getProperties() != null) {
+      for (Property property : flexRule.getProperties()) {
         if (repositoryRule.getParams() != null) {
           for (RuleParam ruleParam : repositoryRule.getParams()) {
             if (ruleParam.getKey().equals(property.getName())) {
@@ -126,36 +132,20 @@ public class FlexPmdRulesRepository extends AbstractImportableRulesRepository<Fl
   }
 
   protected Ruleset buildRulesetFromActiveProfile(List<ActiveRule> activeRules) {
-    Ruleset ruleset = new Ruleset("Sonar FlexPMD rules");
+    Ruleset ruleset = new Ruleset();
     for (ActiveRule activeRule : activeRules) {
       if (activeRule.getRule().getPluginName().equals(FlexPlugin.FLEXPMD_PLUGIN)) {
-        String configKey = activeRule.getRule().getConfigKey();
-        Rule rule = new Rule(configKey, getRulePriorityMapper().to(activeRule.getPriority()));
-        List<Property> properties = null;
-        if (activeRule.getActiveRuleParams() != null && !activeRule.getActiveRuleParams().isEmpty()) {
-          properties = new ArrayList<Property>();
-          for (ActiveRuleParam activeRuleParam : activeRule.getActiveRuleParams()) {
-            properties.add(new Property(activeRuleParam.getRuleParam().getKey(), activeRuleParam.getValue()));
-          }
+        String key = activeRule.getRule().getKey();
+        String priority = priorityMapper.to(activeRule.getPriority());
+        FlexRule flexRule = new FlexRule(key, priority);
+        List<Property> properties = new ArrayList<Property>();
+        for (ActiveRuleParam activeRuleParam : activeRule.getActiveRuleParams()) {
+          properties.add(new Property(activeRuleParam.getRuleParam().getKey(), activeRuleParam.getValue()));
         }
-        rule.setProperties(properties);
-        ruleset.addRule(rule);
+        flexRule.setProperties(properties);
+        ruleset.addRule(flexRule);
       }
     }
     return ruleset;
-  }
-
-  protected String buildXmlFromRuleset(Ruleset tree) {
-    XStream xstream = new XStream();
-    xstream.processAnnotations(Ruleset.class);
-    xstream.processAnnotations(Rule.class);
-    xstream.processAnnotations(Property.class);
-    return xstream.toXML(tree);
-  }
-
-
-  protected String addHeaderToXml(String xmlModules) {
-    String header = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-    return header + xmlModules;
   }
 }

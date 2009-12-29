@@ -32,7 +32,7 @@ public class Ruleset {
   private String description;
 
   @XStreamImplicit
-  private List<Rule> rules = new ArrayList<Rule>();
+  private List<FlexRule> flexRules = new ArrayList<FlexRule>();
 
   @XStreamOmitField
   @XStreamAlias(value = "exclude-pattern")
@@ -49,12 +49,12 @@ public class Ruleset {
     this.description = description;
   }
 
-  public List<Rule> getRules() {
-    return rules;
+  public List<FlexRule> getRules() {
+    return flexRules;
   }
 
-  public void setRules(List<Rule> rules) {
-    this.rules = rules;
+  public void setRules(List<FlexRule> flexRules) {
+    this.flexRules = flexRules;
   }
 
   public String getDescription() {
@@ -65,8 +65,7 @@ public class Ruleset {
     this.description = description;
   }
 
-  public void addRule(Rule rule) {
-    rules.add(rule);
+  public void addRule(FlexRule flexRule) {
+    flexRules.add(flexRule);
   }
-
 }

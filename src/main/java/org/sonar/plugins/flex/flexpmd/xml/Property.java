@@ -28,7 +28,6 @@ public class Property {
     @XStreamAsAttribute
     private String name;
 
-    @XStreamAsAttribute
     private String value;
 
     public Property(String name, String value) {

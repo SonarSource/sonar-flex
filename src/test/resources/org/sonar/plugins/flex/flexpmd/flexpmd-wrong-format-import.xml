@@ -1,0 +1,18 @@
+<ruleset name="A profile to import">
+  <rule key="com.adobe.ac.pmd.rules.cairngorm.FatControllerRule">
+    <priority>INFO</priority>
+  </rule>
+  <rule class="com.adobe.ac.pmd.rules.cairngorm.BadCairngormEventNameFormatRule" priority="MINOR"/>
+  <rule class="com.adobe.ac.pmd.rules.cairngorm.CairngormEventDispatcherCallExplicitlyRule" priority="MAJOR"/>
+  <rule class="com.adobe.ac.pmd.rules.cairngorm.ModelLocatorReferencedMoreThanOncePerClassRule" priority="CRITICAL">
+    <properties>
+      <property value="50" name="minimum"/>
+    </properties>
+  </rule>
+  <rule class="com.adobe.ac.pmd.rules.component.UpdateChildrenNumberInUpdateDisplayListRule" priority="BLOCKER"/>
+  <rule class="com.adobe.ac.pmd.rules.maintanability.ExcessiveImportRule" priority="MAJOR">
+    <properties>
+      <property value="50" name="maximum"/>
+    </properties>
+  </rule>
+</ruleset>

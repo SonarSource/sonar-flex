@@ -36,10 +36,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FlexPlugin implements Plugin {
-  public static String FLEXPMD_PLUGIN = "flexpmd";
+  public static String FLEXPMD_PLUGIN = "flexplugin";
 
+  // the flexpmd rules engine and the flex plugin must have the same key due to sonar-1342
   public String getKey() {
-    return "flex";
+    return FLEXPMD_PLUGIN;
   }
 
   public String getName() {

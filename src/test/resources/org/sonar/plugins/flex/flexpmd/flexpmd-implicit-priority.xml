@@ -1,0 +1,16 @@
+<ruleset>
+  <rule since="" class="com.adobe.ac.pmd.rules.event.ListenForHardCodedEventNameRule"
+        message="addEventListener must not contain hard coded strings">
+    <description>You should not listen for a plain string. If you rename this string, you need to replace the string
+      listener as well. Use constants instead
+    </description>
+    <category>Maintainability</category>
+    <example><![CDATA[public class Foo
+{
+ public function bar() : void
+ {
+    addEventListener( "myHardCodedEvent", handleMyHardCodedEvent ); // VIOLATION
+ }
+}]]></example>
+  </rule>
+</ruleset>

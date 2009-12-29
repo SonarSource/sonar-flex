@@ -22,6 +22,7 @@ package org.sonar.plugins.flex.flexpmd;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.junit.Test;
+import org.junit.Ignore;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.*;
@@ -62,7 +63,7 @@ public class PmdViolationsXmlParserTest {
     when(project.getFileSystem()).thenReturn(fileSystem);
 
 
-    FlexPmdRulesRepository repository = new FlexPmdRulesRepository(Flex.INSTANCE);
+    FlexPmdRulesRepository repository = new FlexPmdRulesRepository();
     RulesProfile profile = repository.getProvidedProfiles().get(0);
 
     FlexPmdViolationsXmlParser parser = new FlexPmdViolationsXmlParser(project, context, manager, profile);

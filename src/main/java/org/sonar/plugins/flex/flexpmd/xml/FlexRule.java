@@ -27,10 +27,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @XStreamAlias("rule")
-public class Rule implements Comparable<String> {
+public class FlexRule implements Comparable<String> {
+
+  @XStreamAlias("class")
+  @XStreamAsAttribute
+  private String clazz;
 
   @XStreamAsAttribute
-  private String ref;
+  private String message;
 
   private String priority;
 
@@ -40,26 +44,25 @@ public class Rule implements Comparable<String> {
   private String description;
 
   @XStreamOmitField
+  private String category;
+  
+  @XStreamOmitField
   private String exclude;
 
   @XStreamOmitField
   private String example;
 
-  @XStreamOmitField
-  @XStreamAlias(value = "class")
-  private String clazz;
-
-  public Rule(String ref) {
-    this(ref, null);
+  public FlexRule(String clazz) {
+    this(clazz, null);
   }
 
-  public Rule(String ref, String priority) {
-    this.ref = ref;
+  public FlexRule(String clazz, String priority) {
+    this.clazz = clazz;
     this.priority = priority;
   }
 
-  public String getRef() {
-    return ref;
+  public String getClazz() {
+    return clazz;
   }
 
   public void setProperties(List<Property> properties) {
@@ -71,7 +74,7 @@ public class Rule implements Comparable<String> {
   }
 
   public int compareTo(String o) {
-    return o.compareTo(ref);
+    return o.compareTo(clazz);
   }
 
   public String getPriority() {
@@ -89,4 +92,22 @@ public class Rule implements Comparable<String> {
     properties.add(property);
   }
 
+  public String getMessage() {
+    return message;
+  }
+
+  public String getDescription() {
+    String desc = "";
+    if (description != null) {
+      desc += "<p>" + description + "</p>";
+    }
+    if (example != null) {
+      desc += "<pre>" + example + "</pre>";
+    }
+    return desc;
+  }
+
+  public String getCategory() {
+    return "Maintainability";
+  }
 }

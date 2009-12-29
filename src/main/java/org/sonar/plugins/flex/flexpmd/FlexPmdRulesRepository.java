@@ -20,8 +20,6 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
-import com.thoughtworks.xstream.XStream;
-
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.*;
 import org.sonar.plugins.flex.Flex;
@@ -143,6 +141,7 @@ public class FlexPmdRulesRepository implements RulesRepository<Flex>, Configurat
           properties.add(new Property(activeRuleParam.getRuleParam().getKey(), activeRuleParam.getValue()));
         }
         flexRule.setProperties(properties);
+        flexRule.setMessage(activeRule.getRule().getName());
         ruleset.addRule(flexRule);
       }
     }

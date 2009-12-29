@@ -96,6 +96,10 @@ public class FlexRule implements Comparable<String> {
     return message;
   }
 
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
   public String getDescription() {
     String desc = "";
     if (description != null) {

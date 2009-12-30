@@ -42,7 +42,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 
-public class PmdViolationsXmlParserTest {
+public class FlexPmdViolationsXmlParserTest {
 
   @Test
   public void shouldSaveViolationsOnClasses() throws URISyntaxException, XMLStreamException {

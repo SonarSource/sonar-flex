@@ -37,24 +37,14 @@ import org.sonar.api.rules.RulesCategory;
 import org.sonar.api.rules.Iso9126RulesCategories;
 
 public class FlexRulesUtils {
-  public static Ruleset buildRuleSetFromXml(String path) {
+  public static Ruleset buildRuleSetFromXml(String configuration) {
     XStream xstream = new XStream();
     xstream.processAnnotations(Ruleset.class);
     xstream.processAnnotations(FlexRule.class);
     xstream.processAnnotations(Property.class);
     xstream.aliasSystemAttribute("ref", "class");
 
-    InputStream inputStream = Ruleset.class.getResourceAsStream(path);
-    try {
-      return (Ruleset) xstream.fromXML(IOUtils.toString(inputStream, "UTF-8"));
-    }
-    catch (IOException e) {
-      throw new SonarException("Configuration file not found for the profile : " + path, e);
-    }
-    finally {
-      IOUtils.closeQuietly(inputStream);
-    }
-
+    return (Ruleset) xstream.fromXML(configuration);
   }
 
   public static RulesCategory matchRuleCategory(String category) {
@@ -78,4 +68,20 @@ public class FlexRulesUtils {
     String header = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
     return header + xmlModules;
   }
+
+  public static String getConfigurationFromFile(String path) {
+    InputStream inputStream = Ruleset.class.getResourceAsStream(path);
+    String configuration = null;
+    try {
+      configuration = IOUtils.toString(inputStream, "UTF-8");
+    }
+    catch (IOException e) {
+      throw new SonarException("Configuration file not found for the profile : " + configuration, e);
+    }
+    finally {
+      IOUtils.closeQuietly(inputStream);
+    }
+    return configuration;
+  }
+
 }

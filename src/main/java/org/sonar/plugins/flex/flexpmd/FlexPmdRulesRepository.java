@@ -22,15 +22,19 @@ package org.sonar.plugins.flex.flexpmd;
 
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.*;
+import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.flex.Flex;
 import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.flexpmd.xml.Ruleset;
 import org.sonar.plugins.flex.flexpmd.xml.FlexRule;
 import org.sonar.plugins.flex.flexpmd.xml.Property;
 import org.sonar.plugins.flex.flexpmd.xml.FlexRulesUtils;
+import org.apache.commons.io.IOUtils;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.io.InputStream;
+import java.io.IOException;
 
 public class FlexPmdRulesRepository implements RulesRepository<Flex>, ConfigurationExportable, ConfigurationImportable {
   private FlexPmdRulePriorityMapper priorityMapper = new FlexPmdRulePriorityMapper();
@@ -45,7 +49,7 @@ public class FlexPmdRulesRepository implements RulesRepository<Flex>, Configurat
   }
 
   public List<Rule> parseReferential(String path) {
-    Ruleset ruleset = FlexRulesUtils.buildRuleSetFromXml(path);
+    Ruleset ruleset = FlexRulesUtils.buildRuleSetFromXml(FlexRulesUtils.getConfigurationFromFile(path));
     List<Rule> rulesRepository = new ArrayList<Rule>();
     for (FlexRule fRule : ruleset.getRules()) {
       rulesRepository.add(createRepositoryRule(fRule));
@@ -61,13 +65,13 @@ public class FlexPmdRulesRepository implements RulesRepository<Flex>, Configurat
 
   public final RulesProfile buildProfile(String name, String path) {
     RulesProfile profile = new RulesProfile(name, Flex.KEY);
-    List<ActiveRule> activeRules = importConfiguration(path, getInitialReferential());
+    List<ActiveRule> activeRules = importConfiguration(FlexRulesUtils.getConfigurationFromFile(path), getInitialReferential());
     profile.setActiveRules(activeRules);
     return profile;
   }
 
-  public List<ActiveRule> importConfiguration(String path, List<Rule> rulesRepository) {
-    Ruleset ruleset = FlexRulesUtils.buildRuleSetFromXml(path);
+  public List<ActiveRule> importConfiguration(String configuration, List<Rule> rulesRepository) {
+    Ruleset ruleset = FlexRulesUtils.buildRuleSetFromXml(configuration);
     List<ActiveRule> activeRules = new ArrayList<ActiveRule>();
     for (FlexRule fRule : ruleset.getRules()) {
       ActiveRule activeRule = createActiveRule(fRule, rulesRepository);

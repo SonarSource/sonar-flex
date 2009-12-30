@@ -22,7 +22,6 @@ package org.sonar.plugins.flex.flexpmd;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.junit.Test;
-import org.junit.Ignore;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.*;
@@ -34,7 +33,6 @@ import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.*;
 import org.sonar.plugins.flex.FlexFile;
-import org.sonar.plugins.flex.Flex;
 import org.apache.commons.io.FileUtils;
 
 import javax.xml.stream.XMLStreamException;
@@ -79,11 +77,6 @@ public class FlexPmdViolationsXmlParserTest {
   private class IsViolationOnFlexClass extends BaseMatcher<Violation> {
 
     private FlexFile flexClass;
-
-
-    private IsViolationOnFlexClass(FlexFile flexClass) {
-      this.flexClass = flexClass;
-    }
 
     private IsViolationOnFlexClass() {
     }

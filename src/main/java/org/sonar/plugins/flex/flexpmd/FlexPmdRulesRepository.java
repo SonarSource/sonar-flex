@@ -22,19 +22,15 @@ package org.sonar.plugins.flex.flexpmd;
 
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.*;
-import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.flex.Flex;
 import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.flexpmd.xml.Ruleset;
 import org.sonar.plugins.flex.flexpmd.xml.FlexRule;
 import org.sonar.plugins.flex.flexpmd.xml.Property;
 import org.sonar.plugins.flex.flexpmd.xml.FlexRulesUtils;
-import org.apache.commons.io.IOUtils;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.io.InputStream;
-import java.io.IOException;
 
 public class FlexPmdRulesRepository implements RulesRepository<Flex>, ConfigurationExportable, ConfigurationImportable {
   private FlexPmdRulePriorityMapper priorityMapper = new FlexPmdRulePriorityMapper();

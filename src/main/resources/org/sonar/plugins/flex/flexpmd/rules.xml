@@ -142,7 +142,7 @@ package functional.func2.restricted
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.cairngorm.BindableModelLocatorRule" message="A modelLocator must not be Bindable at a class level">
     <description>A bindable ModelLocator could leads to performance issues due to bindings</description>
-    <priority>E</priority>
+    <priority>3</priority>
 		<category>Maintainability</category>
     <example><![CDATA[[Bindable]
 public class BindableModelLocator // VIOLATION

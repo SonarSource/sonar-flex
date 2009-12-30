@@ -2,7 +2,7 @@
   <description/>
   <rule since="" class="com.adobe.ac.pmd.rules.architecture.ViewComponentReferencedInModelRule" message="A view component should not be referenced in a model class">
     <description/>
-    <priority>3</priority>
+    <priority>2</priority>
 		<category>Maintainability</category>
     <example><![CDATA[package com.adobe.ac
 {
@@ -15,8 +15,8 @@
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.architecture.MonkeyPatchingRule" message="This class looks to be duplicated with a SDK class">
     <description>Monkey patching can be a risky undertaking because it is not using intended extensibility points and thus may have unintended consequences or make migration to newer versions of the SDK more difficult</description>
-    <priority>1</priority>
-		<category>Maintainability</category>
+    <priority>2</priority>
+		<category>Portability</category>
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.architecture.UseInternalClassOutsideApiClass" message="This class imports an internal class ({0}) from another function area ({1})">
     <description>If you have different functionalities, you probably don't want every class of each to be accessible from any other functional areas.
@@ -108,8 +108,8 @@ package functional.func2.restricted
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.binding.BindingUtilsRule" message="BindingUtils class uses hard coded strings, which won't be picked up by the compiler if you rename this attribute. You should probably consider refactoring using events">
     <description/>
-    <priority>1</priority>
-		<category>Maintainability</category>
+    <priority>2</priority>
+		<category>Reliability</category>
     <example><![CDATA[public class Controller extends FrontController
 {
    public function Controller()
@@ -120,7 +120,7 @@ package functional.func2.restricted
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.binding.ChangeWatcherRule" message="ChangeWatcher class uses hard coded strings to specify the attribute name, to listen to. Prefer listening to events or setters">
     <description/>
-    <priority>1</priority>
+    <priority>2</priority>
 		<category>Maintainability</category>
     <example><![CDATA[public final class Title
 {
@@ -130,7 +130,7 @@ package functional.func2.restricted
   <rule since="" class="com.adobe.ac.pmd.rules.binding.TooLongBindingExpressionRule" message="This binding expression is too long ({0} dots maximum, but {1} actually)">
     <description>A Binding expression is executed as soon as one of the bindable attributes changed. If a binding expression contains too many expression, there could be some performance issue.</description>
     <priority>3</priority>
-		<category>Maintainability</category>
+		<category>Efficiency</category>
     <properties>
       <property name="maximum">
         <value>3</value>
@@ -142,7 +142,7 @@ package functional.func2.restricted
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.cairngorm.BindableModelLocatorRule" message="A modelLocator must not be Bindable at a class level">
     <description>A bindable ModelLocator could leads to performance issues due to bindings</description>
-    <priority>1</priority>
+    <priority>E</priority>
 		<category>Maintainability</category>
     <example><![CDATA[[Bindable]
 public class BindableModelLocator // VIOLATION
@@ -164,8 +164,8 @@ public class BindableModelLocator // VIOLATION
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.cairngorm.FatControllerRule" message="A FrontController must nor add all its commands within the Controller constructor">
     <description>Try split them into methods where you add commands depending on their functional area.</description>
-    <priority>3</priority>
-		<category>Maintainability</category>
+    <priority>4</priority>
+		<category>Usability</category>
     <example><![CDATA[package control
 {
    import control.GetItems1Command;
@@ -232,7 +232,7 @@ public function foo() : void
   <rule since="" class="com.adobe.ac.pmd.rules.component.UpdateChildrenNumberInUpdateDisplayListRule" message="Flex specific - Do not add or remove displayable children from updateDisplayList">
     <description>UpdateDisplayList is called everytime a child is invalidated. So calling addChild or removeChild in this function could be really CPU consuming</description>
     <priority>1</priority>
-		<category>Maintainability</category>
+		<category>Efficiency</category>
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.component.CallLaterDirectlyRule" message="Flex specific - Don't call 'callLater' explicitly">
     <description>If you needed to call 'callLater' explicitly, then you probably did not extend the correct component life cycle.</description>
@@ -241,18 +241,18 @@ public function foo() : void
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.css.StyleBlockInMxmlRule" message="The style block is embed in the MXML file">
     <description>It is not a good practice to embed style blocks inside the MXML component. Prefer using external CSS files.</description>
-    <priority>3</priority>
+    <priority>4</priority>
 		<category>Maintainability</category>
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.css.UseCssInsteadOfEmbedMetaDataRule" message="Embed metadata detected in source code where a stylesheet may be cleaner">
     <description/>
-    <priority>5</priority>
+    <priority>4</priority>
 		<category>Maintainability</category>
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.empty.EmptyCatchStatementRule" message="This catch statement is empty">
     <description/>
     <priority>3</priority>
-		<category>Maintainability</category>
+		<category>Reliability</category>
     <example><![CDATA[public class Foo
 {
    public function bar( x : int ) : void
@@ -268,8 +268,8 @@ public function foo() : void
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.empty.EmptyIfStmtRule" message="No statements in this if statement">
     <description>Empty If Statement finds instances where a condition is checked but nothing is done about it.</description>
-    <priority>3</priority>
-		<category>Maintainability</category>
+    <priority>2</priority>
+		<category>Reliability</category>
     <example><![CDATA[public class Foo
 {
    public function bar( x : int ) : void
@@ -310,7 +310,7 @@ public function foo() : void
   <rule since="" class="com.adobe.ac.pmd.rules.event.ConstructorDispatchingEventRule" message="An event is dispatched in a constructor">
     <description>This is pointless, since event listeners cannot be attached to an object before it has been constructed, so nothing can ever hear the event</description>
     <priority>1</priority>
-		<category>Maintainability</category>
+		<category>Usability</category>
     <example><![CDATA[public class BigModel
 {
    public function BigModel()
@@ -334,7 +334,7 @@ public function foo() : void
   <rule since="" class="com.adobe.ac.pmd.rules.event.DispatchHardCodedEventNameRule" message="DispatchEvent function must dispatch constant strings">
     <description>You should not dispatch a plain string. If you rename this string, you need to replace the string listener as well. Use constants instead</description>
     <priority>1</priority>
-		<category>Maintainability</category>
+		<category>Reliability</category>
     <example><![CDATA[public class Foo
 {
    public function bar() : void
@@ -346,7 +346,7 @@ public function foo() : void
   <rule since="" class="com.adobe.ac.pmd.rules.event.ListenForHardCodedEventNameRule" message="addEventListener must not contain hard coded strings">
     <description>You should not listen for a plain string. If you rename this string, you need to replace the string listener as well. Use constants instead</description>
     <priority>1</priority>
-		<category>Maintainability</category>
+		<category>Reliability</category>
     <example><![CDATA[public class Foo
 {
    public function bar() : void
@@ -367,7 +367,7 @@ public class UnboundMetadata
   <rule since="" class="com.adobe.ac.pmd.rules.event.UntypedEventMetadataRule" message="This event type is not specified">
     <description>Specifying a type will allow Flash builder and the class to have this event exposed in its API</description>
     <priority>3</priority>
-		<category>Maintainability</category>
+		<category>Usability</category>
     <example><![CDATA[[Event(name="myTypeEvent")] // VIOLATION
 public class UnTypedMetadata
 {
@@ -423,7 +423,7 @@ public class Foo
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseObjectTypeRule" message="Do not use Object class">
     <description>It is a bad practice to use the dynamic class Object. Prefer using strongly typed object, or marker interface in order to avoid silent compilation errors while refactoring</description>
-    <priority>1</priority>
+    <priority>2</priority>
 		<category>Maintainability</category>
     <example><![CDATA[public class Foo
 {
@@ -432,7 +432,7 @@ public class Foo
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseDictionaryTypeRule" message="Do not use Dictionnary class">
     <description>It is a bad practice to use the dynamic class Dictionary. Prefer using strongly typed object, or marker interface in order to avoid silent compilation errors while refactoring</description>
-    <priority>1</priority>
+    <priority>2</priority>
 		<category>Maintainability</category>
     <example><![CDATA[public class Foo
 {
@@ -441,7 +441,7 @@ public class Foo
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.maintanability.NonStaticConstantFieldRule" message="A constant field should be static ({0})">
     <description/>
-    <priority>1</priority>
+    <priority>2</priority>
 		<category>Maintainability</category>
     <example><![CDATA[public class MyObject {
    public static const MY_STATIC_CONSTANT : String = "myStaticConstant";
@@ -450,7 +450,7 @@ public class Foo
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseGenericTypeRule" message="Use strongly typed objects instead of *">
     <description/>
-    <priority>1</priority>
+    <priority>2</priority>
 		<category>Maintainability</category>
     <example><![CDATA[public class Foo
 {
@@ -459,7 +459,7 @@ public class Foo
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.maintanability.UselessOverridenFunctionRule" message="This method is empty. This should be removed ({0})">
     <description>This function is not needed.</description>
-    <priority>3</priority>
+    <priority>4</priority>
 		<category>Maintainability</category>
     <example><![CDATA[override protected function createChildren() : void
 {
@@ -478,7 +478,7 @@ public class Foo
   <rule since="" class="com.adobe.ac.pmd.rules.maintanability.AvoidUsingWithKeyWordRule" message="You should not use the with keyword. It does not help readability">
     <description/>
     <priority>3</priority>
-		<category>Maintainability</category>
+		<category>Usability</category>
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.maintanability.ArrayFieldWithNoArrayElementTypeRule" message="ArrayElementType metadata is not specified for this array-type field ({0})">
     <description/>
@@ -504,7 +504,7 @@ public class Foo
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.maintanability.ProtectedStaticMethodRule" message="This method ({0}) should be private">
     <description/>
-    <priority>3</priority>
+    <priority>2</priority>
 		<category>Maintainability</category>
     <example><![CDATA[protected static function foo() : void // VIOLATION
 {
@@ -523,7 +523,7 @@ public class Foo
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.naming.TooShortVariableRule" message="This variable name is too short ({0} characters minimum, but {1} actually)">
     <description>Detects when a field, local, or parameter has a very short name.</description>
-    <priority>5</priority>
+    <priority>4</priority>
 		<category>Maintainability</category>
     <properties>
       <property name="minimum">
@@ -567,7 +567,7 @@ public class SomeClass
   <rule since="" class="com.adobe.ac.pmd.rules.naming.PropertyHiddenByLocalVariableRule" message="A class property is hidden by this local variable ({0})">
     <description/>
     <priority>3</priority>
-		<category>Maintainability</category>
+		<category>Reliability</category>
     <example><![CDATA[public class SomeClass
 {
    public var myField : int = 0;
@@ -609,7 +609,7 @@ public class SomeClass
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.performance.CyclomaticComplexityRule" message="This method is too complex. Maximum complexity is {0}, but its cyclomatic complexity was {1}">
     <description/>
-    <priority>3</priority>
+    <priority>2</priority>
 		<category>Maintainability</category>
     <properties>
       <property name="maximum">
@@ -624,18 +624,18 @@ public class SomeClass
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.performance.CreationPolicySetToAllRule" message="creationPolicy to ALL impacts the performance significantly">
     <description/>
-    <priority>1</priority>
-		<category>Maintainability</category>
+    <priority>2</priority>
+		<category>Efficiency</category>
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.performance.BindableClassRule" message="Globally bindable classes can lead to unexpected behaviour especially when you have a setter to a property, and hits the performance of the application">
     <description/>
     <priority>3</priority>
-		<category>Maintainability</category>
+		<category>Reliability</category>
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.performance.AvoidInstanciationInLoopRule" message="Instanciating a variable in a loop can be expensive">
     <description/>
     <priority>3</priority>
-		<category>Maintainability</category>
+		<category>Efficiency</category>
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.performance.DeeplyNestedIfRule" message="Nested if statements are not a good design">
     <description/>
@@ -645,7 +645,7 @@ public class SomeClass
   <rule since="" class="com.adobe.ac.pmd.rules.performance.RecursiveStyleManagerRule" message="Detect calls to the StyleManager that donâ€™t pass â€œfalseâ€ as the second parameter">
     <description>A recursive style manager call can be a very expensive operation, causing parts of the UI to flicker visibly. Instead it is preferable to defer the creation of parts of the UI that depend on a runtime CSS SWF until after the SWF has been loaded. In this case a recursive call is not required.</description>
     <priority>3</priority>
-		<category>Maintainability</category>
+		<category>Efficiency</category>
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.sizing.TooManyFunctionRule" message="Too many methods detected ({0} maximum, but {1} actually)">
     <description>A class with too many methods is probably a good suspect for refactoring, in order to reduce its complexity and find a way to have more fine grained objects.</description>
@@ -814,18 +814,18 @@ public class SomeClass
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.style.CopyrightMissingRule" message="The copyright header is missing in this file">
     <description/>
-    <priority>5</priority>
-		<category>Maintainability</category>
+    <priority>4</priority>
+		<category>Usability</category>
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.style.BadFormatLoggerRule" message="The logger is not correctly formatted because {0}">
     <description/>
     <priority>5</priority>
-		<category>Maintainability</category>
+		<category>Usability</category>
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.switchrules.SwitchStatementsShouldHaveDefaultRule" message="A switch statement does not contain a default statement">
     <description>Switch statements should have a default label in order to detect corner cases.</description>
-    <priority>1</priority>
-		<category>Maintainability</category>
+    <priority>2</priority>
+		<category>Reliability</category>
     <example><![CDATA[public class Foo
    {
       public funciton bar() : void
@@ -840,7 +840,7 @@ public class SomeClass
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.switchrules.NestedSwitchRule" message="Switch must not be nested">
     <description>As a general practice, switch statement should not be used. Prefer using inheritance. It is even harder to read when switch statements are nested.</description>
-    <priority>3</priority>
+    <priority>1</priority>
 		<category>Maintainability</category>
     <example><![CDATA[public function foo( a : Number, b : Number ) : void
       {
@@ -900,17 +900,17 @@ public class SomeClass
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.unused.UnusedPrivateMethodRule" message="This private method ({0}) does not seem to be used">
     <description/>
-    <priority>1</priority>
+    <priority>2</priority>
 		<category>Maintainability</category>
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.unused.UnusedFieldRule" message="This private attribute ({0}) does not seem to be used">
     <description/>
-    <priority>1</priority>
+    <priority>2</priority>
 		<category>Maintainability</category>
   </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.unused.EmptyPrivateMethodRule" message="This private method ({0}) is used but its content is empty">
     <description/>
-    <priority>1</priority>
+    <priority>2</priority>
 		<category>Maintainability</category>
   </rule>
 </ruleset>

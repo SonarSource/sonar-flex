@@ -61,11 +61,7 @@ class FlexPmdViolationsXmlParser extends AbstractViolationsStaxParser {
 
   @Override
   protected String lineNumberForViolation(SMInputCursor violationCursor) throws XMLStreamException {
-    String begin_line = violationCursor.getAttrValue("beginline");
-    if ("-1".equals(begin_line)) {
-      return "0";
-    }
-    return begin_line;
+    return violationCursor.getAttrValue("beginline");
   }
 
   @Override

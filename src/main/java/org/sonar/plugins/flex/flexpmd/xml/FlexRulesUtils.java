@@ -21,17 +21,10 @@
 package org.sonar.plugins.flex.flexpmd.xml;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.core.util.QuickWriter;
-import com.thoughtworks.xstream.io.xml.XppDriver;
-import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
-import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
-
 import java.io.InputStream;
 import java.io.IOException;
-import java.io.Writer;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.sonar.api.utils.SonarException;
 import org.sonar.api.rules.RulesCategory;
 import org.sonar.api.rules.Iso9126RulesCategories;

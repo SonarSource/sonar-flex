@@ -23,7 +23,6 @@ package org.sonar.plugins.flex;
 import org.sonar.api.utils.WildcardPattern;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.resources.Language;
-import org.sonar.api.resources.JavaPackage;
 import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -68,8 +67,6 @@ public class FlexFile implements Resource<FlexPackage> {
       this.key = new StringBuilder().append(this.packageKey).append(".").append(this.filename).toString();
       this.longName = this.key;
     }
-
-    this.unitTest = unitTest;
   }
 
 

@@ -20,7 +20,6 @@
 
 package org.sonar.plugins.flex;
 
-import org.apache.commons.lang.StringUtils;
 import org.sonar.api.resources.AbstractLanguage;
 
 public class Flex extends AbstractLanguage {

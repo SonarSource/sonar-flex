@@ -22,11 +22,9 @@ package org.sonar.plugins.flex.flexpmd;
 
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.staxmate.in.SMInputCursor;
-import org.sonar.api.CoreProperties;
 import org.sonar.api.batch.AbstractViolationsStaxParser;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.resources.JavaFile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.rules.RulesManager;

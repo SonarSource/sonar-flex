@@ -47,7 +47,7 @@ import java.util.Map;
 public class FlexMetricsSensor implements Sensor, DependsUponMavenPlugin {
 
   private FlexMetricsMavenPluginHandler pluginHandler;
-  public static final Number[] FUNCTIONS_DISTRIB_BOTTOM_LIMITS = {1, 2, 4, 6, 8, 10, 12};
+  static final Number[] FUNCTIONS_DISTRIB_BOTTOM_LIMITS = {1, 2, 4, 6, 8, 10, 12};
 
   public FlexMetricsSensor(FlexMetricsMavenPluginHandler pluginHandler) {
     this.pluginHandler = pluginHandler;

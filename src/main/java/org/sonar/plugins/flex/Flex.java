@@ -26,7 +26,7 @@ public class Flex extends AbstractLanguage {
   public static final Flex INSTANCE = new Flex();
   public static final String KEY = "flex";
   public static final String DEFAULT_PACKAGE_NAME = "[default]";
-  public static final String[] SUFFIXES = {"as"};
+  static final String[] SUFFIXES = {"as"};
 
   public Flex() {
     super(KEY, "Flex");

@@ -38,7 +38,11 @@
   <properties>
     <sonar.plugin.class>org.sonar.plugins.flex.FlexPlugin</sonar.plugin.class>
     <sonar.version>1.13-SNAPSHOT</sonar.version>
+    <selenium.port>4444</selenium.port>
+    <sonar.url>http://localhost:9000/</sonar.url>
+    <restlet.version>1.1-M5</restlet.version>
   </properties>
+
 
   <dependencies>
     <dependency>
@@ -84,7 +88,7 @@
       <scope>provided</scope>
       <version>2.0.9</version>
     </dependency>
-    
+
   </dependencies>
 
   <build>
@@ -114,6 +118,100 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>integration-tests</id>
+      <activation>
+        <!--<os>-->
+        <!--<family>Windows</family>-->
+        <!--</os>-->
+        <property>
+          <name>integrationTests</name>
+        </property>
+      </activation>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.sonar</groupId>
+            <artifactId>sonar-dev-mojo</artifactId>
+            <version>1.12.5</version>
+            <executions>
+              <execution>
+                <id>start-server</id>
+                <phase>pre-integration-test</phase>
+                <configuration>
+                  <wait>false</wait>
+                  <database>${database}</database>
+                  <sonarVersion>1.13-SNAPSHOT</sonarVersion>
+                  <environment>production</environment>
+                  <analyzeProjects>true</analyzeProjects>
+                </configuration>
+                <goals>
+                  <goal>start</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>stop-server</id>
+                <phase>post-integration-test</phase>
+                <goals>
+                  <goal>stop</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>selenium-maven-plugin</artifactId>
+            <version>1.0</version>
+            <configuration>
+              <port>${selenium.port}</port>
+              <browser>${selenium.browser}</browser>
+              <startURL>${sonar.url}</startURL>
+              <suite>src/it/selenium/index.html</suite>
+              <slowResources>false</slowResources>
+            </configuration>
+            <executions>
+              <execution>
+                <id>selenium-suite</id>
+                <phase>integration-test</phase>
+                <goals>
+                  <goal>selenese</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>firefox</id>
+      <properties>
+        <selenium.browser>*firefox</selenium.browser>
+      </properties>
+    </profile>
+    <profile>
+      <id>ie</id>
+      <properties>
+        <selenium.browser>*iexplore</selenium.browser>
+      </properties>
+    </profile>
+    <profile>
+      <id>opera</id>
+      <properties>
+        <selenium.browser>*opera</selenium.browser>
+      </properties>
+    </profile>
+    <profile>
+      <id>safari</id>
+      <properties>
+        <selenium.browser>*custom /Applications/Safari.app/Contents/MacOS/Safari</selenium.browser>
+      </properties>
+    </profile>
+
+
+  </profiles>
   <scm>
     <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/flex</connection>
     <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/flex</developerConnection>

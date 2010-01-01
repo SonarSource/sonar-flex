@@ -68,8 +68,8 @@ public class FlexMetricsSensorTest {
   public void testCollectPackageMeasures() throws ParseException {
     sensor.collectPackageMeasures(parser, context);
 
-    verify(context).saveMeasure(new FlexPackage("com.almirun.common.controllers"), CoreMetrics.COMMENT_LINES, 30.0);
-    verify(context).saveMeasure(new FlexPackage("com.almirun.common.events"), CoreMetrics.COMMENT_LINES, 0.0);
+    verify(context, never()).saveMeasure(eq(new FlexPackage("com.almirun.common.controllers")), eq(CoreMetrics.COMMENT_LINES), anyDouble());
+    verify(context, never()).saveMeasure(eq(new FlexPackage("com.almirun.common.events")), eq(CoreMetrics.COMMENT_LINES), anyDouble());
     verify(context).saveMeasure(new FlexPackage("com.almirun.common.events"), CoreMetrics.PACKAGES, 1.0);
   }
 
@@ -82,7 +82,8 @@ public class FlexMetricsSensorTest {
     verify(context).saveMeasure(new FlexFile("com.almirun.common.util.TimeFormatter"), CoreMetrics.CLASSES, 1.0);
     verify(context).saveMeasure(new FlexFile("com.almirun.common.util.loremipsum.LoremIpsumUrlLoader"), CoreMetrics.CLASSES, 1.0);
     verify(context).saveMeasure(new FlexFile("com.almirun.common.util.loremipsum.LoremIpsumUrlLoader"), CoreMetrics.FUNCTIONS, 3.0);
-
+    verify(context).saveMeasure(new FlexFile("com.almirun.common.net.SmartUrlLoader"), CoreMetrics.COMMENT_LINES, 46.0);
+    
     verify(context, never()).saveMeasure(eq(new FlexFile("com.almirun.common.controllers")), eq(CoreMetrics.NCLOC), anyDouble());
     verify(context, never()).saveMeasure(eq(new FlexFile("com.almirun.common.controllers")), eq(CoreMetrics.FUNCTIONS), anyDouble());
   }

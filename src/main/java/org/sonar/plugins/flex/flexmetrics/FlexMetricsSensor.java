@@ -32,10 +32,7 @@ import org.sonar.api.utils.XmlParserException;
 import org.sonar.api.utils.ParsingUtils;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
-import org.sonar.api.measures.Metric;
-import org.sonar.api.measures.CoreMetrics;
-import org.sonar.api.measures.RangeDistributionBuilder;
-import org.sonar.api.measures.PersistenceMode;
+import org.sonar.api.measures.*;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -90,11 +87,6 @@ public class FlexMetricsSensor implements Sensor, DependsUponMavenPlugin {
         }
 
         Resource flexPackage = new FlexPackage(packageName);
-
-        double lines = ParsingUtils.parseNumber(parser.getChildElementValue(element, "javadoc_lines")) +
-                       ParsingUtils.parseNumber(parser.getChildElementValue(element, "single_comment_lines")) +
-                       ParsingUtils.parseNumber(parser.getChildElementValue(element, "multi_comment_lines"));
-        context.saveMeasure(flexPackage, CoreMetrics.COMMENT_LINES, lines);
         context.saveMeasure(flexPackage, CoreMetrics.PACKAGES, 1.0);
       }
     }
@@ -107,19 +99,25 @@ public class FlexMetricsSensor implements Sensor, DependsUponMavenPlugin {
         Element element = (Element) classes.item(i);
         Resource clazz = new FlexFile(parser.getChildElementValue(element, "name"));
 
-        createClassMeasure(context, clazz, CoreMetrics.NCLOC, element, "ncss", parser);
-        createClassMeasure(context, clazz, CoreMetrics.FUNCTIONS, element, "functions", parser);
+        double lines = getMetricValue(element, "javadocs", parser) + getMetricValue(element, "single_comment_lines", parser)
+          + getMetricValue(element, "multi_comment_lines", parser);
+
+        context.saveMeasure(clazz, CoreMetrics.COMMENT_LINES, lines);
         context.saveMeasure(clazz, CoreMetrics.CLASSES, 1.0);
+        context.saveMeasure(clazz, CoreMetrics.NCLOC, getMetricValue(element, "ncss", parser));
+        context.saveMeasure(clazz, CoreMetrics.FUNCTIONS, getMetricValue(element, "functions", parser));
       }
     }
+
   }
 
-  private void createClassMeasure(SensorContext context, Resource clazz, Metric metric, Element classElement, String key, XpathParser parser) throws ParseException {
+  private double getMetricValue(Element classElement, String key, XpathParser parser) throws ParseException {
     Element element = parser.getChildElement(classElement, key);
     if (element != null && element.getFirstChild() != null && element.getFirstChild().getNodeValue() != null) {
       String value = element.getFirstChild().getNodeValue();
-      context.saveMeasure(clazz, metric, ParsingUtils.parseNumber(value));
+      return ParsingUtils.parseNumber(value);
     }
+    return 0.0;
   }
 
   protected void createComplexityClassMeasures(XpathParser parser, SensorContext context) throws ParseException {

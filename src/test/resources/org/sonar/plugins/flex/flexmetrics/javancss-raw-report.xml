@@ -103,6 +103,9 @@
       <ccn>1</ccn>
       <ncss>5</ncss>
       <functions>3</functions>
+      <javadocs>22</javadocs>
+      <multi_comment_lines>8</multi_comment_lines>
+      <single_comment_lines>16</single_comment_lines>
     </object>
     <object>
       <name>com.almirun.common.util.Inspector</name>

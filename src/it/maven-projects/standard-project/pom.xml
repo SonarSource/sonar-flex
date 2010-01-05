@@ -13,36 +13,4 @@
     <sonar.language>flex</sonar.language>
     <sonar.dynamicAnalysis>false</sonar.dynamicAnalysis>
   </properties>
-  <profiles>
-    <profile>
-      <id>flex</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <pluginRepositories>
-        <pluginRepository>
-          <id>flexpmd.opensource.adobe</id>
-          <releases>
-            <enabled>true</enabled>
-          </releases>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-          <name>FlexPMD repository on opensource.adobe.com</name>
-          <url>http://opensource.adobe.com/svn/opensource/flexpmd/maven-repository/release/</url>
-        </pluginRepository>
-        <pluginRepository>
-          <id>flexpmd.opensource.adobe.snapshots</id>
-          <releases>
-            <enabled>false</enabled>
-          </releases>
-          <snapshots>
-            <enabled>true</enabled>
-          </snapshots>
-          <name>FlexPMD repository on opensource.adobe.com</name>
-          <url>http://opensource.adobe.com/svn/opensource/flexpmd/maven-repository/snapshot/</url>
-        </pluginRepository>
-      </pluginRepositories>
-    </profile>
-  </profiles>
 </project>

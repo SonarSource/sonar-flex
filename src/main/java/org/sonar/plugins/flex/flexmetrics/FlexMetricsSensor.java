@@ -104,6 +104,7 @@ public class FlexMetricsSensor implements Sensor, DependsUponMavenPlugin {
 
         context.saveMeasure(clazz, CoreMetrics.COMMENT_LINES, lines);
         context.saveMeasure(clazz, CoreMetrics.CLASSES, 1.0);
+        context.saveMeasure(clazz, CoreMetrics.FILES, 1.0);
         context.saveMeasure(clazz, CoreMetrics.NCLOC, getMetricValue(element, "ncss", parser));
         context.saveMeasure(clazz, CoreMetrics.FUNCTIONS, getMetricValue(element, "functions", parser));
       }

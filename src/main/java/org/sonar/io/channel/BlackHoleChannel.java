@@ -18,8 +18,23 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package org.sonar.io;
+package org.sonar.io.channel;
 
-public interface Channel {
-  boolean read(CodeReader code);
+import org.sonar.io.CodeReader;
+
+public class BlackHoleChannel extends AbstractTokenChannel{
+  private int[] tokens;
+  public BlackHoleChannel(int... tokens) {
+    this.tokens = tokens;
+  }
+
+  public boolean read(CodeReader code) {
+    for (int token : tokens) {
+      if (code.peek() == token) {
+        code.pop(null);
+        return true;
+      }
+    }
+    return false;
+  }
 }

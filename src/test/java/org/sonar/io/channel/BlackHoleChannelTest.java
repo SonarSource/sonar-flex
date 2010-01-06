@@ -18,8 +18,23 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package org.sonar.io;
+package org.sonar.io.channel;
 
-public interface Channel {
-  boolean read(CodeReader code);
+import org.junit.Test;
+import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import org.sonar.io.CodeReader;
+
+import java.io.StringReader;
+
+import static junit.framework.Assert.assertFalse;
+
+public class BlackHoleChannelTest {
+  @Test
+  public void testChannel() {
+    BlackHoleChannel hole = new BlackHoleChannel(' ', '\n');
+    assertFalse(hole.read(new CodeReader(new StringReader("string"))));
+    assertTrue(hole.read(new CodeReader(new StringReader(" somethingToSwallow"))));
+    assertTrue(hole.read(new CodeReader(new StringReader("\nsomethingToSwallow"))));
+  }
 }

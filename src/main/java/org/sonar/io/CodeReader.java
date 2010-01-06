@@ -28,28 +28,28 @@ public class CodeReader {
   public static final int LAST_CHARS_MAX_SIZE = 20;
   public static final int PEEK_TO_WINDOW_SIZE = 20;
 
-  private final Reader reader;
+  private final Reader code;
   private int[] lastChars = new int[LAST_CHARS_MAX_SIZE];
 
-  public CodeReader(Reader reader) {
-    this.reader = new BufferedReader(reader);
+  public CodeReader(Reader code) {
+    this.code = new BufferedReader(code);
     for (int i = 0; i < lastChars.length; i++) {
       lastChars[i] = -1;
     }
   }
 
   private int read() throws IOException {
-    if (!reader.ready()) {
+    if (!code.ready()) {
       return -1;
     }
-    return reader.read();
+    return code.read();
   }
 
   public final void mark(int readAheadLimit) throws IOException {
-    if (reader.markSupported()) {
+    if (code.markSupported()) {
       throw new CodeReaderException("Mark are not supported on provided Reader.");
     }
-    reader.mark(readAheadLimit);
+    code.mark(readAheadLimit);
   }
 
   public final int lastChar() {
@@ -62,9 +62,9 @@ public class CodeReader {
 
   public final int peek() {
     try {
-      reader.mark(1);
+      code.mark(1);
       int nextChar = read();
-      reader.reset();
+      code.reset();
       return nextChar;
     }
     catch (IOException e) {
@@ -75,16 +75,9 @@ public class CodeReader {
   public final void pop(Writer writer) {
     try {
       setLastChar(read());
-      writer.write(lastChar());
-    }
-    catch (IOException e) {
-      throw new CodeReaderException("Unable to read on input stream.", e);
-    }
-  }
-
-  public final void pop() {
-    try {
-      setLastChar(read());
+      if (writer != null) {
+        writer.write(lastChar());
+      }
     }
     catch (IOException e) {
       throw new CodeReaderException("Unable to read on input stream.", e);
@@ -99,23 +92,16 @@ public class CodeReader {
 
   }
 
- /** public void popTo(EndMatcher matcher, Writer writer) {
-    pop(writer);
-    while (peek() != -1 && !matcher.read(peek()) && ) {
-      pop(writer);
-    }
-  } **/
-
   public void close() {
-    IOUtils.closeQuietly(reader);
+    IOUtils.closeQuietly(code);
   }
 
   public char[] peek(int index) {
     try {
       char[] result = new char[index];
-      reader.mark(index);
-      reader.read(result, 0, index);
-      reader.reset();
+      code.mark(index);
+      code.read(result, 0, index);
+      code.reset();
       return result;
     }
     catch (IOException e) {

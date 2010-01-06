@@ -18,8 +18,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package org.sonar.io;
+package org.sonar.io.channel;
 
-public interface EndMatcher {
-  boolean read(int[] endToken);
+import org.sonar.io.Channel;
+import org.sonar.io.CodeReader;
+
+import java.util.List;
+import java.io.StringWriter;
+
+public abstract class AbstractTokenChannel implements Channel {
+  private List<String> list;
+
+  public AbstractTokenChannel(List<String> list) {
+    this.list = list;
+  }
+
+  public AbstractTokenChannel() {
+  }
+
+  public abstract boolean read(CodeReader code);
+
+  protected void addToken(StringWriter writer) {
+    list.add(writer.toString());
+  }
 }

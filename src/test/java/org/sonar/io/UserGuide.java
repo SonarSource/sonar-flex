@@ -23,10 +23,13 @@ package org.sonar.io;
 import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import org.sonar.io.channel.AbstractTokenChannel;
+import org.sonar.io.channel.BlackHoleChannel;
 
 import java.util.List;
 import java.util.ArrayList;
 import java.io.StringReader;
+import java.io.StringWriter;
 
 import com.google.common.collect.Lists;
 
@@ -35,7 +38,7 @@ public class UserGuide {
   public void runDispatcher() {
     List<String> actual = new ArrayList<String>();
     List<Channel> channels = new ArrayList<Channel>();
-    channels.add(new TokenChannel(actual));
+    channels.add(new ATokenChannel(actual));
     ChannelDispatcher dispatcher = new ChannelDispatcher(channels);
     CodeReader code = new CodeReader(new StringReader("a string-to-be read-"));
     dispatcher.read(code);
@@ -43,4 +46,39 @@ public class UserGuide {
 
     assertThat(expected, is(actual));
   }
+
+
+  @Test
+  public void testCobolGrammar() {
+    List<String> actual = new ArrayList<String>();
+    List<Channel> channels = new ArrayList<Channel>();
+    channels.add(new BlackHoleChannel(' ', '\t', '\f', ';', '\r', '\n'));
+    ChannelDispatcher dispatcher = new ChannelDispatcher(channels);
+    CodeReader code = new CodeReader(new StringReader("a string-to-be read-"));
+    dispatcher.read(code);
+    List<String> expected = Lists.newArrayList("a string", "to", "be read");
+
+    assertThat(expected, is(actual));
+
+  }
+
+   public class ATokenChannel extends AbstractTokenChannel{
+     public ATokenChannel(List<String> list) {
+       super(list);
+     }
+
+     public boolean read(CodeReader code) {
+       int nextChar = code.peek();
+       StringWriter sw = new StringWriter();
+       if (nextChar != '-') {
+         while (nextChar != '-' && nextChar != -1) {
+           code.pop(sw);
+           nextChar = code.peek();
+         }
+         addToken(sw);
+         return true;
+       }
+       return false;
+     }
+   }
 }

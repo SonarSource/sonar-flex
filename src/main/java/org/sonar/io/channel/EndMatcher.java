@@ -18,8 +18,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package org.sonar.io;
+package org.sonar.io.channel;
 
-public interface Channel {
-  boolean read(CodeReader code);
+import org.sonar.io.CodeReader;
+
+public interface EndMatcher {
+  boolean isEndMatcher(CodeReader code);
 }

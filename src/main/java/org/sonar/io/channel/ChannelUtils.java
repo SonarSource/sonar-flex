@@ -18,26 +18,40 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package org.sonar.io;
+package org.sonar.io.channel;
 
-import java.util.List;
+import org.sonar.io.CodeReader;
+import java.io.Writer;
 
-public class ChannelDispatcher {
-  private List<Channel> channels = null;
+public class ChannelUtils {
 
-  public ChannelDispatcher(List<Channel> tokenizers) {
-    this.channels = tokenizers;
+  private ChannelUtils(){
   }
 
-  public void read(CodeReader code) {
-    while (code.peek() != -1) {
-        nextDispatch:
-      for (Channel channel : channels) {
-        if (channel.read(code)) {
-          continue nextDispatch;
-        }
-      }
-      code.pop(null);
+  public static void readTo(CodeReader code, Writer writer, int delimiter) {
+    int nextChar;
+    int length = 0;
+    do {
+      length++;
+      code.pop(writer);
+      nextChar = code.peek();
     }
+    while ((nextChar != delimiter || !evenNumberOfBackSlashPriorDelimiter(code, delimiter, length)) && nextChar != -1);
+    code.pop(writer);
+  }
+
+  private static boolean evenNumberOfBackSlashPriorDelimiter(CodeReader code, int token, int length) {
+    int numberOfBackSlashChar = 0;
+    int i = 0;
+    while (i < length) {
+      if (code.lastChar(i) == '\\') {
+        numberOfBackSlashChar++;
+        i++;
+      }
+      else {
+        break;
+      }
+    }
+    return numberOfBackSlashChar % 2 == 0;
   }
 }

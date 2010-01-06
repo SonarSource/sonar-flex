@@ -18,26 +18,44 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package org.sonar.io;
+package org.sonar.io.channel;
+
+import org.sonar.io.CodeReader;
 
 import java.util.List;
+import java.io.StringWriter;
 
-public class ChannelDispatcher {
-  private List<Channel> channels = null;
+public class LitteralChannel extends AbstractTokenChannel {
+  private int[] token;
 
-  public ChannelDispatcher(List<Channel> tokenizers) {
-    this.channels = tokenizers;
+  public LitteralChannel(List<String> list, int... token) {
+    super(list);
+    if (token.length == 0) {
+      throw new IllegalArgumentException();
+    }
+    this.token = token;
   }
 
-  public void read(CodeReader code) {
-    while (code.peek() != -1) {
-        nextDispatch:
-      for (Channel channel : channels) {
-        if (channel.read(code)) {
-          continue nextDispatch;
-        }
-      }
-      code.pop(null);
+  public boolean read(CodeReader code) {
+    int nextChar = code.peek();
+    StringWriter sw = new StringWriter();
+    if (isToken(nextChar)) {
+      ChannelUtils.readTo(code, sw, nextChar);
+      addToken(sw);
+      return true;
     }
+    return false;
+  }
+
+  private boolean isToken(int c) {
+    boolean isToken = false;
+
+    for (int i = 0; i < token.length; i++) {
+      if (c == token[i]) {
+        isToken = true;
+        break;
+      }
+    }
+    return isToken;
   }
 }

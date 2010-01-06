@@ -18,29 +18,48 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package org.sonar.io;
+package org.sonar.io.channel;
+
+import org.sonar.io.CodeReader;
 
 import java.util.List;
+import java.util.Set;
 import java.io.StringWriter;
 
-public class TokenChannel implements Channel {
-  List<String> list;
+public class KeywordsChannel extends AbstractTokenChannel {
+  Set<String> keywords;
 
-  public TokenChannel(List<String> list) {
-    this.list = list;
+  public KeywordsChannel(List<String> list, Set<String> keywords) {
+    super(list);
+    if (keywords == null || keywords.isEmpty()) {
+      throw new IllegalArgumentException();
+    }
+    this.keywords = keywords;
   }
 
   public boolean read(CodeReader code) {
-    int nextChar = code.peek();
-    if (nextChar != '-') {
-      StringWriter sw = new StringWriter();
-      while (nextChar != '-' && nextChar != -1) {
-        code.pop(sw);
-        nextChar = code.peek();
+    if (isValidForKeyword(code.peek())) {
+      int i=1;
+      while (isValidForKeyword(code.peek(i)[i-1])) {
+        i++;
       }
-      list.add(sw.toString());
-      return true;
+      String s = new String(code.peek(i-1));
+      if (keywords.contains(s)) {
+        addToken(new StringWriter().append(s));
+        return true;
+      }
     }
     return false;
   }
+
+  public static boolean isValidForKeyword(int c) {
+    boolean valid = false;
+    if (Character.isLetter(c) || c == '-') {
+      valid = true;
+    }
+    return valid;
+  }
+
+
+
 }

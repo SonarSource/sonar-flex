@@ -33,9 +33,6 @@ public abstract class AbstractTokenChannel implements Channel {
     this.list = list;
   }
 
-  public AbstractTokenChannel() {
-  }
-
   public abstract boolean read(CodeReader code);
 
   protected void addToken(StringWriter writer) {

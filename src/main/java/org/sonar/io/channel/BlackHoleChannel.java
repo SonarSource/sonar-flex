@@ -22,9 +22,17 @@ package org.sonar.io.channel;
 
 import org.sonar.io.CodeReader;
 
+import java.util.List;
+
 public class BlackHoleChannel extends AbstractTokenChannel{
+
   private int[] tokens;
   public BlackHoleChannel(int... tokens) {
+    super(null);
+    this.tokens = tokens;
+  }
+  public BlackHoleChannel(List<String> list, int... tokens) {
+    super(list);
     this.tokens = tokens;
   }
 

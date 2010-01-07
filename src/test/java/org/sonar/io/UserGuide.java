@@ -26,7 +26,7 @@ import static org.hamcrest.CoreMatchers.is;
 import org.sonar.io.channel.AbstractTokenChannel;
 import org.sonar.io.channel.BlackHoleChannel;
 import org.sonar.io.channel.KeywordsChannel;
-import org.sonar.io.channel.LitteralChannel;
+import org.sonar.io.channel.LiteralChannel;
 import org.apache.commons.io.IOUtils;
 
 import java.util.List;
@@ -62,7 +62,7 @@ public class UserGuide {
     List<Channel> channels = new ArrayList<Channel>();
     channels.add(new BlackHoleChannel(' ', '\t', '\f', ';', '\r', '\n'));
     channels.add(new KeywordsChannel(actual, keywords));
-    channels.add(new LitteralChannel(actual, '\''));
+    channels.add(new LiteralChannel(actual, '\''));
 
     ChannelDispatcher dispatcher = new ChannelDispatcher(channels);
     String s = IOUtils.toString(getClass().getResourceAsStream("/org/sonar/io/coucou.txt"));

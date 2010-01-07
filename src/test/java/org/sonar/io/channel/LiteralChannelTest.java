@@ -25,16 +25,16 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LitteralChannelTest {
+public class LiteralChannelTest {
 
   @Test
-  public void isReadingLitteral() {
+  public void isReadingLiteral() {
     List<String> actual = new ArrayList<String>();
-    LitteralChannel channel = new LitteralChannel(actual, '\'');
+    LiteralChannel channel = new LiteralChannel(actual, '\'');
     TokenChannelTester.check("\'string\'", channel, "\'string\'", actual, true);
     TokenChannelTester.check("this is not a string", channel, actual, false);
 
-    channel = new LitteralChannel(actual = new ArrayList<String>(), '\"');
+    channel = new LiteralChannel(actual = new ArrayList<String>(), '\"');
     TokenChannelTester.check("\'string\'", channel, actual, false);
     TokenChannelTester.check("this is not a string", channel, actual, false);
     TokenChannelTester.check("\"toto\";", channel, "\"toto\"", actual, true);
@@ -43,15 +43,15 @@ public class LitteralChannelTest {
   @Test
   public void escapedChar() {
     List<String> actual = new ArrayList<String>();
-    LitteralChannel channel = new LitteralChannel(actual, '\"');
+    LiteralChannel channel = new LiteralChannel(actual, '\"');
     TokenChannelTester.check("\"\";", channel, "\"\"", actual, true);
 
     actual = new ArrayList<String>();
-    channel = new LitteralChannel(actual, '\"');
+    channel = new LiteralChannel(actual, '\"');
     TokenChannelTester.check("\"(\\\"\").replace", channel, "\"(\\\"\"", actual, true);
 
     actual = new ArrayList<String>();
-    channel = new LitteralChannel(actual, '\"');
+    channel = new LiteralChannel(actual, '\"');
     TokenChannelTester.check("\"\\\\\";", channel, "\"\\\\\"", actual, true);
   }
 }

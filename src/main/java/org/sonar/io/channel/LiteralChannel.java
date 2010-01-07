@@ -25,10 +25,10 @@ import org.sonar.io.CodeReader;
 import java.util.List;
 import java.io.StringWriter;
 
-public class LitteralChannel extends AbstractTokenChannel {
+public class LiteralChannel extends AbstractTokenChannel {
   private int[] token;
 
-  public LitteralChannel(List<String> list, int... token) {
+  public LiteralChannel(List<String> list, int... token) {
     super(list);
     if (token.length == 0) {
       throw new IllegalArgumentException();

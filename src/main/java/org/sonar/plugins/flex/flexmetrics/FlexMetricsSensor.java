@@ -44,7 +44,8 @@ import java.util.Map;
 public class FlexMetricsSensor implements Sensor, DependsUponMavenPlugin {
 
   private FlexMetricsMavenPluginHandler pluginHandler;
-  static final Number[] FUNCTIONS_DISTRIB_BOTTOM_LIMITS = {1, 2, 4, 6, 8, 10, 12};
+  private final Number[] FUNCTIONS_DISTRIB_BOTTOM_LIMITS = {1, 2, 4, 6, 8, 10, 12};
+  private final Number[] CLASSES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
 
   public FlexMetricsSensor(FlexMetricsMavenPluginHandler pluginHandler) {
     this.pluginHandler = pluginHandler;
@@ -123,7 +124,7 @@ public class FlexMetricsSensor implements Sensor, DependsUponMavenPlugin {
 
   protected void createComplexityClassMeasures(XpathParser parser, SensorContext context) throws ParseException {
     NodeList functions = parser.executeXPathNodeList("/javancss/functions/function");
-    Map<String, Integer> ccnCountperClass = new HashMap<String, Integer>();
+    Map<String, Integer> ccnCountPerClass = new HashMap<String, Integer>();
     Map<String, RangeDistributionBuilder> ccnDistributionPerClass = new HashMap<String, RangeDistributionBuilder>();
     if (functions != null) {
       for (int i = 0; i < functions.getLength(); i++) {
@@ -131,13 +132,16 @@ public class FlexMetricsSensor implements Sensor, DependsUponMavenPlugin {
         String fullFunctionName = parser.getChildElementValue(element, "name");
         Integer ccnForFunction = new Integer(parser.getChildElementValue(element, "ccn"));
         String packageAndClassName = getPackageAndClassFromFunction(fullFunctionName);
-        addUpComplexityToClass(ccnCountperClass, ccnForFunction, packageAndClassName);
+        addUpComplexityToClass(ccnCountPerClass, ccnForFunction, packageAndClassName);
         addUpComplexityToClassDistribution(ccnDistributionPerClass, ccnForFunction, packageAndClassName);
       }
     }
-    for (String fullname : ccnCountperClass.keySet()) {
-      Integer ccnForClass = ccnCountperClass.get(fullname);
+    for (String fullname : ccnCountPerClass.keySet()) {
+      Integer ccnForClass = ccnCountPerClass.get(fullname);
       context.saveMeasure(new FlexFile(fullname), CoreMetrics.COMPLEXITY, ccnForClass.doubleValue());
+      RangeDistributionBuilder ccnDistribution = new RangeDistributionBuilder(CoreMetrics.CLASS_COMPLEXITY_DISTRIBUTION, CLASSES_DISTRIB_BOTTOM_LIMITS);
+      ccnDistribution.add(ccnForClass.doubleValue());
+      context.saveMeasure(new FlexFile(fullname), ccnDistribution.build().setPersistenceMode(PersistenceMode.MEMORY));
     }
     for (String fullname : ccnDistributionPerClass.keySet()) {
       RangeDistributionBuilder ccnDistributionForClass = ccnDistributionPerClass.get(fullname);

@@ -61,8 +61,6 @@ public class FlexPlugin implements Plugin {
     list.add(FlexSourceImporter.class);
 
 
-    list.add(ClassComplexityDistributionDecorator.class);
-    list.add(FunctionComplexityDistributionDecorator.class);
     list.add(FlexAverageFileComplexityDecorator.class);
     list.add(FlexAverageFunctionComplexityDecorator.class);
     list.add(FlexCommentsDensityDecorator.class);

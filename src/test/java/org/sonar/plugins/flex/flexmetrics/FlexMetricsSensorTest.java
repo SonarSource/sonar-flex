@@ -95,5 +95,7 @@ public class FlexMetricsSensorTest {
     verify(context).saveMeasure(new FlexFile("com.almirun.common.data.BatchedQuery"), CoreMetrics.COMPLEXITY, 6.0);
     verify(context).saveMeasure(eq(new FlexFile("com.almirun.common.data.BatchedQuery")), argThat(
       new IsMeasure(CoreMetrics.FUNCTION_COMPLEXITY_DISTRIBUTION, "1=3;2=1;4=0;6=0;8=0;10=0;12=0")));
+    verify(context).saveMeasure(eq(new FlexFile("com.almirun.common.data.BatchedQuery")), argThat(
+      new IsMeasure(CoreMetrics.CLASS_COMPLEXITY_DISTRIBUTION, "0=0,5=1,10=0,20=0,30=0,60=0,90=0")));
   }
 }

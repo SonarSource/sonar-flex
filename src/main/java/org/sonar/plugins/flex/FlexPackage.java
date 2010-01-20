@@ -26,7 +26,7 @@ import org.sonar.api.utils.WildcardPattern;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-public class FlexPackage implements Resource {
+public class FlexPackage extends Resource {
   public static final String DEFAULT_PACKAGE_NAME = "[default]";
   private String key;
 

@@ -30,7 +30,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import java.io.File;
 import java.util.List;
 
-public class FlexFile implements Resource<FlexPackage> {
+public class FlexFile extends Resource<FlexPackage> {
 
   private String key;
   private String filename;

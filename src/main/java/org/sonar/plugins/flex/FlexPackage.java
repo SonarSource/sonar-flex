@@ -38,10 +38,6 @@ public class FlexPackage extends Resource {
     return StringUtils.equals(getKey(), DEFAULT_PACKAGE_NAME);
   }
 
-  public String getKey() {
-    return key;
-  }
-
   public String getScope() {
     return Resource.SCOPE_SPACE;
   }

@@ -78,10 +78,6 @@ public class FlexFile extends Resource<FlexPackage> {
     return parent;
   }
 
-  public String getKey() {
-    return key;
-  }
-
   public String getDescription() {
     return null;
   }

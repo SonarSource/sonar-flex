@@ -28,34 +28,13 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class FlexPackage extends Resource {
   public static final String DEFAULT_PACKAGE_NAME = "[default]";
-  private String key;
 
   public FlexPackage(String key) {
-    this.key = StringUtils.defaultIfEmpty(StringUtils.trim(key), DEFAULT_PACKAGE_NAME);
+    setKey(StringUtils.defaultIfEmpty(StringUtils.trim(key), DEFAULT_PACKAGE_NAME));
   }
 
   public boolean isDefault() {
     return StringUtils.equals(getKey(), DEFAULT_PACKAGE_NAME);
-  }
-
-  public String getScope() {
-    return Resource.SCOPE_SPACE;
-  }
-
-  public String getQualifier() {
-    return Resource.QUALIFIER_PACKAGE;
-  }
-
-  public String getName() {
-    return key;
-  }
-
-  public Resource<?> getParent() {
-    return null;
-  }
-
-  public Language getLanguage() {
-    return Flex.INSTANCE;
   }
 
   public boolean matchFilePattern(String antPattern) {
@@ -68,31 +47,34 @@ public class FlexPackage extends Resource {
     return null;
   }
 
+  public String getScope() {
+    return Resource.SCOPE_SPACE;
+  }
+
+  public String getQualifier() {
+    return Resource.QUALIFIER_PACKAGE;
+  }
+
+  public String getName() {
+    return getKey();
+  }
+
+  public Resource<?> getParent() {
+    return null;
+  }
+
   public String getLongName() {
     return null;
   }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (!(obj instanceof FlexPackage)) {
-      return false;
-    }
-    if (this == obj) {
-      return true;
-    }
-    FlexPackage other = (FlexPackage) obj;
-    return StringUtils.equals(key, other.getKey());
-  }
-
-  @Override
-  public int hashCode() {
-    return key.hashCode();
+  public Language getLanguage() {
+    return Flex.INSTANCE;
   }
 
   @Override
   public String toString() {
     return new ToStringBuilder(this)
-      .append("key", key)
+      .append("key", getKey())
       .toString();
   }
 }

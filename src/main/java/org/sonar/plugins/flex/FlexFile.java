@@ -32,41 +32,48 @@ import java.util.List;
 
 public class FlexFile extends Resource<FlexPackage> {
 
-  private String key;
   private String filename;
   private String longName;
   private String packageKey;
-  private boolean unitTest;
+  private boolean unitTest = false;
   private FlexPackage parent = null;
 
   public FlexFile(String key) {
-    this.key = key.trim();
-    this.unitTest = false;
+    if (key != null && key.indexOf('$') >= 0) {
+      throw new IllegalArgumentException("Flex inner classes are not supported : " + key);
+    }
+    String realKey = StringUtils.trim(key);
 
-    if (this.key.contains(".")) {
-      this.filename = StringUtils.substringAfterLast(this.key, ".");
-      this.packageKey = StringUtils.substringBeforeLast(this.key, ".");
-      this.longName = this.key;
+    if (realKey.contains(".")) {
+      this.filename = StringUtils.substringAfterLast(realKey, ".");
+      this.packageKey = StringUtils.substringBeforeLast(realKey, ".");
+      this.longName = realKey;
 
     } else {
-      this.filename = this.key;
-      this.longName = this.key;
+      this.filename = realKey;
+      this.longName = realKey;
       this.packageKey = FlexPackage.DEFAULT_PACKAGE_NAME;
-      this.key = new StringBuilder().append(FlexPackage.DEFAULT_PACKAGE_NAME).append(".").append(this.key).toString();
+      realKey = new StringBuilder().append(FlexPackage.DEFAULT_PACKAGE_NAME).append(".").append(realKey).toString();
     }
+    setKey(realKey);
   }
 
   public FlexFile(String packageKey, String className) {
+    if (className != null && className.indexOf('$') >= 0) {
+      throw new IllegalArgumentException("Java inner classes are not supported : " + className);
+    }
     this.filename = className.trim();
+    String key;
     if (StringUtils.isBlank(packageKey)) {
       this.packageKey = FlexPackage.DEFAULT_PACKAGE_NAME;
       this.longName = this.filename;
-      this.key = new StringBuilder().append(this.packageKey).append(".").append(this.filename).toString();
+      key = new StringBuilder().append(this.packageKey).append(".").append(this.filename).toString();
     } else {
       this.packageKey = packageKey.trim();
-      this.key = new StringBuilder().append(this.packageKey).append(".").append(this.filename).toString();
-      this.longName = this.key;
+      key = new StringBuilder().append(this.packageKey).append(".").append(this.filename).toString();
+      this.longName = key;
     }
+    setKey(key);
   }
 
 
@@ -139,27 +146,11 @@ public class FlexFile extends Resource<FlexPackage> {
     return fromIOFile(new File(path), sourceDirs);
   }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (!(obj instanceof FlexFile)) {
-      return false;
-    }
-    if (this == obj) {
-      return true;
-    }
-    FlexFile other = (FlexFile) obj;
-    return StringUtils.equals(key, other.getKey());
-  }
-
-  @Override
-  public int hashCode() {
-    return key.hashCode();
-  }
 
   @Override
   public String toString() {
     return new ToStringBuilder(this)
-      .append("key", key)
+      .append("key", getKey())
       .append("package", packageKey)
       .append("longName", longName)
       .append("unitTest", unitTest)

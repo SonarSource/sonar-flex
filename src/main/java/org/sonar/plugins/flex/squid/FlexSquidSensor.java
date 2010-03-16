@@ -32,6 +32,7 @@ import org.sonar.squid.measures.Metric;
 import org.sonar.squid.text.Source;
 import org.sonar.plugins.flex.Flex;
 import org.sonar.plugins.flex.FlexUtils;
+import org.sonar.plugins.flex.FlexFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,7 +61,7 @@ public final class FlexSquidSensor implements Sensor {
     Reader reader = null;
     try {
       reader = new StringReader(FileUtils.readFileToString(file, projectFileSystem.getSourceCharset().name()));
-      Resource resource = projectFileSystem.toResource(file);
+      Resource resource = FlexFile.fromIOFile(file, projectFileSystem.getSourceDirs());
       Source source = new Source(reader, new FlexRecognizer(), "");
       sensorContext.saveMeasure(resource, CoreMetrics.LINES, (double) source.getMeasure(Metric.LINES));
     } finally {

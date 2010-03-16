@@ -25,7 +25,6 @@ import org.sonar.plugins.flex.cpd.CobolCpdMapping;
 import org.sonar.plugins.flex.squid.FlexNoSonarFilter;
 import org.sonar.plugins.flex.squid.FlexSquidSensor;
 import org.sonar.plugins.flex.flexmetrics.*;
-import org.sonar.plugins.flex.flexdecorators.*;
 import org.sonar.plugins.flex.flexpmd.FlexPmdSensor;
 import org.sonar.plugins.flex.flexpmd.FlexPmdMavenPluginHandler;
 import org.sonar.plugins.flex.flexpmd.FlexPmdRulesRepository;
@@ -59,11 +58,6 @@ public class FlexPlugin implements Plugin {
     list.add(Flex.class);
     list.add(FlexNoSonarFilter.class);
     list.add(FlexSourceImporter.class);
-
-
-    list.add(FlexAverageFileComplexityDecorator.class);
-    list.add(FlexAverageFunctionComplexityDecorator.class);
-    list.add(FlexCommentsDensityDecorator.class);
 
 
     list.add(FlexMetricsMavenPluginHandler.class);

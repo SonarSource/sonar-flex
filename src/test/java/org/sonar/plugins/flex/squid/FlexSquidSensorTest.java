@@ -44,7 +44,6 @@ public class FlexSquidSensorTest {
     SensorContext context = mock(SensorContext.class);
     new FlexSquidSensor().analyzeFile(flex, fileSystem, context);
 
-    verify(fileSystem).toResource(flex);
     verify(context).saveMeasure((Resource) anyObject(), eq(CoreMetrics.LINES), eq(102.0));
   }
 }

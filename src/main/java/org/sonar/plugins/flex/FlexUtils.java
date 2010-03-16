@@ -30,15 +30,8 @@ public final class FlexUtils {
     // only static methods
   }
 
-  /**
-   * Plugin logger
-   */
   public static final Logger LOG = LoggerFactory.getLogger(FlexPlugin.class.getName());
 
-
-  /**
-   * Console logger, activated on level INFO
-   */
   public static final Logger INFO = Logs.INFO;
 
 

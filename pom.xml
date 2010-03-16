@@ -1,24 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ Sonar, open source software quality management tool.
-  ~ Copyright (C) 2009 SonarSource SA
-  ~ mailto:contact AT sonarsource DOT com
-  ~
-  ~ Sonar is free software; you can redistribute it and/or
-  ~ modify it under the terms of the GNU Lesser General Public
-  ~ License as published by the Free Software Foundation; either
-  ~ version 3 of the License, or (at your option) any later version.
-  ~
-  ~ Sonar is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  ~ Lesser General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU Lesser General Public
-  ~ License along with Sonar; if not, write to the Free Software
-  ~ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
-  -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
@@ -26,7 +6,7 @@
   <parent>
     <groupId>org.codehaus.sonar-plugins</groupId>
     <artifactId>parent</artifactId>
-    <version>4</version>
+    <version>5</version>
     <relativePath>../parent</relativePath>
   </parent>
   <groupId>org.codehaus.sonar-plugins</groupId>
@@ -37,8 +17,8 @@
 
   <properties>
     <sonar.plugin.class>org.sonar.plugins.flex.FlexPlugin</sonar.plugin.class>
-    <sonar.version>1.13-SNAPSHOT</sonar.version>
-    <sonarVersion>1.13-SNAPSHOT</sonarVersion>
+    <sonar.version>2.0.1</sonar.version>
+    <sonarVersion>2.0.1</sonarVersion>
   </properties>
 
 

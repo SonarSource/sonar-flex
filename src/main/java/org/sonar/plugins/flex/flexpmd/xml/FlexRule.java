@@ -112,6 +112,6 @@ public class FlexRule implements Comparable<String> {
   }
 
   public String getCategory() {
-    return "Maintainability";
+    return category;
   }
 }

@@ -21,7 +21,7 @@
 package org.sonar.plugins.flex;
 
 import org.sonar.plugins.flex.colorizer.FlexColorizerFormat;
-import org.sonar.plugins.flex.cpd.CobolCpdMapping;
+import org.sonar.plugins.flex.cpd.FlexCpdMapping;
 import org.sonar.plugins.flex.squid.FlexNoSonarFilter;
 import org.sonar.plugins.flex.squid.FlexSquidSensor;
 import org.sonar.plugins.flex.flexmetrics.*;
@@ -54,11 +54,11 @@ public class FlexPlugin implements Plugin {
     List<Class<? extends Extension>> list = new ArrayList<Class<? extends Extension>>();
 
     list.add(FlexColorizerFormat.class);
-    list.add(CobolCpdMapping.class);
     list.add(Flex.class);
     list.add(FlexNoSonarFilter.class);
     list.add(FlexSourceImporter.class);
 
+    list.add(FlexCpdMapping.class);
 
     list.add(FlexMetricsMavenPluginHandler.class);
     list.add(FlexMetricsSensor.class);

@@ -21,13 +21,14 @@
 package org.sonar.plugins.flex;
 
 import org.sonar.plugins.flex.colorizer.FlexColorizerFormat;
-import org.sonar.plugins.flex.cpd.FlexCpdMapping;
 import org.sonar.plugins.flex.squid.FlexNoSonarFilter;
 import org.sonar.plugins.flex.squid.FlexSquidSensor;
 import org.sonar.plugins.flex.flexmetrics.*;
 import org.sonar.plugins.flex.flexpmd.FlexPmdSensor;
 import org.sonar.plugins.flex.flexpmd.FlexPmdMavenPluginHandler;
 import org.sonar.plugins.flex.flexpmd.FlexPmdRulesRepository;
+import org.sonar.plugins.flex.cpd.FlexCpdMavenSensor;
+import org.sonar.plugins.flex.cpd.FlexCpdMavenPluginHandler;
 import org.sonar.api.Extension;
 import org.sonar.api.Plugin;
 
@@ -58,7 +59,8 @@ public class FlexPlugin implements Plugin {
     list.add(FlexNoSonarFilter.class);
     list.add(FlexSourceImporter.class);
 
-    list.add(FlexCpdMapping.class);
+    list.add(FlexCpdMavenSensor.class);
+    list.add(FlexCpdMavenPluginHandler.class);
 
     list.add(FlexMetricsMavenPluginHandler.class);
     list.add(FlexMetricsSensor.class);

@@ -52,7 +52,7 @@ public class FlexMetricsSensor implements Sensor, DependsUponMavenPlugin {
   }
 
   public boolean shouldExecuteOnProject(Project project) {
-    return project.getLanguage().equals(Flex.INSTANCE);
+    return project.getLanguageKey().equals(Flex.KEY);
   }
 
   public void analyse(Project project, SensorContext context) {

@@ -41,13 +41,17 @@ import java.io.StringReader;
 
 public final class FlexSquidSensor implements Sensor {
 
+  private Flex flex;
+  public FlexSquidSensor(Flex flex) {
+    this.flex = flex;
+  }
 
   public boolean shouldExecuteOnProject(Project project) {
-    return Flex.KEY.equals(project.getLanguageKey());
+    return flex.equals(project.getLanguage());
   }
 
   public void analyse(Project project, SensorContext sensorContext) {
-    for (File flexFile : project.getFileSystem().getSourceFiles(Flex.INSTANCE)) {
+    for (File flexFile : project.getFileSystem().getSourceFiles(flex)) {
       try {
         analyzeFile(flexFile, project.getFileSystem(), sensorContext);
       }

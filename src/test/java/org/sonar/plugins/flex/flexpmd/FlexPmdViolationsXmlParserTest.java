@@ -61,7 +61,7 @@ public class FlexPmdViolationsXmlParserTest {
     when(project.getFileSystem()).thenReturn(fileSystem);
 
 
-    FlexPmdRulesRepository repository = new FlexPmdRulesRepository();
+    FlexPmdRulesRepository repository = new FlexPmdRulesRepository(null);
     RulesProfile profile = repository.getProvidedProfiles().get(0);
 
     FlexPmdViolationsXmlParser parser = new FlexPmdViolationsXmlParser(project, context, manager, profile);

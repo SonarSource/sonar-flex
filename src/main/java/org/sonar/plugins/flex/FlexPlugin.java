@@ -31,12 +31,23 @@ import org.sonar.plugins.flex.cpd.FlexCpdMavenSensor;
 import org.sonar.plugins.flex.cpd.FlexCpdMavenPluginHandler;
 import org.sonar.api.Extension;
 import org.sonar.api.Plugin;
+import org.sonar.api.Properties;
+import org.sonar.api.Property;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Properties({
+  @Property(key = FlexPlugin.FILE_SUFFIXES_KEY, defaultValue = FlexPlugin.FILE_SUFFIXES_DEFVALUE, name = "File suffixes",
+      description = "Comma-separated list of suffixes for files to analyze. To not filter, leave the list empty.",
+  global=true,
+  project = true)
+})
 public class FlexPlugin implements Plugin {
   public static String FLEXPMD_PLUGIN = "flexplugin";
+
+  static final String FILE_SUFFIXES_KEY = "sonar.flex.file.suffixes";
+  static final String FILE_SUFFIXES_DEFVALUE = "as";
 
   // the flexpmd rules engine and the flex plugin must have the same key due to sonar-1342
   public String getKey() {

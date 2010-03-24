@@ -28,8 +28,8 @@ import java.util.List;
 
 public class FlexSourceImporter extends AbstractSourceImporter {
 
-  public FlexSourceImporter() {
-    super(Flex.INSTANCE);
+  public FlexSourceImporter(Flex flex) {
+    super(flex);
   }
 
   @Override

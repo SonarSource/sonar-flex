@@ -28,14 +28,9 @@ import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.RulePriority;
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.flex.flexpmd.xml.Ruleset;
 import org.sonar.plugins.flex.flexpmd.xml.FlexRulesUtils;
-import org.apache.commons.io.IOUtils;
-
 import java.util.List;
-import java.io.InputStream;
-import java.io.IOException;
 
 public class FlexPmdRulesRepositoryTest {
 
@@ -43,7 +38,7 @@ public class FlexPmdRulesRepositoryTest {
 
   @Before
   public void setup() {
-    repository = new FlexPmdRulesRepository();
+    repository = new FlexPmdRulesRepository(null);
   }
 
   @Test

@@ -40,11 +40,13 @@ public class FlexPmdSensor implements Sensor, DependsUponMavenPlugin, GeneratesV
   private RulesProfile profile;
   private RulesManager rulesManager;
   private FlexPmdMavenPluginHandler pluginHandler;
+  private Flex flex;
 
-  public FlexPmdSensor(RulesProfile profile, RulesManager rulesManager, FlexPmdMavenPluginHandler pluginHandler) {
+  public FlexPmdSensor(RulesProfile profile, RulesManager rulesManager, FlexPmdMavenPluginHandler pluginHandler, Flex flex) {
     this.profile = profile;
     this.rulesManager = rulesManager;
     this.pluginHandler = pluginHandler;
+    this.flex = flex;
   }
 
   public void analyse(Project project, SensorContext context) {
@@ -59,7 +61,7 @@ public class FlexPmdSensor implements Sensor, DependsUponMavenPlugin, GeneratesV
   }
 
   public boolean shouldExecuteOnProject(Project project) {
-    return project.getLanguage().equals(Flex.INSTANCE);
+    return project.getLanguage().equals(flex);
   }
 
   public MavenPluginHandler getMavenPluginHandler(Project project) {

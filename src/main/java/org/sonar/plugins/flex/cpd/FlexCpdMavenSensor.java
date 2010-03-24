@@ -58,7 +58,7 @@ public class FlexCpdMavenSensor implements Sensor, DependsUponMavenPlugin {
   }
 
   public boolean shouldExecuteOnProject(Project project) {
-    return project.getLanguage().equals(Flex.INSTANCE);
+    return project.getLanguageKey().equals(Flex.KEY);
   }
 
   public void analyse(Project project, SensorContext context) {
@@ -131,7 +131,7 @@ public class FlexCpdMavenSensor implements Sensor, DependsUponMavenPlugin {
         fileContainer.put(flexFile, data);
       }
       data.cumulate(targetJavaClass, ParsingUtils.parseNumber(targetFileEl.getAttribute("line")), ParsingUtils.parseNumber(fileEl.getAttribute("line")),
-          ParsingUtils.parseNumber(duplication.getAttribute("lines")));
+        ParsingUtils.parseNumber(duplication.getAttribute("lines")));
     }
   }
 
@@ -148,16 +148,19 @@ public class FlexCpdMavenSensor implements Sensor, DependsUponMavenPlugin {
     }
 
     protected void cumulate(Resource targetResource, Double targetDuplicationStartLine, Double duplicationStartLine, Double duplicatedLines) {
-      StringBuilder xml = new StringBuilder();
-      xml.append("<duplication lines=\"").append(duplicatedLines.intValue())
+      Resource resolvedResource = context.getResource(targetResource);
+      if (resolvedResource != null) {
+        StringBuilder xml = new StringBuilder();
+        xml.append("<duplication lines=\"").append(duplicatedLines.intValue())
           .append("\" start=\"").append(duplicationStartLine.intValue())
           .append("\" target-start=\"").append(targetDuplicationStartLine.intValue())
-          .append("\" target-resource=\"").append(context.getResource(targetResource).getEffectiveKey()).append("\"/>");
+          .append("\" target-resource=\"").append(resolvedResource.getEffectiveKey()).append("\"/>");
 
-      duplicationXMLEntries.add(xml);
+        duplicationXMLEntries.add(xml);
 
-      this.duplicatedLines += duplicatedLines;
-      this.duplicatedBlocks++;
+        this.duplicatedLines += duplicatedLines;
+        this.duplicatedBlocks++;
+      }
     }
 
     protected void saveUsing(SensorContext context) {

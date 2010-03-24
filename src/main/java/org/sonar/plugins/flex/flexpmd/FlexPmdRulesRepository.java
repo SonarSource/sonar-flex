@@ -35,9 +35,14 @@ import java.util.ArrayList;
 public class FlexPmdRulesRepository implements RulesRepository<Flex>, ConfigurationExportable, ConfigurationImportable {
   private FlexPmdRulePriorityMapper priorityMapper = new FlexPmdRulePriorityMapper();
   private String resourcePath = "/org/sonar/plugins/flex/flexpmd/";
+  private Flex flex;
+
+  public FlexPmdRulesRepository(Flex flex) {
+    this.flex = flex;
+  }
 
   public Flex getLanguage() {
-    return Flex.INSTANCE;
+    return flex;
   }
 
   public final List<Rule> getInitialReferential() {

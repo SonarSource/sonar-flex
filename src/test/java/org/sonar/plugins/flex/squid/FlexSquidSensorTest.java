@@ -42,7 +42,7 @@ public class FlexSquidSensorTest {
     ProjectFileSystem fileSystem = mock(ProjectFileSystem.class);
     when(fileSystem.getSourceCharset()).thenReturn(Charset.defaultCharset());
     SensorContext context = mock(SensorContext.class);
-    new FlexSquidSensor().analyzeFile(flex, fileSystem, context);
+    new FlexSquidSensor(null).analyzeFile(flex, fileSystem, context);
 
     verify(context).saveMeasure((Resource) anyObject(), eq(CoreMetrics.LINES), eq(102.0));
   }

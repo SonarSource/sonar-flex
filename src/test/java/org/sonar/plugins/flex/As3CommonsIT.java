@@ -35,9 +35,7 @@ public class As3CommonsIT {
   private static final String PROJECT_AS3COMMONS = "org.as3commons:as3commons-project";
   private static final String MODULE_COMMONS_LANG = "org.as3commons:as3commons-lang";
   private static final String PACKAGE_COMMONS_LANG = "org.as3commons:as3commons-lang:org.as3commons.lang";
-  private static final String PACKAGE_COMMONS_LANG_DAMAGED = "org.as3commons:as3commons-lang:org3commons.lang";
   private static final String FILE_OBJECT_UTILS = "org.as3commons:as3commons-lang:org.as3commons.lang.ObjectUtils";
-  private static final String FILE_OBJECT_UTILS_DAMAGED = "org.as3commons:as3commons-lang:org3commons.lang.ObjectUtils";
 
   @BeforeClass
   public static void buildServer() {
@@ -50,9 +48,7 @@ public class As3CommonsIT {
     assertThat(sonar.find(new ResourceQuery(PROJECT_AS3COMMONS)).getVersion(), is("1.0.0"));
     assertThat(sonar.find(new ResourceQuery(MODULE_COMMONS_LANG)).getName(), is("AS3Commons Lang"));
     assertThat(sonar.find(new ResourceQuery(PACKAGE_COMMONS_LANG)).getName(), is("org.as3commons.lang"));
-    assertThat(sonar.find(new ResourceQuery(PACKAGE_COMMONS_LANG_DAMAGED)).getName(), is("org3commons.lang"));
     assertThat(sonar.find(new ResourceQuery(FILE_OBJECT_UTILS)).getName(), is("ObjectUtils"));
-    assertThat(sonar.find(new ResourceQuery(FILE_OBJECT_UTILS_DAMAGED)).getName(), is("ObjectUtils"));
   }
 
   @Test
@@ -103,48 +99,48 @@ public class As3CommonsIT {
 
   @Test
   public void packagesMetrics() {
-    assertThat(getPackageDamagedMeasure("ncloc").getIntValue(), is(278));
+    assertThat(getPackageMeasure("ncloc").getIntValue(), is(278));
     assertThat(getPackageMeasure("lines").getIntValue(), is(4134));
-    assertThat(getPackageDamagedMeasure("files").getIntValue(), is(16));
-    assertThat(getPackageDamagedMeasure("classes").getIntValue(), is(16));
-    assertThat(getPackageDamagedMeasure("packages").getIntValue(), is(1));
-    assertThat(getPackageDamagedMeasure("functions").getIntValue(), is(63));
-    assertThat(getPackageDamagedMeasure("comment_lines_density").getValue(), is(60.1));
-    assertThat(getPackageDamagedMeasure("comment_lines").getIntValue(), is(419));
+    assertThat(getPackageMeasure("files").getIntValue(), is(16));
+    assertThat(getPackageMeasure("classes").getIntValue(), is(16));
+    assertThat(getPackageMeasure("packages").getIntValue(), is(1));
+    assertThat(getPackageMeasure("functions").getIntValue(), is(63));
+    assertThat(getPackageMeasure("comment_lines_density").getValue(), is(60.1));
+    assertThat(getPackageMeasure("comment_lines").getIntValue(), is(419));
     assertThat(getPackageMeasure("duplicated_lines").getIntValue(), is(242));
     assertThat(getPackageMeasure("duplicated_blocks").getIntValue(), is(40));
     assertThat(getPackageMeasure("duplicated_files").getIntValue(), is(3));
     assertThat(getPackageMeasure("duplicated_lines_density").getValue(), is(5.9));
-    assertThat(getPackageDamagedMeasure("complexity").getIntValue(), is(132));
-    assertThat(getPackageDamagedMeasure("function_complexity").getValue(), is(2.1));
-    assertThat(getPackageDamagedMeasure("class_complexity").getValue(), is(8.3));
+    assertThat(getPackageMeasure("complexity").getIntValue(), is(132));
+    assertThat(getPackageMeasure("function_complexity").getValue(), is(2.1));
+    assertThat(getPackageMeasure("class_complexity").getValue(), is(8.3));
     assertThat(getPackageMeasure("violations").getIntValue(), is(78));
-    assertNull(getPackageMeasure("violations_density"));
-    assertThat(getPackageDamagedMeasure("class_complexity_distribution").getData(), is("0=7;5=3;10=2;20=1;30=1;60=0;90=0"));
-    assertThat(getPackageDamagedMeasure("function_complexity_distribution").getData(), is("1=30;2=16;4=14;6=0;8=0;10=0;12=0"));
+    assertThat(getPackageMeasure("violations_density").getValue(), is(28.4));
+    assertThat(getPackageMeasure("class_complexity_distribution").getData(), is("0=7;5=3;10=2;20=1;30=1;60=0;90=0"));
+    assertThat(getPackageMeasure("function_complexity_distribution").getData(), is("1=30;2=16;4=14;6=0;8=0;10=0;12=0"));
   }
 
   @Test
   public void filesMetrics() {
-    assertThat(getFileDamagedMeasure("ncloc").getIntValue(), is(54));
+    assertThat(getFileMeasure("ncloc").getIntValue(), is(54));
     assertThat(getFileMeasure("lines").getIntValue(), is(194));
-    assertThat(getFileDamagedMeasure("files").getIntValue(), is(1));
-    assertThat(getFileDamagedMeasure("classes").getIntValue(), is(1));
-    assertNull(getFileDamagedMeasure("packages"));
-    assertThat(getFileDamagedMeasure("functions").getIntValue(), is(10));
-    assertThat(getFileDamagedMeasure("comment_lines_density").getValue(), is(54.6));
-    assertThat(getFileDamagedMeasure("comment_lines").getIntValue(), is(65));
+    assertThat(getFileMeasure("files").getIntValue(), is(1));
+    assertThat(getFileMeasure("classes").getIntValue(), is(1));
+    assertNull(getFileMeasure("packages"));
+    assertThat(getFileMeasure("functions").getIntValue(), is(10));
+    assertThat(getFileMeasure("comment_lines_density").getValue(), is(54.6));
+    assertThat(getFileMeasure("comment_lines").getIntValue(), is(65));
     assertNull(getFileMeasure("duplicated_lines"));
     assertNull(getFileMeasure("duplicated_blocks"));
     assertNull(getFileMeasure("duplicated_files"));
     assertNull(getFileMeasure("duplicated_lines_density"));
-    assertThat(getFileDamagedMeasure("complexity").getIntValue(), is(17));
-    assertThat(getFileDamagedMeasure("function_complexity").getValue(), is(1.7));
-    assertThat(getFileDamagedMeasure("class_complexity").getValue(), is(17.0));
+    assertThat(getFileMeasure("complexity").getIntValue(), is(17));
+    assertThat(getFileMeasure("function_complexity").getValue(), is(1.7));
+    assertThat(getFileMeasure("class_complexity").getValue(), is(17.0));
     assertThat(getFileMeasure("violations").getIntValue(), is(15));
-    assertNull(getFileMeasure("violations_density"));
-    assertNull(getFileDamagedMeasure("class_complexity_distribution"));
-    assertNull(getFileDamagedMeasure("function_complexity_distribution"));
+    assertThat(getFileMeasure("violations_density").getValue(), is(3.7));
+    assertNull(getFileMeasure("class_complexity_distribution"));
+    assertNull(getFileMeasure("function_complexity_distribution"));
   }
 
   private Measure getProjectMeasure(String metricKey) {
@@ -159,15 +155,7 @@ public class As3CommonsIT {
     return sonar.find(ResourceQuery.createForMetrics(PACKAGE_COMMONS_LANG, metricKey)).getMeasure(metricKey);
   }
 
-  private Measure getPackageDamagedMeasure(String metricKey) {
-    return sonar.find(ResourceQuery.createForMetrics(PACKAGE_COMMONS_LANG_DAMAGED, metricKey)).getMeasure(metricKey);
-  }
-
   private Measure getFileMeasure(String metricKey) {
     return sonar.find(ResourceQuery.createForMetrics(FILE_OBJECT_UTILS, metricKey)).getMeasure(metricKey);
-  }
-
-  private Measure getFileDamagedMeasure(String metricKey) {
-    return sonar.find(ResourceQuery.createForMetrics(FILE_OBJECT_UTILS_DAMAGED, metricKey)).getMeasure(metricKey);
   }
 }

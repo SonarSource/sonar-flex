@@ -24,7 +24,8 @@ import org.sonar.api.resources.AbstractLanguage;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.lang.StringUtils;
 
-public class Flex extends AbstractLanguage {
+public class
+  Flex extends AbstractLanguage {
   private Configuration configuration;
   public static final String KEY = "flex";
   public static final String DEFAULT_PACKAGE_NAME = "[default]";

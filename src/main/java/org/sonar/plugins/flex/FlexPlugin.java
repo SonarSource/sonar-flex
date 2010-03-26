@@ -44,7 +44,7 @@ import java.util.List;
   project = true)
 })
 public class FlexPlugin implements Plugin {
-  public static String FLEXPMD_PLUGIN = "flexplugin";
+  public final static String FLEXPMD_PLUGIN = "flexplugin";
 
   static final String FILE_SUFFIXES_KEY = "sonar.flex.file.suffixes";
   static final String FILE_SUFFIXES_DEFVALUE = "as";

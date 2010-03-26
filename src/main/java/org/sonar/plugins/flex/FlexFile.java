@@ -39,6 +39,7 @@ public class FlexFile extends Resource<FlexPackage> {
   private FlexPackage parent = null;
 
   public FlexFile(String key) {
+    super();
     if (key != null && key.indexOf('$') >= 0) {
       throw new IllegalArgumentException("Flex inner classes are not supported : " + key);
     }
@@ -59,6 +60,7 @@ public class FlexFile extends Resource<FlexPackage> {
   }
 
   public FlexFile(String packageKey, String className) {
+    super();
     if (className != null && className.indexOf('$') >= 0) {
       throw new IllegalArgumentException("Java inner classes are not supported : " + className);
     }

@@ -30,6 +30,7 @@ public class FlexPackage extends Resource {
   public static final String DEFAULT_PACKAGE_NAME = "[default]";
 
   public FlexPackage(String key) {
+    super();
     setKey(StringUtils.defaultIfEmpty(StringUtils.trim(key), DEFAULT_PACKAGE_NAME));
   }
 

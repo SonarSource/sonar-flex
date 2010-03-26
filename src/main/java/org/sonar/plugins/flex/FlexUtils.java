@@ -22,7 +22,6 @@ package org.sonar.plugins.flex;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonar.api.utils.Logs;
 
 public final class FlexUtils {
 
@@ -31,8 +30,4 @@ public final class FlexUtils {
   }
 
   public static final Logger LOG = LoggerFactory.getLogger(FlexPlugin.class.getName());
-
-  public static final Logger INFO = Logs.INFO;
-
-
 }

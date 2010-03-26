@@ -34,7 +34,7 @@ public class FlexMetricsMavenPluginHandler implements MavenPluginHandler{
   }
 
   public String getVersion() {
-    return "1.1-SNAPSHOT";
+    return "1.1";
   }
 
   public boolean isFixedVersion() {

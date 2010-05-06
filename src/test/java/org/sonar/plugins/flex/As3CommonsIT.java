@@ -113,7 +113,9 @@ public class As3CommonsIT {
     assertThat(getPackageMeasure("duplicated_lines_density").getValue(), is(5.9));
     assertThat(getPackageMeasure("complexity").getIntValue(), is(132));
     assertThat(getPackageMeasure("function_complexity").getValue(), is(2.1));
-    assertThat(getPackageMeasure("class_complexity").getValue(), is(8.3));
+
+    // Should be 8.3, see http://jira.codehaus.org/browse/SONARPLUGINS-496
+    assertThat(getPackageMeasure("class_complexity").getValue(), is(9.4));
     assertThat(getPackageMeasure("violations").getIntValue(), is(78));
     assertThat(getPackageMeasure("violations_density").getValue(), is(28.4));
     assertThat(getPackageMeasure("class_complexity_distribution").getData(), is("0=7;5=3;10=2;20=1;30=1;60=0;90=0"));

@@ -12,8 +12,7 @@
   <artifactId>sonar-flex-plugin</artifactId>
   <version>0.2-SNAPSHOT</version>
   <name>Sonar Flex plugin</name>
-
-  
+  <description>Enables analysis of ActionScript projects into Sonar.</description>
 
   <properties>
     <sonar.plugin.class>org.sonar.plugins.flex.FlexPlugin</sonar.plugin.class>

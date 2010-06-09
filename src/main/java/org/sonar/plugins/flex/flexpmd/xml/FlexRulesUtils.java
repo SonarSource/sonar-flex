@@ -32,6 +32,7 @@ import org.sonar.api.rules.Iso9126RulesCategories;
 public class FlexRulesUtils {
   public static Ruleset buildRuleSetFromXml(String configuration) {
     XStream xstream = new XStream();
+    xstream.setClassLoader(FlexRulesUtils.class.getClassLoader());
     xstream.processAnnotations(Ruleset.class);
     xstream.processAnnotations(FlexRule.class);
     xstream.processAnnotations(Property.class);
@@ -51,6 +52,7 @@ public class FlexRulesUtils {
 
   public static String buildXmlFromRuleset(Ruleset tree) {
     XStream xstream = new XStream();
+    xstream.setClassLoader(FlexRulesUtils.class.getClassLoader());
     xstream.processAnnotations(Ruleset.class);
     xstream.processAnnotations(FlexRule.class);
     xstream.processAnnotations(Property.class);

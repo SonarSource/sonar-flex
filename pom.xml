@@ -11,14 +11,45 @@
   <groupId>org.codehaus.sonar-plugins</groupId>
   <artifactId>sonar-flex-plugin</artifactId>
   <version>0.3-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
   <name>Sonar Flex plugin</name>
   <description>Enables analysis of ActionScript projects into Sonar.</description>
+  <url>http://docs.codehaus.org/display/SONAR/Sonar+Flex+Plugin</url>
+  <inceptionYear>2010</inceptionYear>
+  <organization>
+    <name>SonarSource</name>
+    <url>http://www.sonarsource.com</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>GNU LGPL 3</name>
+      <url>http://www.gnu.org/licenses/lgpl.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>ogaudin</id>
+      <name>Olivier Gaudin</name>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/flex</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/flex</developerConnection>
+    <url>http://svn.codehaus.org/sonar-plugins</url>
+  </scm>
+  <issueManagement>
+    <system>JIRA</system>
+    <url>http://jira.codehaus.org/browse/SONARPLUGINS/component/14297</url>
+  </issueManagement>
 
   <properties>
     <sonar.plugin.class>org.sonar.plugins.flex.FlexPlugin</sonar.plugin.class>
     <sonar.version>2.0.1</sonar.version>
   </properties>
-
 
   <dependencies>
     <dependency>
@@ -223,15 +254,4 @@
       </repositories>
     </profile>
   </profiles>
-
-  <scm>
-    <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/flex</connection>
-    <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/flex</developerConnection>
-    <url>http://svn.codehaus.org/sonar-plugins</url>
-  </scm>
-  <issueManagement>
-    <system>JIRA</system>
-    <url>http://jira.codehaus.org/browse/SONARPLUGINS/component/14297</url>
-  </issueManagement>
-
 </project>

@@ -32,4 +32,3 @@ public class FlexFootprint implements LanguageFootprint {
     return Collections.emptySet();
   }
 }
-

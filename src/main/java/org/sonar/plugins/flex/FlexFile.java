@@ -159,4 +159,3 @@ public class FlexFile extends Resource<FlexPackage> {
       .toString();
   }
 }
-

@@ -48,4 +48,3 @@ public class FlexSquidSensorTest {
     verify(context).saveMeasure((Resource) anyObject(), eq(CoreMetrics.LINES), eq(102.0));
   }
 }
-

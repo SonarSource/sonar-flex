@@ -49,5 +49,3 @@ public class FlexNoSonarFilter implements ViolationFilter {
     return false;
   }
 }
-
-

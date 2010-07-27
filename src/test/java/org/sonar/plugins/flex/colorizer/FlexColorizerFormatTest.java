@@ -48,5 +48,4 @@ public class FlexColorizerFormatTest {
     fail("Tokenizer not found: " + tokenizerClass);
     return null;
   }
-    
 }

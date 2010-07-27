@@ -83,7 +83,7 @@ public class FlexMetricsSensorTest {
     verify(context).saveMeasure(new FlexFile("com.almirun.common.util.loremipsum.LoremIpsumUrlLoader"), CoreMetrics.CLASSES, 1.0);
     verify(context).saveMeasure(new FlexFile("com.almirun.common.util.loremipsum.LoremIpsumUrlLoader"), CoreMetrics.FUNCTIONS, 3.0);
     verify(context).saveMeasure(new FlexFile("com.almirun.common.net.SmartUrlLoader"), CoreMetrics.COMMENT_LINES, 46.0);
-    
+
     verify(context, never()).saveMeasure(eq(new FlexFile("com.almirun.common.controllers")), eq(CoreMetrics.NCLOC), anyDouble());
     verify(context, never()).saveMeasure(eq(new FlexFile("com.almirun.common.controllers")), eq(CoreMetrics.FUNCTIONS), anyDouble());
   }

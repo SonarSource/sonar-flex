@@ -5,17 +5,18 @@
   <parent>
     <groupId>org.codehaus.sonar-plugins</groupId>
     <artifactId>parent</artifactId>
-    <version>5</version>
+    <version>6</version>
     <relativePath>../parent</relativePath>
   </parent>
-  <groupId>org.codehaus.sonar-plugins</groupId>
+
   <artifactId>sonar-flex-plugin</artifactId>
   <version>0.3-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>sonar-plugin</packaging>
 
-  <name>Sonar Flex plugin</name>
+  <name>Sonar Flex Plugin</name>
   <description>Enables analysis of ActionScript projects into Sonar.</description>
   <url>http://docs.codehaus.org/display/SONAR/Sonar+Flex+Plugin</url>
+
   <inceptionYear>2010</inceptionYear>
   <organization>
     <name>SonarSource</name>
@@ -47,8 +48,8 @@
   </issueManagement>
 
   <properties>
-    <sonar.plugin.class>org.sonar.plugins.flex.FlexPlugin</sonar.plugin.class>
-    <sonar.version>2.0.1</sonar.version>
+    <sonar.pluginClass>org.sonar.plugins.flex.FlexPlugin</sonar.pluginClass>
+    <sonar.version>2.2</sonar.version>
   </properties>
 
   <dependencies>
@@ -56,45 +57,14 @@
       <groupId>org.codehaus.sonar</groupId>
       <artifactId>sonar-plugin-api</artifactId>
       <version>${sonar.version}</version>
+      <scope>provided</scope>
     </dependency>
-
     <!-- unit tests -->
     <dependency>
       <groupId>org.codehaus.sonar</groupId>
-      <artifactId>sonar-plugin-api</artifactId>
+      <artifactId>sonar-testing-harness</artifactId>
       <version>${sonar.version}</version>
       <scope>test</scope>
-      <classifier>tests</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.sonar</groupId>
-      <artifactId>sonar-plugin-api</artifactId>
-      <version>${sonar.version}</version>
-      <scope>test</scope>
-      <type>test-jar</type>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.7</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-all</artifactId>
-      <version>1.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <version>1.7</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>xmlunit</groupId>
-      <artifactId>xmlunit</artifactId>
-      <version>1.2</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
@@ -106,32 +76,13 @@
       <groupId>commons-httpclient</groupId>
       <artifactId>commons-httpclient</artifactId>
       <version>3.1</version>
+      <scope>test</scope>
       <exclusions>
         <exclusion>
           <groupId>commons-logging</groupId>
           <artifactId>commons-logging</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.5.6</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl-over-slf4j</artifactId>
-      <version>1.5.6</version>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>0.9.15</version>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-core</artifactId>
-      <version>0.9.15</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.sonar</groupId>
@@ -141,22 +92,6 @@
     </dependency>
   </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-        <!-- complete META-INF/MANIFEST.MF -->
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifestEntries>
-              <Plugin-Class>${sonar.plugin.class}</Plugin-Class>
-            </manifestEntries>
-          </archive>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
   <profiles>
     <profile>
       <id>integration-tests</id>

@@ -137,8 +137,9 @@ public class FlexMetricsSensor implements Sensor, DependsUponMavenPlugin {
         addUpComplexityToClassDistribution(ccnDistributionPerClass, ccnForFunction, packageAndClassName);
       }
     }
-    for (String fullname : ccnCountPerClass.keySet()) {
-      Integer ccnForClass = ccnCountPerClass.get(fullname);
+    for (Map.Entry<String, Integer> entry : ccnCountPerClass.entrySet()) {
+      String fullname = entry.getKey();
+      Integer ccnForClass = entry.getValue();
       context.saveMeasure(new FlexFile(fullname), CoreMetrics.COMPLEXITY, ccnForClass.doubleValue());
       RangeDistributionBuilder ccnDistribution = new RangeDistributionBuilder(CoreMetrics.CLASS_COMPLEXITY_DISTRIBUTION, CLASSES_DISTRIB_BOTTOM_LIMITS);
       ccnDistribution.add(ccnForClass.doubleValue());

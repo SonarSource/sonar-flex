@@ -54,6 +54,12 @@ public class FlexCpdMavenPluginHandler implements MavenPluginHandler {
   }
 
   public void configure(Project pom, MavenPlugin plugin) {
-    plugin.setParameter("minimumTokenCount", configuration.getString(CoreProperties.CPD_MINIMUM_TOKENS_PROPERTY, Integer.toString(CoreProperties.CPD_MINIMUM_TOKENS_DEFAULT_VALUE)));
+    plugin.setParameter(
+        "minimumTokenCount",
+        configuration.getString(
+            CoreProperties.CPD_MINIMUM_TOKENS_PROPERTY,
+            Integer.toString(CoreProperties.CPD_MINIMUM_TOKENS_DEFAULT_VALUE)
+        )
+    );
   }
 }

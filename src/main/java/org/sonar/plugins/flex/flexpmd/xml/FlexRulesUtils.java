@@ -21,15 +21,18 @@
 package org.sonar.plugins.flex.flexpmd.xml;
 
 import com.thoughtworks.xstream.XStream;
-import java.io.InputStream;
-import java.io.IOException;
-
 import org.apache.commons.io.IOUtils;
-import org.sonar.api.utils.SonarException;
-import org.sonar.api.rules.RulesCategory;
 import org.sonar.api.rules.Iso9126RulesCategories;
+import org.sonar.api.rules.RulesCategory;
+import org.sonar.api.utils.SonarException;
 
-public class FlexRulesUtils {
+import java.io.IOException;
+import java.io.InputStream;
+
+public final class FlexRulesUtils {
+  private FlexRulesUtils() {
+  }
+
   public static Ruleset buildRuleSetFromXml(String configuration) {
     XStream xstream = new XStream();
     xstream.setClassLoader(FlexRulesUtils.class.getClassLoader());
@@ -71,7 +74,7 @@ public class FlexRulesUtils {
       configuration = IOUtils.toString(inputStream, "UTF-8");
     }
     catch (IOException e) {
-      throw new SonarException("Configuration file not found for the profile : " + configuration, e);
+      throw new SonarException("Unable to read configuration file for the profile : " + path, e);
     }
     finally {
       IOUtils.closeQuietly(inputStream);

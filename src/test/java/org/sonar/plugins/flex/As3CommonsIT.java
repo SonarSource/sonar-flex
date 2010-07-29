@@ -22,14 +22,13 @@ package org.sonar.plugins.flex;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import static org.hamcrest.Matchers.anyOf;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.core.Is.is;
 import org.sonar.wsclient.Sonar;
-import org.sonar.wsclient.services.ResourceQuery;
 import org.sonar.wsclient.services.Measure;
+import org.sonar.wsclient.services.ResourceQuery;
+
 import static junit.framework.Assert.assertNull;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 public class As3CommonsIT {
 
@@ -64,12 +63,11 @@ public class As3CommonsIT {
     assertThat(getProjectMeasure("comment_lines_density").getValue(), is(52.0));
     assertThat(getProjectMeasure("comment_lines").getIntValue(), is(1481));
 
-    // CDP does not give same results where run with JDK 5 or 6
-    assertThat(getProjectMeasure("duplicated_lines").getIntValue(), anyOf(is(416), is(422)));
-    assertThat(getProjectMeasure("duplicated_blocks").getIntValue(), anyOf(is(70), is(72)));
-    assertThat(getProjectMeasure("duplicated_lines_density").getValue(), anyOf(is(4.3), is(4.4)));
+    assertThat(getProjectMeasure("duplicated_lines").getIntValue(), is(0));
+    assertThat(getProjectMeasure("duplicated_blocks").getIntValue(), is(0));
+    assertThat(getProjectMeasure("duplicated_lines_density").getValue(), is(0.0));
+    assertThat(getProjectMeasure("duplicated_files").getIntValue(), is(0));
 
-    assertThat(getProjectMeasure("duplicated_files").getIntValue(), is(15));
     assertThat(getProjectMeasure("complexity").getIntValue(), is(538));
     assertThat(getProjectMeasure("function_complexity").getValue(), is(1.6));
     assertThat(getProjectMeasure("class_complexity").getValue(), is(7.8));
@@ -90,12 +88,11 @@ public class As3CommonsIT {
     assertThat(getModuleMeasure("comment_lines_density").getValue(), is(56.7));
     assertThat(getModuleMeasure("comment_lines").getIntValue(), is(491));
 
-    // CDP does not give same results where run with JDK 5 or 6
-    assertThat(getModuleMeasure("duplicated_lines").getIntValue(), anyOf(is(242), is(248)));
-    assertThat(getModuleMeasure("duplicated_blocks").getIntValue(), anyOf(is(40), is(42)));
-    assertThat(getModuleMeasure("duplicated_lines_density").getValue(), anyOf(is(5.4), is(5.5)));
+    assertThat(getModuleMeasure("duplicated_lines").getIntValue(), is(0));
+    assertThat(getModuleMeasure("duplicated_blocks").getIntValue(), is(0));
+    assertThat(getModuleMeasure("duplicated_lines_density").getValue(), is(0.0));
+    assertThat(getModuleMeasure("duplicated_files").getIntValue(), is(0));
 
-    assertThat(getModuleMeasure("duplicated_files").getIntValue(), is(3));
     assertThat(getModuleMeasure("complexity").getIntValue(), is(179));
     assertThat(getModuleMeasure("function_complexity").getValue(), is(2.2));
     assertThat(getModuleMeasure("class_complexity").getValue(), is(9.4));
@@ -116,12 +113,11 @@ public class As3CommonsIT {
     assertThat(getPackageMeasure("comment_lines_density").getValue(), is(60.1));
     assertThat(getPackageMeasure("comment_lines").getIntValue(), is(419));
 
-    // CDP does not give same results where run with JDK 5 or 6
-    assertThat(getPackageMeasure("duplicated_lines").getIntValue(), anyOf(is(242), is(248)));
-    assertThat(getPackageMeasure("duplicated_blocks").getIntValue(), anyOf(is(40), is(42)));
-    assertThat(getPackageMeasure("duplicated_lines_density").getValue(),  anyOf(is(6.0), is(5.9)));
+    assertThat(getPackageMeasure("duplicated_lines").getIntValue(), is(0));
+    assertThat(getPackageMeasure("duplicated_blocks").getIntValue(), is(0));
+    assertThat(getPackageMeasure("duplicated_lines_density").getValue(), is(0.0));
+    assertThat(getPackageMeasure("duplicated_files").getIntValue(), is(0));
 
-    assertThat(getPackageMeasure("duplicated_files").getIntValue(), is(3));
     assertThat(getPackageMeasure("complexity").getIntValue(), is(132));
     assertThat(getPackageMeasure("function_complexity").getValue(), is(2.1));
 

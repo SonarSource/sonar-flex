@@ -45,7 +45,7 @@ public class FlexPmdRulesRepositoryTest {
   @Test
   public void loadFlexRulesRepositoryAndCheckMandatoryFields() {
     List<Rule> rules = repository.getInitialReferential();
-    assertThat(rules.size(), is(82));
+    assertThat(rules.size(), is(94));
     for (Rule rule : rules) {
       assertNotNull(rule.getKey());
       assertNotNull(rule.getDescription());
@@ -65,7 +65,7 @@ public class FlexPmdRulesRepositoryTest {
   @Test
   public void testBuildProvidedProfile() {
     List<ActiveRule> defaultProfile = repository.getProvidedProfiles().get(0).getActiveRules();
-    assertThat(defaultProfile.size(), is(66));
+    assertThat(defaultProfile.size(), is(87));
   }
 
   @Test

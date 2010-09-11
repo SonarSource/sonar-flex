@@ -442,7 +442,7 @@ public class SomeClass
    }
 }]]></example>
   </rule>
-  <rule since="" class="com.adobe.ac.pmd.rules.naming.UncorrectClassCase" message="A class name must start by a majuscule character">
+  <rule since="" class="com.adobe.ac.pmd.rules.naming.IncorrectClassCase" message="A class name must start by a majuscule character">
     <description/>
     <priority>3</priority>
     <example><![CDATA[public class foo // VIOLATION

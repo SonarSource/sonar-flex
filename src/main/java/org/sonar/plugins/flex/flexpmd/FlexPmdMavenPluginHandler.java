@@ -47,7 +47,7 @@ public class FlexPmdMavenPluginHandler implements MavenPluginHandler {
   }
 
   public String getVersion() {
-    return "1.0";
+    return "1.2";
   }
 
   public boolean isFixedVersion() {

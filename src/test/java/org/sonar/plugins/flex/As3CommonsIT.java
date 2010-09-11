@@ -54,79 +54,78 @@ public class As3CommonsIT {
 
   @Test
   public void projectsMetrics() {
-    assertThat(getProjectMeasure("ncloc").getIntValue(), is(1368));
+    assertThat(getProjectMeasure("ncloc").getIntValue(), is(1746));
     assertThat(getProjectMeasure("lines").getIntValue(), is(9603));
     assertThat(getProjectMeasure("files").getIntValue(), is(69));
     assertThat(getProjectMeasure("classes").getIntValue(), is(69));
     assertThat(getProjectMeasure("packages").getIntValue(), is(15));
-    assertThat(getProjectMeasure("functions").getIntValue(), is(340));
-    assertThat(getProjectMeasure("comment_lines_density").getValue(), is(52.0));
-    assertThat(getProjectMeasure("comment_lines").getIntValue(), is(1481));
+    assertThat(getProjectMeasure("functions").getIntValue(), is(421));
+    assertThat(getProjectMeasure("comment_lines_density").getValue(), is(62.2));
+    assertThat(getProjectMeasure("comment_lines").getIntValue(), is(2870));
 
     assertThat(getProjectMeasure("duplicated_lines").getIntValue(), is(0));
     assertThat(getProjectMeasure("duplicated_blocks").getIntValue(), is(0));
     assertThat(getProjectMeasure("duplicated_lines_density").getValue(), is(0.0));
     assertThat(getProjectMeasure("duplicated_files").getIntValue(), is(0));
 
-    assertThat(getProjectMeasure("complexity").getIntValue(), is(538));
-    assertThat(getProjectMeasure("function_complexity").getValue(), is(1.6));
-    assertThat(getProjectMeasure("class_complexity").getValue(), is(7.8));
-    assertThat(getProjectMeasure("violations").getIntValue(), is(202));
-    assertThat(getProjectMeasure("violations_density").getValue(), is(50.4));
-    assertThat(getProjectMeasure("class_complexity_distribution").getData(), is("0=30;5=14;10=16;20=1;30=2;60=1;90=0"));
-    assertThat(getProjectMeasure("function_complexity_distribution").getData(), is("1=222;2=54;4=27;6=4;8=0;10=0;12=3"));
+    assertThat(getProjectMeasure("complexity").getIntValue(), is(784));
+    assertThat(getProjectMeasure("function_complexity").getValue(), is(1.9));
+    assertThat(getProjectMeasure("class_complexity").getValue(), is(11.4));
+    assertThat(getProjectMeasure("violations").getIntValue(), is(216));
+    assertThat(getProjectMeasure("violations_density").getValue(), is(18.8));
+    assertThat(getProjectMeasure("class_complexity_distribution").getData(), is("0=30;5=14;10=16;20=1;30=2;60=1;90=1"));
+    assertThat(getProjectMeasure("function_complexity_distribution").getData(), is("1=252;2=83;4=42;6=4;8=5;10=0;12=5"));
   }
 
   @Test
   public void moduleMetrics() {
-    assertThat(getModuleMeasure("ncloc").getIntValue(), is(375));
+    assertThat(getModuleMeasure("ncloc").getIntValue(), is(753));
     assertThat(getModuleMeasure("lines").getIntValue(), is(4495));
     assertThat(getModuleMeasure("files").getIntValue(), is(19));
     assertThat(getModuleMeasure("classes").getIntValue(), is(19));
     assertThat(getModuleMeasure("packages").getIntValue(), is(2));
-    assertThat(getModuleMeasure("functions").getIntValue(), is(81));
-    assertThat(getModuleMeasure("comment_lines_density").getValue(), is(56.7));
-    assertThat(getModuleMeasure("comment_lines").getIntValue(), is(491));
+    assertThat(getModuleMeasure("functions").getIntValue(), is(162));
+    assertThat(getModuleMeasure("comment_lines_density").getValue(), is(71.6));
+    assertThat(getModuleMeasure("comment_lines").getIntValue(), is(1898));
 
     assertThat(getModuleMeasure("duplicated_lines").getIntValue(), is(0));
     assertThat(getModuleMeasure("duplicated_blocks").getIntValue(), is(0));
     assertThat(getModuleMeasure("duplicated_lines_density").getValue(), is(0.0));
     assertThat(getModuleMeasure("duplicated_files").getIntValue(), is(0));
 
-    assertThat(getModuleMeasure("complexity").getIntValue(), is(179));
-    assertThat(getModuleMeasure("function_complexity").getValue(), is(2.2));
-    assertThat(getModuleMeasure("class_complexity").getValue(), is(9.4));
-    assertThat(getModuleMeasure("violations").getIntValue(), is(93));
-    assertThat(getModuleMeasure("violations_density").getValue(), is(33.1));
-    assertThat(getModuleMeasure("class_complexity_distribution").getData(), is("0=8;5=3;10=3;20=1;30=2;60=0;90=0"));
-    assertThat(getModuleMeasure("function_complexity_distribution").getData(), is("1=39;2=21;4=17;6=0;8=0;10=0;12=1"));
+    assertThat(getModuleMeasure("complexity").getIntValue(), is(425));
+    assertThat(getModuleMeasure("function_complexity").getValue(), is(2.6));
+    assertThat(getModuleMeasure("class_complexity").getValue(), is(22.4));
+    assertThat(getModuleMeasure("violations").getIntValue(), is(114));
+    assertThat(getModuleMeasure("violations_density").getValue(), is(10.9));
+    assertThat(getModuleMeasure("class_complexity_distribution").getData(), is("0=8;5=3;10=3;20=1;30=2;60=0;90=1"));
+    assertThat(getModuleMeasure("function_complexity_distribution").getData(), is("1=69;2=50;4=32;6=0;8=5;10=0;12=3"));
   }
 
   @Test
   public void packagesMetrics() {
-    assertThat(getPackageMeasure("ncloc").getIntValue(), is(278));
+    assertThat(getPackageMeasure("ncloc").getIntValue(), is(656));
     assertThat(getPackageMeasure("lines").getIntValue(), is(4134));
     assertThat(getPackageMeasure("files").getIntValue(), is(16));
     assertThat(getPackageMeasure("classes").getIntValue(), is(16));
     assertThat(getPackageMeasure("packages").getIntValue(), is(1));
-    assertThat(getPackageMeasure("functions").getIntValue(), is(63));
-    assertThat(getPackageMeasure("comment_lines_density").getValue(), is(60.1));
-    assertThat(getPackageMeasure("comment_lines").getIntValue(), is(419));
+    assertThat(getPackageMeasure("functions").getIntValue(), is(144));
+    assertThat(getPackageMeasure("comment_lines_density").getValue(), is(73.6));
+    assertThat(getPackageMeasure("comment_lines").getIntValue(), is(1826));
 
     assertThat(getPackageMeasure("duplicated_lines").getIntValue(), is(0));
     assertThat(getPackageMeasure("duplicated_blocks").getIntValue(), is(0));
     assertThat(getPackageMeasure("duplicated_lines_density").getValue(), is(0.0));
     assertThat(getPackageMeasure("duplicated_files").getIntValue(), is(0));
 
-    assertThat(getPackageMeasure("complexity").getIntValue(), is(132));
-    assertThat(getPackageMeasure("function_complexity").getValue(), is(2.1));
+    assertThat(getPackageMeasure("complexity").getIntValue(), is(378));
+    assertThat(getPackageMeasure("function_complexity").getValue(), is(2.6));
 
-    // Should be 8.3, see http://jira.codehaus.org/browse/SONARPLUGINS-496
-    assertThat(getPackageMeasure("class_complexity").getValue(), is(9.4));
-    assertThat(getPackageMeasure("violations").getIntValue(), is(78));
-    assertThat(getPackageMeasure("violations_density").getValue(), is(28.4));
-    assertThat(getPackageMeasure("class_complexity_distribution").getData(), is("0=7;5=3;10=2;20=1;30=1;60=0;90=0"));
-    assertThat(getPackageMeasure("function_complexity_distribution").getData(), is("1=30;2=16;4=14;6=0;8=0;10=0;12=0"));
+    assertThat(getPackageMeasure("class_complexity").getValue(), is(25.2));
+    assertThat(getPackageMeasure("violations").getIntValue(), is(93));
+    assertThat(getPackageMeasure("violations_density").getValue(), is(21.2));
+    assertThat(getPackageMeasure("class_complexity_distribution").getData(), is("0=7;5=3;10=2;20=1;30=1;60=0;90=1"));
+    assertThat(getPackageMeasure("function_complexity_distribution").getData(), is("1=60;2=45;4=29;6=0;8=5;10=0;12=2"));
   }
 
   @Test
@@ -146,8 +145,8 @@ public class As3CommonsIT {
     assertThat(getFileMeasure("complexity").getIntValue(), is(17));
     assertThat(getFileMeasure("function_complexity").getValue(), is(1.7));
     assertThat(getFileMeasure("class_complexity").getValue(), is(17.0));
-    assertThat(getFileMeasure("violations").getIntValue(), is(15));
-    assertThat(getFileMeasure("violations_density").getValue(), is(3.7));
+    assertThat(getFileMeasure("violations").getIntValue(), is(24));
+    assertThat(getFileMeasure("violations_density").getValue(), is(0.0));
     assertNull(getFileMeasure("class_complexity_distribution"));
     assertNull(getFileMeasure("function_complexity_distribution"));
   }

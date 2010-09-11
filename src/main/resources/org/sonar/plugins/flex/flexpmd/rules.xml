@@ -578,7 +578,7 @@ public class SomeClass
    }
 }]]></example>
   </rule>
-  <rule since="" class="com.adobe.ac.pmd.rules.naming.UncorrectClassCase" message="A class name must start by a majuscule character">
+  <rule since="" class="com.adobe.ac.pmd.rules.naming.IncorrectClassCase" message="A class name must start by a majuscule character">
     <description/>
     <priority>3</priority>
 		<category>Maintainability</category>
@@ -913,4 +913,87 @@ public class SomeClass
     <priority>2</priority>
 		<category>Maintainability</category>
   </rule>
+  	<rule class="com.adobe.ac.pmd.rules.security.InsecureExactSettingsRule"
+		message="Security.exactSettings is set to an insecure value">
+		<description/>
+		<priority>1</priority>
+		<category>Reliability</category>
+	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.security.AllowAllSecureDomainRule"
+		message="Security.allowDomain is set to an insecure value">
+		<description/>
+		<priority>1</priority>
+		<category>Reliability</category>
+	</rule>
+	
+	<rule class="com.adobe.ac.pmd.rules.security.LocalConnectionStarRule"
+		message="LocalConnection.allowDomain is set to an insecure value">
+		<description/>
+		<priority>1</priority>
+		<category>Reliability</category>
+	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.security.AllowInsecureDomainRule"
+		message="Potentially unnecessary use of allowInsecureDomain">
+		<description/>
+		<priority>1</priority>
+		<category>Reliability</category>
+	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.security.LSOSecureFalseRule"
+		message="The secure flag is set to false">
+		<description/>
+		<priority>4</priority>
+		<category>Reliability</category>
+	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.security.ImportLoadBestPracticeRule"
+		message="Set allowCodeImport to false when import loading images">
+		<description/>
+		<priority>4</priority>
+		<category>Reliability</category>
+	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.security.InsecureExactSettingsRule"
+		message="Security.exactSettings is set to an insecure value">
+		<priority>1</priority>
+		<category>Reliability</category>
+	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.security.AllowAllSecureDomainRule"
+		message="Security.allowDomain is set to an insecure value">
+		<description />
+		<priority>1</priority>
+		<category>Reliability</category>
+	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.security.LocalConnectionStarRule"
+		message="LocalConnection.allowDomain is set to an insecure value">
+		<description />
+		<priority>1</priority>
+		<category>Reliability</category>
+	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.security.AllowInsecureDomainRule"
+		message="Potentially unnecessary use of allowInsecureDomain">
+		<description />
+		<priority>1</priority>
+		<category>Reliability</category>
+	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.security.LSOSecureFalseRule"
+		message="The secure flag is set to false">
+		<description />
+		<priority>5</priority>
+		<category>Reliability</category>
+	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.security.ImportLoadBestPracticeRule"
+		message="Set allowCodeImport to false when import loading images">
+		<description />
+		<priority>5</priority>
+		<category>Reliability</category>
+	</rule>
+
 </ruleset>

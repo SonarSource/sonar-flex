@@ -34,7 +34,7 @@ public class FlexSourceImporter extends AbstractSourceImporter {
 
   @Override
   protected Resource createResource(File file, List<File> sourceDirs, boolean unitTest) {
-    return file != null ? FlexFile.fromIOFile(file, sourceDirs) : null;
+    return file != null ? FlexFile.fromIOFile(file, sourceDirs, unitTest) : null;
   }
 
   @Override

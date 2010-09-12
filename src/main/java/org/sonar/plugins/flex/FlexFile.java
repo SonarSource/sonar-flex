@@ -20,12 +20,12 @@
 
 package org.sonar.plugins.flex;
 
-import org.sonar.api.utils.WildcardPattern;
-import org.sonar.api.resources.Resource;
-import org.sonar.api.resources.Language;
-import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.sonar.api.resources.DefaultProjectFileSystem;
+import org.sonar.api.resources.Language;
+import org.sonar.api.resources.Resource;
+import org.sonar.api.utils.WildcardPattern;
 
 import java.io.File;
 import java.util.List;
@@ -38,12 +38,23 @@ public class FlexFile extends Resource<FlexPackage> {
   private boolean unitTest = false;
   private FlexPackage parent = null;
 
+  /**
+   * SONARPLUGINS-666: For backward compatibility
+   */
   public FlexFile(String key) {
+    this(key, false);
+  }
+
+  /**
+   * @param unitTest whether it is a unit test file or a source file
+   */
+  public FlexFile(String key, boolean unitTest) {
     super();
     if (key != null && key.indexOf('$') >= 0) {
       throw new IllegalArgumentException("Flex inner classes are not supported : " + key);
     }
     String realKey = StringUtils.trim(key);
+    this.unitTest = unitTest;
 
     if (realKey.contains(".")) {
       this.filename = StringUtils.substringAfterLast(realKey, ".");
@@ -59,7 +70,17 @@ public class FlexFile extends Resource<FlexPackage> {
     setKey(realKey);
   }
 
+  /**
+   * SONARPLUGINS-666: For backward compatibility
+   */
   public FlexFile(String packageKey, String className) {
+    this(packageKey, className, false);
+  }
+
+  /**
+   * @param unitTest whether it is a unit test file or a source file
+   */
+  public FlexFile(String packageKey, String className, boolean unitTest) {
     super();
     if (className != null && className.indexOf('$') >= 0) {
       throw new IllegalArgumentException("Java inner classes are not supported : " + className);
@@ -76,9 +97,8 @@ public class FlexFile extends Resource<FlexPackage> {
       this.longName = key;
     }
     setKey(key);
+    this.unitTest = unitTest;
   }
-
-
 
   public FlexPackage getParent() {
     if (parent == null) {
@@ -121,7 +141,20 @@ public class FlexFile extends Resource<FlexPackage> {
     return matcher.match(getKey());
   }
 
+  /**
+   * SONARPLUGINS-666: For backward compatibility
+   */
   public static FlexFile fromIOFile(File file, List<File> sourceDirs) {
+    return fromIOFile(file, sourceDirs, false);
+  }
+
+  /**
+   * Creates a FlexFile from a file in the source directories
+   *
+   * @param unitTest whether it is a unit test file or a source file
+   * @return the JavaFile created if exists, null otherwise
+   */
+  public static FlexFile fromIOFile(File file, List<File> sourceDirs, boolean unitTest) {
     if (file == null) {
       return null;
     }
@@ -136,18 +169,20 @@ public class FlexFile extends Resource<FlexPackage> {
         classname = StringUtils.substringAfterLast(relativePath, "/");
       }
       classname = StringUtils.substringBeforeLast(classname, ".");
-      return new FlexFile(pacname, classname);
+      return new FlexFile(pacname, classname, unitTest);
     }
     return null;
   }
 
+  /**
+   * Shortcut to fromIOFile with an abolute path
+   */
   public static FlexFile fromAbsolutePath(String path, List<File> sourceDirs, boolean unitTest) {
     if (path == null) {
       return null;
     }
-    return fromIOFile(new File(path), sourceDirs);
+    return fromIOFile(new File(path), sourceDirs, unitTest);
   }
-
 
   @Override
   public String toString() {

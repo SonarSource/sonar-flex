@@ -145,8 +145,9 @@ public class FlexMetricsSensor implements Sensor, DependsUponMavenPlugin {
       ccnDistribution.add(ccnForClass.doubleValue());
       context.saveMeasure(new FlexFile(fullname), ccnDistribution.build().setPersistenceMode(PersistenceMode.MEMORY));
     }
-    for (String fullname : ccnDistributionPerClass.keySet()) {
-      RangeDistributionBuilder ccnDistributionForClass = ccnDistributionPerClass.get(fullname);
+    for (Map.Entry<String, RangeDistributionBuilder> entry: ccnDistributionPerClass.entrySet()) {
+      String fullname = entry.getKey();
+      RangeDistributionBuilder ccnDistributionForClass = entry.getValue();
       context.saveMeasure(new FlexFile(fullname), ccnDistributionForClass.build().setPersistenceMode(PersistenceMode.MEMORY));
     }
   }

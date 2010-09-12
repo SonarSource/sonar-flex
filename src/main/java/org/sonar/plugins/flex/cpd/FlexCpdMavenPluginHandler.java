@@ -20,11 +20,11 @@
 
 package org.sonar.plugins.flex.cpd;
 
+import org.apache.commons.configuration.Configuration;
+import org.sonar.api.CoreProperties;
 import org.sonar.api.batch.maven.MavenPlugin;
 import org.sonar.api.batch.maven.MavenPluginHandler;
 import org.sonar.api.resources.Project;
-import org.sonar.api.CoreProperties;
-import org.apache.commons.configuration.Configuration;
 
 public class FlexCpdMavenPluginHandler implements MavenPluginHandler {
   private Configuration configuration;
@@ -55,11 +55,11 @@ public class FlexCpdMavenPluginHandler implements MavenPluginHandler {
 
   public void configure(Project pom, MavenPlugin plugin) {
     plugin.setParameter(
-        "minimumTokenCount",
-        configuration.getString(
-            CoreProperties.CPD_MINIMUM_TOKENS_PROPERTY,
-            Integer.toString(CoreProperties.CPD_MINIMUM_TOKENS_DEFAULT_VALUE)
-        )
+      "minimumTokenCount",
+      configuration.getString(
+        CoreProperties.CPD_MINIMUM_TOKENS_PROPERTY,
+        Integer.toString(CoreProperties.CPD_MINIMUM_TOKENS_DEFAULT_VALUE)
+      )
     );
   }
 }

@@ -26,21 +26,21 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 @XStreamAlias("property")
 public class Property {
 
-    @XStreamAsAttribute
-    private String name;
+  @XStreamAsAttribute
+  private String name;
 
-    private String value;
+  private String value;
 
-    public Property(String name, String value) {
-        this.name = name;
-        this.value = value;
-    }
+  public Property(String name, String value) {
+    this.name = name;
+    this.value = value;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getValue() {
-        return value;
-    }
+  public String getValue() {
+    return value;
+  }
 }

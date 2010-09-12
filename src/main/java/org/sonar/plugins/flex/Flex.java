@@ -20,12 +20,11 @@
 
 package org.sonar.plugins.flex;
 
-import org.sonar.api.resources.AbstractLanguage;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.lang.StringUtils;
+import org.sonar.api.resources.AbstractLanguage;
 
-public class
-  Flex extends AbstractLanguage {
+public class Flex extends AbstractLanguage {
   private Configuration configuration;
   public static final String KEY = "flex";
   public static final String DEFAULT_PACKAGE_NAME = "[default]";
@@ -39,13 +38,13 @@ public class
     // See SONAR-1461
     INSTANCE = this;
   }
-  
-   public String[] getFileSuffixes() {
-     String[] suffixes = configuration.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY);
-     if (suffixes == null || suffixes.length == 0) {
-       suffixes = StringUtils.split(FlexPlugin.FILE_SUFFIXES_DEFVALUE, ",");
-     }
-     return suffixes;
+
+  public String[] getFileSuffixes() {
+    String[] suffixes = configuration.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY);
+    if (suffixes == null || suffixes.length == 0) {
+      suffixes = StringUtils.split(FlexPlugin.FILE_SUFFIXES_DEFVALUE, ",");
+    }
+    return suffixes;
   }
 
 }

@@ -22,17 +22,17 @@ package org.sonar.plugins.flex.cpd;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.sonar.api.batch.maven.MavenPluginHandler;
-import org.sonar.api.batch.maven.DependsUponMavenPlugin;
-import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.Sensor;
-import org.sonar.api.resources.Project;
-import org.sonar.api.resources.Resource;
-import org.sonar.api.utils.XpathParser;
-import org.sonar.api.utils.XmlParserException;
-import org.sonar.api.utils.ParsingUtils;
+import org.sonar.api.batch.SensorContext;
+import org.sonar.api.batch.maven.DependsUponMavenPlugin;
+import org.sonar.api.batch.maven.MavenPluginHandler;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Measure;
+import org.sonar.api.resources.Project;
+import org.sonar.api.resources.Resource;
+import org.sonar.api.utils.ParsingUtils;
+import org.sonar.api.utils.XmlParserException;
+import org.sonar.api.utils.XpathParser;
 import org.sonar.plugins.flex.Flex;
 import org.sonar.plugins.flex.FlexFile;
 import org.w3c.dom.Element;
@@ -131,12 +131,16 @@ public class FlexCpdMavenSensor implements Sensor, DependsUponMavenPlugin {
         data = new ClassDuplicationData(flexFile, context);
         fileContainer.put(flexFile, data);
       }
-      data.cumulate(targetJavaClass, ParsingUtils.parseNumber(targetFileEl.getAttribute("line")), ParsingUtils.parseNumber(fileEl.getAttribute("line")),
-        ParsingUtils.parseNumber(duplication.getAttribute("lines")));
+      data.cumulate(
+        targetJavaClass,
+        ParsingUtils.parseNumber(targetFileEl.getAttribute("line")),
+        ParsingUtils.parseNumber(fileEl.getAttribute("line")),
+        ParsingUtils.parseNumber(duplication.getAttribute("lines"))
+      );
     }
   }
 
-  private static class ClassDuplicationData {
+  private static final class ClassDuplicationData {
     protected double duplicatedLines;
     protected double duplicatedBlocks;
     protected Resource resource;

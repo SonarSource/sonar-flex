@@ -69,8 +69,7 @@ class FlexPmdViolationsXmlParser extends AbstractViolationsStaxParser {
 
   @Override
   protected String ruleKey(SMInputCursor violationCursor) throws XMLStreamException {
-    String ruleKey = "com." + violationCursor.getAttrValue("rule") + "Rule";
-    return ruleKey;
+    return "com." + violationCursor.getAttrValue("rule") + "Rule";
   }
 
   @Override

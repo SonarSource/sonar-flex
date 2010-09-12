@@ -22,9 +22,9 @@ package org.sonar.plugins.flex.flexpmd;
 
 import org.sonar.api.batch.maven.MavenPlugin;
 import org.sonar.api.batch.maven.MavenPluginHandler;
+import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.utils.SonarException;
-import org.sonar.api.profiles.RulesProfile;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,8 +60,8 @@ public class FlexPmdMavenPluginHandler implements MavenPluginHandler {
 
   public void configure(Project project, MavenPlugin plugin) {
     try {
-        File configFile = saveConfigXml(project);
-        plugin.setParameter("ruleSet", configFile.getCanonicalPath());
+      File configFile = saveConfigXml(project);
+      plugin.setParameter("ruleSet", configFile.getCanonicalPath());
     } catch (IOException e) {
       throw new SonarException("fail to save the pmd XML configuration", e);
     }

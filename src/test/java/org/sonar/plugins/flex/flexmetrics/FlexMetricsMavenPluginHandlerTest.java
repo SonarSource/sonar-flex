@@ -18,43 +18,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package org.sonar.plugins.flex.surefire;
+package org.sonar.plugins.flex.flexmetrics;
 
-import org.sonar.api.batch.maven.MavenPlugin;
-import org.sonar.api.batch.maven.MavenPluginHandler;
-import org.sonar.api.resources.Project;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Evgeny Mandrikov
  */
-public class FlexMojosMavenPluginHandler implements MavenPluginHandler {
+public class FlexMetricsMavenPluginHandlerTest {
+  private FlexMetricsMavenPluginHandler handler;
 
-  public static final String GROUP_ID = "org.sonatype.flexmojos";
-  public static final String ARTIFACT_ID = "flexmojos-maven-plugin";
-  public static final String VERSION = "3.6.1";
-
-  public String getGroupId() {
-    return GROUP_ID;
+  @Before
+  public void setUp() throws Exception {
+    handler = new FlexMetricsMavenPluginHandler();
   }
 
-  public String getArtifactId() {
-    return ARTIFACT_ID;
+  @Test
+  public void fixedVersion() throws Exception {
+    assertThat(handler.isFixedVersion(), is(true));
   }
-
-  public String getVersion() {
-    return VERSION;
-  }
-
-  public boolean isFixedVersion() {
-    return false;
-  }
-
-  public String[] getGoals() {
-    return new String[]{"test-run"};
-  }
-
-  public void configure(Project project, MavenPlugin plugin) {
-    plugin.setParameter("testFailureIgnore", "true");
-  }
-  
 }

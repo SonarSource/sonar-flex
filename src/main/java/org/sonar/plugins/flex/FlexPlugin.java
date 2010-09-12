@@ -34,6 +34,8 @@ import org.sonar.plugins.flex.flexpmd.FlexPmdRulesRepository;
 import org.sonar.plugins.flex.flexpmd.FlexPmdSensor;
 import org.sonar.plugins.flex.squid.FlexNoSonarFilter;
 import org.sonar.plugins.flex.squid.FlexSquidSensor;
+import org.sonar.plugins.flex.surefire.FlexMojosMavenPluginHandler;
+import org.sonar.plugins.flex.surefire.SurefireSensor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +87,8 @@ public class FlexPlugin implements Plugin {
     list.add(FlexPmdMavenPluginHandler.class);
     list.add(FlexPmdRulesRepository.class);
 
+    list.add(SurefireSensor.class);
+    list.add(FlexMojosMavenPluginHandler.class);
 
     list.add(FlexSquidSensor.class);
 

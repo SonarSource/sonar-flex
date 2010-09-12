@@ -44,6 +44,6 @@ public class FlexPluginTest {
 
   @Test
   public void testGetExtensions() throws Exception {
-    assertThat(plugin.getExtensions().size(), is(12));
+    assertThat(plugin.getExtensions().size(), is(14));
   }
 }

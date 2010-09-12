@@ -184,4 +184,9 @@ public class FlexCpdMavenSensor implements Sensor, DependsUponMavenPlugin {
       return duplicationXML.toString();
     }
   }
+
+  @Override
+  public String toString() {
+    return getClass().getSimpleName();
+  }
 }

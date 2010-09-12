@@ -21,16 +21,15 @@
 package org.sonar.plugins.flex.colorizer;
 
 import org.junit.Test;
-import static org.junit.Assert.assertThat;
-import org.sonar.plugins.flex.colorizer.FlexColorizerFormat;
-import org.sonar.colorizer.Tokenizer;
-import org.sonar.colorizer.JavadocTokenizer;
 import org.sonar.colorizer.CppDocTokenizer;
-import static org.hamcrest.number.OrderingComparisons.lessThan;
+import org.sonar.colorizer.JavadocTokenizer;
+import org.sonar.colorizer.Tokenizer;
 
 import java.util.List;
 
 import static junit.framework.Assert.fail;
+import static org.hamcrest.number.OrderingComparisons.lessThan;
+import static org.junit.Assert.assertThat;
 
 public class FlexColorizerFormatTest {
   @Test
@@ -38,8 +37,9 @@ public class FlexColorizerFormatTest {
     List<Tokenizer> list = (new FlexColorizerFormat()).getTokenizers();
     assertThat(indexOf(list, JavadocTokenizer.class), lessThan(indexOf(list, CppDocTokenizer.class)));
   }
+
   private Integer indexOf(List<Tokenizer> tokenizers, Class tokenizerClass) {
-    for (int i=0 ; i<tokenizers.size() ; i++) {
+    for (int i = 0; i < tokenizers.size(); i++) {
       if (tokenizers.get(i).getClass().equals(tokenizerClass)) {
         return i;
       }

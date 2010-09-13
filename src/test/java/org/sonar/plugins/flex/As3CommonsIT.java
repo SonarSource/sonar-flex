@@ -72,11 +72,14 @@ public class As3CommonsIT {
     assertThat(getProjectMeasure("complexity").getIntValue(), is(784));
     assertThat(getProjectMeasure("function_complexity").getValue(), is(1.9));
     assertThat(getProjectMeasure("class_complexity").getValue(), is(11.4));
-    // SONARPLUGINS-670: Different number of violations reported on different OSs - 216 on Linux, 217 on Windows
-    assertThat(getProjectMeasure("violations").getIntValue(), anyOf(is(217), is(216)));
-    assertThat(getProjectMeasure("violations_density").getValue(), is(18.8));
     assertThat(getProjectMeasure("class_complexity_distribution").getData(), is("0=30;5=14;10=16;20=1;30=2;60=1;90=1"));
     assertThat(getProjectMeasure("function_complexity_distribution").getData(), is("1=252;2=83;4=42;6=4;8=5;10=0;12=5"));
+
+    // SONARPLUGINS-670: Different number of violations reported on different OSs
+    // 216 on Linux, 217 on Windows
+    assertThat(getProjectMeasure("violations").getIntValue(), anyOf(is(217), is(216)));
+    // 18.8 on Linux, 18.3 on Windows
+    assertThat(getProjectMeasure("violations_density").getValue(), anyOf(is(18.8), is(18.3)));
   }
 
   @Test

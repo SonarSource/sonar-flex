@@ -20,15 +20,15 @@
 
 package org.sonar.plugins.flex;
 
+import java.io.File;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.sonar.api.resources.Language;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.utils.WildcardPattern;
-
-import java.io.File;
-import java.util.List;
 
 public class FlexFile extends Resource<FlexPackage> {
 
@@ -68,13 +68,6 @@ public class FlexFile extends Resource<FlexPackage> {
       realKey = new StringBuilder().append(FlexPackage.DEFAULT_PACKAGE_NAME).append(".").append(realKey).toString();
     }
     setKey(realKey);
-  }
-
-  /**
-   * SONARPLUGINS-666: For backward compatibility
-   */
-  public FlexFile(String packageKey, String className) {
-    this(packageKey, className, false);
   }
 
   /**
@@ -149,10 +142,10 @@ public class FlexFile extends Resource<FlexPackage> {
   }
 
   /**
-   * Creates a FlexFile from a file in the source directories
-   *
+   * Creates a {@link FlexFile} from a file in the source directories.
+   * 
    * @param unitTest whether it is a unit test file or a source file
-   * @return the JavaFile created if exists, null otherwise
+   * @return the {@link FlexFile} created if exists, null otherwise
    */
   public static FlexFile fromIOFile(File file, List<File> sourceDirs, boolean unitTest) {
     if (file == null) {
@@ -175,7 +168,7 @@ public class FlexFile extends Resource<FlexPackage> {
   }
 
   /**
-   * Shortcut to fromIOFile with an abolute path
+   * Shortcut to {@link #fromIOFile(File, List, boolean)} with an absolute path.
    */
   public static FlexFile fromAbsolutePath(String path, List<File> sourceDirs, boolean unitTest) {
     if (path == null) {
@@ -187,10 +180,10 @@ public class FlexFile extends Resource<FlexPackage> {
   @Override
   public String toString() {
     return new ToStringBuilder(this)
-      .append("key", getKey())
-      .append("package", packageKey)
-      .append("longName", longName)
-      .append("unitTest", unitTest)
-      .toString();
+        .append("key", getKey())
+        .append("package", packageKey)
+        .append("longName", longName)
+        .append("unitTest", unitTest)
+        .toString();
   }
 }

@@ -126,6 +126,7 @@ public class As3CommonsIT {
     assertThat(getPackageMeasure("complexity").getIntValue(), is(378));
     assertThat(getPackageMeasure("function_complexity").getValue(), is(2.6));
 
+    // We will get class_complexity=23.6 under Sonar 2.0.1
     assertThat(getPackageMeasure("class_complexity").getValue(), is(25.2));
     assertThat(getPackageMeasure("violations").getIntValue(), is(93));
     assertThat(getPackageMeasure("violations_density").getValue(), is(21.2));

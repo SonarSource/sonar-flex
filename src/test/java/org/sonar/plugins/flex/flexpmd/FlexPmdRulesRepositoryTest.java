@@ -51,7 +51,6 @@ public class FlexPmdRulesRepositoryTest {
       assertNotNull(rule.getDescription());
       assertNotNull(rule.getName());
       assertNotNull(rule.getPluginName());
-      assertNotNull(rule.getRulesCategory());
       assertNotNull(rule.getPriority());
     }
   }

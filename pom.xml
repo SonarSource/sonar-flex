@@ -55,7 +55,7 @@
   </ciManagement>
 
   <properties>
-    <sonar.version>2.5-RC1</sonar.version>
+    <sonar.version>2.5-SNAPSHOT</sonar.version>
     <sonar.pluginClass>org.sonar.plugins.flex.FlexPlugin</sonar.pluginClass>
     <sonar.pluginKey>flex</sonar.pluginKey>
   </properties>

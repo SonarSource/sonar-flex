@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>sonar-flex-plugin</artifactId>
-  <version>0.3.1</version>
+  <version>0.3.2-SNAPSHOT</version>
   <packaging>sonar-plugin</packaging>
 
   <name>Sonar Flex Plugin</name>
@@ -41,9 +41,9 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/tags/sonar-flex-plugin-0.3.1</connection>
-    <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/tags/sonar-flex-plugin-0.3.1</developerConnection>
-    <url>scm:svn:https://svn.codehaus.org/sonar-plugins/tags/sonar-flex-plugin-0.3.1</url>
+    <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/flex</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/flex</developerConnection>
+    <url>http://svn.codehaus.org/sonar-plugins</url>
   </scm>
   <issueManagement>
     <system>JIRA</system>

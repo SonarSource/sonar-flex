@@ -58,6 +58,7 @@
     <sonar.version>2.5</sonar.version>
     <sonar.pluginClass>org.sonar.plugins.flex.FlexPlugin</sonar.pluginClass>
     <sonar.pluginKey>flex</sonar.pluginKey>
+    <sonar.pluginName>Flex</sonar.pluginName>
   </properties>
 
   <dependencies>

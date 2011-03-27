@@ -18,32 +18,33 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package org.sonar.plugins.flex;
+package org.sonar.plugins.flex.cobertura;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.sonar.api.resources.Project;
+import org.sonar.plugins.flex.Flex;
 
-/**
- * @author Evgeny Mandrikov
- */
-public class FlexPluginTest {
-  private FlexPlugin plugin;
+public class FlexCoberturaSensorTest {
+  private FlexCoberturaSensor sensor;
+  private Project project;
 
   @Before
   public void setUp() throws Exception {
-    plugin = new FlexPlugin();
+    sensor = new FlexCoberturaSensor();
+    project = mock(Project.class);
   }
 
   @Test
-  public void testGetKey() {
-    assertThat("the flexpmd rules engine and the flex plugin must have the same key due to SONAR-1342", plugin.getKey(), is("flexplugin"));
-  }
-
-  @Test
-  public void testGetExtensions() throws Exception {
-    assertThat(plugin.getExtensions().size(), is(15));
+  public void shouldAnalyseIfReuseReports() {
+    when(project.getLanguageKey()).thenReturn(Flex.KEY);
+    when(project.getAnalysisType())
+        .thenReturn(Project.AnalysisType.REUSE_REPORTS);
+    assertThat(sensor.shouldExecuteOnProject(project), is(true));
   }
 }

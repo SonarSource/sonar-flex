@@ -20,6 +20,8 @@
 
 package org.sonar.plugins.flex;
 
+import org.sonar.plugins.flex.cobertura.FlexCoberturaSensor;
+
 import org.sonar.api.Extension;
 import org.sonar.api.Plugin;
 import org.sonar.api.Properties;
@@ -89,6 +91,8 @@ public class FlexPlugin implements Plugin {
 
     list.add(SurefireSensor.class);
     list.add(FlexMojosMavenPluginHandler.class);
+    
+    list.add(FlexCoberturaSensor.class);
 
     list.add(FlexSquidSensor.class);
 

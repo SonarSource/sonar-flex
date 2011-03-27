@@ -21,16 +21,19 @@
 package org.sonar.plugins.flex.flexpmd;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.Ignore;
-import org.sonar.api.rules.Rule;
-import org.sonar.api.rules.ActiveRule;
-import org.sonar.api.rules.RulePriority;
+import org.junit.Test;
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.plugins.flex.flexpmd.xml.Ruleset;
+import org.sonar.api.rules.ActiveRule;
+import org.sonar.api.rules.Rule;
+import org.sonar.api.rules.RulePriority;
 import org.sonar.plugins.flex.flexpmd.xml.FlexRulesUtils;
+import org.sonar.plugins.flex.flexpmd.xml.Ruleset;
+
 import java.util.List;
 
 public class FlexPmdRulesRepositoryTest {
@@ -50,8 +53,8 @@ public class FlexPmdRulesRepositoryTest {
       assertNotNull(rule.getKey());
       assertNotNull(rule.getDescription());
       assertNotNull(rule.getName());
-      assertNotNull(rule.getPluginName());
-      assertNotNull(rule.getPriority());
+      assertNotNull(rule.getRepositoryKey());
+      assertNotNull(rule.getSeverity());
     }
   }
 
@@ -86,14 +89,14 @@ public class FlexPmdRulesRepositoryTest {
   public void testExplicitPriority() {
     List<ActiveRule> activeRules = getActiveRules("/org/sonar/plugins/flex/flexpmd/flexpmd-explicit-priority.xml");
     assertThat(activeRules.size(), is(1));
-    assertThat(activeRules.get(0).getPriority(), is(RulePriority.CRITICAL));
+    assertThat(activeRules.get(0).getSeverity(), is(RulePriority.CRITICAL));
   }
 
   @Test
   public void testImplicitPriority() {
     List<ActiveRule> activeRules = getActiveRules("/org/sonar/plugins/flex/flexpmd/flexpmd-implicit-priority.xml");
     assertThat(activeRules.size(), is(1));
-    assertThat(activeRules.get(0).getPriority(), is(RulePriority.BLOCKER));
+    assertThat(activeRules.get(0).getSeverity(), is(RulePriority.BLOCKER));
   }
 
   @Test
@@ -138,11 +141,12 @@ public class FlexPmdRulesRepositoryTest {
   public void testFullLoadAndUnloadOfProfile() {
     RulesProfile profile = repository.buildProfile("test-profile", "/org/sonar/plugins/flex/flexpmd/flexpmd-simple-profile-with-fake.xml");
     String output = repository.exportConfiguration(profile);
-    //assertEquals(output, "toto");
+    // assertEquals(output, "toto");
   }
 
   private List<ActiveRule> getActiveRules(String path) {
-    List<ActiveRule> activeRules = repository.importConfiguration(FlexRulesUtils.getConfigurationFromFile(path), repository.getInitialReferential());
+    List<ActiveRule> activeRules = repository.importConfiguration(FlexRulesUtils.getConfigurationFromFile(path),
+        repository.getInitialReferential());
     return activeRules;
   }
 

@@ -24,13 +24,13 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.*;
 import org.sonar.plugins.flex.Flex;
 import org.sonar.plugins.flex.FlexPlugin;
-import org.sonar.plugins.flex.flexpmd.xml.Ruleset;
 import org.sonar.plugins.flex.flexpmd.xml.FlexRule;
-import org.sonar.plugins.flex.flexpmd.xml.Property;
 import org.sonar.plugins.flex.flexpmd.xml.FlexRulesUtils;
+import org.sonar.plugins.flex.flexpmd.xml.Property;
+import org.sonar.plugins.flex.flexpmd.xml.Ruleset;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FlexPmdRulesRepository implements RulesRepository<Flex>, ConfigurationExportable, ConfigurationImportable {
   private FlexPmdRulePriorityMapper priorityMapper = new FlexPmdRulePriorityMapper();
@@ -109,7 +109,7 @@ public class FlexPmdRulesRepository implements RulesRepository<Flex>, Configurat
     RulePriority fRulePriority = priorityMapper.from(fRule.getPriority());
     for (Rule rule : rulesRepository) {
       if (rule.getKey().equals(clazz)) {
-        RulePriority priority = fRulePriority != null ? fRulePriority : rule.getPriority();
+        RulePriority priority = fRulePriority != null ? fRulePriority : rule.getSeverity();
         ActiveRule activeRule = new ActiveRule(null, rule, priority);
         activeRule.setActiveRuleParams(buildActiveRuleParams(fRule, rule, activeRule));
         return activeRule;
@@ -137,9 +137,9 @@ public class FlexPmdRulesRepository implements RulesRepository<Flex>, Configurat
   protected Ruleset buildRulesetFromActiveProfile(List<ActiveRule> activeRules) {
     Ruleset ruleset = new Ruleset();
     for (ActiveRule activeRule : activeRules) {
-      if (activeRule.getRule().getPluginName().equals(FlexPlugin.FLEXPMD_PLUGIN)) {
+      if (activeRule.getRule().getRepositoryKey().equals(FlexPlugin.FLEXPMD_PLUGIN)) {
         String key = activeRule.getRule().getKey();
-        String priority = priorityMapper.to(activeRule.getPriority());
+        String priority = priorityMapper.to(activeRule.getSeverity());
         FlexRule flexRule = new FlexRule(key, priority);
         List<Property> properties = new ArrayList<Property>();
         for (ActiveRuleParam activeRuleParam : activeRule.getActiveRuleParams()) {

@@ -20,56 +20,42 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
-import org.sonar.api.batch.AbstractViolationsStaxParser;
-import org.sonar.api.batch.GeneratesViolations;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.maven.DependsUponMavenPlugin;
 import org.sonar.api.batch.maven.MavenPluginHandler;
-import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
-import org.sonar.api.rules.RulesManager;
-import org.sonar.api.utils.XmlParserException;
+import org.sonar.api.rules.RuleFinder;
 import org.sonar.plugins.flex.Flex;
 
-import javax.xml.stream.XMLStreamException;
 import java.io.File;
 
-public class FlexPmdSensor implements Sensor, DependsUponMavenPlugin, GeneratesViolations {
+public class FlexPmdSensor implements Sensor, DependsUponMavenPlugin {
 
-  private RulesProfile profile;
-  private RulesManager rulesManager;
   private FlexPmdMavenPluginHandler pluginHandler;
-  private Flex flex;
+  private RuleFinder ruleFinder;
 
-  public FlexPmdSensor(RulesProfile profile, RulesManager rulesManager, FlexPmdMavenPluginHandler pluginHandler, Flex flex) {
-    this.profile = profile;
-    this.rulesManager = rulesManager;
+  public FlexPmdSensor(RuleFinder ruleFinder, FlexPmdMavenPluginHandler pluginHandler) {
+    this.ruleFinder = ruleFinder;
     this.pluginHandler = pluginHandler;
-    this.flex = flex;
   }
 
   public void analyse(Project project, SensorContext context) {
-    try {
-      AbstractViolationsStaxParser parser = getStaxParser(project, context);
-      File report = new File(project.getFileSystem().getBuildDir(), "pmd.xml");
-      parser.parse(report);
-
-    } catch (XMLStreamException e) {
-      throw new XmlParserException(e);
-    }
+    FlexPmdXmlReportParser parser = getStaxParser(project, context);
+    File report = new File(project.getFileSystem().getBuildDir(), "pmd.xml");
+    parser.parse(report);
   }
 
   public boolean shouldExecuteOnProject(Project project) {
-    return project.getLanguage().equals(flex);
+    return Flex.KEY.equals(project.getLanguageKey());
   }
 
   public MavenPluginHandler getMavenPluginHandler(Project project) {
     return pluginHandler;
   }
 
-  private AbstractViolationsStaxParser getStaxParser(Project project, SensorContext context) {
-    return new FlexPmdViolationsXmlParser(project, context, rulesManager, profile);
+  private FlexPmdXmlReportParser getStaxParser(Project project, SensorContext context) {
+    return new FlexPmdXmlReportParser(project, context, ruleFinder);
   }
 
   @Override

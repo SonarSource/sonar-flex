@@ -20,20 +20,17 @@
 
 package org.sonar.plugins.flex;
 
-import org.sonar.plugins.flex.cobertura.FlexCoberturaSensor;
-
 import org.sonar.api.Extension;
 import org.sonar.api.Plugin;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
+import org.sonar.plugins.flex.cobertura.FlexCoberturaSensor;
 import org.sonar.plugins.flex.colorizer.FlexColorizerFormat;
 import org.sonar.plugins.flex.cpd.FlexCpdMavenPluginHandler;
 import org.sonar.plugins.flex.cpd.FlexCpdMavenSensor;
 import org.sonar.plugins.flex.flexmetrics.FlexMetricsMavenPluginHandler;
 import org.sonar.plugins.flex.flexmetrics.FlexMetricsSensor;
-import org.sonar.plugins.flex.flexpmd.FlexPmdMavenPluginHandler;
-import org.sonar.plugins.flex.flexpmd.FlexPmdRulesRepository;
-import org.sonar.plugins.flex.flexpmd.FlexPmdSensor;
+import org.sonar.plugins.flex.flexpmd.*;
 import org.sonar.plugins.flex.squid.FlexNoSonarFilter;
 import org.sonar.plugins.flex.squid.FlexSquidSensor;
 import org.sonar.plugins.flex.surefire.FlexMojosMavenPluginHandler;
@@ -42,16 +39,13 @@ import org.sonar.plugins.flex.surefire.SurefireSensor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Properties({
-  @Property(
+@Properties({ @Property(
     key = FlexPlugin.FILE_SUFFIXES_KEY,
     defaultValue = FlexPlugin.FILE_SUFFIXES_DEFVALUE,
     name = "File suffixes",
     description = "Comma-separated list of suffixes for files to analyze. To not filter, leave the list empty.",
     global = true,
-    project = true
-  )
-})
+    project = true) })
 public class FlexPlugin implements Plugin {
   public final static String FLEXPMD_PLUGIN = "flexplugin";
 
@@ -87,11 +81,14 @@ public class FlexPlugin implements Plugin {
 
     list.add(FlexPmdSensor.class);
     list.add(FlexPmdMavenPluginHandler.class);
-    list.add(FlexPmdRulesRepository.class);
+    list.add(FlexPmdRuleRepository.class);
+    list.add(DefaultFlexProfile.class);
+    list.add(FlexPmdProfileExporter.class);
+    list.add(FlexPmdProfileImporter.class);
 
     list.add(SurefireSensor.class);
     list.add(FlexMojosMavenPluginHandler.class);
-    
+
     list.add(FlexCoberturaSensor.class);
 
     list.add(FlexSquidSensor.class);

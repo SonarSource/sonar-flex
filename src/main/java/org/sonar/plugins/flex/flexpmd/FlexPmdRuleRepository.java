@@ -18,33 +18,28 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package org.sonar.plugins.flex.flexmetrics;
+package org.sonar.plugins.flex.flexpmd;
 
-import org.sonar.api.batch.maven.MavenPlugin;
-import org.sonar.api.batch.maven.MavenPluginHandler;
-import org.sonar.api.resources.Project;
+import com.google.common.collect.Lists;
+import org.sonar.api.rules.Rule;
+import org.sonar.api.rules.RuleRepository;
+import org.sonar.plugins.flex.Flex;
+import org.sonar.plugins.flex.flexpmd.xml.FlexRulesUtils;
 
-public class FlexMetricsMavenPluginHandler implements MavenPluginHandler {
-  public String getGroupId() {
-    return "com.adobe.ac";
+import java.util.List;
+
+public class FlexPmdRuleRepository extends RuleRepository {
+
+  public FlexPmdRuleRepository() {
+    super(FlexPmdConstants.REPOSITORY_KEY, Flex.KEY);
+    setName(FlexPmdConstants.REPOSITORY_NAME);
   }
 
-  public String getArtifactId() {
-    return "flex-pmd-metrics-maven-plugin";
+  @Override
+  public List<Rule> createRules() {
+    List<Rule> rules = Lists.newArrayList();
+    rules.addAll(FlexRulesUtils.getInitialReferential());
+    return rules;
   }
 
-  public String getVersion() {
-    return "1.2";
-  }
-
-  public boolean isFixedVersion() {
-    return true;
-  }
-
-  public String[] getGoals() {
-    return new String[] { "check" };
-  }
-
-  public void configure(Project project, MavenPlugin plugin) {
-  }
 }

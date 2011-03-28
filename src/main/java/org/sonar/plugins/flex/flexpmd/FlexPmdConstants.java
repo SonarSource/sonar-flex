@@ -18,33 +18,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package org.sonar.plugins.flex.flexmetrics;
+package org.sonar.plugins.flex.flexpmd;
 
-import org.sonar.api.batch.maven.MavenPlugin;
-import org.sonar.api.batch.maven.MavenPluginHandler;
-import org.sonar.api.resources.Project;
+import org.sonar.plugins.flex.FlexPlugin;
 
-public class FlexMetricsMavenPluginHandler implements MavenPluginHandler {
-  public String getGroupId() {
-    return "com.adobe.ac";
+public final class FlexPmdConstants {
+
+  // TODO
+  public static final String REPOSITORY_KEY = FlexPlugin.FLEXPMD_PLUGIN;
+  public static final String REPOSITORY_NAME = FlexPlugin.FLEXPMD_PLUGIN;
+  public static final String PLUGIN_NAME = FlexPlugin.FLEXPMD_PLUGIN;
+
+  private FlexPmdConstants() {
   }
 
-  public String getArtifactId() {
-    return "flex-pmd-metrics-maven-plugin";
-  }
-
-  public String getVersion() {
-    return "1.2";
-  }
-
-  public boolean isFixedVersion() {
-    return true;
-  }
-
-  public String[] getGoals() {
-    return new String[] { "check" };
-  }
-
-  public void configure(Project project, MavenPlugin plugin) {
-  }
 }

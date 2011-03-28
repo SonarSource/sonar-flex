@@ -20,33 +20,29 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import org.sonar.api.profiles.ProfileDefinition;
+import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.utils.ValidationMessages;
+import org.sonar.plugins.flex.Flex;
 
-import org.junit.Before;
-import org.junit.Test;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
-/**
- * @author Evgeny Mandrikov
- */
-public class FlexPmdMavenPluginHandlerTest {
-  private FlexPmdMavenPluginHandler handler;
+public class DefaultFlexProfile extends ProfileDefinition {
 
-  @Before
-  public void setUp() throws Exception {
-    handler = new FlexPmdMavenPluginHandler(null, null);
+  private FlexPmdProfileImporter importer;
+
+  public DefaultFlexProfile(FlexPmdProfileImporter importer) {
+    this.importer = importer;
   }
 
-  @Test
-  public void fixedVersion() throws Exception {
-    assertThat(handler.isFixedVersion(), is(true));
+  @Override
+  public RulesProfile createProfile(ValidationMessages messages) {
+    Reader reader = new InputStreamReader(getClass().getResourceAsStream("/org/sonar/plugins/flex/flexpmd/default-flex-profile.xml"));
+    RulesProfile profile = importer.importProfile(reader, messages);
+    profile.setLanguage(Flex.KEY);
+    profile.setName("Default Flex Profile");
+    return profile;
   }
 
-  @Test
-  public void pluginDefinition() throws Exception {
-    assertThat(handler.getGroupId(), is("com.adobe.ac"));
-    assertThat(handler.getArtifactId(), is("flex-pmd-maven-plugin"));
-    assertThat(handler.getVersion(), is("1.2"));
-    assertThat(handler.getGoals(), is(new String[] { "check" }));
-  }
 }

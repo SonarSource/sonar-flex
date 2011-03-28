@@ -21,19 +21,21 @@
 package org.sonar.plugins.flex.flexmetrics;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.plugins.flex.FlexPackage;
-import org.sonar.plugins.flex.FlexFile;
-import org.sonar.plugins.flex.Flex;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.maven.DependsUponMavenPlugin;
 import org.sonar.api.batch.maven.MavenPluginHandler;
-import org.sonar.api.utils.XpathParser;
-import org.sonar.api.utils.XmlParserException;
-import org.sonar.api.utils.ParsingUtils;
+import org.sonar.api.measures.CoreMetrics;
+import org.sonar.api.measures.PersistenceMode;
+import org.sonar.api.measures.RangeDistributionBuilder;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
-import org.sonar.api.measures.*;
+import org.sonar.api.utils.ParsingUtils;
+import org.sonar.api.utils.XmlParserException;
+import org.sonar.api.utils.XpathParser;
+import org.sonar.plugins.flex.Flex;
+import org.sonar.plugins.flex.FlexFile;
+import org.sonar.plugins.flex.FlexPackage;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -45,15 +47,15 @@ import java.util.Map;
 public class FlexMetricsSensor implements Sensor, DependsUponMavenPlugin {
 
   private FlexMetricsMavenPluginHandler pluginHandler;
-  private final Number[] FUNCTIONS_DISTRIB_BOTTOM_LIMITS = {1, 2, 4, 6, 8, 10, 12};
-  private final Number[] CLASSES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
+  private final Number[] FUNCTIONS_DISTRIB_BOTTOM_LIMITS = { 1, 2, 4, 6, 8, 10, 12 };
+  private final Number[] CLASSES_DISTRIB_BOTTOM_LIMITS = { 0, 5, 10, 20, 30, 60, 90 };
 
   public FlexMetricsSensor(FlexMetricsMavenPluginHandler pluginHandler) {
     this.pluginHandler = pluginHandler;
   }
 
   public boolean shouldExecuteOnProject(Project project) {
-    return project.getLanguageKey().equals(Flex.KEY);
+    return Flex.KEY.equals(project.getLanguageKey());
   }
 
   public void analyse(Project project, SensorContext context) {
@@ -68,8 +70,7 @@ public class FlexMetricsSensor implements Sensor, DependsUponMavenPlugin {
       collectPackageMeasures(parser, context);
       collectFileMeasures(parser, context);
       createComplexityClassMeasures(parser, context);
-    }
-    catch (ParseException e) {
+    } catch (ParseException e) {
       throw new XmlParserException(e);
     }
   }
@@ -102,7 +103,7 @@ public class FlexMetricsSensor implements Sensor, DependsUponMavenPlugin {
         Resource clazz = new FlexFile(parser.getChildElementValue(element, "name"));
 
         double lines = getMetricValue(element, "javadocs", parser) + getMetricValue(element, "single_comment_lines", parser)
-          + getMetricValue(element, "multi_comment_lines", parser);
+            + getMetricValue(element, "multi_comment_lines", parser);
 
         context.saveMeasure(clazz, CoreMetrics.COMMENT_LINES, lines);
         context.saveMeasure(clazz, CoreMetrics.CLASSES, 1.0);
@@ -141,11 +142,12 @@ public class FlexMetricsSensor implements Sensor, DependsUponMavenPlugin {
       String fullname = entry.getKey();
       Integer ccnForClass = entry.getValue();
       context.saveMeasure(new FlexFile(fullname), CoreMetrics.COMPLEXITY, ccnForClass.doubleValue());
-      RangeDistributionBuilder ccnDistribution = new RangeDistributionBuilder(CoreMetrics.CLASS_COMPLEXITY_DISTRIBUTION, CLASSES_DISTRIB_BOTTOM_LIMITS);
+      RangeDistributionBuilder ccnDistribution = new RangeDistributionBuilder(CoreMetrics.CLASS_COMPLEXITY_DISTRIBUTION,
+          CLASSES_DISTRIB_BOTTOM_LIMITS);
       ccnDistribution.add(ccnForClass.doubleValue());
       context.saveMeasure(new FlexFile(fullname), ccnDistribution.build().setPersistenceMode(PersistenceMode.MEMORY));
     }
-    for (Map.Entry<String, RangeDistributionBuilder> entry: ccnDistributionPerClass.entrySet()) {
+    for (Map.Entry<String, RangeDistributionBuilder> entry : ccnDistributionPerClass.entrySet()) {
       String fullname = entry.getKey();
       RangeDistributionBuilder ccnDistributionForClass = entry.getValue();
       context.saveMeasure(new FlexFile(fullname), ccnDistributionForClass.build().setPersistenceMode(PersistenceMode.MEMORY));
@@ -161,7 +163,8 @@ public class FlexMetricsSensor implements Sensor, DependsUponMavenPlugin {
     ccnCountperClass.put(packageAndClassName, ccnSum);
   }
 
-  private void addUpComplexityToClassDistribution(Map<String, RangeDistributionBuilder> ccnDistributionperClass, Integer ccnForFunction, String packageAndClassName) {
+  private void addUpComplexityToClassDistribution(Map<String, RangeDistributionBuilder> ccnDistributionperClass, Integer ccnForFunction,
+      String packageAndClassName) {
     RangeDistributionBuilder ccnDistribution = ccnDistributionperClass.get(packageAndClassName);
     if (ccnDistribution == null) {
       ccnDistribution = new RangeDistributionBuilder(CoreMetrics.FUNCTION_COMPLEXITY_DISTRIBUTION, FUNCTIONS_DISTRIB_BOTTOM_LIMITS);

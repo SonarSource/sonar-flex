@@ -31,11 +31,11 @@ import java.io.IOException;
 
 public class FlexPmdMavenPluginHandler implements MavenPluginHandler {
   private RulesProfile rulesProfile;
-  private FlexPmdRulesRepository rulesRepository;
+  private FlexPmdProfileExporter profileExporter;
 
-  public FlexPmdMavenPluginHandler(RulesProfile rulesProfile, FlexPmdRulesRepository rulesRepository) {
+  public FlexPmdMavenPluginHandler(RulesProfile rulesProfile, FlexPmdProfileExporter profileExporter) {
     this.rulesProfile = rulesProfile;
-    this.rulesRepository = rulesRepository;
+    this.profileExporter = profileExporter;
   }
 
   public String getGroupId() {
@@ -55,7 +55,7 @@ public class FlexPmdMavenPluginHandler implements MavenPluginHandler {
   }
 
   public String[] getGoals() {
-    return new String[]{"check"};
+    return new String[] { "check" };
   }
 
   public void configure(Project project, MavenPlugin plugin) {
@@ -63,12 +63,11 @@ public class FlexPmdMavenPluginHandler implements MavenPluginHandler {
       File configFile = saveConfigXml(project);
       plugin.setParameter("ruleSet", configFile.getCanonicalPath());
     } catch (IOException e) {
-      throw new SonarException("fail to save the pmd XML configuration", e);
+      throw new SonarException("Fail to save the PMD XML configuration", e);
     }
   }
 
   private File saveConfigXml(Project project) throws IOException {
-    String configuration = rulesRepository.exportConfiguration(rulesProfile);
-    return project.getFileSystem().writeToWorkingDirectory(configuration, "pmd.xml");
+    return project.getFileSystem().writeToWorkingDirectory(profileExporter.exportProfileToString(rulesProfile), "pmd.xml");
   }
 }

@@ -59,7 +59,7 @@ public class FlexCpdMavenSensor implements Sensor, DependsUponMavenPlugin {
   }
 
   public boolean shouldExecuteOnProject(Project project) {
-    return project.getLanguageKey().equals(Flex.KEY);
+    return Flex.KEY.equals(project.getLanguageKey());
   }
 
   public void analyse(Project project, SensorContext context) {
@@ -122,7 +122,8 @@ public class FlexCpdMavenSensor implements Sensor, DependsUponMavenPlugin {
     return result;
   }
 
-  private void processClassMeasure(SensorContext context, Map<Resource, ClassDuplicationData> fileContainer, Element fileEl, Element targetFileEl, Element duplication, Project project) throws ParseException {
+  private void processClassMeasure(SensorContext context, Map<Resource, ClassDuplicationData> fileContainer, Element fileEl,
+      Element targetFileEl, Element duplication, Project project) throws ParseException {
     Resource flexFile = FlexFile.fromAbsolutePath(fileEl.getAttribute("path"), project.getFileSystem().getSourceDirs(), false);
     Resource targetJavaClass = FlexFile.fromAbsolutePath(targetFileEl.getAttribute("path"), project.getFileSystem().getSourceDirs(), false);
     if (flexFile != null) {
@@ -132,11 +133,11 @@ public class FlexCpdMavenSensor implements Sensor, DependsUponMavenPlugin {
         fileContainer.put(flexFile, data);
       }
       data.cumulate(
-        targetJavaClass,
-        ParsingUtils.parseNumber(targetFileEl.getAttribute("line")),
-        ParsingUtils.parseNumber(fileEl.getAttribute("line")),
-        ParsingUtils.parseNumber(duplication.getAttribute("lines"))
-      );
+          targetJavaClass,
+          ParsingUtils.parseNumber(targetFileEl.getAttribute("line")),
+          ParsingUtils.parseNumber(fileEl.getAttribute("line")),
+          ParsingUtils.parseNumber(duplication.getAttribute("lines"))
+          );
     }
   }
 
@@ -157,9 +158,9 @@ public class FlexCpdMavenSensor implements Sensor, DependsUponMavenPlugin {
       if (resolvedResource != null) {
         StringBuilder xml = new StringBuilder();
         xml.append("<duplication lines=\"").append(duplicatedLines.intValue())
-          .append("\" start=\"").append(duplicationStartLine.intValue())
-          .append("\" target-start=\"").append(targetDuplicationStartLine.intValue())
-          .append("\" target-resource=\"").append(resolvedResource.getEffectiveKey()).append("\"/>");
+            .append("\" start=\"").append(duplicationStartLine.intValue())
+            .append("\" target-start=\"").append(targetDuplicationStartLine.intValue())
+            .append("\" target-resource=\"").append(resolvedResource.getEffectiveKey()).append("\"/>");
 
         duplicationXMLEntries.add(xml);
 

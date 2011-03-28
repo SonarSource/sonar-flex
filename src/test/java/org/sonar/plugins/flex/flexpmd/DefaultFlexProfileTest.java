@@ -18,35 +18,24 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package org.sonar.plugins.flex.flexmetrics;
+package org.sonar.plugins.flex.flexpmd;
 
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.utils.ValidationMessages;
 
-/**
- * @author Evgeny Mandrikov
- */
-public class FlexMetricsMavenPluginHandlerTest {
-  private FlexMetricsMavenPluginHandler handler;
-
-  @Before
-  public void setUp() throws Exception {
-    handler = new FlexMetricsMavenPluginHandler();
-  }
+public class DefaultFlexProfileTest {
 
   @Test
-  public void fixedVersion() throws Exception {
-    assertThat(handler.isFixedVersion(), is(true));
+  public void shouldCreateProfile() {
+    DefaultFlexProfile profileDefinition = new DefaultFlexProfile(new FlexPmdProfileImporter());
+    ValidationMessages messages = ValidationMessages.create();
+    RulesProfile profile = profileDefinition.createProfile(messages);
+
+    assertThat(profile.getActiveRules().size(), is(87));
   }
 
-  @Test
-  public void pluginDefinition() throws Exception {
-    assertThat(handler.getGroupId(), is("com.adobe.ac"));
-    assertThat(handler.getArtifactId(), is("flex-pmd-metrics-maven-plugin"));
-    assertThat(handler.getVersion(), is("1.2"));
-    assertThat(handler.getGoals(), is(new String[] { "check" }));
-  }
 }

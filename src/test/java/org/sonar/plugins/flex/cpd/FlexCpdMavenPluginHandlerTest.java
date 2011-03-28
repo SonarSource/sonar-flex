@@ -20,11 +20,11 @@
 
 package org.sonar.plugins.flex.cpd;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author Evgeny Mandrikov
@@ -40,5 +40,13 @@ public class FlexCpdMavenPluginHandlerTest {
   @Test
   public void fixedVersion() throws Exception {
     assertThat(handler.isFixedVersion(), is(true));
+  }
+
+  @Test
+  public void pluginDefinition() throws Exception {
+    assertThat(handler.getGroupId(), is("com.adobe.ac"));
+    assertThat(handler.getArtifactId(), is("flex-pmd-cpd-maven-plugin"));
+    assertThat(handler.getVersion(), is("1.2"));
+    assertThat(handler.getGoals(), is(new String[] { "check" }));
   }
 }

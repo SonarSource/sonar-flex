@@ -22,6 +22,7 @@ package org.sonar.plugins.flex.cobertura;
 
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.AbstractCoverageExtension;
+import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
@@ -32,7 +33,7 @@ import org.sonar.plugins.flex.FlexFile;
 
 import java.io.File;
 
-public class FlexCoberturaSensor extends AbstractCoverageExtension {
+public class FlexCoberturaSensor extends AbstractCoverageExtension implements Sensor {
 
   public boolean shouldExecuteOnProject(Project project) {
     return project.getAnalysisType().isDynamic(true) && Flex.KEY.equals(project.getLanguageKey());

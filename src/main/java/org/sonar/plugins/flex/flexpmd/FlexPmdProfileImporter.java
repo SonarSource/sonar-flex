@@ -50,7 +50,7 @@ public class FlexPmdProfileImporter extends ProfileImporter {
       profile.setActiveRules(activeRules);
       return profile;
     } catch (IOException e) {
-      throw new SonarException("Fail to import profile"); // TODO use messages instead
+      throw new SonarException("Fail to import profile", e); // TODO use messages instead
     }
   }
 }

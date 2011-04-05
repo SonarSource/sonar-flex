@@ -22,90 +22,25 @@ package org.sonar.plugins.flex.flexmetrics;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.anyDouble;
-import static org.mockito.Matchers.argThat;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
-import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.maven.MavenPluginHandler;
-import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.resources.Java;
 import org.sonar.api.resources.Project;
-import org.sonar.api.test.IsMeasure;
-import org.sonar.api.utils.XpathParser;
 import org.sonar.plugins.flex.Flex;
-import org.sonar.plugins.flex.FlexFile;
-import org.sonar.plugins.flex.FlexPackage;
-
-import java.io.File;
-import java.text.ParseException;
 
 public class FlexMetricsSensorTest {
 
   private FlexMetricsSensor sensor;
-  SensorContext context;
-  XpathParser parser;
   private Project project;
 
   @Before
   public void init() {
     project = mock(Project.class);
     sensor = new FlexMetricsSensor(null);
-    context = mock(SensorContext.class);
-    File xmlFile = FileUtils.toFile(getClass().getResource("/org/sonar/plugins/flex/flexmetrics/javancss-raw-report.xml"));
-    parser = new XpathParser();
-    parser.parse(xmlFile);
-  }
-
-  @Test
-  public void testGetPackageAndClassFromFunction() {
-    FlexMetricsSensor sensor = new FlexMetricsSensor(null);
-
-    assertThat(
-        sensor.getPackageAndClassFromFunction("com.almirun.common.controllers.PapervisionCameraController::PapervisionCameraController"),
-        is("com.almirun.common.controllers.PapervisionCameraController"));
-  }
-
-  @Test
-  public void testCollectPackageMeasures() throws ParseException {
-    sensor.collectPackageMeasures(parser, context);
-
-    verify(context, never()).saveMeasure(eq(new FlexPackage("com.almirun.common.controllers")), eq(CoreMetrics.COMMENT_LINES), anyDouble());
-    verify(context, never()).saveMeasure(eq(new FlexPackage("com.almirun.common.events")), eq(CoreMetrics.COMMENT_LINES), anyDouble());
-    verify(context).saveMeasure(new FlexPackage("com.almirun.common.events"), CoreMetrics.PACKAGES, 1.0);
-  }
-
-  @Test
-  public void testCollectFileMeasures() throws ParseException {
-    sensor.collectFileMeasures(parser, context);
-
-    verify(context).saveMeasure(new FlexFile("com.almirun.common.util.StringManipulator"), CoreMetrics.NCLOC, 40.0);
-    verify(context).saveMeasure(new FlexFile("com.almirun.common.util.TimeFormatter"), CoreMetrics.NCLOC, 73.0);
-    verify(context).saveMeasure(new FlexFile("com.almirun.common.util.TimeFormatter"), CoreMetrics.CLASSES, 1.0);
-    verify(context).saveMeasure(new FlexFile("com.almirun.common.util.loremipsum.LoremIpsumUrlLoader"), CoreMetrics.CLASSES, 1.0);
-    verify(context).saveMeasure(new FlexFile("com.almirun.common.util.loremipsum.LoremIpsumUrlLoader"), CoreMetrics.FUNCTIONS, 3.0);
-    verify(context).saveMeasure(new FlexFile("com.almirun.common.net.SmartUrlLoader"), CoreMetrics.COMMENT_LINES, 46.0);
-
-    verify(context, never()).saveMeasure(eq(new FlexFile("com.almirun.common.controllers")), eq(CoreMetrics.NCLOC), anyDouble());
-    verify(context, never()).saveMeasure(eq(new FlexFile("com.almirun.common.controllers")), eq(CoreMetrics.FUNCTIONS), anyDouble());
-  }
-
-  @Test
-  public void testcComplexityClassMeasures() throws ParseException {
-    sensor.createComplexityClassMeasures(parser, context);
-
-    verify(context).saveMeasure(new FlexFile("com.almirun.common.data.BatchedQuery"), CoreMetrics.COMPLEXITY, 6.0);
-    verify(context).saveMeasure(eq(new FlexFile("com.almirun.common.data.BatchedQuery")), argThat(
-        new IsMeasure(CoreMetrics.FUNCTION_COMPLEXITY_DISTRIBUTION, "1=3;2=1;4=0;6=0;8=0;10=0;12=0")));
-    verify(context).saveMeasure(eq(new FlexFile("com.almirun.common.data.BatchedQuery")), argThat(
-        new IsMeasure(CoreMetrics.CLASS_COMPLEXITY_DISTRIBUTION, "0=0;5=1;10=0;20=0;30=0;60=0;90=0")));
   }
 
   @Test

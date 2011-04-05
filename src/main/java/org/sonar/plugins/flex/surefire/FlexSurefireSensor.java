@@ -35,16 +35,13 @@ import org.sonar.plugins.surefire.api.SurefireUtils;
 
 import java.io.File;
 
-/**
- * TODO copied from sonar-surefire-plugin with modifications
- */
-public class SurefireSensor implements Sensor, DependsUponMavenPlugin {
+public class FlexSurefireSensor implements Sensor, DependsUponMavenPlugin {
 
-  private static Logger logger = LoggerFactory.getLogger(SurefireSensor.class);
+  private static Logger logger = LoggerFactory.getLogger(FlexSurefireSensor.class);
 
   private FlexMojosMavenPluginHandler handler;
 
-  public SurefireSensor(FlexMojosMavenPluginHandler handler) {
+  public FlexSurefireSensor(FlexMojosMavenPluginHandler handler) {
     this.handler = handler;
   }
 

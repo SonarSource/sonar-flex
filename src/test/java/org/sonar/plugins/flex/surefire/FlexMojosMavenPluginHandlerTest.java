@@ -20,11 +20,11 @@
 
 package org.sonar.plugins.flex.surefire;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author Evgeny Mandrikov
@@ -40,5 +40,13 @@ public class FlexMojosMavenPluginHandlerTest {
   @Test
   public void notFixedVersion() throws Exception {
     assertThat(handler.isFixedVersion(), is(false));
+  }
+
+  @Test
+  public void pluginDefinition() throws Exception {
+    assertThat(handler.getGroupId(), is("org.sonatype.flexmojos"));
+    assertThat(handler.getArtifactId(), is("flexmojos-maven-plugin"));
+    assertThat(handler.getVersion(), is("3.6.1"));
+    assertThat(handler.getGoals(), is(new String[] { "test-run" }));
   }
 }

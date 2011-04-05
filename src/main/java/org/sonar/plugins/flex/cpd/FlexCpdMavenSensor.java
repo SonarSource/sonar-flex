@@ -136,15 +136,14 @@ public class FlexCpdMavenSensor implements Sensor, DependsUponMavenPlugin {
           targetJavaClass,
           ParsingUtils.parseNumber(targetFileEl.getAttribute("line")),
           ParsingUtils.parseNumber(fileEl.getAttribute("line")),
-          ParsingUtils.parseNumber(duplication.getAttribute("lines"))
-          );
+          ParsingUtils.parseNumber(duplication.getAttribute("lines")));
     }
   }
 
   private static final class ClassDuplicationData {
-    protected double duplicatedLines;
-    protected double duplicatedBlocks;
-    protected Resource resource;
+    private double duplicatedLines;
+    private double duplicatedBlocks;
+    private Resource resource;
     private SensorContext context;
     private List<StringBuilder> duplicationXMLEntries = new ArrayList<StringBuilder>();
 

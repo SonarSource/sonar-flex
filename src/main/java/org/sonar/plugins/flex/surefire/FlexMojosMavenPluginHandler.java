@@ -50,11 +50,11 @@ public class FlexMojosMavenPluginHandler implements MavenPluginHandler {
   }
 
   public String[] getGoals() {
-    return new String[]{"test-run"};
+    return new String[] { "test-run" };
   }
 
   public void configure(Project project, MavenPlugin plugin) {
     plugin.setParameter("testFailureIgnore", "true");
   }
-  
+
 }

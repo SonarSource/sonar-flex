@@ -30,16 +30,13 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/**
- * TODO copied part of sonar-surefire-plugin with modifications
- */
-public class SurefireSensorTest {
-  private SurefireSensor sensor;
+public class FlexSurefireSensorTest {
+  private FlexSurefireSensor sensor;
   private Project project;
 
   @Before
   public void setUp() throws Exception {
-    sensor = new SurefireSensor(new FlexMojosMavenPluginHandler());
+    sensor = new FlexSurefireSensor(new FlexMojosMavenPluginHandler());
     project = mock(Project.class);
   }
 

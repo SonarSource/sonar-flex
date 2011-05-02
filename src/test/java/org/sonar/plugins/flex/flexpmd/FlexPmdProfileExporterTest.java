@@ -21,6 +21,7 @@
 package org.sonar.plugins.flex.flexpmd;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
@@ -37,6 +38,11 @@ public class FlexPmdProfileExporterTest {
   @Before
   public void setUp() {
     exporter = new FlexPmdProfileExporter();
+  }
+
+  @Test
+  public void shouldSetMimeType() {
+    assertThat(exporter.getMimeType(), is("application/xml"));
   }
 
   @Test

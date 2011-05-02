@@ -20,14 +20,10 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
-import org.sonar.plugins.flex.FlexPlugin;
-
 public final class FlexPmdConstants {
 
-  // TODO
-  public static final String REPOSITORY_KEY = FlexPlugin.FLEXPMD_PLUGIN;
-  public static final String REPOSITORY_NAME = FlexPlugin.FLEXPMD_PLUGIN;
-  public static final String PLUGIN_NAME = FlexPlugin.FLEXPMD_PLUGIN;
+  public static final String REPOSITORY_KEY = "flexplugin";
+  public static final String REPOSITORY_NAME = "Flex PMD";
 
   private FlexPmdConstants() {
   }

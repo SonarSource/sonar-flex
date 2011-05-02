@@ -31,7 +31,6 @@ import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.rules.Violation;
 import org.sonar.api.utils.StaxParser;
 import org.sonar.plugins.flex.FlexFile;
-import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.FlexUtils;
 
 import java.io.File;
@@ -80,7 +79,7 @@ public class FlexPmdXmlReportParser {
 
   void log(SensorContext context, String ruleKey, String fileName, Integer line, String message) {
     RuleQuery ruleQuery = RuleQuery.create()
-        .withRepositoryKey(FlexPlugin.FLEXPMD_PLUGIN)
+        .withRepositoryKey(FlexPmdConstants.REPOSITORY_KEY)
         .withConfigKey(ruleKey);
     Rule rule = ruleFinder.find(ruleQuery);
     if (rule != null) {

@@ -37,7 +37,7 @@ import java.io.File;
 
 public class FlexSurefireSensor implements Sensor, DependsUponMavenPlugin {
 
-  private static Logger logger = LoggerFactory.getLogger(FlexSurefireSensor.class);
+  private static final Logger LOG = LoggerFactory.getLogger(FlexSurefireSensor.class);
 
   private FlexMojosMavenPluginHandler handler;
 
@@ -62,7 +62,7 @@ public class FlexSurefireSensor implements Sensor, DependsUponMavenPlugin {
   }
 
   protected void collect(Project project, SensorContext context, File reportsDir) {
-    logger.info("parsing {}", reportsDir);
+    LOG.info("parsing {}", reportsDir);
     new AbstractSurefireParser() {
       @Override
       protected Resource<?> getUnitTestResource(String classKey) {

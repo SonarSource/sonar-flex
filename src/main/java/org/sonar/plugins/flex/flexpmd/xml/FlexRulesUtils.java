@@ -25,7 +25,6 @@ import org.apache.commons.io.IOUtils;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.*;
 import org.sonar.api.utils.SonarException;
-import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.flexpmd.FlexPmdConstants;
 
 import java.io.IOException;
@@ -159,7 +158,7 @@ public final class FlexRulesUtils {
   static Ruleset buildRulesetFromActiveProfile(List<ActiveRule> activeRules) {
     Ruleset ruleset = new Ruleset();
     for (ActiveRule activeRule : activeRules) {
-      if (activeRule.getRule().getRepositoryKey().equals(FlexPlugin.FLEXPMD_PLUGIN)) {
+      if (activeRule.getRule().getRepositoryKey().equals(FlexPmdConstants.REPOSITORY_KEY)) {
         String key = activeRule.getRule().getKey();
         String priority = severityToLevel(activeRule.getSeverity());
         FlexRule flexRule = new FlexRule(key, priority);

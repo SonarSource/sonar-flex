@@ -28,11 +28,11 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.api.resources.Resource;
+import org.sonar.plugins.flex.Flex;
+import org.sonar.plugins.flex.FlexFile;
+import org.sonar.plugins.flex.FlexUtils;
 import org.sonar.squid.measures.Metric;
 import org.sonar.squid.text.Source;
-import org.sonar.plugins.flex.Flex;
-import org.sonar.plugins.flex.FlexUtils;
-import org.sonar.plugins.flex.FlexFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,6 +42,7 @@ import java.io.StringReader;
 public final class FlexSquidSensor implements Sensor {
 
   private Flex flex;
+
   public FlexSquidSensor(Flex flex) {
     this.flex = flex;
   }
@@ -54,8 +55,7 @@ public final class FlexSquidSensor implements Sensor {
     for (File flexFile : project.getFileSystem().getSourceFiles(flex)) {
       try {
         analyzeFile(flexFile, project.getFileSystem(), sensorContext);
-      }
-      catch (Exception e) {
+      } catch (Exception e) {
         FlexUtils.LOG.error("Can not analyze the file " + flexFile.getAbsolutePath(), e);
       }
     }

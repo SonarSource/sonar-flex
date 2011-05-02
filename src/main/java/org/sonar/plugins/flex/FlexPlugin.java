@@ -47,14 +47,11 @@ import java.util.List;
     global = true,
     project = true) })
 public class FlexPlugin implements Plugin {
-  public final static String FLEXPMD_PLUGIN = "flexplugin";
-
   static final String FILE_SUFFIXES_KEY = "sonar.flex.file.suffixes";
   static final String FILE_SUFFIXES_DEFVALUE = "as";
 
-  // the flexpmd rules engine and the flex plugin must have the same key due to sonar-1342
   public String getKey() {
-    return FLEXPMD_PLUGIN;
+    return "flex";
   }
 
   public String getName() {

@@ -24,7 +24,6 @@ import org.apache.commons.io.IOUtils;
 import org.sonar.api.profiles.ProfileImporter;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.ActiveRule;
-import org.sonar.api.utils.SonarException;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.flex.Flex;
 import org.sonar.plugins.flex.flexpmd.xml.FlexRulesUtils;
@@ -36,21 +35,21 @@ import java.util.List;
 public class FlexPmdProfileImporter extends ProfileImporter {
 
   public FlexPmdProfileImporter() {
-    super(FlexPmdConstants.REPOSITORY_KEY, FlexPmdConstants.PLUGIN_NAME);
+    super(FlexPmdConstants.REPOSITORY_KEY, FlexPmdConstants.REPOSITORY_NAME);
     setSupportedLanguages(Flex.KEY);
   }
 
   @Override
   public RulesProfile importProfile(Reader reader, ValidationMessages messages) {
+    RulesProfile profile = RulesProfile.create();
     try {
-      RulesProfile profile = RulesProfile.create();
       List<ActiveRule> activeRules = FlexRulesUtils.importConfiguration(
           IOUtils.toString(reader),
           FlexRulesUtils.getInitialReferential());
       profile.setActiveRules(activeRules);
-      return profile;
     } catch (IOException e) {
-      throw new SonarException("Fail to import profile", e); // TODO use messages instead
+      messages.addErrorText(e.getMessage());
     }
+    return profile;
   }
 }

@@ -33,8 +33,9 @@ import java.io.Writer;
 public class FlexPmdProfileExporter extends ProfileExporter {
 
   public FlexPmdProfileExporter() {
-    super(FlexPmdConstants.REPOSITORY_KEY, FlexPmdConstants.PLUGIN_NAME);
+    super(FlexPmdConstants.REPOSITORY_KEY, FlexPmdConstants.REPOSITORY_NAME);
     setSupportedLanguages(Flex.KEY);
+    setMimeType("application/xml");
   }
 
   @Override

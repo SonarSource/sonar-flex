@@ -140,13 +140,13 @@
                     <artifactItem>
                       <groupId>org.codehaus.sonar.plugins.it</groupId>
                       <artifactId>as3corelib</artifactId>
-                      <version>1.0</version>
+                      <version>1.0.1</version>
                       <type>zip</type>
                     </artifactItem>
                     <artifactItem>
                       <groupId>org.codehaus.sonar.plugins.it</groupId>
                       <artifactId>as3commons</artifactId>
-                      <version>1.0</version>
+                      <version>1.0.1</version>
                       <type>zip</type>
                     </artifactItem>
                   </artifactItems>

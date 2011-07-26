@@ -24,6 +24,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sonar.wsclient.Sonar;
 import org.sonar.wsclient.services.Measure;
+import org.sonar.wsclient.services.Resource;
 import org.sonar.wsclient.services.ResourceQuery;
 
 import static junit.framework.Assert.assertNull;
@@ -158,18 +159,22 @@ public class As3CommonsIT {
   }
 
   private Measure getProjectMeasure(String metricKey) {
-    return sonar.find(ResourceQuery.createForMetrics(PROJECT_AS3COMMONS, metricKey)).getMeasure(metricKey);
+    Resource resource = sonar.find(ResourceQuery.createForMetrics(PROJECT_AS3COMMONS, metricKey));
+    return resource!=null ? resource.getMeasure(metricKey) : null;
   }
 
   private Measure getModuleMeasure(String metricKey) {
-    return sonar.find(ResourceQuery.createForMetrics(MODULE_COMMONS_LANG, metricKey)).getMeasure(metricKey);
+    Resource resource = sonar.find(ResourceQuery.createForMetrics(MODULE_COMMONS_LANG, metricKey));
+    return resource!=null ? resource.getMeasure(metricKey) : null;
   }
 
   private Measure getPackageMeasure(String metricKey) {
-    return sonar.find(ResourceQuery.createForMetrics(PACKAGE_COMMONS_LANG, metricKey)).getMeasure(metricKey);
+    Resource resource = sonar.find(ResourceQuery.createForMetrics(PACKAGE_COMMONS_LANG, metricKey));
+    return resource!=null ? resource.getMeasure(metricKey) : null;
   }
 
   private Measure getFileMeasure(String metricKey) {
-    return sonar.find(ResourceQuery.createForMetrics(FILE_OBJECT_UTILS, metricKey)).getMeasure(metricKey);
+    Resource resource = sonar.find(ResourceQuery.createForMetrics(FILE_OBJECT_UTILS, metricKey));
+    return resource!=null ? resource.getMeasure(metricKey) : null;
   }
 }

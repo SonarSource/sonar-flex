@@ -29,6 +29,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.io.File;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.batch.SensorContext;
@@ -36,10 +38,7 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.test.IsMeasure;
-import org.sonar.plugins.flex.Flex;
-import org.sonar.plugins.flex.FlexFile;
-
-import java.io.File;
+import org.sonar.plugins.flex.core.Flex;
 
 public class FlexCoberturaSensorTest {
   private FlexCoberturaSensor sensor;
@@ -61,19 +60,13 @@ public class FlexCoberturaSensorTest {
 
   @Test
   public void shouldParseReport() throws Exception {
-    FlexFile flexFile = new FlexFile("com.tgeorgiev.util.BasicArithmeticOperations");
+    org.sonar.api.resources.File flexFile = new org.sonar.api.resources.File("com.tgeorgiev.util.BasicArithmeticOperations");
     SensorContext context = mock(SensorContext.class);
     when(context.getResource(any(Resource.class))).thenReturn(flexFile);
 
     File xmlFile = new File(getClass().getResource("coverage.xml").toURI());
     sensor.parseReport(xmlFile, context);
 
-    verify(context).saveMeasure(
-        eq(flexFile),
-        argThat(new IsMeasure(CoreMetrics.COVERAGE, 66.7)));
-    verify(context).saveMeasure(
-        eq(flexFile),
-        argThat(new IsMeasure(CoreMetrics.LINE_COVERAGE, 66.7)));
     verify(context).saveMeasure(
         eq(flexFile),
         argThat(new IsMeasure(CoreMetrics.LINES_TO_COVER, 6.0)));
@@ -83,6 +76,9 @@ public class FlexCoberturaSensorTest {
     verify(context).saveMeasure(
         eq(flexFile),
         argThat(new IsMeasure(CoreMetrics.COVERAGE_LINE_HITS_DATA,
-            "1=1;12=1;17=1;22=0;26=0;7=1")));
+            "1=1;7=1;12=1;17=1;22=0;26=0")));
+    verify(context).saveMeasure(
+        eq(flexFile),
+        argThat(new IsMeasure(CoreMetrics.LINES_TO_COVER)));
   }
 }

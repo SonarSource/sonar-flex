@@ -23,7 +23,7 @@ package org.sonar.plugins.flex.flexpmd;
 import org.sonar.api.profiles.ProfileExporter;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.utils.SonarException;
-import org.sonar.plugins.flex.Flex;
+import org.sonar.plugins.flex.core.Flex;
 import org.sonar.plugins.flex.flexpmd.xml.FlexRulesUtils;
 
 import java.io.IOException;

@@ -30,7 +30,7 @@ import org.junit.Test;
 import org.sonar.api.batch.maven.MavenPluginHandler;
 import org.sonar.api.resources.Java;
 import org.sonar.api.resources.Project;
-import org.sonar.plugins.flex.Flex;
+import org.sonar.plugins.flex.core.Flex;
 
 public class FlexPmdSensorTest {
 

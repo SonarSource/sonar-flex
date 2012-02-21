@@ -17,17 +17,12 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
+/**
+ * This package is a duplication of {@link org.sonar.duplications.token} package in order to make sure 
+ * that the future release of the Flex plugin will remain compatible will future releases of Sonar.
+ * (as the {@link org.sonar.duplications.token} package may be reworked in Sonar 2.14).
+ * 
+ * This package will be removed in a future version, when the Flex plugin depends on Sonar 2.14+.
+ */
+package org.sonar.plugins.flex.duplications.internal;
 
-package org.sonar.plugins.flex;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-public final class FlexUtils {
-
-  private FlexUtils() {
-    // only static methods
-  }
-
-  public static final Logger LOG = LoggerFactory.getLogger(FlexPlugin.class.getName());
-}

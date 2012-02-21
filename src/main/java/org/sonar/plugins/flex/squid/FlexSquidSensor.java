@@ -20,6 +20,11 @@
 
 package org.sonar.plugins.flex.squid;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.sonar.api.batch.Sensor;
@@ -27,17 +32,10 @@ import org.sonar.api.batch.SensorContext;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.ProjectFileSystem;
-import org.sonar.api.resources.Resource;
-import org.sonar.plugins.flex.Flex;
-import org.sonar.plugins.flex.FlexFile;
-import org.sonar.plugins.flex.FlexUtils;
+import org.sonar.plugins.flex.core.Flex;
+import org.sonar.plugins.flex.core.FlexUtils;
 import org.sonar.squid.measures.Metric;
 import org.sonar.squid.text.Source;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
 
 public final class FlexSquidSensor implements Sensor {
 
@@ -65,7 +63,7 @@ public final class FlexSquidSensor implements Sensor {
     Reader reader = null;
     try {
       reader = new StringReader(FileUtils.readFileToString(file, projectFileSystem.getSourceCharset().name()));
-      Resource resource = FlexFile.fromIOFile(file, projectFileSystem.getSourceDirs());
+      org.sonar.api.resources.File resource = org.sonar.api.resources.File.fromIOFile(file, projectFileSystem.getSourceDirs());
       Source source = new Source(reader, new FlexRecognizer(), "");
       sensorContext.saveMeasure(resource, CoreMetrics.LINES, (double) source.getMeasure(Metric.LINES));
     } finally {

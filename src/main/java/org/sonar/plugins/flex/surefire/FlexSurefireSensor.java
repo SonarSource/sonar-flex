@@ -20,6 +20,8 @@
 
 package org.sonar.plugins.flex.surefire;
 
+import java.io.File;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
@@ -28,21 +30,21 @@ import org.sonar.api.batch.maven.DependsUponMavenPlugin;
 import org.sonar.api.batch.maven.MavenPluginHandler;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
-import org.sonar.plugins.flex.Flex;
-import org.sonar.plugins.flex.FlexFile;
+import org.sonar.plugins.flex.core.Flex;
+import org.sonar.plugins.flex.core.FlexResourceBridge;
 import org.sonar.plugins.surefire.api.AbstractSurefireParser;
 import org.sonar.plugins.surefire.api.SurefireUtils;
-
-import java.io.File;
 
 public class FlexSurefireSensor implements Sensor, DependsUponMavenPlugin {
 
   private static final Logger LOG = LoggerFactory.getLogger(FlexSurefireSensor.class);
 
   private FlexMojosMavenPluginHandler handler;
+  private FlexResourceBridge resourceBridge;
 
-  public FlexSurefireSensor(FlexMojosMavenPluginHandler handler) {
+  public FlexSurefireSensor(FlexMojosMavenPluginHandler handler, FlexResourceBridge resourceBridge) {
     this.handler = handler;
+    this.resourceBridge = resourceBridge;
   }
 
   public MavenPluginHandler getMavenPluginHandler(Project project) {
@@ -66,7 +68,7 @@ public class FlexSurefireSensor implements Sensor, DependsUponMavenPlugin {
     new AbstractSurefireParser() {
       @Override
       protected Resource<?> getUnitTestResource(String classKey) {
-        return new FlexFile(classKey, true);
+        return resourceBridge.findFile(classKey);
       }
     }.collect(project, context, reportsDir);
   }

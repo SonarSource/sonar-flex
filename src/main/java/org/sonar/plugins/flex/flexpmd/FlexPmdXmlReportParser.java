@@ -20,6 +20,10 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
+import java.io.File;
+
+import javax.xml.stream.XMLStreamException;
+
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.staxmate.in.SMHierarchicCursor;
 import org.codehaus.staxmate.in.SMInputCursor;
@@ -30,12 +34,7 @@ import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.rules.Violation;
 import org.sonar.api.utils.StaxParser;
-import org.sonar.plugins.flex.FlexFile;
-import org.sonar.plugins.flex.FlexUtils;
-
-import java.io.File;
-
-import javax.xml.stream.XMLStreamException;
+import org.sonar.plugins.flex.core.FlexUtils;
 
 public class FlexPmdXmlReportParser {
 
@@ -83,7 +82,7 @@ public class FlexPmdXmlReportParser {
         .withConfigKey(ruleKey);
     Rule rule = ruleFinder.find(ruleQuery);
     if (rule != null) {
-      FlexFile resource = FlexFile.fromAbsolutePath(fileName, project.getFileSystem().getSourceDirs(), false);
+      org.sonar.api.resources.File resource = org.sonar.api.resources.File.fromIOFile(new File(fileName), project);
       Violation violation = Violation.create(rule, resource).setLineId(line).setMessage(message);
       context.saveViolation(violation);
     }

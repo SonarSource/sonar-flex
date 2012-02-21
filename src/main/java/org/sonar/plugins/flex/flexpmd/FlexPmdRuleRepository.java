@@ -23,7 +23,7 @@ package org.sonar.plugins.flex.flexpmd;
 import com.google.common.collect.Lists;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleRepository;
-import org.sonar.plugins.flex.Flex;
+import org.sonar.plugins.flex.core.Flex;
 import org.sonar.plugins.flex.flexpmd.xml.FlexRulesUtils;
 
 import java.util.List;

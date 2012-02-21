@@ -20,37 +20,61 @@
 
 package org.sonar.plugins.flex.flexmetrics;
 
+import java.io.File;
+
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.maven.DependsUponMavenPlugin;
 import org.sonar.api.batch.maven.MavenPluginHandler;
 import org.sonar.api.resources.Project;
-import org.sonar.plugins.flex.Flex;
+import org.sonar.plugins.flex.core.Flex;
 
-import java.io.File;
-
+/**
+ * Sensor that will launch the required Maven plugin and analyse its report.
+ */
 public class FlexMetricsSensor implements Sensor, DependsUponMavenPlugin {
 
+  private static final String REPORT_FILE_NAME = "javancss-raw-report.xml";
   private FlexMetricsMavenPluginHandler pluginHandler;
+  private FlexMetricsParser metricsParser;
 
-  public FlexMetricsSensor(FlexMetricsMavenPluginHandler pluginHandler) {
+  /**
+   * Constructs a {@link FlexMetricsSensor}.
+   * <br/>
+   * <b>Do not call, this constructor is called by Pico container.</b>
+   * 
+   * @param pluginHandler the Maven handler
+   */
+  public FlexMetricsSensor(FlexMetricsMavenPluginHandler pluginHandler, FlexMetricsParser metricsParser) {
     this.pluginHandler = pluginHandler;
+    this.metricsParser = metricsParser;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean shouldExecuteOnProject(Project project) {
     return Flex.KEY.equals(project.getLanguageKey());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void analyse(Project project, SensorContext context) {
-    File xmlFile = new File(project.getFileSystem().getBuildDir(), "javancss-raw-report.xml");
-    FlexMetricsParser parser = new FlexMetricsParser(context);
-    parser.parse(xmlFile);
+    File xmlFile = new File(project.getFileSystem().getBuildDir(), REPORT_FILE_NAME);
+    metricsParser.parse(xmlFile);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public MavenPluginHandler getMavenPluginHandler(Project project) {
     return pluginHandler;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String toString() {
     return getClass().getSimpleName();

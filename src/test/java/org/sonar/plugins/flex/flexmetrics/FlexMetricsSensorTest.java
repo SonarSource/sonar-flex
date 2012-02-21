@@ -30,7 +30,7 @@ import org.junit.Test;
 import org.sonar.api.batch.maven.MavenPluginHandler;
 import org.sonar.api.resources.Java;
 import org.sonar.api.resources.Project;
-import org.sonar.plugins.flex.Flex;
+import org.sonar.plugins.flex.core.Flex;
 
 public class FlexMetricsSensorTest {
 
@@ -40,13 +40,13 @@ public class FlexMetricsSensorTest {
   @Before
   public void init() {
     project = mock(Project.class);
-    sensor = new FlexMetricsSensor(null);
+    sensor = new FlexMetricsSensor(null, null);
   }
 
   @Test
   public void shouldReturnMavenPluginHandler() {
     FlexMetricsMavenPluginHandler mavenPluginHandler = mock(FlexMetricsMavenPluginHandler.class);
-    sensor = new FlexMetricsSensor(mavenPluginHandler);
+    sensor = new FlexMetricsSensor(mavenPluginHandler, null);
 
     assertThat(sensor.getMavenPluginHandler(project), is((MavenPluginHandler) mavenPluginHandler));
   }

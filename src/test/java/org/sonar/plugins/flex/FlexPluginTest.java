@@ -21,7 +21,6 @@
 package org.sonar.plugins.flex;
 
 import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
@@ -41,15 +40,5 @@ public class FlexPluginTest {
   @Test
   public void testGetExtensions() throws Exception {
     assertThat(plugin.getExtensions().size(), greaterThan(0));
-  }
-
-  /**
-   * see SONAR-1898
-   */
-  @Test
-  public void testDeprecatedMethods() {
-    assertThat(plugin.getKey(), notNullValue());
-    assertThat(plugin.getName(), notNullValue());
-    assertThat(plugin.getDescription(), notNullValue());
   }
 }

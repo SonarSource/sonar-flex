@@ -20,21 +20,6 @@
 
 package org.sonar.plugins.flex.flexmetrics;
 
-import com.google.common.collect.Maps;
-import org.apache.commons.lang.StringUtils;
-import org.codehaus.staxmate.in.SMHierarchicCursor;
-import org.codehaus.staxmate.in.SMInputCursor;
-import org.sonar.api.batch.SensorContext;
-import org.sonar.api.measures.CoreMetrics;
-import org.sonar.api.measures.PersistenceMode;
-import org.sonar.api.measures.RangeDistributionBuilder;
-import org.sonar.api.resources.Resource;
-import org.sonar.api.utils.ParsingUtils;
-import org.sonar.api.utils.StaxParser;
-import org.sonar.plugins.flex.FlexFile;
-import org.sonar.plugins.flex.FlexPackage;
-import org.sonar.plugins.flex.FlexUtils;
-
 import java.io.File;
 import java.text.ParseException;
 import java.util.HashMap;
@@ -42,17 +27,50 @@ import java.util.Map;
 
 import javax.xml.stream.XMLStreamException;
 
-public class FlexMetricsParser {
+import org.apache.commons.lang.StringUtils;
+import org.codehaus.staxmate.in.SMHierarchicCursor;
+import org.codehaus.staxmate.in.SMInputCursor;
+import org.sonar.api.BatchExtension;
+import org.sonar.api.batch.SensorContext;
+import org.sonar.api.measures.CoreMetrics;
+import org.sonar.api.measures.PersistenceMode;
+import org.sonar.api.measures.RangeDistributionBuilder;
+import org.sonar.api.utils.ParsingUtils;
+import org.sonar.api.utils.StaxParser;
+import org.sonar.plugins.flex.core.FlexResourceBridge;
+import org.sonar.plugins.flex.core.FlexUtils;
 
-  private final static Number[] FUNCTIONS_DISTRIB_BOTTOM_LIMITS = { 1, 2, 4, 6, 8, 10, 12 };
-  private final static Number[] CLASSES_DISTRIB_BOTTOM_LIMITS = { 0, 5, 10, 20, 30, 60, 90 };
+import com.google.common.collect.Maps;
+
+/**
+ * Class that parses the report of Flex PMD Metrics
+ */
+public class FlexMetricsParser implements BatchExtension {
+
+  private final static Number[] FUNCTIONS_DISTRIB_BOTTOM_LIMITS = {1, 2, 4, 6, 8, 10, 12};
+  private final static Number[] CLASSES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
 
   private SensorContext context;
+  private FlexResourceBridge resourceBridge;
 
-  public FlexMetricsParser(SensorContext context) {
+  /**
+   * Creates a {@link FlexMetricsParser}.
+   * <br/>
+   * <b>Do not call, this constructor is called by Pico container.</b>
+   * 
+   * @param context the sensor context
+   * @param resourceBridge the resource bridge
+   */
+  public FlexMetricsParser(SensorContext context, FlexResourceBridge resourceBridge) {
     this.context = context;
+    this.resourceBridge = resourceBridge;
   }
 
+  /**
+   * Parses the XML report
+   * 
+   * @param xmlFile the report file
+   */
   public void parse(File xmlFile) {
     StaxParser parser = new StaxParser(new StaxParser.XmlStreamHandler() {
       public void stream(SMHierarchicCursor rootCursor) throws XMLStreamException {
@@ -84,11 +102,7 @@ public class FlexMetricsParser {
   private void processPackages(SMInputCursor packagesCursor) throws XMLStreamException {
     while (packagesCursor.getNext() != null) {
       Map<String, String> values = processChildren(packagesCursor);
-
-      String packageName = values.get("name");
-      Resource flexPackage = new FlexPackage(packageName);
-
-      context.saveMeasure(flexPackage, CoreMetrics.PACKAGES, 1.0);
+      context.saveMeasure(resourceBridge.findDirectory(values.get("name")), CoreMetrics.PACKAGES, 1.0);
     }
   }
 
@@ -96,18 +110,19 @@ public class FlexMetricsParser {
     while (objectsCursor.getNext() != null) {
       Map<String, String> values = processChildren(objectsCursor);
 
-      String fileName = values.get("name");
-      Resource flexFile = new FlexFile(fileName);
+      org.sonar.api.resources.File file = resourceBridge.findFile(values.get("name"));
 
-      double lines = parseDouble(values.get("javadocs"))
+      if (file != null) {
+        double lines = parseDouble(values.get("javadocs"))
           + parseDouble(values.get("single_comment_lines"))
           + parseDouble(values.get("multi_comment_lines"));
 
-      context.saveMeasure(flexFile, CoreMetrics.COMMENT_LINES, lines);
-      context.saveMeasure(flexFile, CoreMetrics.CLASSES, 1.0);
-      context.saveMeasure(flexFile, CoreMetrics.FILES, 1.0);
-      context.saveMeasure(flexFile, CoreMetrics.NCLOC, parseDouble(values.get("ncss")));
-      context.saveMeasure(flexFile, CoreMetrics.FUNCTIONS, parseDouble(values.get("functions")));
+        context.saveMeasure(file, CoreMetrics.COMMENT_LINES, lines);
+        context.saveMeasure(file, CoreMetrics.CLASSES, 1.0);
+        context.saveMeasure(file, CoreMetrics.FILES, 1.0);
+        context.saveMeasure(file, CoreMetrics.NCLOC, parseDouble(values.get("ncss")));
+        context.saveMeasure(file, CoreMetrics.FUNCTIONS, parseDouble(values.get("functions")));
+      }
     }
   }
 
@@ -126,17 +141,23 @@ public class FlexMetricsParser {
 
     for (Map.Entry<String, Integer> entry : ccnCountPerClass.entrySet()) {
       String fullname = entry.getKey();
-      Integer ccnForClass = entry.getValue();
-      context.saveMeasure(new FlexFile(fullname), CoreMetrics.COMPLEXITY, ccnForClass.doubleValue());
-      RangeDistributionBuilder ccnDistribution =
-          new RangeDistributionBuilder(CoreMetrics.CLASS_COMPLEXITY_DISTRIBUTION, CLASSES_DISTRIB_BOTTOM_LIMITS);
-      ccnDistribution.add(ccnForClass.doubleValue());
-      context.saveMeasure(new FlexFile(fullname), ccnDistribution.build().setPersistenceMode(PersistenceMode.MEMORY));
+      org.sonar.api.resources.File file = resourceBridge.findFile(fullname);
+      if (file != null) {
+        Integer ccnForClass = entry.getValue();
+        context.saveMeasure(file, CoreMetrics.COMPLEXITY, ccnForClass.doubleValue());
+        RangeDistributionBuilder ccnDistribution =
+            new RangeDistributionBuilder(CoreMetrics.CLASS_COMPLEXITY_DISTRIBUTION, CLASSES_DISTRIB_BOTTOM_LIMITS);
+        ccnDistribution.add(ccnForClass.doubleValue());
+        context.saveMeasure(file, ccnDistribution.build().setPersistenceMode(PersistenceMode.MEMORY));
+      }
     }
     for (Map.Entry<String, RangeDistributionBuilder> entry : ccnDistributionPerClass.entrySet()) {
       String fullname = entry.getKey();
-      RangeDistributionBuilder ccnDistributionForClass = entry.getValue();
-      context.saveMeasure(new FlexFile(fullname), ccnDistributionForClass.build().setPersistenceMode(PersistenceMode.MEMORY));
+      org.sonar.api.resources.File file = resourceBridge.findFile(fullname);
+      if (file != null) {
+        RangeDistributionBuilder ccnDistributionForClass = entry.getValue();
+        context.saveMeasure(file, ccnDistributionForClass.build().setPersistenceMode(PersistenceMode.MEMORY));
+      }
     }
   }
 

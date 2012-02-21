@@ -20,60 +20,67 @@
 
 package org.sonar.plugins.flex;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.sonar.api.Extension;
-import org.sonar.api.Plugin;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
+import org.sonar.api.SonarPlugin;
 import org.sonar.plugins.flex.cobertura.FlexCoberturaSensor;
 import org.sonar.plugins.flex.colorizer.FlexColorizerFormat;
-import org.sonar.plugins.flex.cpd.FlexCpdMavenPluginHandler;
-import org.sonar.plugins.flex.cpd.FlexCpdMavenSensor;
+import org.sonar.plugins.flex.core.Flex;
+import org.sonar.plugins.flex.core.FlexResourceBridge;
+import org.sonar.plugins.flex.core.FlexSourceImporter;
+import org.sonar.plugins.flex.duplications.FlexCpdMapping;
 import org.sonar.plugins.flex.flexmetrics.FlexMetricsMavenPluginHandler;
+import org.sonar.plugins.flex.flexmetrics.FlexMetricsParser;
 import org.sonar.plugins.flex.flexmetrics.FlexMetricsSensor;
-import org.sonar.plugins.flex.flexpmd.*;
+import org.sonar.plugins.flex.flexpmd.DefaultFlexProfile;
+import org.sonar.plugins.flex.flexpmd.FlexPmdMavenPluginHandler;
+import org.sonar.plugins.flex.flexpmd.FlexPmdProfileExporter;
+import org.sonar.plugins.flex.flexpmd.FlexPmdProfileImporter;
+import org.sonar.plugins.flex.flexpmd.FlexPmdRuleRepository;
+import org.sonar.plugins.flex.flexpmd.FlexPmdSensor;
 import org.sonar.plugins.flex.squid.FlexNoSonarFilter;
 import org.sonar.plugins.flex.squid.FlexSquidSensor;
 import org.sonar.plugins.flex.surefire.FlexMojosMavenPluginHandler;
 import org.sonar.plugins.flex.surefire.FlexSurefireSensor;
 
-import java.util.ArrayList;
-import java.util.List;
+/**
+ * Plugin Flex that analyses ActionScript source code.
+ */
+@Properties({@Property(
+  key = FlexPlugin.FILE_SUFFIXES_KEY,
+  defaultValue = Flex.DEFAULT_FILE_SUFFIXES,
+  name = "File suffixes",
+  description = "Comma-separated list of suffixes for files to analyze. To not filter, leave the list empty.",
+  global = true,
+  project = true)})
+public class FlexPlugin extends SonarPlugin {
 
-@Properties({ @Property(
-    key = FlexPlugin.FILE_SUFFIXES_KEY,
-    defaultValue = FlexPlugin.FILE_SUFFIXES_DEFVALUE,
-    name = "File suffixes",
-    description = "Comma-separated list of suffixes for files to analyze. To not filter, leave the list empty.",
-    global = true,
-    project = true) })
-public class FlexPlugin implements Plugin {
-  static final String FILE_SUFFIXES_KEY = "sonar.flex.file.suffixes";
-  static final String FILE_SUFFIXES_DEFVALUE = "as";
+  /** Parameters of the flex plugin. */
+  public static final String FILE_SUFFIXES_KEY = "sonar.flex.file.suffixes";
 
-  public String getKey() {
-    return "flex";
-  }
-
-  public String getName() {
-    return "Flex";
-  }
-
-  public String getDescription() {
-    return "Analysis of Flex projects";
-  }
-
+  /**
+   * Gets the extensions.
+   * 
+   * @return the extensions
+   * @see org.sonar.api.Plugin#getExtensions()
+   */
   public List<Class<? extends Extension>> getExtensions() {
     List<Class<? extends Extension>> list = new ArrayList<Class<? extends Extension>>();
 
-    list.add(FlexColorizerFormat.class);
     list.add(Flex.class);
-    list.add(FlexNoSonarFilter.class);
     list.add(FlexSourceImporter.class);
+    list.add(FlexResourceBridge.class);
+    list.add(FlexColorizerFormat.class);
+    list.add(FlexNoSonarFilter.class);
 
-    list.add(FlexCpdMavenSensor.class);
-    list.add(FlexCpdMavenPluginHandler.class);
+    list.add(FlexCpdMapping.class);
 
     list.add(FlexMetricsMavenPluginHandler.class);
+    list.add(FlexMetricsParser.class);
     list.add(FlexMetricsSensor.class);
 
     list.add(FlexPmdSensor.class);

@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>sonar-flex-plugin</artifactId>
-  <version>0.5-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
   <packaging>sonar-plugin</packaging>
 
   <name>Sonar Flex Plugin</name>
@@ -38,6 +38,10 @@
       <id>godin</id>
       <name>Evgeny Mandrikov</name>
     </developer>
+    <developer>
+      <id>fabemn</id>
+      <name>Fabrice Bellingard</name>
+    </developer>
   </developers>
 
   <scm>
@@ -55,10 +59,11 @@
   </ciManagement>
 
   <properties>
-    <sonar.version>2.5</sonar.version>
+    <sonar.version>2.11</sonar.version>
     <sonar.pluginClass>org.sonar.plugins.flex.FlexPlugin</sonar.pluginClass>
-    <sonar.pluginKey>flex</sonar.pluginKey>
     <sonar.pluginName>Flex</sonar.pluginName>
+    <!-- Those classes are excluded as they are just a temporary copy of Sonar core classes -->
+    <sonar.exclusions>org/sonar/plugins/flex/duplications/internal/*.java</sonar.exclusions>
   </properties>
 
   <dependencies>

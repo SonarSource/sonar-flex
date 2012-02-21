@@ -24,27 +24,49 @@ import org.sonar.api.batch.maven.MavenPlugin;
 import org.sonar.api.batch.maven.MavenPluginHandler;
 import org.sonar.api.resources.Project;
 
+/**
+ * Class used to launch the Flex PMD Metrics Maven plugin that generates various metrics like loc, cc, ...
+ */
 public class FlexMetricsMavenPluginHandler implements MavenPluginHandler {
+
+  /**
+   * {@inheritDoc}
+   */
   public String getGroupId() {
     return "com.adobe.ac";
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public String getArtifactId() {
     return "flex-pmd-metrics-maven-plugin";
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public String getVersion() {
     return "1.2";
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isFixedVersion() {
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public String[] getGoals() {
-    return new String[] { "check" };
+    return new String[] {"check"};
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void configure(Project project, MavenPlugin plugin) {
   }
 }

@@ -23,7 +23,7 @@ package org.sonar.plugins.flex.flexpmd;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.utils.ValidationMessages;
-import org.sonar.plugins.flex.Flex;
+import org.sonar.plugins.flex.core.Flex;
 
 import java.io.InputStreamReader;
 import java.io.Reader;

@@ -18,33 +18,28 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package org.sonar.plugins.flex;
+package org.sonar.plugins.flex.core;
+
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.apache.commons.configuration.Configuration;
-import org.apache.commons.lang.StringUtils;
-import org.sonar.api.resources.AbstractLanguage;
+import org.junit.Test;
+import org.sonar.api.resources.Directory;
+import org.sonar.api.resources.File;
+import org.sonar.plugins.flex.FlexPlugin;
 
-public class Flex extends AbstractLanguage {
-  private Configuration configuration;
-  public static final String KEY = "flex";
-  public static final String DEFAULT_PACKAGE_NAME = "[default]";
-  static final String[] SUFFIXES = {"as"};
-  public static Flex INSTANCE;
+public class FlexTest {
 
-  public Flex(Configuration configuration) {
-    super(KEY, "Flex");
-    this.configuration = configuration;
+  @Test
+  public void testGetFileSuffixes() {
+    Configuration configuration = mock(Configuration.class);
+    Flex flex = new Flex(configuration);
 
-    // See SONAR-1461
-    INSTANCE = this;
-  }
-
-  public String[] getFileSuffixes() {
-    String[] suffixes = configuration.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY);
-    if (suffixes == null || suffixes.length == 0) {
-      suffixes = StringUtils.split(FlexPlugin.FILE_SUFFIXES_DEFVALUE, ",");
-    }
-    return suffixes;
+    when(configuration.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY)).thenReturn(null);
+    assertThat(flex.getFileSuffixes(), is(new String[] {"as"}));
   }
 
 }

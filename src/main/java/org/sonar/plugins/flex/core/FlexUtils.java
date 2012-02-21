@@ -18,22 +18,23 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package org.sonar.plugins.flex;
+package org.sonar.plugins.flex.core;
 
-import org.junit.Test;
-import org.apache.commons.configuration.Configuration;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.sonar.plugins.flex.FlexPlugin;
 
-public class FlexTest {
-  @Test
-  public void testGetFileSuffixes() {
-    Configuration configuration = mock(Configuration.class);
-    Flex flex = new Flex(configuration);
+/**
+ * Utility class of the Flex plugin.
+ */
+public final class FlexUtils {
 
-    when(configuration.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY)).thenReturn(null);
-    assertThat(flex.getFileSuffixes(), is(new String[]{"as"}));
+  private FlexUtils() {
+    // only static methods
   }
+
+  /**
+   * Default logger.
+   */
+  public static final Logger LOG = LoggerFactory.getLogger(FlexPlugin.class.getName());
 }

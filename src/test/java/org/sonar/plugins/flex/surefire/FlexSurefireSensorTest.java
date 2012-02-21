@@ -23,7 +23,7 @@ package org.sonar.plugins.flex.surefire;
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.resources.Project;
-import org.sonar.plugins.flex.Flex;
+import org.sonar.plugins.flex.core.Flex;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
@@ -36,7 +36,7 @@ public class FlexSurefireSensorTest {
 
   @Before
   public void setUp() throws Exception {
-    sensor = new FlexSurefireSensor(new FlexMojosMavenPluginHandler());
+    sensor = new FlexSurefireSensor(new FlexMojosMavenPluginHandler(), null);
     project = mock(Project.class);
   }
 

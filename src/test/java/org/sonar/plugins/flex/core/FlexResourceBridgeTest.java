@@ -18,35 +18,40 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package org.sonar.plugins.flex.cpd;
+package org.sonar.plugins.flex.core;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.sonar.api.resources.Directory;
+import org.sonar.api.resources.File;
 
-/**
- * @author Evgeny Mandrikov
- */
-public class FlexCpdMavenPluginHandlerTest {
-  private FlexCpdMavenPluginHandler handler;
+public class FlexResourceBridgeTest {
+
+  private FlexResourceBridge resourceBridge;
 
   @Before
-  public void setUp() throws Exception {
-    handler = new FlexCpdMavenPluginHandler(null);
+  public void setup() throws Exception {
+    resourceBridge = new FlexResourceBridge();
+    resourceBridge.indexFile(new File("org/sonar/test/Bar.as"));
+    resourceBridge.indexFile(new File("org/sonar/test/Foo.swc"));
   }
 
   @Test
-  public void fixedVersion() throws Exception {
-    assertThat(handler.isFixedVersion(), is(true));
+  public void shouldFindFileForClassName() throws Exception {
+    assertThat(resourceBridge.findFile("org.sonar.test.Bar"), is(new File("org/sonar/test/Bar.as")));
   }
 
   @Test
-  public void pluginDefinition() throws Exception {
-    assertThat(handler.getGroupId(), is("com.adobe.ac"));
-    assertThat(handler.getArtifactId(), is("flex-pmd-cpd-maven-plugin"));
-    assertThat(handler.getVersion(), is("1.2"));
-    assertThat(handler.getGoals(), is(new String[] { "check" }));
+  public void shouldFindFileForMethodName() throws Exception {
+    assertThat(resourceBridge.findFile("org.sonar.test.Foo::main"), is(new File("org/sonar/test/Foo.swc")));
   }
+
+  @Test
+  public void shouldFindDirectoryForPacakgeName() throws Exception {
+    assertThat(resourceBridge.findDirectory("org.sonar.test"), is(new Directory("org/sonar/test")));
+  }
+
 }

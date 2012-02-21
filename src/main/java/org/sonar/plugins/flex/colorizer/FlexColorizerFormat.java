@@ -22,7 +22,7 @@ package org.sonar.plugins.flex.colorizer;
 
 import org.sonar.api.web.CodeColorizerFormat;
 import org.sonar.colorizer.*;
-import org.sonar.plugins.flex.Flex;
+import org.sonar.plugins.flex.core.Flex;
 
 import java.util.Arrays;
 import java.util.List;

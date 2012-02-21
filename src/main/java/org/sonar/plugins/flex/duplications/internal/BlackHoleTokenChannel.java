@@ -17,28 +17,19 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
+package org.sonar.plugins.flex.duplications.internal;
 
-package org.sonar.plugins.flex;
+import org.sonar.channel.RegexChannel;
 
-import org.sonar.api.batch.AbstractSourceImporter;
-import org.sonar.api.resources.Resource;
+class BlackHoleTokenChannel extends RegexChannel<TokenQueue> {
 
-import java.io.File;
-import java.util.List;
-
-public class FlexSourceImporter extends AbstractSourceImporter {
-
-  public FlexSourceImporter(Flex flex) {
-    super(flex);
+  public BlackHoleTokenChannel(String regex) {
+    super(regex);
   }
 
   @Override
-  protected Resource createResource(File file, List<File> sourceDirs, boolean unitTest) {
-    return file != null ? FlexFile.fromIOFile(file, sourceDirs, unitTest) : null;
+  protected void consume(CharSequence token, TokenQueue output) {
+    // do nothing
   }
 
-  @Override
-  public String toString() {
-    return getClass().getSimpleName();
-  }
 }

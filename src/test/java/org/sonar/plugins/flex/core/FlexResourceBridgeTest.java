@@ -54,4 +54,12 @@ public class FlexResourceBridgeTest {
     assertThat(resourceBridge.findDirectory("org.sonar.test"), is(new Directory("org/sonar/test")));
   }
 
+  @Test(expected = IllegalStateException.class)
+  public void shouldNotIndexFileIfBridgeLocked() throws Exception {
+    FlexResourceBridge bridge = new FlexResourceBridge();
+    bridge.indexFile(new File("org/sonar/test/Bar.as"));
+    bridge.lock();
+    bridge.indexFile(new File("org/sonar/test/Foo.swc"));
+  }
+
 }

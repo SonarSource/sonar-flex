@@ -23,8 +23,6 @@ package org.sonar.plugins.flex.core;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.resources.AbstractLanguage;
-import org.sonar.api.resources.Directory;
-import org.sonar.api.resources.File;
 import org.sonar.plugins.flex.FlexPlugin;
 
 /**
@@ -61,36 +59,5 @@ public class Flex extends AbstractLanguage {
     }
     return suffixes;
   }
-
-  /**
-   * Returns the corresponding Sonar File given the name of an ActionScript class or class+method.
-   * 
-   * For instance:
-   * <ul>
-   * <li>com.adobe.air.crypto.EncryptionKeyGenerator => File:com/adobe/air/crypto/EncryptionKeyGenerator</li>
-   * <li>com.adobe.air.crypto.EncryptionKeyGenerator::generateEncryptionKey => File:com/adobe/air/crypto/EncryptionKeyGenerator</li>
-   * </ul>
-   * 
-   * @param actionScriptClassName the name of the class
-   * @return the corresponding Sonar file
-   */
-//  public static File getFileFromLogicalName(String actionScriptName) {
-//    return new File(StringUtils.substringBefore(actionScriptName, "::").replace('.', '/') + ".as");
-//  }
-
-  /**
-   * Returns the corresponding Sonar Directory given the name of an ActionScript package.
-   * 
-   * For instance:
-   * <ul>
-   * <li>com.adobe.air.crypto => Directory:com/adobe/air/crypto</li>
-   * </ul>
-   * 
-   * @param actionScriptClassName the name of the package
-   * @return the corresponding Sonar directory
-   */
-//  public static Directory getDirFromLogicalName(String actionScriptName) {
-//    return new Directory(actionScriptName.replace('.', '/'));
-//  }
 
 }

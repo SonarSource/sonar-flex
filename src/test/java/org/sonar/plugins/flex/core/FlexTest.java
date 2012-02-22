@@ -27,8 +27,6 @@ import static org.mockito.Mockito.when;
 
 import org.apache.commons.configuration.Configuration;
 import org.junit.Test;
-import org.sonar.api.resources.Directory;
-import org.sonar.api.resources.File;
 import org.sonar.plugins.flex.FlexPlugin;
 
 public class FlexTest {
@@ -40,6 +38,12 @@ public class FlexTest {
 
     when(configuration.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY)).thenReturn(null);
     assertThat(flex.getFileSuffixes(), is(new String[] {"as"}));
+
+    when(configuration.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY)).thenReturn(new String[0]);
+    assertThat(flex.getFileSuffixes(), is(new String[] {"as"}));
+
+    when(configuration.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY)).thenReturn(new String[] {"as, swc"});
+    assertThat(flex.getFileSuffixes(), is(new String[] {"as, swc"}));
   }
 
 }

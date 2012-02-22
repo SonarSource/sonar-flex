@@ -59,8 +59,7 @@ public class FlexResourceBridge implements BatchExtension {
    */
   public void indexFile(org.sonar.api.resources.File file) {
     if (canIndexFiles) {
-      resourcesMap.put(StringUtils.substringBeforeLast
-          (file.getKey(), ".").replace('/', '.'), file);
+      resourcesMap.put(StringUtils.substringBeforeLast(file.getKey(), ".").replace('/', '.'), file);
     } else {
       throw new IllegalStateException(
           "The FlexResourceBridge has been locked to prevent future modifications. It is impossible to index new files.");

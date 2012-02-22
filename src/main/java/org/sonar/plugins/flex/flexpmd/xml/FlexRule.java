@@ -27,6 +27,8 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.ObjectUtils;
+
 @XStreamAlias("rule")
 public class FlexRule implements Comparable<String> {
 
@@ -46,7 +48,7 @@ public class FlexRule implements Comparable<String> {
 
   @XStreamOmitField
   private String category;
-  
+
   @XStreamOmitField
   private String exclude;
 
@@ -115,4 +117,36 @@ public class FlexRule implements Comparable<String> {
   public String getCategory() {
     return category;
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((clazz == null) ? 0 : clazz.hashCode());
+    return result;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    FlexRule other = (FlexRule) obj;
+    if (clazz == null) {
+      if (other.clazz != null)
+        return false;
+    } else if (!clazz.equals(other.clazz))
+      return false;
+    return true;
+  }
+
 }

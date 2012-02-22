@@ -20,17 +20,23 @@
 
 package org.sonar.plugins.flex.flexpmd.xml;
 
-import com.thoughtworks.xstream.XStream;
-import org.apache.commons.io.IOUtils;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.rules.*;
-import org.sonar.api.utils.SonarException;
-import org.sonar.plugins.flex.flexpmd.FlexPmdConstants;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
+import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.rules.ActiveRule;
+import org.sonar.api.rules.ActiveRuleParam;
+import org.sonar.api.rules.Rule;
+import org.sonar.api.rules.RuleParam;
+import org.sonar.api.rules.RulePriority;
+import org.sonar.api.utils.SonarException;
+import org.sonar.plugins.flex.flexpmd.FlexPmdConstants;
+
+import com.thoughtworks.xstream.XStream;
 
 public final class FlexRulesUtils {
   private FlexRulesUtils() {
@@ -108,8 +114,8 @@ public final class FlexRulesUtils {
 
   private static Rule createRepositoryRule(FlexRule fRule) {
     RulePriority priority = severityFromLevel(fRule.getPriority());
-    Rule rule = Rule.create(FlexPmdConstants.REPOSITORY_KEY, fRule.getClazz(), fRule.getMessage())
-        .setSeverity(priority);
+    String ruleName = computeRuleNameFromClassAttribute(fRule.getClazz());
+    Rule rule = Rule.create(FlexPmdConstants.REPOSITORY_KEY, fRule.getClazz(), ruleName).setSeverity(priority);
     rule.setDescription(fRule.getDescription());
     List<RuleParam> ruleParams = new ArrayList<RuleParam>();
     if (fRule.getProperties() != null) {
@@ -123,6 +129,25 @@ public final class FlexRulesUtils {
     }
     rule.setParams(ruleParams);
     return rule;
+  }
+
+  protected static String computeRuleNameFromClassAttribute(String nameAttribute) {
+    StringBuilder name = new StringBuilder();
+    String className = StringUtils.substringAfterLast(nameAttribute, ".");
+    boolean first = true;
+    for (char character : className.toCharArray()) {
+      if (Character.isUpperCase(character) && !first) {
+        name.append(" ");
+        name.append(Character.toLowerCase(character));
+      } else if (Character.isDigit(character)) {
+        name.append(" ");
+        name.append(character);
+      } else {
+        name.append(character);
+      }
+      first = false;
+    }
+    return name.toString();
   }
 
   private static ActiveRule createActiveRule(FlexRule fRule, List<Rule> rulesRepository) {

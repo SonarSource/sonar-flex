@@ -23,10 +23,10 @@ package org.sonar.plugins.flex.flexpmd.xml;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.sonar.api.rules.ActiveRule;
-
-import java.util.List;
 
 public class FlexRulesUtilsTest {
   @Test
@@ -65,6 +65,13 @@ public class FlexRulesUtilsTest {
     ruleset = FlexRulesUtils.buildRulesetFromActiveProfile(activeRules);
     assertThat(ruleset.getRules().size(), is(1));
     assertThat(ruleset.getRules().get(0).getPriority(), is("1"));
+  }
+
+  @Test
+  public void shouldComputeRuleNameFromClassAttribute() throws Exception {
+    assertThat(FlexRulesUtils.computeRuleNameFromClassAttribute("com.adobe.ac.pmd.rules.security.Insecure"), is("Insecure"));
+    assertThat(FlexRulesUtils.computeRuleNameFromClassAttribute("com.adobe.ac.pmd.rules.security.AllowInsecureDomainRule"), is("Allow insecure domain rule"));
+    assertThat(FlexRulesUtils.computeRuleNameFromClassAttribute("com.adobe.ac.pmd.rules.security.Allow3InsecureDomainRule"), is("Allow 3 insecure domain rule"));
   }
 
   private List<ActiveRule> getActiveRules(String path) {

@@ -20,10 +20,14 @@
 
 package org.sonar.plugins.flex.core;
 
+import java.util.List;
+
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.resources.AbstractLanguage;
 import org.sonar.plugins.flex.FlexPlugin;
+
+import com.google.common.collect.Lists;
 
 /**
  * Class that actually represents ActionScript, the language of Flex.
@@ -33,7 +37,7 @@ public class Flex extends AbstractLanguage {
   public static final String NAME = "Flex";
   public static final String KEY = "flex";
 
-  public static final String DEFAULT_FILE_SUFFIXES = "as";
+  public static final String DEFAULT_FILE_SUFFIXES = "as,mxml";
 
   private Configuration configuration;
 
@@ -53,11 +57,21 @@ public class Flex extends AbstractLanguage {
    * {@inheritDoc}
    */
   public String[] getFileSuffixes() {
-    String[] suffixes = configuration.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY);
-    if (suffixes == null || suffixes.length == 0) {
+    String[] suffixes = filterEmptyStrings(configuration.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY));
+    if (suffixes.length == 0) {
       suffixes = StringUtils.split(DEFAULT_FILE_SUFFIXES, ",");
     }
     return suffixes;
+  }
+
+  private String[] filterEmptyStrings(String[] stringArray) {
+    List<String> nonEmptyStrings = Lists.newArrayList();
+    for (String string : stringArray) {
+      if (StringUtils.isNotBlank(string.trim())) {
+        nonEmptyStrings.add(string.trim());
+      }
+    }
+    return nonEmptyStrings.toArray(new String[nonEmptyStrings.size()]);
   }
 
 }

@@ -23,8 +23,8 @@ package org.sonar.plugins.flex.core;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
+import org.apache.commons.configuration.BaseConfiguration;
 import org.apache.commons.configuration.Configuration;
 import org.junit.Test;
 import org.sonar.plugins.flex.FlexPlugin;
@@ -33,17 +33,16 @@ public class FlexTest {
 
   @Test
   public void testGetFileSuffixes() {
-    Configuration configuration = mock(Configuration.class);
+    Configuration configuration = new BaseConfiguration();
     Flex flex = new Flex(configuration);
 
-    when(configuration.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY)).thenReturn(null);
-    assertThat(flex.getFileSuffixes(), is(new String[] {"as"}));
+    assertThat(flex.getFileSuffixes(), is(new String[] {"as", "mxml"}));
 
-    when(configuration.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY)).thenReturn(new String[0]);
-    assertThat(flex.getFileSuffixes(), is(new String[] {"as"}));
+    configuration.setProperty(FlexPlugin.FILE_SUFFIXES_KEY, "");
+    assertThat(flex.getFileSuffixes(), is(new String[] {"as", "mxml"}));
 
-    when(configuration.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY)).thenReturn(new String[] {"as, swc"});
-    assertThat(flex.getFileSuffixes(), is(new String[] {"as, swc"}));
+    configuration.setProperty(FlexPlugin.FILE_SUFFIXES_KEY, "as, swc");
+    assertThat(flex.getFileSuffixes(), is(new String[] {"as", "swc"}));
   }
 
 }

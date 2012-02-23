@@ -33,7 +33,6 @@ import org.sonar.api.resources.Qualifiers;
 import org.sonar.api.resources.Resource;
 import org.sonar.plugins.flex.core.Flex;
 import org.sonar.plugins.flex.core.FlexResourceBridge;
-import org.sonar.plugins.flex.core.FlexUtils;
 import org.sonar.plugins.surefire.api.AbstractSurefireParser;
 import org.sonar.plugins.surefire.api.SurefireUtils;
 

@@ -24,13 +24,17 @@ import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import java.io.File;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.sonar.api.batch.SensorContext;
-
-import java.io.File;
 
 public class FlexPmdXmlReportParserTest {
 

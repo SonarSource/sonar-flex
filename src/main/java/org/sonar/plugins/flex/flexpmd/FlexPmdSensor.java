@@ -20,6 +20,8 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
+import java.io.File;
+
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.maven.DependsUponMavenPlugin;
@@ -27,8 +29,6 @@ import org.sonar.api.batch.maven.MavenPluginHandler;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.plugins.flex.core.Flex;
-
-import java.io.File;
 
 public class FlexPmdSensor implements Sensor, DependsUponMavenPlugin {
 

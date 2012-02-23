@@ -20,16 +20,16 @@
 
 package org.sonar.plugins.flex.colorizer;
 
+import static junit.framework.Assert.fail;
+import static org.hamcrest.number.OrderingComparisons.lessThan;
+import static org.junit.Assert.assertThat;
+
+import java.util.List;
+
 import org.junit.Test;
 import org.sonar.colorizer.CppDocTokenizer;
 import org.sonar.colorizer.JavadocTokenizer;
 import org.sonar.colorizer.Tokenizer;
-
-import java.util.List;
-
-import static junit.framework.Assert.fail;
-import static org.hamcrest.number.OrderingComparisons.lessThan;
-import static org.junit.Assert.assertThat;
 
 public class FlexColorizerFormatTest {
   @Test

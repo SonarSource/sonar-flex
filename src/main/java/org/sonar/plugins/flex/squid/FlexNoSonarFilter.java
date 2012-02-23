@@ -20,13 +20,13 @@
 
 package org.sonar.plugins.flex.squid;
 
-import org.sonar.squid.text.Source;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.sonar.api.resources.Resource;
 import org.sonar.api.rules.Violation;
 import org.sonar.api.rules.ViolationFilter;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.sonar.squid.text.Source;
 
 public class FlexNoSonarFilter implements ViolationFilter {
 

@@ -23,14 +23,14 @@ package org.sonar.plugins.flex.flexpmd;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.io.InputStreamReader;
+import java.io.Reader;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.RulePriority;
 import org.sonar.api.utils.ValidationMessages;
-
-import java.io.InputStreamReader;
-import java.io.Reader;
 
 public class FlexPmdProfileImporterTest {
 

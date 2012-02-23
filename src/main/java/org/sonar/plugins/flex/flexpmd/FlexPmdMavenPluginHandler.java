@@ -20,14 +20,14 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.sonar.api.batch.maven.MavenPlugin;
 import org.sonar.api.batch.maven.MavenPluginHandler;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.utils.SonarException;
-
-import java.io.File;
-import java.io.IOException;
 
 public class FlexPmdMavenPluginHandler implements MavenPluginHandler {
   private RulesProfile rulesProfile;

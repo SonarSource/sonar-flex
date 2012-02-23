@@ -24,12 +24,12 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.io.Reader;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.utils.ValidationMessages;
-
-import java.io.Reader;
 
 public class FlexPmdProfileExporterTest {
 

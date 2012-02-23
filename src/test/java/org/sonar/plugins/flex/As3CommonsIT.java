@@ -20,17 +20,17 @@
 
 package org.sonar.plugins.flex;
 
+import static junit.framework.Assert.assertNull;
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sonar.wsclient.Sonar;
 import org.sonar.wsclient.services.Measure;
 import org.sonar.wsclient.services.Resource;
 import org.sonar.wsclient.services.ResourceQuery;
-
-import static junit.framework.Assert.assertNull;
-import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 
 public class As3CommonsIT {
 

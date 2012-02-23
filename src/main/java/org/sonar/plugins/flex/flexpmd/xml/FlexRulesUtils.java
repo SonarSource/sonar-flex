@@ -80,10 +80,10 @@ public final class FlexRulesUtils {
     return configuration;
   }
 
-  private static final String resourcePath = "/org/sonar/plugins/flex/flexpmd/";
+  private static final String RESOURCE_PATH = "/org/sonar/plugins/flex/flexpmd/";
 
   public static List<Rule> getInitialReferential() {
-    return parseReferential(resourcePath + "rules.xml");
+    return parseReferential(RESOURCE_PATH + "rules.xml");
   }
 
   public static List<Rule> parseReferential(String path) {

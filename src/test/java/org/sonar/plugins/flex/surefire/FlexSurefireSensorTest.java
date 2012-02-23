@@ -20,15 +20,17 @@
 
 package org.sonar.plugins.flex.surefire;
 
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.resources.Project;
 import org.sonar.plugins.flex.core.Flex;
-
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class FlexSurefireSensorTest {
   private FlexSurefireSensor sensor;

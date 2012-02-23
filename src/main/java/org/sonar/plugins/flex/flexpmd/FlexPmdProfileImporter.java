@@ -20,6 +20,10 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.util.List;
+
 import org.apache.commons.io.IOUtils;
 import org.sonar.api.profiles.ProfileImporter;
 import org.sonar.api.profiles.RulesProfile;
@@ -27,10 +31,6 @@ import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.flex.core.Flex;
 import org.sonar.plugins.flex.flexpmd.xml.FlexRulesUtils;
-
-import java.io.IOException;
-import java.io.Reader;
-import java.util.List;
 
 public class FlexPmdProfileImporter extends ProfileImporter {
 

@@ -74,6 +74,12 @@ public class FlexRulesUtilsTest {
     assertThat(FlexRulesUtils.computeRuleNameFromClassAttribute("com.adobe.ac.pmd.rules.security.Allow3InsecureDomainRule"), is("Allow 3 insecure domain rule"));
   }
 
+  @Test
+  public void shouldReturnMessageForRule() throws Exception {
+    assertThat(FlexRulesUtils.findMessageForRule("com.adobe.ac.pmd.rules.architecture.UseInternalClassOutsideApiClass"),
+        is("This class imports an internal class ({0}) from another function area ({1})"));
+  }
+
   private List<ActiveRule> getActiveRules(String path) {
     List<ActiveRule> activeRules = FlexRulesUtils.importConfiguration(
         FlexRulesUtils.getConfigurationFromFile(path),

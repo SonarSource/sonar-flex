@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -39,6 +40,9 @@ import org.sonar.plugins.flex.flexpmd.FlexPmdConstants;
 import com.thoughtworks.xstream.XStream;
 
 public final class FlexRulesUtils {
+
+  private static Properties ruleMessages;
+
   private FlexRulesUtils() {
   }
 
@@ -192,11 +196,24 @@ public final class FlexRulesUtils {
           properties.add(new Property(activeRuleParam.getRuleParam().getKey(), activeRuleParam.getValue()));
         }
         flexRule.setProperties(properties);
-        flexRule.setMessage(activeRule.getRule().getName());
+        flexRule.setMessage(findMessageForRule(activeRule.getConfigKey()));
         ruleset.addRule(flexRule);
       }
     }
     return ruleset;
+  }
+
+  static String findMessageForRule(String activeRuleConfigKey) {
+    if (ruleMessages == null) {
+      ruleMessages = new Properties();
+      try {
+        ruleMessages.load(FlexRulesUtils.class.getResourceAsStream("rule-messages.properties"));
+      } catch (IOException e) {
+        throw new SonarException("Can't load the 'rule-messages.properties' file.", e);
+      }
+    }
+
+    return ruleMessages.getProperty(activeRuleConfigKey);
   }
 
   private static RulePriority severityFromLevel(String level) {

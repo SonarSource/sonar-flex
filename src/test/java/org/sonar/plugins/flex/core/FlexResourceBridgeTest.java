@@ -21,7 +21,6 @@
 package org.sonar.plugins.flex.core;
 
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
@@ -38,12 +37,7 @@ public class FlexResourceBridgeTest {
     resourceBridge = new FlexResourceBridge();
     resourceBridge.indexFile(new File("org/sonar/test/Bar.as"));
     resourceBridge.indexFile(new File("org/sonar/test/Foo.as"));
-    resourceBridge.indexFile(new File("org/sonar/test/NotIndexedFile.swc"));
-  }
-
-  @Test
-  public void shouldNotIndexFileOtherThanAS() throws Exception {
-    assertThat(resourceBridge.findFile("org.sonar.test.NotIndexedFile"), nullValue());
+    resourceBridge.indexFile(new File("org/sonar/test/Foo.mxml"));
   }
 
   @Test
@@ -59,6 +53,11 @@ public class FlexResourceBridgeTest {
   @Test
   public void shouldFindDirectoryForPacakgeName() throws Exception {
     assertThat(resourceBridge.findDirectory("org.sonar.test"), is(new Directory("org/sonar/test")));
+  }
+
+  @Test
+  public void shouldKeepExtensionForFilesOtherThanAS() throws Exception {
+    assertThat(resourceBridge.findFile("org.sonar.test.Foo.mxml"), is(new File("org/sonar/test/Foo.mxml")));
   }
 
   @Test(expected = IllegalStateException.class)

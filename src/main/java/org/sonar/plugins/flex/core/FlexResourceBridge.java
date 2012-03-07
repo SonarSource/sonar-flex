@@ -32,7 +32,7 @@ import com.google.common.collect.Maps;
 /**
  * Class that helps finding which physical resource (a file) contains a specific Action Script class or function.
  * 
- * Note that this works only if AS files contain 1 and only 1 class each.
+ * Note that this works only for AS files (that contain class definitions) if they contain 1 and only 1 class each.
  * 
  */
 public class FlexResourceBridge implements BatchExtension {
@@ -58,11 +58,13 @@ public class FlexResourceBridge implements BatchExtension {
    *           if the {@link FlexResourceBridge} is locked and cannot index more files
    */
   public void indexFile(org.sonar.api.resources.File file) {
-    if (canIndexFiles) {
-      resourcesMap.put(StringUtils.substringBeforeLast(file.getKey(), ".").replace('/', '.'), file);
-    } else {
-      throw new IllegalStateException(
-          "The FlexResourceBridge has been locked to prevent future modifications. It is impossible to index new files.");
+    if (isIndexable(file)) {
+      if (canIndexFiles) {
+        resourcesMap.put(StringUtils.substringBeforeLast(file.getKey(), ".").replace('/', '.'), file);
+      } else {
+        throw new IllegalStateException(
+            "The FlexResourceBridge has been locked to prevent future modifications. It is impossible to index new files.");
+      }
     }
   }
 
@@ -82,4 +84,8 @@ public class FlexResourceBridge implements BatchExtension {
     return new Directory(packageName.replace('.', '/'));
   }
 
+  private boolean isIndexable(File file) {
+    // for the moment, only ".as" files are indexable
+    return StringUtils.endsWith(file.getKey(), ".as");
+  }
 }

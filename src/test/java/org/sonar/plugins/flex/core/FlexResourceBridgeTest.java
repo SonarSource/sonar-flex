@@ -21,6 +21,7 @@
 package org.sonar.plugins.flex.core;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
@@ -36,7 +37,13 @@ public class FlexResourceBridgeTest {
   public void setup() throws Exception {
     resourceBridge = new FlexResourceBridge();
     resourceBridge.indexFile(new File("org/sonar/test/Bar.as"));
-    resourceBridge.indexFile(new File("org/sonar/test/Foo.swc"));
+    resourceBridge.indexFile(new File("org/sonar/test/Foo.as"));
+    resourceBridge.indexFile(new File("org/sonar/test/NotIndexedFile.swc"));
+  }
+
+  @Test
+  public void shouldNotIndexFileOtherThanAS() throws Exception {
+    assertThat(resourceBridge.findFile("org.sonar.test.NotIndexedFile"), nullValue());
   }
 
   @Test
@@ -46,7 +53,7 @@ public class FlexResourceBridgeTest {
 
   @Test
   public void shouldFindFileForMethodName() throws Exception {
-    assertThat(resourceBridge.findFile("org.sonar.test.Foo::main"), is(new File("org/sonar/test/Foo.swc")));
+    assertThat(resourceBridge.findFile("org.sonar.test.Foo::main"), is(new File("org/sonar/test/Foo.as")));
   }
 
   @Test
@@ -59,7 +66,7 @@ public class FlexResourceBridgeTest {
     FlexResourceBridge bridge = new FlexResourceBridge();
     bridge.indexFile(new File("org/sonar/test/Bar.as"));
     bridge.lock();
-    bridge.indexFile(new File("org/sonar/test/Foo.swc"));
+    bridge.indexFile(new File("org/sonar/test/Foo.as"));
   }
 
 }

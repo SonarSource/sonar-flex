@@ -43,6 +43,19 @@ public final class FlexRulesUtils {
 
   private static Properties ruleMessages;
 
+  static {
+    ruleMessages = new Properties();
+    InputStream inputStream = null;
+    try {
+      inputStream = FlexRulesUtils.class.getResourceAsStream("rule-messages.properties");
+      ruleMessages.load(inputStream);
+    } catch (IOException e) {
+      throw new SonarException("Can't load the 'rule-messages.properties' file.", e);
+    } finally {
+      IOUtils.closeQuietly(inputStream);
+    }
+  }
+
   private FlexRulesUtils() {
   }
 
@@ -204,15 +217,6 @@ public final class FlexRulesUtils {
   }
 
   static String findMessageForRule(String activeRuleConfigKey) {
-    if (ruleMessages == null) {
-      ruleMessages = new Properties();
-      try {
-        ruleMessages.load(FlexRulesUtils.class.getResourceAsStream("rule-messages.properties"));
-      } catch (IOException e) {
-        throw new SonarException("Can't load the 'rule-messages.properties' file.", e);
-      }
-    }
-
     return ruleMessages.getProperty(activeRuleConfigKey);
   }
 

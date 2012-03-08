@@ -2,7 +2,18 @@
 <javancss>
   <date>2009-12-20</date>
   <time>9:39:24</time>
-  <packages>
+  <packages>    
+    <package>
+      <name>.</name>
+      <ccn>0</ccn>
+      <ncss>381</ncss>
+      <javadocs>0</javadocs>
+      <javadoc_lines>0</javadoc_lines>
+      <multi_comment_lines>64</multi_comment_lines>
+      <single_comment_lines>0</single_comment_lines>
+      <functions>24</functions>
+      <classes>4</classes>
+    </package>
     <package>
       <name>com.almirun.common.controllers</name>
       <ccn>0</ccn>

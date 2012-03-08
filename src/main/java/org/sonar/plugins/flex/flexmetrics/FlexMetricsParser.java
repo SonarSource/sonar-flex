@@ -102,7 +102,10 @@ public class FlexMetricsParser implements BatchExtension {
   private void processPackages(SMInputCursor packagesCursor) throws XMLStreamException {
     while (packagesCursor.getNext() != null) {
       Map<String, String> values = processChildren(packagesCursor);
-      context.saveMeasure(resourceBridge.findDirectory(values.get("name")), CoreMetrics.PACKAGES, 1.0);
+      String packageName = values.get("name");
+      if (!packageName.equals(".")) {
+        context.saveMeasure(resourceBridge.findDirectory(packageName), CoreMetrics.PACKAGES, 1.0);
+      }
     }
   }
 

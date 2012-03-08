@@ -74,6 +74,7 @@ public class FlexMetricsParserTest {
     parser.parse(xmlFile);
 
     verify(context).saveMeasure(new Directory("com/almirun/common/events"), CoreMetrics.PACKAGES, 1.0);
+    verify(context, never()).saveMeasure(new Directory("/"), CoreMetrics.PACKAGES, 1.0);
 
     verify(context, never()).saveMeasure(eq(new Directory("com/almirun/common/controllers")), eq(CoreMetrics.COMMENT_LINES), anyDouble());
     verify(context, never()).saveMeasure(eq(new Directory("com/almirun/common/events")), eq(CoreMetrics.COMMENT_LINES), anyDouble());

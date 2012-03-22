@@ -53,6 +53,9 @@ public class FlexRule implements Comparable<String> {
   @XStreamOmitField
   private String example;
 
+  public FlexRule() {
+  }
+
   public FlexRule(String clazz) {
     this(clazz, null);
   }

@@ -9,13 +9,12 @@
     <relativePath>../parent</relativePath>
   </parent>
 
-  <artifactId>sonar-flex-plugin</artifactId>
+  <groupId>org.codehaus.sonar-plugins.flex</groupId>
+  <artifactId>flex</artifactId>
   <version>1.1-SNAPSHOT</version>
-  <packaging>sonar-plugin</packaging>
+  <packaging>pom</packaging>
 
-  <name>Sonar Flex Plugin</name>
-  <description>Enables analysis of ActionScript projects into Sonar.</description>
-  <url>http://docs.codehaus.org/display/SONAR/Flex+Plugin</url>
+  <name>Flex</name>
   <inceptionYear>2010</inceptionYear>
   <organization>
     <name>SonarSource</name>
@@ -44,6 +43,11 @@
     </developer>
   </developers>
 
+  <modules>
+    <module>flex-squid</module>
+    <module>sonar-flex-plugin</module>
+  </modules>
+
   <scm>
     <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/flex</connection>
     <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/flex</developerConnection>
@@ -59,52 +63,79 @@
   </ciManagement>
 
   <properties>
+    <license.title>Sonar Flex Plugin</license.title>
+
     <sonar.version>2.11</sonar.version>
-    <sonar.pluginClass>org.sonar.plugins.flex.FlexPlugin</sonar.pluginClass>
-    <sonar.pluginName>Flex</sonar.pluginName>
-    <!-- Those classes are excluded as they are just a temporary copy of Sonar core classes -->
-    <sonar.exclusions>org/sonar/plugins/flex/duplications/internal/*.java</sonar.exclusions>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.codehaus.sonar</groupId>
-      <artifactId>sonar-plugin-api</artifactId>
-      <version>${sonar.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.sonar.plugins</groupId>
-      <artifactId>sonar-surefire-plugin</artifactId>
-      <type>sonar-plugin</type>
-      <version>${sonar.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.sonar.plugins</groupId>
-      <artifactId>sonar-cobertura-plugin</artifactId>
-      <type>sonar-plugin</type>
-      <version>${sonar.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <!-- unit tests -->
-    <dependency>
-      <groupId>org.codehaus.sonar</groupId>
-      <artifactId>sonar-testing-harness</artifactId>
-      <version>${sonar.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <!-- TODO http://jira.codehaus.org/browse/SONAR-2011
-    We need following dependency, otherwise we will receive
-    java.lang.NoClassDefFoundError: org/apache/maven/project/MavenProject
-    during call mock(org.sonar.api.resources.Project.class)
-    -->
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-project</artifactId>
-      <version>2.0.7</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.codehaus.sonar</groupId>
+        <artifactId>sonar-plugin-api</artifactId>
+        <version>${sonar.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.sonar.plugins</groupId>
+        <artifactId>sonar-surefire-plugin</artifactId>
+        <type>sonar-plugin</type>
+        <version>${sonar.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.sonar.plugins</groupId>
+        <artifactId>sonar-cobertura-plugin</artifactId>
+        <type>sonar-plugin</type>
+        <version>${sonar.version}</version>
+      </dependency>
+      <!-- unit tests -->
+      <dependency>
+        <groupId>org.codehaus.sonar</groupId>
+        <artifactId>sonar-testing-harness</artifactId>
+        <version>${sonar.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.codehaus.sonar.sslr</groupId>
+        <artifactId>sslr-core</artifactId>
+        <version>1.13-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.sonar.sslr</groupId>
+        <artifactId>sslr-xpath</artifactId>
+        <version>1.13-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.sonar.sslr</groupId>
+        <artifactId>sslr-devkit</artifactId>
+        <version>1.13-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.sonar.sslr</groupId>
+        <artifactId>sslr-testing-harness</artifactId>
+        <version>1.13-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.sonar.sslr-squid-bridge</groupId>
+        <artifactId>sslr-squid-bridge</artifactId>
+        <version>2.2-SNAPSHOT</version>
+      </dependency>
+
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.10</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-all</artifactId>
+        <version>1.9.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-all</artifactId>
+        <version>1.1</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
 </project>

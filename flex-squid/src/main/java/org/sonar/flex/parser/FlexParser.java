@@ -17,29 +17,28 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex;
+package org.sonar.flex.parser;
 
-import org.sonar.squid.api.SquidConfiguration;
+import com.sonar.sslr.impl.Parser;
+import com.sonar.sslr.impl.events.ParsingEventListener;
+import org.sonar.flex.FlexConfiguration;
+import org.sonar.flex.api.FlexGrammar;
+import org.sonar.flex.lexer.FlexLexer;
 
-import java.nio.charset.Charset;
+public final class FlexParser {
 
-public class FlexConfiguration extends SquidConfiguration {
-
-  private boolean ignoreHeaderComments;
-
-  public FlexConfiguration() {
+  private FlexParser() {
   }
 
-  public FlexConfiguration(Charset charset) {
-    super(charset);
+  public static Parser<FlexGrammar> create(ParsingEventListener... parsingEventListeners) {
+    return create(new FlexConfiguration(), parsingEventListeners);
   }
 
-  public void setIgnoreHeaderComments(boolean ignoreHeaderComments) {
-    this.ignoreHeaderComments = ignoreHeaderComments;
-  }
-
-  public boolean getIgnoreHeaderComments() {
-    return ignoreHeaderComments;
+  public static Parser<FlexGrammar> create(FlexConfiguration conf, ParsingEventListener... parsingEventListeners) {
+    return Parser.builder((FlexGrammar) new FlexGrammarImpl())
+        .withLexer(FlexLexer.create(conf))
+        .setParsingEventListeners(parsingEventListeners)
+        .build();
   }
 
 }

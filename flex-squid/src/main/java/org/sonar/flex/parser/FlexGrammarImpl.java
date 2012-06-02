@@ -17,29 +17,18 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex;
+package org.sonar.flex.parser;
 
-import org.sonar.squid.api.SquidConfiguration;
+import org.sonar.flex.api.FlexGrammar;
 
-import java.nio.charset.Charset;
+import static com.sonar.sslr.api.GenericTokenType.EOF;
+import static com.sonar.sslr.impl.matcher.GrammarFunctions.Advanced.anyTokenButNot;
+import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.o2n;
 
-public class FlexConfiguration extends SquidConfiguration {
+public class FlexGrammarImpl extends FlexGrammar {
 
-  private boolean ignoreHeaderComments;
-
-  public FlexConfiguration() {
-  }
-
-  public FlexConfiguration(Charset charset) {
-    super(charset);
-  }
-
-  public void setIgnoreHeaderComments(boolean ignoreHeaderComments) {
-    this.ignoreHeaderComments = ignoreHeaderComments;
-  }
-
-  public boolean getIgnoreHeaderComments() {
-    return ignoreHeaderComments;
+  public FlexGrammarImpl() {
+    compilationUnit.is(o2n(anyTokenButNot(EOF)), EOF);
   }
 
 }

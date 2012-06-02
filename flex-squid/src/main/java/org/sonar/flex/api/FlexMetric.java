@@ -17,29 +17,37 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex;
+package org.sonar.flex.api;
 
-import org.sonar.squid.api.SquidConfiguration;
+import org.sonar.squid.measures.CalculatedMetricFormula;
+import org.sonar.squid.measures.MetricDef;
 
-import java.nio.charset.Charset;
+public enum FlexMetric implements MetricDef {
 
-public class FlexConfiguration extends SquidConfiguration {
+  LINES_OF_CODE,
+  LINES,
+  FILES,
+  COMMENT_BLANK_LINES,
+  COMMENT_LINES;
 
-  private boolean ignoreHeaderComments;
-
-  public FlexConfiguration() {
+  public String getName() {
+    return name();
   }
 
-  public FlexConfiguration(Charset charset) {
-    super(charset);
+  public boolean isCalculatedMetric() {
+    return false;
   }
 
-  public void setIgnoreHeaderComments(boolean ignoreHeaderComments) {
-    this.ignoreHeaderComments = ignoreHeaderComments;
+  public boolean aggregateIfThereIsAlreadyAValue() {
+    return true;
   }
 
-  public boolean getIgnoreHeaderComments() {
-    return ignoreHeaderComments;
+  public boolean isThereAggregationFormula() {
+    return true;
+  }
+
+  public CalculatedMetricFormula getCalculatedMetricFormula() {
+    return null;
   }
 
 }

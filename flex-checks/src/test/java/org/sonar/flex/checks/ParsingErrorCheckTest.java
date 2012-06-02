@@ -32,11 +32,10 @@ public class ParsingErrorCheckTest {
 
   @Test
   public void test() {
-    // TODO
-    // SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/parsingError.js"), new ParsingErrorCheck());
-    // CheckMessagesVerifier.verify(file.getCheckMessages())
-    //    .next().atLine(3).withMessageThat(containsString("LPARENTHESIS expected but \"}\" [RCURLYBRACE] found"))
-    //    .noMore();
+    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ParsingError.as"), new ParsingErrorCheck());
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+        .next().atLine(1).withMessageThat(containsString("IDENTIFIER expected but \"EOF\" [EOF] found"))
+        .noMore();
   }
 
 }

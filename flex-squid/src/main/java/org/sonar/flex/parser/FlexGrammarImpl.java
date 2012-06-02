@@ -24,7 +24,6 @@ import org.sonar.flex.api.FlexGrammar;
 import static com.sonar.sslr.api.GenericTokenType.EOF;
 import static com.sonar.sslr.api.GenericTokenType.IDENTIFIER;
 import static com.sonar.sslr.api.GenericTokenType.LITERAL;
-import static com.sonar.sslr.impl.matcher.GrammarFunctions.Advanced.anyTokenButNot;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.and;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.o2n;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.opt;
@@ -44,9 +43,13 @@ import static org.sonar.flex.api.FlexKeyword.IF;
 import static org.sonar.flex.api.FlexKeyword.IMPLEMENTS;
 import static org.sonar.flex.api.FlexKeyword.INSTANCEOF;
 import static org.sonar.flex.api.FlexKeyword.INTERFACE;
+import static org.sonar.flex.api.FlexKeyword.INTERNAL;
 import static org.sonar.flex.api.FlexKeyword.IS;
 import static org.sonar.flex.api.FlexKeyword.NULL;
 import static org.sonar.flex.api.FlexKeyword.PACKAGE;
+import static org.sonar.flex.api.FlexKeyword.PRIVATE;
+import static org.sonar.flex.api.FlexKeyword.PROTECTED;
+import static org.sonar.flex.api.FlexKeyword.PUBLIC;
 import static org.sonar.flex.api.FlexKeyword.RETURN;
 import static org.sonar.flex.api.FlexKeyword.THROW;
 import static org.sonar.flex.api.FlexKeyword.TRUE;
@@ -103,7 +106,7 @@ import static org.sonar.flex.api.FlexTokenType.NUMERIC_LITERAL;
 public class FlexGrammarImpl extends FlexGrammar {
 
   public FlexGrammarImpl() {
-    compilationUnit.is(o2n(anyTokenButNot(EOF)), EOF);
+    compilationUnit.is(opt(packageDecl), o2n(packageBlockEntry), EOF);
 
     packageDecl.is(PACKAGE, IDENTIFIER, packageBlock);
     packageBlock.is(LCURLY, o2n(packageBlockEntry), RCURLY);
@@ -111,7 +114,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         classDefinition,
         interfaceDefinition));
 
-    classDefinition.is(CLASS, IDENTIFIER, classExtendsClause, implementsClause, typeBlock);
+    classDefinition.is(opt(modifiers), CLASS, IDENTIFIER, classExtendsClause, implementsClause, typeBlock);
     classExtendsClause.is(opt(EXTENDS, IDENTIFIER));
     implementsClause.is(opt(IMPLEMENTS, IDENTIFIER, o2n(COMMA, IDENTIFIER)));
 
@@ -120,7 +123,14 @@ public class FlexGrammarImpl extends FlexGrammar {
     typeBlock.is(LCURLY, o2n(typeBlockEntry), RCURLY);
 
     typeBlockEntry.is(methodDefinition);
-    methodDefinition.is(FUNCTION, IDENTIFIER, parameterDeclarationList, block);
+    methodDefinition.is(opt(modifiers), FUNCTION, IDENTIFIER, parameterDeclarationList, block);
+    parameterDeclarationList.is(LPAREN, /* TODO */RPAREN);
+
+    modifiers.is(or(
+        PUBLIC,
+        PRIVATE,
+        PROTECTED,
+        INTERNAL));
 
     block.is(LCURLY, o2n(statement), RCURLY);
 

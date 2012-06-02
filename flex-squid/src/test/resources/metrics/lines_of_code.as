@@ -9,7 +9,7 @@ public class Foo {
   //
   // Inline comment
   //
-  public void foo() {
+  public function foo() {
     // NOSONAR comment
   }
 }

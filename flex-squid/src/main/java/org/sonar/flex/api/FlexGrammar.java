@@ -43,6 +43,8 @@ public class FlexGrammar extends Grammar {
   public Rule methodDefinition;
   public Rule parameterDeclarationList;
 
+  public Rule modifiers;
+
   /*
    * Statements
    */

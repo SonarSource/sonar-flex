@@ -120,10 +120,10 @@ public class FlexMetricsParser implements BatchExtension {
         // + parseDouble(values.get("multi_comment_lines"));
 
         // context.saveMeasure(file, CoreMetrics.COMMENT_LINES, lines);
-        context.saveMeasure(file, CoreMetrics.CLASSES, 1.0);
+        // context.saveMeasure(file, CoreMetrics.CLASSES, 1.0);
         // context.saveMeasure(file, CoreMetrics.FILES, 1.0);
         // context.saveMeasure(file, CoreMetrics.NCLOC, parseDouble(values.get("ncss")));
-        context.saveMeasure(file, CoreMetrics.FUNCTIONS, parseDouble(values.get("functions")));
+        // context.saveMeasure(file, CoreMetrics.FUNCTIONS, parseDouble(values.get("functions")));
       }
     }
   }

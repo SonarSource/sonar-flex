@@ -93,6 +93,9 @@ public class FlexSquidSensor implements Sensor {
     context.saveMeasure(sonarFile, CoreMetrics.NCLOC, squidFile.getDouble(FlexMetric.LINES_OF_CODE));
     context.saveMeasure(sonarFile, CoreMetrics.COMMENT_BLANK_LINES, squidFile.getDouble(FlexMetric.COMMENT_BLANK_LINES));
     context.saveMeasure(sonarFile, CoreMetrics.COMMENT_LINES, squidFile.getDouble(FlexMetric.COMMENT_LINES));
+    context.saveMeasure(sonarFile, CoreMetrics.CLASSES, squidFile.getDouble(FlexMetric.CLASSES));
+    context.saveMeasure(sonarFile, CoreMetrics.FUNCTIONS, squidFile.getDouble(FlexMetric.FUNCTIONS));
+    context.saveMeasure(sonarFile, CoreMetrics.STATEMENTS, squidFile.getDouble(FlexMetric.STATEMENTS));
   }
 
   private void saveViolations(File sonarFile, SourceFile squidFile) {

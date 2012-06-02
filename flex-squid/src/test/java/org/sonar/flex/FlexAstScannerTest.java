@@ -65,4 +65,6 @@ public class FlexAstScannerTest {
     assertThat(file.getInt(FlexMetric.LINES_OF_CODE), is(4));
   }
 
+  // TODO test classes, functions, statements
+
 }

@@ -25,6 +25,7 @@ import com.sonar.sslr.squid.AstScanner;
 import com.sonar.sslr.squid.SquidAstVisitor;
 import com.sonar.sslr.squid.SquidAstVisitorContextImpl;
 import com.sonar.sslr.squid.metrics.CommentsVisitor;
+import com.sonar.sslr.squid.metrics.CounterVisitor;
 import com.sonar.sslr.squid.metrics.LinesOfCodeVisitor;
 import com.sonar.sslr.squid.metrics.LinesVisitor;
 import org.sonar.flex.api.FlexGrammar;
@@ -90,6 +91,18 @@ public class FlexAstScanner {
     /* Files */
     builder.setFilesMetric(FlexMetric.FILES);
 
+    /* Classes */
+    builder.withSquidAstVisitor(CounterVisitor.<FlexGrammar> builder()
+        .setMetricDef(FlexMetric.CLASSES)
+        .subscribeTo(parser.getGrammar().classDefinition)
+        .build());
+
+    /* Functions */
+    builder.withSquidAstVisitor(CounterVisitor.<FlexGrammar> builder()
+        .setMetricDef(FlexMetric.FUNCTIONS)
+        .subscribeTo(parser.getGrammar().methodDefinition)
+        .build());
+
     /* Metrics */
     builder.withSquidAstVisitor(new LinesVisitor<FlexGrammar>(FlexMetric.LINES));
     builder.withSquidAstVisitor(new LinesOfCodeVisitor<FlexGrammar>(FlexMetric.LINES_OF_CODE));
@@ -98,10 +111,10 @@ public class FlexAstScanner {
         .withNoSonar(true)
         .withIgnoreHeaderComment(conf.getIgnoreHeaderComments())
         .build());
-    // builder.withSquidAstVisitor(CounterVisitor.<FlexGrammar> builder()
-    // .setMetricDef(FlexMetric.STATEMENTS)
-    // .subscribeTo(parser.getGrammar().statement)
-    // .build());
+    builder.withSquidAstVisitor(CounterVisitor.<FlexGrammar> builder()
+        .setMetricDef(FlexMetric.STATEMENTS)
+        .subscribeTo(parser.getGrammar().statement)
+        .build());
 
     /* External visitors (typically Check ones) */
     for (SquidAstVisitor<FlexGrammar> visitor : visitors) {

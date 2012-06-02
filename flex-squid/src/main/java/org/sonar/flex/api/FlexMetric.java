@@ -28,7 +28,10 @@ public enum FlexMetric implements MetricDef {
   LINES,
   FILES,
   COMMENT_BLANK_LINES,
-  COMMENT_LINES;
+  COMMENT_LINES,
+  CLASSES,
+  FUNCTIONS,
+  STATEMENTS;
 
   public String getName() {
     return name();

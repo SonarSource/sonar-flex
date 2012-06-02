@@ -20,12 +20,12 @@
 
 package org.sonar.plugins.flex.flexpmd.xml;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @XStreamAlias("rule")
 public class FlexRule implements Comparable<String> {
@@ -104,6 +104,14 @@ public class FlexRule implements Comparable<String> {
     this.message = message;
   }
 
+  public String getExclude() {
+    return exclude;
+  }
+
+  public void setExclude(String exclude) {
+    this.exclude = exclude;
+  }
+
   public String getDescription() {
     String desc = "";
     if (description != null) {
@@ -135,18 +143,23 @@ public class FlexRule implements Comparable<String> {
    */
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
+    if (this == obj) {
       return true;
-    if (obj == null)
+    }
+    if (obj == null) {
       return false;
-    if (getClass() != obj.getClass())
+    }
+    if (getClass() != obj.getClass()) {
       return false;
+    }
     FlexRule other = (FlexRule) obj;
     if (clazz == null) {
-      if (other.clazz != null)
+      if (other.clazz != null) {
         return false;
-    } else if (!clazz.equals(other.clazz))
+      }
+    } else if (!clazz.equals(other.clazz)) {
       return false;
+    }
     return true;
   }
 

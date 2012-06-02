@@ -17,20 +17,19 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
+package org.sonar.flex.api;
 
-package org.sonar.plugins.flex.colorizer;
+import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Test;
+public class FlexKeywordTest {
 
-/**
- * @author Evgeny Mandrikov
- */
-public class FlexKeywordsTest {
   @Test
-  public void testGet() throws Exception {
-    assertThat(FlexKeywords.get().size(), is(75));
+  public void test() {
+    assertThat(FlexKeyword.values().length, is(75));
+    assertThat(FlexKeyword.keywordValues().length, is(FlexKeyword.values().length));
   }
+
 }

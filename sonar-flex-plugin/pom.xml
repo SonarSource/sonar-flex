@@ -18,11 +18,14 @@
   <properties>
     <sonar.pluginClass>org.sonar.plugins.flex.FlexPlugin</sonar.pluginClass>
     <sonar.pluginName>Flex</sonar.pluginName>
-    <!-- Those classes are excluded as they are just a temporary copy of Sonar core classes -->
-    <sonar.exclusions>org/sonar/plugins/flex/duplications/internal/*.java</sonar.exclusions>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>flex-squid</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>org.codehaus.sonar</groupId>
       <artifactId>sonar-plugin-api</artifactId>
@@ -74,8 +77,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <maxsize>80000</maxsize>
-                  <minsize>70000</minsize>
+                  <maxsize>500000</maxsize>
+                  <minsize>450000</minsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>

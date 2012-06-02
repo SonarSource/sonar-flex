@@ -71,6 +71,12 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>flex-squid</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
         <groupId>org.codehaus.sonar</groupId>
         <artifactId>sonar-plugin-api</artifactId>
         <version>${sonar.version}</version>
@@ -87,7 +93,6 @@
         <type>sonar-plugin</type>
         <version>${sonar.version}</version>
       </dependency>
-      <!-- unit tests -->
       <dependency>
         <groupId>org.codehaus.sonar</groupId>
         <artifactId>sonar-testing-harness</artifactId>

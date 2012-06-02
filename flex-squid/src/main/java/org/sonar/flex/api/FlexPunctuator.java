@@ -17,31 +17,31 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
+package org.sonar.flex.api;
 
-package org.sonar.plugins.flex.core;
+import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.TokenType;
 
-import org.apache.commons.configuration.BaseConfiguration;
-import org.apache.commons.configuration.Configuration;
-import org.junit.Test;
-import org.sonar.plugins.flex.FlexPlugin;
+public enum FlexPunctuator implements TokenType {
+  SEMI(";")
+  ;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+  private final String value;
 
-public class FlexTest {
+  private FlexPunctuator(String value) {
+    this.value = value;
+  }
 
-  @Test
-  public void testGetFileSuffixes() {
-    Configuration configuration = new BaseConfiguration();
-    Flex flex = new Flex(configuration);
+  public String getName() {
+    return name();
+  }
 
-    assertThat(flex.getFileSuffixes(), is(new String[] {"as", "mxml"}));
+  public String getValue() {
+    return value;
+  }
 
-    configuration.setProperty(FlexPlugin.FILE_SUFFIXES_KEY, "");
-    assertThat(flex.getFileSuffixes(), is(new String[] {"as", "mxml"}));
-
-    configuration.setProperty(FlexPlugin.FILE_SUFFIXES_KEY, "as, swc");
-    assertThat(flex.getFileSuffixes(), is(new String[] {"as", "swc"}));
+  public boolean hasToBeSkippedFromAst(AstNode node) {
+    return false;
   }
 
 }

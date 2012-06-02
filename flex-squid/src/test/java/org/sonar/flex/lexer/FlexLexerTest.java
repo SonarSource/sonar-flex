@@ -17,19 +17,34 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.plugins.flex.duplications.internal;
+package org.sonar.flex.lexer;
 
-import org.sonar.channel.RegexChannel;
+import com.sonar.sslr.impl.Lexer;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-class BlackHoleTokenChannel extends RegexChannel<TokenQueue> {
+import static com.sonar.sslr.test.lexer.LexerMatchers.hasComment;
+import static org.junit.Assert.assertThat;
 
-  public BlackHoleTokenChannel(String regex) {
-    super(regex);
+public class FlexLexerTest {
+
+  private static Lexer lexer;
+
+  @BeforeClass
+  public static void init() {
+    lexer = FlexLexer.create();
   }
 
-  @Override
-  protected void consume(CharSequence token, TokenQueue output) {
-    // do nothing
+  @Test
+  public void lexMultiLinesComment() {
+    assertThat(lexer.lex("/* My Comment \n*/"), hasComment("/* My Comment \n*/"));
+    assertThat(lexer.lex("/**/"), hasComment("/**/"));
+  }
+
+  @Test
+  public void lexInlineComment() {
+    assertThat(lexer.lex("// My Comment \n new line"), hasComment("// My Comment "));
+    assertThat(lexer.lex("//"), hasComment("//"));
   }
 
 }

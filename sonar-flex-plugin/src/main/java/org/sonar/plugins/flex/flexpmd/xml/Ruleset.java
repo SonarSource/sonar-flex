@@ -20,12 +20,12 @@
 
 package org.sonar.plugins.flex.flexpmd.xml;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @XStreamAlias("ruleset")
 public class Ruleset {
@@ -58,6 +58,10 @@ public class Ruleset {
     this.flexRules = flexRules;
   }
 
+  public void addRule(FlexRule flexRule) {
+    flexRules.add(flexRule);
+  }
+
   public String getDescription() {
     return description;
   }
@@ -66,7 +70,20 @@ public class Ruleset {
     this.description = description;
   }
 
-  public void addRule(FlexRule flexRule) {
-    flexRules.add(flexRule);
+  public String getExcludePattern() {
+    return excludePattern;
   }
+
+  public void setExcludePattern(String excludePattern) {
+    this.excludePattern = excludePattern;
+  }
+
+  public String getIncludePattern() {
+    return includePattern;
+  }
+
+  public void setIncludePattern(String includePattern) {
+    this.includePattern = includePattern;
+  }
+
 }

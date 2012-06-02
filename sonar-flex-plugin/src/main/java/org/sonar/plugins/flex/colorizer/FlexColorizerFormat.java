@@ -20,18 +20,14 @@
 
 package org.sonar.plugins.flex.colorizer;
 
+import org.sonar.api.web.CodeColorizerFormat;
+import org.sonar.colorizer.*;
+import org.sonar.flex.api.FlexKeyword;
+import org.sonar.plugins.flex.core.Flex;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import org.sonar.api.web.CodeColorizerFormat;
-import org.sonar.colorizer.CDocTokenizer;
-import org.sonar.colorizer.CppDocTokenizer;
-import org.sonar.colorizer.JavadocTokenizer;
-import org.sonar.colorizer.KeywordsTokenizer;
-import org.sonar.colorizer.StringTokenizer;
-import org.sonar.colorizer.Tokenizer;
-import org.sonar.plugins.flex.core.Flex;
 
 public class FlexColorizerFormat extends CodeColorizerFormat {
 
@@ -44,11 +40,11 @@ public class FlexColorizerFormat extends CodeColorizerFormat {
   @Override
   public List<Tokenizer> getTokenizers() {
     return Collections.unmodifiableList(Arrays.asList(
-      new StringTokenizer("<span class=\"s\">", CLOSING_SPAN),
-      new CDocTokenizer("<span class=\"cd\">", CLOSING_SPAN),
-      new JavadocTokenizer("<span class=\"cppd\">", CLOSING_SPAN),
-      new CppDocTokenizer("<span class=\"cppd\">", CLOSING_SPAN),
-      new KeywordsTokenizer("<span class=\"k\">", CLOSING_SPAN, FlexKeywords.get())
-    ));
+        new StringTokenizer("<span class=\"s\">", CLOSING_SPAN),
+        new CDocTokenizer("<span class=\"cd\">", CLOSING_SPAN),
+        new JavadocTokenizer("<span class=\"cppd\">", CLOSING_SPAN),
+        new CppDocTokenizer("<span class=\"cppd\">", CLOSING_SPAN),
+        new KeywordsTokenizer("<span class=\"k\">", CLOSING_SPAN, FlexKeyword.keywordValues())));
   }
+
 }

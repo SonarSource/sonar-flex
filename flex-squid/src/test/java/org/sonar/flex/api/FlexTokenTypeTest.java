@@ -17,31 +17,18 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
+package org.sonar.flex.api;
 
-package org.sonar.plugins.flex.core;
-
-import org.apache.commons.configuration.BaseConfiguration;
-import org.apache.commons.configuration.Configuration;
 import org.junit.Test;
-import org.sonar.plugins.flex.FlexPlugin;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-public class FlexTest {
+public class FlexTokenTypeTest {
 
   @Test
-  public void testGetFileSuffixes() {
-    Configuration configuration = new BaseConfiguration();
-    Flex flex = new Flex(configuration);
-
-    assertThat(flex.getFileSuffixes(), is(new String[] {"as", "mxml"}));
-
-    configuration.setProperty(FlexPlugin.FILE_SUFFIXES_KEY, "");
-    assertThat(flex.getFileSuffixes(), is(new String[] {"as", "mxml"}));
-
-    configuration.setProperty(FlexPlugin.FILE_SUFFIXES_KEY, "as, swc");
-    assertThat(flex.getFileSuffixes(), is(new String[] {"as", "swc"}));
+  public void test() {
+    assertThat(FlexTokenType.values().length, is(2));
   }
 
 }

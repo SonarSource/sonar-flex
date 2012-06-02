@@ -19,21 +19,17 @@
  */
 package org.sonar.flex;
 
+import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.CommentAnalyser;
 import com.sonar.sslr.impl.Parser;
-import com.sonar.sslr.squid.AstScanner;
-import com.sonar.sslr.squid.SquidAstVisitor;
-import com.sonar.sslr.squid.SquidAstVisitorContextImpl;
-import com.sonar.sslr.squid.metrics.CommentsVisitor;
-import com.sonar.sslr.squid.metrics.CounterVisitor;
-import com.sonar.sslr.squid.metrics.LinesOfCodeVisitor;
-import com.sonar.sslr.squid.metrics.LinesVisitor;
+import com.sonar.sslr.squid.*;
+import com.sonar.sslr.squid.metrics.*;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.api.FlexMetric;
+import org.sonar.flex.api.FlexPunctuator;
 import org.sonar.flex.parser.FlexParser;
-import org.sonar.squid.api.SourceCode;
-import org.sonar.squid.api.SourceFile;
-import org.sonar.squid.api.SourceProject;
+import org.sonar.squid.api.*;
 import org.sonar.squid.indexer.QueryByType;
 
 import java.io.File;
@@ -92,12 +88,30 @@ public class FlexAstScanner {
     builder.setFilesMetric(FlexMetric.FILES);
 
     /* Classes */
+    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<FlexGrammar>(new SourceCodeBuilderCallback() {
+      public SourceCode createSourceCode(SourceCode parentSourceCode, AstNode astNode) {
+        String className = astNode.getChild(1).getTokenValue();
+        SourceClass cls = new SourceClass(className + ":" + astNode.getToken().getLine());
+        cls.setStartAtLine(astNode.getTokenLine());
+        return cls;
+      }
+    }, parser.getGrammar().classDefinition, parser.getGrammar().interfaceDefinition));
+
     builder.withSquidAstVisitor(CounterVisitor.<FlexGrammar> builder()
         .setMetricDef(FlexMetric.CLASSES)
-        .subscribeTo(parser.getGrammar().classDefinition)
+        .subscribeTo(parser.getGrammar().classDefinition, parser.getGrammar().interfaceDefinition)
         .build());
 
     /* Functions */
+    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<FlexGrammar>(new SourceCodeBuilderCallback() {
+      public SourceCode createSourceCode(SourceCode parentSourceCode, AstNode astNode) {
+        String functionName = astNode.getChild(1).getTokenValue();
+        SourceFunction function = new SourceFunction(functionName + ":" + astNode.getToken().getLine());
+        function.setStartAtLine(astNode.getTokenLine());
+        return function;
+      }
+    }, parser.getGrammar().methodDefinition));
+
     builder.withSquidAstVisitor(CounterVisitor.<FlexGrammar> builder()
         .setMetricDef(FlexMetric.FUNCTIONS)
         .subscribeTo(parser.getGrammar().methodDefinition)
@@ -114,6 +128,33 @@ public class FlexAstScanner {
     builder.withSquidAstVisitor(CounterVisitor.<FlexGrammar> builder()
         .setMetricDef(FlexMetric.STATEMENTS)
         .subscribeTo(parser.getGrammar().statement)
+        .build());
+
+    AstNodeType[] complexityAstNodeType = new AstNodeType[] {
+      // Entry points
+      parser.getGrammar().methodDefinition,
+
+      // Branching nodes
+      parser.getGrammar().ifStatement,
+      parser.getGrammar().forStatement,
+      parser.getGrammar().forEachStatement,
+      parser.getGrammar().whileStatement,
+      parser.getGrammar().doWhileStatement,
+      parser.getGrammar().switchStatement,
+      // parser.getGrammar().caseClause,
+      // parser.getGrammar().defaultClause,
+      // parser.getGrammar().catch_,
+      parser.getGrammar().returnStatement,
+      parser.getGrammar().throwStatement,
+
+      // Expressions
+      FlexPunctuator.QUESTION,
+      FlexPunctuator.LAND,
+      FlexPunctuator.LOR
+    };
+    builder.withSquidAstVisitor(ComplexityVisitor.<FlexGrammar> builder()
+        .setMetricDef(FlexMetric.COMPLEXITY)
+        .subscribeTo(complexityAstNodeType)
         .build());
 
     /* External visitors (typically Check ones) */

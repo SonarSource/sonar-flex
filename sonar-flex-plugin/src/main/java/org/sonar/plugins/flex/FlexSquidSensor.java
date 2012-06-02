@@ -25,6 +25,8 @@ import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.checks.AnnotationCheckFactory;
 import org.sonar.api.measures.CoreMetrics;
+import org.sonar.api.measures.PersistenceMode;
+import org.sonar.api.measures.RangeDistributionBuilder;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.File;
 import org.sonar.api.resources.InputFileUtils;
@@ -39,12 +41,17 @@ import org.sonar.plugins.flex.core.Flex;
 import org.sonar.squid.api.CheckMessage;
 import org.sonar.squid.api.SourceCode;
 import org.sonar.squid.api.SourceFile;
+import org.sonar.squid.api.SourceFunction;
+import org.sonar.squid.indexer.QueryByParent;
 import org.sonar.squid.indexer.QueryByType;
 
 import java.util.Collection;
 import java.util.Locale;
 
 public class FlexSquidSensor implements Sensor {
+
+  private static final Number[] FUNCTIONS_DISTRIB_BOTTOM_LIMITS = {1, 2, 4, 6, 8, 10, 12};
+  private static final Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
 
   private final AnnotationCheckFactory annotationCheckFactory;
 
@@ -83,6 +90,8 @@ public class FlexSquidSensor implements Sensor {
       File sonarFile = File.fromIOFile(new java.io.File(squidFile.getKey()), project);
 
       saveMeasures(sonarFile, squidFile);
+      saveFunctionsComplexityDistribution(sonarFile, squidFile);
+      saveFilesComplexityDistribution(sonarFile, squidFile);
       saveViolations(sonarFile, squidFile);
     }
   }
@@ -96,6 +105,22 @@ public class FlexSquidSensor implements Sensor {
     context.saveMeasure(sonarFile, CoreMetrics.CLASSES, squidFile.getDouble(FlexMetric.CLASSES));
     context.saveMeasure(sonarFile, CoreMetrics.FUNCTIONS, squidFile.getDouble(FlexMetric.FUNCTIONS));
     context.saveMeasure(sonarFile, CoreMetrics.STATEMENTS, squidFile.getDouble(FlexMetric.STATEMENTS));
+    context.saveMeasure(sonarFile, CoreMetrics.COMPLEXITY, squidFile.getDouble(FlexMetric.COMPLEXITY));
+  }
+
+  private void saveFunctionsComplexityDistribution(File sonarFile, SourceFile squidFile) {
+    Collection<SourceCode> squidFunctionsInFile = scanner.getIndex().search(new QueryByParent(squidFile), new QueryByType(SourceFunction.class));
+    RangeDistributionBuilder complexityDistribution = new RangeDistributionBuilder(CoreMetrics.FUNCTION_COMPLEXITY_DISTRIBUTION, FUNCTIONS_DISTRIB_BOTTOM_LIMITS);
+    for (SourceCode squidFunction : squidFunctionsInFile) {
+      complexityDistribution.add(squidFunction.getDouble(FlexMetric.COMPLEXITY));
+    }
+    context.saveMeasure(sonarFile, complexityDistribution.build().setPersistenceMode(PersistenceMode.MEMORY));
+  }
+
+  private void saveFilesComplexityDistribution(File sonarFile, SourceFile squidFile) {
+    RangeDistributionBuilder complexityDistribution = new RangeDistributionBuilder(CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION, FILES_DISTRIB_BOTTOM_LIMITS);
+    complexityDistribution.add(squidFile.getDouble(FlexMetric.COMPLEXITY));
+    context.saveMeasure(sonarFile, complexityDistribution.build().setPersistenceMode(PersistenceMode.MEMORY));
   }
 
   private void saveViolations(File sonarFile, SourceFile squidFile) {

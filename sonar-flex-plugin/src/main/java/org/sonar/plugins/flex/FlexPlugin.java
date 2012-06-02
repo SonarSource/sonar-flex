@@ -31,9 +31,6 @@ import org.sonar.plugins.flex.core.Flex;
 import org.sonar.plugins.flex.core.FlexResourceBridge;
 import org.sonar.plugins.flex.core.FlexSourceImporter;
 import org.sonar.plugins.flex.duplications.FlexCpdMapping;
-import org.sonar.plugins.flex.flexmetrics.FlexMetricsMavenPluginHandler;
-import org.sonar.plugins.flex.flexmetrics.FlexMetricsParser;
-import org.sonar.plugins.flex.flexmetrics.FlexMetricsSensor;
 import org.sonar.plugins.flex.flexpmd.*;
 import org.sonar.plugins.flex.squid.FlexNoSonarFilter;
 import org.sonar.plugins.flex.surefire.FlexMojosMavenPluginHandler;
@@ -61,10 +58,6 @@ public class FlexPlugin extends SonarPlugin {
         FlexNoSonarFilter.class,
 
         FlexCpdMapping.class,
-
-        FlexMetricsMavenPluginHandler.class,
-        FlexMetricsParser.class,
-        FlexMetricsSensor.class,
 
         FlexPmdSensor.class,
         FlexPmdMavenPluginHandler.class,

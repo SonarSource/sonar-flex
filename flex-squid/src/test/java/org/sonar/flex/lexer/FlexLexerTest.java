@@ -22,8 +22,10 @@ package org.sonar.flex.lexer;
 import com.sonar.sslr.impl.Lexer;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.sonar.flex.api.FlexTokenType;
 
 import static com.sonar.sslr.test.lexer.LexerMatchers.hasComment;
+import static com.sonar.sslr.test.lexer.LexerMatchers.hasToken;
 import static org.junit.Assert.assertThat;
 
 public class FlexLexerTest {
@@ -45,6 +47,12 @@ public class FlexLexerTest {
   public void lexInlineComment() {
     assertThat(lexer.lex("// My Comment \n new line"), hasComment("// My Comment "));
     assertThat(lexer.lex("//"), hasComment("//"));
+  }
+
+  @Test
+  public void lexNumericLiteral() {
+    assertThat(lexer.lex("0"), hasToken("0", FlexTokenType.NUMERIC_LITERAL));
+    assertThat(lexer.lex("123"), hasToken("123", FlexTokenType.NUMERIC_LITERAL));
   }
 
 }

@@ -106,7 +106,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     compilationUnit.is(o2n(anyTokenButNot(EOF)), EOF);
 
     packageDecl.is(PACKAGE, IDENTIFIER, packageBlock);
-    packageBlock.is(LCURLY, packageBlockEntry, RCURLY);
+    packageBlock.is(LCURLY, o2n(packageBlockEntry), RCURLY);
     packageBlockEntry.is(or(
         classDefinition,
         interfaceDefinition));
@@ -240,10 +240,11 @@ public class FlexGrammarImpl extends FlexGrammar {
     postfixExpression.is(primaryExpression).skipIfOneChild();
     primaryExpression.is(or(
         // UNDEFINED
-        constant
+        constant,
         // arrayLiteral,
         // objectLiteral,
         // functionExpression,
+        and(LPAREN, expression, RPAREN)
         // newExpression
         )).skipIfOneChild();
     constant.is(or(

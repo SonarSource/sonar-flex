@@ -57,9 +57,9 @@ public final class FlexLexer {
         .withChannel(regexp(GenericTokenType.LITERAL, "\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\""))
 
         // Numbers
-        .withChannel(regexp(FlexTokenType.NUMERIC_LITERAL, "[0-9_]++\\.([0-9_]++)?+" + EXP + "?+"))
-        .withChannel(regexp(FlexTokenType.NUMERIC_LITERAL, "\\.[0-9_]++" + EXP + "?+"))
-        .withChannel(regexp(FlexTokenType.NUMERIC_LITERAL, "[0-9_]++" + EXP))
+        .withChannel(regexp(FlexTokenType.NUMERIC_LITERAL, "[0-9]++\\.([0-9]++)?+" + EXP + "?+"))
+        .withChannel(regexp(FlexTokenType.NUMERIC_LITERAL, "\\.[0-9]++" + EXP + "?+"))
+        .withChannel(regexp(FlexTokenType.NUMERIC_LITERAL, "[0-9]++" + EXP + "?+"))
 
         .withChannel(new IdentifierAndKeywordChannel("\\p{javaJavaIdentifierStart}++\\p{javaJavaIdentifierPart}*+", true, FlexKeyword.values()))
         .withChannel(new PunctuatorChannel(FlexPunctuator.values()))

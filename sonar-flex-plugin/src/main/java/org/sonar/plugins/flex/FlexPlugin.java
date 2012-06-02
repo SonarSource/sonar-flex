@@ -20,9 +20,7 @@
 
 package org.sonar.plugins.flex;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.common.collect.ImmutableList;
 import org.sonar.api.Extension;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
@@ -36,20 +34,14 @@ import org.sonar.plugins.flex.duplications.FlexCpdMapping;
 import org.sonar.plugins.flex.flexmetrics.FlexMetricsMavenPluginHandler;
 import org.sonar.plugins.flex.flexmetrics.FlexMetricsParser;
 import org.sonar.plugins.flex.flexmetrics.FlexMetricsSensor;
-import org.sonar.plugins.flex.flexpmd.DefaultFlexProfile;
-import org.sonar.plugins.flex.flexpmd.FlexPmdMavenPluginHandler;
-import org.sonar.plugins.flex.flexpmd.FlexPmdProfileExporter;
-import org.sonar.plugins.flex.flexpmd.FlexPmdProfileImporter;
-import org.sonar.plugins.flex.flexpmd.FlexPmdRuleRepository;
-import org.sonar.plugins.flex.flexpmd.FlexPmdSensor;
+import org.sonar.plugins.flex.flexpmd.*;
 import org.sonar.plugins.flex.squid.FlexNoSonarFilter;
 import org.sonar.plugins.flex.squid.FlexSquidSensor;
 import org.sonar.plugins.flex.surefire.FlexMojosMavenPluginHandler;
 import org.sonar.plugins.flex.surefire.FlexSurefireSensor;
 
-/**
- * Plugin Flex that analyses ActionScript source code.
- */
+import java.util.List;
+
 @Properties({@Property(
   key = FlexPlugin.FILE_SUFFIXES_KEY,
   defaultValue = Flex.DEFAULT_FILE_SUFFIXES,
@@ -59,44 +51,38 @@ import org.sonar.plugins.flex.surefire.FlexSurefireSensor;
   project = true)})
 public class FlexPlugin extends SonarPlugin {
 
-  /** Parameters of the flex plugin. */
   public static final String FILE_SUFFIXES_KEY = "sonar.flex.file.suffixes";
 
-  /**
-   * Gets the extensions.
-   * 
-   * @return the extensions
-   * @see org.sonar.api.Plugin#getExtensions()
-   */
   public List<Class<? extends Extension>> getExtensions() {
-    List<Class<? extends Extension>> list = new ArrayList<Class<? extends Extension>>();
+    return ImmutableList.of(
+        Flex.class,
+        FlexSourceImporter.class,
+        FlexResourceBridge.class,
+        FlexColorizerFormat.class,
+        FlexNoSonarFilter.class,
 
-    list.add(Flex.class);
-    list.add(FlexSourceImporter.class);
-    list.add(FlexResourceBridge.class);
-    list.add(FlexColorizerFormat.class);
-    list.add(FlexNoSonarFilter.class);
+        FlexCpdMapping.class,
 
-    list.add(FlexCpdMapping.class);
+        FlexMetricsMavenPluginHandler.class,
+        FlexMetricsParser.class,
+        FlexMetricsSensor.class,
 
-    list.add(FlexMetricsMavenPluginHandler.class);
-    list.add(FlexMetricsParser.class);
-    list.add(FlexMetricsSensor.class);
+        FlexPmdSensor.class,
+        FlexPmdMavenPluginHandler.class,
+        FlexPmdRuleRepository.class,
+        DefaultFlexProfile.class,
+        FlexPmdProfileExporter.class,
+        FlexPmdProfileImporter.class,
 
-    list.add(FlexPmdSensor.class);
-    list.add(FlexPmdMavenPluginHandler.class);
-    list.add(FlexPmdRuleRepository.class);
-    list.add(DefaultFlexProfile.class);
-    list.add(FlexPmdProfileExporter.class);
-    list.add(FlexPmdProfileImporter.class);
+        FlexSurefireSensor.class,
+        FlexMojosMavenPluginHandler.class,
 
-    list.add(FlexSurefireSensor.class);
-    list.add(FlexMojosMavenPluginHandler.class);
+        FlexCoberturaSensor.class,
 
-    list.add(FlexCoberturaSensor.class);
+        FlexSquidSensor.class,
 
-    list.add(FlexSquidSensor.class);
-
-    return list;
+        FlexRuleRepository.class,
+        FlexProfile.class);
   }
+
 }

@@ -20,34 +20,40 @@
 package org.sonar.plugins.flex;
 
 import com.sonar.sslr.squid.AstScanner;
+import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.checks.AnnotationCheckFactory;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.File;
 import org.sonar.api.resources.InputFileUtils;
 import org.sonar.api.resources.Project;
+import org.sonar.api.rules.Violation;
 import org.sonar.flex.FlexAstScanner;
 import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.api.FlexMetric;
+import org.sonar.flex.checks.CheckList;
 import org.sonar.plugins.flex.core.Flex;
+import org.sonar.squid.api.CheckMessage;
 import org.sonar.squid.api.SourceCode;
 import org.sonar.squid.api.SourceFile;
 import org.sonar.squid.indexer.QueryByType;
 
 import java.util.Collection;
+import java.util.Locale;
 
 public class FlexSquidSensor implements Sensor {
 
-  // private final AnnotationCheckFactory annotationCheckFactory;
+  private final AnnotationCheckFactory annotationCheckFactory;
 
   private Project project;
   private SensorContext context;
   private AstScanner<FlexGrammar> scanner;
 
   public FlexSquidSensor(RulesProfile profile) {
-    // this.annotationCheckFactory = AnnotationCheckFactory.create(profile, CheckList.REPOSITORY_KEY, CheckList.getChecks());
+    this.annotationCheckFactory = AnnotationCheckFactory.create(profile, CheckList.REPOSITORY_KEY, CheckList.getChecks());
   }
 
   public boolean shouldExecuteOnProject(Project project) {
@@ -58,9 +64,8 @@ public class FlexSquidSensor implements Sensor {
     this.project = project;
     this.context = context;
 
-    // Collection<SquidCheck> squidChecks = annotationCheckFactory.getChecks();
-    // this.scanner = FlexAstScanner.create(createConfiguration(project), squidChecks.toArray(new SquidCheck[squidChecks.size()]));
-    this.scanner = FlexAstScanner.create(createConfiguration(project));
+    Collection<SquidCheck> squidChecks = annotationCheckFactory.getChecks();
+    this.scanner = FlexAstScanner.create(createConfiguration(project), squidChecks.toArray(new SquidCheck[squidChecks.size()]));
     scanner.scanFiles(InputFileUtils.toFiles(project.getFileSystem().mainFiles(Flex.KEY)));
 
     Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(new QueryByType(SourceFile.class));
@@ -78,6 +83,7 @@ public class FlexSquidSensor implements Sensor {
       File sonarFile = File.fromIOFile(new java.io.File(squidFile.getKey()), project);
 
       saveMeasures(sonarFile, squidFile);
+      saveViolations(sonarFile, squidFile);
     }
   }
 
@@ -87,6 +93,18 @@ public class FlexSquidSensor implements Sensor {
     context.saveMeasure(sonarFile, CoreMetrics.NCLOC, squidFile.getDouble(FlexMetric.LINES_OF_CODE));
     context.saveMeasure(sonarFile, CoreMetrics.COMMENT_BLANK_LINES, squidFile.getDouble(FlexMetric.COMMENT_BLANK_LINES));
     context.saveMeasure(sonarFile, CoreMetrics.COMMENT_LINES, squidFile.getDouble(FlexMetric.COMMENT_LINES));
+  }
+
+  private void saveViolations(File sonarFile, SourceFile squidFile) {
+    Collection<CheckMessage> messages = squidFile.getCheckMessages();
+    if (messages != null) {
+      for (CheckMessage message : messages) {
+        Violation violation = Violation.create(annotationCheckFactory.getActiveRule(message.getChecker()), sonarFile)
+            .setLineId(message.getLine())
+            .setMessage(message.getText(Locale.ENGLISH));
+        context.saveViolation(violation);
+      }
+    }
   }
 
   @Override

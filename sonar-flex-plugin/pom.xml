@@ -25,6 +25,10 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>flex-squid</artifactId>
     </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>flex-checks</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.codehaus.sonar</groupId>

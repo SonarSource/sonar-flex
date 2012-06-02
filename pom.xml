@@ -47,6 +47,7 @@
     <module>flex-squid</module>
     <module>flex-checks</module>
     <module>sonar-flex-plugin</module>
+    <module>flex-devkit</module>
   </modules>
 
   <scm>

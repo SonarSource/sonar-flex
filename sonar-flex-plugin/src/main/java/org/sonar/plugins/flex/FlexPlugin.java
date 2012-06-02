@@ -36,7 +36,6 @@ import org.sonar.plugins.flex.flexmetrics.FlexMetricsParser;
 import org.sonar.plugins.flex.flexmetrics.FlexMetricsSensor;
 import org.sonar.plugins.flex.flexpmd.*;
 import org.sonar.plugins.flex.squid.FlexNoSonarFilter;
-import org.sonar.plugins.flex.squid.FlexSquidSensor;
 import org.sonar.plugins.flex.surefire.FlexMojosMavenPluginHandler;
 import org.sonar.plugins.flex.surefire.FlexSurefireSensor;
 

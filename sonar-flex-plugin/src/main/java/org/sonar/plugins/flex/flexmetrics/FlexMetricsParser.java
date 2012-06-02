@@ -20,13 +20,7 @@
 
 package org.sonar.plugins.flex.flexmetrics;
 
-import java.io.File;
-import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.xml.stream.XMLStreamException;
-
+import com.google.common.collect.Maps;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.staxmate.in.SMHierarchicCursor;
 import org.codehaus.staxmate.in.SMInputCursor;
@@ -40,7 +34,12 @@ import org.sonar.api.utils.StaxParser;
 import org.sonar.plugins.flex.core.FlexResourceBridge;
 import org.sonar.plugins.flex.core.FlexUtils;
 
-import com.google.common.collect.Maps;
+import javax.xml.stream.XMLStreamException;
+
+import java.io.File;
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class that parses the report of Flex PMD Metrics
@@ -57,7 +56,7 @@ public class FlexMetricsParser implements BatchExtension {
    * Creates a {@link FlexMetricsParser}.
    * <br/>
    * <b>Do not call, this constructor is called by Pico container.</b>
-   * 
+   *
    * @param context the sensor context
    * @param resourceBridge the resource bridge
    */
@@ -68,7 +67,7 @@ public class FlexMetricsParser implements BatchExtension {
 
   /**
    * Parses the XML report
-   * 
+   *
    * @param xmlFile the report file
    */
   public void parse(File xmlFile) {
@@ -116,14 +115,14 @@ public class FlexMetricsParser implements BatchExtension {
       org.sonar.api.resources.File file = resourceBridge.findFile(values.get("name"));
 
       if (file != null) {
-        double lines = parseDouble(values.get("javadocs"))
-          + parseDouble(values.get("single_comment_lines"))
-          + parseDouble(values.get("multi_comment_lines"));
+        // double lines = parseDouble(values.get("javadocs"))
+        // + parseDouble(values.get("single_comment_lines"))
+        // + parseDouble(values.get("multi_comment_lines"));
 
-        context.saveMeasure(file, CoreMetrics.COMMENT_LINES, lines);
+        // context.saveMeasure(file, CoreMetrics.COMMENT_LINES, lines);
         context.saveMeasure(file, CoreMetrics.CLASSES, 1.0);
-        context.saveMeasure(file, CoreMetrics.FILES, 1.0);
-        context.saveMeasure(file, CoreMetrics.NCLOC, parseDouble(values.get("ncss")));
+        // context.saveMeasure(file, CoreMetrics.FILES, 1.0);
+        // context.saveMeasure(file, CoreMetrics.NCLOC, parseDouble(values.get("ncss")));
         context.saveMeasure(file, CoreMetrics.FUNCTIONS, parseDouble(values.get("functions")));
       }
     }

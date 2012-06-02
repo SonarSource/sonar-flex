@@ -73,8 +73,33 @@ public class FlexSquidSensorTest {
     verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.FILES), Mockito.eq(1.0));
     verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.LINES), Mockito.eq(7.0));
     verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.NCLOC), Mockito.eq(5.0));
-    verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.COMMENT_LINES), Mockito.eq(1.0));
     verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.COMMENT_BLANK_LINES), Mockito.eq(0.0));
+    verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.COMMENT_LINES), Mockito.eq(1.0));
+    // verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.FUNCTIONS), Mockito.eq(2.0));
+    // verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.STATEMENTS), Mockito.eq(6.0));
+    // verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.COMPLEXITY), Mockito.eq(4.0));
+  }
+
+  @Test
+  public void should_analyse2() {
+    ProjectFileSystem fs = mock(ProjectFileSystem.class);
+    when(fs.getSourceCharset()).thenReturn(Charset.forName("UTF-8"));
+    InputFile inputFile = InputFileUtils.create(
+        new File("src/test/resources/org/sonar/plugins/flex/squid/"),
+        new File("src/test/resources/org/sonar/plugins/flex/squid/TimeFormatter.as"));
+    when(fs.mainFiles(Flex.KEY)).thenReturn(ImmutableList.of(inputFile));
+    Project project = new Project("key");
+    project.setFileSystem(fs);
+    SensorContext context = mock(SensorContext.class);
+
+    sensor.analyse(project, context);
+
+    verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.FILES), Mockito.eq(1.0));
+    // TODO Godin: why 103 ? I expected 102
+    verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.LINES), Mockito.eq(103.0));
+    verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.NCLOC), Mockito.eq(0.0));
+    verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.COMMENT_BLANK_LINES), Mockito.eq(41.0));
+    verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.COMMENT_LINES), Mockito.eq(59.0));
     // verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.FUNCTIONS), Mockito.eq(2.0));
     // verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.STATEMENTS), Mockito.eq(6.0));
     // verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.COMPLEXITY), Mockito.eq(4.0));

@@ -26,6 +26,84 @@ public class FlexGrammar extends Grammar {
 
   public Rule compilationUnit;
 
+  public Rule packageDecl;
+  public Rule packageBlock;
+  public Rule packageBlockEntry;
+
+  public Rule classDefinition;
+  public Rule classExtendsClause;
+  public Rule implementsClause;
+
+  public Rule interfaceDefinition;
+  public Rule interfaceExtendsClause;
+
+  public Rule typeBlock;
+  public Rule typeBlockEntry;
+
+  public Rule methodDefinition;
+  public Rule parameterDeclarationList;
+
+  /*
+   * Statements
+   */
+
+  public Rule block;
+
+  public Rule eos;
+
+  public Rule statement;
+  public Rule declarationStatement;
+  public Rule expressionStatement;
+  public Rule ifStatement;
+  public Rule forEachStatement;
+  public Rule forStatement;
+  public Rule whileStatement;
+  public Rule doWhileStatement;
+  public Rule withStatement;
+  public Rule switchStatement;
+  public Rule switchBlock;
+  public Rule breakStatement;
+  public Rule continueStatement;
+  public Rule returnStatement;
+  public Rule throwStatement;
+
+  public Rule tryStatement;
+  public Rule catchBlock;
+  public Rule finallyBlock;
+
+  public Rule emptyStatement;
+
+  /*
+   * Expressions
+   */
+
+  public Rule expression;
+  public Rule condition;
+
+  public Rule assignmentExpression;
+  public Rule assignmentOperator;
+  public Rule conditionalExpression;
+  public Rule logicalOrExpression;
+  public Rule logicalOrOperator;
+  public Rule logicalAndExpression;
+  public Rule logicalAndOperator;
+  public Rule bitwiseOrExpression;
+  public Rule bitwiseXorExpression;
+  public Rule bitwiseAndExpression;
+  public Rule equalityExpression;
+  public Rule relationalExpression;
+  public Rule relationalOperator;
+  public Rule shiftExpression;
+  public Rule shiftOperator;
+  public Rule additiveExpression;
+  public Rule additiveOperator;
+  public Rule multiplicativeExpression;
+  public Rule multiplicativeOperator;
+  public Rule unaryExpression;
+  public Rule postfixExpression;
+  public Rule primaryExpression;
+  public Rule constant;
+
   @Override
   public Rule getRootRule() {
     return compilationUnit;

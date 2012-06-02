@@ -1,7 +1,7 @@
 import bar;
 
 public class Foo {
-  public int foo() {
+  public function foo() {
     // Hello
   }
 }

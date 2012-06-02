@@ -30,6 +30,8 @@ public class FlexGrammar extends Grammar {
   public Rule packageBlock;
   public Rule packageBlockEntry;
 
+  public Rule importDefinition;
+
   public Rule classDefinition;
   public Rule classExtendsClause;
   public Rule implementsClause;

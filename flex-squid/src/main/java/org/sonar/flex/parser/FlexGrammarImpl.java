@@ -41,6 +41,7 @@ import static org.sonar.flex.api.FlexKeyword.FINALLY;
 import static org.sonar.flex.api.FlexKeyword.FUNCTION;
 import static org.sonar.flex.api.FlexKeyword.IF;
 import static org.sonar.flex.api.FlexKeyword.IMPLEMENTS;
+import static org.sonar.flex.api.FlexKeyword.IMPORT;
 import static org.sonar.flex.api.FlexKeyword.INSTANCEOF;
 import static org.sonar.flex.api.FlexKeyword.INTERFACE;
 import static org.sonar.flex.api.FlexKeyword.INTERNAL;
@@ -73,6 +74,7 @@ import static org.sonar.flex.api.FlexPunctuator.COMMA;
 import static org.sonar.flex.api.FlexPunctuator.DEC;
 import static org.sonar.flex.api.FlexPunctuator.DIV;
 import static org.sonar.flex.api.FlexPunctuator.DIV_ASSIGN;
+import static org.sonar.flex.api.FlexPunctuator.DOT;
 import static org.sonar.flex.api.FlexPunctuator.GE;
 import static org.sonar.flex.api.FlexPunctuator.GT;
 import static org.sonar.flex.api.FlexPunctuator.INC;
@@ -111,8 +113,11 @@ public class FlexGrammarImpl extends FlexGrammar {
     packageDecl.is(PACKAGE, IDENTIFIER, packageBlock);
     packageBlock.is(LCURLY, o2n(packageBlockEntry), RCURLY);
     packageBlockEntry.is(or(
+        importDefinition,
         classDefinition,
         interfaceDefinition));
+
+    importDefinition.is(IMPORT, IDENTIFIER, o2n(DOT, IDENTIFIER), opt(DOT, STAR), SEMI);
 
     classDefinition.is(opt(modifiers), CLASS, IDENTIFIER, classExtendsClause, implementsClause, typeBlock);
     classExtendsClause.is(opt(EXTENDS, IDENTIFIER));

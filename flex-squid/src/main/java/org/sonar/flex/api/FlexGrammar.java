@@ -24,6 +24,11 @@ import com.sonar.sslr.api.Rule;
 
 public class FlexGrammar extends Grammar {
 
+  public Rule annotation;
+  public Rule annotationParam;
+
+  public Rule e4xAttributeIdentifier;
+
   public Rule identifier;
 
   public Rule compilationUnit;

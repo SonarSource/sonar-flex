@@ -96,6 +96,7 @@ import static org.sonar.flex.api.FlexPunctuator.DEC;
 import static org.sonar.flex.api.FlexPunctuator.DIV;
 import static org.sonar.flex.api.FlexPunctuator.DIV_ASSIGN;
 import static org.sonar.flex.api.FlexPunctuator.DOT;
+import static org.sonar.flex.api.FlexPunctuator.E4X_ATTRI;
 import static org.sonar.flex.api.FlexPunctuator.EQUAL;
 import static org.sonar.flex.api.FlexPunctuator.GE;
 import static org.sonar.flex.api.FlexPunctuator.GT;
@@ -151,6 +152,17 @@ public class FlexGrammarImpl extends FlexGrammar {
         // TODO number
         ));
 
+    annotation.is(LBRACK, IDENTIFIER, opt(LPAREN, opt(annotationParam, o2n(COMMA, annotationParam)), RPAREN), RBRACK);
+    annotationParam.is(or(
+        and(IDENTIFIER, ASSIGN, constant),
+        constant,
+        IDENTIFIER));
+
+    e4xAttributeIdentifier.is(E4X_ATTRI, or(
+        qualifiedIdent,
+        STAR,
+        and(LBRACK, expression, RBRACK)));
+
     definitions();
     expressions();
     statements();
@@ -162,6 +174,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     packageDecl.is(PACKAGE, identifier, packageBlock);
     packageBlock.is(LCURLY, o2n(packageBlockEntry), RCURLY);
     packageBlockEntry.is(or(
+        annotation,
         variableDefinition,
         importDefinition,
         classDefinition,
@@ -182,7 +195,11 @@ public class FlexGrammarImpl extends FlexGrammar {
     interfaceExtendsClause.is(opt(EXTENDS, identifier, o2n(COMMA, identifier)));
     typeBlock.is(LCURLY, o2n(typeBlockEntry), RCURLY);
 
-    typeBlockEntry.is(or(variableDefinition, methodDefinition, SEMI));
+    typeBlockEntry.is(or(
+        annotation,
+        variableDefinition,
+        methodDefinition,
+        SEMI));
     methodDefinition.is(opt(modifiers), FUNCTION, opt(accessorRole), IDENTIFIER, parameterDeclarationList, opt(typeExpression), or(block, SEMI));
     accessorRole.is(or(
         GET,
@@ -272,6 +289,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     emptyStatement.is(eos);
 
     eos.is(SEMI);
+
     condition.is(LPAREN, expression, RPAREN);
   }
 
@@ -352,10 +370,11 @@ public class FlexGrammarImpl extends FlexGrammar {
             and(DOT, qualifiedIdent),
             and(LBRACK, expression, RBRACK),
             and(DOT, LPAREN, expression, RPAREN),
+            and(DOT, e4xAttributeIdentifier),
+            and(DOT, STAR),
             arguments
         )),
-        opt(or(INC, DEC))
-        ).skipIfOneChild();
+        opt(or(INC, DEC))).skipIfOneChild();
 
     primaryExpression.is(or(
         // UNDEFINED
@@ -365,6 +384,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         // functionExpression,
         and(LPAREN, expression, RPAREN),
         newExpression,
+        e4xAttributeIdentifier,
         qualifiedIdent)).skipIfOneChild();
     constant.is(or(
         LITERAL,

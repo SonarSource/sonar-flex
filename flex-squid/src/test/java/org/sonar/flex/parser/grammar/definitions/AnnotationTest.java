@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.parser.grammar.statements;
+package org.sonar.flex.parser.grammar.definitions;
 
 import com.sonar.sslr.impl.Parser;
 import org.junit.Before;
@@ -28,25 +28,24 @@ import org.sonar.flex.parser.FlexParser;
 import static com.sonar.sslr.test.parser.ParserMatchers.parse;
 import static org.junit.Assert.assertThat;
 
-public class ForStatementTest {
+public class AnnotationTest {
 
   Parser<FlexGrammar> p = FlexParser.create();
   FlexGrammar g = p.getGrammar();
 
   @Before
   public void init() {
-    p.setRootRule(g.forStatement);
+    p.setRootRule(g.annotation);
   }
 
   @Test
   public void realLife() {
-    assertThat(p, parse("for (;;) {}"));
-    assertThat(p, parse("for (i = 0; i < 10; i++) {}"));
-    assertThat(p, parse("for (var i:int = 0; i < 10; i++) {}"));
-    assertThat(p, parse("for (var key:String in obj) {}"));
-
+    assertThat(p, parse("[Bindable]"));
+    assertThat(p, parse("[ChangeEvent()]"));
+    assertThat(p, parse("[ChangeEvent('event')]"));
+    assertThat(p, parse("[Inspectable(name = 'Icon Offset', verbose = 1, defaultValue = true)]"));
     // TODO
-    // assertThat(p, parse("for (var i:int = arrProcessIndex; i < len; i += 16, arrProcessIndex += 16) {}"));
+    // assertThat(p, parse("[Inspectable(name = 'Icon Offset', verbose = 1, type = Boolean, defaultValue = true)]"));
   }
 
 }

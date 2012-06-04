@@ -35,7 +35,7 @@ import org.sonar.squid.indexer.QueryByType;
 import java.io.File;
 import java.util.Collection;
 
-public class FlexAstScanner {
+public final class FlexAstScanner {
 
   private FlexAstScanner() {
   }

@@ -91,6 +91,7 @@ import static org.sonar.flex.api.FlexPunctuator.BXOR;
 import static org.sonar.flex.api.FlexPunctuator.BXOR_ASSIGN;
 import static org.sonar.flex.api.FlexPunctuator.COLON;
 import static org.sonar.flex.api.FlexPunctuator.COMMA;
+import static org.sonar.flex.api.FlexPunctuator.DBL_COLON;
 import static org.sonar.flex.api.FlexPunctuator.DEC;
 import static org.sonar.flex.api.FlexPunctuator.DIV;
 import static org.sonar.flex.api.FlexPunctuator.DIV_ASSIGN;
@@ -364,8 +365,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         // functionExpression,
         and(LPAREN, expression, RPAREN),
         newExpression,
-        qualifiedIdent
-        )).skipIfOneChild();
+        qualifiedIdent)).skipIfOneChild();
     constant.is(or(
         LITERAL,
         NUMERIC_LITERAL,
@@ -375,7 +375,7 @@ public class FlexGrammarImpl extends FlexGrammar {
 
     newExpression.is(NEW, primaryExpression, o2n(or(and(DOT, qualifiedIdent), and(LBRACK, expressionList, RBRACK))));
 
-    qualifiedIdent.is(/* TODO opt(namespaceName, DBL_COLON), */IDENTIFIER);
+    qualifiedIdent.is(opt(namespaceName, DBL_COLON), IDENTIFIER);
   }
 
 }

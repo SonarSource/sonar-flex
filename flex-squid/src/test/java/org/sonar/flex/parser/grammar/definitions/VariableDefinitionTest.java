@@ -42,6 +42,7 @@ public class VariableDefinitionTest {
   public void realLife() {
     assertThat(p, parse("private static const EMPTY:String = '';"));
     assertThat(p, parse("public static var defaultStyle:ToStringStyle = '';"));
+    assertThat(p, parse("private var base:Object = {};"));
   }
 
 }

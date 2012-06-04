@@ -84,7 +84,7 @@ public enum FlexKeyword implements TokenType {
   CHAR("char"),
   DEBUGGER("debugger"),
   DOUBLE("double"),
-  ENUM("enum"),
+  // ENUM("enum"),
   EXPORT("export"),
   FLOAT("float"),
   GOTO("goto"),

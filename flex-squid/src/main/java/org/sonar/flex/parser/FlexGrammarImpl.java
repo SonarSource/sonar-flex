@@ -26,6 +26,7 @@ import static com.sonar.sslr.api.GenericTokenType.IDENTIFIER;
 import static com.sonar.sslr.api.GenericTokenType.LITERAL;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.and;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.o2n;
+import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.one2n;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.opt;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.or;
 import static org.sonar.flex.api.FlexKeyword.AS;
@@ -56,6 +57,7 @@ import static org.sonar.flex.api.FlexKeyword.INSTANCEOF;
 import static org.sonar.flex.api.FlexKeyword.INTERFACE;
 import static org.sonar.flex.api.FlexKeyword.INTERNAL;
 import static org.sonar.flex.api.FlexKeyword.IS;
+import static org.sonar.flex.api.FlexKeyword.NAMESPACE;
 import static org.sonar.flex.api.FlexKeyword.NEW;
 import static org.sonar.flex.api.FlexKeyword.NULL;
 import static org.sonar.flex.api.FlexKeyword.OVERRIDE;
@@ -72,6 +74,7 @@ import static org.sonar.flex.api.FlexKeyword.THROW;
 import static org.sonar.flex.api.FlexKeyword.TRUE;
 import static org.sonar.flex.api.FlexKeyword.TRY;
 import static org.sonar.flex.api.FlexKeyword.TYPEOF;
+import static org.sonar.flex.api.FlexKeyword.USE;
 import static org.sonar.flex.api.FlexKeyword.VAR;
 import static org.sonar.flex.api.FlexKeyword.VOID;
 import static org.sonar.flex.api.FlexKeyword.WHILE;
@@ -138,7 +141,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     elementList.is(or(COMMA, nonemptyElementList));
     nonemptyElementList.is(assignmentExpression, o2n(COMMA, assignmentExpression));
 
-    objectLiteral.is(LCURLY, fieldList, RCURLY);
+    objectLiteral.is(LCURLY, opt(fieldList), RCURLY);
     fieldList.is(literalField, o2n(COMMA, opt(literalField)));
     literalField.is(fieldName, COLON, element);
     element.is(assignmentExpression);
@@ -161,7 +164,12 @@ public class FlexGrammarImpl extends FlexGrammar {
         variableDefinition,
         importDefinition,
         classDefinition,
-        interfaceDefinition));
+        interfaceDefinition,
+        namespaceDefinition,
+        useNamespaceDirective));
+
+    namespaceDefinition.is(NAMESPACE, IDENTIFIER);
+    useNamespaceDirective.is(USE, NAMESPACE, IDENTIFIER, SEMI);
 
     importDefinition.is(IMPORT, IDENTIFIER, o2n(DOT, IDENTIFIER), opt(DOT, STAR), SEMI);
 
@@ -173,7 +181,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     interfaceExtendsClause.is(opt(EXTENDS, identifier, o2n(COMMA, identifier)));
     typeBlock.is(LCURLY, o2n(typeBlockEntry), RCURLY);
 
-    typeBlockEntry.is(or(variableDefinition, methodDefinition));
+    typeBlockEntry.is(or(variableDefinition, methodDefinition, SEMI));
     methodDefinition.is(opt(modifiers), FUNCTION, opt(accessorRole), IDENTIFIER, parameterDeclarationList, opt(typeExpression), or(block, SEMI));
     accessorRole.is(or(
         GET,
@@ -188,6 +196,7 @@ public class FlexGrammarImpl extends FlexGrammar {
 
     modifiers.is(o2n(modifier));
     modifier.is(or(
+        namespaceName,
         PUBLIC,
         PRIVATE,
         PROTECTED,
@@ -196,6 +205,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         FINAL,
         OVERRIDE,
         DYNAMIC));
+    namespaceName.is(IDENTIFIER);
 
     variableDefinition.is(opt(modifiers), or(VAR, CONST), variableDeclarator, o2n(COMMA, variableDeclarator), SEMI);
     variableDeclarator.is(IDENTIFIER, opt(typeExpression), opt(variableInitializer));
@@ -254,7 +264,7 @@ public class FlexGrammarImpl extends FlexGrammar {
 
     throwStatement.is(THROW, expression, eos);
 
-    tryStatement.is(TRY, block, or(and(catchBlock, opt(finallyBlock)), finallyBlock));
+    tryStatement.is(TRY, block, or(and(one2n(catchBlock), opt(finallyBlock)), finallyBlock));
     catchBlock.is(CATCH, LPAREN, IDENTIFIER, typeExpression, RPAREN, block);
     finallyBlock.is(FINALLY, block);
 

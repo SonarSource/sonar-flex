@@ -32,6 +32,9 @@ public class FlexGrammar extends Grammar {
   public Rule packageBlock;
   public Rule packageBlockEntry;
 
+  public Rule namespaceDefinition;
+  public Rule useNamespaceDirective;
+
   public Rule importDefinition;
 
   public Rule classDefinition;
@@ -55,6 +58,7 @@ public class FlexGrammar extends Grammar {
 
   public Rule modifiers;
   public Rule modifier;
+  public Rule namespaceName;
 
   public Rule typeExpression;
 

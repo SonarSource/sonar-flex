@@ -41,6 +41,7 @@ public class TryStatementTest {
   @Test
   public void ok() {
     assertThat(p, parse("try {} catch (e:IllegalArgumentError) {}"));
+    assertThat(p, parse("try {} catch (e:IllegalArgumentError) {} catch (e:Error) {}"));
     assertThat(p, parse("try {} catch (e:IllegalArgumentError) {} finally {}"));
   }
 

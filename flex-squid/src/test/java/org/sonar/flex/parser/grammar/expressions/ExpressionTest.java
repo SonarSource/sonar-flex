@@ -44,6 +44,7 @@ public class ExpressionTest {
     assertThat(p, parse("(2 + 3) * 4"));
     assertThat(p, parse("value != null"));
     assertThat(p, parse("a > b ? a : b"));
+    assertThat(p, parse("new DefaultLogger(name)"));
   }
 
 }

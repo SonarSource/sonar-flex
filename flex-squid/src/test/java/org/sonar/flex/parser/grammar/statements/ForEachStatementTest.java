@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.parser.grammar.definitions;
+package org.sonar.flex.parser.grammar.statements;
 
 import com.sonar.sslr.impl.Parser;
 import org.junit.Before;
@@ -28,22 +28,20 @@ import org.sonar.flex.parser.FlexParser;
 import static com.sonar.sslr.test.parser.ParserMatchers.parse;
 import static org.junit.Assert.assertThat;
 
-public class ClassDefinitionTest {
+public class ForEachStatementTest {
 
   Parser<FlexGrammar> p = FlexParser.create();
   FlexGrammar g = p.getGrammar();
 
   @Before
   public void init() {
-    p.setRootRule(g.classDefinition);
+    p.setRootRule(g.forEachStatement);
   }
 
   @Test
   public void realLife() {
-    assertThat(p, parse("public class Foo extends Bar implements Baz , Qux { }"));
-    assertThat(p, parse("public class Foo extends org.example.Bar { }"));
-    assertThat(p, parse("class Foo implements org.example.Bar { }"));
-    assertThat(p, parse("class Foo { }"));
+    assertThat(p, parse("for each (a in b) {}"));
+    assertThat(p, parse("for each (var a in b) {}"));
   }
 
 }

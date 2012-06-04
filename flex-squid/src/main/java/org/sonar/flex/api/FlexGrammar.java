@@ -24,6 +24,8 @@ import com.sonar.sslr.api.Rule;
 
 public class FlexGrammar extends Grammar {
 
+  public Rule identifier;
+
   public Rule compilationUnit;
 
   public Rule packageDecl;
@@ -88,6 +90,7 @@ public class FlexGrammar extends Grammar {
   public Rule expressionStatement;
   public Rule ifStatement;
   public Rule forEachStatement;
+  public Rule forInClause;
   public Rule forStatement;
   public Rule whileStatement;
   public Rule doWhileStatement;

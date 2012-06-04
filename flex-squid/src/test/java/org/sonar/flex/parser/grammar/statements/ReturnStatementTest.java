@@ -42,11 +42,13 @@ public class ReturnStatementTest {
   public void ok() {
     g.expression.mock();
 
+    assertThat(p, parse("return;"));
     assertThat(p, parse("return expression;"));
   }
 
   @Test
   public void realLife() {
+    assertThat(p, parse("return;"));
     assertThat(p, parse("return this;"));
   }
 

@@ -31,6 +31,7 @@ import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.or;
 import static org.sonar.flex.api.FlexKeyword.AS;
 import static org.sonar.flex.api.FlexKeyword.BREAK;
 import static org.sonar.flex.api.FlexKeyword.CASE;
+import static org.sonar.flex.api.FlexKeyword.CATCH;
 import static org.sonar.flex.api.FlexKeyword.CLASS;
 import static org.sonar.flex.api.FlexKeyword.CONST;
 import static org.sonar.flex.api.FlexKeyword.CONTINUE;
@@ -38,20 +39,24 @@ import static org.sonar.flex.api.FlexKeyword.DEFAULT;
 import static org.sonar.flex.api.FlexKeyword.DELETE;
 import static org.sonar.flex.api.FlexKeyword.DO;
 import static org.sonar.flex.api.FlexKeyword.DYNAMIC;
+import static org.sonar.flex.api.FlexKeyword.EACH;
 import static org.sonar.flex.api.FlexKeyword.ELSE;
 import static org.sonar.flex.api.FlexKeyword.EXTENDS;
 import static org.sonar.flex.api.FlexKeyword.FALSE;
 import static org.sonar.flex.api.FlexKeyword.FINAL;
 import static org.sonar.flex.api.FlexKeyword.FINALLY;
+import static org.sonar.flex.api.FlexKeyword.FOR;
 import static org.sonar.flex.api.FlexKeyword.FUNCTION;
 import static org.sonar.flex.api.FlexKeyword.GET;
 import static org.sonar.flex.api.FlexKeyword.IF;
 import static org.sonar.flex.api.FlexKeyword.IMPLEMENTS;
 import static org.sonar.flex.api.FlexKeyword.IMPORT;
+import static org.sonar.flex.api.FlexKeyword.IN;
 import static org.sonar.flex.api.FlexKeyword.INSTANCEOF;
 import static org.sonar.flex.api.FlexKeyword.INTERFACE;
 import static org.sonar.flex.api.FlexKeyword.INTERNAL;
 import static org.sonar.flex.api.FlexKeyword.IS;
+import static org.sonar.flex.api.FlexKeyword.NEW;
 import static org.sonar.flex.api.FlexKeyword.NULL;
 import static org.sonar.flex.api.FlexKeyword.OVERRIDE;
 import static org.sonar.flex.api.FlexKeyword.PACKAGE;
@@ -148,7 +153,9 @@ public class FlexGrammarImpl extends FlexGrammar {
   }
 
   private void definitions() {
-    packageDecl.is(PACKAGE, IDENTIFIER, o2n(DOT, IDENTIFIER), packageBlock);
+    identifier.is(IDENTIFIER, o2n(DOT, IDENTIFIER));
+
+    packageDecl.is(PACKAGE, identifier, packageBlock);
     packageBlock.is(LCURLY, o2n(packageBlockEntry), RCURLY);
     packageBlockEntry.is(or(
         variableDefinition,
@@ -159,11 +166,11 @@ public class FlexGrammarImpl extends FlexGrammar {
     importDefinition.is(IMPORT, IDENTIFIER, o2n(DOT, IDENTIFIER), opt(DOT, STAR), SEMI);
 
     classDefinition.is(opt(modifiers), CLASS, IDENTIFIER, classExtendsClause, implementsClause, typeBlock);
-    classExtendsClause.is(opt(EXTENDS, IDENTIFIER));
-    implementsClause.is(opt(IMPLEMENTS, IDENTIFIER, o2n(COMMA, IDENTIFIER)));
+    classExtendsClause.is(opt(EXTENDS, identifier));
+    implementsClause.is(opt(IMPLEMENTS, identifier, o2n(COMMA, identifier)));
 
     interfaceDefinition.is(opt(modifiers), INTERFACE, IDENTIFIER, interfaceExtendsClause, typeBlock);
-    interfaceExtendsClause.is(opt(EXTENDS, IDENTIFIER, o2n(COMMA, IDENTIFIER)));
+    interfaceExtendsClause.is(opt(EXTENDS, identifier, o2n(COMMA, identifier)));
     typeBlock.is(LCURLY, o2n(typeBlockEntry), RCURLY);
 
     typeBlockEntry.is(or(variableDefinition, methodDefinition));
@@ -194,7 +201,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     variableDeclarator.is(IDENTIFIER, opt(typeExpression), opt(variableInitializer));
     variableInitializer.is(ASSIGN, assignmentExpression);
 
-    typeExpression.is(COLON, or(IDENTIFIER, VOID, STAR));
+    typeExpression.is(COLON, or(identifier, VOID, STAR));
   }
 
   private void statements() {
@@ -228,11 +235,17 @@ public class FlexGrammarImpl extends FlexGrammar {
     ifStatement.is(IF, condition, statement, opt(ELSE, statement));
     doWhileStatement.is(DO, statement, WHILE, condition, eos);
     whileStatement.is(WHILE, condition, statement);
-    forEachStatement.mock();
-    forStatement.mock();
+    forEachStatement.is(FOR, EACH, LPAREN, forInClause, RPAREN, statement);
+    forInClause.is(or(and(VAR, variableDeclarator), IDENTIFIER), IN, expressionList);
+    forStatement.is(
+        FOR, LPAREN,
+        or(
+            forInClause,
+            and(opt(or(and(VAR, variableDeclarator), expression)), SEMI, opt(expression), SEMI, opt(expression))),
+        RPAREN, statement);
     continueStatement.is(CONTINUE, eos);
     breakStatement.is(BREAK, eos);
-    returnStatement.is(RETURN, expression, eos);
+    returnStatement.is(RETURN, opt(expression), eos);
     withStatement.is(WITH, condition, statement);
 
     switchStatement.is(SWITCH, condition, LCURLY, o2n(caseStatement), opt(defaultStatement), RCURLY);
@@ -242,7 +255,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     throwStatement.is(THROW, expression, eos);
 
     tryStatement.is(TRY, block, or(and(catchBlock, opt(finallyBlock)), finallyBlock));
-    catchBlock.mock();
+    catchBlock.is(CATCH, LPAREN, IDENTIFIER, typeExpression, RPAREN, block);
     finallyBlock.is(FINALLY, block);
 
     emptyStatement.is(eos);
@@ -321,7 +334,18 @@ public class FlexGrammarImpl extends FlexGrammar {
         and(MINUS, unaryExpression),
         and(LNOT, unaryExpression),
         and(BNOT, unaryExpression))).skipIfOneChild();
-    postfixExpression.is(primaryExpression).skipIfOneChild();
+
+    postfixExpression.is(
+        primaryExpression,
+        o2n(or(
+            and(DOT, qualifiedIdent),
+            and(LBRACK, expression, RBRACK),
+            and(DOT, LPAREN, expression, RPAREN),
+            arguments
+        )),
+        opt(or(INC, DEC))
+        ).skipIfOneChild();
+
     primaryExpression.is(or(
         // UNDEFINED
         constant,
@@ -339,7 +363,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         FALSE,
         NULL)).skip();
 
-    newExpression.mock();
+    newExpression.is(NEW, primaryExpression, o2n(or(and(DOT, qualifiedIdent), and(LBRACK, expressionList, RBRACK))));
 
     qualifiedIdent.is(/* TODO opt(namespaceName, DBL_COLON), */IDENTIFIER);
   }

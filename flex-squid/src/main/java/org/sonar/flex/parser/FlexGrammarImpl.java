@@ -266,7 +266,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         FOR, LPAREN,
         or(
             forInClause,
-            and(opt(or(and(VAR, variableDeclarator), expression)), SEMI, opt(expression), SEMI, opt(expression))),
+            and(opt(or(and(VAR, variableDeclarator), expressionList)), SEMI, opt(expressionList), SEMI, opt(expressionList))),
         RPAREN, statement);
     continueStatement.is(CONTINUE, eos);
     breakStatement.is(BREAK, eos);
@@ -378,7 +378,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         constant,
         arrayLiteral,
         objectLiteral,
-        // functionExpression,
+        functionExpression,
         and(LPAREN, expression, RPAREN),
         newExpression,
         e4xAttributeIdentifier,
@@ -389,6 +389,8 @@ public class FlexGrammarImpl extends FlexGrammar {
         TRUE,
         FALSE,
         NULL)).skip();
+
+    functionExpression.is(FUNCTION, opt(IDENTIFIER), parameterDeclarationList, opt(typeExpression), block);
 
     newExpression.is(NEW, primaryExpression, o2n(or(and(DOT, qualifiedIdent), and(LBRACK, expressionList, RBRACK))));
 

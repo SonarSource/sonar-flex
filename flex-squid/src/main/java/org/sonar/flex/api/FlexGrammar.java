@@ -80,6 +80,7 @@ public class FlexGrammar extends Grammar {
   public Rule literalField;
   public Rule element;
   public Rule fieldName;
+  public Rule functionExpression;
 
   /*
    * Statements

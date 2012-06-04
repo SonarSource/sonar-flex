@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.parser.grammar;
+package org.sonar.flex.parser.grammar.expressions;
 
 import com.sonar.sslr.impl.Parser;
 import org.junit.Before;
@@ -28,20 +28,23 @@ import org.sonar.flex.parser.FlexParser;
 import static com.sonar.sslr.test.parser.ParserMatchers.parse;
 import static org.junit.Assert.assertThat;
 
-public class PackageDeclTest {
+public class ConstantTest {
 
   Parser<FlexGrammar> p = FlexParser.create();
   FlexGrammar g = p.getGrammar();
 
   @Before
   public void init() {
-    p.setRootRule(g.packageDecl);
+    p.setRootRule(g.constant);
   }
 
   @Test
   public void realLife() {
-    assertThat(p, parse("package IDENTIFIER { }"));
-    assertThat(p, parse("package IDENTIFIER { class IDENTIFIER { } }"));
+    assertThat(p, parse("true"));
+    assertThat(p, parse("false"));
+    assertThat(p, parse("null"));
+    assertThat(p, parse("'hello world'"));
+    assertThat(p, parse("123"));
   }
 
 }

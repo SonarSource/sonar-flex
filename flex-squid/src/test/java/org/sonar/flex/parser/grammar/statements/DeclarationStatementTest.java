@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.parser.grammar.expressions;
+package org.sonar.flex.parser.grammar.statements;
 
 import com.sonar.sslr.impl.Parser;
 import org.junit.Before;
@@ -28,22 +28,32 @@ import org.sonar.flex.parser.FlexParser;
 import static com.sonar.sslr.test.parser.ParserMatchers.parse;
 import static org.junit.Assert.assertThat;
 
-public class ExpressionTest {
+public class DeclarationStatementTest {
 
   Parser<FlexGrammar> p = FlexParser.create();
   FlexGrammar g = p.getGrammar();
 
   @Before
   public void init() {
-    p.setRootRule(g.expression);
+    p.setRootRule(g.declarationStatement);
+  }
+
+  @Test
+  public void ok() {
+    g.variableDeclarator.mock();
+
+    assertThat(p, parse("var variableDeclarator;"));
+    assertThat(p, parse("var variableDeclarator , variableDeclarator;"));
+    assertThat(p, parse("const variableDeclarator;"));
+    assertThat(p, parse("const variableDeclarator , variableDeclarator;"));
   }
 
   @Test
   public void realLife() {
-    assertThat(p, parse("2 > 1"));
-    assertThat(p, parse("(2 + 3) * 4"));
-    assertThat(p, parse("value != null"));
-    assertThat(p, parse("a > b ? a : b"));
+    assertThat(p, parse("var result:Number = 0;"));
+    assertThat(p, parse("var result:String;"));
+    assertThat(p, parse("var result:String = 'ok';"));
+    assertThat(p, parse("var result:String = message;"));
   }
 
 }

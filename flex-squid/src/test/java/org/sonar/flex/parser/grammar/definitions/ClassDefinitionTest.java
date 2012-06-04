@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.parser.grammar;
+package org.sonar.flex.parser.grammar.definitions;
 
 import com.sonar.sslr.impl.Parser;
 import org.junit.Before;
@@ -28,19 +28,22 @@ import org.sonar.flex.parser.FlexParser;
 import static com.sonar.sslr.test.parser.ParserMatchers.parse;
 import static org.junit.Assert.assertThat;
 
-public class InterfaceDefinitionTest {
+public class ClassDefinitionTest {
 
   Parser<FlexGrammar> p = FlexParser.create();
   FlexGrammar g = p.getGrammar();
 
   @Before
   public void init() {
-    p.setRootRule(g.interfaceDefinition);
+    p.setRootRule(g.classDefinition);
   }
 
   @Test
   public void realLife() {
-    assertThat(p, parse("interface IDENTIFIER extends IDENTIFIER , IDENTIFIER { }"));
+    assertThat(p, parse("public class IDENTIFIER extends IDENTIFIER implements IDENTIFIER , IDENTIFIER { }"));
+    assertThat(p, parse("public class IDENTIFIER extends IDENTIFIER { }"));
+    assertThat(p, parse("public class IDENTIFIER implements IDENTIFIER { }"));
+    assertThat(p, parse("class IDENTIFIER { }"));
   }
 
 }

@@ -39,7 +39,7 @@ public class IfStatementTest {
   }
 
   @Test
-  public void realLife() {
+  public void ok() {
     g.condition.mock();
     g.statement.mock();
 

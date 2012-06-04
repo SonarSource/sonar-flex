@@ -74,7 +74,8 @@ public enum FlexPunctuator implements TokenType {
   LOR_ASSIGN("||="),
   E4X_ATTRI("@"),
   SEMI(";"),
-  DOT(".");
+  DOT("."),
+  REST("...");
 
   private final String value;
 

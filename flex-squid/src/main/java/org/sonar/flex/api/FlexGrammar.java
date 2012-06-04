@@ -43,9 +43,32 @@ public class FlexGrammar extends Grammar {
   public Rule typeBlockEntry;
 
   public Rule methodDefinition;
+  public Rule accessorRole;
+
   public Rule parameterDeclarationList;
+  public Rule parameterDeclaration;
+  public Rule basicParameterDeclaration;
+  public Rule parameterDefault;
+  public Rule parameterRestDeclaration;
 
   public Rule modifiers;
+  public Rule modifier;
+
+  public Rule typeExpression;
+
+  public Rule variableDefinition;
+  public Rule variableDeclarator;
+  public Rule variableInitializer;
+
+  public Rule arrayLiteral;
+  public Rule elementList;
+  public Rule nonemptyElementList;
+
+  public Rule objectLiteral;
+  public Rule fieldList;
+  public Rule literalField;
+  public Rule element;
+  public Rule fieldName;
 
   /*
    * Statements
@@ -56,6 +79,11 @@ public class FlexGrammar extends Grammar {
   public Rule eos;
 
   public Rule statement;
+
+  public Rule superStatement;
+  public Rule arguments;
+  public Rule expressionList;
+
   public Rule declarationStatement;
   public Rule expressionStatement;
   public Rule ifStatement;
@@ -65,6 +93,8 @@ public class FlexGrammar extends Grammar {
   public Rule doWhileStatement;
   public Rule withStatement;
   public Rule switchStatement;
+  public Rule caseStatement;
+  public Rule defaultStatement;
   public Rule switchBlock;
   public Rule breakStatement;
   public Rule continueStatement;
@@ -95,6 +125,7 @@ public class FlexGrammar extends Grammar {
   public Rule bitwiseXorExpression;
   public Rule bitwiseAndExpression;
   public Rule equalityExpression;
+  public Rule equalityOperator;
   public Rule relationalExpression;
   public Rule relationalOperator;
   public Rule shiftExpression;
@@ -107,6 +138,8 @@ public class FlexGrammar extends Grammar {
   public Rule postfixExpression;
   public Rule primaryExpression;
   public Rule constant;
+  public Rule newExpression;
+  public Rule qualifiedIdent;
 
   @Override
   public Rule getRootRule() {

@@ -57,7 +57,7 @@ public enum FlexKeyword implements TokenType {
   RETURN("return"),
   SUPER("super"),
   SWITCH("switch"),
-  THIS("this"),
+  // THIS("this"),
   THROW("throw"),
   TO("to"),
   TRUE("true"),
@@ -95,7 +95,7 @@ public enum FlexKeyword implements TokenType {
   SYNCHRONIZED("synchronized"),
   THROWS("throws"),
   TRANSIENT("transient"),
-  TYPE("type"),
+  // TYPE("type"),
   VIRTUAL("virtual"),
   VOLATILE("volatile");
 

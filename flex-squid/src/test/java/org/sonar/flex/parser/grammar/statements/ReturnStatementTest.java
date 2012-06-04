@@ -45,4 +45,9 @@ public class ReturnStatementTest {
     assertThat(p, parse("return expression;"));
   }
 
+  @Test
+  public void realLife() {
+    assertThat(p, parse("return this;"));
+  }
+
 }

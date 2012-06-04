@@ -81,7 +81,7 @@ public enum FlexKeyword implements TokenType {
   BOOLEAN("boolean"),
   BYTE("byte"),
   CAST("cast"),
-  CHAR("char"),
+  // CHAR("char"),
   DEBUGGER("debugger"),
   DOUBLE("double"),
   // ENUM("enum"),

@@ -225,7 +225,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         DYNAMIC));
     namespaceName.is(IDENTIFIER);
 
-    variableDefinition.is(opt(modifiers), or(VAR, CONST), variableDeclarator, o2n(COMMA, variableDeclarator), SEMI);
+    variableDefinition.is(opt(modifiers), or(VAR, CONST), variableDeclarator, o2n(COMMA, variableDeclarator), opt(SEMI));
     variableDeclarator.is(IDENTIFIER, opt(typeExpression), opt(variableInitializer));
     variableInitializer.is(ASSIGN, assignmentExpression);
 
@@ -258,7 +258,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     arguments.is(LPAREN, opt(expressionList), RPAREN);
     expressionList.is(assignmentExpression, o2n(COMMA, assignmentExpression));
 
-    declarationStatement.is(or(VAR, CONST), variableDeclarator, o2n(COMMA, variableDeclarator), SEMI);
+    declarationStatement.is(or(VAR, CONST), variableDeclarator, o2n(COMMA, variableDeclarator), eos);
     expressionStatement.is(expression, eos);
     ifStatement.is(IF, condition, statement, opt(ELSE, statement));
     doWhileStatement.is(DO, statement, WHILE, condition, eos);
@@ -286,9 +286,9 @@ public class FlexGrammarImpl extends FlexGrammar {
     catchBlock.is(CATCH, LPAREN, IDENTIFIER, typeExpression, RPAREN, block);
     finallyBlock.is(FINALLY, block);
 
-    emptyStatement.is(eos);
+    emptyStatement.is(SEMI);
 
-    eos.is(SEMI);
+    eos.is(opt(SEMI));
 
     condition.is(LPAREN, expression, RPAREN);
   }

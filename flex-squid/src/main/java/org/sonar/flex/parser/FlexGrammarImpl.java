@@ -24,6 +24,7 @@ import org.sonar.flex.api.FlexGrammar;
 import static com.sonar.sslr.api.GenericTokenType.EOF;
 import static com.sonar.sslr.api.GenericTokenType.IDENTIFIER;
 import static com.sonar.sslr.api.GenericTokenType.LITERAL;
+import static com.sonar.sslr.impl.matcher.GrammarFunctions.Advanced.adjacent;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.and;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.o2n;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.one2n;
@@ -128,7 +129,6 @@ import static org.sonar.flex.api.FlexPunctuator.SL_ASSIGN;
 import static org.sonar.flex.api.FlexPunctuator.SR;
 import static org.sonar.flex.api.FlexPunctuator.SR_ASSIGN;
 import static org.sonar.flex.api.FlexPunctuator.STAR;
-import static org.sonar.flex.api.FlexPunctuator.STAR_ASSIGN;
 import static org.sonar.flex.api.FlexPunctuator.STRICT_EQUAL;
 import static org.sonar.flex.api.FlexPunctuator.STRICT_NOT_EQUAL;
 import static org.sonar.flex.api.FlexTokenType.NUMERIC_LITERAL;
@@ -137,6 +137,8 @@ import static org.sonar.flex.api.FlexTokenType.REGULAR_EXPRESSION_LITERAL;
 public class FlexGrammarImpl extends FlexGrammar {
 
   public FlexGrammarImpl() {
+    star_assign.is(STAR, adjacent(ASSIGN));
+
     compilationUnit.is(opt(packageDecl), o2n(packageBlockEntry), EOF);
 
     arrayLiteral.is(or(
@@ -183,7 +185,8 @@ public class FlexGrammarImpl extends FlexGrammar {
         classDefinition,
         interfaceDefinition,
         namespaceDefinition,
-        useNamespaceDirective));
+        useNamespaceDirective,
+        methodDefinition));
 
     namespaceDefinition.is(NAMESPACE, IDENTIFIER);
     useNamespaceDirective.is(USE, NAMESPACE, IDENTIFIER, SEMI);
@@ -204,7 +207,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         methodDefinition,
         useNamespaceDirective,
         SEMI));
-    methodDefinition.is(opt(modifiers), FUNCTION, opt(accessorRole), IDENTIFIER, parameterDeclarationList, opt(typeExpression), or(block, SEMI));
+    methodDefinition.is(opt(modifiers), FUNCTION, opt(accessorRole), IDENTIFIER, parameterDeclarationList, opt(typeExpression), or(block, opt(SEMI)));
     accessorRole.is(or(
         GET,
         SET));
@@ -214,7 +217,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         parameterRestDeclaration));
     basicParameterDeclaration.is(opt(CONST), IDENTIFIER, opt(typeExpression), opt(parameterDefault));
     parameterDefault.is(ASSIGN, assignmentExpression);
-    parameterRestDeclaration.is(REST, IDENTIFIER);
+    parameterRestDeclaration.is(REST, IDENTIFIER, opt(typeExpression));
 
     modifiers.is(o2n(modifier));
     modifier.is(or(
@@ -300,7 +303,7 @@ public class FlexGrammarImpl extends FlexGrammar {
 
     assignmentExpression.is(conditionalExpression, o2n(assignmentOperator, assignmentExpression)).skipIfOneChild();
     assignmentOperator.is(or(ASSIGN,
-        STAR_ASSIGN,
+        star_assign,
         DIV_ASSIGN,
         MOD_ASSIGN,
         PLUS_ASSIGN,

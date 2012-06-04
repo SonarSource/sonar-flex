@@ -45,6 +45,8 @@ public class MethodDefinitionTest {
     assertThat(p, parse("function foo():void { }"));
     assertThat(p, parse("public static function foo(array:Array, item:*):Array { }"));
     assertThat(p, parse("public function ConnectedEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false) { }"));
+    assertThat(p, parse("function AsyncOperationResult(result:*=null) { }"));
+    assertThat(p, parse("function foo(...messages:Array):void { }"));
 
     // TODO
     // assertThat(p, parse("public function debug(message:String, ... params:*):void { }"));

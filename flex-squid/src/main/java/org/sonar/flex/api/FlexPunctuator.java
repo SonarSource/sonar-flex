@@ -49,7 +49,8 @@ public enum FlexPunctuator implements TokenType {
   MINUS_ASSIGN("-="),
   DEC("--"),
   STAR("*"),
-  STAR_ASSIGN("*="),
+  // was replaced by grammar rule
+  // STAR_ASSIGN("*="),
   MOD("%"),
   MOD_ASSIGN("%="),
   SR(">>"),

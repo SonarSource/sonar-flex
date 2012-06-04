@@ -67,6 +67,8 @@
   <properties>
     <license.title>Sonar Flex Plugin</license.title>
 
+    <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
+
     <sonar.version>2.11</sonar.version>
   </properties>
 

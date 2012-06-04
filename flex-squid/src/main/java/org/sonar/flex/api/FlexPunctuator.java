@@ -57,7 +57,8 @@ public enum FlexPunctuator implements TokenType {
   SR_ASSIGN(">>="),
   BSR(">>>"),
   BSR_ASSIGN(">>>="),
-  GE(">="),
+  // was replaced by grammar rule
+  // GE(">="),
   GT(">"),
   SL("<<"),
   SL_ASSIGN("<<="),

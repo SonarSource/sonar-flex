@@ -58,7 +58,7 @@ public final class FlexLexer {
         .withChannel(regexp(GenericTokenType.LITERAL, "\'([^\'\\\\]*+(\\\\[\\s\\S])?+)*+\'"))
 
         // Regular Expression Literal
-        .withChannel(regexp(FlexTokenType.REGULAR_EXPRESSION_LITERAL, "/([^/\\n\\\\]*+(\\\\.)?+)*+/\\p{javaJavaIdentifierPart}*+"))
+        .withChannel(new FlexRegularExpressionLiteralChannel())
 
         // Numbers
         .withChannel(regexp(FlexTokenType.NUMERIC_LITERAL, "0[xX][0-9a-fA-F]++"))
@@ -66,7 +66,7 @@ public final class FlexLexer {
         .withChannel(regexp(FlexTokenType.NUMERIC_LITERAL, "\\.[0-9]++" + EXP + "?+"))
         .withChannel(regexp(FlexTokenType.NUMERIC_LITERAL, "[0-9]++" + EXP + "?+"))
 
-        .withChannel(new IdentifierAndKeywordChannel("\\p{javaJavaIdentifierStart}++\\p{javaJavaIdentifierPart}*+", true, FlexKeyword.values()))
+        .withChannel(new IdentifierAndKeywordChannel("\\p{javaJavaIdentifierStart}++[\\p{javaJavaIdentifierPart}\\-]*+", true, FlexKeyword.values()))
         .withChannel(new PunctuatorChannel(FlexPunctuator.values()))
 
         .withChannel(new BlackHoleChannel("[\\s]"))

@@ -24,7 +24,12 @@ import com.sonar.sslr.api.Rule;
 
 public class FlexGrammar extends Grammar {
 
+  public Rule ge;
   public Rule star_assign;
+
+  public Rule staticLinkEntry;
+
+  public Rule includeDirective;
 
   public Rule annotation;
   public Rule annotationParam;
@@ -39,7 +44,6 @@ public class FlexGrammar extends Grammar {
   public Rule packageBlock;
   public Rule packageBlockEntry;
 
-  public Rule namespaceDefinition;
   public Rule useNamespaceDirective;
 
   public Rule importDefinition;
@@ -97,8 +101,10 @@ public class FlexGrammar extends Grammar {
   public Rule arguments;
   public Rule expressionList;
 
+  public Rule defaultXmlNamespaceStatement;
   public Rule declarationStatement;
   public Rule expressionStatement;
+  public Rule labelledStatement;
   public Rule ifStatement;
   public Rule forEachStatement;
   public Rule forInClause;
@@ -154,6 +160,19 @@ public class FlexGrammar extends Grammar {
   public Rule constant;
   public Rule newExpression;
   public Rule qualifiedIdent;
+
+  /*
+   * XML
+   */
+
+  public Rule xmlLiteral;
+  public Rule xmlNode;
+  public Rule xmlAttribute;
+  public Rule xmlNodeContent;
+  public Rule xmlTextNode;
+  public Rule xmlComment;
+  public Rule xmlCData;
+  public Rule xmlBinding;
 
   @Override
   public Rule getRootRule() {

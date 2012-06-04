@@ -20,11 +20,15 @@
 package org.sonar.flex.parser;
 
 import org.sonar.flex.api.FlexGrammar;
+import org.sonar.flex.api.FlexTokenType;
 
 import static com.sonar.sslr.api.GenericTokenType.EOF;
 import static com.sonar.sslr.api.GenericTokenType.IDENTIFIER;
 import static com.sonar.sslr.api.GenericTokenType.LITERAL;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Advanced.adjacent;
+import static com.sonar.sslr.impl.matcher.GrammarFunctions.Advanced.anyTokenButNot;
+import static com.sonar.sslr.impl.matcher.GrammarFunctions.Predicate.next;
+import static com.sonar.sslr.impl.matcher.GrammarFunctions.Predicate.not;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.and;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.o2n;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.one2n;
@@ -49,16 +53,16 @@ import static org.sonar.flex.api.FlexKeyword.FINAL;
 import static org.sonar.flex.api.FlexKeyword.FINALLY;
 import static org.sonar.flex.api.FlexKeyword.FOR;
 import static org.sonar.flex.api.FlexKeyword.FUNCTION;
-import static org.sonar.flex.api.FlexKeyword.GET;
 import static org.sonar.flex.api.FlexKeyword.IF;
 import static org.sonar.flex.api.FlexKeyword.IMPLEMENTS;
 import static org.sonar.flex.api.FlexKeyword.IMPORT;
 import static org.sonar.flex.api.FlexKeyword.IN;
+import static org.sonar.flex.api.FlexKeyword.INCLUDE;
 import static org.sonar.flex.api.FlexKeyword.INSTANCEOF;
 import static org.sonar.flex.api.FlexKeyword.INTERFACE;
 import static org.sonar.flex.api.FlexKeyword.INTERNAL;
 import static org.sonar.flex.api.FlexKeyword.IS;
-import static org.sonar.flex.api.FlexKeyword.NAMESPACE;
+import static org.sonar.flex.api.FlexKeyword.NATIVE;
 import static org.sonar.flex.api.FlexKeyword.NEW;
 import static org.sonar.flex.api.FlexKeyword.NULL;
 import static org.sonar.flex.api.FlexKeyword.OVERRIDE;
@@ -67,7 +71,6 @@ import static org.sonar.flex.api.FlexKeyword.PRIVATE;
 import static org.sonar.flex.api.FlexKeyword.PROTECTED;
 import static org.sonar.flex.api.FlexKeyword.PUBLIC;
 import static org.sonar.flex.api.FlexKeyword.RETURN;
-import static org.sonar.flex.api.FlexKeyword.SET;
 import static org.sonar.flex.api.FlexKeyword.STATIC;
 import static org.sonar.flex.api.FlexKeyword.SWITCH;
 import static org.sonar.flex.api.FlexKeyword.THROW;
@@ -98,7 +101,6 @@ import static org.sonar.flex.api.FlexPunctuator.DIV_ASSIGN;
 import static org.sonar.flex.api.FlexPunctuator.DOT;
 import static org.sonar.flex.api.FlexPunctuator.E4X_ATTRI;
 import static org.sonar.flex.api.FlexPunctuator.EQUAL;
-import static org.sonar.flex.api.FlexPunctuator.GE;
 import static org.sonar.flex.api.FlexPunctuator.GT;
 import static org.sonar.flex.api.FlexPunctuator.INC;
 import static org.sonar.flex.api.FlexPunctuator.LAND;
@@ -137,9 +139,17 @@ import static org.sonar.flex.api.FlexTokenType.REGULAR_EXPRESSION_LITERAL;
 public class FlexGrammarImpl extends FlexGrammar {
 
   public FlexGrammarImpl() {
+    ge.is(GT, adjacent(ASSIGN));
     star_assign.is(STAR, adjacent(ASSIGN));
 
-    compilationUnit.is(opt(packageDecl), o2n(packageBlockEntry), EOF);
+    compilationUnit.is(
+        // TODO this is a temporary way to handle BOM:
+        o2n(FlexTokenType.UNKNOWN),
+        opt(packageDecl),
+        o2n(packageBlockEntry),
+        EOF);
+
+    includeDirective.is(INCLUDE, LITERAL, SEMI);
 
     arrayLiteral.is(or(
         and(LBRACK, opt(elision), RBRACK),
@@ -171,6 +181,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     definitions();
     expressions();
     statements();
+    xml();
   }
 
   private void definitions() {
@@ -184,12 +195,11 @@ public class FlexGrammarImpl extends FlexGrammar {
         importDefinition,
         classDefinition,
         interfaceDefinition,
-        namespaceDefinition,
         useNamespaceDirective,
-        methodDefinition));
+        methodDefinition,
+        block));
 
-    namespaceDefinition.is(NAMESPACE, IDENTIFIER);
-    useNamespaceDirective.is(USE, NAMESPACE, IDENTIFIER, SEMI);
+    useNamespaceDirective.is(USE, "namespace", IDENTIFIER, SEMI);
 
     importDefinition.is(IMPORT, IDENTIFIER, o2n(DOT, IDENTIFIER), opt(DOT, STAR), SEMI);
 
@@ -205,12 +215,25 @@ public class FlexGrammarImpl extends FlexGrammar {
         annotation,
         variableDefinition,
         methodDefinition,
+        and(IDENTIFIER, DBL_COLON, IDENTIFIER, LCURLY, o2n(typeBlockEntry), RCURLY), // CONFIG::debug { }
         useNamespaceDirective,
+        staticLinkEntry,
+        block,
         SEMI));
-    methodDefinition.is(opt(modifiers), FUNCTION, opt(accessorRole), IDENTIFIER, parameterDeclarationList, opt(typeExpression), or(block, opt(SEMI)));
+    methodDefinition.is(
+        opt(modifiers),
+        FUNCTION,
+        or(
+            and(IDENTIFIER, next(LPAREN)),
+            and(opt(accessorRole), IDENTIFIER)),
+        parameterDeclarationList,
+        opt(typeExpression),
+        or(
+            block,
+            opt(SEMI)));
     accessorRole.is(or(
-        GET,
-        SET));
+        "get",
+        "set"));
     parameterDeclarationList.is(LPAREN, opt(parameterDeclaration, o2n(COMMA, parameterDeclaration)), RPAREN);
     parameterDeclaration.is(or(
         basicParameterDeclaration,
@@ -229,19 +252,27 @@ public class FlexGrammarImpl extends FlexGrammar {
         STATIC,
         FINAL,
         OVERRIDE,
-        DYNAMIC));
-    namespaceName.is(IDENTIFIER);
+        DYNAMIC,
+        NATIVE));
+    namespaceName.is(not("namespace"), IDENTIFIER);
 
-    variableDefinition.is(opt(modifiers), or(VAR, CONST), variableDeclarator, o2n(COMMA, variableDeclarator), opt(SEMI));
+    variableDefinition.is(opt(modifiers), or(VAR, CONST, "namespace"), variableDeclarator, o2n(COMMA, variableDeclarator), opt(SEMI));
     variableDeclarator.is(IDENTIFIER, opt(typeExpression), opt(variableInitializer));
     variableInitializer.is(ASSIGN, assignmentExpression);
 
-    typeExpression.is(COLON, or(identifier, VOID, STAR));
+    typeExpression.is(COLON, or(
+        and(identifier, opt(DOT, LT, identifier, GT)),
+        VOID,
+        STAR));
+
+    staticLinkEntry.is(IDENTIFIER, SEMI);
   }
 
   private void statements() {
     statement.is(or(
         block,
+        labelledStatement,
+        defaultXmlNamespaceStatement,
         declarationStatement,
         expressionStatement,
         ifStatement,
@@ -256,6 +287,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         returnStatement,
         throwStatement,
         tryStatement,
+        includeDirective,
         emptyStatement));
 
     block.is(LCURLY, o2n(statement), RCURLY);
@@ -263,8 +295,10 @@ public class FlexGrammarImpl extends FlexGrammar {
     arguments.is(LPAREN, opt(expressionList), RPAREN);
     expressionList.is(assignmentExpression, o2n(COMMA, assignmentExpression));
 
+    defaultXmlNamespaceStatement.is(DEFAULT, "xml", "namespace", ASSIGN, expression, eos);
     declarationStatement.is(or(VAR, CONST), variableDeclarator, o2n(COMMA, variableDeclarator), eos);
     expressionStatement.is(expression, eos);
+    labelledStatement.is(IDENTIFIER, COLON, statement);
     ifStatement.is(IF, condition, statement, opt(ELSE, statement));
     doWhileStatement.is(DO, statement, WHILE, condition, eos);
     whileStatement.is(WHILE, condition, statement);
@@ -274,7 +308,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         FOR, LPAREN,
         or(
             forInClause,
-            and(opt(or(and(VAR, variableDeclarator), expressionList)), SEMI, opt(expressionList), SEMI, opt(expressionList))),
+            and(opt(or(and(VAR, variableDeclarator, o2n(COMMA, variableDeclarator)), expressionList)), SEMI, opt(expressionList), SEMI, opt(expressionList))),
         RPAREN, statement);
     continueStatement.is(CONTINUE, eos);
     breakStatement.is(BREAK, eos);
@@ -320,10 +354,10 @@ public class FlexGrammarImpl extends FlexGrammar {
     conditionalExpression.is(logicalOrExpression, opt(QUESTION, assignmentExpression, COLON, assignmentExpression)).skipIfOneChild();
 
     logicalOrExpression.is(logicalAndExpression, o2n(logicalOrOperator, logicalAndExpression)).skipIfOneChild();
-    logicalOrOperator.is(LOR).skip(); // TODO add "or" ?
+    logicalOrOperator.is(LOR).skip();
 
     logicalAndExpression.is(bitwiseOrExpression, o2n(logicalAndOperator, bitwiseOrExpression)).skipIfOneChild();
-    logicalAndOperator.is(LAND).skip(); // TODO add "and" ?
+    logicalAndOperator.is(LAND).skip();
 
     bitwiseOrExpression.is(bitwiseXorExpression, o2n(BOR, bitwiseXorExpression)).skipIfOneChild();
     bitwiseXorExpression.is(bitwiseAndExpression, o2n(BXOR, bitwiseAndExpression)).skipIfOneChild();
@@ -336,10 +370,10 @@ public class FlexGrammarImpl extends FlexGrammar {
         EQUAL)).skip();
     relationalExpression.is(shiftExpression, o2n(relationalOperator, shiftExpression)).skipIfOneChild();
     relationalOperator.is(or(
+        ge,
         LT,
         GT,
         LE,
-        GE,
         IS,
         AS,
         INSTANCEOF)).skip();
@@ -377,8 +411,8 @@ public class FlexGrammarImpl extends FlexGrammar {
             and(DOT, LPAREN, expression, RPAREN),
             and(DOT, e4xAttributeIdentifier),
             and(DOT, STAR),
-            arguments
-        )),
+            DOT,
+            arguments)),
         opt(or(INC, DEC))).skipIfOneChild();
 
     primaryExpression.is(or(
@@ -390,6 +424,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         and(LPAREN, expression, RPAREN),
         newExpression,
         e4xAttributeIdentifier,
+        and(LT, identifier, GT),
         qualifiedIdent)).skipIfOneChild();
     constant.is(or(
         LITERAL,
@@ -397,13 +432,34 @@ public class FlexGrammarImpl extends FlexGrammar {
         REGULAR_EXPRESSION_LITERAL,
         TRUE,
         FALSE,
-        NULL)).skip();
+        NULL,
+        xmlLiteral)).skip();
 
     functionExpression.is(FUNCTION, opt(IDENTIFIER), parameterDeclarationList, opt(typeExpression), block);
 
     newExpression.is(NEW, primaryExpression, o2n(or(and(DOT, qualifiedIdent), and(LBRACK, expressionList, RBRACK))));
 
-    qualifiedIdent.is(opt(namespaceName, DBL_COLON), IDENTIFIER);
+    qualifiedIdent.is(opt(namespaceName, DBL_COLON), or(IDENTIFIER, and(LBRACK, expression, RBRACK)), opt(DOT, LT, identifier, GT));
+  }
+
+  private void xml() {
+    xmlLiteral.is(or(xmlNode, xmlCData));
+    xmlNode.is(
+        "<", IDENTIFIER, o2n(xmlAttribute),
+        or(
+            and(">", o2n(xmlNodeContent), "<", "/", IDENTIFIER, ">"),
+            and("/", ">")));
+    xmlNodeContent.is(or(
+        xmlNode,
+        xmlTextNode,
+        xmlCData,
+        xmlComment,
+        and("<", "?", o2n(anyTokenButNot("?")), "?", ">")));
+    xmlAttribute.is(IDENTIFIER, ASSIGN, or(LITERAL, xmlBinding));
+    xmlTextNode.is(anyTokenButNot(or("/", "<")));
+    xmlComment.is("<", "!", "--", o2n(anyTokenButNot("--")), "--", ">");
+    xmlCData.is("<", "!", "[", "CDATA", "[", o2n(anyTokenButNot("]")), "]", "]", ">");
+    xmlBinding.is("{", o2n(anyTokenButNot(or("{", "}"))), "}");
   }
 
 }

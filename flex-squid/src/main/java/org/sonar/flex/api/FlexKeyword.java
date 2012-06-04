@@ -69,38 +69,17 @@ public enum FlexKeyword implements TokenType {
   WHILE("while"),
   WITH("with"),
   EACH("each"),
-  // TODO can be used as variable name
-  GET("get"),
-  // TODO can be used as variable name
-  SET("set"),
-  // TODO can be used as variable name
-  NAMESPACE("namespace"),
+  // can be used as variable name
+  // GET("get"),
+  // can be used as variable name
+  // SET("set"),
+  // can be used as variable name
+  // NAMESPACE("namespace"),
   INCLUDE("include"),
   DYNAMIC("dynamic"),
   FINAL("final"),
   OVERRIDE("override"),
-  STATIC("static"),
-  ABSTRACT("abstract"),
-  // BOOLEAN("boolean"),
-  // BYTE("byte"),
-  CAST("cast"),
-  // CHAR("char"),
-  DEBUGGER("debugger"),
-  DOUBLE("double"),
-  // ENUM("enum"),
-  EXPORT("export"),
-  FLOAT("float"),
-  GOTO("goto"),
-  INTRINSIC("intrinsic"),
-  LONG("long"),
-  // PROTOTYPE("prototype"),
-  SHORT("short"),
-  SYNCHRONIZED("synchronized"),
-  THROWS("throws"),
-  TRANSIENT("transient"),
-  // TYPE("type"),
-  VIRTUAL("virtual"),
-  VOLATILE("volatile");
+  STATIC("static");
 
   private final String value;
 

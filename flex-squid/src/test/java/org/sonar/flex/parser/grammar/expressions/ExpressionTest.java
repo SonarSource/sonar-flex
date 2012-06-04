@@ -45,6 +45,8 @@ public class ExpressionTest {
     assertThat(p, parse("value != null"));
     assertThat(p, parse("a > b ? a : b"));
     assertThat(p, parse("new DefaultLogger(name)"));
+    assertThat(p, parse("new Vector.<String>()"));
+    assertThat(p, parse("new <int>[0]"));
   }
 
 }

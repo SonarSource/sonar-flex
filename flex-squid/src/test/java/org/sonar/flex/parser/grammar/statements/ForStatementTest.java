@@ -45,6 +45,7 @@ public class ForStatementTest {
     assertThat(p, parse("for (var i:int = 0; i < 10; i++) {}"));
     assertThat(p, parse("for (var key:String in obj) {}"));
     assertThat(p, parse("for (var i:int = arrProcessIndex; i < len; i += 16, arrProcessIndex += 16) {}"));
+    assertThat(p, parse("for (var i:int = 0, l:int = args.length; i < l; i++) {}"));
   }
 
 }

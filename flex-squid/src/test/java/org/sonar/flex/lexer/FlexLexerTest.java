@@ -19,6 +19,7 @@
  */
 package org.sonar.flex.lexer;
 
+import com.sonar.sslr.api.GenericTokenType;
 import com.sonar.sslr.impl.Lexer;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,6 +27,7 @@ import org.sonar.flex.api.FlexTokenType;
 
 import static com.sonar.sslr.test.lexer.LexerMatchers.hasComment;
 import static com.sonar.sslr.test.lexer.LexerMatchers.hasToken;
+import static com.sonar.sslr.test.lexer.LexerMatchers.hasTokens;
 import static org.junit.Assert.assertThat;
 
 public class FlexLexerTest {
@@ -42,8 +44,7 @@ public class FlexLexerTest {
     assertThat("simple", lexer.lex("/a/"), hasToken("/a/", FlexTokenType.REGULAR_EXPRESSION_LITERAL));
     assertThat("flags", lexer.lex("/a/g"), hasToken("/a/g", FlexTokenType.REGULAR_EXPRESSION_LITERAL));
     assertThat("escaped slash", lexer.lex("/\\/a/"), hasToken("/\\/a/", FlexTokenType.REGULAR_EXPRESSION_LITERAL));
-    // TODO
-    // assertThat("ambiguation", lexer.lex("1 / a == 1 / b"), hasTokens("1", "/", "a", "==", "1", "/", "b", "EOF"));
+    assertThat("ambiguation", lexer.lex("1 / a == 1 / b"), hasTokens("1", "/", "a", "==", "1", "/", "b", "EOF"));
   }
 
   @Test
@@ -73,6 +74,28 @@ public class FlexLexerTest {
   public void float_literal() {
     assertThat(lexer.lex("12.9E-1"), hasToken("12.9E-1", FlexTokenType.NUMERIC_LITERAL));
     assertThat(lexer.lex(".129e+1"), hasToken(".129e+1", FlexTokenType.NUMERIC_LITERAL));
+  }
+
+  @Test
+  public void string_literal() {
+    assertThat("empty", lexer.lex("''"), hasToken("''", GenericTokenType.LITERAL));
+    assertThat("empty", lexer.lex("\"\""), hasToken("\"\"", GenericTokenType.LITERAL));
+
+    assertThat(lexer.lex("'hello world'"), hasToken("'hello world'", GenericTokenType.LITERAL));
+    assertThat(lexer.lex("\"hello world\""), hasToken("\"hello world\"", GenericTokenType.LITERAL));
+
+    assertThat("escaped single quote", lexer.lex("'\\''"), hasToken("'\\''", GenericTokenType.LITERAL));
+    assertThat("escaped double quote", lexer.lex("\"\\\"\""), hasToken("\"\\\"\"", GenericTokenType.LITERAL));
+  }
+
+  @Test
+  public void identifier() {
+    assertThat(lexer.lex("$"), hasToken("$", GenericTokenType.IDENTIFIER));
+    assertThat(lexer.lex("_"), hasToken("_", GenericTokenType.IDENTIFIER));
+    assertThat(lexer.lex("identifier"), hasToken("identifier", GenericTokenType.IDENTIFIER));
+
+    // TODO Godin: I'm not sure that this is a valid identifier, however it's used in our integration tests
+    assertThat(lexer.lex("some-name"), hasToken("some-name", GenericTokenType.IDENTIFIER));
   }
 
 }

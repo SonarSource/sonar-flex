@@ -50,7 +50,11 @@ public class FlexParserIntegrationTest {
 
   @Test
   public void parse() {
-    parser.parse(file);
+    try {
+      parser.parse(file);
+    } catch (Exception e) {
+      throw new RuntimeException(file.toString(), e);
+    }
   }
 
   protected static void addParametersForPath(Collection<Object[]> parameters, String path) throws URISyntaxException {

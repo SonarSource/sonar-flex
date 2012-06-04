@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.parser.grammar.definitions;
+package org.sonar.flex.parser.grammar.xml;
 
 import com.sonar.sslr.impl.Parser;
 import org.junit.Before;
@@ -28,22 +28,30 @@ import org.sonar.flex.parser.FlexParser;
 import static com.sonar.sslr.test.parser.ParserMatchers.parse;
 import static org.junit.Assert.assertThat;
 
-public class VariableDefinitionTest {
+public class XmlLiteralTest {
 
   Parser<FlexGrammar> p = FlexParser.create();
   FlexGrammar g = p.getGrammar();
 
   @Before
   public void init() {
-    p.setRootRule(g.variableDefinition);
+    p.setRootRule(g.xmlLiteral);
   }
 
   @Test
   public void realLife() {
-    assertThat(p, parse("private static const EMPTY:String = '';"));
-    assertThat(p, parse("public static var defaultStyle:ToStringStyle = '';"));
-    assertThat(p, parse("private var base:Object = {};"));
-    assertThat(p, parse("public namespace foo_bar = 'http://foo.bar';"));
+    assertThat(p, parse("<node></node>"));
+    assertThat(p, parse("<node/>"));
+
+    assertThat(p, parse("<node attribute='value'></node>"));
+    assertThat(p, parse("<node attribute='value'/>"));
+
+    assertThat(p, parse("<node>text</node>"));
+    assertThat(p, parse("<node><!-- this is a comment --></node>"));
+    assertThat(p, parse("<node><?test this is a pi ?></node>"));
+    assertThat(p, parse("<node><subnode></subnode><subnode></subnode></node>"));
+
+    assertThat(p, parse("<![CDATA[data]]>"));
   }
 
 }

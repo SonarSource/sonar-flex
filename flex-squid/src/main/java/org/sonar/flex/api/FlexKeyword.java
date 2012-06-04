@@ -55,7 +55,7 @@ public enum FlexKeyword implements TokenType {
   PROTECTED("protected"),
   PUBLIC("public"),
   RETURN("return"),
-  SUPER("super"),
+  // SUPER("super"),
   SWITCH("switch"),
   // THIS("this"),
   THROW("throw"),

@@ -68,7 +68,6 @@ import static org.sonar.flex.api.FlexKeyword.PUBLIC;
 import static org.sonar.flex.api.FlexKeyword.RETURN;
 import static org.sonar.flex.api.FlexKeyword.SET;
 import static org.sonar.flex.api.FlexKeyword.STATIC;
-import static org.sonar.flex.api.FlexKeyword.SUPER;
 import static org.sonar.flex.api.FlexKeyword.SWITCH;
 import static org.sonar.flex.api.FlexKeyword.THROW;
 import static org.sonar.flex.api.FlexKeyword.TRUE;
@@ -148,9 +147,9 @@ public class FlexGrammarImpl extends FlexGrammar {
     literalField.is(fieldName, COLON, element);
     element.is(assignmentExpression);
     fieldName.is(or(
-        IDENTIFIER
-        // TODO number
-        ));
+        IDENTIFIER,
+        LITERAL,
+        NUMERIC_LITERAL));
 
     annotation.is(LBRACK, IDENTIFIER, opt(LPAREN, opt(annotationParam, o2n(COMMA, annotationParam)), RPAREN), RBRACK);
     annotationParam.is(or(
@@ -234,7 +233,6 @@ public class FlexGrammarImpl extends FlexGrammar {
 
   private void statements() {
     statement.is(or(
-        superStatement,
         block,
         declarationStatement,
         expressionStatement,
@@ -254,7 +252,6 @@ public class FlexGrammarImpl extends FlexGrammar {
 
     block.is(LCURLY, o2n(statement), RCURLY);
 
-    superStatement.is(SUPER, arguments, eos);
     arguments.is(LPAREN, opt(expressionList), RPAREN);
     expressionList.is(assignmentExpression, o2n(COMMA, assignmentExpression));
 

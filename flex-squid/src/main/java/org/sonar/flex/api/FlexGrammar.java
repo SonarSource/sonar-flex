@@ -91,7 +91,6 @@ public class FlexGrammar extends Grammar {
 
   public Rule statement;
 
-  public Rule superStatement;
   public Rule arguments;
   public Rule expressionList;
 

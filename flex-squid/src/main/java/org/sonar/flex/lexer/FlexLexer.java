@@ -58,6 +58,7 @@ public final class FlexLexer {
         .withChannel(regexp(GenericTokenType.LITERAL, "\'([^\'\\\\]*+(\\\\[\\s\\S])?+)*+\'"))
 
         // Numbers
+        .withChannel(regexp(FlexTokenType.NUMERIC_LITERAL, "0[xX][0-9a-fA-F]++"))
         .withChannel(regexp(FlexTokenType.NUMERIC_LITERAL, "[0-9]++\\.([0-9]++)?+" + EXP + "?+"))
         .withChannel(regexp(FlexTokenType.NUMERIC_LITERAL, "\\.[0-9]++" + EXP + "?+"))
         .withChannel(regexp(FlexTokenType.NUMERIC_LITERAL, "[0-9]++" + EXP + "?+"))

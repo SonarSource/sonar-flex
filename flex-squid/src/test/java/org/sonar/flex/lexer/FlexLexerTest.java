@@ -38,21 +38,32 @@ public class FlexLexerTest {
   }
 
   @Test
-  public void lexMultiLinesComment() {
+  public void multiline_comment() {
     assertThat(lexer.lex("/* My Comment \n*/"), hasComment("/* My Comment \n*/"));
     assertThat(lexer.lex("/**/"), hasComment("/**/"));
   }
 
   @Test
-  public void lexInlineComment() {
+  public void inline_comment() {
     assertThat(lexer.lex("// My Comment \n new line"), hasComment("// My Comment "));
     assertThat(lexer.lex("//"), hasComment("//"));
   }
 
   @Test
-  public void lexNumericLiteral() {
+  public void decimal_literal() {
     assertThat(lexer.lex("0"), hasToken("0", FlexTokenType.NUMERIC_LITERAL));
-    assertThat(lexer.lex("123"), hasToken("123", FlexTokenType.NUMERIC_LITERAL));
+    assertThat(lexer.lex("1239"), hasToken("1239", FlexTokenType.NUMERIC_LITERAL));
+  }
+
+  @Test
+  public void hex_literal() {
+    assertThat(lexer.lex("0xFF"), hasToken("0xFF", FlexTokenType.NUMERIC_LITERAL));
+  }
+
+  @Test
+  public void float_literal() {
+    assertThat(lexer.lex("12.9E-1"), hasToken("12.9E-1", FlexTokenType.NUMERIC_LITERAL));
+    assertThat(lexer.lex(".129e+1"), hasToken(".129e+1", FlexTokenType.NUMERIC_LITERAL));
   }
 
 }

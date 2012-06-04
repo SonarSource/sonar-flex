@@ -132,15 +132,19 @@ import static org.sonar.flex.api.FlexPunctuator.STAR_ASSIGN;
 import static org.sonar.flex.api.FlexPunctuator.STRICT_EQUAL;
 import static org.sonar.flex.api.FlexPunctuator.STRICT_NOT_EQUAL;
 import static org.sonar.flex.api.FlexTokenType.NUMERIC_LITERAL;
+import static org.sonar.flex.api.FlexTokenType.REGULAR_EXPRESSION_LITERAL;
 
 public class FlexGrammarImpl extends FlexGrammar {
 
   public FlexGrammarImpl() {
     compilationUnit.is(opt(packageDecl), o2n(packageBlockEntry), EOF);
 
-    arrayLiteral.is(LBRACK, opt(elementList), RBRACK);
-    elementList.is(or(COMMA, nonemptyElementList));
-    nonemptyElementList.is(assignmentExpression, o2n(COMMA, assignmentExpression));
+    arrayLiteral.is(or(
+        and(LBRACK, opt(elision), RBRACK),
+        and(LBRACK, elementList, RBRACK),
+        and(LBRACK, elementList, COMMA, opt(elision), RBRACK)));
+    elementList.is(and(opt(elision), assignmentExpression), o2n(COMMA, opt(elision), assignmentExpression));
+    elision.is(one2n(COMMA));
 
     objectLiteral.is(LCURLY, opt(fieldList), RCURLY);
     fieldList.is(literalField, o2n(COMMA, opt(literalField)));
@@ -170,7 +174,7 @@ public class FlexGrammarImpl extends FlexGrammar {
   private void definitions() {
     identifier.is(IDENTIFIER, o2n(DOT, IDENTIFIER));
 
-    packageDecl.is(PACKAGE, identifier, packageBlock);
+    packageDecl.is(PACKAGE, opt(identifier), packageBlock);
     packageBlock.is(LCURLY, o2n(packageBlockEntry), RCURLY);
     packageBlockEntry.is(or(
         annotation,
@@ -198,6 +202,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         annotation,
         variableDefinition,
         methodDefinition,
+        useNamespaceDirective,
         SEMI));
     methodDefinition.is(opt(modifiers), FUNCTION, opt(accessorRole), IDENTIFIER, parameterDeclarationList, opt(typeExpression), or(block, SEMI));
     accessorRole.is(or(
@@ -386,6 +391,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     constant.is(or(
         LITERAL,
         NUMERIC_LITERAL,
+        REGULAR_EXPRESSION_LITERAL,
         TRUE,
         FALSE,
         NULL)).skip();

@@ -28,7 +28,7 @@ public class FlexTokenTypeTest {
 
   @Test
   public void test() {
-    assertThat(FlexTokenType.values().length, is(2));
+    assertThat(FlexTokenType.values().length, is(3));
   }
 
 }

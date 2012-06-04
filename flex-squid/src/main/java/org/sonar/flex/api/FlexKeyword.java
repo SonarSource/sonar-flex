@@ -59,7 +59,7 @@ public enum FlexKeyword implements TokenType {
   SWITCH("switch"),
   // THIS("this"),
   THROW("throw"),
-  TO("to"),
+  // TO("to"),
   TRUE("true"),
   TRY("try"),
   TYPEOF("typeof"),

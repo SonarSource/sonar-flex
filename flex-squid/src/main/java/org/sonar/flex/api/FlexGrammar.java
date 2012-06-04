@@ -73,7 +73,7 @@ public class FlexGrammar extends Grammar {
 
   public Rule arrayLiteral;
   public Rule elementList;
-  public Rule nonemptyElementList;
+  public Rule elision;
 
   public Rule objectLiteral;
   public Rule fieldList;

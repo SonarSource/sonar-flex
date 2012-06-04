@@ -38,6 +38,15 @@ public class FlexLexerTest {
   }
 
   @Test
+  public void regular_expression_literal() throws Exception {
+    assertThat("simple", lexer.lex("/a/"), hasToken("/a/", FlexTokenType.REGULAR_EXPRESSION_LITERAL));
+    assertThat("flags", lexer.lex("/a/g"), hasToken("/a/g", FlexTokenType.REGULAR_EXPRESSION_LITERAL));
+    assertThat("escaped slash", lexer.lex("/\\/a/"), hasToken("/\\/a/", FlexTokenType.REGULAR_EXPRESSION_LITERAL));
+    // TODO
+    // assertThat("ambiguation", lexer.lex("1 / a == 1 / b"), hasTokens("1", "/", "a", "==", "1", "/", "b", "EOF"));
+  }
+
+  @Test
   public void multiline_comment() {
     assertThat(lexer.lex("/* My Comment \n*/"), hasComment("/* My Comment \n*/"));
     assertThat(lexer.lex("/**/"), hasComment("/**/"));

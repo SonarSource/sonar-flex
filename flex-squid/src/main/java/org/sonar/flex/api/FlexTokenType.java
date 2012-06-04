@@ -24,6 +24,7 @@ import com.sonar.sslr.api.TokenType;
 
 public enum FlexTokenType implements TokenType {
   NUMERIC_LITERAL,
+  REGULAR_EXPRESSION_LITERAL,
   UNKNOWN;
 
   public String getName() {

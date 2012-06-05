@@ -20,24 +20,19 @@
 
 package org.sonar.plugins.flex.flexpmd.xml;
 
+import com.thoughtworks.xstream.XStream;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
+import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.rules.*;
+import org.sonar.api.utils.SonarException;
+import org.sonar.plugins.flex.flexpmd.FlexPmdConstants;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.rules.ActiveRule;
-import org.sonar.api.rules.ActiveRuleParam;
-import org.sonar.api.rules.Rule;
-import org.sonar.api.rules.RuleParam;
-import org.sonar.api.rules.RulePriority;
-import org.sonar.api.utils.SonarException;
-import org.sonar.plugins.flex.flexpmd.FlexPmdConstants;
-
-import com.thoughtworks.xstream.XStream;
 
 public final class FlexRulesUtils {
 
@@ -221,41 +216,39 @@ public final class FlexRulesUtils {
   }
 
   private static RulePriority severityFromLevel(String level) {
+    final RulePriority result;
     if ("1".equals(level)) {
-      return RulePriority.BLOCKER;
+      result = RulePriority.BLOCKER;
+    } else if ("2".equals(level)) {
+      result = RulePriority.CRITICAL;
+    } else if ("3".equals(level)) {
+      result = RulePriority.MAJOR;
+    } else if ("4".equals(level)) {
+      result = RulePriority.MINOR;
+    } else if ("5".equals(level)) {
+      result = RulePriority.INFO;
+    } else {
+      result = null;
     }
-    if ("2".equals(level)) {
-      return RulePriority.CRITICAL;
-    }
-    if ("3".equals(level)) {
-      return RulePriority.MAJOR;
-    }
-    if ("4".equals(level)) {
-      return RulePriority.MINOR;
-    }
-    if ("5".equals(level)) {
-      return RulePriority.INFO;
-    }
-    return null;
+    return result;
   }
 
   private static String severityToLevel(RulePriority priority) {
+    final String result;
     if (priority.equals(RulePriority.BLOCKER)) {
-      return "1";
+      result = "1";
+    } else if (priority.equals(RulePriority.CRITICAL)) {
+      result = "2";
+    } else if (priority.equals(RulePriority.MAJOR)) {
+      result = "3";
+    } else if (priority.equals(RulePriority.MINOR)) {
+      result = "4";
+    } else if (priority.equals(RulePriority.INFO)) {
+      result = "5";
+    } else {
+      throw new IllegalArgumentException("Level not supported: " + priority);
     }
-    if (priority.equals(RulePriority.CRITICAL)) {
-      return "2";
-    }
-    if (priority.equals(RulePriority.MAJOR)) {
-      return "3";
-    }
-    if (priority.equals(RulePriority.MINOR)) {
-      return "4";
-    }
-    if (priority.equals(RulePriority.INFO)) {
-      return "5";
-    }
-    throw new IllegalArgumentException("Level not supported: " + priority);
+    return result;
   }
 
 }

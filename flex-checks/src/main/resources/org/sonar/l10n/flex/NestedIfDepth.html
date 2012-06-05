@@ -1,0 +1,23 @@
+<p>
+Deeply nested if statements are hard to read.
+</p>
+
+<p>
+The following code snippet illustrates this rule :
+</p>
+
+<pre>
+function sayHello() {
+  if (true) {
+    if (true) {
+      if (true) {
+        if (true) { // NOK
+          return;
+        } else {
+          return;
+        }
+      }
+    }
+  }
+}
+</pre>

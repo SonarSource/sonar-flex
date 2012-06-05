@@ -36,6 +36,7 @@ public final class CheckList {
     return ImmutableList.<Class> of(
         CommentRegularExpressionCheck.class,
         LineLengthCheck.class,
+        NestedIfDepthCheck.class,
         ParsingErrorCheck.class);
   }
 

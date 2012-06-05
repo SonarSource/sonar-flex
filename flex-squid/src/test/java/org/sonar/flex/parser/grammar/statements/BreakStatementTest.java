@@ -41,6 +41,7 @@ public class BreakStatementTest {
   @Test
   public void realLife() {
     assertThat(p, parse("break;"));
+    assertThat(p, parse("break label;"));
   }
 
 }

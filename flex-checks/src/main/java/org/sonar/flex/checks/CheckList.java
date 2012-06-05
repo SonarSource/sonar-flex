@@ -40,6 +40,7 @@ public final class CheckList {
         XPathCheck.class,
         FunctionComplexityCheck.class,
         ClassComplexityCheck.class,
+        OneStatementPerLineCheck.class,
         ParsingErrorCheck.class);
   }
 

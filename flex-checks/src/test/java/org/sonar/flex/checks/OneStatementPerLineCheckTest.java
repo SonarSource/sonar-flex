@@ -17,31 +17,26 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.parser.grammar.statements;
+package org.sonar.flex.checks;
 
-import com.sonar.sslr.impl.Parser;
-import org.junit.Before;
+import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
 import org.junit.Test;
-import org.sonar.flex.api.FlexGrammar;
-import org.sonar.flex.parser.FlexParser;
+import org.sonar.flex.FlexAstScanner;
+import org.sonar.squid.api.SourceFile;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import java.io.File;
 
-public class ContinueStatementTest {
-
-  Parser<FlexGrammar> p = FlexParser.create();
-  FlexGrammar g = p.getGrammar();
-
-  @Before
-  public void init() {
-    p.setRootRule(g.continueStatement);
-  }
+public class OneStatementPerLineCheckTest {
 
   @Test
-  public void realLife() {
-    assertThat(p, parse("continue;"));
-    assertThat(p, parse("continue label;"));
+  public void test() {
+    OneStatementPerLineCheck check = new OneStatementPerLineCheck();
+
+    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/OneStatementPerLine.as"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+        .next().atLine(2).withMessage("At most one statement is allowed per line, but 2 statements were found on this line.")
+        .next().atLine(6)
+        .noMore();
   }
 
 }

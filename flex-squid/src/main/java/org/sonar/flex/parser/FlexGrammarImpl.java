@@ -310,8 +310,8 @@ public class FlexGrammarImpl extends FlexGrammar {
             forInClause,
             and(opt(or(and(VAR, variableDeclarator, o2n(COMMA, variableDeclarator)), expressionList)), SEMI, opt(expressionList), SEMI, opt(expressionList))),
         RPAREN, statement);
-    continueStatement.is(CONTINUE, eos);
-    breakStatement.is(BREAK, eos);
+    continueStatement.is(CONTINUE, opt(IDENTIFIER), eos);
+    breakStatement.is(BREAK, opt(IDENTIFIER), eos);
     returnStatement.is(RETURN, opt(expression), eos);
     withStatement.is(WITH, condition, statement);
 

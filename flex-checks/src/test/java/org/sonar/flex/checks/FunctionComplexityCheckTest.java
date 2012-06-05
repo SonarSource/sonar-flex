@@ -19,27 +19,24 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.ImmutableList;
+import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
+import org.junit.Test;
+import org.sonar.flex.FlexAstScanner;
+import org.sonar.squid.api.SourceFile;
 
-import java.util.List;
+import java.io.File;
 
-public final class CheckList {
+public class FunctionComplexityCheckTest {
 
-  public static final String REPOSITORY_KEY = "flex";
+  @Test
+  public void test() {
+    FunctionComplexityCheck check = new FunctionComplexityCheck();
+    check.setMaximumFunctionComplexityThreshold(2);
 
-  public static final String SONAR_WAY_PROFILE = "Sonar way";
-
-  private CheckList() {
-  }
-
-  public static List<Class> getChecks() {
-    return ImmutableList.<Class> of(
-        CommentRegularExpressionCheck.class,
-        LineLengthCheck.class,
-        NestedIfDepthCheck.class,
-        XPathCheck.class,
-        FunctionComplexityCheck.class,
-        ParsingErrorCheck.class);
+    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/FunctionComplexity.as"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+        .next().atLine(1).withMessage("Function has a complexity of 5 which is greater than 2 authorized.")
+        .noMore();
   }
 
 }

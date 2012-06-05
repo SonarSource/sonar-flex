@@ -19,32 +19,23 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.ImmutableList;
+import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
+import org.junit.Test;
+import org.sonar.flex.FlexAstScanner;
+import org.sonar.squid.api.SourceFile;
 
-import java.util.List;
+import java.io.File;
 
-public final class CheckList {
+public class SwitchWithoutDefaultCheckTest {
 
-  public static final String REPOSITORY_KEY = "flex";
+  @Test
+  public void test() {
+    SwitchWithoutDefaultCheck check = new SwitchWithoutDefaultCheck();
 
-  public static final String SONAR_WAY_PROFILE = "Sonar way";
-
-  private CheckList() {
-  }
-
-  public static List<Class> getChecks() {
-    return ImmutableList.<Class> of(
-        CommentRegularExpressionCheck.class,
-        LineLengthCheck.class,
-        NestedIfDepthCheck.class,
-        XPathCheck.class,
-        FunctionComplexityCheck.class,
-        ClassComplexityCheck.class,
-        OneStatementPerLineCheck.class,
-        CommentedCodeCheck.class,
-        FileComplexityCheck.class,
-        SwitchWithoutDefaultCheck.class,
-        ParsingErrorCheck.class);
+    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/SwitchWithoutDefault.as"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+        .next().atLine(10).withMessage("Avoid switch statement without a \"default\" clause.")
+        .noMore();
   }
 
 }

@@ -66,7 +66,8 @@ public class FlexParserIntegrationTest {
   }
 
   private static Collection<File> listFiles(String path, boolean recursive) throws URISyntaxException {
-    return FileUtils.listFiles(new File("src/test/resources"), new String[] {"as"}, recursive);
+    File dir = new File("src/test/resources");
+    return FileUtils.listFiles(dir, new String[] {"as"}, recursive);
   }
 
 }

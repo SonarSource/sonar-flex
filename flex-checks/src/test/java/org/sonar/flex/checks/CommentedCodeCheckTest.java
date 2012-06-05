@@ -19,30 +19,26 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.ImmutableList;
+import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
+import org.junit.Test;
+import org.sonar.flex.FlexAstScanner;
+import org.sonar.squid.api.SourceFile;
 
-import java.util.List;
+import java.io.File;
 
-public final class CheckList {
+import static org.hamcrest.Matchers.containsString;
 
-  public static final String REPOSITORY_KEY = "flex";
+public class CommentedCodeCheckTest {
 
-  public static final String SONAR_WAY_PROFILE = "Sonar way";
+  @Test
+  public void test() {
+    CommentedCodeCheck check = new CommentedCodeCheck();
 
-  private CheckList() {
-  }
-
-  public static List<Class> getChecks() {
-    return ImmutableList.<Class> of(
-        CommentRegularExpressionCheck.class,
-        LineLengthCheck.class,
-        NestedIfDepthCheck.class,
-        XPathCheck.class,
-        FunctionComplexityCheck.class,
-        ClassComplexityCheck.class,
-        OneStatementPerLineCheck.class,
-        CommentedCodeCheck.class,
-        ParsingErrorCheck.class);
+    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/CommentedCode.as"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+        .next().atLine(4).withMessageThat(containsString("Sections of code should not be \"commented out\"."))
+        .next().atLine(11)
+        .noMore();
   }
 
 }

@@ -150,4 +150,19 @@
     </plugins>
   </build>
 
+  <repositories>
+    <repository>
+      <!-- For FlexPMD -->
+      <id>flexpmd.opensource.adobe</id>
+      <name>FlexPMD repository on opensource.adobe.com</name>
+      <url>http://opensource.adobe.com/svn/opensource/flexpmd/maven-repository/release/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
 </project>

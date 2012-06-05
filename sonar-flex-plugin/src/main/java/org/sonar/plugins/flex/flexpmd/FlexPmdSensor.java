@@ -20,46 +20,87 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
-import java.io.File;
-
+import com.adobe.ac.pmd.FlexPmdParameters;
+import com.adobe.ac.pmd.FlexPmdViolations;
+import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
+import net.sourceforge.pmd.PMDException;
+import org.apache.commons.io.FileUtils;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
-import org.sonar.api.batch.maven.DependsUponMavenPlugin;
-import org.sonar.api.batch.maven.MavenPluginHandler;
+import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.RuleFinder;
+import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.flex.core.Flex;
 
-public class FlexPmdSensor implements Sensor, DependsUponMavenPlugin {
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.List;
 
-  private FlexPmdMavenPluginHandler pluginHandler;
-  private RuleFinder ruleFinder;
+public class FlexPmdSensor implements Sensor {
 
-  public FlexPmdSensor(RuleFinder ruleFinder, FlexPmdMavenPluginHandler pluginHandler) {
+  private final RuleFinder ruleFinder;
+  private final FlexPmdProfileExporter profileExporter;
+  private final RulesProfile rulesProfile;
+
+  public FlexPmdSensor(RuleFinder ruleFinder, FlexPmdProfileExporter profileExporter, RulesProfile rulesProfile) {
     this.ruleFinder = ruleFinder;
-    this.pluginHandler = pluginHandler;
+    this.profileExporter = profileExporter;
+    this.rulesProfile = rulesProfile;
+  }
+
+  public boolean shouldExecuteOnProject(Project project) {
+    return Flex.KEY.equals(project.getLanguageKey())
+        && !rulesProfile.getActiveRulesByRepository(FlexPmdConstants.REPOSITORY_KEY).isEmpty();
   }
 
   public void analyse(Project project, SensorContext context) {
     FlexPmdXmlReportParser parser = getStaxParser(project, context);
-    File report = new File(project.getFileSystem().getBuildDir(), "pmd.xml");
+    File report;
+    try {
+      report = execute(project);
+    } catch (Exception e) {
+      throw new SonarException(e);
+    }
     parser.parse(report);
-  }
-
-  public boolean shouldExecuteOnProject(Project project) {
-    return Flex.KEY.equals(project.getLanguageKey());
-  }
-
-  public MavenPluginHandler getMavenPluginHandler(Project project) {
-    return pluginHandler;
   }
 
   private FlexPmdXmlReportParser getStaxParser(Project project, SensorContext context) {
     return new FlexPmdXmlReportParser(project, context, ruleFinder);
   }
 
+  /**
+   * @return file with generated report
+   */
+  public File execute(Project project) throws IOException, PMDException, URISyntaxException {
+    File rules = saveConfigXml(project);
+    File workDir = new File(project.getFileSystem().getSonarWorkingDirectory(), "flexpmd");
+    prepareWorkDir(workDir);
+    List<File> sourceDirs = project.getFileSystem().getSourceDirs();
+    FlexPmdParameters parameters = new FlexPmdParameters("", workDir, rules, null, sourceDirs);
+    FlexPmdViolations violations = new FlexPmdViolations();
+    new FlexPmdXmlEngine(parameters).executeReport(violations);
+    return new File(workDir, "pmd.xml");
+  }
+
+  private static void prepareWorkDir(File dir) {
+    try {
+      FileUtils.forceMkdir(dir);
+      // directory is cleaned, because Sonar 3.0 will not do this for us
+      FileUtils.cleanDirectory(dir);
+    } catch (IOException e) {
+      throw new SonarException("Cannot create directory: " + dir, e);
+    }
+  }
+
+  private File saveConfigXml(Project project) throws IOException {
+    return project.getFileSystem().writeToWorkingDirectory(profileExporter.exportProfileToString(rulesProfile), "pmd.xml");
+  }
+
   @Override
   public String toString() {
     return getClass().getSimpleName();
   }
+
 }

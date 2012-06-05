@@ -60,7 +60,6 @@ public class FlexPlugin extends SonarPlugin {
         FlexCpdMapping.class,
 
         FlexPmdSensor.class,
-        FlexPmdMavenPluginHandler.class,
         FlexPmdRuleRepository.class,
         DefaultFlexProfile.class,
         FlexPmdProfileExporter.class,

@@ -20,48 +20,58 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.resources.Project;
+import org.sonar.api.rules.ActiveRule;
+import org.sonar.api.rules.RuleFinder;
+import org.sonar.plugins.flex.core.Flex;
+
+import java.util.Arrays;
+import java.util.Collections;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.sonar.api.batch.maven.MavenPluginHandler;
-import org.sonar.api.resources.Java;
-import org.sonar.api.resources.Project;
-import org.sonar.plugins.flex.core.Flex;
-
 public class FlexPmdSensorTest {
 
-  private Project project;
+  private RuleFinder ruleFinder;
+  private RulesProfile profile;
   private FlexPmdSensor sensor;
 
   @Before
   public void setUp() {
-    project = mock(Project.class);
-    sensor = new FlexPmdSensor(null, null);
-  }
-
-  @Test
-  public void shouldReturnMavenPluginHandler() {
-    FlexPmdMavenPluginHandler mavenPluginHandler = mock(FlexPmdMavenPluginHandler.class);
-    sensor = new FlexPmdSensor(null, mavenPluginHandler);
-
-    assertThat(sensor.getMavenPluginHandler(project), is((MavenPluginHandler) mavenPluginHandler));
+    ruleFinder = mock(RuleFinder.class);
+    profile = mock(RulesProfile.class);
+    mock(Project.class);
+    sensor = new FlexPmdSensor(ruleFinder, null, profile);
   }
 
   @Test
   public void shouldExecuteOnProject() {
+    Project project = mock(Project.class);
     when(project.getLanguageKey()).thenReturn(Flex.KEY);
-
+    when(profile.getActiveRulesByRepository(FlexPmdConstants.REPOSITORY_KEY))
+        .thenReturn(Arrays.asList(new ActiveRule()));
     assertThat(sensor.shouldExecuteOnProject(project), is(true));
   }
 
   @Test
-  public void shouldNotExecuteOnProject() {
-    when(project.getLanguageKey()).thenReturn(Java.KEY);
+  public void shouldNotExecuteWhenNoActiveRules() {
+    Project project = mock(Project.class);
+    when(project.getLanguageKey()).thenReturn(Flex.KEY);
+    when(profile.getActiveRulesByRepository(FlexPmdConstants.REPOSITORY_KEY))
+        .thenReturn(Collections.EMPTY_LIST);
+    assertThat(sensor.shouldExecuteOnProject(project), is(false));
+  }
 
+  @Test
+  public void shouldNotExecuteOnJavaProject() {
+    Project project = mock(Project.class);
+    when(project.getLanguageKey()).thenReturn("java");
     assertThat(sensor.shouldExecuteOnProject(project), is(false));
   }
 

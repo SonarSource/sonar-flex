@@ -133,6 +133,7 @@ public final class FlexAstScanner {
     AstNodeType[] complexityAstNodeType = new AstNodeType[] {
       // Entry points
       parser.getGrammar().methodDefinition,
+      parser.getGrammar().functionExpression,
 
       // Branching nodes
       parser.getGrammar().ifStatement,
@@ -141,9 +142,9 @@ public final class FlexAstScanner {
       parser.getGrammar().whileStatement,
       parser.getGrammar().doWhileStatement,
       parser.getGrammar().switchStatement,
-      // parser.getGrammar().caseClause,
-      // parser.getGrammar().defaultClause,
-      // parser.getGrammar().catch_,
+      parser.getGrammar().caseClause,
+      parser.getGrammar().defaultClause,
+      parser.getGrammar().catchBlock,
       parser.getGrammar().returnStatement,
       parser.getGrammar().throwStatement,
 

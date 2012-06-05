@@ -113,8 +113,8 @@ public class FlexGrammar extends Grammar {
   public Rule doWhileStatement;
   public Rule withStatement;
   public Rule switchStatement;
-  public Rule caseStatement;
-  public Rule defaultStatement;
+  public Rule caseClause;
+  public Rule defaultClause;
   public Rule switchBlock;
   public Rule breakStatement;
   public Rule continueStatement;

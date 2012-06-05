@@ -65,6 +65,28 @@ public class FlexAstScannerTest {
     assertThat(file.getInt(FlexMetric.LINES_OF_CODE), is(4));
   }
 
-  // TODO test classes, functions, statements, complexity
+  @Test
+  public void statements() {
+    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/metrics/statements.as"));
+    assertThat(file.getInt(FlexMetric.STATEMENTS), is(1));
+  }
+
+  @Test
+  public void functions() {
+    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/metrics/functions.as"));
+    assertThat(file.getInt(FlexMetric.FUNCTIONS), is(2));
+  }
+
+  @Test
+  public void classes() {
+    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/metrics/classes.as"));
+    assertThat(file.getInt(FlexMetric.CLASSES), is(2));
+  }
+
+  @Test
+  public void complexity() {
+    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/metrics/complexity.as"));
+    assertThat(file.getInt(FlexMetric.COMPLEXITY), is(16));
+  }
 
 }

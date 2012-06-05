@@ -19,24 +19,24 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.ImmutableList;
+import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
+import org.junit.Test;
+import org.sonar.flex.FlexAstScanner;
+import org.sonar.squid.api.SourceFile;
 
-import java.util.List;
+import java.io.File;
 
-public final class CheckList {
+public class LineLengthCheckTest {
 
-  public static final String REPOSITORY_KEY = "flex";
+  @Test
+  public void test() {
+    LineLengthCheck check = new LineLengthCheck();
+    check.maximumLineLength = 30;
 
-  public static final String SONAR_WAY_PROFILE = "Sonar way";
-
-  private CheckList() {
-  }
-
-  public static List<Class> getChecks() {
-    return ImmutableList.<Class> of(
-        CommentRegularExpressionCheck.class,
-        LineLengthCheck.class,
-        ParsingErrorCheck.class);
+    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/LineLength.as"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+        .next().atLine(2).withMessage("The line contains 44 characters which is greater than 30 authorized.")
+        .noMore();
   }
 
 }

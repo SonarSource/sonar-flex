@@ -19,23 +19,26 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.ImmutableList;
+import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
+import org.junit.Test;
+import org.sonar.flex.FlexAstScanner;
+import org.sonar.squid.api.SourceFile;
 
-import java.util.List;
+import java.io.File;
 
-public final class CheckList {
+public class CommentRegularExpressionCheckTest {
 
-  public static final String REPOSITORY_KEY = "flex";
+  @Test
+  public void test() {
+    CommentRegularExpressionCheck check = new CommentRegularExpressionCheck();
 
-  public static final String SONAR_WAY_PROFILE = "Sonar way";
+    check.regularExpression = "(?i).*TODO.*";
+    check.message = "Avoid TODO";
 
-  private CheckList() {
-  }
-
-  public static List<Class> getChecks() {
-    return ImmutableList.<Class> of(
-        CommentRegularExpressionCheck.class,
-        ParsingErrorCheck.class);
+    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/CommentRegularExpression.as"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+        .next().atLine(2).withMessage("Avoid TODO")
+        .noMore();
   }
 
 }

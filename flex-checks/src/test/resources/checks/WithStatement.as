@@ -1,0 +1,4 @@
+function sayHello() {
+  with (foo) {
+  }
+}

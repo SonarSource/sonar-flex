@@ -19,33 +19,27 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.ImmutableList;
+import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.squid.checks.SquidCheck;
+import org.sonar.check.BelongsToProfile;
+import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.flex.api.FlexGrammar;
 
-import java.util.List;
+@Rule(
+  key = "WithStatement",
+  priority = Priority.MAJOR)
+@BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
+public class WithStatementCheck extends SquidCheck<FlexGrammar> {
 
-public final class CheckList {
-
-  public static final String REPOSITORY_KEY = "flex";
-
-  public static final String SONAR_WAY_PROFILE = "Sonar way";
-
-  private CheckList() {
+  @Override
+  public void init() {
+    subscribeTo(getContext().getGrammar().withStatement);
   }
 
-  public static List<Class> getChecks() {
-    return ImmutableList.<Class> of(
-        CommentRegularExpressionCheck.class,
-        LineLengthCheck.class,
-        NestedIfDepthCheck.class,
-        XPathCheck.class,
-        FunctionComplexityCheck.class,
-        ClassComplexityCheck.class,
-        OneStatementPerLineCheck.class,
-        CommentedCodeCheck.class,
-        FileComplexityCheck.class,
-        SwitchWithoutDefaultCheck.class,
-        WithStatementCheck.class,
-        ParsingErrorCheck.class);
+  @Override
+  public void visitNode(AstNode node) {
+    getContext().createLineViolation(this, "Avoid using with statement.", node);
   }
 
 }

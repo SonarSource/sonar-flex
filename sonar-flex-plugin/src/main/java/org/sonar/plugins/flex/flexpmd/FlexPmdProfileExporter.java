@@ -20,20 +20,20 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-
 import org.sonar.api.profiles.ProfileExporter;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.flex.core.Flex;
 import org.sonar.plugins.flex.flexpmd.xml.FlexRulesUtils;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+
 public class FlexPmdProfileExporter extends ProfileExporter {
 
   public FlexPmdProfileExporter() {
-    super(FlexPmdConstants.REPOSITORY_KEY, FlexPmdConstants.REPOSITORY_NAME);
+    super(FlexPmdRuleRepository.REPOSITORY_KEY, FlexPmdRuleRepository.REPOSITORY_NAME);
     setSupportedLanguages(Flex.KEY);
     setMimeType("application/xml");
   }

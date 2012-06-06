@@ -52,7 +52,7 @@ public class FlexPmdSensor implements Sensor {
 
   public boolean shouldExecuteOnProject(Project project) {
     return Flex.KEY.equals(project.getLanguageKey())
-        && !rulesProfile.getActiveRulesByRepository(FlexPmdConstants.REPOSITORY_KEY).isEmpty();
+        && !rulesProfile.getActiveRulesByRepository(FlexPmdRuleRepository.REPOSITORY_KEY).isEmpty();
   }
 
   public void analyse(Project project, SensorContext context) {

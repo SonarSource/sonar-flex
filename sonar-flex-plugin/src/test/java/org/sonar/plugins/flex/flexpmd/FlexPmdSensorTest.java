@@ -54,7 +54,7 @@ public class FlexPmdSensorTest {
   public void shouldExecuteOnProject() {
     Project project = mock(Project.class);
     when(project.getLanguageKey()).thenReturn(Flex.KEY);
-    when(profile.getActiveRulesByRepository(FlexPmdConstants.REPOSITORY_KEY))
+    when(profile.getActiveRulesByRepository(FlexPmdRuleRepository.REPOSITORY_KEY))
         .thenReturn(Arrays.asList(new ActiveRule()));
     assertThat(sensor.shouldExecuteOnProject(project), is(true));
   }
@@ -63,7 +63,7 @@ public class FlexPmdSensorTest {
   public void shouldNotExecuteWhenNoActiveRules() {
     Project project = mock(Project.class);
     when(project.getLanguageKey()).thenReturn(Flex.KEY);
-    when(profile.getActiveRulesByRepository(FlexPmdConstants.REPOSITORY_KEY))
+    when(profile.getActiveRulesByRepository(FlexPmdRuleRepository.REPOSITORY_KEY))
         .thenReturn(Collections.EMPTY_LIST);
     assertThat(sensor.shouldExecuteOnProject(project), is(false));
   }

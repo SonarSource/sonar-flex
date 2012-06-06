@@ -20,10 +20,6 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
-import java.io.File;
-
-import javax.xml.stream.XMLStreamException;
-
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.staxmate.in.SMHierarchicCursor;
 import org.codehaus.staxmate.in.SMInputCursor;
@@ -35,6 +31,10 @@ import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.rules.Violation;
 import org.sonar.api.utils.StaxParser;
 import org.sonar.plugins.flex.core.FlexUtils;
+
+import javax.xml.stream.XMLStreamException;
+
+import java.io.File;
 
 public class FlexPmdXmlReportParser {
 
@@ -78,7 +78,7 @@ public class FlexPmdXmlReportParser {
 
   void log(SensorContext context, String ruleKey, String fileName, Integer line, String message) {
     RuleQuery ruleQuery = RuleQuery.create()
-        .withRepositoryKey(FlexPmdConstants.REPOSITORY_KEY)
+        .withRepositoryKey(FlexPmdRuleRepository.REPOSITORY_KEY)
         .withConfigKey(ruleKey);
     Rule rule = ruleFinder.find(ruleQuery);
     if (rule != null) {

@@ -20,20 +20,22 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
-import java.util.List;
-
+import com.google.common.collect.Lists;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleRepository;
 import org.sonar.plugins.flex.core.Flex;
 import org.sonar.plugins.flex.flexpmd.xml.FlexRulesUtils;
 
-import com.google.common.collect.Lists;
+import java.util.List;
 
 public class FlexPmdRuleRepository extends RuleRepository {
 
+  public static final String REPOSITORY_KEY = "flexplugin";
+  public static final String REPOSITORY_NAME = "Flex PMD";
+
   public FlexPmdRuleRepository() {
-    super(FlexPmdConstants.REPOSITORY_KEY, Flex.KEY);
-    setName(FlexPmdConstants.REPOSITORY_NAME);
+    super(REPOSITORY_KEY, Flex.KEY);
+    setName(REPOSITORY_NAME);
   }
 
   @Override

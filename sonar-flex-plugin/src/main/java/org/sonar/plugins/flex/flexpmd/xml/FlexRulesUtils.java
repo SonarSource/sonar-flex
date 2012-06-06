@@ -26,7 +26,7 @@ import org.apache.commons.lang.StringUtils;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.*;
 import org.sonar.api.utils.SonarException;
-import org.sonar.plugins.flex.flexpmd.FlexPmdConstants;
+import org.sonar.plugins.flex.flexpmd.FlexPmdRuleRepository;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -120,14 +120,14 @@ public final class FlexRulesUtils {
   }
 
   public static String exportConfiguration(RulesProfile activeProfile) {
-    Ruleset tree = buildRulesetFromActiveProfile(activeProfile.getActiveRulesByRepository(FlexPmdConstants.REPOSITORY_KEY));
+    Ruleset tree = buildRulesetFromActiveProfile(activeProfile.getActiveRulesByRepository(FlexPmdRuleRepository.REPOSITORY_KEY));
     return FlexRulesUtils.buildXmlFromRuleset(tree);
   }
 
   private static Rule createRepositoryRule(FlexRule fRule) {
     RulePriority priority = severityFromLevel(fRule.getPriority());
     String ruleName = computeRuleNameFromClassAttribute(fRule.getClazz());
-    Rule rule = Rule.create(FlexPmdConstants.REPOSITORY_KEY, fRule.getClazz(), ruleName).setSeverity(priority);
+    Rule rule = Rule.create(FlexPmdRuleRepository.REPOSITORY_KEY, fRule.getClazz(), ruleName).setSeverity(priority);
     rule.setDescription(fRule.getDescription());
     List<RuleParam> ruleParams = new ArrayList<RuleParam>();
     if (fRule.getProperties() != null) {
@@ -195,7 +195,7 @@ public final class FlexRulesUtils {
   static Ruleset buildRulesetFromActiveProfile(List<ActiveRule> activeRules) {
     Ruleset ruleset = new Ruleset();
     for (ActiveRule activeRule : activeRules) {
-      if (activeRule.getRule().getRepositoryKey().equals(FlexPmdConstants.REPOSITORY_KEY)) {
+      if (activeRule.getRule().getRepositoryKey().equals(FlexPmdRuleRepository.REPOSITORY_KEY)) {
         String key = activeRule.getRule().getKey();
         String priority = severityToLevel(activeRule.getSeverity());
         FlexRule flexRule = new FlexRule(key, priority);

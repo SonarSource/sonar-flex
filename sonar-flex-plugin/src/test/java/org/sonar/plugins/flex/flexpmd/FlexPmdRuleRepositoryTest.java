@@ -20,14 +20,14 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import org.junit.Test;
+import org.sonar.api.rules.Rule;
 
 import java.util.List;
 
-import org.junit.Test;
-import org.sonar.api.rules.Rule;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 public class FlexPmdRuleRepositoryTest {
 
@@ -35,7 +35,7 @@ public class FlexPmdRuleRepositoryTest {
   public void shouldCreateRules() {
     FlexPmdRuleRepository repository = new FlexPmdRuleRepository();
     List<Rule> rules = repository.createRules();
-    assertThat(rules.size(), is(94));
+    assertThat(rules.size(), is(112));
     for (Rule rule : rules) {
       assertNotNull(rule.getKey());
       assertNotNull(rule.getDescription());

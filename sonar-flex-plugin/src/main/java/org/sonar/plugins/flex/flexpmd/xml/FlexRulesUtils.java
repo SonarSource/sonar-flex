@@ -20,6 +20,7 @@
 
 package org.sonar.plugins.flex.flexpmd.xml;
 
+import com.google.common.collect.ImmutableList;
 import com.thoughtworks.xstream.XStream;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -92,10 +93,35 @@ public final class FlexRulesUtils {
     return configuration;
   }
 
-  private static final String RESOURCE_PATH = "/org/sonar/plugins/flex/flexpmd/";
+  private static final String[] RESOURCES = {
+    "/com/adobe/ac/pmd/rulesets/architecture.xml",
+    "/com/adobe/ac/pmd/rulesets/asdocs.xml",
+    "/com/adobe/ac/pmd/rulesets/basic_mxml.xml",
+    "/com/adobe/ac/pmd/rulesets/binding.xml",
+    "/com/adobe/ac/pmd/rulesets/cairngorm.xml",
+    "/com/adobe/ac/pmd/rulesets/component.xml",
+    "/com/adobe/ac/pmd/rulesets/css.xml",
+    "/com/adobe/ac/pmd/rulesets/empty.xml",
+    "/com/adobe/ac/pmd/rulesets/event.xml",
+    "/com/adobe/ac/pmd/rulesets/maintanability.xml",
+    "/com/adobe/ac/pmd/rulesets/multitouch.xml",
+    "/com/adobe/ac/pmd/rulesets/naming.xml",
+    "/com/adobe/ac/pmd/rulesets/parsley.xml",
+    "/com/adobe/ac/pmd/rulesets/performance.xml",
+    "/com/adobe/ac/pmd/rulesets/security.xml",
+    "/com/adobe/ac/pmd/rulesets/sizing.xml",
+    "/com/adobe/ac/pmd/rulesets/style.xml",
+    "/com/adobe/ac/pmd/rulesets/switches.xml",
+    "/com/adobe/ac/pmd/rulesets/unittest.xml",
+    "/com/adobe/ac/pmd/rulesets/unused.xml"
+  };
 
   public static List<Rule> getInitialReferential() {
-    return parseReferential(RESOURCE_PATH + "rules.xml");
+    ImmutableList.Builder<Rule> result = ImmutableList.builder();
+    for (String resource : RESOURCES) {
+      result.addAll(parseReferential(resource));
+    }
+    return result.build();
   }
 
   public static List<Rule> parseReferential(String path) {

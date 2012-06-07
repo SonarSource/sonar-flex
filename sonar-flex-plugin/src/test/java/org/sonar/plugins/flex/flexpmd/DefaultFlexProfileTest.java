@@ -20,12 +20,12 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
 import org.junit.Test;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.utils.ValidationMessages;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class DefaultFlexProfileTest {
 
@@ -35,7 +35,7 @@ public class DefaultFlexProfileTest {
     ValidationMessages messages = ValidationMessages.create();
     RulesProfile profile = profileDefinition.createProfile(messages);
 
-    assertThat(profile.getActiveRules().size(), is(87));
+    assertThat(profile.getActiveRules().size(), is(102));
   }
 
 }

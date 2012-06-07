@@ -23,6 +23,7 @@ package org.sonar.plugins.flex.flexpmd;
 import com.adobe.ac.pmd.FlexPmdParameters;
 import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
+import com.google.common.annotations.VisibleForTesting;
 import net.sourceforge.pmd.PMDException;
 import org.apache.commons.io.FileUtils;
 import org.sonar.api.batch.Sensor;
@@ -73,7 +74,8 @@ public class FlexPmdSensor implements Sensor {
   /**
    * @return file with generated report
    */
-  public File execute(Project project) throws IOException, PMDException, URISyntaxException {
+  @VisibleForTesting
+  File execute(Project project) throws IOException, PMDException, URISyntaxException {
     File rules = saveConfigXml(project);
     File workDir = new File(project.getFileSystem().getSonarWorkingDirectory(), "flexpmd");
     prepareWorkDir(workDir);

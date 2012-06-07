@@ -20,6 +20,7 @@
 
 package org.sonar.plugins.flex.flexpmd.xml;
 
+import com.google.common.base.Objects;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
@@ -127,40 +128,21 @@ public class FlexRule implements Comparable<String> {
     return category;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((clazz == null) ? 0 : clazz.hashCode());
-    return result;
+    return Objects.hashCode(clazz);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;
     }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
+    if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
     FlexRule other = (FlexRule) obj;
-    if (clazz == null) {
-      if (other.clazz != null) {
-        return false;
-      }
-    } else if (!clazz.equals(other.clazz)) {
-      return false;
-    }
-    return true;
+    return Objects.equal(this.clazz, other.clazz);
   }
 
 }

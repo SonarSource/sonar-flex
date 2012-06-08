@@ -1,6 +1,8 @@
 public class Foo {
   public function foo() {
-    bar();
+    if (true) {
+      bar();
+    }
   }
 
   public function bar() {

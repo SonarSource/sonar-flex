@@ -127,7 +127,25 @@ public final class FlexAstScanner {
         .build());
     builder.withSquidAstVisitor(CounterVisitor.<FlexGrammar> builder()
         .setMetricDef(FlexMetric.STATEMENTS)
-        .subscribeTo(parser.getGrammar().statement)
+        .subscribeTo(
+            parser.getGrammar().labelledStatement,
+            parser.getGrammar().defaultXmlNamespaceStatement,
+            parser.getGrammar().declarationStatement,
+            parser.getGrammar().expressionStatement,
+            parser.getGrammar().ifStatement,
+            parser.getGrammar().forEachStatement,
+            parser.getGrammar().forStatement,
+            parser.getGrammar().whileStatement,
+            parser.getGrammar().doWhileStatement,
+            parser.getGrammar().withStatement,
+            parser.getGrammar().switchStatement,
+            parser.getGrammar().breakStatement,
+            parser.getGrammar().continueStatement,
+            parser.getGrammar().returnStatement,
+            parser.getGrammar().throwStatement,
+            parser.getGrammar().tryStatement,
+            parser.getGrammar().includeDirective,
+            parser.getGrammar().emptyStatement)
         .build());
 
     AstNodeType[] complexityAstNodeType = new AstNodeType[] {

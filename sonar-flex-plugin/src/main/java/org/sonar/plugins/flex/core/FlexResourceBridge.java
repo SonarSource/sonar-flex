@@ -20,25 +20,23 @@
 
 package org.sonar.plugins.flex.core;
 
-import java.util.Map;
-
+import com.google.common.collect.Maps;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.BatchExtension;
 import org.sonar.api.resources.Directory;
 import org.sonar.api.resources.File;
 
-import com.google.common.collect.Maps;
+import java.util.Map;
 
 /**
  * Class that helps finding which physical resource (a file) contains a specific Action Script class or function, or "mxml" definition.
  * It is used most notably to find resources from names given by FlexMetrics tool.
- * 
- * Note that: 
+ *
+ * Note that:
  * <ul>
  * <li>for AS files (that contain class definitions), this works only if they contain 1 and only 1 class each.</li>
  * <li>for MXML files (and other files different from "AS" files), the logical name contains the file extension.</li>
  * </ul>
- * 
  */
 public class FlexResourceBridge implements BatchExtension {
 
@@ -57,7 +55,7 @@ public class FlexResourceBridge implements BatchExtension {
 
   /**
    * Indexes a file to be able to find it with logical names.
-   * 
+   *
    * @param file the file to index
    * @throws IllegalStateException
    *           if the {@link FlexResourceBridge} is locked and cannot index more files
@@ -96,4 +94,5 @@ public class FlexResourceBridge implements BatchExtension {
     // and all the '/' should be replaced by a package-separator '.'
     return logicalName.replace('/', '.');
   }
+
 }

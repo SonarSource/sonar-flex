@@ -20,6 +20,18 @@
 
 package org.sonar.plugins.flex.cobertura;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.sonar.api.batch.SensorContext;
+import org.sonar.api.measures.CoreMetrics;
+import org.sonar.api.resources.Project;
+import org.sonar.api.resources.Resource;
+import org.sonar.api.test.IsMeasure;
+import org.sonar.plugins.flex.core.Flex;
+import org.sonar.plugins.flex.core.FlexResourceBridge;
+
+import java.io.File;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
@@ -29,24 +41,16 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.io.File;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.sonar.api.batch.SensorContext;
-import org.sonar.api.measures.CoreMetrics;
-import org.sonar.api.resources.Project;
-import org.sonar.api.resources.Resource;
-import org.sonar.api.test.IsMeasure;
-import org.sonar.plugins.flex.core.Flex;
-
 public class FlexCoberturaSensorTest {
+
+  private FlexResourceBridge resourceBridge;
   private FlexCoberturaSensor sensor;
   private Project project;
 
   @Before
   public void setUp() throws Exception {
-    sensor = new FlexCoberturaSensor();
+    resourceBridge = new FlexResourceBridge();
+    sensor = new FlexCoberturaSensor(resourceBridge);
     project = mock(Project.class);
   }
 
@@ -61,6 +65,7 @@ public class FlexCoberturaSensorTest {
   @Test
   public void shouldParseReport() throws Exception {
     org.sonar.api.resources.File flexFile = new org.sonar.api.resources.File("com.tgeorgiev.util.BasicArithmeticOperations");
+    resourceBridge.indexFile(flexFile);
     SensorContext context = mock(SensorContext.class);
     when(context.getResource(any(Resource.class))).thenReturn(flexFile);
 

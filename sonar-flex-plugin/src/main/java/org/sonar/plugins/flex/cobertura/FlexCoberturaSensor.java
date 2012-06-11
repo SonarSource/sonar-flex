@@ -20,8 +20,6 @@
 
 package org.sonar.plugins.flex.cobertura;
 
-import java.io.File;
-
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.CoverageExtension;
 import org.sonar.api.batch.Sensor;
@@ -31,8 +29,17 @@ import org.sonar.api.resources.Resource;
 import org.sonar.plugins.cobertura.api.AbstractCoberturaParser;
 import org.sonar.plugins.cobertura.api.CoberturaUtils;
 import org.sonar.plugins.flex.core.Flex;
+import org.sonar.plugins.flex.core.FlexResourceBridge;
+
+import java.io.File;
 
 public class FlexCoberturaSensor implements CoverageExtension, Sensor {
+
+  private final FlexResourceBridge resourceBridge;
+
+  public FlexCoberturaSensor(FlexResourceBridge resourceBridge) {
+    this.resourceBridge = resourceBridge;
+  }
 
   public boolean shouldExecuteOnProject(Project project) {
     return project.getAnalysisType().isDynamic(true) && Flex.KEY.equals(project.getLanguageKey());
@@ -50,7 +57,7 @@ public class FlexCoberturaSensor implements CoverageExtension, Sensor {
     new AbstractCoberturaParser() {
       @Override
       protected Resource<?> getResource(String fileName) {
-        return new org.sonar.api.resources.File(fileName);
+        return resourceBridge.findFile(fileName);
       }
     }.parseReport(xmlFile, context);
   }

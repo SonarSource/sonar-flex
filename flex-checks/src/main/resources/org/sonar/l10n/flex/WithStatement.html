@@ -1,3 +1,16 @@
 <p>
 Never use the with statements, since they decrease readability.
+When you do not specify a variable's scope, you do not always know where you are setting properties, so your code can be confusing.
 </p>
+
+<p>
+The following code snippet illustrates this rule :
+</p>
+
+<pre>
+with (foo) { // Non-Compliant
+  return x;  // is it a property of foo or local variable ?
+}
+
+return foo.x; // Compliant
+</pre>

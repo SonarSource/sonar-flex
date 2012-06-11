@@ -34,7 +34,7 @@ public class WithStatementCheckTest {
 
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/WithStatement.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-        .next().atLine(2).withMessage("Avoid using with statement.")
+        .next().atLine(2).withMessage("Usage of \"with\" statement should be avoided. Instead, prefer explicitly specify variable scopes to make code clearer.")
         .noMore();
   }
 

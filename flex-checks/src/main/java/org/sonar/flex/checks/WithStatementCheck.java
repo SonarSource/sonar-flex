@@ -39,7 +39,7 @@ public class WithStatementCheck extends SquidCheck<FlexGrammar> {
 
   @Override
   public void visitNode(AstNode node) {
-    getContext().createLineViolation(this, "Avoid using with statement.", node);
+    getContext().createLineViolation(this, "Usage of \"with\" statement should be avoided. Instead, prefer explicitly specify variable scopes to make code clearer.", node);
   }
 
 }

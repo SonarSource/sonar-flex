@@ -87,6 +87,24 @@ public final class FlexAstScanner {
     /* Files */
     builder.setFilesMetric(FlexMetric.FILES);
 
+    /* Packages */
+    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<FlexGrammar>(new SourceCodeBuilderCallback() {
+      public SourceCode createSourceCode(SourceCode parentSourceCode, AstNode astNode) {
+        AstNode packageNameNode = astNode.getChild(1);
+        final String packageName;
+        if (packageNameNode.is(parser.getGrammar().identifier)) {
+          StringBuilder sb = new StringBuilder();
+          for (AstNode part : packageNameNode.getChildren()) {
+            sb.append(part.getTokenValue());
+          }
+          packageName = sb.toString();
+        } else {
+          packageName = "";
+        }
+        return new FlexSquidPackage(packageName);
+      }
+    }, parser.getGrammar().packageDecl));
+
     /* Classes */
     builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<FlexGrammar>(new SourceCodeBuilderCallback() {
       public SourceCode createSourceCode(SourceCode parentSourceCode, AstNode astNode) {

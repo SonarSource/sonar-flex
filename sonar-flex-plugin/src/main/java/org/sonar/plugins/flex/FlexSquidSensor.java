@@ -28,16 +28,19 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.PersistenceMode;
 import org.sonar.api.measures.RangeDistributionBuilder;
 import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.resources.Directory;
 import org.sonar.api.resources.File;
 import org.sonar.api.resources.InputFileUtils;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Violation;
 import org.sonar.flex.FlexAstScanner;
 import org.sonar.flex.FlexConfiguration;
+import org.sonar.flex.FlexSquidPackage;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.api.FlexMetric;
 import org.sonar.flex.checks.CheckList;
 import org.sonar.plugins.flex.core.Flex;
+import org.sonar.plugins.flex.core.FlexResourceBridge;
 import org.sonar.squid.api.CheckMessage;
 import org.sonar.squid.api.SourceCode;
 import org.sonar.squid.api.SourceFile;
@@ -54,13 +57,15 @@ public class FlexSquidSensor implements Sensor {
   private static final Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
 
   private final AnnotationCheckFactory annotationCheckFactory;
+  private final FlexResourceBridge resourceBridge;
 
   private Project project;
   private SensorContext context;
   private AstScanner<FlexGrammar> scanner;
 
-  public FlexSquidSensor(RulesProfile profile) {
+  public FlexSquidSensor(RulesProfile profile, FlexResourceBridge resourceBridge) {
     this.annotationCheckFactory = AnnotationCheckFactory.create(profile, CheckList.REPOSITORY_KEY, CheckList.getChecks());
+    this.resourceBridge = resourceBridge;
   }
 
   public boolean shouldExecuteOnProject(Project project) {
@@ -77,6 +82,15 @@ public class FlexSquidSensor implements Sensor {
 
     Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(new QueryByType(SourceFile.class));
     save(squidSourceFiles);
+
+    Collection<SourceCode> squidPackages = scanner.getIndex().search(new QueryByType(FlexSquidPackage.class));
+    for (SourceCode pkg : squidPackages) {
+      String packageName = pkg.getKey();
+      if (!"".equals(packageName)) {
+        Directory directory = resourceBridge.findDirectory(packageName);
+        context.saveMeasure(directory, CoreMetrics.PACKAGES, 1.0);
+      }
+    }
   }
 
   private FlexConfiguration createConfiguration(Project project) {

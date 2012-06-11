@@ -24,11 +24,13 @@ import com.sonar.sslr.squid.AstScanner;
 import org.junit.Test;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.api.FlexMetric;
+import org.sonar.squid.api.SourceCode;
 import org.sonar.squid.api.SourceFile;
 import org.sonar.squid.api.SourceProject;
 import org.sonar.squid.indexer.QueryByType;
 
 import java.io.File;
+import java.util.Set;
 
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
@@ -81,6 +83,14 @@ public class FlexAstScannerTest {
   public void classes() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/metrics/classes.as"));
     assertThat(file.getInt(FlexMetric.CLASSES), is(2));
+  }
+
+  @Test
+  public void packages() {
+    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/metrics/packages.as"));
+    Set<SourceCode> set = file.getChildren();
+    assertThat(set.size(), is(1));
+    assertThat(set, hasItem((SourceCode) new FlexSquidPackage("foo.bar.baz")));
   }
 
   @Test

@@ -19,6 +19,10 @@
  */
 package org.sonar.plugins.flex;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.squid.AstScanner;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.api.batch.Sensor;
@@ -72,13 +76,21 @@ public class FlexSquidSensor implements Sensor {
     return Flex.KEY.equals(project.getLanguageKey());
   }
 
+  private Predicate<java.io.File> MXML_FILTER = new Predicate<java.io.File>() {
+    public boolean apply(java.io.File input) {
+      return input.getAbsolutePath().endsWith(".mxml");
+    }
+  };
+
   public void analyse(Project project, SensorContext context) {
     this.project = project;
     this.context = context;
 
     Collection<SquidCheck> squidChecks = annotationCheckFactory.getChecks();
     this.scanner = FlexAstScanner.create(createConfiguration(project), squidChecks.toArray(new SquidCheck[squidChecks.size()]));
-    scanner.scanFiles(InputFileUtils.toFiles(project.getFileSystem().mainFiles(Flex.KEY)));
+    Collection<java.io.File> files = InputFileUtils.toFiles(project.getFileSystem().mainFiles(Flex.KEY));
+    files = ImmutableList.copyOf(Collections2.filter(files, Predicates.not(MXML_FILTER)));
+    scanner.scanFiles(files);
 
     Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(new QueryByType(SourceFile.class));
     save(squidSourceFiles);

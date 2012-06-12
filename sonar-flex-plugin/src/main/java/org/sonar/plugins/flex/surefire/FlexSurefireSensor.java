@@ -20,8 +20,6 @@
 
 package org.sonar.plugins.flex.surefire;
 
-import java.io.File;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
@@ -35,6 +33,8 @@ import org.sonar.plugins.flex.core.Flex;
 import org.sonar.plugins.flex.core.FlexResourceBridge;
 import org.sonar.plugins.surefire.api.AbstractSurefireParser;
 import org.sonar.plugins.surefire.api.SurefireUtils;
+
+import java.io.File;
 
 public class FlexSurefireSensor implements Sensor, DependsUponMavenPlugin {
 
@@ -56,7 +56,8 @@ public class FlexSurefireSensor implements Sensor, DependsUponMavenPlugin {
   }
 
   public boolean shouldExecuteOnProject(Project project) {
-    return project.getAnalysisType().isDynamic(true) && Flex.KEY.equals(project.getLanguageKey());
+    return project.getAnalysisType().isDynamic(true)
+        && Flex.KEY.equals(project.getLanguageKey());
   }
 
   public void analyse(Project project, SensorContext context) {

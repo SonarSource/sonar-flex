@@ -20,17 +20,17 @@
 
 package org.sonar.plugins.flex.surefire;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.sonar.api.resources.Project;
+import org.sonar.plugins.flex.core.Flex;
+
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.sonar.api.resources.Project;
-import org.sonar.plugins.flex.core.Flex;
 
 public class FlexSurefireSensorTest {
   private FlexSurefireSensor sensor;
@@ -52,7 +52,10 @@ public class FlexSurefireSensorTest {
   @Test
   public void shouldNotAnanlyseIfLanguageNotFlex() {
     when(project.getLanguageKey()).thenReturn("java");
-    when(project.getAnalysisType()).thenReturn(Project.AnalysisType.STATIC);
+    when(project.getAnalysisType())
+        .thenReturn(Project.AnalysisType.REUSE_REPORTS)
+        .thenReturn(Project.AnalysisType.DYNAMIC);
+    assertThat(sensor.shouldExecuteOnProject(project), is(false));
     assertThat(sensor.shouldExecuteOnProject(project), is(false));
   }
 
@@ -60,8 +63,8 @@ public class FlexSurefireSensorTest {
   public void shouldAnalyseIfReuseReportsOrDynamic() {
     when(project.getLanguageKey()).thenReturn(Flex.KEY);
     when(project.getAnalysisType())
-      .thenReturn(Project.AnalysisType.REUSE_REPORTS)
-      .thenReturn(Project.AnalysisType.DYNAMIC);
+        .thenReturn(Project.AnalysisType.REUSE_REPORTS)
+        .thenReturn(Project.AnalysisType.DYNAMIC);
     assertThat(sensor.shouldExecuteOnProject(project), is(true));
     assertThat(sensor.shouldExecuteOnProject(project), is(true));
   }

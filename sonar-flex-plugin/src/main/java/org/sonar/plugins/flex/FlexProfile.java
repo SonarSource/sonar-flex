@@ -22,6 +22,8 @@ package org.sonar.plugins.flex;
 import org.sonar.api.profiles.AnnotationProfileParser;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.profiles.XMLProfileParser;
+import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.flex.checks.CheckList;
 import org.sonar.plugins.flex.core.Flex;
@@ -29,14 +31,21 @@ import org.sonar.plugins.flex.core.Flex;
 public class FlexProfile extends ProfileDefinition {
 
   private final AnnotationProfileParser annotationProfileParser;
+  private final XMLProfileParser xmlProfileParser;
 
-  public FlexProfile(AnnotationProfileParser annotationProfileParser) {
+  public FlexProfile(AnnotationProfileParser annotationProfileParser, XMLProfileParser xmlProfileParser) {
     this.annotationProfileParser = annotationProfileParser;
+    this.xmlProfileParser = xmlProfileParser;
   }
 
   @Override
   public RulesProfile createProfile(ValidationMessages validation) {
-    return annotationProfileParser.parse(CheckList.REPOSITORY_KEY, CheckList.SONAR_WAY_PROFILE, Flex.KEY, CheckList.getChecks(), validation);
+    RulesProfile rulesProfile = annotationProfileParser.parse(CheckList.REPOSITORY_KEY, CheckList.SONAR_WAY_PROFILE, Flex.KEY, CheckList.getChecks(), validation);
+    RulesProfile pmdRules = xmlProfileParser.parseResource(getClass().getClassLoader(), "org/sonar/plugins/flex/profile-sonar-way.xml", validation);
+    for (ActiveRule activeRule : pmdRules.getActiveRules()) {
+      rulesProfile.addActiveRule(activeRule);
+    }
+    return rulesProfile;
   }
 
 }

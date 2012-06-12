@@ -32,4 +32,9 @@ public class FlexSquidPackage extends SourceCode {
     return (obj instanceof FlexSquidPackage) && getKey().equals(((SourceCode) obj).getKey());
   }
 
+  @Override
+  public int hashCode() {
+    return getKey().hashCode();
+  }
+
 }

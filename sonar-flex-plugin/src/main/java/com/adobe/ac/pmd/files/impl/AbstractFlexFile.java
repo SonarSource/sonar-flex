@@ -146,7 +146,11 @@ abstract class AbstractFlexFile implements IFlexFile {
   @Override
   public final boolean equals(final Object obj)
   {
-    return hashCode() == ((AbstractFlexFile) obj).hashCode();
+    if (obj == null || obj.getClass() != getClass()) {
+      return false;
+    }
+    AbstractFlexFile other = (AbstractFlexFile) obj;
+    return this.file.equals(other.file);
   }
 
   /*

@@ -76,9 +76,9 @@ public class FlexSquidSensor implements Sensor {
     return Flex.KEY.equals(project.getLanguageKey());
   }
 
-  private Predicate<java.io.File> MXML_FILTER = new Predicate<java.io.File>() {
+  private static final Predicate<java.io.File> MXML_FILTER = new Predicate<java.io.File>() {
     public boolean apply(java.io.File input) {
-      return input.getAbsolutePath().endsWith(".mxml");
+      return input != null && input.getAbsolutePath().endsWith(".mxml");
     }
   };
 

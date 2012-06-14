@@ -26,8 +26,6 @@ import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 import com.google.common.annotations.VisibleForTesting;
 import net.sourceforge.pmd.PMDException;
 import org.apache.commons.io.FileUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.profiles.RulesProfile;
@@ -38,14 +36,10 @@ import org.sonar.plugins.flex.core.Flex;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class FlexPmdSensor implements Sensor {
-
-  private static final Logger LOG = LoggerFactory.getLogger(FlexPmdSensor.class);
 
   private final RuleFinder ruleFinder;
   private final FlexPmdProfileExporter profileExporter;
@@ -88,28 +82,9 @@ public class FlexPmdSensor implements Sensor {
     List<File> sourceDirs = project.getFileSystem().getSourceDirs();
     FlexPmdParameters parameters = new FlexPmdParameters("", workDir, rules, null, sourceDirs);
     FlexPmdViolations violations = new FlexPmdViolations();
-    try {
-      new FlexPmdXmlEngine(parameters).executeReport(violations);
-    } finally {
-      terminate();
-    }
+    new FlexPmdXmlEngine(parameters).executeReport(violations);
 
     return new File(workDir, "pmd.xml");
-  }
-
-  /**
-   * Execution of FlexPMD might leave unterminated threads (see SONARPLUGINS-959), this method tries to force termination.
-   */
-  private void terminate() {
-    try {
-      Field field = com.adobe.ac.pmd.files.FileSetUtils.class.getDeclaredField("EXECUTOR");
-      field.setAccessible(true);
-      ThreadPoolExecutor executor = (ThreadPoolExecutor) field.get(null);
-      executor.shutdown();
-    } catch (Exception e) {
-      // Note that we should not throw an exception, because this method should be called from a finally-block
-      LOG.warn("Unable to terminate FlexPMD", e);
-    }
   }
 
   private static void prepareWorkDir(File dir) {

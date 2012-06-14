@@ -17,9 +17,22 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
+package com.adobe.ac.pmd.engines;
 
-/**
- * Replacement of com.adobe.ac:flex-pmd-files - see SONARPLUGINS-793
- */
-package com.adobe.ac.pmd.files;
+public enum FlexPMDFormat
+{
+  HTML("flexPmd.html"), XML("pmd.xml");
 
+  private final String name;
+
+  private FlexPMDFormat(final String formatName)
+  {
+    name = formatName;
+  }
+
+  @Override
+  public String toString()
+  {
+    return name;
+  }
+}

@@ -135,6 +135,9 @@ public class FlexPmdViolations implements Serializable
       {
         LOGGER.warning(buildLogMessage(file,
             e.getMessage()));
+      } catch (Exception e) {
+        LOGGER.warning(buildLogMessage(file,
+            e.getMessage()));
       }
     }
     return asts;

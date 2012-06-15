@@ -53,16 +53,17 @@ public abstract class AbstractFlexPmdEngine
   private static File extractDefaultRuleSet() throws URISyntaxException,
       IOException
   {
-    final String rulesetURI = "/com/adobe/ac/pmd/default_flex.xml";
-    final InputStream resourceAsStream = AbstractFlexPmdEngine.class.getResourceAsStream(rulesetURI);
-    final File temporaryRuleset = File.createTempFile("default_flex",
-        ".xml");
-    temporaryRuleset.deleteOnExit();
-    final FileOutputStream writter = new FileOutputStream(temporaryRuleset);
-    IOUtils.copy(resourceAsStream, writter);
-
-    resourceAsStream.close();
-    return temporaryRuleset;
+    InputStream resourceAsStream = null;
+    try {
+      resourceAsStream = AbstractFlexPmdEngine.class.getResourceAsStream("/com/adobe/ac/pmd/default_flex.xml");
+      final File temporaryRuleset = File.createTempFile("default_flex", ".xml");
+      temporaryRuleset.deleteOnExit();
+      final FileOutputStream writter = new FileOutputStream(temporaryRuleset);
+      IOUtils.copy(resourceAsStream, writter);
+      return temporaryRuleset;
+    } finally {
+      IOUtils.closeQuietly(resourceAsStream);
+    }
   }
 
   private final File outputDirectory;

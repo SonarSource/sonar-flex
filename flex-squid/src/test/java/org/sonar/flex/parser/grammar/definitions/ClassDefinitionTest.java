@@ -44,8 +44,8 @@ public class ClassDefinitionTest {
     assertThat(p, parse("public class Foo extends org.example.Bar { }"));
     assertThat(p, parse("class Foo implements org.example.Bar { }"));
     assertThat(p, parse("class Foo { }"));
-
     assertThat(p, parse("class Foo { public var data:Object = new Object(); /* ANOTHER SEMICOLON: */ ; }"));
+    assertThat(p, parse("class foo.bar {}"));
   }
 
 }

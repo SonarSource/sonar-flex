@@ -54,6 +54,7 @@ public class DeclarationStatementTest {
     assertThat(p, parse("var result:String;"));
     assertThat(p, parse("var result:String = 'ok';"));
     assertThat(p, parse("var result:String = message;"));
+    assertThat(p, parse("final var b:Boolean = true;"));
   }
 
 }

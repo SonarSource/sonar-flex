@@ -203,11 +203,11 @@ public class FlexGrammarImpl extends FlexGrammar {
 
     importDefinition.is(IMPORT, IDENTIFIER, o2n(DOT, IDENTIFIER), opt(DOT, STAR), SEMI);
 
-    classDefinition.is(opt(modifiers), CLASS, IDENTIFIER, classExtendsClause, implementsClause, typeBlock);
+    classDefinition.is(opt(modifiers), CLASS, identifier, classExtendsClause, implementsClause, typeBlock);
     classExtendsClause.is(opt(EXTENDS, identifier));
     implementsClause.is(opt(IMPLEMENTS, identifier, o2n(COMMA, identifier)));
 
-    interfaceDefinition.is(opt(modifiers), INTERFACE, IDENTIFIER, interfaceExtendsClause, typeBlock);
+    interfaceDefinition.is(opt(modifiers), INTERFACE, identifier, interfaceExtendsClause, typeBlock);
     interfaceExtendsClause.is(opt(EXTENDS, identifier, o2n(COMMA, identifier)));
     typeBlock.is(LCURLY, o2n(typeBlockEntry), RCURLY);
 
@@ -296,7 +296,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     expressionList.is(assignmentExpression, o2n(COMMA, assignmentExpression));
 
     defaultXmlNamespaceStatement.is(DEFAULT, "xml", "namespace", ASSIGN, expression, eos);
-    declarationStatement.is(or(VAR, CONST), variableDeclarator, o2n(COMMA, variableDeclarator), eos);
+    declarationStatement.is(opt(modifier), or(VAR, CONST), variableDeclarator, o2n(COMMA, variableDeclarator), eos);
     expressionStatement.is(expression, eos);
     labelledStatement.is(IDENTIFIER, COLON, statement);
     ifStatement.is(IF, condition, statement, opt(ELSE, statement));

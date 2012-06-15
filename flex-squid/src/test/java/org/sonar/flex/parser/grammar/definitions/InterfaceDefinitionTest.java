@@ -42,6 +42,7 @@ public class InterfaceDefinitionTest {
   public void realLife() {
     assertThat(p, parse("public interface IDENTIFIER extends IDENTIFIER , IDENTIFIER { }"));
     assertThat(p, parse("interface IDENTIFIER { }"));
+    assertThat(p, parse("interface foo.bar extends foo.baz { }"));
   }
 
 }

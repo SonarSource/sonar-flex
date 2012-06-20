@@ -76,7 +76,7 @@ public class FlexAstScannerTest {
   @Test
   public void functions() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/metrics/functions.as"));
-    assertThat(file.getInt(FlexMetric.FUNCTIONS), is(2));
+    assertThat(file.getInt(FlexMetric.FUNCTIONS), is(3));
   }
 
   @Test

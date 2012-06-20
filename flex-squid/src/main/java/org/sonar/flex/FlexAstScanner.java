@@ -128,11 +128,11 @@ public final class FlexAstScanner {
         function.setStartAtLine(astNode.getTokenLine());
         return function;
       }
-    }, parser.getGrammar().methodDefinition));
+    }, parser.getGrammar().methodDefinition, parser.getGrammar().functionExpression));
 
     builder.withSquidAstVisitor(CounterVisitor.<FlexGrammar> builder()
         .setMetricDef(FlexMetric.FUNCTIONS)
-        .subscribeTo(parser.getGrammar().methodDefinition)
+        .subscribeTo(parser.getGrammar().methodDefinition, parser.getGrammar().functionExpression)
         .build());
 
     /* Metrics */

@@ -21,6 +21,7 @@
 package org.sonar.plugins.flex.duplications;
 
 import net.sourceforge.pmd.cpd.SourceCode;
+import net.sourceforge.pmd.cpd.TokenEntry;
 import net.sourceforge.pmd.cpd.Tokenizer;
 import net.sourceforge.pmd.cpd.Tokens;
 import org.junit.Before;
@@ -58,6 +59,18 @@ public class FlexCpdMappingTest {
     tokenizer.tokenize(source, tokens);
 
     assertThat(tokens.size(), is(13));
+  }
+
+  @Test
+  public void should_ignore_mxml() throws Exception {
+    SourceCode source = mock(SourceCode.class);
+    when(source.getFileName()).thenReturn("foo.mxml");
+
+    Tokens tokens = new Tokens();
+    tokenizer.tokenize(source, tokens);
+
+    assertThat(tokens.size(), is(1));
+    assertThat(tokens.getTokens().get(0), is(TokenEntry.getEOF()));
   }
 
 }

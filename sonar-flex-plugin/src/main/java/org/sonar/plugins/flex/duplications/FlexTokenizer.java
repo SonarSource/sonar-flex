@@ -48,8 +48,12 @@ public class FlexTokenizer implements Tokenizer {
    * Cuts the given source into a list of tokens.
    */
   public final void tokenize(SourceCode source, Tokens cpdTokens) {
-    Lexer lexer = FlexLexer.create(new FlexConfiguration(charset));
     String fileName = source.getFileName();
+    if (fileName.endsWith(".mxml")) {
+      cpdTokens.add(TokenEntry.getEOF());
+      return;
+    }
+    Lexer lexer = FlexLexer.create(new FlexConfiguration(charset));
     Iterator<Token> iterator = lexer.lex(new File(fileName)).iterator();
     // we currently use this hack to remove "import" directives
     boolean importDirective = false;

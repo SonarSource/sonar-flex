@@ -212,6 +212,8 @@ public class FlexGrammarImpl extends FlexGrammar {
     typeBlock.is(LCURLY, o2n(typeBlockEntry), RCURLY);
 
     typeBlockEntry.is(or(
+        importDefinition,
+        includeDirective,
         annotation,
         variableDefinition,
         methodDefinition,

@@ -93,9 +93,6 @@ public class FlexLexerTest {
     assertThat(lexer.lex("$"), hasToken("$", GenericTokenType.IDENTIFIER));
     assertThat(lexer.lex("_"), hasToken("_", GenericTokenType.IDENTIFIER));
     assertThat(lexer.lex("identifier"), hasToken("identifier", GenericTokenType.IDENTIFIER));
-
-    // TODO Godin: I'm not sure that this is a valid identifier, however it's used in our integration tests
-    assertThat(lexer.lex("some-name"), hasToken("some-name", GenericTokenType.IDENTIFIER));
   }
 
 }

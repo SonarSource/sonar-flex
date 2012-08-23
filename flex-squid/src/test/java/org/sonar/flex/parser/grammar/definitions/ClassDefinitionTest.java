@@ -48,6 +48,7 @@ public class ClassDefinitionTest {
     assertThat(p, parse("class foo.bar {}"));
     assertThat(p, parse("class foo.bar { import test; }"));
     assertThat(p, parse("class foo.bar { include \"test.as\"; }"));
+
   }
 
 }

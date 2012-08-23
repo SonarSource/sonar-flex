@@ -221,7 +221,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         useNamespaceDirective,
         staticLinkEntry,
         block,
-        opt(SEMI)));
+        SEMI));
     methodDefinition.is(
         opt(modifiers),
         FUNCTION,

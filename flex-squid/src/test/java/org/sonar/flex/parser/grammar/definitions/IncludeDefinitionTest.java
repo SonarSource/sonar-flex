@@ -28,22 +28,20 @@ import org.sonar.flex.parser.FlexParser;
 import static com.sonar.sslr.test.parser.ParserMatchers.parse;
 import static org.junit.Assert.assertThat;
 
-public class ImportDefinitionTest {
+public class IncludeDefinitionTest {
 
   Parser<FlexGrammar> p = FlexParser.create();
   FlexGrammar g = p.getGrammar();
 
   @Before
   public void init() {
-    p.setRootRule(g.importDefinition);
+    p.setRootRule(g.includeDirective);
   }
 
   @Test
   public void realLife() {
-    assertThat(p, parse("import foo"));
-    assertThat(p, parse("import foo;"));
-    assertThat(p, parse("import foo.bar;"));
-    assertThat(p, parse("import foo.bar.*;"));
+    assertThat(p, parse("include \"something.as\";"));
+    assertThat(p, parse("include \"something.as\""));
   }
 
 }

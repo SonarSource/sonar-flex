@@ -41,7 +41,6 @@ public class ExpressionTest {
   @Test
   public void realLife() {
     assertThat(p, parse("2 > 1"));
-    assertThat(p, parse("b- 1"));
     assertThat(p, parse("(2 + 3) * 4"));
     assertThat(p, parse("value != null"));
     assertThat(p, parse("a > b ? a : b"));

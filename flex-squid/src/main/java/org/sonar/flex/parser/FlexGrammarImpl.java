@@ -290,6 +290,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         throwStatement,
         tryStatement,
         includeDirective,
+        useNamespaceDirective,
         emptyStatement));
 
     block.is(LCURLY, o2n(statement), RCURLY);
@@ -317,7 +318,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     returnStatement.is(RETURN, opt(expression), eos);
     withStatement.is(WITH, condition, statement);
 
-    switchStatement.is(SWITCH, condition, LCURLY, o2n(caseClause), opt(defaultClause), RCURLY);
+    switchStatement.is(SWITCH, condition, LCURLY, o2n(caseClause), opt(defaultClause), o2n(caseClause), RCURLY);
     caseClause.is(CASE, expression, COLON, o2n(statement));
     defaultClause.is(DEFAULT, COLON, o2n(statement));
 
@@ -460,7 +461,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         xmlCData,
         xmlComment,
         and("<", "?", o2n(anyTokenButNot("?")), "?", ">")));
-    xmlAttribute.is(IDENTIFIER, ASSIGN, or(LITERAL, xmlBinding));
+    xmlAttribute.is(or(IDENTIFIER, xmlBinding), ASSIGN, or(LITERAL, xmlBinding));
     xmlTextNode.is(anyTokenButNot(or("/", "<")));
     xmlComment.is("<", "!", "--", o2n(anyTokenButNot("--")), "--", ">");
     xmlCData.is("<", "!", "[", "CDATA", "[", o2n(anyTokenButNot("]")), "]", "]", ">");

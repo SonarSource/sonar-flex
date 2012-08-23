@@ -66,7 +66,7 @@ public final class FlexLexer {
         .withChannel(regexp(FlexTokenType.NUMERIC_LITERAL, "\\.[0-9]++" + EXP + "?+"))
         .withChannel(regexp(FlexTokenType.NUMERIC_LITERAL, "[0-9]++" + EXP + "?+"))
 
-        .withChannel(new IdentifierAndKeywordChannel("\\p{javaJavaIdentifierStart}++[\\p{javaJavaIdentifierPart}\\-]*+", true, FlexKeyword.values()))
+        .withChannel(new IdentifierAndKeywordChannel("\\p{javaJavaIdentifierStart}++\\p{javaJavaIdentifierPart}*+", true, FlexKeyword.values()))
         .withChannel(new PunctuatorChannel(FlexPunctuator.values()))
 
         .withChannel(new BlackHoleChannel("[\\s]"))

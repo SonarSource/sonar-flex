@@ -55,7 +55,9 @@ public class XmlLiteralTest {
 
     assertThat(p, parse("<></>"));
     assertThat(p, parse("<><somethingelse/></>"));
-    assertThat(p, parse("<{test} name=\"{asdf}\"/>"));
+    assertThat(p, parse("<{test} name=\"asdf\"/>"));
+    assertThat(p, parse("<test name=\"{asdf}\"/>"));
+    assertThat(p, parse("<test {asdf}=\"asdf\"/>"));
   }
 
 }

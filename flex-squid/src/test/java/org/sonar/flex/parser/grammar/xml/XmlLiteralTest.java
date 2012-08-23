@@ -20,6 +20,10 @@
 package org.sonar.flex.parser.grammar.xml;
 
 import com.sonar.sslr.impl.Parser;
+import com.sonar.sslr.impl.ParsingState;
+import com.sonar.sslr.impl.events.ParsingEventListener;
+import com.sonar.sslr.impl.matcher.Matcher;
+import com.sonar.sslr.impl.matcher.RuleMatcher;
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.flex.api.FlexGrammar;
@@ -58,6 +62,9 @@ public class XmlLiteralTest {
     assertThat(p, parse("<{test} name=\"asdf\"/>"));
     assertThat(p, parse("<test name=\"{asdf}\"/>"));
     assertThat(p, parse("<test {asdf}=\"asdf\"/>"));
+
+    //TODO someone - this fails but I can't figure out why
+    //assertThat(p, parse("<node><!--}/>--></node>"));
   }
 
 }

@@ -47,7 +47,6 @@ public class ExpressionTest {
     assertThat(p, parse("new DefaultLogger(name)"));
     assertThat(p, parse("new Vector.<String>()"));
     assertThat(p, parse("new <int>[0]"));
-    assertThat(p, parse("a- 1")); //lex was failing on this because IdentifierAndKeywordChannel as wrong
 
   }
 

@@ -93,6 +93,8 @@ public class FlexLexerTest {
     assertThat(lexer.lex("$"), hasToken("$", GenericTokenType.IDENTIFIER));
     assertThat(lexer.lex("_"), hasToken("_", GenericTokenType.IDENTIFIER));
     assertThat(lexer.lex("identifier"), hasToken("identifier", GenericTokenType.IDENTIFIER));
+    assertThat(lexer.lex("some-name"), hasToken("some", GenericTokenType.IDENTIFIER));
+    assertThat(lexer.lex("some-name"), hasToken("name", GenericTokenType.IDENTIFIER));
   }
 
 }

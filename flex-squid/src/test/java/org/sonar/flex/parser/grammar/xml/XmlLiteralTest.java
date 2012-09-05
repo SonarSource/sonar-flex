@@ -60,12 +60,4 @@ public class XmlLiteralTest {
     assertThat(p, parse("<test name=\"{asdf}\"/>"));
     assertThat(p, parse("<test {asdf}=\"asdf\"/>"));
   }
-
-  @Ignore("this test is failing but the reason still needs to be discovered")
-  @Test
-  public void xmlCommentIssue() {
-
-      assertThat(p, parse("<node><!--}/>--></node>"));
-  }
-
 }

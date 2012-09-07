@@ -315,7 +315,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     returnStatement.is(RETURN, opt(expression), eos);
     withStatement.is(WITH, condition, statement);
 
-    switchStatement.is(SWITCH, condition, LCURLY, o2n(caseClause), opt(defaultClause), RCURLY);
+    switchStatement.is(SWITCH, condition, LCURLY, o2n(caseClause), opt(defaultClause, o2n(caseClause)), RCURLY);
     caseClause.is(CASE, expression, COLON, o2n(statement));
     defaultClause.is(DEFAULT, COLON, o2n(statement));
 

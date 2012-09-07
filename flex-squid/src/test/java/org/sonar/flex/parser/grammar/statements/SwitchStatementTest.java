@@ -44,6 +44,8 @@ public class SwitchStatementTest {
     g.condition.mock();
 
     assertThat(p, parse("switch condition { case expression : statement default : statement }"));
+    assertThat(p, parse("switch condition { default : statement case expression : statement }"));
+    assertThat(p, parse("switch condition { case expression : statement default : statement case expression : statement }"));
   }
 
 }

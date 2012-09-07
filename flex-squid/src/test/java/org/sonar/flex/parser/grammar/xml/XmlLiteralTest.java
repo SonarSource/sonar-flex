@@ -21,6 +21,7 @@ package org.sonar.flex.parser.grammar.xml;
 
 import com.sonar.sslr.impl.Parser;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
@@ -52,6 +53,11 @@ public class XmlLiteralTest {
     assertThat(p, parse("<node><subnode></subnode><subnode></subnode></node>"));
 
     assertThat(p, parse("<![CDATA[data]]>"));
-  }
 
+    assertThat(p, parse("<></>"));
+    assertThat(p, parse("<><somethingelse/></>"));
+    assertThat(p, parse("<{test} name=\"asdf\"/>"));
+    assertThat(p, parse("<test name=\"{asdf}\"/>"));
+    assertThat(p, parse("<test {asdf}=\"asdf\"/>"));
+  }
 }

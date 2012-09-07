@@ -24,13 +24,16 @@ import com.adobe.ac.pmd.files.IMxmlFile;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author xagnetti
  */
 class MxmlFile extends AbstractFlexFile implements IMxmlFile
 {
-  private static final String METADATA_TAG = "Metadata";
+  private static final Pattern METADATA_REGEX = Pattern.compile("<\\s*/?\\s*(fx:|mx:)?Metadata\\s*>", Pattern.MULTILINE);
+  private static final Pattern SCRIPT_REGEX = Pattern.compile("<\\s*/?\\s*(fx:|mx:)?Script\\s*>", Pattern.MULTILINE);
   private String[] actualScriptBlock;
   private int endLine;
   private boolean mainApplication = false;
@@ -234,7 +237,7 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
 
     for (final String line : getLines())
     {
-      if (line.contains(METADATA_TAG))
+      if (isMetaDataLine(line))
       {
         if (line.contains("</"))
         {
@@ -270,7 +273,7 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
 
     for (final String line : getLines())
     {
-      if (line.contains("Script"))
+      if (isScriptLine(line))
       {
         if (line.contains("</"))
         {
@@ -320,13 +323,24 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
     {
       final String line = lines.get(i);
 
-      if (line.contains(METADATA_TAG)
-          && line.contains("<"))
+      if (isMetaDataLine(line))
       {
         return i;
       }
     }
     return 0;
+  }
+
+  private boolean isScriptLine(String line)
+  {
+    Matcher matcher = SCRIPT_REGEX.matcher(line);
+    return matcher.find();
+  }
+
+  private boolean isMetaDataLine(String line)
+  {
+    Matcher matcher = METADATA_REGEX.matcher(line);
+    return matcher.find();
   }
 
 }

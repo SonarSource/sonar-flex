@@ -149,7 +149,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         o2n(packageBlockEntry),
         EOF);
 
-    includeDirective.is(INCLUDE, LITERAL, SEMI);
+    includeDirective.is(INCLUDE, LITERAL, opt(SEMI));
 
     arrayLiteral.is(or(
         and(LBRACK, opt(elision), RBRACK),
@@ -199,9 +199,9 @@ public class FlexGrammarImpl extends FlexGrammar {
         methodDefinition,
         block));
 
-    useNamespaceDirective.is(USE, "namespace", IDENTIFIER, SEMI);
+    useNamespaceDirective.is(USE, "namespace", IDENTIFIER, opt(SEMI));
 
-    importDefinition.is(IMPORT, IDENTIFIER, o2n(DOT, IDENTIFIER), opt(DOT, STAR), SEMI);
+    importDefinition.is(IMPORT, IDENTIFIER, o2n(DOT, IDENTIFIER), opt(DOT, STAR), opt(SEMI));
 
     classDefinition.is(opt(modifiers), CLASS, identifier, classExtendsClause, implementsClause, typeBlock);
     classExtendsClause.is(opt(EXTENDS, identifier));
@@ -212,6 +212,8 @@ public class FlexGrammarImpl extends FlexGrammar {
     typeBlock.is(LCURLY, o2n(typeBlockEntry), RCURLY);
 
     typeBlockEntry.is(or(
+        importDefinition,
+        includeDirective,
         annotation,
         variableDefinition,
         methodDefinition,
@@ -265,7 +267,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         VOID,
         STAR));
 
-    staticLinkEntry.is(IDENTIFIER, SEMI);
+    staticLinkEntry.is(IDENTIFIER, opt(SEMI));
   }
 
   private void statements() {
@@ -288,6 +290,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         throwStatement,
         tryStatement,
         includeDirective,
+        useNamespaceDirective,
         emptyStatement));
 
     block.is(LCURLY, o2n(statement), RCURLY);
@@ -315,7 +318,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     returnStatement.is(RETURN, opt(expression), eos);
     withStatement.is(WITH, condition, statement);
 
-    switchStatement.is(SWITCH, condition, LCURLY, o2n(caseClause), opt(defaultClause), RCURLY);
+    switchStatement.is(SWITCH, condition, LCURLY, o2n(caseClause), opt(defaultClause), o2n(caseClause), RCURLY);
     caseClause.is(CASE, expression, COLON, o2n(statement));
     defaultClause.is(DEFAULT, COLON, o2n(statement));
 
@@ -445,17 +448,20 @@ public class FlexGrammarImpl extends FlexGrammar {
   private void xml() {
     xmlLiteral.is(or(xmlNode, xmlCData));
     xmlNode.is(
-        "<", IDENTIFIER, o2n(xmlAttribute),
-        or(
-            and(">", o2n(xmlNodeContent), "<", "/", IDENTIFIER, ">"),
-            and("/", ">")));
+        or( // <><somecontent/></> is valid but just </> is not, and < a="b"></> is not
+            and("<", ">", o2n(xmlNodeContent), "<", "/", ">"),
+            and(
+                "<", or(IDENTIFIER, xmlBinding), o2n(xmlAttribute),
+                or(
+                    and(">", o2n(xmlNodeContent), "<", "/", opt(or(IDENTIFIER, xmlBinding)), ">"),
+                    and("/", ">")))));
     xmlNodeContent.is(or(
         xmlNode,
         xmlTextNode,
         xmlCData,
         xmlComment,
         and("<", "?", o2n(anyTokenButNot("?")), "?", ">")));
-    xmlAttribute.is(IDENTIFIER, ASSIGN, or(LITERAL, xmlBinding));
+    xmlAttribute.is(or(IDENTIFIER, xmlBinding), ASSIGN, or(LITERAL, xmlBinding));
     xmlTextNode.is(anyTokenButNot(or("/", "<")));
     xmlComment.is("<", "!", "--", o2n(anyTokenButNot("--")), "--", ">");
     xmlCData.is("<", "!", "[", "CDATA", "[", o2n(anyTokenButNot("]")), "]", "]", ">");

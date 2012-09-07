@@ -46,6 +46,9 @@ public class ClassDefinitionTest {
     assertThat(p, parse("class Foo { }"));
     assertThat(p, parse("class Foo { public var data:Object = new Object(); /* ANOTHER SEMICOLON: */ ; }"));
     assertThat(p, parse("class foo.bar {}"));
+    assertThat(p, parse("class foo.bar { import test; }"));
+    assertThat(p, parse("class foo.bar { include \"test.as\"; }"));
+
   }
 
 }

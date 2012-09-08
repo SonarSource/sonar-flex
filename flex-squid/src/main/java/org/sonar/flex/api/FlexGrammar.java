@@ -173,6 +173,7 @@ public class FlexGrammar extends Grammar {
   public Rule xmlComment;
   public Rule xmlCData;
   public Rule xmlBinding;
+  public Rule xmlIdentifier;
 
   @Override
   public Rule getRootRule() {

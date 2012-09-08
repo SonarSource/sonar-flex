@@ -443,20 +443,21 @@ public class FlexGrammarImpl extends FlexGrammar {
   }
 
   private void xml() {
+    xmlIdentifier.is(IDENTIFIER, o2n(adjacent(MINUS), adjacent(IDENTIFIER)));
     xmlLiteral.is(or(xmlNode, xmlCData));
     xmlNode.is(
         "<", xmlNodeName, o2n(xmlAttribute),
         or(
             and(">", o2n(xmlNodeContent), "<", "/", xmlNodeName, ">"),
             and("/", ">")));
-    xmlNodeName.is(or(IDENTIFIER, xmlBinding));
+    xmlNodeName.is(or(xmlIdentifier, xmlBinding));
     xmlNodeContent.is(or(
         xmlNode,
         xmlTextNode,
         xmlCData,
         xmlComment,
         and("<", "?", o2n(anyTokenButNot("?")), "?", ">")));
-    xmlAttribute.is(or(IDENTIFIER, xmlBinding), ASSIGN, or(LITERAL, xmlBinding));
+    xmlAttribute.is(or(xmlIdentifier, xmlBinding), ASSIGN, or(LITERAL, xmlBinding));
     xmlTextNode.is(anyTokenButNot(or("/", "<")));
     xmlComment.is("<", "!", "--", o2n(anyTokenButNot("--")), "--", ">");
     xmlCData.is("<", "!", "[", "CDATA", "[", o2n(anyTokenButNot("]")), "]", "]", ">");

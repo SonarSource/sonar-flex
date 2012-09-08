@@ -40,7 +40,7 @@ public final class FlexDevKit {
     SsdkGui cppSsdkGui = new SsdkGui(parser, getTokenizers());
     cppSsdkGui.setVisible(true);
     cppSsdkGui.setSize(1000, 800);
-    cppSsdkGui.setTitle("Flex : Development Kit");
+    cppSsdkGui.setTitle("SSLR Flex Toolkit");
   }
 
   public static List<Tokenizer> getTokenizers() {

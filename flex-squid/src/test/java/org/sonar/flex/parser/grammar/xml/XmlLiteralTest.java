@@ -52,6 +52,10 @@ public class XmlLiteralTest {
     assertThat(p, parse("<node><subnode></subnode><subnode></subnode></node>"));
 
     assertThat(p, parse("<![CDATA[data]]>"));
+
+    assertThat(p, parse("<{binding} attribute='value'/>"));
+    assertThat(p, parse("<node {binding}='value'/>"));
+    assertThat(p, parse("<node attribute={binding}/>"));
   }
 
 }

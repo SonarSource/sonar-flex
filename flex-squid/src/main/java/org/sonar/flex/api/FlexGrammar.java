@@ -166,6 +166,7 @@ public class FlexGrammar extends Grammar {
 
   public Rule xmlLiteral;
   public Rule xmlNode;
+  public Rule xmlNodeName;
   public Rule xmlAttribute;
   public Rule xmlNodeContent;
   public Rule xmlTextNode;

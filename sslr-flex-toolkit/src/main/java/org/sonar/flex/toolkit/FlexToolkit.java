@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.devkit;
+package org.sonar.flex.toolkit;
 
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.devkit.SsdkGui;
@@ -29,18 +29,18 @@ import org.sonar.flex.parser.FlexParser;
 
 import java.util.List;
 
-public final class FlexDevKit {
+public final class FlexToolkit {
 
-  private FlexDevKit() {
+  private FlexToolkit() {
   }
 
   public static void main(String[] args) {
     System.setProperty("com.apple.mrj.application.apple.menu.about.name", "SSDK");
     Parser<FlexGrammar> parser = FlexParser.create();
-    SsdkGui cppSsdkGui = new SsdkGui(parser, getTokenizers());
-    cppSsdkGui.setVisible(true);
-    cppSsdkGui.setSize(1000, 800);
-    cppSsdkGui.setTitle("SSLR Flex Toolkit");
+    SsdkGui toolkit = new SsdkGui(parser, getTokenizers());
+    toolkit.setVisible(true);
+    toolkit.setSize(1000, 800);
+    toolkit.setTitle("SSLR Flex Toolkit");
   }
 
   public static List<Tokenizer> getTokenizers() {

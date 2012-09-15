@@ -76,7 +76,7 @@ public class FlexTokenizer implements Tokenizer {
   private static final String NORMALIZED_CHARACTER_LITERAL = "$CHARS";
   private static final String NORMALIZED_NUMERIC_LITERAL = "$NUMBER";
 
-  private String getTokenImage(Token token) {
+  private static String getTokenImage(Token token) {
     if (token.getType() == GenericTokenType.LITERAL) {
       return NORMALIZED_CHARACTER_LITERAL;
     } else if (token.getType() == FlexTokenType.NUMERIC_LITERAL) {

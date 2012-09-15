@@ -19,6 +19,7 @@
  */
 package org.sonar.flex.toolkit;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.devkit.SsdkGui;
 import com.sonar.sslr.impl.Parser;
@@ -43,7 +44,8 @@ public final class FlexToolkit {
     toolkit.setTitle("SSLR Flex Toolkit");
   }
 
-  public static List<Tokenizer> getTokenizers() {
+  @VisibleForTesting
+  static List<Tokenizer> getTokenizers() {
     return ImmutableList.of(
         new StringTokenizer("<span class=\"s\">", "</span>"),
         new CDocTokenizer("<span class=\"cd\">", "</span>"),

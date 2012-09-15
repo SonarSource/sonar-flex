@@ -20,16 +20,18 @@
 
 package org.sonar.plugins.flex.surefire;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-
 import org.junit.Before;
 import org.junit.Test;
+import org.sonar.api.batch.maven.MavenPlugin;
+import org.sonar.api.resources.Project;
 
-/**
- * @author Evgeny Mandrikov
- */
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 public class FlexMojosMavenPluginHandlerTest {
+
   private FlexMojosMavenPluginHandler handler;
 
   @Before
@@ -49,4 +51,13 @@ public class FlexMojosMavenPluginHandlerTest {
     assertThat(handler.getVersion(), is("3.6.1"));
     assertThat(handler.getGoals(), is(new String[] { "test-run" }));
   }
+
+  @Test
+  public void should_configure() {
+    Project project = mock(Project.class);
+    MavenPlugin plugin = mock(MavenPlugin.class);
+    handler.configure(project, plugin);
+    verify(plugin).setParameter("testFailureIgnore", "true");
+  }
+
 }

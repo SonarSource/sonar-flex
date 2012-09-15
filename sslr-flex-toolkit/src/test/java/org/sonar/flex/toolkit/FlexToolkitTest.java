@@ -17,24 +17,17 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
+package org.sonar.flex.toolkit;
 
-package org.sonar.plugins.flex.core;
+import org.junit.Test;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.sonar.plugins.flex.FlexPlugin;
+import static org.fest.assertions.Assertions.assertThat;
 
-/**
- * Utility class of the Flex plugin.
- */
-public final class FlexUtils {
+public class FlexToolkitTest {
 
-  private FlexUtils() {
-    // only static methods
+  @Test
+  public void test() {
+    assertThat(FlexToolkit.getTokenizers().size()).isEqualTo(5);
   }
 
-  /**
-   * Default logger.
-   */
-  public static final Logger LOG = LoggerFactory.getLogger(FlexPlugin.class.getName());
 }

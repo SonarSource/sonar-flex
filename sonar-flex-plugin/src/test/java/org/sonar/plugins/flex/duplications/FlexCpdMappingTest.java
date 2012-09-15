@@ -20,57 +20,22 @@
 
 package org.sonar.plugins.flex.duplications;
 
-import net.sourceforge.pmd.cpd.SourceCode;
-import net.sourceforge.pmd.cpd.TokenEntry;
-import net.sourceforge.pmd.cpd.Tokenizer;
-import net.sourceforge.pmd.cpd.Tokens;
-import org.junit.Before;
 import org.junit.Test;
-import org.sonar.api.resources.Project;
 import org.sonar.api.resources.ProjectFileSystem;
-import org.sonar.test.TestUtils;
+import org.sonar.plugins.flex.core.Flex;
 
-import java.nio.charset.Charset;
-
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class FlexCpdMappingTest {
 
-  private Tokenizer tokenizer;
-
-  @Before
-  public void setup() throws Exception {
-    ProjectFileSystem fileSystem = mock(ProjectFileSystem.class);
-    when(fileSystem.getSourceCharset()).thenReturn(Charset.forName("UTF-8"));
-    Project project = mock(Project.class);
-    when(project.getFileSystem()).thenReturn(fileSystem);
-    FlexCpdMapping flexMapping = new FlexCpdMapping(null, project);
-    tokenizer = flexMapping.getTokenizer();
-  }
-
   @Test
-  public void testTokenize() throws Exception {
-    SourceCode source = new SourceCode(new SourceCode.FileCodeLoader(
-        TestUtils.getResource("org/sonar/plugins/flex/duplications/SmallFile.as"), Charset.defaultCharset().displayName()));
-    Tokens tokens = new Tokens();
-    tokenizer.tokenize(source, tokens);
-
-    assertThat(tokens.size(), is(13));
-  }
-
-  @Test
-  public void should_ignore_mxml() throws Exception {
-    SourceCode source = mock(SourceCode.class);
-    when(source.getFileName()).thenReturn("foo.mxml");
-
-    Tokens tokens = new Tokens();
-    tokenizer.tokenize(source, tokens);
-
-    assertThat(tokens.size(), is(1));
-    assertThat(tokens.getTokens().get(0), is(TokenEntry.getEOF()));
+  public void test() {
+    Flex language = mock(Flex.class);
+    ProjectFileSystem fs = mock(ProjectFileSystem.class);
+    FlexCpdMapping mapping = new FlexCpdMapping(language, fs);
+    assertThat(mapping.getLanguage()).isSameAs(language);
+    assertThat(mapping.getTokenizer()).isInstanceOf(FlexTokenizer.class);
   }
 
 }

@@ -22,7 +22,7 @@ package org.sonar.plugins.flex.duplications;
 import net.sourceforge.pmd.cpd.Tokenizer;
 import org.sonar.api.batch.AbstractCpdMapping;
 import org.sonar.api.resources.Language;
-import org.sonar.api.resources.Project;
+import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.plugins.flex.core.Flex;
 
 import java.nio.charset.Charset;
@@ -32,9 +32,9 @@ public class FlexCpdMapping extends AbstractCpdMapping {
   private final Flex language;
   private final Charset charset;
 
-  public FlexCpdMapping(Flex flex, Project project) {
+  public FlexCpdMapping(Flex flex, ProjectFileSystem fs) {
     this.language = flex;
-    this.charset = project.getFileSystem().getSourceCharset();
+    this.charset = fs.getSourceCharset();
   }
 
   public Language getLanguage() {

@@ -23,6 +23,8 @@ package org.sonar.plugins.flex.flexpmd;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.staxmate.in.SMHierarchicCursor;
 import org.codehaus.staxmate.in.SMInputCursor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Rule;
@@ -30,13 +32,14 @@ import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.rules.Violation;
 import org.sonar.api.utils.StaxParser;
-import org.sonar.plugins.flex.core.FlexUtils;
 
 import javax.xml.stream.XMLStreamException;
 
 import java.io.File;
 
 public class FlexPmdXmlReportParser {
+
+  private static final Logger LOG = LoggerFactory.getLogger(FlexPmdXmlReportParser.class.getName());
 
   private Project project;
   private SensorContext context;
@@ -72,7 +75,7 @@ public class FlexPmdXmlReportParser {
     try {
       parser.parse(xmlFile);
     } catch (XMLStreamException e) {
-      FlexUtils.LOG.error("Error parsing file : {}", xmlFile);
+      LOG.error("Error parsing file : {}", xmlFile);
     }
   }
 

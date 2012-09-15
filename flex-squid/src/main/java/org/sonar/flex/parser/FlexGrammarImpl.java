@@ -20,7 +20,6 @@
 package org.sonar.flex.parser;
 
 import org.sonar.flex.api.FlexGrammar;
-import org.sonar.flex.api.FlexTokenType;
 
 import static com.sonar.sslr.api.GenericTokenType.EOF;
 import static com.sonar.sslr.api.GenericTokenType.IDENTIFIER;
@@ -143,8 +142,6 @@ public class FlexGrammarImpl extends FlexGrammar {
     star_assign.is(STAR, adjacent(ASSIGN));
 
     compilationUnit.is(
-        // TODO this is a temporary way to handle BOM:
-        o2n(FlexTokenType.UNKNOWN),
         opt(packageDecl),
         o2n(packageBlockEntry),
         EOF);

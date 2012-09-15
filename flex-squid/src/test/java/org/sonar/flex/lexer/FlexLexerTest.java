@@ -21,6 +21,7 @@ package org.sonar.flex.lexer;
 
 import com.sonar.sslr.api.GenericTokenType;
 import com.sonar.sslr.impl.Lexer;
+import com.sonar.sslr.impl.channel.UnknownCharacterChannel;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sonar.flex.api.FlexTokenType;
@@ -93,6 +94,11 @@ public class FlexLexerTest {
     assertThat(lexer.lex("$"), hasToken("$", GenericTokenType.IDENTIFIER));
     assertThat(lexer.lex("_"), hasToken("_", GenericTokenType.IDENTIFIER));
     assertThat(lexer.lex("identifier"), hasToken("identifier", GenericTokenType.IDENTIFIER));
+  }
+
+  @Test
+  public void bom() {
+    assertThat(lexer.lex(Character.toString(UnknownCharacterChannel.BOM_CHAR)), hasTokens("EOF"));
   }
 
 }

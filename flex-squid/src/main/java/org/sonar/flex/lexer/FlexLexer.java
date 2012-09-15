@@ -24,6 +24,7 @@ import com.sonar.sslr.impl.Lexer;
 import com.sonar.sslr.impl.channel.BlackHoleChannel;
 import com.sonar.sslr.impl.channel.IdentifierAndKeywordChannel;
 import com.sonar.sslr.impl.channel.PunctuatorChannel;
+import com.sonar.sslr.impl.channel.UnknownCharacterChannel;
 import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexKeyword;
 import org.sonar.flex.api.FlexPunctuator;
@@ -71,8 +72,7 @@ public final class FlexLexer {
 
         .withChannel(new BlackHoleChannel("[\\s]"))
 
-        // TODO temporary
-        .withChannel(regexp(FlexTokenType.UNKNOWN, "."))
+        .withChannel(new UnknownCharacterChannel(true))
 
         .build();
   }

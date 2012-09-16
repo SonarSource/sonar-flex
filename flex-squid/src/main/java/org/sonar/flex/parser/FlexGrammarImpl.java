@@ -457,7 +457,7 @@ public class FlexGrammarImpl extends FlexGrammar {
   }
 
   private void xml() {
-    xmlIdentifier.is(or(IDENTIFIER, FlexKeyword.class), o2n(adjacent(MINUS), adjacent(or(IDENTIFIER, FlexKeyword.class))));
+    xmlIdentifier.is(or(IDENTIFIER, FlexKeyword.class), o2n(adjacent(or(MINUS, COLON)), adjacent(or(IDENTIFIER, FlexKeyword.class))));
     xmlLiteral.is(or(xmlNode, xmlCData));
     xmlNode.is(
         "<", xmlNodeName, o2n(xmlAttribute),

@@ -44,6 +44,7 @@ public class XmlIdentifierTest {
     assertThat(p, parse("name"));
     assertThat(p, parse("some-name"));
     assertThat(p, parse(FlexKeyword.CLASS.getValue()));
+    assertThat(p, parse("xmlns:util"));
   }
 
 }

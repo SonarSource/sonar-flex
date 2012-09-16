@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.parser.grammar.definitions;
+package org.sonar.flex.parser.grammar.directives;
 
 import com.sonar.sslr.impl.Parser;
 import org.junit.Before;
@@ -28,21 +28,19 @@ import org.sonar.flex.parser.FlexParser;
 import static com.sonar.sslr.test.parser.ParserMatchers.parse;
 import static org.junit.Assert.assertThat;
 
-public class ImportDefinitionTest {
+public class UseNamespaceDirective {
 
   Parser<FlexGrammar> p = FlexParser.create();
   FlexGrammar g = p.getGrammar();
 
   @Before
   public void init() {
-    p.setRootRule(g.importDefinition);
+    p.setRootRule(g.useNamespaceDirective);
   }
 
   @Test
   public void realLife() {
-    assertThat(p, parse("import foo;"));
-    assertThat(p, parse("import foo.bar;"));
-    assertThat(p, parse("import foo.bar.*;"));
+    assertThat(p, parse("use namespace foo;"));
   }
 
 }

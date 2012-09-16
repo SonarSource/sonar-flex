@@ -29,8 +29,6 @@ public class FlexGrammar extends Grammar {
 
   public Rule staticLinkEntry;
 
-  public Rule includeDirective;
-
   public Rule annotation;
   public Rule annotationParam;
 
@@ -44,9 +42,10 @@ public class FlexGrammar extends Grammar {
   public Rule packageBlock;
   public Rule packageBlockEntry;
 
+  public Rule directive;
+  public Rule importDirective;
+  public Rule includeDirective;
   public Rule useNamespaceDirective;
-
-  public Rule importDefinition;
 
   public Rule classDefinition;
   public Rule classExtendsClause;

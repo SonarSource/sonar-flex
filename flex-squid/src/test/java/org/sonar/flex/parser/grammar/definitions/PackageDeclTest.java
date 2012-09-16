@@ -42,6 +42,9 @@ public class PackageDeclTest {
   public void realLife() {
     assertThat(p, parse("package IDENTIFIER { }"));
     assertThat(p, parse("package IDENTIFIER { class IDENTIFIER { } }"));
+    assertThat(p, parse("package Foo { import bar; }"));
+    assertThat(p, parse("package Foo { include 'bar'; }"));
+    assertThat(p, parse("package Foo { use namespace bar; }"));
   }
 
 }

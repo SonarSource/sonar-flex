@@ -146,8 +146,6 @@ public class FlexGrammarImpl extends FlexGrammar {
         o2n(packageBlockEntry),
         EOF);
 
-    includeDirective.is(INCLUDE, LITERAL, SEMI);
-
     arrayLiteral.is(or(
         and(LBRACK, opt(elision), RBRACK),
         and(LBRACK, elementList, RBRACK),
@@ -175,6 +173,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         STAR,
         and(LBRACK, expression, RBRACK)));
 
+    directives();
     definitions();
     expressions();
     statements();
@@ -189,16 +188,11 @@ public class FlexGrammarImpl extends FlexGrammar {
     packageBlockEntry.is(or(
         annotation,
         variableDefinition,
-        importDefinition,
         classDefinition,
         interfaceDefinition,
-        useNamespaceDirective,
         methodDefinition,
+        directive,
         block));
-
-    useNamespaceDirective.is(USE, "namespace", IDENTIFIER, SEMI);
-
-    importDefinition.is(IMPORT, IDENTIFIER, o2n(DOT, IDENTIFIER), opt(DOT, STAR), SEMI);
 
     classDefinition.is(opt(modifiers), CLASS, identifier, classExtendsClause, implementsClause, typeBlock);
     classExtendsClause.is(opt(EXTENDS, identifier));
@@ -213,7 +207,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         variableDefinition,
         methodDefinition,
         and(IDENTIFIER, DBL_COLON, IDENTIFIER, LCURLY, o2n(typeBlockEntry), RCURLY), // CONFIG::debug { }
-        useNamespaceDirective,
+        directive,
         staticLinkEntry,
         block,
         SEMI));
@@ -265,6 +259,16 @@ public class FlexGrammarImpl extends FlexGrammar {
     staticLinkEntry.is(IDENTIFIER, SEMI);
   }
 
+  private void directives() {
+    directive.is(or(
+        importDirective,
+        includeDirective,
+        useNamespaceDirective)).skip();
+    importDirective.is(IMPORT, IDENTIFIER, o2n(DOT, IDENTIFIER), opt(DOT, STAR), SEMI);
+    includeDirective.is(INCLUDE, LITERAL, SEMI);
+    useNamespaceDirective.is(USE, "namespace", IDENTIFIER, SEMI);
+  }
+
   private void statements() {
     statement.is(or(
         block,
@@ -284,7 +288,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         returnStatement,
         throwStatement,
         tryStatement,
-        includeDirective,
+        directive,
         emptyStatement));
 
     block.is(LCURLY, o2n(statement), RCURLY);

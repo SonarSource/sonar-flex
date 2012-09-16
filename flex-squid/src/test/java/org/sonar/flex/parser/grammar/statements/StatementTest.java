@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.parser.grammar.definitions;
+package org.sonar.flex.parser.grammar.statements;
 
 import com.sonar.sslr.impl.Parser;
 import org.junit.Before;
@@ -28,24 +28,25 @@ import org.sonar.flex.parser.FlexParser;
 import static com.sonar.sslr.test.parser.ParserMatchers.parse;
 import static org.junit.Assert.assertThat;
 
-public class InterfaceDefinitionTest {
+public class StatementTest {
 
   Parser<FlexGrammar> p = FlexParser.create();
   FlexGrammar g = p.getGrammar();
 
   @Before
   public void init() {
-    p.setRootRule(g.interfaceDefinition);
+    p.setRootRule(g.statement);
   }
 
   @Test
-  public void realLife() {
-    assertThat(p, parse("public interface IDENTIFIER extends IDENTIFIER , IDENTIFIER { }"));
-    assertThat(p, parse("interface IDENTIFIER { }"));
-    assertThat(p, parse("interface foo.bar extends foo.baz { }"));
-    assertThat(p, parse("interface Foo { import bar; }"));
-    assertThat(p, parse("interface Foo { include 'bar'; }"));
-    assertThat(p, parse("interface Foo { use namespace bar; }"));
+  public void ok() {
+    g.importDirective.mock();
+    g.includeDirective.mock();
+    g.useNamespaceDirective.mock();
+
+    assertThat(p, parse("importDirective"));
+    assertThat(p, parse("includeDirective"));
+    assertThat(p, parse("useNamespaceDirective"));
   }
 
 }

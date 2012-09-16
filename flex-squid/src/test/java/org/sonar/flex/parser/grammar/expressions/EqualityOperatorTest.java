@@ -45,9 +45,9 @@ public class EqualityOperatorTest {
     assertThat(p, parse("!=="));
     assertThat(p, parse("==="));
 
-    assertThat("deprecated in favor of !=", p, parse("ne"));
-    assertThat("deprecated in favor of !=", p, parse("<>"));
-    assertThat("deprecated in favor of ==", p, parse("eq"));
+    assertThat("deprecated in ActionScript 3 in favor of !=", p, parse("ne"));
+    assertThat("deprecated in ActionScript 3 in favor of !=", p, parse("<>"));
+    assertThat("deprecated in ActionScript 3 in favor of ==", p, parse("eq"));
   }
 
 }

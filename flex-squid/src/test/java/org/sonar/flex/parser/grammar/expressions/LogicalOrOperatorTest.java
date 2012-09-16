@@ -42,7 +42,7 @@ public class LogicalOrOperatorTest {
   public void ok() {
     assertThat(p, parse("||"));
 
-    assertThat("deprecated in favor of ||", p, parse("or"));
+    assertThat("deprecated in ActionScript 3 in favor of ||", p, parse("or"));
   }
 
 }

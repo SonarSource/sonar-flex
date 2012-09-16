@@ -49,4 +49,10 @@ public class StatementTest {
     assertThat(p, parse("useNamespaceDirective"));
   }
 
+  @Test
+  public void realLife() {
+    assertThat(p, parse("delete account;"));
+    assertThat(p, parse("delete account.name;"));
+  }
+
 }

@@ -42,7 +42,7 @@ public class LogicalAndOperatorTest {
   public void ok() {
     assertThat(p, parse("&&"));
 
-    assertThat("deprecated in favor of &&", p, parse("and"));
+    assertThat("deprecated in ActionScript 3 in favor of &&", p, parse("and"));
   }
 
 }

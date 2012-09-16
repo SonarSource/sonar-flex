@@ -48,10 +48,10 @@ public class RelationalOperatorTest {
     assertThat(p, parse("as"));
     assertThat(p, parse("instanceof"));
 
-    assertThat("deprecated in favor of >=", p, parse("ge"));
-    assertThat("deprecated in favor of >", p, parse("gt"));
-    assertThat("deprecated in favor of <=", p, parse("le"));
-    assertThat("deprecated in favor of <", p, parse("lt"));
+    assertThat("deprecated in ActionScript 3 in favor of >=", p, parse("ge"));
+    assertThat("deprecated in ActionScript 3 in favor of >", p, parse("gt"));
+    assertThat("deprecated in ActionScript 3 in favor of <=", p, parse("le"));
+    assertThat("deprecated in ActionScript 3 in favor of <", p, parse("lt"));
   }
 
 }

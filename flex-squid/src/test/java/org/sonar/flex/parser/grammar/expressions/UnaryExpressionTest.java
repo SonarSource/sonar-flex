@@ -44,7 +44,7 @@ public class UnaryExpressionTest {
 
     assertThat(p, parse("! postfixExpression"));
 
-    assertThat("deprecated in favor of !", p, parse("not postfixExpression"));
+    assertThat("deprecated in ActionScript 3 in favor of !", p, parse("not postfixExpression"));
   }
 
 }

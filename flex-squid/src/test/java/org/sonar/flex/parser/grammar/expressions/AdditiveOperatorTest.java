@@ -43,7 +43,7 @@ public class AdditiveOperatorTest {
     assertThat(p, parse("+"));
     assertThat(p, parse("-"));
 
-    assertThat("deprecated in favor of +", p, parse("add"));
+    assertThat("deprecated in ActionScript 3 in favor of +", p, parse("add"));
   }
 
 }

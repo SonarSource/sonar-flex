@@ -28,33 +28,20 @@ import org.sonar.flex.parser.FlexParser;
 import static com.sonar.sslr.test.parser.ParserMatchers.parse;
 import static org.junit.Assert.assertThat;
 
-public class StatementTest {
+public class SetVariableStatementTest {
 
   Parser<FlexGrammar> p = FlexParser.create();
   FlexGrammar g = p.getGrammar();
 
   @Before
   public void init() {
-    p.setRootRule(g.statement);
-  }
-
-  @Test
-  public void ok() {
-    g.importDirective.mock();
-    g.includeDirective.mock();
-    g.useNamespaceDirective.mock();
-    g.setVariableStatement.mock();
-
-    assertThat(p, parse("importDirective"));
-    assertThat(p, parse("includeDirective"));
-    assertThat(p, parse("useNamespaceDirective"));
-    assertThat("deprecated in ActionScript 3", p, parse("setVariableStatement"));
+    p.setRootRule(g.setVariableStatement);
   }
 
   @Test
   public void realLife() {
-    assertThat(p, parse("delete account;"));
-    assertThat(p, parse("delete account.name;"));
+    assertThat(p, parse("set(variable, value);"));
+    assertThat(p, parse("set('variableName', value);"));
   }
 
 }

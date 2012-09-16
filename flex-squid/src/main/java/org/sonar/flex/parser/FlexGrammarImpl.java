@@ -291,6 +291,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         throwStatement,
         tryStatement,
         directive,
+        deprecated(setVariableStatement),
         emptyStatement));
 
     block.is(LCURLY, o2n(statement), RCURLY);
@@ -327,6 +328,8 @@ public class FlexGrammarImpl extends FlexGrammar {
     tryStatement.is(TRY, block, or(and(one2n(catchBlock), opt(finallyBlock)), finallyBlock));
     catchBlock.is(CATCH, LPAREN, IDENTIFIER, typeExpression, RPAREN, block);
     finallyBlock.is(FINALLY, block);
+
+    setVariableStatement.is("set", LPAREN, expression, COMMA, expression, RPAREN, eos);
 
     emptyStatement.is(SEMI);
 

@@ -163,6 +163,7 @@ public final class FlexAstScanner {
             parser.getGrammar().throwStatement,
             parser.getGrammar().tryStatement,
             parser.getGrammar().includeDirective,
+            parser.getGrammar().setVariableStatement,
             parser.getGrammar().emptyStatement)
         .build());
 

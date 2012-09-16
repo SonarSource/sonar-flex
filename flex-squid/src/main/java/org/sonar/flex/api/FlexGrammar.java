@@ -123,6 +123,8 @@ public class FlexGrammar extends Grammar {
   public Rule catchBlock;
   public Rule finallyBlock;
 
+  public Rule setVariableStatement;
+
   public Rule emptyStatement;
 
   /*

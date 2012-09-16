@@ -245,7 +245,8 @@ public class FlexGrammarImpl extends FlexGrammar {
         FINAL,
         OVERRIDE,
         DYNAMIC,
-        NATIVE));
+        NATIVE,
+        deprecated("intrinsic")));
     namespaceName.is(not("namespace"), IDENTIFIER);
 
     variableDefinition.is(opt(modifiers), or(VAR, CONST, "namespace"), variableDeclarator, o2n(COMMA, variableDeclarator), opt(SEMI));

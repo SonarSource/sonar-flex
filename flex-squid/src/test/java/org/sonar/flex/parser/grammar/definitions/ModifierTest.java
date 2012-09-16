@@ -28,29 +28,28 @@ import org.sonar.flex.parser.FlexParser;
 import static com.sonar.sslr.test.parser.ParserMatchers.parse;
 import static org.junit.Assert.assertThat;
 
-public class ClassDefinitionTest {
+public class ModifierTest {
 
   Parser<FlexGrammar> p = FlexParser.create();
   FlexGrammar g = p.getGrammar();
 
   @Before
   public void init() {
-    p.setRootRule(g.classDefinition);
+    p.setRootRule(g.modifier);
   }
 
   @Test
   public void realLife() {
-    assertThat(p, parse("public class Foo extends Bar implements Baz , Qux { }"));
-    assertThat(p, parse("public class Foo extends org.example.Bar { }"));
-    assertThat(p, parse("class Foo implements org.example.Bar { }"));
-    assertThat(p, parse("class Foo { }"));
-    assertThat(p, parse("class Foo { public var data:Object = new Object(); /* ANOTHER SEMICOLON: */ ; }"));
-    assertThat(p, parse("class foo.bar {}"));
-    assertThat(p, parse("class Foo { import bar; }"));
-    assertThat(p, parse("class Foo { include 'bar'; }"));
-    assertThat(p, parse("class Foo { use namespace bar; }"));
-
-    assertThat("'intrinsic' deprecated in ActionScript 3", p, parse("intrinsic class ClassName { }"));
+    assertThat(p, parse("public"));
+    assertThat(p, parse("private"));
+    assertThat(p, parse("protected"));
+    assertThat(p, parse("internal"));
+    assertThat(p, parse("static"));
+    assertThat(p, parse("final"));
+    assertThat(p, parse("dynamic"));
+    assertThat(p, parse("native"));
+    assertThat(p, parse("override"));
+    assertThat(p, parse("intrinsic"));
   }
 
 }

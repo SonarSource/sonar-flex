@@ -23,6 +23,7 @@ import com.sonar.sslr.impl.Parser;
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.flex.api.FlexGrammar;
+import org.sonar.flex.api.FlexKeyword;
 import org.sonar.flex.parser.FlexParser;
 
 import static com.sonar.sslr.test.parser.ParserMatchers.parse;
@@ -42,6 +43,7 @@ public class XmlIdentifierTest {
   public void realLife() {
     assertThat(p, parse("name"));
     assertThat(p, parse("some-name"));
+    assertThat(p, parse(FlexKeyword.CLASS.getValue()));
   }
 
 }

@@ -41,6 +41,7 @@ public class IncludeDirectiveTest {
   @Test
   public void realLife() {
     assertThat(p, parse("include 'foo';"));
+    assertThat("semicolon is optional", p, parse("include 'foo'"));
   }
 
 }

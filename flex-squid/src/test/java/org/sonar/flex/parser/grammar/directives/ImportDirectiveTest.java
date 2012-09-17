@@ -43,6 +43,7 @@ public class ImportDirectiveTest {
     assertThat(p, parse("import foo;"));
     assertThat(p, parse("import foo.bar;"));
     assertThat(p, parse("import foo.bar.*;"));
+    assertThat("semicolon is optional", p, parse("import foo;"));
   }
 
 }

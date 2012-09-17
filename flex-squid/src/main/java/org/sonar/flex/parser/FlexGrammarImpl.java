@@ -266,9 +266,9 @@ public class FlexGrammarImpl extends FlexGrammar {
         importDirective,
         includeDirective,
         useNamespaceDirective)).skip();
-    importDirective.is(IMPORT, IDENTIFIER, o2n(DOT, IDENTIFIER), opt(DOT, STAR), SEMI);
-    includeDirective.is(INCLUDE, LITERAL, SEMI);
-    useNamespaceDirective.is(USE, "namespace", IDENTIFIER, SEMI);
+    importDirective.is(IMPORT, IDENTIFIER, o2n(DOT, IDENTIFIER), opt(DOT, STAR), eos);
+    includeDirective.is(INCLUDE, LITERAL, eos);
+    useNamespaceDirective.is(USE, "namespace", IDENTIFIER, eos);
   }
 
   private void statements() {

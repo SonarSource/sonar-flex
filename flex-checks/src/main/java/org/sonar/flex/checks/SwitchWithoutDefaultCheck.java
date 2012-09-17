@@ -25,6 +25,7 @@ import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.api.FlexGrammar;
+import org.sonar.flex.api.FlexPunctuator;
 
 @Rule(
   key = "SwitchWithoutDefault",
@@ -38,9 +39,12 @@ public class SwitchWithoutDefaultCheck extends SquidCheck<FlexGrammar> {
   }
 
   @Override
-  public void visitNode(AstNode node) {
-    if (!node.hasDirectChildren(getContext().getGrammar().defaultClause)) {
-      getContext().createLineViolation(this, "Avoid switch statement without a \"default\" clause.", node);
+  public void visitNode(AstNode astNode) {
+    AstNode defaultClause = astNode.findFirstDirectChild(getContext().getGrammar().defaultClause);
+    if (defaultClause == null) {
+      getContext().createLineViolation(this, "Avoid switch statement without a \"default\" clause.", astNode);
+    } else if (defaultClause.nextSibling().isNot(FlexPunctuator.RCURLY)) {
+      getContext().createLineViolation(this, "\"default\" clause should be the last one.", astNode);
     }
   }
 

@@ -1,14 +1,23 @@
 function foo() {
 
-  switch (c) { // OK
-    case '0':
+  switch (param) {
+    case 0:
       break;
-    default:
+    default: // OK
       break;
   }
 
-  switch (c) { // NOK
-    case '0':
+  switch (param) { // NOK
+    case 1:
+      break;
+  }
+
+  switch (param) {
+    case 0:
+      break;
+    default: // NOK
+      break;
+    case 1:
       break;
   }
 

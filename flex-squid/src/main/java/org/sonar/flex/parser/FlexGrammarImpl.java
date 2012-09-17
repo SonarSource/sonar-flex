@@ -34,7 +34,6 @@ import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.o2n;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.one2n;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.opt;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.or;
-import static org.sonar.flex.api.FlexKeyword.AS;
 import static org.sonar.flex.api.FlexKeyword.BREAK;
 import static org.sonar.flex.api.FlexKeyword.CASE;
 import static org.sonar.flex.api.FlexKeyword.CATCH;
@@ -381,7 +380,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         GT,
         LE,
         IS,
-        AS,
+        "as",
         INSTANCEOF,
         deprecated("ge"),
         deprecated("gt"),

@@ -36,7 +36,8 @@ import com.sonar.sslr.api.TokenType;
  * static
  */
 public enum FlexKeyword implements TokenType {
-  AS("as"),
+  // "as" is not a keyword in ActionScript 2, so we treat it as syntactic keyword to permit usage as identifier - see SONARPLUGINS-2072
+  // AS("as"),
   BREAK("break"),
   CASE("case"),
   CATCH("catch"),
@@ -69,7 +70,6 @@ public enum FlexKeyword implements TokenType {
   RETURN("return"),
   SWITCH("switch"),
   THROW("throw"),
-  // TO("to"),
   TRUE("true"),
   TRY("try"),
   TYPEOF("typeof"),

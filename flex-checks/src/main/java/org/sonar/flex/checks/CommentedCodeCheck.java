@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
 
 @Rule(
   key = "CommentedCode",
-  priority = Priority.BLOCKER)
+  priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
 public class CommentedCodeCheck extends SquidCheck<FlexGrammar> implements AstAndTokenVisitor {
 

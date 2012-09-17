@@ -146,7 +146,6 @@ public final class FlexAstScanner {
     builder.withSquidAstVisitor(CounterVisitor.<FlexGrammar> builder()
         .setMetricDef(FlexMetric.STATEMENTS)
         .subscribeTo(
-            parser.getGrammar().labelledStatement,
             parser.getGrammar().defaultXmlNamespaceStatement,
             parser.getGrammar().declarationStatement,
             parser.getGrammar().expressionStatement,
@@ -162,7 +161,6 @@ public final class FlexAstScanner {
             parser.getGrammar().returnStatement,
             parser.getGrammar().throwStatement,
             parser.getGrammar().tryStatement,
-            parser.getGrammar().includeDirective,
             parser.getGrammar().setVariableStatement,
             parser.getGrammar().emptyStatement)
         .build());

@@ -28,7 +28,7 @@ public class FlexKeywordTest {
 
   @Test
   public void test() {
-    assertThat(FlexKeyword.values().length, is(48));
+    assertThat(FlexKeyword.values().length, is(41));
     assertThat(FlexKeyword.keywordValues().length, is(FlexKeyword.values().length));
   }
 

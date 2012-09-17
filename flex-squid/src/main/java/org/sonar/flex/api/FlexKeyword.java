@@ -22,6 +22,19 @@ package org.sonar.flex.api;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.TokenType;
 
+/**
+ * Below is a list of ActionScript 3 syntactic keywords, that can be used as identifiers, but that have special meaning in certain contexts:
+ * each
+ * get
+ * set
+ * namespace
+ * include
+ * dynamic
+ * final
+ * native
+ * override
+ * static
+ */
 public enum FlexKeyword implements TokenType {
   AS("as"),
   BREAK("break"),
@@ -47,7 +60,6 @@ public enum FlexKeyword implements TokenType {
   INTERFACE("interface"),
   INTERNAL("internal"),
   IS("is"),
-  NATIVE("native"),
   NEW("new"),
   NULL("null"),
   PACKAGE("package"),
@@ -55,9 +67,7 @@ public enum FlexKeyword implements TokenType {
   PROTECTED("protected"),
   PUBLIC("public"),
   RETURN("return"),
-  // SUPER("super"),
   SWITCH("switch"),
-  // THIS("this"),
   THROW("throw"),
   // TO("to"),
   TRUE("true"),
@@ -67,19 +77,7 @@ public enum FlexKeyword implements TokenType {
   VAR("var"),
   VOID("void"),
   WHILE("while"),
-  WITH("with"),
-  EACH("each"),
-  // can be used as variable name
-  // GET("get"),
-  // can be used as variable name
-  // SET("set"),
-  // can be used as variable name
-  // NAMESPACE("namespace"),
-  INCLUDE("include"),
-  DYNAMIC("dynamic"),
-  FINAL("final"),
-  OVERRIDE("override"),
-  STATIC("static");
+  WITH("with");
 
   private final String value;
 

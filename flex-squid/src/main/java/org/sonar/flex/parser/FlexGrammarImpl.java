@@ -44,12 +44,9 @@ import static org.sonar.flex.api.FlexKeyword.CONTINUE;
 import static org.sonar.flex.api.FlexKeyword.DEFAULT;
 import static org.sonar.flex.api.FlexKeyword.DELETE;
 import static org.sonar.flex.api.FlexKeyword.DO;
-import static org.sonar.flex.api.FlexKeyword.DYNAMIC;
-import static org.sonar.flex.api.FlexKeyword.EACH;
 import static org.sonar.flex.api.FlexKeyword.ELSE;
 import static org.sonar.flex.api.FlexKeyword.EXTENDS;
 import static org.sonar.flex.api.FlexKeyword.FALSE;
-import static org.sonar.flex.api.FlexKeyword.FINAL;
 import static org.sonar.flex.api.FlexKeyword.FINALLY;
 import static org.sonar.flex.api.FlexKeyword.FOR;
 import static org.sonar.flex.api.FlexKeyword.FUNCTION;
@@ -57,21 +54,17 @@ import static org.sonar.flex.api.FlexKeyword.IF;
 import static org.sonar.flex.api.FlexKeyword.IMPLEMENTS;
 import static org.sonar.flex.api.FlexKeyword.IMPORT;
 import static org.sonar.flex.api.FlexKeyword.IN;
-import static org.sonar.flex.api.FlexKeyword.INCLUDE;
 import static org.sonar.flex.api.FlexKeyword.INSTANCEOF;
 import static org.sonar.flex.api.FlexKeyword.INTERFACE;
 import static org.sonar.flex.api.FlexKeyword.INTERNAL;
 import static org.sonar.flex.api.FlexKeyword.IS;
-import static org.sonar.flex.api.FlexKeyword.NATIVE;
 import static org.sonar.flex.api.FlexKeyword.NEW;
 import static org.sonar.flex.api.FlexKeyword.NULL;
-import static org.sonar.flex.api.FlexKeyword.OVERRIDE;
 import static org.sonar.flex.api.FlexKeyword.PACKAGE;
 import static org.sonar.flex.api.FlexKeyword.PRIVATE;
 import static org.sonar.flex.api.FlexKeyword.PROTECTED;
 import static org.sonar.flex.api.FlexKeyword.PUBLIC;
 import static org.sonar.flex.api.FlexKeyword.RETURN;
-import static org.sonar.flex.api.FlexKeyword.STATIC;
 import static org.sonar.flex.api.FlexKeyword.SWITCH;
 import static org.sonar.flex.api.FlexKeyword.THROW;
 import static org.sonar.flex.api.FlexKeyword.TRUE;
@@ -241,11 +234,11 @@ public class FlexGrammarImpl extends FlexGrammar {
         PRIVATE,
         PROTECTED,
         INTERNAL,
-        STATIC,
-        FINAL,
-        OVERRIDE,
-        DYNAMIC,
-        NATIVE,
+        "static",
+        "final",
+        "overrride",
+        "dynamic",
+        "native",
         deprecated("intrinsic")));
     namespaceName.is(not("namespace"), IDENTIFIER);
 
@@ -267,7 +260,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         includeDirective,
         useNamespaceDirective)).skip();
     importDirective.is(IMPORT, IDENTIFIER, o2n(DOT, IDENTIFIER), opt(DOT, STAR), eos);
-    includeDirective.is(INCLUDE, LITERAL, eos);
+    includeDirective.is("include", LITERAL, eos);
     useNamespaceDirective.is(USE, "namespace", IDENTIFIER, eos);
   }
 
@@ -306,7 +299,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     ifStatement.is(IF, condition, statement, opt(ELSE, statement));
     doWhileStatement.is(DO, statement, WHILE, condition, eos);
     whileStatement.is(WHILE, condition, statement);
-    forEachStatement.is(FOR, EACH, LPAREN, forInClause, RPAREN, statement);
+    forEachStatement.is(FOR, "each", LPAREN, forInClause, RPAREN, statement);
     forInClause.is(or(and(VAR, variableDeclarator), IDENTIFIER), IN, expressionList);
     forStatement.is(
         FOR, LPAREN,

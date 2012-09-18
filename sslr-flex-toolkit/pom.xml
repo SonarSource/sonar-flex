@@ -66,6 +66,8 @@
               <includes>
                 <include>${project.groupId}:flex-squid</include>
                 <include>org.codehaus.sonar.sslr:sslr-core</include>
+                <include>org.codehaus.sonar.sslr:sslr-xpath</include>
+                <include>jaxen:jaxen</include>
                 <include>org.codehaus.sonar.sslr:sslr-toolkit</include>
                 <include>org.codehaus.sonar:sonar-colorizer</include>
                 <include>org.codehaus.sonar:sonar-squid</include>
@@ -100,8 +102,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <maxsize>2000000</maxsize>
-                  <minsize>1500000</minsize>
+                  <maxsize>2100000</maxsize>
+                  <minsize>2000000</minsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>

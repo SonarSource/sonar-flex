@@ -50,6 +50,8 @@ public final class FlexLexer {
 
         .withFailIfNoChannelToConsumeOneCharacter(true)
 
+        .withChannel(new BlackHoleChannel("\\s++"))
+
         // Comments
         .withChannel(commentRegexp("//[^\\n\\r]*+"))
         .withChannel(commentRegexp("/\\*[\\s\\S]*?\\*/"))
@@ -69,8 +71,6 @@ public final class FlexLexer {
 
         .withChannel(new IdentifierAndKeywordChannel("\\p{javaJavaIdentifierStart}++\\p{javaJavaIdentifierPart}*+", true, FlexKeyword.values()))
         .withChannel(new PunctuatorChannel(FlexPunctuator.values()))
-
-        .withChannel(new BlackHoleChannel("[\\s]"))
 
         .withChannel(new UnknownCharacterChannel(true))
 

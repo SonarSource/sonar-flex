@@ -23,12 +23,14 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import com.sonar.sslr.squid.AstScanner;
-import com.sonar.sslr.squid.checks.SquidCheck;
+import com.sonar.sslr.squid.SquidAstVisitor;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.checks.AnnotationCheckFactory;
 import org.sonar.api.measures.CoreMetrics;
+import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.measures.PersistenceMode;
 import org.sonar.api.measures.RangeDistributionBuilder;
 import org.sonar.api.profiles.RulesProfile;
@@ -43,6 +45,7 @@ import org.sonar.flex.FlexSquidPackage;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.api.FlexMetric;
 import org.sonar.flex.checks.CheckList;
+import org.sonar.flex.metrics.FileLinesVisitor;
 import org.sonar.plugins.flex.core.Flex;
 import org.sonar.plugins.flex.core.FlexResourceBridge;
 import org.sonar.squid.api.CheckMessage;
@@ -53,6 +56,7 @@ import org.sonar.squid.indexer.QueryByParent;
 import org.sonar.squid.indexer.QueryByType;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 public class FlexSquidSensor implements Sensor {
@@ -62,14 +66,16 @@ public class FlexSquidSensor implements Sensor {
 
   private final AnnotationCheckFactory annotationCheckFactory;
   private final FlexResourceBridge resourceBridge;
+  private final FileLinesContextFactory fileLinesContextFactory;
 
   private Project project;
   private SensorContext context;
   private AstScanner<FlexGrammar> scanner;
 
-  public FlexSquidSensor(RulesProfile profile, FlexResourceBridge resourceBridge) {
+  public FlexSquidSensor(RulesProfile profile, FlexResourceBridge resourceBridge, FileLinesContextFactory fileLinesContextFactory) {
     this.annotationCheckFactory = AnnotationCheckFactory.create(profile, CheckList.REPOSITORY_KEY, CheckList.getChecks());
     this.resourceBridge = resourceBridge;
+    this.fileLinesContextFactory = fileLinesContextFactory;
   }
 
   public boolean shouldExecuteOnProject(Project project) {
@@ -86,8 +92,10 @@ public class FlexSquidSensor implements Sensor {
     this.project = project;
     this.context = context;
 
-    Collection<SquidCheck> squidChecks = annotationCheckFactory.getChecks();
-    this.scanner = FlexAstScanner.create(createConfiguration(project), squidChecks.toArray(new SquidCheck[squidChecks.size()]));
+    Collection<SquidAstVisitor<FlexGrammar>> squidChecks = annotationCheckFactory.getChecks();
+    List<SquidAstVisitor<FlexGrammar>> visitors = Lists.newArrayList(squidChecks);
+    visitors.add(new FileLinesVisitor(project, fileLinesContextFactory));
+    this.scanner = FlexAstScanner.create(createConfiguration(project), visitors.toArray(new SquidAstVisitor[visitors.size()]));
     Collection<java.io.File> files = InputFileUtils.toFiles(project.getFileSystem().mainFiles(Flex.KEY));
     files = ImmutableList.copyOf(Collections2.filter(files, Predicates.not(MXML_FILTER)));
     scanner.scanFiles(files);

@@ -19,35 +19,24 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.ImmutableList;
+import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
+import org.junit.Test;
+import org.sonar.flex.FlexAstScanner;
+import org.sonar.squid.api.SourceFile;
 
-import java.util.List;
+import java.io.File;
 
-public final class CheckList {
+public class FunctionSinglePointOfExitCheckTest {
 
-  public static final String REPOSITORY_KEY = "flex";
+  private FunctionSinglePointOfExitCheck check = new FunctionSinglePointOfExitCheck();
 
-  public static final String SONAR_WAY_PROFILE = "Sonar way";
-
-  private CheckList() {
-  }
-
-  public static List<Class> getChecks() {
-    return ImmutableList.<Class> of(
-        CommentRegularExpressionCheck.class,
-        LineLengthCheck.class,
-        NestedIfDepthCheck.class,
-        XPathCheck.class,
-        FunctionComplexityCheck.class,
-        ClassComplexityCheck.class,
-        OneStatementPerLineCheck.class,
-        CommentedCodeCheck.class,
-        FileComplexityCheck.class,
-        SwitchWithoutDefaultCheck.class,
-        WithStatementCheck.class,
-        NonEmptyCaseWithoutBreakCheck.class,
-        FunctionSinglePointOfExitCheck.class,
-        ParsingErrorCheck.class);
+  @Test
+  public void test() {
+    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/FunctionSinglePointOfExit.as"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+        .next().atLine(10).withMessage("A function shall have a single point of exit at the end of the function.")
+        .next().atLine(16)
+        .noMore();
   }
 
 }

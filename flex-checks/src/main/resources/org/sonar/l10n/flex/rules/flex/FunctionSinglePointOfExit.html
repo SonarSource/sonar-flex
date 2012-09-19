@@ -1,0 +1,27 @@
+<p>
+The following code snippet illustrates this rule:
+</p>
+
+<pre>
+function func1() { // Compliant
+  return;
+}
+
+function func2() { // Compliant
+}
+
+function func3(); // Compliant
+
+function func4() { // Non-compliant - there are two points of exit
+  if (false) {
+    return;
+  }
+}
+
+function func5() { // Non-compliant - there are two points of exit
+  if (a > 0) {
+    return 0;
+  }
+  return -1;
+}
+</pre>

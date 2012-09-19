@@ -40,7 +40,7 @@ public class TypeBlockEntryTest {
 
   @Test
   public void realLife() {
-    // TODO Godin: I don't know what this construct does, but it exists in some source files
+    // Conditional compilation - see http://livedocs.adobe.com/flex/3/html/help.html?content=compilers_21.html
     assertThat(p, parse("CONFIG::debug { }"));
   }
 

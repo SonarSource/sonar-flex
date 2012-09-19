@@ -271,6 +271,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         labelledStatement,
         defaultXmlNamespaceStatement,
         declarationStatement,
+        deprecated(setVariableStatement),
         expressionStatement,
         ifStatement,
         forEachStatement,
@@ -285,7 +286,6 @@ public class FlexGrammarImpl extends FlexGrammar {
         throwStatement,
         tryStatement,
         directive,
-        deprecated(setVariableStatement),
         emptyStatement));
 
     block.is(LCURLY, o2n(statement), RCURLY);
@@ -349,19 +349,19 @@ public class FlexGrammarImpl extends FlexGrammar {
         BXOR_ASSIGN,
         BOR_ASSIGN,
         LAND_ASSIGN,
-        LOR_ASSIGN)).skip();
+        LOR_ASSIGN));
 
     conditionalExpression.is(logicalOrExpression, opt(QUESTION, assignmentExpression, COLON, assignmentExpression)).skipIfOneChild();
 
     logicalOrExpression.is(logicalAndExpression, o2n(logicalOrOperator, logicalAndExpression)).skipIfOneChild();
     logicalOrOperator.is(or(
         LOR,
-        deprecated("or"))).skip();
+        deprecated("or")));
 
     logicalAndExpression.is(bitwiseOrExpression, o2n(logicalAndOperator, bitwiseOrExpression)).skipIfOneChild();
     logicalAndOperator.is(or(
         LAND,
-        deprecated("and"))).skip();
+        deprecated("and")));
 
     bitwiseOrExpression.is(bitwiseXorExpression, o2n(BOR, bitwiseXorExpression)).skipIfOneChild();
     bitwiseXorExpression.is(bitwiseAndExpression, o2n(BXOR, bitwiseAndExpression)).skipIfOneChild();
@@ -374,7 +374,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         EQUAL,
         deprecated("ne"),
         deprecated("eq"),
-        deprecated(and(LT, GT)))).skip();
+        deprecated(and(LT, adjacent(GT)))));
     relationalExpression.is(shiftExpression, o2n(relationalOperator, shiftExpression)).skipIfOneChild();
     relationalOperator.is(or(
         ge,
@@ -387,23 +387,24 @@ public class FlexGrammarImpl extends FlexGrammar {
         deprecated("ge"),
         deprecated("gt"),
         deprecated("le"),
-        deprecated("lt"))).skip();
+        deprecated("lt")));
     shiftExpression.is(additiveExpression, o2n(shiftOperator, additiveExpression)).skipIfOneChild();
     shiftOperator.is(or(
         SL,
         SR,
-        BSR)).skip();
+        BSR));
     additiveExpression.is(multiplicativeExpression, o2n(additiveOperator, multiplicativeExpression)).skipIfOneChild();
     additiveOperator.is(or(
         PLUS,
         MINUS,
-        deprecated("add"))).skip();
+        deprecated("add")));
     multiplicativeExpression.is(unaryExpression, o2n(multiplicativeOperator, unaryExpression));
     multiplicativeOperator.is(or(
         STAR,
         DIV,
-        MOD)).skip();
+        MOD));
     unaryExpression.is(or(
+        and(deprecated("not"), unaryExpression),
         postfixExpression,
         and(DELETE, unaryExpression),
         and(VOID, unaryExpression),
@@ -412,7 +413,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         and(DEC, unaryExpression),
         and(PLUS, unaryExpression),
         and(MINUS, unaryExpression),
-        and(or(LNOT, deprecated("not")), unaryExpression),
+        and(LNOT, unaryExpression),
         and(BNOT, unaryExpression))).skipIfOneChild();
 
     postfixExpression.is(

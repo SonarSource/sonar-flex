@@ -47,6 +47,7 @@ public final class CheckList {
         WithStatementCheck.class,
         NonEmptyCaseWithoutBreakCheck.class,
         FunctionSinglePointOfExitCheck.class,
+        ActionScript2Check.class,
         ParsingErrorCheck.class);
   }
 

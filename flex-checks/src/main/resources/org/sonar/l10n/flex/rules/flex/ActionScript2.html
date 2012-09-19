@@ -1,0 +1,18 @@
+<p>
+Usage of statements, operators and keywords specific to ActionScript 2 does not allow to migrate to ActionScript 3.
+</p>
+
+<p>
+The following code snippet illustrates this rule:
+</p>
+
+<pre>
+if (true != false) { // Compliant
+}
+
+if (true ne false) { // Non-compliant
+}
+
+set("varName", value); // Non-cmpliant
+varName = value; // Compliant
+</pre>

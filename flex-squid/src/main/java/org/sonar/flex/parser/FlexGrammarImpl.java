@@ -130,6 +130,8 @@ import static org.sonar.flex.api.FlexTokenType.REGULAR_EXPRESSION_LITERAL;
 
 public class FlexGrammarImpl extends FlexGrammar {
 
+  private static final String NAMESPACE = "namespace";
+
   public FlexGrammarImpl() {
     ge.is(GT, adjacent(ASSIGN));
     star_assign.is(STAR, adjacent(ASSIGN));
@@ -199,7 +201,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         annotation,
         variableDefinition,
         methodDefinition,
-        and(IDENTIFIER, DBL_COLON, IDENTIFIER, LCURLY, o2n(typeBlockEntry), RCURLY), // CONFIG::debug { }
+        and(IDENTIFIER, DBL_COLON, IDENTIFIER, LCURLY, o2n(typeBlockEntry), RCURLY),
         directive,
         staticLinkEntry,
         block,
@@ -239,9 +241,9 @@ public class FlexGrammarImpl extends FlexGrammar {
         "dynamic",
         "native",
         deprecated("intrinsic")));
-    namespaceName.is(not("namespace"), IDENTIFIER);
+    namespaceName.is(not(NAMESPACE), IDENTIFIER);
 
-    variableDefinition.is(opt(modifiers), or(VAR, CONST, "namespace"), variableDeclarator, o2n(COMMA, variableDeclarator), opt(SEMI));
+    variableDefinition.is(opt(modifiers), or(VAR, CONST, NAMESPACE), variableDeclarator, o2n(COMMA, variableDeclarator), opt(SEMI));
     variableDeclarator.is(IDENTIFIER, opt(typeExpression), opt(variableInitializer));
     variableInitializer.is(ASSIGN, assignmentExpression);
 
@@ -260,7 +262,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         useNamespaceDirective)).skip();
     importDirective.is(IMPORT, IDENTIFIER, o2n(DOT, IDENTIFIER), opt(DOT, STAR), eos);
     includeDirective.is("include", LITERAL, eos);
-    useNamespaceDirective.is(USE, "namespace", IDENTIFIER, eos);
+    useNamespaceDirective.is(USE, NAMESPACE, IDENTIFIER, eos);
   }
 
   private void statements() {
@@ -291,7 +293,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     arguments.is(LPAREN, opt(expressionList), RPAREN);
     expressionList.is(assignmentExpression, o2n(COMMA, assignmentExpression));
 
-    defaultXmlNamespaceStatement.is(DEFAULT, "xml", "namespace", ASSIGN, expression, eos);
+    defaultXmlNamespaceStatement.is(DEFAULT, "xml", NAMESPACE, ASSIGN, expression, eos);
     declarationStatement.is(opt(modifier), or(VAR, CONST), variableDeclarator, o2n(COMMA, variableDeclarator), eos);
     expressionStatement.is(expression, eos);
     labelledStatement.is(IDENTIFIER, COLON, statement);

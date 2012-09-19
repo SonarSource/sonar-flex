@@ -80,7 +80,8 @@ public class NestedIfDepthCheck extends SquidCheck<FlexGrammar> {
   }
 
   private boolean isElseIf(AstNode astNode) {
-    return astNode.getParent().previousSibling() != null && astNode.getParent().previousSibling().is(FlexKeyword.ELSE);
+    return astNode.getParent().previousSibling() != null
+        && astNode.getParent().previousSibling().is(FlexKeyword.ELSE);
   }
 
 }

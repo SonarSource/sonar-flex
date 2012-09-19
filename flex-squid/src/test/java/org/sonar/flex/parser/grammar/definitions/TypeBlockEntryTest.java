@@ -17,24 +17,31 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.api;
+package org.sonar.flex.parser.grammar.definitions;
 
+import com.sonar.sslr.impl.Parser;
+import org.junit.Before;
 import org.junit.Test;
+import org.sonar.flex.api.FlexGrammar;
+import org.sonar.flex.parser.FlexParser;
 
-import static org.hamcrest.Matchers.is;
+import static com.sonar.sslr.test.parser.ParserMatchers.parse;
 import static org.junit.Assert.assertThat;
 
-public class FlexTokenTypeTest {
+public class TypeBlockEntryTest {
+
+  Parser<FlexGrammar> p = FlexParser.create();
+  FlexGrammar g = p.getGrammar();
+
+  @Before
+  public void init() {
+    p.setRootRule(g.typeBlockEntry);
+  }
 
   @Test
-  public void test() {
-    assertThat(FlexTokenType.values().length, is(2));
-
-    for (FlexTokenType tokenType : FlexTokenType.values()) {
-      assertThat(tokenType.getName(), is(tokenType.name()));
-      assertThat(tokenType.getValue(), is(tokenType.name()));
-      assertThat(tokenType.hasToBeSkippedFromAst(null), is(false));
-    }
+  public void realLife() {
+    // TODO Godin: I don't know what this construct does, but it exists in some source files
+    assertThat(p, parse("CONFIG::debug { }"));
   }
 
 }

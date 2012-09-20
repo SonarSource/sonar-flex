@@ -160,7 +160,7 @@ public class FlexSquidSensor implements Sensor {
     Collection<CheckMessage> messages = squidFile.getCheckMessages();
     if (messages != null) {
       for (CheckMessage message : messages) {
-        Violation violation = Violation.create(annotationCheckFactory.getActiveRule(message.getChecker()), sonarFile)
+        Violation violation = Violation.create(annotationCheckFactory.getActiveRule(message.getCheck()), sonarFile)
             .setLineId(message.getLine())
             .setMessage(message.getText(Locale.ENGLISH));
         context.saveViolation(violation);

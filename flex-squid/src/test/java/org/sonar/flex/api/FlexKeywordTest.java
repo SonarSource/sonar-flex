@@ -21,15 +21,14 @@ package org.sonar.flex.api;
 
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class FlexKeywordTest {
 
   @Test
   public void test() {
-    assertThat(FlexKeyword.values().length, is(40));
-    assertThat(FlexKeyword.keywordValues().length, is(FlexKeyword.values().length));
+    assertThat(FlexKeyword.values().length).isEqualTo(40);
+    assertThat(FlexKeyword.keywordValues().length).isEqualTo(FlexKeyword.values().length);
   }
 
 }

@@ -25,9 +25,7 @@ import org.sonar.api.rules.Rule;
 
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class FlexPmdRuleRepositoryTest {
 
@@ -35,13 +33,13 @@ public class FlexPmdRuleRepositoryTest {
   public void shouldCreateRules() {
     FlexPmdRuleRepository repository = new FlexPmdRuleRepository();
     List<Rule> rules = repository.createRules();
-    assertThat(rules.size(), is(112));
+    assertThat(rules.size()).isEqualTo(112);
     for (Rule rule : rules) {
-      assertNotNull(rule.getKey());
-      assertNotNull(rule.getDescription());
-      assertNotNull(rule.getName());
-      assertNotNull(rule.getRepositoryKey());
-      assertNotNull(rule.getSeverity());
+      assertThat(rule.getKey()).isNotNull();
+      assertThat(rule.getDescription()).isNotNull();
+      assertThat(rule.getName()).isNotNull();
+      assertThat(rule.getRepositoryKey()).isNotNull();
+      assertThat(rule.getSeverity()).isNotNull();
     }
   }
 

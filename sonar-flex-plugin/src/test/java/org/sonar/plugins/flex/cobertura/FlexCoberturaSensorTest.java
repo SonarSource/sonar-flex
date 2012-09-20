@@ -32,8 +32,7 @@ import org.sonar.plugins.flex.core.FlexResourceBridge;
 
 import java.io.File;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Matchers.eq;
@@ -59,7 +58,7 @@ public class FlexCoberturaSensorTest {
     when(project.getLanguageKey()).thenReturn(Flex.KEY);
     when(project.getAnalysisType())
         .thenReturn(Project.AnalysisType.REUSE_REPORTS);
-    assertThat(sensor.shouldExecuteOnProject(project), is(true));
+    assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
   }
 
   @Test

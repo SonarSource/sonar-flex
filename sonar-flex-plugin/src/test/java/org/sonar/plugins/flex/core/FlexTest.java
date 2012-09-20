@@ -25,8 +25,7 @@ import org.apache.commons.configuration.Configuration;
 import org.junit.Test;
 import org.sonar.plugins.flex.FlexPlugin;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class FlexTest {
 
@@ -35,13 +34,13 @@ public class FlexTest {
     Configuration configuration = new BaseConfiguration();
     Flex flex = new Flex(configuration);
 
-    assertThat(flex.getFileSuffixes(), is(new String[] {"as", "mxml"}));
+    assertThat(flex.getFileSuffixes()).isEqualTo(new String[] {"as", "mxml"});
 
     configuration.setProperty(FlexPlugin.FILE_SUFFIXES_KEY, "");
-    assertThat(flex.getFileSuffixes(), is(new String[] {"as", "mxml"}));
+    assertThat(flex.getFileSuffixes()).isEqualTo(new String[] {"as", "mxml"});
 
     configuration.setProperty(FlexPlugin.FILE_SUFFIXES_KEY, "as, swc");
-    assertThat(flex.getFileSuffixes(), is(new String[] {"as", "swc"}));
+    assertThat(flex.getFileSuffixes()).isEqualTo(new String[] {"as", "swc"});
   }
 
 }

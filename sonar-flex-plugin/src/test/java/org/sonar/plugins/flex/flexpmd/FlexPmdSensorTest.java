@@ -37,9 +37,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -67,7 +65,7 @@ public class FlexPmdSensorTest {
     when(project.getLanguageKey()).thenReturn(Flex.KEY);
     when(profile.getActiveRulesByRepository(FlexPmdRuleRepository.REPOSITORY_KEY))
         .thenReturn(Arrays.asList(new ActiveRule()));
-    assertThat(sensor.shouldExecuteOnProject(project), is(true));
+    assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
   }
 
   @Test
@@ -76,14 +74,14 @@ public class FlexPmdSensorTest {
     when(project.getLanguageKey()).thenReturn(Flex.KEY);
     when(profile.getActiveRulesByRepository(FlexPmdRuleRepository.REPOSITORY_KEY))
         .thenReturn(Collections.EMPTY_LIST);
-    assertThat(sensor.shouldExecuteOnProject(project), is(false));
+    assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
   }
 
   @Test
   public void shouldNotExecuteOnJavaProject() {
     Project project = mock(Project.class);
     when(project.getLanguageKey()).thenReturn("java");
-    assertThat(sensor.shouldExecuteOnProject(project), is(false));
+    assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
   }
 
   @Test
@@ -105,9 +103,9 @@ public class FlexPmdSensorTest {
 
     File resultFile = sensor.execute(project);
 
-    assertThat(resultFile.exists(), is(true));
+    assertThat(resultFile.exists()).isTrue();
     String result = FileUtils.readFileToString(resultFile);
-    assertThat(result, containsString("Example.mxml"));
+    assertThat(result).contains("Example.mxml");
   }
 
 }

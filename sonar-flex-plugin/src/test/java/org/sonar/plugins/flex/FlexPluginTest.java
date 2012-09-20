@@ -20,11 +20,10 @@
 
 package org.sonar.plugins.flex;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.junit.Assert.assertThat;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * @author Evgeny Mandrikov
@@ -39,6 +38,7 @@ public class FlexPluginTest {
 
   @Test
   public void testGetExtensions() throws Exception {
-    assertThat(plugin.getExtensions().size(), greaterThan(0));
+    assertThat(plugin.getExtensions().size()).isGreaterThan(0);
   }
+
 }

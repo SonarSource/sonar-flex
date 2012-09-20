@@ -20,16 +20,14 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-
-import java.io.Reader;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.utils.ValidationMessages;
+
+import java.io.Reader;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 public class FlexPmdProfileExporterTest {
 
@@ -42,7 +40,7 @@ public class FlexPmdProfileExporterTest {
 
   @Test
   public void shouldSetMimeType() {
-    assertThat(exporter.getMimeType(), is("application/xml"));
+    assertThat(exporter.getMimeType()).isEqualTo("application/xml");
   }
 
   @Test
@@ -53,6 +51,6 @@ public class FlexPmdProfileExporterTest {
 
     String output = exporter.exportProfileToString(profile);
 
-    assertThat(output, containsString("com.adobe.ac.pmd.rules.cairngorm.FatControllerRule"));
+    assertThat(output).contains("com.adobe.ac.pmd.rules.cairngorm.FatControllerRule");
   }
 }

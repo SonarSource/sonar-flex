@@ -22,18 +22,17 @@ package org.sonar.flex;
 import org.junit.Test;
 import org.sonar.squid.api.SourceClass;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class FlexSquidPackageTest {
 
   @Test
   public void test() {
     FlexSquidPackage squidPackage = new FlexSquidPackage("foo");
-    assertThat(squidPackage.equals(null), is(false));
-    assertThat(squidPackage.equals(new SourceClass("foo")), is(false));
-    assertThat(squidPackage.equals(new FlexSquidPackage("bar")), is(false));
-    assertThat(squidPackage.equals(new FlexSquidPackage("foo")), is(true));
+    assertThat(squidPackage.equals(null)).isFalse();
+    assertThat(squidPackage.equals(new SourceClass("foo"))).isFalse();
+    assertThat(squidPackage.equals(new FlexSquidPackage("bar"))).isFalse();
+    assertThat(squidPackage.equals(new FlexSquidPackage("foo"))).isTrue();
   }
 
 }

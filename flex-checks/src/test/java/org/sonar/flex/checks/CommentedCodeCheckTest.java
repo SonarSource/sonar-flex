@@ -26,8 +26,6 @@ import org.sonar.squid.api.SourceFile;
 
 import java.io.File;
 
-import static org.hamcrest.Matchers.containsString;
-
 public class CommentedCodeCheckTest {
 
   @Test
@@ -36,7 +34,7 @@ public class CommentedCodeCheckTest {
 
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/CommentedCode.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-        .next().atLine(4).withMessageThat(containsString("Sections of code should not be \"commented out\"."))
+        .next().atLine(4).withMessage("Sections of code should not be \"commented out\".")
         .next().atLine(11)
         .noMore();
   }

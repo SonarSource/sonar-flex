@@ -20,17 +20,15 @@
 
 package org.sonar.plugins.flex.core;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import java.io.File;
-
+import com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
+import java.io.File;
+
+import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class FlexSourceImporterTest {
 
@@ -45,7 +43,7 @@ public class FlexSourceImporterTest {
 
   @Test
   public void testFlexSourceImporter() throws Exception {
-    assertThat(importer.toString(), is("Flex Source Importer"));
+    assertThat(importer.toString()).isEqualTo("Flex Source Importer");
   }
 
   @Test

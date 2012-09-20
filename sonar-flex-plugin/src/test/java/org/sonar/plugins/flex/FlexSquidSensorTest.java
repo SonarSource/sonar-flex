@@ -35,8 +35,7 @@ import org.sonar.plugins.flex.core.FlexResourceBridge;
 import java.io.File;
 import java.nio.charset.Charset;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -59,9 +58,9 @@ public class FlexSquidSensorTest {
   public void should_execute_on_javascript_project() {
     Project project = new Project("key");
     project.setLanguageKey("java");
-    assertThat(sensor.shouldExecuteOnProject(project), is(false));
+    assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
     project.setLanguageKey("flex");
-    assertThat(sensor.shouldExecuteOnProject(project), is(true));
+    assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
   }
 
   @Test

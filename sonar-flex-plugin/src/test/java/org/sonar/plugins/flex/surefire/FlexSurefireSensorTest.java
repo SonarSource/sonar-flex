@@ -25,10 +25,7 @@ import org.junit.Test;
 import org.sonar.api.resources.Project;
 import org.sonar.plugins.flex.core.Flex;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
+import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -46,7 +43,7 @@ public class FlexSurefireSensorTest {
   public void shouldNotAnanlyseIfStatisAnalysis() {
     when(project.getLanguageKey()).thenReturn(Flex.KEY);
     when(project.getAnalysisType()).thenReturn(Project.AnalysisType.STATIC);
-    assertThat(sensor.shouldExecuteOnProject(project), is(false));
+    assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
   }
 
   @Test
@@ -55,8 +52,8 @@ public class FlexSurefireSensorTest {
     when(project.getAnalysisType())
         .thenReturn(Project.AnalysisType.REUSE_REPORTS)
         .thenReturn(Project.AnalysisType.DYNAMIC);
-    assertThat(sensor.shouldExecuteOnProject(project), is(false));
-    assertThat(sensor.shouldExecuteOnProject(project), is(false));
+    assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
+    assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
   }
 
   @Test
@@ -65,26 +62,27 @@ public class FlexSurefireSensorTest {
     when(project.getAnalysisType())
         .thenReturn(Project.AnalysisType.REUSE_REPORTS)
         .thenReturn(Project.AnalysisType.DYNAMIC);
-    assertThat(sensor.shouldExecuteOnProject(project), is(true));
-    assertThat(sensor.shouldExecuteOnProject(project), is(true));
+    assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
+    assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
   }
 
   @Test
   public void doNotExecuteMavenPluginIfStaticAnalysis() {
     when(project.getAnalysisType()).thenReturn(Project.AnalysisType.STATIC);
-    assertThat(sensor.getMavenPluginHandler(project), nullValue());
+    assertThat(sensor.getMavenPluginHandler(project)).isNull();
   }
 
   @Test
   public void doNotExecuteMavenPluginIfReuseReports() {
     when(project.getAnalysisType()).thenReturn(Project.AnalysisType.REUSE_REPORTS);
-    assertThat(sensor.getMavenPluginHandler(project), nullValue());
+    assertThat(sensor.getMavenPluginHandler(project)).isNull();
   }
 
   @Test
   public void executeMavenPluginIfDynamicAnalysis() {
     when(project.getAnalysisType()).thenReturn(Project.AnalysisType.DYNAMIC);
-    assertThat(sensor.getMavenPluginHandler(project), notNullValue());
-    assertThat(sensor.getMavenPluginHandler(project).getArtifactId(), is("flexmojos-maven-plugin"));
+    assertThat(sensor.getMavenPluginHandler(project)).isNotNull();
+    assertThat(sensor.getMavenPluginHandler(project).getArtifactId()).isEqualTo("flexmojos-maven-plugin");
   }
+
 }

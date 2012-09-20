@@ -20,13 +20,12 @@
 
 package org.sonar.plugins.flex.core;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.resources.Directory;
 import org.sonar.api.resources.File;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 public class FlexResourceBridgeTest {
 
@@ -42,22 +41,22 @@ public class FlexResourceBridgeTest {
 
   @Test
   public void shouldFindFileForClassName() throws Exception {
-    assertThat(resourceBridge.findFile("org.sonar.test.Bar"), is(new File("org/sonar/test/Bar.as")));
+    assertThat(resourceBridge.findFile("org.sonar.test.Bar")).isEqualTo(new File("org/sonar/test/Bar.as"));
   }
 
   @Test
   public void shouldFindFileForMethodName() throws Exception {
-    assertThat(resourceBridge.findFile("org.sonar.test.Foo::main"), is(new File("org/sonar/test/Foo.as")));
+    assertThat(resourceBridge.findFile("org.sonar.test.Foo::main")).isEqualTo(new File("org/sonar/test/Foo.as"));
   }
 
   @Test
   public void shouldFindDirectoryForPacakgeName() throws Exception {
-    assertThat(resourceBridge.findDirectory("org.sonar.test"), is(new Directory("org/sonar/test")));
+    assertThat(resourceBridge.findDirectory("org.sonar.test")).isEqualTo(new Directory("org/sonar/test"));
   }
 
   @Test
   public void shouldKeepExtensionForFilesOtherThanAS() throws Exception {
-    assertThat(resourceBridge.findFile("org.sonar.test.Foo.mxml"), is(new File("org/sonar/test/Foo.mxml")));
+    assertThat(resourceBridge.findFile("org.sonar.test.Foo.mxml")).isEqualTo(new File("org/sonar/test/Foo.mxml"));
   }
 
   @Test(expected = IllegalStateException.class)

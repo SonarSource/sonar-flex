@@ -20,13 +20,12 @@
 
 package org.sonar.plugins.flex.flexpmd.xml;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import org.junit.Test;
+import org.sonar.api.rules.ActiveRule;
 
 import java.util.List;
 
-import org.junit.Test;
-import org.sonar.api.rules.ActiveRule;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class FlexRulesUtilsTest {
   @Test
@@ -34,16 +33,16 @@ public class FlexRulesUtilsTest {
     List<ActiveRule> activeRules = getActiveRules("/org/sonar/plugins/flex/flexpmd/flexpmd-simple-profile-with-fake.xml");
 
     // no property
-    assertThat(activeRules.get(2).getActiveRuleParams().size(), is(0));
+    assertThat(activeRules.get(2).getActiveRuleParams().size()).isEqualTo(0);
 
     // property defined, but does not exist in repo
-    assertThat(activeRules.get(3).getActiveRuleParams().size(), is(0));
+    assertThat(activeRules.get(3).getActiveRuleParams().size()).isEqualTo(0);
 
     // property defined and exist in repo
-    assertThat(activeRules.get(5).getActiveRuleParams().size(), is(1));
+    assertThat(activeRules.get(5).getActiveRuleParams().size()).isEqualTo(1);
 
     // property defined, but the one in repo is different
-    assertThat(activeRules.get(6).getActiveRuleParams().size(), is(0));
+    assertThat(activeRules.get(6).getActiveRuleParams().size()).isEqualTo(0);
   }
 
   @Test
@@ -51,33 +50,33 @@ public class FlexRulesUtilsTest {
     List<ActiveRule> activeRules = getActiveRules("/org/sonar/plugins/flex/flexpmd/flexpmd-fullmonty-profile.xml");
 
     Ruleset ruleset = FlexRulesUtils.buildRulesetFromActiveProfile(activeRules);
-    assertThat(ruleset.getRules().size(), is(66));
+    assertThat(ruleset.getRules().size()).isEqualTo(66);
   }
 
   @Test
   public void testPriorityInBuildingRulesetFromActiveRules() {
     List<ActiveRule> activeRules = getActiveRules("/org/sonar/plugins/flex/flexpmd/flexpmd-explicit-priority.xml");
     Ruleset ruleset = FlexRulesUtils.buildRulesetFromActiveProfile(activeRules);
-    assertThat(ruleset.getRules().size(), is(1));
-    assertThat(ruleset.getRules().get(0).getPriority(), is("2"));
+    assertThat(ruleset.getRules().size()).isEqualTo(1);
+    assertThat(ruleset.getRules().get(0).getPriority()).isEqualTo("2");
 
     activeRules = getActiveRules("/org/sonar/plugins/flex/flexpmd/flexpmd-implicit-priority.xml");
     ruleset = FlexRulesUtils.buildRulesetFromActiveProfile(activeRules);
-    assertThat(ruleset.getRules().size(), is(1));
-    assertThat(ruleset.getRules().get(0).getPriority(), is("1"));
+    assertThat(ruleset.getRules().size()).isEqualTo(1);
+    assertThat(ruleset.getRules().get(0).getPriority()).isEqualTo("1");
   }
 
   @Test
   public void shouldComputeRuleNameFromClassAttribute() throws Exception {
-    assertThat(FlexRulesUtils.computeRuleNameFromClassAttribute("com.adobe.ac.pmd.rules.security.Insecure"), is("Insecure"));
-    assertThat(FlexRulesUtils.computeRuleNameFromClassAttribute("com.adobe.ac.pmd.rules.security.AllowInsecureDomainRule"), is("Allow insecure domain rule"));
-    assertThat(FlexRulesUtils.computeRuleNameFromClassAttribute("com.adobe.ac.pmd.rules.security.Allow3InsecureDomainRule"), is("Allow 3 insecure domain rule"));
+    assertThat(FlexRulesUtils.computeRuleNameFromClassAttribute("com.adobe.ac.pmd.rules.security.Insecure")).isEqualTo("Insecure");
+    assertThat(FlexRulesUtils.computeRuleNameFromClassAttribute("com.adobe.ac.pmd.rules.security.AllowInsecureDomainRule")).isEqualTo("Allow insecure domain rule");
+    assertThat(FlexRulesUtils.computeRuleNameFromClassAttribute("com.adobe.ac.pmd.rules.security.Allow3InsecureDomainRule")).isEqualTo("Allow 3 insecure domain rule");
   }
 
   @Test
   public void shouldReturnMessageForRule() throws Exception {
-    assertThat(FlexRulesUtils.findMessageForRule("com.adobe.ac.pmd.rules.architecture.UseInternalClassOutsideApiClass"),
-        is("This class imports an internal class ({0}) from another function area ({1})"));
+    assertThat(FlexRulesUtils.findMessageForRule("com.adobe.ac.pmd.rules.architecture.UseInternalClassOutsideApiClass"))
+        .isEqualTo("This class imports an internal class ({0}) from another function area ({1})");
   }
 
   private List<ActiveRule> getActiveRules(String path) {
@@ -86,4 +85,5 @@ public class FlexRulesUtilsTest {
         FlexRulesUtils.getInitialReferential());
     return activeRules;
   }
+
 }

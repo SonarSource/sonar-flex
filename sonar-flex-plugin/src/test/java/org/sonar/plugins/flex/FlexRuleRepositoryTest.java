@@ -26,18 +26,17 @@ import org.sonar.flex.checks.CheckList;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class FlexRuleRepositoryTest {
 
   @Test
   public void test() {
     FlexRuleRepository ruleRepository = new FlexRuleRepository(new AnnotationRuleParser());
-    assertThat(ruleRepository.getKey(), is("flex"));
-    assertThat(ruleRepository.getName(), is("Sonar"));
+    assertThat(ruleRepository.getKey()).isEqualTo("flex");
+    assertThat(ruleRepository.getName()).isEqualTo("Sonar");
     List<Rule> rules = ruleRepository.createRules();
-    assertThat(rules.size(), is(CheckList.getChecks().size()));
+    assertThat(rules.size()).isEqualTo(CheckList.getChecks().size());
   }
 
 }

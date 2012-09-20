@@ -20,17 +20,16 @@
 
 package org.sonar.plugins.flex.flexpmd;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-import java.io.InputStreamReader;
-import java.io.Reader;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.RulePriority;
 import org.sonar.api.utils.ValidationMessages;
+
+import java.io.InputStreamReader;
+import java.io.Reader;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 public class FlexPmdProfileImporterTest {
 
@@ -47,10 +46,10 @@ public class FlexPmdProfileImporterTest {
     ValidationMessages messages = ValidationMessages.create();
     RulesProfile profile = importer.importProfile(reader, messages);
 
-    assertThat(messages.hasErrors(), is(false));
-    assertThat(messages.hasWarnings(), is(false));
-    assertThat(messages.hasInfos(), is(false));
-    assertThat(profile.getActiveRules().size(), is(7));
+    assertThat(messages.hasErrors()).isFalse();
+    assertThat(messages.hasWarnings()).isFalse();
+    assertThat(messages.hasInfos()).isFalse();
+    assertThat(profile.getActiveRules().size()).isEqualTo(7);
   }
 
   @Test
@@ -59,30 +58,30 @@ public class FlexPmdProfileImporterTest {
     ValidationMessages messages = ValidationMessages.create();
     RulesProfile profile = importer.importProfile(reader, messages);
 
-    assertThat(messages.hasErrors(), is(false));
-    assertThat(messages.hasWarnings(), is(false));
-    assertThat(messages.hasInfos(), is(false));
-    assertThat(profile.getActiveRules().size(), is(66));
+    assertThat(messages.hasErrors()).isFalse();
+    assertThat(messages.hasWarnings()).isFalse();
+    assertThat(messages.hasInfos()).isFalse();
+    assertThat(profile.getActiveRules().size()).isEqualTo(66);
   }
 
   @Test
   public void testImportWrongFormat() {
     RulesProfile profile = importer.importProfile(createProfileReader("flexpmd-wrong-format-import.xml"), ValidationMessages.create());
-    assertThat(profile.getActiveRules().size(), is(5));
+    assertThat(profile.getActiveRules().size()).isEqualTo(5);
   }
 
   @Test
   public void testExplicitPriority() {
     RulesProfile profile = importer.importProfile(createProfileReader("flexpmd-explicit-priority.xml"), ValidationMessages.create());
-    assertThat(profile.getActiveRules().size(), is(1));
-    assertThat(profile.getActiveRules().get(0).getSeverity(), is(RulePriority.CRITICAL));
+    assertThat(profile.getActiveRules().size()).isEqualTo(1);
+    assertThat(profile.getActiveRules().get(0).getSeverity()).isEqualTo(RulePriority.CRITICAL);
   }
 
   @Test
   public void testImplicitPriority() {
     RulesProfile profile = importer.importProfile(createProfileReader("flexpmd-implicit-priority.xml"), ValidationMessages.create());
-    assertThat(profile.getActiveRules().size(), is(1));
-    assertThat(profile.getActiveRules().get(0).getSeverity(), is(RulePriority.BLOCKER));
+    assertThat(profile.getActiveRules().size()).isEqualTo(1);
+    assertThat(profile.getActiveRules().get(0).getSeverity()).isEqualTo(RulePriority.BLOCKER);
   }
 
   static Reader createProfileReader(String name) {

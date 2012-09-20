@@ -28,8 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.sonar.test.TestUtils;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -48,7 +47,7 @@ public class FlexTokenizerTest {
     Tokens tokens = new Tokens();
     tokenizer.tokenize(source, tokens);
 
-    assertThat(tokens.size(), is(23));
+    assertThat(tokens.size()).isEqualTo(23);
   }
 
   @Test
@@ -59,8 +58,8 @@ public class FlexTokenizerTest {
     Tokens tokens = new Tokens();
     tokenizer.tokenize(source, tokens);
 
-    assertThat(tokens.size(), is(1));
-    assertThat(tokens.getTokens().get(0), is(TokenEntry.getEOF()));
+    assertThat(tokens.size()).isEqualTo(1);
+    assertThat(tokens.getTokens().get(0)).isEqualTo(TokenEntry.getEOF());
   }
 
 }

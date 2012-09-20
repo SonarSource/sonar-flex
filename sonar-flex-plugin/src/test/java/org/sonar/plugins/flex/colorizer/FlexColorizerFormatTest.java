@@ -20,22 +20,21 @@
 
 package org.sonar.plugins.flex.colorizer;
 
-import static junit.framework.Assert.fail;
-import static org.hamcrest.number.OrderingComparisons.lessThan;
-import static org.junit.Assert.assertThat;
-
-import java.util.List;
-
 import org.junit.Test;
 import org.sonar.colorizer.CppDocTokenizer;
 import org.sonar.colorizer.JavadocTokenizer;
 import org.sonar.colorizer.Tokenizer;
 
+import java.util.List;
+
+import static junit.framework.Assert.fail;
+import static org.fest.assertions.Assertions.assertThat;
+
 public class FlexColorizerFormatTest {
   @Test
   public void testGetTokenizers() {
     List<Tokenizer> list = (new FlexColorizerFormat()).getTokenizers();
-    assertThat(indexOf(list, JavadocTokenizer.class), lessThan(indexOf(list, CppDocTokenizer.class)));
+    assertThat(indexOf(list, JavadocTokenizer.class)).isLessThan(indexOf(list, CppDocTokenizer.class));
   }
 
   private Integer indexOf(List<Tokenizer> tokenizers, Class tokenizerClass) {

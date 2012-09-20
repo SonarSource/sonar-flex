@@ -21,19 +21,18 @@ package org.sonar.flex.api;
 
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class FlexTokenTypeTest {
 
   @Test
   public void test() {
-    assertThat(FlexTokenType.values().length, is(2));
+    assertThat(FlexTokenType.values().length).isEqualTo(2);
 
     for (FlexTokenType tokenType : FlexTokenType.values()) {
-      assertThat(tokenType.getName(), is(tokenType.name()));
-      assertThat(tokenType.getValue(), is(tokenType.name()));
-      assertThat(tokenType.hasToBeSkippedFromAst(null), is(false));
+      assertThat(tokenType.getName()).isEqualTo(tokenType.name());
+      assertThat(tokenType.getValue()).isEqualTo(tokenType.name());
+      assertThat(tokenType.hasToBeSkippedFromAst(null)).isFalse();
     }
   }
 

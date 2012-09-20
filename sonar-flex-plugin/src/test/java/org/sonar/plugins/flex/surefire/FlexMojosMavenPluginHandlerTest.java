@@ -25,8 +25,7 @@ import org.junit.Test;
 import org.sonar.api.batch.maven.MavenPlugin;
 import org.sonar.api.resources.Project;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -41,15 +40,15 @@ public class FlexMojosMavenPluginHandlerTest {
 
   @Test
   public void notFixedVersion() throws Exception {
-    assertThat(handler.isFixedVersion(), is(false));
+    assertThat(handler.isFixedVersion()).isFalse();
   }
 
   @Test
   public void pluginDefinition() throws Exception {
-    assertThat(handler.getGroupId(), is("org.sonatype.flexmojos"));
-    assertThat(handler.getArtifactId(), is("flexmojos-maven-plugin"));
-    assertThat(handler.getVersion(), is("3.6.1"));
-    assertThat(handler.getGoals(), is(new String[] { "test-run" }));
+    assertThat(handler.getGroupId()).isEqualTo("org.sonatype.flexmojos");
+    assertThat(handler.getArtifactId()).isEqualTo("flexmojos-maven-plugin");
+    assertThat(handler.getVersion()).isEqualTo("3.6.1");
+    assertThat(handler.getGoals()).isEqualTo(new String[] {"test-run"});
   }
 
   @Test

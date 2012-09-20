@@ -21,14 +21,13 @@ package org.sonar.flex.api;
 
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class FlexPunctuatorTest {
 
   @Test
   public void test() {
-    assertThat(FlexPunctuator.values().length, is(51));
+    assertThat(FlexPunctuator.values().length).isEqualTo(51);
   }
 
 }

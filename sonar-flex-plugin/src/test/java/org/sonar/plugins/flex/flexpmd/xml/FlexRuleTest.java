@@ -21,21 +21,20 @@ package org.sonar.plugins.flex.flexpmd.xml;
 
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class FlexRuleTest {
 
   @Test
   public void test_equals() {
     FlexRule rule = new FlexRule("clazz");
-    assertThat(rule.equals(rule), is(true));
-    assertThat(rule.equals(null), is(false));
-    assertThat(rule.equals(new Object()), is(false));
-    assertThat(rule.equals(new FlexRule("clazz")), is(true));
-    assertThat(rule.equals(new FlexRule()), is(false));
-    assertThat(new FlexRule().equals(rule), is(false));
-    assertThat(new FlexRule().equals(new FlexRule()), is(true));
+    assertThat(rule.equals(rule)).isTrue();
+    assertThat(rule.equals(null)).isFalse();
+    assertThat(rule.equals(new Object())).isFalse();
+    assertThat(rule.equals(new FlexRule("clazz"))).isTrue();
+    assertThat(rule.equals(new FlexRule())).isFalse();
+    assertThat(new FlexRule().equals(rule)).isFalse();
+    assertThat(new FlexRule().equals(new FlexRule())).isTrue();
   }
 
 }

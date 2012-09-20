@@ -19,6 +19,7 @@
  */
 package org.sonar.flex;
 
+import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
 import com.sonar.sslr.squid.AstScanner;
 import org.junit.Test;
@@ -38,7 +39,7 @@ public class FlexAstScannerTest {
 
   @Test
   public void files() {
-    AstScanner<FlexGrammar> scanner = FlexAstScanner.create(new FlexConfiguration());
+    AstScanner<FlexGrammar> scanner = FlexAstScanner.create(new FlexConfiguration(Charsets.UTF_8));
     scanner.scanFiles(ImmutableList.of(new File("src/test/resources/metrics/lines.as"), new File("src/test/resources/metrics/lines_of_code.as")));
     SourceProject project = (SourceProject) scanner.getIndex().search(new QueryByType(SourceProject.class)).iterator().next();
     assertThat(project.getInt(FlexMetric.FILES)).isEqualTo(2);

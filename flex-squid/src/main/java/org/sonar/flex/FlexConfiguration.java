@@ -27,9 +27,6 @@ public class FlexConfiguration extends SquidConfiguration {
 
   private boolean ignoreHeaderComments;
 
-  public FlexConfiguration() {
-  }
-
   public FlexConfiguration(Charset charset) {
     super(charset);
   }

@@ -19,6 +19,7 @@
  */
 package org.sonar.flex;
 
+import com.google.common.base.Charsets;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.CommentAnalyser;
@@ -47,7 +48,7 @@ public final class FlexAstScanner {
     if (!file.isFile()) {
       throw new IllegalArgumentException("File '" + file + "' not found.");
     }
-    AstScanner<FlexGrammar> scanner = create(new FlexConfiguration(), visitors);
+    AstScanner<FlexGrammar> scanner = create(new FlexConfiguration(Charsets.UTF_8), visitors);
     scanner.scanFile(file);
     Collection<SourceCode> sources = scanner.getIndex().search(new QueryByType(SourceFile.class));
     if (sources.size() != 1) {

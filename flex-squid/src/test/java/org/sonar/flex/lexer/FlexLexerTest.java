@@ -19,11 +19,13 @@
  */
 package org.sonar.flex.lexer;
 
+import com.google.common.base.Charsets;
 import com.sonar.sslr.api.GenericTokenType;
 import com.sonar.sslr.impl.Lexer;
 import com.sonar.sslr.impl.channel.UnknownCharacterChannel;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexTokenType;
 
 import static com.sonar.sslr.test.lexer.LexerMatchers.hasComment;
@@ -37,7 +39,7 @@ public class FlexLexerTest {
 
   @BeforeClass
   public static void init() {
-    lexer = FlexLexer.create();
+    lexer = FlexLexer.create(new FlexConfiguration(Charsets.UTF_8));
   }
 
   @Test

@@ -40,10 +40,6 @@ public final class FlexLexer {
   private FlexLexer() {
   }
 
-  public static Lexer create() {
-    return create(new FlexConfiguration());
-  }
-
   public static Lexer create(FlexConfiguration conf) {
     return Lexer.builder()
         .withCharset(conf.getCharset())

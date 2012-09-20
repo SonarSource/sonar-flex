@@ -19,9 +19,11 @@
  */
 package org.sonar.flex.parser.grammar.statements;
 
+import com.google.common.base.Charsets;
 import com.sonar.sslr.impl.Parser;
 import org.junit.Before;
 import org.junit.Test;
+import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
@@ -30,7 +32,7 @@ import static org.junit.Assert.assertThat;
 
 public class DeclarationStatementTest {
 
-  Parser<FlexGrammar> p = FlexParser.create();
+  Parser<FlexGrammar> p = FlexParser.create(new FlexConfiguration(Charsets.UTF_8));
   FlexGrammar g = p.getGrammar();
 
   @Before

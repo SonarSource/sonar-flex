@@ -22,10 +22,12 @@ package org.sonar.flex.toolkit;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import org.sonar.colorizer.*;
+import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexKeyword;
 import org.sonar.flex.parser.FlexParser;
 import org.sonar.sslr.toolkit.Toolkit;
 
+import java.nio.charset.Charset;
 import java.util.List;
 
 public final class FlexToolkit {
@@ -35,7 +37,7 @@ public final class FlexToolkit {
 
   public static void main(String[] args) {
     System.setProperty("com.apple.mrj.application.apple.menu.about.name", "SSDK");
-    new Toolkit(FlexParser.create(), getTokenizers(), "SSLR Flex Toolkit").run();
+    new Toolkit(FlexParser.create(new FlexConfiguration(Charset.defaultCharset())), getTokenizers(), "SSLR Flex Toolkit").run();
   }
 
   @VisibleForTesting

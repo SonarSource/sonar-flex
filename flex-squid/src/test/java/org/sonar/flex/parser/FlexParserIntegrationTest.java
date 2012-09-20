@@ -19,11 +19,13 @@
  */
 package org.sonar.flex.parser;
 
+import com.google.common.base.Charsets;
 import com.sonar.sslr.impl.Parser;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 
 import java.io.File;
@@ -35,7 +37,7 @@ import java.util.Collection;
 public class FlexParserIntegrationTest {
 
   private final File file;
-  private final Parser<FlexGrammar> parser = FlexParser.create();
+  private final Parser<FlexGrammar> parser = FlexParser.create(new FlexConfiguration(Charsets.UTF_8));
 
   public FlexParserIntegrationTest(File file) {
     this.file = file;

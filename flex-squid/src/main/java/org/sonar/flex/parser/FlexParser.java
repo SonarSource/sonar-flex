@@ -30,10 +30,6 @@ public final class FlexParser {
   private FlexParser() {
   }
 
-  public static Parser<FlexGrammar> create(ParsingEventListener... parsingEventListeners) {
-    return create(new FlexConfiguration(), parsingEventListeners);
-  }
-
   public static Parser<FlexGrammar> create(FlexConfiguration conf, ParsingEventListener... parsingEventListeners) {
     return Parser.builder((FlexGrammar) new FlexGrammarImpl())
         .withLexer(FlexLexer.create(conf))

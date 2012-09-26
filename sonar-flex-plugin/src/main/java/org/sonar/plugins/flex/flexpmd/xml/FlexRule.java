@@ -114,10 +114,7 @@ public class FlexRule implements Comparable<String> {
   }
 
   public String getDescription() {
-    String desc = "";
-    if (description != null) {
-      desc += "<p>" + description + "</p>";
-    }
+    String desc = "<p>" + (description == null ? "" : description) + "</p>";
     if (example != null) {
       desc += "<pre>" + example + "</pre>";
     }

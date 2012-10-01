@@ -42,7 +42,7 @@ public class XPathCheck extends AbstractXPathCheck<FlexGrammar> {
 
   @RuleProperty(
     key = "message",
-    defaultValue = "" + DEFAULT_XPATH_QUERY)
+    defaultValue = "" + DEFAULT_MESSAGE)
   public String message = DEFAULT_MESSAGE;
 
   @Override

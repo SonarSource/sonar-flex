@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.codehaus.sonar-plugins.flex</groupId>
     <artifactId>flex</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.2</version>
   </parent>
 
   <artifactId>sslr-flex-toolkit</artifactId>

@@ -28,8 +28,7 @@ import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.api.FlexKeyword;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class XmlIdentifierTest {
 
@@ -43,10 +42,11 @@ public class XmlIdentifierTest {
 
   @Test
   public void realLife() {
-    assertThat(p, parse("name"));
-    assertThat(p, parse("some-name"));
-    assertThat(p, parse(FlexKeyword.CLASS.getValue()));
-    assertThat(p, parse("xmlns:util"));
+    assertThat(p)
+        .matches("name")
+        .matches("some-name")
+        .matches(FlexKeyword.CLASS.getValue())
+        .matches("xmlns:util");
   }
 
 }

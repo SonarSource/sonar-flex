@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class StatementTest {
 
@@ -47,16 +46,18 @@ public class StatementTest {
     g.useNamespaceDirective.mock();
     g.setVariableStatement.mock();
 
-    assertThat(p, parse("importDirective"));
-    assertThat(p, parse("includeDirective"));
-    assertThat(p, parse("useNamespaceDirective"));
-    assertThat("deprecated in ActionScript 3", p, parse("setVariableStatement"));
+    assertThat(p)
+        .matches("importDirective")
+        .matches("includeDirective")
+        .matches("useNamespaceDirective")
+        .as("deprecated in ActionScript 3").matches("setVariableStatement");
   }
 
   @Test
   public void realLife() {
-    assertThat(p, parse("delete account;"));
-    assertThat(p, parse("delete account.name;"));
+    assertThat(p)
+        .matches("delete account;")
+        .matches("delete account.name;");
   }
 
 }

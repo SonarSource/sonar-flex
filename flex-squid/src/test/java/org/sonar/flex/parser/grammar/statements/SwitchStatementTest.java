@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class SwitchStatementTest {
 
@@ -45,9 +44,10 @@ public class SwitchStatementTest {
     g.statement.mock();
     g.condition.mock();
 
-    assertThat(p, parse("switch condition { case expression : statement default : statement }"));
-    assertThat(p, parse("switch condition { default : statement case expression : statement }"));
-    assertThat(p, parse("switch condition { case expression : statement default : statement case expression : statement }"));
+    assertThat(p)
+        .matches("switch condition { case expression : statement default : statement }")
+        .matches("switch condition { default : statement case expression : statement }")
+        .matches("switch condition { case expression : statement default : statement case expression : statement }");
   }
 
 }

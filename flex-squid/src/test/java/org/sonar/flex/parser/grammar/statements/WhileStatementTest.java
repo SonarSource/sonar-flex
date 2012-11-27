@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class WhileStatementTest {
 
@@ -45,7 +44,8 @@ public class WhileStatementTest {
     g.statement.mock();
     g.condition.mock();
 
-    assertThat(p, parse("while condition statement"));
+    assertThat(p)
+        .matches("while condition statement");
   }
 
 }

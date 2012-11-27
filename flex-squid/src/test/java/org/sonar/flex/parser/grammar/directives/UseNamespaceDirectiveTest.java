@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class UseNamespaceDirectiveTest {
 
@@ -42,8 +41,9 @@ public class UseNamespaceDirectiveTest {
 
   @Test
   public void realLife() {
-    assertThat(p, parse("use namespace foo;"));
-    assertThat("semicolon is optional", p, parse("use namespace foo"));
+    assertThat(p)
+        .matches("use namespace foo;")
+        .as("semicolon is optional").matches("use namespace foo");
   }
 
 }

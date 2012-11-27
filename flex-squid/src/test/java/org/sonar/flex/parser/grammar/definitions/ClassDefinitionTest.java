@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class ClassDefinitionTest {
 
@@ -42,17 +41,17 @@ public class ClassDefinitionTest {
 
   @Test
   public void realLife() {
-    assertThat(p, parse("public class Foo extends Bar implements Baz , Qux { }"));
-    assertThat(p, parse("public class Foo extends org.example.Bar { }"));
-    assertThat(p, parse("class Foo implements org.example.Bar { }"));
-    assertThat(p, parse("class Foo { }"));
-    assertThat(p, parse("class Foo { public var data:Object = new Object(); /* ANOTHER SEMICOLON: */ ; }"));
-    assertThat(p, parse("class foo.bar {}"));
-    assertThat(p, parse("class Foo { import bar; }"));
-    assertThat(p, parse("class Foo { include 'bar'; }"));
-    assertThat(p, parse("class Foo { use namespace bar; }"));
-
-    assertThat("'intrinsic' deprecated in ActionScript 3", p, parse("intrinsic class ClassName { }"));
+    assertThat(p)
+        .matches("public class Foo extends Bar implements Baz , Qux { }")
+        .matches("public class Foo extends org.example.Bar { }")
+        .matches("class Foo implements org.example.Bar { }")
+        .matches("class Foo { }")
+        .matches("class Foo { public var data:Object = new Object(); /* ANOTHER SEMICOLON: */ ; }")
+        .matches("class foo.bar {}")
+        .matches("class Foo { import bar; }")
+        .matches("class Foo { include 'bar'; }")
+        .matches("class Foo { use namespace bar; }")
+        .as("'intrinsic' deprecated in ActionScript 3").matches("intrinsic class ClassName { }");
   }
 
 }

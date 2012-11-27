@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class ConditionalExpressionTest {
 
@@ -45,8 +44,9 @@ public class ConditionalExpressionTest {
     g.logicalOrExpression.mock();
     g.assignmentExpression.mock();
 
-    assertThat(p, parse("logicalOrExpression"));
-    assertThat(p, parse("logicalOrExpression ? assignmentExpression : assignmentExpression"));
+    assertThat(p)
+        .matches("logicalOrExpression")
+        .matches("logicalOrExpression ? assignmentExpression : assignmentExpression");
   }
 
 }

@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class XmlLiteralTest {
 
@@ -42,22 +41,23 @@ public class XmlLiteralTest {
 
   @Test
   public void realLife() {
-    assertThat(p, parse("<node></node>"));
-    assertThat(p, parse("<node/>"));
+    assertThat(p)
+        .matches("<node></node>")
+        .matches("<node/>")
 
-    assertThat(p, parse("<node attribute='value'></node>"));
-    assertThat(p, parse("<node attribute='value'/>"));
+        .matches("<node attribute='value'></node>")
+        .matches("<node attribute='value'/>")
 
-    assertThat(p, parse("<node>text</node>"));
-    assertThat(p, parse("<node><!-- this is a comment --></node>"));
-    assertThat(p, parse("<node><?test this is a pi ?></node>"));
-    assertThat(p, parse("<node><subnode></subnode><subnode></subnode></node>"));
+        .matches("<node>text</node>")
+        .matches("<node><!-- this is a comment --></node>")
+        .matches("<node><?test this is a pi ?></node>")
+        .matches("<node><subnode></subnode><subnode></subnode></node>")
 
-    assertThat(p, parse("<![CDATA[data]]>"));
+        .matches("<![CDATA[data]]>")
 
-    assertThat(p, parse("<{binding} attribute='value'/>"));
-    assertThat(p, parse("<node {binding}='value'/>"));
-    assertThat(p, parse("<node attribute={binding}/>"));
+        .matches("<{binding} attribute='value'/>")
+        .matches("<node {binding}='value'/>")
+        .matches("<node attribute={binding}/>");
   }
 
 }

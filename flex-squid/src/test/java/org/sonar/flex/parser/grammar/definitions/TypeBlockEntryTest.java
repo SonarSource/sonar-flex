@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class TypeBlockEntryTest {
 
@@ -42,8 +41,8 @@ public class TypeBlockEntryTest {
 
   @Test
   public void realLife() {
-    // Conditional compilation - see http://livedocs.adobe.com/flex/3/html/help.html?content=compilers_21.html
-    assertThat(p, parse("CONFIG::debug { }"));
+    assertThat(p)
+        // Conditional compilation - see http://livedocs.adobe.com/flex/3/html/help.html?content=compilers_21.html
+        .matches("CONFIG::debug { }");
   }
-
 }

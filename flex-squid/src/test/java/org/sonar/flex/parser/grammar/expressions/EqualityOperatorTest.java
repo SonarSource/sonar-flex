@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class EqualityOperatorTest {
 
@@ -42,14 +41,14 @@ public class EqualityOperatorTest {
 
   @Test
   public void ok() {
-    assertThat(p, parse("!="));
-    assertThat(p, parse("=="));
-    assertThat(p, parse("!=="));
-    assertThat(p, parse("==="));
-
-    assertThat("deprecated in ActionScript 3 in favor of !=", p, parse("ne"));
-    assertThat("deprecated in ActionScript 3 in favor of !=", p, parse("<>"));
-    assertThat("deprecated in ActionScript 3 in favor of ==", p, parse("eq"));
+    assertThat(p)
+        .matches("!=")
+        .matches("==")
+        .matches("!==")
+        .matches("===")
+        .as("deprecated in ActionScript 3 in favor of !=").matches("ne")
+        .as("deprecated in ActionScript 3 in favor of !=").matches("<>")
+        .as("deprecated in ActionScript 3 in favor of ==").matches("eq");
   }
 
 }

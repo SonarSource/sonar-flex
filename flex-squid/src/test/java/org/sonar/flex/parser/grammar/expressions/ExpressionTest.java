@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class ExpressionTest {
 
@@ -42,13 +41,14 @@ public class ExpressionTest {
 
   @Test
   public void realLife() {
-    assertThat(p, parse("2 > 1"));
-    assertThat(p, parse("(2 + 3) * 4"));
-    assertThat(p, parse("value != null"));
-    assertThat(p, parse("a > b ? a : b"));
-    assertThat(p, parse("new DefaultLogger(name)"));
-    assertThat(p, parse("new Vector.<String>()"));
-    assertThat(p, parse("new <int>[0]"));
+    assertThat(p)
+        .matches("2 > 1")
+        .matches("(2 + 3) * 4")
+        .matches("value != null")
+        .matches("a > b ? a : b")
+        .matches("new DefaultLogger(name)")
+        .matches("new Vector.<String>()")
+        .matches("new <int>[0]");
   }
 
 }

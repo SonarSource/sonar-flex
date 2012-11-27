@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class RelationalOperatorTest {
 
@@ -42,18 +41,18 @@ public class RelationalOperatorTest {
 
   @Test
   public void realLife() {
-    assertThat(p, parse("<"));
-    assertThat(p, parse("<="));
-    assertThat(p, parse(">"));
-    assertThat(p, parse(">="));
-    assertThat(p, parse("is"));
-    assertThat(p, parse("as"));
-    assertThat(p, parse("instanceof"));
-
-    assertThat("deprecated in ActionScript 3 in favor of >=", p, parse("ge"));
-    assertThat("deprecated in ActionScript 3 in favor of >", p, parse("gt"));
-    assertThat("deprecated in ActionScript 3 in favor of <=", p, parse("le"));
-    assertThat("deprecated in ActionScript 3 in favor of <", p, parse("lt"));
+    assertThat(p)
+        .matches("<")
+        .matches("<=")
+        .matches(">")
+        .matches(">=")
+        .matches("is")
+        .matches("as")
+        .matches("instanceof")
+        .as("deprecated in ActionScript 3 in favor of >=").matches("ge")
+        .as("deprecated in ActionScript 3 in favor of >").matches("gt")
+        .as("deprecated in ActionScript 3 in favor of <=").matches("le")
+        .as("deprecated in ActionScript 3 in favor of <").matches("lt");
   }
 
 }

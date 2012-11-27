@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class PackageDeclTest {
 
@@ -42,11 +41,12 @@ public class PackageDeclTest {
 
   @Test
   public void realLife() {
-    assertThat(p, parse("package IDENTIFIER { }"));
-    assertThat(p, parse("package IDENTIFIER { class IDENTIFIER { } }"));
-    assertThat(p, parse("package Foo { import bar; }"));
-    assertThat(p, parse("package Foo { include 'bar'; }"));
-    assertThat(p, parse("package Foo { use namespace bar; }"));
+    assertThat(p)
+        .matches("package IDENTIFIER { }")
+        .matches("package IDENTIFIER { class IDENTIFIER { } }")
+        .matches("package Foo { import bar; }")
+        .matches("package Foo { include 'bar'; }")
+        .matches("package Foo { use namespace bar; }");
   }
 
 }

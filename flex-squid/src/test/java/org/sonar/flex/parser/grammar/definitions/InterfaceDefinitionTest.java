@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class InterfaceDefinitionTest {
 
@@ -42,12 +41,13 @@ public class InterfaceDefinitionTest {
 
   @Test
   public void realLife() {
-    assertThat(p, parse("public interface IDENTIFIER extends IDENTIFIER , IDENTIFIER { }"));
-    assertThat(p, parse("interface IDENTIFIER { }"));
-    assertThat(p, parse("interface foo.bar extends foo.baz { }"));
-    assertThat(p, parse("interface Foo { import bar; }"));
-    assertThat(p, parse("interface Foo { include 'bar'; }"));
-    assertThat(p, parse("interface Foo { use namespace bar; }"));
+    assertThat(p)
+        .matches("public interface IDENTIFIER extends IDENTIFIER , IDENTIFIER { }")
+        .matches("interface IDENTIFIER { }")
+        .matches("interface foo.bar extends foo.baz { }")
+        .matches("interface Foo { import bar; }")
+        .matches("interface Foo { include 'bar'; }")
+        .matches("interface Foo { use namespace bar; }");
   }
 
 }

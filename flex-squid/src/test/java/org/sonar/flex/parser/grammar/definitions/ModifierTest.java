@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class ModifierTest {
 
@@ -42,16 +41,17 @@ public class ModifierTest {
 
   @Test
   public void realLife() {
-    assertThat(p, parse("public"));
-    assertThat(p, parse("private"));
-    assertThat(p, parse("protected"));
-    assertThat(p, parse("internal"));
-    assertThat(p, parse("static"));
-    assertThat(p, parse("final"));
-    assertThat(p, parse("dynamic"));
-    assertThat(p, parse("native"));
-    assertThat(p, parse("override"));
-    assertThat(p, parse("intrinsic"));
+    assertThat(p)
+        .matches("public")
+        .matches("private")
+        .matches("protected")
+        .matches("internal")
+        .matches("static")
+        .matches("final")
+        .matches("dynamic")
+        .matches("native")
+        .matches("override")
+        .matches("intrinsic");
   }
 
 }

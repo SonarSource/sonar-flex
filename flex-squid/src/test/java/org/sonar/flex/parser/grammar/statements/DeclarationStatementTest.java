@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class DeclarationStatementTest {
 
@@ -44,19 +43,21 @@ public class DeclarationStatementTest {
   public void ok() {
     g.variableDeclarator.mock();
 
-    assertThat(p, parse("var variableDeclarator;"));
-    assertThat(p, parse("var variableDeclarator , variableDeclarator;"));
-    assertThat(p, parse("const variableDeclarator;"));
-    assertThat(p, parse("const variableDeclarator , variableDeclarator;"));
+    assertThat(p)
+        .matches("var variableDeclarator;")
+        .matches("var variableDeclarator , variableDeclarator;")
+        .matches("const variableDeclarator;")
+        .matches("const variableDeclarator , variableDeclarator;");
   }
 
   @Test
   public void realLife() {
-    assertThat(p, parse("var result:Number = 0;"));
-    assertThat(p, parse("var result:String;"));
-    assertThat(p, parse("var result:String = 'ok';"));
-    assertThat(p, parse("var result:String = message;"));
-    assertThat(p, parse("final var b:Boolean = true;"));
+    assertThat(p)
+        .matches("var result:Number = 0;")
+        .matches("var result:String;")
+        .matches("var result:String = 'ok';")
+        .matches("var result:String = message;")
+        .matches("final var b:Boolean = true;");
   }
 
 }

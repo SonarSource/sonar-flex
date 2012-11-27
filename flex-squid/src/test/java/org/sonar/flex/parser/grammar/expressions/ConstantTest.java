@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class ConstantTest {
 
@@ -42,11 +41,12 @@ public class ConstantTest {
 
   @Test
   public void realLife() {
-    assertThat(p, parse("true"));
-    assertThat(p, parse("false"));
-    assertThat(p, parse("null"));
-    assertThat(p, parse("'hello world'"));
-    assertThat(p, parse("123"));
+    assertThat(p)
+        .matches("true")
+        .matches("false")
+        .matches("null")
+        .matches("'hello world'")
+        .matches("123");
   }
 
 }

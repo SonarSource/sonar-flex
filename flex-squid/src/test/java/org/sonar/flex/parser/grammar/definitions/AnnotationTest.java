@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class AnnotationTest {
 
@@ -42,12 +41,13 @@ public class AnnotationTest {
 
   @Test
   public void realLife() {
-    assertThat(p, parse("[Bindable]"));
-    assertThat(p, parse("[ChangeEvent()]"));
-    assertThat(p, parse("[ChangeEvent('event')]"));
-    assertThat(p, parse("[Inspectable(name = 'Icon Offset', verbose = 1, defaultValue = true)]"));
+    assertThat(p)
+        .matches("[Bindable]")
+        .matches("[ChangeEvent()]")
+        .matches("[ChangeEvent('event')]")
+        .matches("[Inspectable(name = 'Icon Offset', verbose = 1, defaultValue = true)]");
     // TODO
-    // assertThat(p, parse("[Inspectable(name = 'Icon Offset', verbose = 1, type = Boolean, defaultValue = true)]"));
+    // .matches("[Inspectable(name = 'Icon Offset', verbose = 1, type = Boolean, defaultValue = true)]"));
   }
 
 }

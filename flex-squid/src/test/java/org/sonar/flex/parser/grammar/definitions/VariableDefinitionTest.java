@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class VariableDefinitionTest {
 
@@ -42,10 +41,11 @@ public class VariableDefinitionTest {
 
   @Test
   public void realLife() {
-    assertThat(p, parse("private static const EMPTY:String = '';"));
-    assertThat(p, parse("public static var defaultStyle:ToStringStyle = '';"));
-    assertThat(p, parse("private var base:Object = {};"));
-    assertThat(p, parse("public namespace foo_bar = 'http://foo.bar';"));
+    assertThat(p)
+        .matches("private static const EMPTY:String = '';")
+        .matches("public static var defaultStyle:ToStringStyle = '';")
+        .matches("private var base:Object = {};")
+        .matches("public namespace foo_bar = 'http://foo.bar';");
   }
 
 }

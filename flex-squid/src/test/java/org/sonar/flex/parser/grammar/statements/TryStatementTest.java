@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class TryStatementTest {
 
@@ -42,9 +41,10 @@ public class TryStatementTest {
 
   @Test
   public void ok() {
-    assertThat(p, parse("try {} catch (e:IllegalArgumentError) {}"));
-    assertThat(p, parse("try {} catch (e:IllegalArgumentError) {} catch (e:Error) {}"));
-    assertThat(p, parse("try {} catch (e:IllegalArgumentError) {} finally {}"));
+    assertThat(p)
+        .matches("try {} catch (e:IllegalArgumentError) {}")
+        .matches("try {} catch (e:IllegalArgumentError) {} catch (e:Error) {}")
+        .matches("try {} catch (e:IllegalArgumentError) {} finally {}");
   }
 
 }

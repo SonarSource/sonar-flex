@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class SetVariableStatementTest {
 
@@ -42,8 +41,9 @@ public class SetVariableStatementTest {
 
   @Test
   public void realLife() {
-    assertThat(p, parse("set(variable, value);"));
-    assertThat(p, parse("set('variableName', value);"));
+    assertThat(p)
+        .matches("set(variable, value);")
+        .matches("set('variableName', value);");
   }
 
 }

@@ -30,10 +30,10 @@ import static com.sonar.sslr.impl.matcher.GrammarFunctions.Advanced.anyTokenButN
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Predicate.next;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Predicate.not;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.and;
+import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.firstOf;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.o2n;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.one2n;
 import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.opt;
-import static com.sonar.sslr.impl.matcher.GrammarFunctions.Standard.or;
 import static org.sonar.flex.api.FlexKeyword.BREAK;
 import static org.sonar.flex.api.FlexKeyword.CASE;
 import static org.sonar.flex.api.FlexKeyword.CATCH;
@@ -141,7 +141,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         o2n(packageBlockEntry),
         EOF);
 
-    arrayLiteral.is(or(
+    arrayLiteral.is(firstOf(
         and(LBRACK, opt(elision), RBRACK),
         and(LBRACK, elementList, RBRACK),
         and(LBRACK, elementList, COMMA, opt(elision), RBRACK)));
@@ -152,18 +152,18 @@ public class FlexGrammarImpl extends FlexGrammar {
     fieldList.is(literalField, o2n(COMMA, opt(literalField)));
     literalField.is(fieldName, COLON, element);
     element.is(assignmentExpression);
-    fieldName.is(or(
+    fieldName.is(firstOf(
         IDENTIFIER,
         LITERAL,
         NUMERIC_LITERAL));
 
     annotation.is(LBRACK, IDENTIFIER, opt(LPAREN, opt(annotationParam, o2n(COMMA, annotationParam)), RPAREN), RBRACK);
-    annotationParam.is(or(
+    annotationParam.is(firstOf(
         and(IDENTIFIER, ASSIGN, constant),
         constant,
         IDENTIFIER));
 
-    e4xAttributeIdentifier.is(E4X_ATTRI, or(
+    e4xAttributeIdentifier.is(E4X_ATTRI, firstOf(
         qualifiedIdent,
         STAR,
         and(LBRACK, expression, RBRACK)));
@@ -180,7 +180,7 @@ public class FlexGrammarImpl extends FlexGrammar {
 
     packageDecl.is(PACKAGE, opt(identifier), packageBlock);
     packageBlock.is(LCURLY, o2n(packageBlockEntry), RCURLY);
-    packageBlockEntry.is(or(
+    packageBlockEntry.is(firstOf(
         annotation,
         variableDefinition,
         classDefinition,
@@ -197,7 +197,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     interfaceExtendsClause.is(opt(EXTENDS, identifier, o2n(COMMA, identifier)));
     typeBlock.is(LCURLY, o2n(typeBlockEntry), RCURLY);
 
-    typeBlockEntry.is(or(
+    typeBlockEntry.is(firstOf(
         annotation,
         variableDefinition,
         methodDefinition,
@@ -209,19 +209,19 @@ public class FlexGrammarImpl extends FlexGrammar {
     methodDefinition.is(
         opt(modifiers),
         FUNCTION,
-        or(
+        firstOf(
             and(IDENTIFIER, next(LPAREN)),
             and(opt(accessorRole), IDENTIFIER)),
         parameterDeclarationList,
         opt(typeExpression),
-        or(
+        firstOf(
             block,
             opt(SEMI)));
-    accessorRole.is(or(
+    accessorRole.is(firstOf(
         "get",
         "set"));
     parameterDeclarationList.is(LPAREN, opt(parameterDeclaration, o2n(COMMA, parameterDeclaration)), RPAREN);
-    parameterDeclaration.is(or(
+    parameterDeclaration.is(firstOf(
         basicParameterDeclaration,
         parameterRestDeclaration));
     basicParameterDeclaration.is(opt(CONST), IDENTIFIER, opt(typeExpression), opt(parameterDefault));
@@ -229,7 +229,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     parameterRestDeclaration.is(REST, IDENTIFIER, opt(typeExpression));
 
     modifiers.is(o2n(modifier));
-    modifier.is(or(
+    modifier.is(firstOf(
         namespaceName,
         PUBLIC,
         PRIVATE,
@@ -243,11 +243,11 @@ public class FlexGrammarImpl extends FlexGrammar {
         deprecated("intrinsic")));
     namespaceName.is(not(NAMESPACE), IDENTIFIER);
 
-    variableDefinition.is(opt(modifiers), or(VAR, CONST, NAMESPACE), variableDeclarator, o2n(COMMA, variableDeclarator), opt(SEMI));
+    variableDefinition.is(opt(modifiers), firstOf(VAR, CONST, NAMESPACE), variableDeclarator, o2n(COMMA, variableDeclarator), opt(SEMI));
     variableDeclarator.is(IDENTIFIER, opt(typeExpression), opt(variableInitializer));
     variableInitializer.is(ASSIGN, assignmentExpression);
 
-    typeExpression.is(COLON, or(
+    typeExpression.is(COLON, firstOf(
         and(identifier, opt(DOT, LT, identifier, GT)),
         VOID,
         STAR));
@@ -256,7 +256,7 @@ public class FlexGrammarImpl extends FlexGrammar {
   }
 
   private void directives() {
-    directive.is(or(
+    directive.is(firstOf(
         importDirective,
         includeDirective,
         useNamespaceDirective)).skip();
@@ -266,7 +266,7 @@ public class FlexGrammarImpl extends FlexGrammar {
   }
 
   private void statements() {
-    statement.is(or(
+    statement.is(firstOf(
         block,
         labelledStatement,
         defaultXmlNamespaceStatement,
@@ -294,19 +294,19 @@ public class FlexGrammarImpl extends FlexGrammar {
     expressionList.is(assignmentExpression, o2n(COMMA, assignmentExpression));
 
     defaultXmlNamespaceStatement.is(DEFAULT, "xml", NAMESPACE, ASSIGN, expression, eos);
-    declarationStatement.is(opt(modifier), or(VAR, CONST), variableDeclarator, o2n(COMMA, variableDeclarator), eos);
+    declarationStatement.is(opt(modifier), firstOf(VAR, CONST), variableDeclarator, o2n(COMMA, variableDeclarator), eos);
     expressionStatement.is(expression, eos);
     labelledStatement.is(IDENTIFIER, COLON, statement);
     ifStatement.is(IF, condition, statement, opt(ELSE, statement));
     doWhileStatement.is(DO, statement, WHILE, condition, eos);
     whileStatement.is(WHILE, condition, statement);
     forEachStatement.is(FOR, "each", LPAREN, forInClause, RPAREN, statement);
-    forInClause.is(or(and(VAR, variableDeclarator), IDENTIFIER), IN, expressionList);
+    forInClause.is(firstOf(and(VAR, variableDeclarator), IDENTIFIER), IN, expressionList);
     forStatement.is(
         FOR, LPAREN,
-        or(
+        firstOf(
             forInClause,
-            and(opt(or(and(VAR, variableDeclarator, o2n(COMMA, variableDeclarator)), expressionList)), SEMI, opt(expressionList), SEMI, opt(expressionList))),
+            and(opt(firstOf(and(VAR, variableDeclarator, o2n(COMMA, variableDeclarator)), expressionList)), SEMI, opt(expressionList), SEMI, opt(expressionList))),
         RPAREN, statement);
     continueStatement.is(CONTINUE, opt(IDENTIFIER), eos);
     breakStatement.is(BREAK, opt(IDENTIFIER), eos);
@@ -319,7 +319,7 @@ public class FlexGrammarImpl extends FlexGrammar {
 
     throwStatement.is(THROW, expression, eos);
 
-    tryStatement.is(TRY, block, or(and(one2n(catchBlock), opt(finallyBlock)), finallyBlock));
+    tryStatement.is(TRY, block, firstOf(and(one2n(catchBlock), opt(finallyBlock)), finallyBlock));
     catchBlock.is(CATCH, LPAREN, IDENTIFIER, typeExpression, RPAREN, block);
     finallyBlock.is(FINALLY, block);
 
@@ -336,7 +336,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     expression.is(assignmentExpression);
 
     assignmentExpression.is(conditionalExpression, o2n(assignmentOperator, assignmentExpression)).skipIfOneChild();
-    assignmentOperator.is(or(ASSIGN,
+    assignmentOperator.is(firstOf(ASSIGN,
         star_assign,
         DIV_ASSIGN,
         MOD_ASSIGN,
@@ -354,12 +354,12 @@ public class FlexGrammarImpl extends FlexGrammar {
     conditionalExpression.is(logicalOrExpression, opt(QUESTION, assignmentExpression, COLON, assignmentExpression)).skipIfOneChild();
 
     logicalOrExpression.is(logicalAndExpression, o2n(logicalOrOperator, logicalAndExpression)).skipIfOneChild();
-    logicalOrOperator.is(or(
+    logicalOrOperator.is(firstOf(
         LOR,
         deprecated("or")));
 
     logicalAndExpression.is(bitwiseOrExpression, o2n(logicalAndOperator, bitwiseOrExpression)).skipIfOneChild();
-    logicalAndOperator.is(or(
+    logicalAndOperator.is(firstOf(
         LAND,
         deprecated("and")));
 
@@ -367,7 +367,7 @@ public class FlexGrammarImpl extends FlexGrammar {
     bitwiseXorExpression.is(bitwiseAndExpression, o2n(BXOR, bitwiseAndExpression)).skipIfOneChild();
     bitwiseAndExpression.is(equalityExpression, o2n(BAND, equalityExpression)).skipIfOneChild();
     equalityExpression.is(relationalExpression, o2n(equalityOperator, relationalExpression)).skipIfOneChild();
-    equalityOperator.is(or(
+    equalityOperator.is(firstOf(
         STRICT_EQUAL,
         STRICT_NOT_EQUAL,
         NOT_EQUAL,
@@ -376,7 +376,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         deprecated("eq"),
         deprecated(and(LT, adjacent(GT)))));
     relationalExpression.is(shiftExpression, o2n(relationalOperator, shiftExpression)).skipIfOneChild();
-    relationalOperator.is(or(
+    relationalOperator.is(firstOf(
         ge,
         LT,
         GT,
@@ -389,21 +389,21 @@ public class FlexGrammarImpl extends FlexGrammar {
         deprecated("le"),
         deprecated("lt")));
     shiftExpression.is(additiveExpression, o2n(shiftOperator, additiveExpression)).skipIfOneChild();
-    shiftOperator.is(or(
+    shiftOperator.is(firstOf(
         SL,
         SR,
         BSR));
     additiveExpression.is(multiplicativeExpression, o2n(additiveOperator, multiplicativeExpression)).skipIfOneChild();
-    additiveOperator.is(or(
+    additiveOperator.is(firstOf(
         PLUS,
         MINUS,
         deprecated("add")));
     multiplicativeExpression.is(unaryExpression, o2n(multiplicativeOperator, unaryExpression));
-    multiplicativeOperator.is(or(
+    multiplicativeOperator.is(firstOf(
         STAR,
         DIV,
         MOD));
-    unaryExpression.is(or(
+    unaryExpression.is(firstOf(
         and(deprecated("not"), unaryExpression),
         postfixExpression,
         and(DELETE, unaryExpression),
@@ -418,7 +418,7 @@ public class FlexGrammarImpl extends FlexGrammar {
 
     postfixExpression.is(
         primaryExpression,
-        o2n(or(
+        o2n(firstOf(
             and(DOT, qualifiedIdent),
             and(LBRACK, expression, RBRACK),
             and(DOT, LPAREN, expression, RPAREN),
@@ -426,9 +426,9 @@ public class FlexGrammarImpl extends FlexGrammar {
             and(DOT, STAR),
             DOT,
             arguments)),
-        opt(or(INC, DEC))).skipIfOneChild();
+        opt(firstOf(INC, DEC))).skipIfOneChild();
 
-    primaryExpression.is(or(
+    primaryExpression.is(firstOf(
         // UNDEFINED
         constant,
         arrayLiteral,
@@ -439,7 +439,7 @@ public class FlexGrammarImpl extends FlexGrammar {
         e4xAttributeIdentifier,
         and(LT, identifier, GT),
         qualifiedIdent)).skipIfOneChild();
-    constant.is(or(
+    constant.is(firstOf(
         LITERAL,
         NUMERIC_LITERAL,
         REGULAR_EXPRESSION_LITERAL,
@@ -450,31 +450,31 @@ public class FlexGrammarImpl extends FlexGrammar {
 
     functionExpression.is(FUNCTION, opt(IDENTIFIER), parameterDeclarationList, opt(typeExpression), block);
 
-    newExpression.is(NEW, primaryExpression, o2n(or(and(DOT, qualifiedIdent), and(LBRACK, expressionList, RBRACK))));
+    newExpression.is(NEW, primaryExpression, o2n(firstOf(and(DOT, qualifiedIdent), and(LBRACK, expressionList, RBRACK))));
 
-    qualifiedIdent.is(opt(namespaceName, DBL_COLON), or(IDENTIFIER, and(LBRACK, expression, RBRACK)), opt(DOT, LT, identifier, GT));
+    qualifiedIdent.is(opt(namespaceName, DBL_COLON), firstOf(IDENTIFIER, and(LBRACK, expression, RBRACK)), opt(DOT, LT, identifier, GT));
   }
 
   private void xml() {
-    xmlIdentifier.is(or(IDENTIFIER, FlexKeyword.class), o2n(adjacent(or(MINUS, COLON)), adjacent(or(IDENTIFIER, FlexKeyword.class))));
-    xmlLiteral.is(or(xmlNode, xmlCData));
+    xmlIdentifier.is(firstOf(IDENTIFIER, FlexKeyword.class), o2n(adjacent(firstOf(MINUS, COLON)), adjacent(firstOf(IDENTIFIER, FlexKeyword.class))));
+    xmlLiteral.is(firstOf(xmlNode, xmlCData));
     xmlNode.is(
         "<", xmlNodeName, o2n(xmlAttribute),
-        or(
+        firstOf(
             and(">", o2n(xmlNodeContent), "<", "/", xmlNodeName, ">"),
             and("/", ">")));
-    xmlNodeName.is(or(xmlIdentifier, xmlBinding));
-    xmlNodeContent.is(or(
+    xmlNodeName.is(firstOf(xmlIdentifier, xmlBinding));
+    xmlNodeContent.is(firstOf(
         xmlNode,
         xmlTextNode,
         xmlCData,
         xmlComment,
         and("<", "?", o2n(anyTokenButNot("?")), "?", ">")));
-    xmlAttribute.is(or(xmlIdentifier, xmlBinding), ASSIGN, or(LITERAL, xmlBinding));
-    xmlTextNode.is(anyTokenButNot(or("/", "<")));
+    xmlAttribute.is(firstOf(xmlIdentifier, xmlBinding), ASSIGN, firstOf(LITERAL, xmlBinding));
+    xmlTextNode.is(anyTokenButNot(firstOf("/", "<")));
     xmlComment.is("<", "!", "--", o2n(anyTokenButNot("--")), "--", ">");
     xmlCData.is("<", "!", "[", "CDATA", "[", o2n(anyTokenButNot("]")), "]", "]", ">");
-    xmlBinding.is("{", o2n(anyTokenButNot(or("{", "}"))), "}");
+    xmlBinding.is("{", o2n(anyTokenButNot(firstOf("{", "}"))), "}");
   }
 
   /**

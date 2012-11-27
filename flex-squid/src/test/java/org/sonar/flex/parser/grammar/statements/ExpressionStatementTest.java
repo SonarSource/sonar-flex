@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class ExpressionStatementTest {
 
@@ -44,7 +43,8 @@ public class ExpressionStatementTest {
   public void ok() {
     g.expression.mock();
 
-    assertThat(p, parse("expression;"));
+    assertThat(p)
+        .matches("expression;");
   }
 
 }

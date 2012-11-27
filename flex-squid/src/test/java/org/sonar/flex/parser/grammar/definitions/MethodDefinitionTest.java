@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class MethodDefinitionTest {
 
@@ -42,15 +41,16 @@ public class MethodDefinitionTest {
 
   @Test
   public void realLife() {
-    assertThat(p, parse("public static function foo(array:Array, item:*):Array { }"));
-    assertThat(p, parse("function foo():void;"));
-    assertThat(p, parse("function foo():void { }"));
-    assertThat(p, parse("public static function foo(array:Array, item:*):Array { }"));
-    assertThat(p, parse("public function ConnectedEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false) { }"));
-    assertThat(p, parse("function AsyncOperationResult(result:*=null) { }"));
-    assertThat(p, parse("function foo(...messages:Array):void { }"));
-    assertThat(p, parse("function get():void { }"));
-    assertThat(p, parse("public function debug(message:String, ... params:*):void { }"));
+    assertThat(p)
+        .matches("public static function foo(array:Array, item:*):Array { }")
+        .matches("function foo():void;")
+        .matches("function foo():void { }")
+        .matches("public static function foo(array:Array, item:*):Array { }")
+        .matches("public function ConnectedEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false) { }")
+        .matches("function AsyncOperationResult(result:*=null) { }")
+        .matches("function foo(...messages:Array):void { }")
+        .matches("function get():void { }")
+        .matches("public function debug(message:String, ... params:*):void { }");
   }
 
 }

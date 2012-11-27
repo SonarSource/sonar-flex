@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class IfStatementTest {
 
@@ -45,8 +44,9 @@ public class IfStatementTest {
     g.condition.mock();
     g.statement.mock();
 
-    assertThat(p, parse("if condition statement"));
-    assertThat(p, parse("if condition statement else statement"));
+    assertThat(p)
+        .matches("if condition statement")
+        .matches("if condition statement else statement");
   }
 
 }

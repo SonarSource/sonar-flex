@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class LabelledStatementTest {
 
@@ -44,12 +43,14 @@ public class LabelledStatementTest {
   public void ok() {
     g.statement.mock();
 
-    assertThat(p, parse("label: statement"));
+    assertThat(p)
+        .matches("label: statement");
   }
 
   @Test
   public void realLife() {
-    assertThat(p, parse("label: while (true) { break label; }"));
+    assertThat(p)
+        .matches("label: while (true) { break label; }");
   }
 
 }

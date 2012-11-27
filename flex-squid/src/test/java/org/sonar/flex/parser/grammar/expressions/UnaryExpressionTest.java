@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class UnaryExpressionTest {
 
@@ -44,9 +43,8 @@ public class UnaryExpressionTest {
   public void ok() {
     g.postfixExpression.mock();
 
-    assertThat(p, parse("! postfixExpression"));
-
-    assertThat("deprecated in ActionScript 3 in favor of !", p, parse("not postfixExpression"));
+    assertThat(p)
+        .matches("! postfixExpression")
+        .as("deprecated in ActionScript 3 in favor of !").matches("not postfixExpression");
   }
-
 }

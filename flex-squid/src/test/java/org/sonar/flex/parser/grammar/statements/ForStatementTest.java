@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class ForStatementTest {
 
@@ -42,12 +41,13 @@ public class ForStatementTest {
 
   @Test
   public void realLife() {
-    assertThat(p, parse("for (;;) {}"));
-    assertThat(p, parse("for (i = 0; i < 10; i++) {}"));
-    assertThat(p, parse("for (var i:int = 0; i < 10; i++) {}"));
-    assertThat(p, parse("for (var key:String in obj) {}"));
-    assertThat(p, parse("for (var i:int = arrProcessIndex; i < len; i += 16, arrProcessIndex += 16) {}"));
-    assertThat(p, parse("for (var i:int = 0, l:int = args.length; i < l; i++) {}"));
+    assertThat(p)
+        .matches("for (;;) {}")
+        .matches("for (i = 0; i < 10; i++) {}")
+        .matches("for (var i:int = 0; i < 10; i++) {}")
+        .matches("for (var key:String in obj) {}")
+        .matches("for (var i:int = arrProcessIndex; i < len; i += 16, arrProcessIndex += 16) {}")
+        .matches("for (var i:int = 0, l:int = args.length; i < l; i++) {}");
   }
 
 }

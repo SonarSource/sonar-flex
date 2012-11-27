@@ -27,8 +27,7 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 
-import static com.sonar.sslr.test.parser.ParserMatchers.parse;
-import static org.junit.Assert.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class ImportDirectiveTest {
 
@@ -42,10 +41,11 @@ public class ImportDirectiveTest {
 
   @Test
   public void realLife() {
-    assertThat(p, parse("import foo;"));
-    assertThat(p, parse("import foo.bar;"));
-    assertThat(p, parse("import foo.bar.*;"));
-    assertThat("semicolon is optional", p, parse("import foo;"));
+    assertThat(p)
+        .matches("import foo;")
+        .matches("import foo.bar;")
+        .matches("import foo.bar.*;")
+        .as("semicolon is optional").matches("import foo;");
   }
 
 }

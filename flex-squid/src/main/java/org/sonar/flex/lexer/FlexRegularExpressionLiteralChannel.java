@@ -61,56 +61,71 @@ public class FlexRegularExpressionLiteralChannel extends Channel<Lexer> {
   }
 
   private static final Set<String> WHOLE_TOKENS = ImmutableSet.of(
-    "break"
-    , "case"
-    , "continue"
-    , "delete"
-    , "do"
-    , "else"
-    , "finally"
-    , "in"
-    , "instanceof"
-    , "return"
-    , "throw"
-    , "try"
-    , "typeof"
-    , "void"
-    // Binary operators which cannot be followed by a division operator.
-    , "+" // Match + but not ++. += is handled below.
-    , "-" // Match - but not --. -= is handled below.
-    , "." // Match . but not a number with a trailing decimal.
-    , "/" // Match /, but not a regexp. /= is handled below.
-    , "," // Second binary operand cannot start a division.
-    , "*" // Ditto binary operand.
-  );
+      "break",
+      "case",
+      "continue",
+      "delete",
+      "do",
+      "else",
+      "finally",
+      "in",
+      "instanceof",
+      "return",
+      "throw",
+      "try",
+      "typeof",
+      "void",
+      // Binary operators which cannot be followed by a division operator:
+      // Match + but not ++. += is handled below.
+      "+",
+      // Match - but not --. -= is handled below.
+      "-",
+      // Match . but not a number with a trailing decimal.
+      ".",
+      // Match /, but not a regexp. /= is handled below.
+      "/",
+      // Second binary operand cannot start a division.
+      ",",
+      // Ditto binary operand.
+      "*");
 
   private static final String[] ENDS = new String[] {
-    "!" // ! prefix operator operand cannot start with a division
-    , "%" // % second binary operand cannot start with a division
-    , "&" // &, && ditto binary operand
-    , "(" // ( expression cannot start with a division
-    , ":" // : property value, labelled statement, and operand of ?:
-          // cannot start with a division
-    , ";" // ; statement & for condition cannot start with division
+    // ! prefix operator operand cannot start with a division
+    "!",
+    // % second binary operand cannot start with a division
+    "%",
+    // &, && ditto binary operand
+    "&",
+    // ( expression cannot start with a division
+    "(",
+    // : property value, labelled statement, and operand of ?: cannot start with a division
+    ":",
+    // ; statement & for condition cannot start with division
+    ";",
     // TODO Godin: next line was commented-out in order to support XML
     // , "<" // <, <<, << ditto binary operand
     // !=, !==, %=, &&=, &=, *=, +=, -=, /=, <<=, <=, =, ==, ===, >=, >>=, >>>=,
     // ^=, |=, ||=
     // All are binary operands (assignment ops or comparisons) whose right
     // operand cannot start with a division operator
-    , "="
-    , ">" // >, >>, >>> ditto binary operand
-    , "?" // ? expression in ?: cannot start with a division operator
-    , "[" // [ first array value & key expression cannot start with
-          // a division
-    , "^" // ^ ditto binary operand
-    , "{" // { statement in block and object property key cannot start
-          // with a division
-    , "|" // |, || ditto binary operand
-    , "}" // } PROBLEMATIC: could be an object literal divided or
-          // a block. More likely to be start of a statement after
-          // a block which cannot start with a /.
-    , "~" // ~ ditto binary operand
+    "=",
+    // >, >>, >>> ditto binary operand
+    ">",
+    // ? expression in ?: cannot start with a division operator
+    "?",
+    // [ first array value & key expression cannot start with a division
+    "[",
+    // ^ ditto binary operand
+    "^",
+    // { statement in block and object property key cannot start with a division
+    "{",
+    // |, || ditto binary operand
+    "|",
+    // } PROBLEMATIC: could be an object literal divided or a block.
+    // More likely to be start of a statement after a block which cannot start with a /.
+    "}",
+    // ~ ditto binary operand
+    "~"
   };
 
   // The exclusion of ++ and -- from the above is also problematic.

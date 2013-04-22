@@ -80,7 +80,7 @@ public class FlexPmdSensor implements Sensor {
     File workDir = new File(project.getFileSystem().getSonarWorkingDirectory(), "flexpmd");
     prepareWorkDir(workDir);
     List<File> sourceDirs = project.getFileSystem().getSourceDirs();
-    FlexPmdParameters parameters = new FlexPmdParameters("", workDir, rules, null, sourceDirs);
+    FlexPmdParameters parameters = new FlexPmdParameters("", workDir, rules, sourceDirs.get(0), sourceDirs);
     FlexPmdViolations violations = new FlexPmdViolations();
     new FlexPmdXmlEngine(parameters).executeReport(violations);
 

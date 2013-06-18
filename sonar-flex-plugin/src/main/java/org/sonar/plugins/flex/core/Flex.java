@@ -22,8 +22,8 @@ package org.sonar.plugins.flex.core;
 
 import java.util.List;
 
-import org.apache.commons.configuration.Configuration;
 import org.apache.commons.lang.StringUtils;
+import org.sonar.api.config.Settings;
 import org.sonar.api.resources.AbstractLanguage;
 import org.sonar.plugins.flex.FlexPlugin;
 
@@ -39,25 +39,24 @@ public class Flex extends AbstractLanguage {
 
   public static final String DEFAULT_FILE_SUFFIXES = "as,mxml";
 
-  private Configuration configuration;
+  private final Settings settings;
 
   /**
    * Creates the {@link Flex} language.
    * <br/>
    * <b>Do not call, this constructor is called by Pico container.</b>
-   * 
-   * @param configuration the configuration
+   *
    */
-  public Flex(Configuration configuration) {
+  public Flex(Settings settings) {
     super(KEY, NAME);
-    this.configuration = configuration;
+    this.settings = settings;
   }
 
   /**
    * {@inheritDoc}
    */
   public String[] getFileSuffixes() {
-    String[] suffixes = filterEmptyStrings(configuration.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY));
+    String[] suffixes = filterEmptyStrings(settings.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY));
     if (suffixes.length == 0) {
       suffixes = StringUtils.split(DEFAULT_FILE_SUFFIXES, ",");
     }

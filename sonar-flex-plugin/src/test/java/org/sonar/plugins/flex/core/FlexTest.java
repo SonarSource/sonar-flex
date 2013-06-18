@@ -20,9 +20,8 @@
 
 package org.sonar.plugins.flex.core;
 
-import org.apache.commons.configuration.BaseConfiguration;
-import org.apache.commons.configuration.Configuration;
 import org.junit.Test;
+import org.sonar.api.config.Settings;
 import org.sonar.plugins.flex.FlexPlugin;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -31,15 +30,15 @@ public class FlexTest {
 
   @Test
   public void testGetFileSuffixes() {
-    Configuration configuration = new BaseConfiguration();
-    Flex flex = new Flex(configuration);
+    Settings settings = new Settings();
+    Flex flex = new Flex(settings);
 
     assertThat(flex.getFileSuffixes()).isEqualTo(new String[] {"as", "mxml"});
 
-    configuration.setProperty(FlexPlugin.FILE_SUFFIXES_KEY, "");
+    settings.setProperty(FlexPlugin.FILE_SUFFIXES_KEY, "");
     assertThat(flex.getFileSuffixes()).isEqualTo(new String[] {"as", "mxml"});
 
-    configuration.setProperty(FlexPlugin.FILE_SUFFIXES_KEY, "as, swc");
+    settings.setProperty(FlexPlugin.FILE_SUFFIXES_KEY, "as, swc");
     assertThat(flex.getFileSuffixes()).isEqualTo(new String[] {"as", "swc"});
   }
 

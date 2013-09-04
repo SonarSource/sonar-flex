@@ -4,15 +4,15 @@
     <name>Portability</name>
     <chc>
       <key>COMPILER_RELATED_PORTABILITY</key>
-      <name>Compiler related portability</name>
+      <name>Compiler</name>
     </chc>
     <chc>
       <key>HARDWARE_RELATED_PORTABILITY</key>
-      <name>Hardware related portability</name>
+      <name>Hardware</name>
     </chc>
     <chc>
       <key>LANGUAGE_RELATED_PORTABILITY</key>
-      <name>Language related portability</name>
+      <name>Language</name>
       <chc>
         <rule-repo>flex</rule-repo>
         <rule-key>ActionScript2</rule-key>
@@ -29,11 +29,11 @@
     </chc>
     <chc>
       <key>OS_RELATED_PORTABILITY</key>
-      <name>OS related portability</name>
+      <name>OS</name>
     </chc>
     <chc>
       <key>SOFTWARE_RELATED_PORTABILITY</key>
-      <name>Software related portability</name>
+      <name>Software</name>
       <chc>
         <rule-repo>flexplugin</rule-repo>
         <rule-key>com.adobe.ac.pmd.rules.architecture.MonkeyPatchingRule</rule-key>
@@ -50,7 +50,7 @@
     </chc>
     <chc>
       <key>TIME_ZONE_RELATED_PORTABILITY</key>
-      <name>Time zone related portability</name>
+      <name>Time zone</name>
     </chc>
   </chc>
   <chc>
@@ -658,7 +658,7 @@
     <name>Changeability</name>
     <chc>
       <key>ARCHITECTURE_CHANGEABILITY</key>
-      <name>Architecture related changeability</name>
+      <name>Architecture</name>
       <chc>
         <rule-repo>flexplugin</rule-repo>
         <rule-key>com.adobe.ac.pmd.rules.maintanability.ExcessiveImportRule</rule-key>
@@ -786,7 +786,7 @@
     </chc>
     <chc>
       <key>DATA_CHANGEABILITY</key>
-      <name>Data related changeability</name>
+      <name>Data</name>
       <chc>
         <rule-repo>flexplugin</rule-repo>
         <rule-key>com.adobe.ac.pmd.rules.binding.ChangeWatcherRule</rule-key>
@@ -865,7 +865,7 @@
     </chc>
     <chc>
       <key>LOGIC_CHANGEABILITY</key>
-      <name>Logic related changeability</name>
+      <name>Logic</name>
       <chc>
         <rule-repo>common-flex</rule-repo>
         <rule-key>DuplicatedBlocks</rule-key>
@@ -886,7 +886,7 @@
     <name>Reliability</name>
     <chc>
       <key>ARCHITECTURE_RELIABILITY</key>
-      <name>Architecture related reliability</name>
+      <name>Architecture</name>
       <chc>
         <rule-repo>flexplugin</rule-repo>
         <rule-key>com.adobe.ac.pmd.rules.maintanability.ClassAndExtensionAreIdenticalRule</rule-key>
@@ -915,7 +915,7 @@
     </chc>
     <chc>
       <key>DATA_RELIABILITY</key>
-      <name>Data related reliability</name>
+      <name>Data</name>
       <chc>
         <rule-repo>flexplugin</rule-repo>
         <rule-key>com.adobe.ac.pmd.rules.css.UseCssInsteadOfEmbedMetaDataRule</rule-key>
@@ -1024,7 +1024,7 @@
     </chc>
     <chc>
       <key>INSTRUCTION_RELIABILITY</key>
-      <name>Instruction related reliability</name>
+      <name>Instruction</name>
       <chc>
         <rule-repo>flexplugin</rule-repo>
         <rule-key>com.adobe.ac.pmd.rules.naming.IncorrectEventHandlerNameRule</rule-key>
@@ -1106,7 +1106,7 @@
     </chc>
     <chc>
       <key>LOGIC_RELIABILITY</key>
-      <name>Logic related reliability</name>
+      <name>Logic</name>
       <chc>
         <rule-repo>flexplugin</rule-repo>
         <rule-key>com.adobe.ac.pmd.rules.maintanability.UselessOverridenFunctionRule</rule-key>
@@ -1185,7 +1185,7 @@
     </chc>
     <chc>
       <key>SYNCHRONIZATION_RELIABILITY</key>
-      <name>Synchronization related reliability</name>
+      <name>Synchronization</name>
       <chc>
         <rule-repo>flexplugin</rule-repo>
         <rule-key>com.adobe.ac.pmd.rules.event.ConstructorDispatchingEventRule</rule-key>
@@ -1284,11 +1284,11 @@
     <name>Testability</name>
     <chc>
       <key>INTEGRATION_TESTABILITY</key>
-      <name>Integration level testability</name>
+      <name>Integration level</name>
     </chc>
     <chc>
       <key>UNIT_TESTABILITY</key>
-      <name>Unit level testability</name>
+      <name>Unit level</name>
       <chc>
         <rule-repo>flexplugin</rule-repo>
         <rule-key>com.adobe.ac.pmd.rules.flexunit.EmptyUnitTest</rule-key>

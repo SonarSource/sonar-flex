@@ -24,17 +24,21 @@ import org.junit.Test;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class ObjectInitialiserTest {
+public class BinaryExpressionTest {
 
   private LexerlessGrammar g = FlexGrammar.createGrammar();
 
-  
   @Test
-  public void emptyFieldList() {
-    Assertions.assertThat(g.rule(FlexGrammar.OBJECT_INITIALISER))
-      .matches("{}")
-      .matches("{   }");
-      
+  public void multiplicative() {
+    Assertions.assertThat(g.rule(FlexGrammar.MULTIPLICATIVE_EXPR))
+      .matches("25*3")
+      .matches("25*10*2");
   }
-  
+
+  @Test
+  public void additive() {
+    Assertions.assertThat(g.rule(FlexGrammar.ADDITIVE_EXPR))
+      .matches("3+  7")
+      .matches("3+  7+ 2");
+  }
 }

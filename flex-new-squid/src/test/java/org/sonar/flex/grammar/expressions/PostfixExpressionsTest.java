@@ -24,14 +24,22 @@ import org.junit.Test;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class ArrayInitialiserTest {
+public class PostfixExpressionsTest {
 
   private LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void emptyFieldList() {
-    Assertions.assertThat(g.rule(FlexGrammar.ARRAY_INITIALISER))
-      .matches("[]")
-      .matches("[   ]");
+  public void postfixExpression() {
+    Assertions.assertThat(g.rule(FlexGrammar.POSTFIX_EXPR))
+      .matches("internal  ") // Primary expression
+      .matches("super().f") // Super expression
+      .matches("new Object()"); // Full new expression
+
+  }
+
+  @Test
+  public void Argument() {
+    Assertions.assertThat(g.rule(FlexGrammar.ARGUMENTS))
+      .matches("()"); // Primary expression
   }
 }

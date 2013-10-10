@@ -21,11 +21,15 @@ package org.sonar.flex;
 
 import org.sonar.sslr.grammar.GrammarRuleKey;
 import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
+import org.sonar.sslr.internal.vm.FirstOfExpression;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 public enum FlexGrammar implements GrammarRuleKey {
 
-  // Keywords
+  /**
+   * KEYWORDS
+   */
+  // <editor-fold defaultstate="collapsed" desc="Keywords">
   AS,
   BREAK,
   CASE,
@@ -71,7 +75,12 @@ public enum FlexGrammar implements GrammarRuleKey {
   VOID,
   WHILE,
   WITH,
-  // Syntatic keywords
+  // </editor-fold>
+  
+  /**
+   * SYNTATIC KEYWORDS 
+   */
+  // <editor-fold defaultstate="collapsed" desc="Syntactic Keywords">
   EACH,
   GET,
   SET,
@@ -85,7 +94,12 @@ public enum FlexGrammar implements GrammarRuleKey {
   NUMBER,
   WHITESPACE,
   IDENTIFIER_PART,
-  //Expressions
+  // </editor-fold>
+  
+  /**
+   * EXPRESSIONS
+   */
+  // <editor-fold defaultstate="collapsed" desc="Expression">
   PRIMARY_EXPR,
   RESERVED_NAMESPACE,
   PARENTHESIZED_EXPR,
@@ -145,7 +159,83 @@ public enum FlexGrammar implements GrammarRuleKey {
   NON_ASSIGNMENT_EXPR,
   // Type expression
   TYPE_EXPR,
-  // Ponctuators
+  // </editor-fold>
+  
+  /**
+   * DEFINITIONS
+   */
+  // <editor-fold defaultstate="collapsed" desc="Definitions">
+  // Variable
+  VARIABLE_DEF,
+  VARIABLE_DEF_KIND,
+  VARIABLE_BINDING_LIST,
+  VARIABLE_BINDING,
+  VARIABLE_INITIALISATION,
+  TYPED_IDENTIFIER,
+  VARIABLE_INITIALISER,
+  // Function
+  FUNCTION_DEF,
+  FUNCTION_NAME,
+  FUNCTION_COMMON,
+  FUNCTION_SIGNATURE,
+  RESULT_TYPE,
+  PARAMETERS,
+  PARAMETER,
+  NON_EMPTY_PARAMETERS,
+  REST_PARAMETERS,
+  // Class
+  CLASS_DEF,
+  CLASS_NAME,
+  INHERITENCE,
+  CLASS_IDENTIFIERS,
+  TYPE_EXPRESSION_LIST,
+  // Interface
+  INTERFACE_DEF,
+  EXTENDS_LIST,
+  // Package
+  PACKAGE_DEF,
+  PACKAGE_NAME,
+  // Namespace
+  NAMESPACE_DEF,
+  NAMESPACE_BINDING,
+  NAMESPACE_INITIALISATION,
+  // Program
+  PROGRAM,
+  
+  // </editor-fold>
+  
+  /**
+   * STATEMENTS
+   */
+  // <editor-fold defaultstate="collapsed" desc="Statements">
+  BLOCK,
+  EMPTY_STATEMENT,
+  STATEMENT,
+  SEMICOLON,
+  // </editor-fold>
+   
+  /**
+   * DIRECTIVES
+   */
+  // <editor-fold defaultstate="collapsed" desc="Directives">
+  DIRECTIVES,
+  DIRECTIVE,
+  DIRECTIVES_PREFIX,
+  ANNOTABLE_DIRECTIVE,
+  USE_DIRECTIVE,
+  IMPORT_DIRECTIVE,
+  INCLUDE_DIRECTIVE,
+  ATTRIBUTES,
+  ATTRIBUTE,
+  ATTRIBUTE_COMBINATION,
+  ATTRIBUTE_EXPR,
+  
+  // </editor-fold>
+  
+  /**
+   * PONCTUATORS
+   */
+  // <editor-fold defaultstate="collapsed" desc="Ponctuators">
   AT_SIGN,
   COMMA,
   COLON,
@@ -199,20 +289,23 @@ public enum FlexGrammar implements GrammarRuleKey {
   OROR,
   QUERY,
   TILD,
-  // Unknown
-  FUNCTION_COMMON,;
-
+  TRIPLE_DOTS;
+  // </editor-fold>
+  
   public static LexerlessGrammar createGrammar() {
     LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
 
     b.rule(WHITESPACE).is(b.regexp("\\s*"));
     b.rule(IDENTIFIER_PART).is(b.regexp("[a-zA-Z0-9]"), WHITESPACE);
 
-    b.rule(STRING).is(b.regexp("\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\""));
+    b.rule(STRING).is(b.regexp("\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\""), WHITESPACE);
     b.rule(NUMBER).is(b.regexp("[0-9]+"), WHITESPACE);
     b.rule(SYNTACTIC_IDENTIFIER).is(b.regexp("[a-zA-Z0-9]+"), WHITESPACE);
 
-    // Keywords
+    /** 
+     * KEYWORDS
+     */
+    // <editor-fold defaultstate="collapsed" desc="Keywords definition">
     b.rule(AS).is("as", b.nextNot(IDENTIFIER_PART), WHITESPACE);
     b.rule(BREAK).is("break", b.nextNot(IDENTIFIER_PART), WHITESPACE);
     b.rule(CASE).is("case", b.nextNot(IDENTIFIER_PART), WHITESPACE);
@@ -258,8 +351,12 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(VOID).is("void", b.nextNot(IDENTIFIER_PART), WHITESPACE);
     b.rule(WHILE).is("while", b.nextNot(IDENTIFIER_PART), WHITESPACE);
     b.rule(WITH).is("with", b.nextNot(IDENTIFIER_PART), WHITESPACE);
+    // </editor-fold>
 
-    // Syntatic keywords
+    /** 
+     * SYNTACTIC KEYWORDS
+     */
+    // <editor-fold defaultstate="collapsed" desc="Syntactic keywords definition">
     b.rule(EACH).is("each", b.nextNot(IDENTIFIER_PART), WHITESPACE);
     b.rule(GET).is("get", b.nextNot(IDENTIFIER_PART), WHITESPACE);
     b.rule(SET).is("set", b.nextNot(IDENTIFIER_PART), WHITESPACE);
@@ -269,13 +366,18 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(FINAL).is("final", b.nextNot(IDENTIFIER_PART), WHITESPACE); 
     b.rule(OVERRIDE).is("override", b.nextNot(IDENTIFIER_PART), WHITESPACE);
     b.rule(STATIC).is("static", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-
-    // Ponctuator
+    // </editor-fold>
+    
+    /** 
+     * PONCTUATORS
+     */
+    // <editor-fold defaultstate="collapsed" desc="Ponctuator definition">
     b.rule(AT_SIGN).is("@", WHITESPACE);
     b.rule(COMMA).is(",", WHITESPACE);
     b.rule(COLON).is(":", WHITESPACE);
     b.rule(DOUBLE_COLON).is("::", WHITESPACE);
     b.rule(DOT).is(".", WHITESPACE);
+    b.rule(TRIPLE_DOTS).is("...", WHITESPACE);
     b.rule(DOUBLE_DOT).is("..", WHITESPACE);
     b.rule(RCURLYBARCE).is("}", WHITESPACE);
     b.rule(LCURLYBARCE).is("{", WHITESPACE);
@@ -324,9 +426,12 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(OROR).is("||", WHITESPACE);
     b.rule(QUERY).is("?", WHITESPACE);
     b.rule(TILD).is("~", WHITESPACE);
+    // </editor-fold>
 
-
-    // Expressions
+    /** 
+     * EXPRESSIONS
+     */
+    // <editor-fold defaultstate="collapsed" desc="Expressions definition">
     // Identifiers
     b.rule(LEXICAL_IDENTIFIER).is(b.firstOf(
       DYNAMIC,
@@ -561,8 +666,151 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(TYPE_EXPR).is(NON_ASSIGNMENT_EXPR);
 
-    // Unknown
-    b.rule(FUNCTION_COMMON).is(b.nothing());
+    // </editor-fold> 
+    
+    /** 
+     * DEFINITIONS
+     */
+    // <editor-fold defaultstate="collapsed" desc="Definitions">
+    // Variable
+    b.rule(VARIABLE_DEF).is(VARIABLE_DEF_KIND, VARIABLE_BINDING_LIST);
+    b.rule(VARIABLE_DEF_KIND).is(b.firstOf(VAR, CONST));
+    b.rule(VARIABLE_BINDING_LIST).is(VARIABLE_BINDING, 
+                                     b.zeroOrMore(COMMA, VARIABLE_BINDING));
+    
+    b.rule(VARIABLE_BINDING).is(TYPED_IDENTIFIER, VARIABLE_INITIALISATION);
+    b.rule(VARIABLE_INITIALISATION).is(b.optional(EQU, VARIABLE_INITIALISER));
+    
+    b.rule(VARIABLE_INITIALISER).is(b.firstOf(
+      ASSIGNMENT_EXPR, 
+      ATTRIBUTE_COMBINATION));
+    
+    b.rule(TYPED_IDENTIFIER).is(b.firstOf(
+      b.sequence(LEXICAL_IDENTIFIER, COLON, TYPE_EXPR),
+      LEXICAL_IDENTIFIER));
+    
+    //Function
+    b.rule(FUNCTION_DEF).is(FUNCTION, FUNCTION_NAME, FUNCTION_COMMON);
+    b.rule(FUNCTION_NAME).is(b.firstOf(
+      b.sequence(GET, /*Non line break*/ SYNTACTIC_IDENTIFIER),
+      b.sequence(SET, /*Non line break*/ SYNTACTIC_IDENTIFIER),
+      SYNTACTIC_IDENTIFIER));
+    
+    b.rule(FUNCTION_COMMON).is(b.firstOf(
+      b.sequence(FUNCTION_SIGNATURE, BLOCK),
+      FUNCTION_SIGNATURE));
+    
+    b.rule(FUNCTION_SIGNATURE).is(b.firstOf(
+      b.sequence(LPARENTHESIS, RPARENTHESIS, RESULT_TYPE),
+      b.sequence(LPARENTHESIS, PARAMETERS, RPARENTHESIS, RESULT_TYPE)));
+    
+    b.rule(PARAMETERS).is(b.optional(NON_EMPTY_PARAMETERS));
+    b.rule(NON_EMPTY_PARAMETERS).is(b.firstOf(
+      PARAMETER,
+      b.sequence(PARAMETER, COMMA, NON_EMPTY_PARAMETERS),
+      REST_PARAMETERS));
+    
+    b.rule(PARAMETER).is(b.firstOf(
+      TYPED_IDENTIFIER,
+      b.sequence(TYPED_IDENTIFIER, EQU, ASSIGNMENT_EXPR)));
+    
+    b.rule(REST_PARAMETERS).is(b.firstOf(
+      TRIPLE_DOTS,
+      b.sequence(TRIPLE_DOTS, SYNTACTIC_IDENTIFIER)));
+    
+    b.rule(RESULT_TYPE).is(b.optional(COLON, TYPE_EXPR));
+    
+    // Class
+    b.rule(CLASS_DEF).is(CLASS, CLASS_NAME, INHERITENCE, BLOCK);
+    b.rule(CLASS_NAME).is(CLASS_IDENTIFIERS);
+    b.rule(CLASS_IDENTIFIERS).is(SYNTACTIC_IDENTIFIER, 
+      b.zeroOrMore(b.sequence(DOT, SYNTACTIC_IDENTIFIER)));
+    b.rule(INHERITENCE).is(b.optional(b.firstOf(
+      b.sequence(EXTENDS, TYPE_EXPR),
+      b.sequence(IMPLEMENTS, TYPE_EXPRESSION_LIST),
+      b.sequence(EXTENDS, TYPE_EXPR, IMPLEMENTS, TYPE_EXPRESSION_LIST))));
+    
+    b.rule(TYPE_EXPRESSION_LIST).is(TYPE_EXPR, 
+      b.zeroOrMore(b.sequence(COMMA, TYPE_EXPR)));
+    
+    b.rule(INTERFACE_DEF).is(INTERFACE, CLASS_NAME, EXTENDS_LIST, BLOCK);
+    b.rule(EXTENDS_LIST).is(b.optional(EXTENDS, TYPE_EXPRESSION_LIST));
+    
+    // Package
+    b.rule(PACKAGE_DEF).is(PACKAGE, b.optional(PACKAGE_NAME), BLOCK);
+    b.rule(PACKAGE_NAME).is(SYNTACTIC_IDENTIFIER,
+                            b.optional(DOT, SYNTACTIC_IDENTIFIER));
+
+    // Namespace
+    b.rule(NAMESPACE_DEF).is(NAMESPACE, NAMESPACE_BINDING);
+    b.rule(NAMESPACE_BINDING).is(SYNTACTIC_IDENTIFIER, 
+                                 NAMESPACE_INITIALISATION);
+    b.rule(NAMESPACE_INITIALISATION).is(b.optional(EQU, ASSIGNMENT_EXPR));
+
+    // Program
+    b.rule(PROGRAM).is(b.firstOf(DIRECTIVES, b.sequence(PACKAGE_DEF, PROGRAM)));
+    // </editor-fold>
+    
+    /** 
+     * STATEMENTS
+     */
+    // <editor-fold defaultstate="collapsed" desc="Statements">
+    b.rule(BLOCK).is(LCURLYBARCE, DIRECTIVES, RCURLYBARCE);
+    b.rule(EMPTY_STATEMENT).is(b.nothing());
+    b.rule(STATEMENT).is(b.nothing());
+    b.rule(SEMICOLON).is(b.nothing());
+    // </editor-fold>
+    
+    /** 
+     * DIRECTIVES
+     */
+    // <editor-fold defaultstate="collapsed" desc="Directives definitions">
+    // Directives
+    b.rule(DIRECTIVE).is(b.firstOf(
+      EMPTY_STATEMENT,
+      STATEMENT,
+      ANNOTABLE_DIRECTIVE,
+      b.sequence(ATTRIBUTES, /*No line break*/ ANNOTABLE_DIRECTIVE),
+      b.sequence(INCLUDE_DIRECTIVE, /*No line break*/ SEMICOLON),
+      b.sequence(IMPORT_DIRECTIVE, /*No line break*/ SEMICOLON),
+      b.sequence(USE_DIRECTIVE, /*No line break*/ SEMICOLON)));
+    
+    b.rule(ANNOTABLE_DIRECTIVE).is(b.firstOf(
+      b.sequence(VARIABLE_DEF, SEMICOLON),
+      FUNCTION_DEF,
+      CLASS_DEF,
+      INTERFACE_DEF,
+      b.sequence(NAMESPACE_DEF, SEMICOLON)));
+    
+    b.rule(DIRECTIVES).is(b.optional(DIRECTIVES_PREFIX, DIRECTIVE/*ABBREV*/));
+
+    b.rule(DIRECTIVES_PREFIX).is(b.optional(DIRECTIVE/*full*/));
+    
+    // Attributes
+    b.rule(ATTRIBUTES).is(b.firstOf(ATTRIBUTE, ATTRIBUTE_COMBINATION));
+    b.rule(ATTRIBUTE_COMBINATION).is(ATTRIBUTE, /*No line break*/ ATTRIBUTES);
+    b.rule(ATTRIBUTE).is(b.firstOf(
+      ATTRIBUTE_EXPR,
+      RESERVED_NAMESPACE,
+      b.sequence(LBRAKET, ASSIGNMENT_EXPR, RBRAKET)));
+    
+    b.rule(ATTRIBUTE_EXPR).is(LEXICAL_IDENTIFIER, 
+                              b.zeroOrMore(PROPERTY_OPERATOR));
+   
+    // Import
+    b.rule(IMPORT_DIRECTIVE).is(b.firstOf(
+      b.sequence(IMPORT, PACKAGE_NAME, DOT, STAR),
+      b.sequence(IMPORT, PACKAGE_NAME, DOT, SYNTACTIC_IDENTIFIER)
+      ));
+    
+    // Include
+    b.rule(INCLUDE_DIRECTIVE).is(INCLUDE, /*No line break*/ STRING);
+    
+    // Use
+    b.rule(USE_DIRECTIVE).is(USE, NAMESPACE, LIST_EXPRESSION);
+    
+    // </editor-fold>
+   
     return b.build();
   }
 }

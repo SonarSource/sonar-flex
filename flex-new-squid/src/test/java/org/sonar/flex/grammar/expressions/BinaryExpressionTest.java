@@ -32,7 +32,8 @@ public class BinaryExpressionTest {
   public void multiplicative() {
     Assertions.assertThat(g.rule(FlexGrammar.MULTIPLICATIVE_EXPR))
       .matches("25*3")
-      .matches("25*10*2");
+      .matches("25*10*2")
+      .matches("25 %  10*2");
   }
 
   @Test
@@ -40,5 +41,53 @@ public class BinaryExpressionTest {
     Assertions.assertThat(g.rule(FlexGrammar.ADDITIVE_EXPR))
       .matches("3+  7")
       .matches("3+  7+ 2");
+  }
+  
+  
+  @Test
+  public void shift() {
+    Assertions.assertThat(g.rule(FlexGrammar.SHIFT_EXPR))
+      .matches("3 <<  7")
+      .matches("3+  7 >>2")
+      .matches("3+  7 >>>2");
+  }
+  
+  @Test
+  public void relational() {
+    Assertions.assertThat(g.rule(FlexGrammar.RELATIONAL_EXPR))
+      .matches("3 > 2 < 1")
+      .matches("( 3 >= 2) < 1")
+      .matches("(true) < 1")
+      .matches("f is I");
+  }
+  
+  @Test
+  public void equality() {
+    Assertions.assertThat(g.rule(FlexGrammar.EQUALITY_EXPR))
+      .matches("x == new Object()")
+      .matches("x == f(y, z)")
+      .matches("x == f(y , z).yeah");
+  }
+  
+  @Test
+  public void bitezise() {
+    Assertions.assertThat(g.rule(FlexGrammar.BITEWISE_AND_EXPR))
+      .matches("x&f(y , z).yeah");
+    
+    Assertions.assertThat(g.rule(FlexGrammar.BITEWISE_XOR_EXPR))
+      .matches("var+U^   secondvar");
+    
+    Assertions.assertThat(g.rule(FlexGrammar.BITEWISE_OR_EXPR))
+      .matches("x().z |f(y, z)");
+  }
+  
+  
+  @Test
+  public void logical() {
+    Assertions.assertThat(g.rule(FlexGrammar.LOGICAL_AND_EXPR))
+      .matches("x&f(y , z).yeah &&plouf");
+    
+    Assertions.assertThat(g.rule(FlexGrammar.LOGICAL_OR_EXPR))
+      .matches("x&f(y , z).yeah ||plouf || pelouse43");
   }
 }

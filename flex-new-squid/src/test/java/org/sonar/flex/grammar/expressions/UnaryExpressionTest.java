@@ -24,40 +24,16 @@ import org.junit.Test;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class PrimaryExpressionsTest {
+public class UnaryExpressionTest {
 
   private LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void String() {
-    Assertions.assertThat(g.rule(FlexGrammar.PRIMARY_EXPR))
-      .matches("\"Sonar source\"");
-  }
-
-  @Test
-  public void reservedNamespace() {
-    Assertions.assertThat(g.rule(FlexGrammar.PRIMARY_EXPR))
-      .matches("internal  ");
-  }
-
-  @Test
-  public void emptyArrayInitialiser() {
-    Assertions.assertThat(g.rule(FlexGrammar.PRIMARY_EXPR))
-      .matches("[]")
-      .matches("[   ]");
-  }
-
-  @Test
-  public void emptyObjectInitialiser() {
-    Assertions.assertThat(g.rule(FlexGrammar.PRIMARY_EXPR))
-      .matches("{}")
-      .matches("{   }");
-  }
-
-  @Test
-  public void filledObjectInitialiser() {
-    Assertions.assertThat(g.rule(FlexGrammar.PRIMARY_EXPR))
-      .matches("{ FirstName : \"John\", LastName: \"Smith\"}")
-      .matches("{ Age : 43}");
+  public void unary() {
+    Assertions.assertThat(g.rule(FlexGrammar.UNARY_EXPR))
+      .matches("delete f().y")
+      .matches("! size")
+      .matches("++ new Int()")
+      .matches("~ new Object()");
   }
 }

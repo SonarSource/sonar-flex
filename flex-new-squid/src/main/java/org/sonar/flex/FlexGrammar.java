@@ -19,10 +19,8 @@
  */
 package org.sonar.flex;
 
-import com.sun.tools.internal.xjc.Plugin;
 import org.sonar.sslr.grammar.GrammarRuleKey;
 import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
-import org.sonar.sslr.internal.vm.ZeroOrMoreExpression;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 public enum FlexGrammar implements GrammarRuleKey {
@@ -200,6 +198,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   OR,
   OROR,
   QUERY,
+  TILD,
   // Unknown
   FUNCTION_COMMON,;
 
@@ -211,7 +210,7 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(STRING).is(b.regexp("\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\""));
     b.rule(NUMBER).is(b.regexp("[0-9]+"), WHITESPACE);
-    b.rule(SYNTACTIC_IDENTIFIER).is(b.regexp("[a-zA-Z0-9]+"));
+    b.rule(SYNTACTIC_IDENTIFIER).is(b.regexp("[a-zA-Z0-9]+"), WHITESPACE);
 
     // Keywords
     b.rule(AS).is("as", b.nextNot(IDENTIFIER_PART), WHITESPACE);
@@ -267,7 +266,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(NAMESPACE).is("namespace", b.nextNot(IDENTIFIER_PART), WHITESPACE);
     b.rule(INCLUDE).is("include", b.nextNot(IDENTIFIER_PART), WHITESPACE);
     b.rule(DYNAMIC).is("dynamic", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(FINAL).is("final", b.nextNot(IDENTIFIER_PART), WHITESPACE);
+    b.rule(FINAL).is("final", b.nextNot(IDENTIFIER_PART), WHITESPACE); 
     b.rule(OVERRIDE).is("override", b.nextNot(IDENTIFIER_PART), WHITESPACE);
     b.rule(STATIC).is("static", b.nextNot(IDENTIFIER_PART), WHITESPACE);
 
@@ -324,7 +323,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(OR).is("|", WHITESPACE);
     b.rule(OROR).is("||", WHITESPACE);
     b.rule(QUERY).is("?", WHITESPACE);
-
+    b.rule(TILD).is("~", WHITESPACE);
 
 
     // Expressions
@@ -406,8 +405,8 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(FIELD_LIST).is(b.optional(NON_EMPTY_FIELD_LIST));
 
     b.rule(NON_EMPTY_FIELD_LIST).is(b.firstOf(
-      LITERAL_FIELD,
-      b.sequence(LITERAL_FIELD, COMMA, NON_EMPTY_FIELD_LIST)));
+      b.sequence(LITERAL_FIELD, COMMA, NON_EMPTY_FIELD_LIST),
+      LITERAL_FIELD));
 
     b.rule(LITERAL_FIELD).is(FIELD_NAME, COLON, ASSIGNMENT_EXPR);
 
@@ -458,21 +457,19 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     // §14.10 Postfix expressions
     // Merged PostfixExpression and FullPostfixExpression rules in order to 
-    // remove PostfixExpression undirect left recursion.
+    // remove PostfixExpression indirect left recursion.
     b.rule(POSTFIX_EXPR).is(b.firstOf(
       FULL_NEW_EXPR,
       b.sequence(SUPER_EXPR, PROPERTY_OPERATOR),
       PRIMARY_EXPR,
+      SHORT_NEW_EXPR),
       b.zeroOrMore(b.firstOf(
         PROPERTY_OPERATOR,
         ARGUMENTS,
-        QUERY_OPERATOR
-      )),
-      SHORT_NEW_EXPR,
-      b.zeroOrMore(b.firstOf(
+        QUERY_OPERATOR,
         /* No line break */ DOUBLE_PLUS,
         /* No line break */ DOUBLE_MINUS))
-    ));
+    );
 
 
     // New expressions
@@ -509,9 +506,10 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     // Unary expression
     b.rule(UNARY_EXPR).is(b.firstOf(
-      POSTFIX_EXPR,
-      b.sequence(b.firstOf(VOID, TYPEOF, PLUS, MINUS, NOT), UNARY_EXPR),
-      b.sequence(b.firstOf(DELETE, DOUBLE_PLUS, DOUBLE_MINUS), POSTFIX_EXPR) // NegatedMinLong
+      b.sequence(b.firstOf(DELETE, DOUBLE_PLUS, DOUBLE_MINUS), POSTFIX_EXPR),
+      b.sequence(b.firstOf(VOID, TYPEOF, PLUS, MINUS, NOT, TILD), UNARY_EXPR),
+      POSTFIX_EXPR
+      // NegatedMinLong
       ));
 
     // Binary expressions
@@ -520,21 +518,21 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(ADDITIVE_EXPR).is(MULTIPLICATIVE_EXPR,
       b.zeroOrMore(b.firstOf(PLUS, MINUS), MULTIPLICATIVE_EXPR));
     b.rule(SHIFT_EXPR).is(ADDITIVE_EXPR,
-      b.zeroOrMore(b.firstOf(SL, SR, SR2), ADDITIVE_EXPR));
+      b.zeroOrMore(b.firstOf(SL, SR2, SR), ADDITIVE_EXPR));
     b.rule(RELATIONAL_EXPR).is(SHIFT_EXPR, b.zeroOrMore(b.firstOf(
-      b.sequence(LT, SHIFT_EXPR),
-      b.sequence(GT, SHIFT_EXPR),
       b.sequence(LE, SHIFT_EXPR),
       b.sequence(GE, SHIFT_EXPR),
+      b.sequence(LT, SHIFT_EXPR),
+      b.sequence(GT, SHIFT_EXPR),
       b.sequence(IN, SHIFT_EXPR),
       b.sequence(INSTANCEOF, SHIFT_EXPR),
       b.sequence(IS, SHIFT_EXPR),
       b.sequence(AS, SHIFT_EXPR))));
     b.rule(EQUALITY_EXPR).is(RELATIONAL_EXPR, b.zeroOrMore(b.firstOf(
-      b.sequence(EQUAL, RELATIONAL_EXPR),
-      b.sequence(NOTEQUAL, RELATIONAL_EXPR),
+      b.sequence(NOTEQUAL2, RELATIONAL_EXPR),
       b.sequence(EQUAL2, RELATIONAL_EXPR),
-      b.sequence(NOTEQUAL2, RELATIONAL_EXPR))));
+      b.sequence(EQUAL, RELATIONAL_EXPR),
+      b.sequence(NOTEQUAL, RELATIONAL_EXPR))));
     b.rule(BITEWISE_AND_EXPR).is(EQUALITY_EXPR,
       b.zeroOrMore(b.sequence(AND, EQUALITY_EXPR)));
     b.rule(BITEWISE_XOR_EXPR).is(BITEWISE_AND_EXPR,

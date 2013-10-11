@@ -19,6 +19,7 @@
  */
 package org.sonar.flex;
 
+import com.sun.xml.internal.bind.marshaller.XMLWriter;
 import org.sonar.sslr.grammar.GrammarRuleKey;
 import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
 import org.sonar.sslr.internal.vm.FirstOfExpression;
@@ -75,6 +76,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   VOID,
   WHILE,
   WITH,
+  XML,
   // </editor-fold>
   
   /**
@@ -159,6 +161,23 @@ public enum FlexGrammar implements GrammarRuleKey {
   NON_ASSIGNMENT_EXPR,
   // Type expression
   TYPE_EXPR,
+  // XML Initialiser
+  XML_INITIALISER,
+  XML_MARKUP,
+  XML_ELEMENT,
+  XML_TAG_CONTENT,
+  XML_WHITESPACE,
+  XML_TAG_NAME,
+  XML_ATTRIBUTE,
+  XML_ATTRIBUTES,
+  XML_ATTRIBUTE_VALUE,
+  XML_NAME,
+  XML_ELEMENT_CONTENT,
+  XML_TEXT,
+  
+  
+  
+  
   // </editor-fold>
   
   /**
@@ -207,11 +226,40 @@ public enum FlexGrammar implements GrammarRuleKey {
   /**
    * STATEMENTS
    */
+
   // <editor-fold defaultstate="collapsed" desc="Statements">
-  BLOCK,
-  EMPTY_STATEMENT,
   STATEMENT,
-  SEMICOLON,
+  SUPER_STATEMENT,
+  SWITCH_STATEMENT,
+  IF_STATEMENT,
+  DO_STATEMENT,
+  WHILE_STATEMENT,
+  FOR_STATEMENT,
+  WITH_STATEMENT,
+  CONTINUE_STATEMENT,
+  BREAK_STATEMENT,
+  RETURN_STATEMENT,
+  THROW_STATEMENT,
+  TRY_STATEMENT,
+  EXPRESSION_STATEMENT,
+  LABELED_STATEMENT,
+  DEFAULT_XMLN_NAMESPACE_STATEMENT,
+  SUB_STATEMENT,
+  SUB_STATEMENTS,
+  EMPTY_STATEMENT,
+  SIMPLE_VARIABLE_DEF,
+  SUB_STATEMENT_PREFIX,
+  BLOCK,
+  CASE_ELEMENT,
+  CASE_ELEMENTS,
+  CASE_ELEMENT_PREFIX,
+  CASE_LABEL,
+  FOR_INITIALISER,
+  FOR_IN_BINDING,
+  OPTIONAL_EXPRESSION,
+  CATCH_CLAUSE,
+  CATCH_CLAUSES,
+  CATCH_CLAUSES_OPT,
   // </editor-fold>
    
   /**
@@ -229,7 +277,6 @@ public enum FlexGrammar implements GrammarRuleKey {
   ATTRIBUTE,
   ATTRIBUTE_COMBINATION,
   ATTRIBUTE_EXPR,
-  
   // </editor-fold>
   
   /**
@@ -242,8 +289,8 @@ public enum FlexGrammar implements GrammarRuleKey {
   DOUBLE_COLON,
   DOT,
   DOUBLE_DOT,
-  RCURLYBARCE,
-  LCURLYBARCE,
+  RCURLYBRACE,
+  LCURLYBRACE,
   RBRAKET,
   LBRAKET,
   RPARENTHESIS,
@@ -289,7 +336,8 @@ public enum FlexGrammar implements GrammarRuleKey {
   OROR,
   QUERY,
   TILD,
-  TRIPLE_DOTS;
+  TRIPLE_DOTS,
+  SEMICOLON;
   // </editor-fold>
   
   public static LexerlessGrammar createGrammar() {
@@ -351,6 +399,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(VOID).is("void", b.nextNot(IDENTIFIER_PART), WHITESPACE);
     b.rule(WHILE).is("while", b.nextNot(IDENTIFIER_PART), WHITESPACE);
     b.rule(WITH).is("with", b.nextNot(IDENTIFIER_PART), WHITESPACE);
+    b.rule(XML).is("xml", b.nextNot(IDENTIFIER_PART), WHITESPACE);
     // </editor-fold>
 
     /** 
@@ -379,8 +428,8 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(DOT).is(".", WHITESPACE);
     b.rule(TRIPLE_DOTS).is("...", WHITESPACE);
     b.rule(DOUBLE_DOT).is("..", WHITESPACE);
-    b.rule(RCURLYBARCE).is("}", WHITESPACE);
-    b.rule(LCURLYBARCE).is("{", WHITESPACE);
+    b.rule(RCURLYBRACE).is("}", WHITESPACE);
+    b.rule(LCURLYBRACE).is("{", WHITESPACE);
     b.rule(RBRAKET).is("]", WHITESPACE);
     b.rule(LBRAKET).is("[", WHITESPACE);
     b.rule(RPARENTHESIS).is(")", WHITESPACE);
@@ -426,6 +475,8 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(OROR).is("||", WHITESPACE);
     b.rule(QUERY).is("?", WHITESPACE);
     b.rule(TILD).is("~", WHITESPACE);
+    // Consider that all statement ends with a semicolon
+    b.rule(SEMICOLON).is(";", WHITESPACE);
     // </editor-fold>
 
     /** 
@@ -505,7 +556,7 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.sequence(FUNCTION, LEXICAL_IDENTIFIER, FUNCTION_COMMON)));
 
     // Object initialiser
-    b.rule(OBJECT_INITIALISER).is(LCURLYBARCE, FIELD_LIST, RCURLYBARCE);
+    b.rule(OBJECT_INITIALISER).is(LCURLYBRACE, FIELD_LIST, RCURLYBRACE);
 
     b.rule(FIELD_LIST).is(b.optional(NON_EMPTY_FIELD_LIST));
 
@@ -532,10 +583,10 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     // Assignement expressions
     b.rule(ASSIGNMENT_EXPR).is(b.firstOf(
-      CONDITIONAL_EXPR,
-      b.sequence(POSTFIX_EXPR, EQUAL, ASSIGNMENT_EXPR),
+      b.sequence(POSTFIX_EXPR, EQU, ASSIGNMENT_EXPR),
       b.sequence(POSTFIX_EXPR, COMPOUND_ASSIGNMENT, ASSIGNMENT_EXPR),
-      b.sequence(POSTFIX_EXPR, LOGICAL_ASSIGNMENT, ASSIGNMENT_EXPR)));
+      b.sequence(POSTFIX_EXPR, LOGICAL_ASSIGNMENT, ASSIGNMENT_EXPR),
+      CONDITIONAL_EXPR));
 
     b.rule(COMPOUND_ASSIGNMENT).is(b.firstOf(
       STAR_EQU,
@@ -563,7 +614,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     // §14.10 Postfix expressions
     // Merged PostfixExpression and FullPostfixExpression rules in order to 
     // remove PostfixExpression indirect left recursion.
-    b.rule(POSTFIX_EXPR).is(b.firstOf(
+    b.rule(POSTFIX_EXPR).is(b.firstOf( 
       FULL_NEW_EXPR,
       b.sequence(SUPER_EXPR, PROPERTY_OPERATOR),
       PRIMARY_EXPR,
@@ -665,7 +716,40 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.zeroOrMore(b.sequence(COMMA, ASSIGNMENT_EXPR)));
 
     b.rule(TYPE_EXPR).is(NON_ASSIGNMENT_EXPR);
+    
+    // XML INITIALISER
+    b.rule(XML_INITIALISER).is(b.firstOf(
+      XML_MARKUP,
+      XML_ELEMENT,
+      b.sequence(LT, GT, XML_ELEMENT_CONTENT, LT, DIV, GT)));
+    
+    b.rule(XML_ELEMENT).is(b.firstOf(
+      b.sequence(LT, XML_TAG_CONTENT, b.optional(XML_WHITESPACE), DIV, GT),
+      b.sequence(LT, XML_TAG_CONTENT, b.optional(XML_WHITESPACE), 
+                 XML_ELEMENT_CONTENT, LT, DIV, XML_TAG_NAME, 
+                 b.optional(XML_WHITESPACE))));
+    
+    b.rule(XML_TAG_CONTENT).is(XML_TAG_NAME, XML_ATTRIBUTES);
+    
+    b.rule(XML_TAG_NAME).is(b.firstOf(
+      b.sequence(LCURLYBRACE, EXPRESSION_STATEMENT),
+      XML_TAG_NAME));
+    
+    b.rule(XML_ATTRIBUTES).is(b.optional(b.firstOf(
+      b.sequence(XML_WHITESPACE, LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE),
+      b.sequence(XML_ATTRIBUTE, XML_ATTRIBUTES))));
+ 
+    b.rule(XML_ATTRIBUTE).is(b.firstOf(
+      b.sequence(XML_WHITESPACE, XML_NAME, b.optional(XML_WHITESPACE), EQU,
+                 b.optional(XML_WHITESPACE), LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE),
+      b.sequence(XML_WHITESPACE, XML_NAME, b.optional(XML_WHITESPACE), EQU,
+                 b.optional(XML_WHITESPACE), XML_ATTRIBUTE_VALUE)));
 
+    b.rule(XML_ELEMENT_CONTENT).is(b.optional(b.firstOf(
+      b.sequence(LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE, XML_ELEMENT_CONTENT),
+      b.sequence(XML_MARKUP, XML_ELEMENT_CONTENT),
+      b.sequence(XML_TEXT, XML_ELEMENT_CONTENT),
+      b.sequence(XML_ELEMENT, XML_ELEMENT_CONTENT))));
     // </editor-fold> 
     
     /** 
@@ -748,18 +832,130 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(NAMESPACE_INITIALISATION).is(b.optional(EQU, ASSIGNMENT_EXPR));
 
     // Program
-    b.rule(PROGRAM).is(b.firstOf(DIRECTIVES, b.sequence(PACKAGE_DEF, PROGRAM)));
+    b.rule(PROGRAM).is(b.firstOf(b.sequence(PACKAGE_DEF, PROGRAM), DIRECTIVES));
     // </editor-fold>
     
     /** 
      * STATEMENTS
      */
     // <editor-fold defaultstate="collapsed" desc="Statements">
-    b.rule(BLOCK).is(LCURLYBARCE, DIRECTIVES, RCURLYBARCE);
-    b.rule(EMPTY_STATEMENT).is(b.nothing());
-    b.rule(STATEMENT).is(b.nothing());
-    b.rule(SEMICOLON).is(b.nothing());
+    // Statements
+    b.rule(STATEMENT).is(b.firstOf(
+      b.sequence(SUPER_STATEMENT, SEMICOLON),
+      BLOCK,
+      IF_STATEMENT,
+      SWITCH_STATEMENT,
+      b.sequence(DO_STATEMENT, SEMICOLON),
+      WHILE_STATEMENT,
+      FOR_STATEMENT,
+      WITH_STATEMENT,
+      b.sequence(CONTINUE_STATEMENT, SEMICOLON),
+      b.sequence(BREAK_STATEMENT, SEMICOLON),
+      b.sequence(RETURN_STATEMENT, SEMICOLON),
+      b.sequence(THROW_STATEMENT, SEMICOLON),
+      TRY_STATEMENT,
+      b.sequence(EXPRESSION_STATEMENT, SEMICOLON),
+      b.sequence(CONTINUE_STATEMENT, SEMICOLON),
+      LABELED_STATEMENT,
+      DEFAULT_XMLN_NAMESPACE_STATEMENT));
+    
+    b.rule(SUB_STATEMENT).is(b.firstOf(
+      EMPTY_STATEMENT,
+      STATEMENT,
+      b.sequence(SIMPLE_VARIABLE_DEF, SEMICOLON)));
+    
+    b.rule(SUB_STATEMENTS).is(b.optional(SUB_STATEMENT_PREFIX, SUB_STATEMENT));
+    b.rule(SUB_STATEMENT_PREFIX).is(b.optional(SUB_STATEMENT));
+
+    // Empty
+    b.rule(EMPTY_STATEMENT).is(SEMICOLON);
+    b.rule(SUPER_STATEMENT).is(SUPER, ARGUMENTS);
+    b.rule(BLOCK).is(LCURLYBRACE, DIRECTIVES, RCURLYBRACE);
+    b.rule(LABELED_STATEMENT).is(SYNTACTIC_IDENTIFIER, COLON, SUB_STATEMENT);
+    
+    // Conditional statements
+    b.rule(IF_STATEMENT).is(IF, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT, 
+                            b.optional(ELSE, SUB_STATEMENT));
+    // 3 other rules with annotations
+    
+    b.rule(SWITCH_STATEMENT).is(SWITCH, PARENTHESIZED_LIST_EXPR,
+                                LCURLYBRACE, CASE_ELEMENTS, RCURLYBRACE);
+    b.rule(CASE_ELEMENTS).is(b.optional(b.firstOf(
+      // BEFORE: b.sequence(CASE_LABEL, CASE_ELEMENT_PREFIX, CASE_ELEMENT)
+      b.sequence(CASE_LABEL,  b.zeroOrMore(CASE_ELEMENT)),
+      CASE_LABEL)));
+    
+    b.rule(CASE_ELEMENT).is(b.firstOf(CASE_LABEL, DIRECTIVE));
+    b.rule(CASE_LABEL).is(b.firstOf(
+      b.sequence(DEFAULT, COLON),
+      b.sequence(CASE, LIST_EXPRESSION, COLON)
+      ));
+    
+    // Itteration
+    b.rule(DO_STATEMENT).is(DO, SUB_STATEMENT, WHILE,
+                                    PARENTHESIZED_LIST_EXPR);
+    
+    b.rule(WHILE_STATEMENT).is(WHILE, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT);
+    
+    b.rule(FOR_STATEMENT).is(b.firstOf(
+      b.sequence(FOR, LPARENTHESIS, FOR_INITIALISER, SEMICOLON, 
+                 OPTIONAL_EXPRESSION, SEMICOLON, 
+                 OPTIONAL_EXPRESSION, RPARENTHESIS, SUB_STATEMENT),
+      b.sequence(FOR, LPARENTHESIS, FOR_IN_BINDING, IN, LIST_EXPRESSION,
+                  RPARENTHESIS, SUB_STATEMENT),
+      b.sequence(FOR, /*No line break*/ EACH, LPARENTHESIS, FOR_IN_BINDING,
+                 IN, LIST_EXPRESSION, RPARENTHESIS, SUB_STATEMENT)));
+    
+    b.rule(FOR_INITIALISER).is(b.optional(b.firstOf(
+      LIST_EXPRESSION,
+      VARIABLE_DEF)));
+    
+    b.rule(FOR_IN_BINDING).is(b.firstOf(
+      b.sequence(VARIABLE_DEF_KIND, VARIABLE_BINDING),
+      POSTFIX_EXPR));
+    
+    b.rule(OPTIONAL_EXPRESSION).is(b.optional(LIST_EXPRESSION));
+    b.rule(CONTINUE_STATEMENT).is(b.firstOf(
+      CONTINUE,
+      b.sequence(CONTINUE, /*No line break*/ SYNTACTIC_IDENTIFIER)));
+     
+    b.rule(BREAK_STATEMENT).is(b.firstOf(
+      BREAK,
+      b.sequence(BREAK, /*No line break*/ SYNTACTIC_IDENTIFIER)));
+    
+    b.rule(WITH_STATEMENT).is(WITH, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT);
+    
+    b.rule(RETURN_STATEMENT).is(b.firstOf(
+      RETURN, 
+      b.sequence(RETURN, /*No line break*/ LIST_EXPRESSION)));
+    
+    b.rule(THROW_STATEMENT).is(THROW, /*No line break*/ LIST_EXPRESSION);
+    
+    // Try
+    b.rule(TRY_STATEMENT).is(b.firstOf(
+      b.sequence(TRY, BLOCK, CATCH_CLAUSES),
+      b.sequence(TRY, BLOCK, CATCH_CLAUSES_OPT, FINALLY, BLOCK)));
+    
+    b.rule(CATCH_CLAUSES_OPT).is(b.optional(CATCH_CLAUSES));
+    
+    b.rule(CATCH_CLAUSES).is(CATCH_CLAUSE, b.zeroOrMore(CATCH_CLAUSE));
+    
+    b.rule(CATCH_CLAUSE).is(CATCH, LPARENTHESIS, PARAMETER, RPARENTHESIS, BLOCK);
+   
+    b.rule(DEFAULT_XMLN_NAMESPACE_STATEMENT).is(DEFAULT, /*No line break*/ XML,
+            /*no line break*/ NAMESPACE, EQU, NON_ASSIGNMENT_EXPR);
+    
+    // Note as [lookahead !{ function, { }] in adobe doc 
+    b.rule(EXPRESSION_STATEMENT).is(LIST_EXPRESSION,
+      b.nextNot(FUNCTION, b.sequence(LCURLYBRACE, RCURLYBRACE)));
     // </editor-fold>
+    
+    b.rule(SIMPLE_VARIABLE_DEF).is(b.nothing());
+    b.rule(XML_TEXT).is(b.nothing());
+    b.rule(XML_NAME).is(b.nothing());
+    b.rule(XML_ATTRIBUTE_VALUE).is(b.nothing());
+    b.rule(XML_WHITESPACE).is(b.nothing());
+    b.rule(XML_MARKUP).is(b.nothing());
     
     /** 
      * DIRECTIVES
@@ -781,11 +977,9 @@ public enum FlexGrammar implements GrammarRuleKey {
       CLASS_DEF,
       INTERFACE_DEF,
       b.sequence(NAMESPACE_DEF, SEMICOLON)));
-    
-    b.rule(DIRECTIVES).is(b.optional(DIRECTIVES_PREFIX, DIRECTIVE/*ABBREV*/));
 
-    b.rule(DIRECTIVES_PREFIX).is(b.optional(DIRECTIVE/*full*/));
-    
+    b.rule(DIRECTIVES).is(b.zeroOrMore(DIRECTIVE));
+
     // Attributes
     b.rule(ATTRIBUTES).is(b.firstOf(ATTRIBUTE, ATTRIBUTE_COMBINATION));
     b.rule(ATTRIBUTE_COMBINATION).is(ATTRIBUTE, /*No line break*/ ATTRIBUTES);

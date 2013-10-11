@@ -29,21 +29,21 @@ public class GlobalDefinitionsTest {
   private LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void variable() {
+  public void variableDefinition() {
     Assertions.assertThat(g.rule(FlexGrammar.VARIABLE_DEF))
       .matches("var student : Object = {FirstName:\"John\", LastName:\"Smith\" }")
       .matches("const int= 3");
   }
 
   @Test
-  public void function() {
+  public void functionDefinition() {
     Assertions.assertThat(g.rule(FlexGrammar.FUNCTION_DEF))
       .matches("function f() : Number {}")
       .matches("function get f() {}");
   }
 
   @Test
-  public void interfaze() {
+  public void interfaceDefinition() {
     Assertions.assertThat(g.rule(FlexGrammar.INTERFACE_DEF))
       .matches("interface T  {}")
       .matches("interface T extends Tye0bject{}")
@@ -51,7 +51,7 @@ public class GlobalDefinitionsTest {
   }
   
   @Test
-  public void packagez() {
+  public void packageDefinition() {
     Assertions.assertThat(g.rule(FlexGrammar.PACKAGE_DEF))
       .matches("package p {}")
       .matches("package   parent.child {   } ")
@@ -59,7 +59,7 @@ public class GlobalDefinitionsTest {
   }
   
   @Test
-  public void namespace() {
+  public void namespaceDefinition() {
     Assertions.assertThat(g.rule(FlexGrammar.NAMESPACE_DEF))
       .matches("namespace NS1")
       .matches("namespace NS2= NS1")

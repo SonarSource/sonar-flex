@@ -94,6 +94,8 @@ public enum FlexGrammar implements GrammarRuleKey {
   STATIC,
   STRING,
   NUMBER,
+  INTEGER,
+  FLOAT,
   WHITESPACE,
   SPACING,
   INLINE_COMMENT,
@@ -354,7 +356,9 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(IDENTIFIER_PART).is(b.regexp("[a-zA-Z0-9]"), SPACING);
 
     b.rule(STRING).is(b.regexp("\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\""), SPACING);
-    b.rule(NUMBER).is(b.regexp("[0-9]+"), SPACING);
+    b.rule(INTEGER).is(b.regexp("-?[0-9]+"), SPACING);
+    b.rule(FLOAT).is(b.regexp("-?[0-9]+\\.[0-9]+"), SPACING);
+    b.rule(NUMBER).is(b.firstOf(FLOAT, INTEGER));
     b.rule(SYNTACTIC_IDENTIFIER).is(b.regexp("[a-zA-Z0-9]+"), SPACING);
 
     /** 

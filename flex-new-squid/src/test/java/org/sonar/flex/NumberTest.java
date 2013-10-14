@@ -23,21 +23,22 @@ import org.junit.Test;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class CommentTest {
-//b 
+public class NumberTest {
+
   private LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void comment() {
-    Assertions.assertThat(g.rule(FlexGrammar.INLINE_COMMENT))
-      .matches("//blalbsjidj =-9992#$$");
-    
-    Assertions.assertThat(g.rule(FlexGrammar.MULTILINE_COMMENT))
-      .matches("/*\n"
-              + "* blabla \n"
-              + "b;ab;a */")
-      .notMatches("/*\n"
-                 + "* blabla \n"
-                 + "b;ab;a */ blao");
+  public void integer() {
+    Assertions.assertThat(g.rule(FlexGrammar.INTEGER))
+      .matches("-894792")
+      .matches("894792");
+  }
+
+  @Test
+  public void floats() {
+    Assertions.assertThat(g.rule(FlexGrammar.FLOAT))
+      .matches("-894792.08907")
+      .matches("894792.09889798")
+      .notMatches("894792.09889798djn");
   }
 }

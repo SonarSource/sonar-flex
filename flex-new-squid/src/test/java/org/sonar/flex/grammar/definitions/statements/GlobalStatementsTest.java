@@ -72,15 +72,19 @@ public class GlobalStatementsTest {
     Assertions.assertThat(g.rule(FlexGrammar.FOR_STATEMENT))
       .matches("for (i = 0; i < 5; i++) { trace(i);}")
       .matches("for each (var num in myObj) {trace(num);}");
-
+  }
+    @Test
+  public void helloWorld() {
     Assertions.assertThat(g.rule(FlexGrammar.PROGRAM))
       .matches("package{\n"
       + "\n"
       + "   import flash.display.Sprite;\n"
-      + "\n"
+      + "\n /* comment *()(*\n"
+      + "    * blabla"
+      + "    */"
       + "   public class FilledCircle extends Sprite {\n"
-      + "\n"
-      + "       function HelloWorld():void {\n"
+      + "\n // comment"
+      + "\n       function HelloWorld():void {\n"
       + "\n"
       + "         trace(\"Hello World!\");\n"
       + "       }\n"

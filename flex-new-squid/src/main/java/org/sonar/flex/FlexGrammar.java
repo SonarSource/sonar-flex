@@ -95,6 +95,9 @@ public enum FlexGrammar implements GrammarRuleKey {
   STRING,
   NUMBER,
   WHITESPACE,
+  SPACING,
+  INLINE_COMMENT,
+  MULTILINE_COMMENT,
   IDENTIFIER_PART,
   // </editor-fold>
   
@@ -344,139 +347,143 @@ public enum FlexGrammar implements GrammarRuleKey {
     LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
 
     b.rule(WHITESPACE).is(b.regexp("\\s*"));
-    b.rule(IDENTIFIER_PART).is(b.regexp("[a-zA-Z0-9]"), WHITESPACE);
+    b.rule(INLINE_COMMENT).is(b.regexp("//[^\\n\\r]*+"));
+    b.rule(MULTILINE_COMMENT).is(b.regexp("/\\*[\\s\\S*]*\\*/"));
+    b.rule(SPACING).is(WHITESPACE, 
+      b.zeroOrMore(b.firstOf(INLINE_COMMENT, MULTILINE_COMMENT), WHITESPACE));
+    b.rule(IDENTIFIER_PART).is(b.regexp("[a-zA-Z0-9]"), SPACING);
 
-    b.rule(STRING).is(b.regexp("\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\""), WHITESPACE);
-    b.rule(NUMBER).is(b.regexp("[0-9]+"), WHITESPACE);
-    b.rule(SYNTACTIC_IDENTIFIER).is(b.regexp("[a-zA-Z0-9]+"), WHITESPACE);
+    b.rule(STRING).is(b.regexp("\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\""), SPACING);
+    b.rule(NUMBER).is(b.regexp("[0-9]+"), SPACING);
+    b.rule(SYNTACTIC_IDENTIFIER).is(b.regexp("[a-zA-Z0-9]+"), SPACING);
 
     /** 
      * KEYWORDS
      */
     // <editor-fold defaultstate="collapsed" desc="Keywords definition">
-    b.rule(AS).is("as", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(BREAK).is("break", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(CASE).is("case", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(CATCH).is("catch", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(CLASS).is("class", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(CONST).is("const", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(CONTINUE).is("continue", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(DEFAULT).is("default", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(DELETE).is("delete", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(DO).is("do", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(ELSE).is("else", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(EXTENDS).is("extends", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(FALSE).is("false", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(FINALLY).is("finally", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(FOR).is("for", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(FUNCTION).is("function", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(IF).is("if", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(IMPLEMENTS).is("implements", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(IMPORT).is("import", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(IN).is("in", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(INSTANCEOF).is("instanceof", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(INTERFACE).is("interface", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(INTERNAL).is("internal", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(IS).is("is", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(NATIVE).is("native", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(NEW).is("new", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(NULL).is("null", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(PACKAGE).is("package", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(PRIVATE).is("private", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(PROTECTED).is("protected", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(PUBLIC).is("plublic", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(RETURN).is("return", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(SUPER).is("super", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(SWITCH).is("switch", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(THIS).is("this", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(THROW).is("throw", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(TO).is("to", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(TRUE).is("true", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(TRY).is("try", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(TYPEOF).is("typeof", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(USE).is("use", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(VAR).is("var", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(VOID).is("void", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(WHILE).is("while", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(WITH).is("with", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(XML).is("xml", b.nextNot(IDENTIFIER_PART), WHITESPACE);
+    b.rule(AS).is("as", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(BREAK).is("break", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(CASE).is("case", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(CATCH).is("catch", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(CLASS).is("class", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(CONST).is("const", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(CONTINUE).is("continue", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(DEFAULT).is("default", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(DELETE).is("delete", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(DO).is("do", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(ELSE).is("else", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(EXTENDS).is("extends", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(FALSE).is("false", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(FINALLY).is("finally", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(FOR).is("for", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(FUNCTION).is("function", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(IF).is("if", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(IMPLEMENTS).is("implements", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(IMPORT).is("import", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(IN).is("in", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(INSTANCEOF).is("instanceof", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(INTERFACE).is("interface", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(INTERNAL).is("internal", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(IS).is("is", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(NATIVE).is("native", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(NEW).is("new", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(NULL).is("null", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(PACKAGE).is("package", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(PRIVATE).is("private", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(PROTECTED).is("protected", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(PUBLIC).is("plublic", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(RETURN).is("return", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(SUPER).is("super", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(SWITCH).is("switch", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(THIS).is("this", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(THROW).is("throw", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(TO).is("to", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(TRUE).is("true", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(TRY).is("try", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(TYPEOF).is("typeof", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(USE).is("use", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(VAR).is("var", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(VOID).is("void", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(WHILE).is("while", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(WITH).is("with", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(XML).is("xml", b.nextNot(IDENTIFIER_PART), SPACING);
     // </editor-fold>
 
     /** 
      * SYNTACTIC KEYWORDS
      */
     // <editor-fold defaultstate="collapsed" desc="Syntactic keywords definition">
-    b.rule(EACH).is("each", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(GET).is("get", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(SET).is("set", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(NAMESPACE).is("namespace", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(INCLUDE).is("include", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(DYNAMIC).is("dynamic", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(FINAL).is("final", b.nextNot(IDENTIFIER_PART), WHITESPACE); 
-    b.rule(OVERRIDE).is("override", b.nextNot(IDENTIFIER_PART), WHITESPACE);
-    b.rule(STATIC).is("static", b.nextNot(IDENTIFIER_PART), WHITESPACE);
+    b.rule(EACH).is("each", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(GET).is("get", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(SET).is("set", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(NAMESPACE).is("namespace", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(INCLUDE).is("include", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(DYNAMIC).is("dynamic", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(FINAL).is("final", b.nextNot(IDENTIFIER_PART), SPACING); 
+    b.rule(OVERRIDE).is("override", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(STATIC).is("static", b.nextNot(IDENTIFIER_PART), SPACING);
     // </editor-fold>
     
     /** 
      * PONCTUATORS
      */
     // <editor-fold defaultstate="collapsed" desc="Ponctuator definition">
-    b.rule(AT_SIGN).is("@", WHITESPACE);
-    b.rule(COMMA).is(",", WHITESPACE);
-    b.rule(COLON).is(":", WHITESPACE);
-    b.rule(DOUBLE_COLON).is("::", WHITESPACE);
-    b.rule(DOT).is(".", WHITESPACE);
-    b.rule(TRIPLE_DOTS).is("...", WHITESPACE);
-    b.rule(DOUBLE_DOT).is("..", WHITESPACE);
-    b.rule(RCURLYBRACE).is("}", WHITESPACE);
-    b.rule(LCURLYBRACE).is("{", WHITESPACE);
-    b.rule(RBRAKET).is("]", WHITESPACE);
-    b.rule(LBRAKET).is("[", WHITESPACE);
-    b.rule(RPARENTHESIS).is(")", WHITESPACE);
-    b.rule(LPARENTHESIS).is("(", WHITESPACE);
-    b.rule(DIV).is("/", WHITESPACE);
-    b.rule(MOD).is("%", WHITESPACE);
-    b.rule(STAR).is("*", WHITESPACE);
-    b.rule(PLUS).is("+", WHITESPACE);
-    b.rule(MINUS).is("-", WHITESPACE);
-    b.rule(DOUBLE_PLUS).is("++", WHITESPACE);
-    b.rule(DOUBLE_MINUS).is("--", WHITESPACE);
-    b.rule(SL).is("<<", WHITESPACE);
-    b.rule(SR).is(">>", WHITESPACE);
-    b.rule(SR2).is(">>>", WHITESPACE);
-    b.rule(NOT).is("!", WHITESPACE);
-    b.rule(EQU).is("=", WHITESPACE);
-    b.rule(EQUAL).is("==", WHITESPACE);
-    b.rule(EQUAL2).is("===", WHITESPACE);
-    b.rule(NOTEQUAL).is("!=", WHITESPACE);
-    b.rule(NOTEQUAL2).is("!==", WHITESPACE);
-    b.rule(STAR_EQU).is("*=", WHITESPACE);
-    b.rule(DIV_EQU).is("/=", WHITESPACE);
-    b.rule(MOD_EQU).is("%=", WHITESPACE);
-    b.rule(PLUS_EQU).is("+=", WHITESPACE);
-    b.rule(MINUS_EQU).is("-=", WHITESPACE);
-    b.rule(SL_EQU).is("<<=", WHITESPACE);
-    b.rule(SR_EQU).is(">>=", WHITESPACE);
-    b.rule(SR_EQU2).is(">>>=", WHITESPACE);
-    b.rule(AND_EQU).is("&=", WHITESPACE);
-    b.rule(XOR_EQU).is("^=", WHITESPACE);
-    b.rule(OR_EQU).is("|=", WHITESPACE);
-    b.rule(ANDAND_EQU).is("&&=", WHITESPACE);
-    b.rule(XORXOR_EQU).is("^^=", WHITESPACE);
-    b.rule(OROR_EQU).is("||=", WHITESPACE);
-    b.rule(LT).is("<", WHITESPACE);
-    b.rule(GT).is(">", WHITESPACE);
-    b.rule(LE).is("<=", WHITESPACE);
-    b.rule(GE).is(">=", WHITESPACE);
-    b.rule(XOR).is("^", WHITESPACE);
-    b.rule(AND).is("&", WHITESPACE);
-    b.rule(ANDAND).is("&&", WHITESPACE);
-    b.rule(OR).is("|", WHITESPACE);
-    b.rule(OROR).is("||", WHITESPACE);
-    b.rule(QUERY).is("?", WHITESPACE);
-    b.rule(TILD).is("~", WHITESPACE);
+    b.rule(AT_SIGN).is("@", SPACING);
+    b.rule(COMMA).is(",", SPACING);
+    b.rule(COLON).is(":", SPACING);
+    b.rule(DOUBLE_COLON).is("::", SPACING);
+    b.rule(DOT).is(".", SPACING);
+    b.rule(TRIPLE_DOTS).is("...", SPACING);
+    b.rule(DOUBLE_DOT).is("..", SPACING);
+    b.rule(RCURLYBRACE).is("}", SPACING);
+    b.rule(LCURLYBRACE).is("{", SPACING);
+    b.rule(RBRAKET).is("]", SPACING);
+    b.rule(LBRAKET).is("[", SPACING);
+    b.rule(RPARENTHESIS).is(")", SPACING);
+    b.rule(LPARENTHESIS).is("(", SPACING);
+    b.rule(DIV).is("/", SPACING);
+    b.rule(MOD).is("%", SPACING);
+    b.rule(STAR).is("*", SPACING);
+    b.rule(PLUS).is("+", SPACING);
+    b.rule(MINUS).is("-", SPACING);
+    b.rule(DOUBLE_PLUS).is("++", SPACING);
+    b.rule(DOUBLE_MINUS).is("--", SPACING);
+    b.rule(SL).is("<<", SPACING);
+    b.rule(SR).is(">>", SPACING);
+    b.rule(SR2).is(">>>", SPACING);
+    b.rule(NOT).is("!", SPACING);
+    b.rule(EQU).is("=", SPACING);
+    b.rule(EQUAL).is("==", SPACING);
+    b.rule(EQUAL2).is("===", SPACING);
+    b.rule(NOTEQUAL).is("!=", SPACING);
+    b.rule(NOTEQUAL2).is("!==", SPACING);
+    b.rule(STAR_EQU).is("*=", SPACING);
+    b.rule(DIV_EQU).is("/=", SPACING);
+    b.rule(MOD_EQU).is("%=", SPACING);
+    b.rule(PLUS_EQU).is("+=", SPACING);
+    b.rule(MINUS_EQU).is("-=", SPACING);
+    b.rule(SL_EQU).is("<<=", SPACING);
+    b.rule(SR_EQU).is(">>=", SPACING);
+    b.rule(SR_EQU2).is(">>>=", SPACING);
+    b.rule(AND_EQU).is("&=", SPACING);
+    b.rule(XOR_EQU).is("^=", SPACING);
+    b.rule(OR_EQU).is("|=", SPACING);
+    b.rule(ANDAND_EQU).is("&&=", SPACING);
+    b.rule(XORXOR_EQU).is("^^=", SPACING);
+    b.rule(OROR_EQU).is("||=", SPACING);
+    b.rule(LT).is("<", SPACING);
+    b.rule(GT).is(">", SPACING);
+    b.rule(LE).is("<=", SPACING);
+    b.rule(GE).is(">=", SPACING);
+    b.rule(XOR).is("^", SPACING);
+    b.rule(AND).is("&", SPACING);
+    b.rule(ANDAND).is("&&", SPACING);
+    b.rule(OR).is("|", SPACING);
+    b.rule(OROR).is("||", SPACING);
+    b.rule(QUERY).is("?", SPACING);
+    b.rule(TILD).is("~", SPACING);
     // Consider that all statement ends with a semicolon
-    b.rule(SEMICOLON).is(";", WHITESPACE);
+    b.rule(SEMICOLON).is(";", SPACING);
     // </editor-fold>
 
     /** 

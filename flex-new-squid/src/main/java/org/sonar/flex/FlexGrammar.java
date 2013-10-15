@@ -100,7 +100,6 @@ public enum FlexGrammar implements GrammarRuleKey {
   SPACING,
   INLINE_COMMENT,
   MULTILINE_COMMENT,
-  IDENTIFIER_PART,
   // </editor-fold>
   
   /**
@@ -133,8 +132,8 @@ public enum FlexGrammar implements GrammarRuleKey {
   NON_ATTRIBUTE_QUALIFIED_IDENTIFIER,
   QUALIFIED_IDENTIFIER,
   BRACKETS,
-  SYNTACTIC_IDENTIFIER,
-  LEXICAL_IDENTIFIER,
+  IDENTIFIER,
+  IDENTIFIER_NAME,
   // New expressions
   FULL_NEW_EXPR,
   FULL_NEW_SUB_EXPR,
@@ -172,6 +171,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   XML_ELEMENT,
   XML_TAG_CONTENT,
   XML_WHITESPACE,
+  XML_WHITESPACE_CHARACTER,
   XML_TAG_NAME,
   XML_ATTRIBUTE,
   XML_ATTRIBUTES,
@@ -179,12 +179,14 @@ public enum FlexGrammar implements GrammarRuleKey {
   XML_NAME,
   XML_ELEMENT_CONTENT,
   XML_TEXT,
-  
-  
+  XML_COMMENT,
+  XML_CDATA,
+  XML_PI,
+  UNICODE,
   
   
   // </editor-fold>
-  
+   
   /**
    * DEFINITIONS
    */
@@ -342,90 +344,105 @@ public enum FlexGrammar implements GrammarRuleKey {
   QUERY,
   TILD,
   TRIPLE_DOTS,
-  SEMICOLON;
+  SEMICOLON,
+  UNDERSCORE,
+  bla;
   // </editor-fold>
+  
+  public static FlexGrammar[] KEYWORDS = {AS, BREAK, CASE, CATCH, CLASS, 
+                                          CONST, CONTINUE, DEFAULT, DELETE,
+                                          DO, ELSE, EXTENDS, FALSE, FINALLY,
+                                          FOR, IF, IMPLEMENTS, IMPORT, IN,
+                                          INSTANCEOF, INTERFACE, INTERNAL, IS,
+                                          NATIVE, NEW, NULL, PACKAGE, PRIVATE,
+                                          PROTECTED, PUBLIC, RETURN, SUPER, 
+                                          SWITCH, THIS, THROW, TO, TRUE, TRY,
+                                          TYPEOF, USE, VAR, VOID, WHILE, WITH,
+                                          XML,};
+  
+  private static final String UNICODE_LETTER = "\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}";
+  private static final String UNICODE_DIGIT = "\\p{Nd}";
   
   public static LexerlessGrammar createGrammar() {
     LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
-
+    
     b.rule(WHITESPACE).is(b.regexp("\\s*"));
     b.rule(INLINE_COMMENT).is(b.regexp("//[^\\n\\r]*+"));
     b.rule(MULTILINE_COMMENT).is(b.regexp("/\\*[\\s\\S*]*\\*/"));
     b.rule(SPACING).is(WHITESPACE, 
       b.zeroOrMore(b.firstOf(INLINE_COMMENT, MULTILINE_COMMENT), WHITESPACE));
-    b.rule(IDENTIFIER_PART).is(b.regexp("[a-zA-Z0-9]"), SPACING);
+    b.rule(IDENTIFIER_NAME).is(b.nextNot(CASE), b.regexp("[a-zA-Z0-9]+"), SPACING);
 
     b.rule(STRING).is(b.regexp("\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\""), SPACING);
     b.rule(INTEGER).is(b.regexp("-?[0-9]+"), SPACING);
     b.rule(FLOAT).is(b.regexp("-?[0-9]+\\.[0-9]+"), SPACING);
     b.rule(NUMBER).is(b.firstOf(FLOAT, INTEGER));
-    b.rule(SYNTACTIC_IDENTIFIER).is(b.regexp("[a-zA-Z0-9]+"), SPACING);
 
     /** 
      * KEYWORDS
      */
     // <editor-fold defaultstate="collapsed" desc="Keywords definition">
-    b.rule(AS).is("as", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(BREAK).is("break", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(CASE).is("case", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(CATCH).is("catch", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(CLASS).is("class", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(CONST).is("const", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(CONTINUE).is("continue", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(DEFAULT).is("default", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(DELETE).is("delete", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(DO).is("do", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(ELSE).is("else", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(EXTENDS).is("extends", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(FALSE).is("false", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(FINALLY).is("finally", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(FOR).is("for", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(FUNCTION).is("function", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(IF).is("if", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(IMPLEMENTS).is("implements", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(IMPORT).is("import", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(IN).is("in", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(INSTANCEOF).is("instanceof", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(INTERFACE).is("interface", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(INTERNAL).is("internal", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(IS).is("is", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(NATIVE).is("native", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(NEW).is("new", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(NULL).is("null", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(PACKAGE).is("package", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(PRIVATE).is("private", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(PROTECTED).is("protected", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(PUBLIC).is("plublic", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(RETURN).is("return", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(SUPER).is("super", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(SWITCH).is("switch", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(THIS).is("this", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(THROW).is("throw", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(TO).is("to", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(TRUE).is("true", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(TRY).is("try", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(TYPEOF).is("typeof", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(USE).is("use", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(VAR).is("var", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(VOID).is("void", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(WHILE).is("while", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(WITH).is("with", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(XML).is("xml", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(AS).is("as", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(BREAK).is("break", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(CASE).is("case", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(CATCH).is("catch", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(CLASS).is("class", b.nextNot(IDENTIFIER_NAME), SPACING);   
+    b.rule(CONST).is("const", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(CONTINUE).is("continue", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(DEFAULT).is("default", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(DELETE).is("delete", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(DO).is("do", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(ELSE).is("else", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(EXTENDS).is("extends", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(FALSE).is("false", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(FINALLY).is("finally", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(FOR).is("for", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(FUNCTION).is("function", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(IF).is("if", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(IMPLEMENTS).is("implements", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(IMPORT).is("import", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(IN).is("in", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(INSTANCEOF).is("instanceof", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(INTERFACE).is("interface", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(INTERNAL).is("internal", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(IS).is("is", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(NATIVE).is("native", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(NEW).is("new", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(NULL).is("null", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(PACKAGE).is("package", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(PRIVATE).is("private", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(PROTECTED).is("protected", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(PUBLIC).is("plublic", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(RETURN).is("return", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(SUPER).is("super", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(SWITCH).is("switch", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(THIS).is("this", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(THROW).is("throw", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(TO).is("to", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(TRUE).is("true", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(TRY).is("try", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(TYPEOF).is("typeof", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(USE).is("use", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(VAR).is("var", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(VOID).is("void", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(WHILE).is("while", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(WITH).is("with", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(XML).is("xml", b.nextNot(IDENTIFIER_NAME), SPACING);
     // </editor-fold>
 
     /** 
      * SYNTACTIC KEYWORDS
      */
     // <editor-fold defaultstate="collapsed" desc="Syntactic keywords definition">
-    b.rule(EACH).is("each", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(GET).is("get", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(SET).is("set", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(NAMESPACE).is("namespace", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(INCLUDE).is("include", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(DYNAMIC).is("dynamic", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(FINAL).is("final", b.nextNot(IDENTIFIER_PART), SPACING); 
-    b.rule(OVERRIDE).is("override", b.nextNot(IDENTIFIER_PART), SPACING);
-    b.rule(STATIC).is("static", b.nextNot(IDENTIFIER_PART), SPACING);
+    b.rule(EACH).is("each", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(GET).is("get", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(SET).is("set", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(NAMESPACE).is("namespace", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(INCLUDE).is("include", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(DYNAMIC).is("dynamic", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(FINAL).is("final", b.nextNot(IDENTIFIER_NAME), SPACING); 
+    b.rule(OVERRIDE).is("override", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(STATIC).is("static", b.nextNot(IDENTIFIER_NAME), SPACING);
     // </editor-fold>
     
     /** 
@@ -488,6 +505,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(TILD).is("~", SPACING);
     // Consider that all statement ends with a semicolon
     b.rule(SEMICOLON).is(";", SPACING);
+    b.rule(UNDERSCORE).is("_", SPACING);
     // </editor-fold>
 
     /** 
@@ -495,7 +513,7 @@ public enum FlexGrammar implements GrammarRuleKey {
      */
     // <editor-fold defaultstate="collapsed" desc="Expressions definition">
     // Identifiers
-    b.rule(LEXICAL_IDENTIFIER).is(b.firstOf(
+    b.rule(IDENTIFIER).is(b.firstOf(
       DYNAMIC,
       EACH,
       GET,
@@ -503,10 +521,10 @@ public enum FlexGrammar implements GrammarRuleKey {
       NAMESPACE,
       SET,
       STATIC,
-      SYNTACTIC_IDENTIFIER));
+      IDENTIFIER_NAME));
 
     b.rule(PROPERTY_IDENTIFIER).is(b.firstOf(
-      SYNTACTIC_IDENTIFIER,
+      IDENTIFIER,
       STAR));
 
     b.rule(QUALIFIER).is(b.firstOf(
@@ -564,7 +582,7 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(FUNCTION_EXPR).is(b.firstOf(
       b.sequence(FUNCTION, FUNCTION_COMMON),
-      b.sequence(FUNCTION, LEXICAL_IDENTIFIER, FUNCTION_COMMON)));
+      b.sequence(FUNCTION, IDENTIFIER, FUNCTION_COMMON)));
 
     // Object initialiser
     b.rule(OBJECT_INITIALISER).is(LCURLYBRACE, FIELD_LIST, RCURLYBRACE);
@@ -738,29 +756,49 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.sequence(LT, XML_TAG_CONTENT, b.optional(XML_WHITESPACE), DIV, GT),
       b.sequence(LT, XML_TAG_CONTENT, b.optional(XML_WHITESPACE), 
                  XML_ELEMENT_CONTENT, LT, DIV, XML_TAG_NAME, 
-                 b.optional(XML_WHITESPACE))));
+                 b.optional(XML_WHITESPACE), GT)));
     
     b.rule(XML_TAG_CONTENT).is(XML_TAG_NAME, XML_ATTRIBUTES);
     
     b.rule(XML_TAG_NAME).is(b.firstOf(
       b.sequence(LCURLYBRACE, EXPRESSION_STATEMENT),
-      XML_TAG_NAME));
+      XML_NAME));
     
     b.rule(XML_ATTRIBUTES).is(b.optional(b.firstOf(
       b.sequence(XML_WHITESPACE, LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE),
       b.sequence(XML_ATTRIBUTE, XML_ATTRIBUTES))));
  
     b.rule(XML_ATTRIBUTE).is(b.firstOf(
-      b.sequence(XML_WHITESPACE, XML_NAME, b.optional(XML_WHITESPACE), EQU,
-                 b.optional(XML_WHITESPACE), LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE),
-      b.sequence(XML_WHITESPACE, XML_NAME, b.optional(XML_WHITESPACE), EQU,
-                 b.optional(XML_WHITESPACE), XML_ATTRIBUTE_VALUE)));
+      b.sequence(b.zeroOrMore(XML_WHITESPACE), XML_NAME, 
+                 b.optional(b.zeroOrMore(XML_WHITESPACE)), EQU,
+                 b.optional(b.zeroOrMore(XML_WHITESPACE)), LCURLYBRACE,
+                 EXPRESSION_STATEMENT, RCURLYBRACE),
+      b.sequence(b.zeroOrMore(XML_WHITESPACE), XML_NAME, 
+                 b.optional(b.zeroOrMore(XML_WHITESPACE)), EQU,
+                 b.optional(b.zeroOrMore(XML_WHITESPACE)), 
+                 XML_ATTRIBUTE_VALUE)));
 
-    b.rule(XML_ELEMENT_CONTENT).is(b.optional(b.firstOf(
-      b.sequence(LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE, XML_ELEMENT_CONTENT),
-      b.sequence(XML_MARKUP, XML_ELEMENT_CONTENT),
-      b.sequence(XML_TEXT, XML_ELEMENT_CONTENT),
-      b.sequence(XML_ELEMENT, XML_ELEMENT_CONTENT))));
+    b.rule(XML_ELEMENT_CONTENT).is(b.optional(
+      b.firstOf(
+        b.sequence(LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE, XML_ELEMENT_CONTENT),
+        b.sequence(XML_MARKUP, XML_ELEMENT_CONTENT),
+        b.sequence(XML_TEXT, XML_ELEMENT_CONTENT),
+        b.sequence(XML_ELEMENT, XML_ELEMENT_CONTENT)
+      )));
+    
+    b.rule(XML_MARKUP).is(b.firstOf(
+      XML_COMMENT,
+      XML_CDATA,
+      XML_PI));
+     
+    b.rule(XML_COMMENT).is(b.regexp("<!--(?:(?!--)[\\s\\S])*?-->"));
+    b.rule(XML_CDATA  ).is(b.regexp("<!\\[CDATA\\[(?:(?!]])[\\s\\S])*?]]>"));
+    b.rule(XML_PI).is(b.regexp("<\\?(?:(?!\\?>)[\\s\\S])*?\\?>"));
+    b.rule(XML_TEXT).is(b.regexp("[^{<]++"));
+    b.rule(XML_NAME).is(b.regexp("[" + UNICODE_LETTER + "_:" + "]" + "[" + UNICODE_LETTER + UNICODE_DIGIT + "\\.\\-_:" + "]*"));
+    b.rule(XML_ATTRIBUTE_VALUE).is(b.regexp("(\"([^\"]*[//s//S]*)\")|(\'([^\']*[//s//S]*)\')"));
+    b.rule(XML_WHITESPACE).is(b.regexp("[ \\t\\r\\n]+"));
+    
     // </editor-fold> 
     
     /** 
@@ -781,15 +819,15 @@ public enum FlexGrammar implements GrammarRuleKey {
       ATTRIBUTE_COMBINATION));
     
     b.rule(TYPED_IDENTIFIER).is(b.firstOf(
-      b.sequence(LEXICAL_IDENTIFIER, COLON, TYPE_EXPR),
-      LEXICAL_IDENTIFIER));
+      b.sequence(IDENTIFIER, COLON, TYPE_EXPR),
+      IDENTIFIER));
     
     //Function
     b.rule(FUNCTION_DEF).is(FUNCTION, FUNCTION_NAME, FUNCTION_COMMON);
     b.rule(FUNCTION_NAME).is(b.firstOf(
-      b.sequence(GET, /*Non line break*/ SYNTACTIC_IDENTIFIER),
-      b.sequence(SET, /*Non line break*/ SYNTACTIC_IDENTIFIER),
-      SYNTACTIC_IDENTIFIER));
+      b.sequence(GET, /*Non line break*/ IDENTIFIER),
+      b.sequence(SET, /*Non line break*/ IDENTIFIER),
+      IDENTIFIER));
     
     b.rule(FUNCTION_COMMON).is(b.firstOf(
       b.sequence(FUNCTION_SIGNATURE, BLOCK),
@@ -811,15 +849,15 @@ public enum FlexGrammar implements GrammarRuleKey {
     
     b.rule(REST_PARAMETERS).is(b.firstOf(
       TRIPLE_DOTS,
-      b.sequence(TRIPLE_DOTS, SYNTACTIC_IDENTIFIER)));
+      b.sequence(TRIPLE_DOTS, IDENTIFIER)));
     
     b.rule(RESULT_TYPE).is(b.optional(COLON, TYPE_EXPR));
     
     // Class
     b.rule(CLASS_DEF).is(CLASS, CLASS_NAME, INHERITENCE, BLOCK);
     b.rule(CLASS_NAME).is(CLASS_IDENTIFIERS);
-    b.rule(CLASS_IDENTIFIERS).is(SYNTACTIC_IDENTIFIER, 
-      b.zeroOrMore(b.sequence(DOT, SYNTACTIC_IDENTIFIER)));
+    b.rule(CLASS_IDENTIFIERS).is(IDENTIFIER, 
+      b.zeroOrMore(b.sequence(DOT, IDENTIFIER)));
     b.rule(INHERITENCE).is(b.optional(b.firstOf(
       b.sequence(EXTENDS, TYPE_EXPR),
       b.sequence(IMPLEMENTS, TYPE_EXPRESSION_LIST),
@@ -833,12 +871,12 @@ public enum FlexGrammar implements GrammarRuleKey {
     
     // Package
     b.rule(PACKAGE_DEF).is(PACKAGE, b.optional(PACKAGE_NAME), BLOCK);
-    b.rule(PACKAGE_NAME).is(SYNTACTIC_IDENTIFIER,
-                            b.optional(DOT, SYNTACTIC_IDENTIFIER));
+    b.rule(PACKAGE_NAME).is(IDENTIFIER,
+                            b.optional(DOT, IDENTIFIER));
 
     // Namespace
     b.rule(NAMESPACE_DEF).is(NAMESPACE, NAMESPACE_BINDING);
-    b.rule(NAMESPACE_BINDING).is(SYNTACTIC_IDENTIFIER, 
+    b.rule(NAMESPACE_BINDING).is(IDENTIFIER, 
                                  NAMESPACE_INITIALISATION);
     b.rule(NAMESPACE_INITIALISATION).is(b.optional(EQU, ASSIGNMENT_EXPR));
 
@@ -873,7 +911,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(SUB_STATEMENT).is(b.firstOf(
       EMPTY_STATEMENT,
       STATEMENT,
-      b.sequence(SIMPLE_VARIABLE_DEF, SEMICOLON)));
+      b.sequence(VARIABLE_DEF, SEMICOLON)));
     
     b.rule(SUB_STATEMENTS).is(b.optional(SUB_STATEMENT_PREFIX, SUB_STATEMENT));
     b.rule(SUB_STATEMENT_PREFIX).is(b.optional(SUB_STATEMENT));
@@ -882,7 +920,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(EMPTY_STATEMENT).is(SEMICOLON);
     b.rule(SUPER_STATEMENT).is(SUPER, ARGUMENTS);
     b.rule(BLOCK).is(LCURLYBRACE, DIRECTIVES, RCURLYBRACE);
-    b.rule(LABELED_STATEMENT).is(SYNTACTIC_IDENTIFIER, COLON, SUB_STATEMENT);
+    b.rule(LABELED_STATEMENT).is(IDENTIFIER, COLON, SUB_STATEMENT);
     
     // Conditional statements
     b.rule(IF_STATEMENT).is(IF, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT, 
@@ -928,11 +966,11 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(OPTIONAL_EXPRESSION).is(b.optional(LIST_EXPRESSION));
     b.rule(CONTINUE_STATEMENT).is(b.firstOf(
       CONTINUE,
-      b.sequence(CONTINUE, /*No line break*/ SYNTACTIC_IDENTIFIER)));
+      b.sequence(CONTINUE, /*No line break*/ IDENTIFIER)));
      
     b.rule(BREAK_STATEMENT).is(b.firstOf(
       BREAK,
-      b.sequence(BREAK, /*No line break*/ SYNTACTIC_IDENTIFIER)));
+      b.sequence(BREAK, /*No line break*/ IDENTIFIER)));
     
     b.rule(WITH_STATEMENT).is(WITH, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT);
     
@@ -960,13 +998,6 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(EXPRESSION_STATEMENT).is(LIST_EXPRESSION,
       b.nextNot(FUNCTION, b.sequence(LCURLYBRACE, RCURLYBRACE)));
     // </editor-fold>
-    
-    b.rule(SIMPLE_VARIABLE_DEF).is(b.nothing());
-    b.rule(XML_TEXT).is(b.nothing());
-    b.rule(XML_NAME).is(b.nothing());
-    b.rule(XML_ATTRIBUTE_VALUE).is(b.nothing());
-    b.rule(XML_WHITESPACE).is(b.nothing());
-    b.rule(XML_MARKUP).is(b.nothing());
     
     /** 
      * DIRECTIVES
@@ -999,13 +1030,13 @@ public enum FlexGrammar implements GrammarRuleKey {
       RESERVED_NAMESPACE,
       b.sequence(LBRAKET, ASSIGNMENT_EXPR, RBRAKET)));
     
-    b.rule(ATTRIBUTE_EXPR).is(LEXICAL_IDENTIFIER, 
+    b.rule(ATTRIBUTE_EXPR).is(IDENTIFIER, 
                               b.zeroOrMore(PROPERTY_OPERATOR));
    
     // Import
     b.rule(IMPORT_DIRECTIVE).is(b.firstOf(
       b.sequence(IMPORT, PACKAGE_NAME, DOT, STAR),
-      b.sequence(IMPORT, PACKAGE_NAME, DOT, SYNTACTIC_IDENTIFIER)
+      b.sequence(IMPORT, PACKAGE_NAME, DOT, IDENTIFIER)
       ));
     
     // Include

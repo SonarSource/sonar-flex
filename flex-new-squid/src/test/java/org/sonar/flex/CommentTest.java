@@ -36,11 +36,7 @@ public class CommentTest {
   @Test
   public void multiLine() {
     Assertions.assertThat(g.rule(FlexGrammar.MULTILINE_COMMENT))
-      .matches("/*\n"
-      + "* blabla \n"
-      + "b;ab;a */")
-      .notMatches("/*\n"
-      + "* blabla \n"
-      + "b;ab;a */ blao");
-  }
+      .matches("/*\n * blabla \n b;ab;a */")
+      .notMatches("/*\n * blabla \n b;ab;a */ blao");
+  }  
 }

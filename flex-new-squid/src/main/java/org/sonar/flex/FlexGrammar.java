@@ -19,10 +19,8 @@
  */
 package org.sonar.flex;
 
-import com.sun.xml.internal.bind.marshaller.XMLWriter;
 import org.sonar.sslr.grammar.GrammarRuleKey;
 import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
-import org.sonar.sslr.internal.vm.FirstOfExpression;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 public enum FlexGrammar implements GrammarRuleKey {
@@ -134,6 +132,9 @@ public enum FlexGrammar implements GrammarRuleKey {
   BRACKETS,
   IDENTIFIER,
   IDENTIFIER_NAME,
+  IDENTIFIER_PART,
+  IDENTIFIER_START,
+  UNICODE_ESCAPE_SEQUENCE,
   // New expressions
   FULL_NEW_EXPR,
   FULL_NEW_SUB_EXPR,
@@ -183,8 +184,8 @@ public enum FlexGrammar implements GrammarRuleKey {
   XML_CDATA,
   XML_PI,
   UNICODE,
-  
-  
+  KEYWORDS,
+  REGULAR_EXPRESSION,
   // </editor-fold>
    
   /**
@@ -286,6 +287,11 @@ public enum FlexGrammar implements GrammarRuleKey {
   ATTRIBUTE_EXPR,
   // </editor-fold>
   
+  regular_expr_flags,
+  regular_expr_char,
+  regular_expr_first_char,
+  regular_expr_chars,
+  regular_expr_body,
   /**
    * PONCTUATORS
    */
@@ -346,10 +352,12 @@ public enum FlexGrammar implements GrammarRuleKey {
   TRIPLE_DOTS,
   SEMICOLON,
   UNDERSCORE,
-  bla;
+  BACKSLASH,
+  DOLLAR;
+  
   // </editor-fold>
   
-  public static FlexGrammar[] KEYWORDS = {AS, BREAK, CASE, CATCH, CLASS, 
+  public static FlexGrammar[] KEYWORDS_LIST = {AS, BREAK, CASE, CATCH, CLASS, 
                                           CONST, CONTINUE, DEFAULT, DELETE,
                                           DO, ELSE, EXTENDS, FALSE, FINALLY,
                                           FOR, IF, IMPLEMENTS, IMPORT, IN,
@@ -362,7 +370,9 @@ public enum FlexGrammar implements GrammarRuleKey {
   
   private static final String UNICODE_LETTER = "\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}";
   private static final String UNICODE_DIGIT = "\\p{Nd}";
-  
+  private static final String UNICODE_COMBINING_MARK = "\\p{Mn}\\p{Mc}";
+  private static final String UNICODE_CONNECTOR_PUNCTUATION = "\\p{Mn}\\p{Mc}";
+    
   public static LexerlessGrammar createGrammar() {
     LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
     
@@ -371,8 +381,15 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(MULTILINE_COMMENT).is(b.regexp("/\\*[\\s\\S*]*\\*/"));
     b.rule(SPACING).is(WHITESPACE, 
       b.zeroOrMore(b.firstOf(INLINE_COMMENT, MULTILINE_COMMENT), WHITESPACE));
-    b.rule(IDENTIFIER_NAME).is(b.nextNot(CASE), b.regexp("[a-zA-Z0-9]+"), SPACING);
+    b.rule(UNICODE_ESCAPE_SEQUENCE).is(b.regexp("u[0-9a-fA-F]{4,4}"));
 
+     // Keywords
+    Object[] rest = new Object[KEYWORDS_LIST.length - 2];
+    for (int i = 2; i < KEYWORDS_LIST.length; i++){
+      rest[i - 2] = KEYWORDS_LIST[i];
+    }
+    b.rule(KEYWORDS).is(b.firstOf(KEYWORDS_LIST[0], KEYWORDS_LIST[1], rest));
+    
     b.rule(STRING).is(b.regexp("\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\""), SPACING);
     b.rule(INTEGER).is(b.regexp("-?[0-9]+"), SPACING);
     b.rule(FLOAT).is(b.regexp("-?[0-9]+\\.[0-9]+"), SPACING);
@@ -506,8 +523,11 @@ public enum FlexGrammar implements GrammarRuleKey {
     // Consider that all statement ends with a semicolon
     b.rule(SEMICOLON).is(";", SPACING);
     b.rule(UNDERSCORE).is("_", SPACING);
+    b.rule(BACKSLASH).is("\\", SPACING);
+    b.rule(DOLLAR).is("$", SPACING);
     // </editor-fold>
 
+    
     /** 
      * EXPRESSIONS
      */
@@ -521,8 +541,24 @@ public enum FlexGrammar implements GrammarRuleKey {
       NAMESPACE,
       SET,
       STATIC,
-      IDENTIFIER_NAME));
+      b.sequence(b.nextNot(KEYWORDS), IDENTIFIER_NAME)));
 
+    b.rule(IDENTIFIER_NAME).is(IDENTIFIER_START, 
+                               b.zeroOrMore(IDENTIFIER_PART), SPACING);
+    
+    b.rule(IDENTIFIER_START).is(b.firstOf(
+      b.regexp("[" + UNICODE_LETTER + "]"),
+      DOLLAR,
+      UNDERSCORE,
+      b.sequence(BACKSLASH, UNICODE_ESCAPE_SEQUENCE)));
+    
+    b.rule(IDENTIFIER_PART).is(b.firstOf(
+      IDENTIFIER_START,
+      b.regexp("[" + UNICODE_COMBINING_MARK + "]"),
+      b.regexp("[" + UNICODE_DIGIT + "]"),
+      b.regexp("[" + UNICODE_CONNECTOR_PUNCTUATION + "]"),
+      UNICODE_ESCAPE_SEQUENCE));
+    
     b.rule(PROPERTY_IDENTIFIER).is(b.firstOf(
       IDENTIFIER,
       STAR));
@@ -557,8 +593,8 @@ public enum FlexGrammar implements GrammarRuleKey {
       NUMBER,
       STRING,
       THIS,
-      // Regular expression
-      // XMLInitializer
+      REGULAR_EXPRESSION,
+      XML_INITIALISER,
       RESERVED_NAMESPACE,
       PARENTHESIZED_EXPR,
       ARRAY_INITIALISER,
@@ -851,6 +887,7 @@ public enum FlexGrammar implements GrammarRuleKey {
       TRIPLE_DOTS,
       b.sequence(TRIPLE_DOTS, IDENTIFIER)));
     
+    // TODO WTF in specs? other grammars don't use type_expr
     b.rule(RESULT_TYPE).is(b.optional(COLON, TYPE_EXPR));
     
     // Class

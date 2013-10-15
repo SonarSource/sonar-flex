@@ -70,12 +70,12 @@ public class BinaryExpressionTest {
   }
   
   @Test
-  public void bitezise() {
+  public void bitewise() {
     Assertions.assertThat(g.rule(FlexGrammar.BITEWISE_AND_EXPR))
       .matches("x&f(y , z).yeah");
     
     Assertions.assertThat(g.rule(FlexGrammar.BITEWISE_XOR_EXPR))
-      .matches("var+U^   secondvar");
+      .matches("a + b ^ c");
     
     Assertions.assertThat(g.rule(FlexGrammar.BITEWISE_OR_EXPR))
       .matches("x().z |f(y, z)");

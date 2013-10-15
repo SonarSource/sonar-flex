@@ -584,7 +584,20 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.sequence(AT_SIGN, BRACKETS),
       b.sequence(AT_SIGN, NON_ATTRIBUTE_QUALIFIED_IDENTIFIER),
       NON_ATTRIBUTE_QUALIFIED_IDENTIFIER));
-
+    
+    // Regular expression according to ECMA 262
+    b.rule(REGULAR_EXPRESSION).is(b.regexp(
+       "/"
+       // Regular expression first char
+     + "([^\\n\\r\\*\\\\/]|(\\\\[^\\n\\r]))"
+       // Regular expression chars
+     + "([^\\n\\r\\\\/]|(\\\\[^\\n\\r]))*"
+     + "/"
+      // Regular expression flags
+     + "["+ UNICODE_LETTER + "\\$_(\\\\" + UNICODE_ESCAPE_SEQUENCE +")" 
+          + UNICODE_COMBINING_MARK + UNICODE_DIGIT 
+          + UNICODE_CONNECTOR_PUNCTUATION + "]*"));
+    
     //Primary expressions
     b.rule(PRIMARY_EXPR).is(b.firstOf(
       NULL,

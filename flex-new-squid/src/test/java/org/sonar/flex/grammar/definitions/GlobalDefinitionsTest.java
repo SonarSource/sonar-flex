@@ -49,7 +49,7 @@ public class GlobalDefinitionsTest {
       .matches("interface T extends Tye0bject{}")
       .notMatches("interfaceT  {}");
   }
-  
+
   @Test
   public void packageDefinition() {
     Assertions.assertThat(g.rule(FlexGrammar.PACKAGE_DEF))
@@ -57,12 +57,21 @@ public class GlobalDefinitionsTest {
       .matches("package   parent.child {   } ")
       .matches("package p{}");
   }
-  
+
   @Test
   public void namespaceDefinition() {
     Assertions.assertThat(g.rule(FlexGrammar.NAMESPACE_DEF))
       .matches("namespace NS1")
       .matches("namespace NS2= NS1")
       .matches("namespace NS3 = \"http://www.macromedia.com/flash/2005\"");
+  }
+
+  @Test
+  public void regexp() {
+    Assertions.assertThat(g.rule(FlexGrammar.REGULAR_EXPRESSION))
+      .matches("/test-\\d/i")
+      .matches("/<p>.*?<\\/p>/s")
+      .matches("/\\d{3}-\\d{3}-\\d{4}|\\(\\d{3}\\)\\s?\\d{3}-\\d{4}/");
+
   }
 }

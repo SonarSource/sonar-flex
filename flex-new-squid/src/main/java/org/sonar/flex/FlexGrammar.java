@@ -19,63 +19,15 @@
  */
 package org.sonar.flex;
 
+import static org.sonar.flex.FlexKeyword.*;
+
 import org.sonar.sslr.grammar.GrammarRuleKey;
 import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 public enum FlexGrammar implements GrammarRuleKey {
 
-  /**
-   * KEYWORDS
-   */
-  // <editor-fold defaultstate="collapsed" desc="Keywords">
-  AS,
-  BREAK,
-  CASE,
-  CATCH,
-  CLASS,
-  CONST,
-  CONTINUE,
-  DEFAULT,
-  DELETE,
-  DO,
-  ELSE,
-  EXTENDS,
-  FALSE,
-  FINALLY,
-  FOR,
-  FUNCTION,
-  IF,
-  IMPLEMENTS,
-  IMPORT,
-  IN,
-  INSTANCEOF,
-  INTERFACE,
-  INTERNAL,
-  IS,
-  NATIVE,
-  NEW,
-  NULL,
-  PACKAGE,
-  PRIVATE,
-  PROTECTED,
-  PUBLIC,
-  RETURN,
-  SUPER,
-  SWITCH,
-  THIS,
-  THROW,
-  TO,
-  TRUE,
-  TRY,
-  TYPEOF,
-  USE,
-  VAR,
-  VOID,
-  WHILE,
-  WITH,
   XML,
-  // </editor-fold>
   
   /**
    * SYNTATIC KEYWORDS 
@@ -307,11 +259,6 @@ public enum FlexGrammar implements GrammarRuleKey {
   ATTRIBUTE_EXPR,
   // </editor-fold>
   
-  regular_expr_flags,
-  regular_expr_char,
-  regular_expr_first_char,
-  regular_expr_chars,
-  regular_expr_body,
   /**
    * PONCTUATORS
    */
@@ -376,182 +323,55 @@ public enum FlexGrammar implements GrammarRuleKey {
   DOLLAR;
   
   // </editor-fold>
-  
-  public static FlexGrammar[] KEYWORDS_LIST = {AS, BREAK, CASE, CATCH, CLASS, 
-                                          CONST, CONTINUE, DEFAULT, DELETE,
-                                          DO, ELSE, EXTENDS, FALSE, FINALLY,
-                                          FOR, IF, IMPLEMENTS, IMPORT, IN,
-                                          INSTANCEOF, INTERFACE, INTERNAL, IS,
-                                          NATIVE, NEW, NULL, PACKAGE, PRIVATE,
-                                          PROTECTED, PUBLIC, RETURN, SUPER, 
-                                          SWITCH, THIS, THROW, TO, TRUE, TRY,
-                                          TYPEOF, USE, VAR, VOID, WHILE, WITH,
-                                          XML,};
-  
+    
   private static final String UNICODE_LETTER = "\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}";
   private static final String UNICODE_DIGIT = "\\p{Nd}";
   private static final String UNICODE_COMBINING_MARK = "\\p{Mn}\\p{Mc}";
   private static final String UNICODE_CONNECTOR_PUNCTUATION = "\\p{Mn}\\p{Mc}";
-    
+   
   public static LexerlessGrammar createGrammar() {
     LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
     
     b.rule(WHITESPACE).is(b.regexp("\\s*"));
     b.rule(INLINE_COMMENT).is(b.regexp("//[^\\n\\r]*+"));
     b.rule(MULTILINE_COMMENT).is(b.regexp("/\\*[\\s\\S*]*\\*/"));
-    b.rule(SPACING).is(WHITESPACE, 
-      b.zeroOrMore(b.firstOf(INLINE_COMMENT, MULTILINE_COMMENT), WHITESPACE));
+    b.rule(SPACING).is(WHITESPACE, b.zeroOrMore(b.firstOf(INLINE_COMMENT, MULTILINE_COMMENT), WHITESPACE));
     b.rule(UNICODE_ESCAPE_SEQUENCE).is(b.regexp("u[0-9a-fA-F]{4,4}"));
-
-     // Keywords
-    Object[] rest = new Object[KEYWORDS_LIST.length - 2];
-    for (int i = 2; i < KEYWORDS_LIST.length; i++){
-      rest[i - 2] = KEYWORDS_LIST[i];
-    }
-    b.rule(KEYWORDS).is(b.firstOf(KEYWORDS_LIST[0], KEYWORDS_LIST[1], rest));
     
+    b.rule(XML).is("xml", b.nextNot(IDENTIFIER_NAME), SPACING);
+    
+    punctuators(b);
+    keywords(b);
+    literals(b);
+    expressions(b);
+    statements(b);
+    directives(b);
+    definitions(b);
+    
+    return b.build();
+  }
+  
+  private static void literals(LexerlessGrammarBuilder b) {
     b.rule(STRING).is(b.regexp("\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\""), SPACING);
     b.rule(INTEGER).is(b.regexp("-?[0-9]+"), SPACING);
     b.rule(FLOAT).is(b.regexp("-?[0-9]+\\.[0-9]+"), SPACING);
     b.rule(NUMBER).is(b.firstOf(FLOAT, INTEGER));
-
-    /** 
-     * KEYWORDS
-     */
-    // <editor-fold defaultstate="collapsed" desc="Keywords definition">
-    b.rule(AS).is("as", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(BREAK).is("break", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(CASE).is("case", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(CATCH).is("catch", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(CLASS).is("class", b.nextNot(IDENTIFIER_NAME), SPACING);   
-    b.rule(CONST).is("const", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(CONTINUE).is("continue", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(DEFAULT).is("default", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(DELETE).is("delete", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(DO).is("do", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(ELSE).is("else", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(EXTENDS).is("extends", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(FALSE).is("false", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(FINALLY).is("finally", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(FOR).is("for", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(FUNCTION).is("function", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(IF).is("if", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(IMPLEMENTS).is("implements", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(IMPORT).is("import", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(IN).is("in", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(INSTANCEOF).is("instanceof", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(INTERFACE).is("interface", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(INTERNAL).is("internal", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(IS).is("is", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(NATIVE).is("native", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(NEW).is("new", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(NULL).is("null", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(PACKAGE).is("package", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(PRIVATE).is("private", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(PROTECTED).is("protected", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(PUBLIC).is("plublic", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(RETURN).is("return", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(SUPER).is("super", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(SWITCH).is("switch", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(THIS).is("this", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(THROW).is("throw", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(TO).is("to", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(TRUE).is("true", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(TRY).is("try", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(TYPEOF).is("typeof", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(USE).is("use", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(VAR).is("var", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(VOID).is("void", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(WHILE).is("while", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(WITH).is("with", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(XML).is("xml", b.nextNot(IDENTIFIER_NAME), SPACING);
-    // </editor-fold>
-
-    /** 
-     * SYNTACTIC KEYWORDS
-     */
-    // <editor-fold defaultstate="collapsed" desc="Syntactic keywords definition">
-    b.rule(EACH).is("each", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(GET).is("get", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(SET).is("set", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(NAMESPACE).is("namespace", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(INCLUDE).is("include", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(DYNAMIC).is("dynamic", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(FINAL).is("final", b.nextNot(IDENTIFIER_NAME), SPACING); 
-    b.rule(OVERRIDE).is("override", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(STATIC).is("static", b.nextNot(IDENTIFIER_NAME), SPACING);
-    // </editor-fold>
     
-    /** 
-     * PONCTUATORS
-     */
-    // <editor-fold defaultstate="collapsed" desc="Ponctuator definition">
-    b.rule(AT_SIGN).is("@", SPACING);
-    b.rule(COMMA).is(",", SPACING);
-    b.rule(COLON).is(":", SPACING);
-    b.rule(DOUBLE_COLON).is("::", SPACING);
-    b.rule(DOT).is(".", SPACING);
-    b.rule(TRIPLE_DOTS).is("...", SPACING);
-    b.rule(DOUBLE_DOT).is("..", SPACING);
-    b.rule(RCURLYBRACE).is("}", SPACING);
-    b.rule(LCURLYBRACE).is("{", SPACING);
-    b.rule(RBRAKET).is("]", SPACING);
-    b.rule(LBRAKET).is("[", SPACING);
-    b.rule(RPARENTHESIS).is(")", SPACING);
-    b.rule(LPARENTHESIS).is("(", SPACING);
-    b.rule(DIV).is("/", SPACING);
-    b.rule(MOD).is("%", SPACING);
-    b.rule(STAR).is("*", SPACING);
-    b.rule(PLUS).is("+", SPACING);
-    b.rule(MINUS).is("-", SPACING);
-    b.rule(DOUBLE_PLUS).is("++", SPACING);
-    b.rule(DOUBLE_MINUS).is("--", SPACING);
-    b.rule(SL).is("<<", SPACING);
-    b.rule(SR).is(">>", SPACING);
-    b.rule(SR2).is(">>>", SPACING);
-    b.rule(NOT).is("!", SPACING);
-    b.rule(EQU).is("=", SPACING);
-    b.rule(EQUAL).is("==", SPACING);
-    b.rule(EQUAL2).is("===", SPACING);
-    b.rule(NOTEQUAL).is("!=", SPACING);
-    b.rule(NOTEQUAL2).is("!==", SPACING);
-    b.rule(STAR_EQU).is("*=", SPACING);
-    b.rule(DIV_EQU).is("/=", SPACING);
-    b.rule(MOD_EQU).is("%=", SPACING);
-    b.rule(PLUS_EQU).is("+=", SPACING);
-    b.rule(MINUS_EQU).is("-=", SPACING);
-    b.rule(SL_EQU).is("<<=", SPACING);
-    b.rule(SR_EQU).is(">>=", SPACING);
-    b.rule(SR_EQU2).is(">>>=", SPACING);
-    b.rule(AND_EQU).is("&=", SPACING);
-    b.rule(XOR_EQU).is("^=", SPACING);
-    b.rule(OR_EQU).is("|=", SPACING);
-    b.rule(ANDAND_EQU).is("&&=", SPACING);
-    b.rule(XORXOR_EQU).is("^^=", SPACING);
-    b.rule(OROR_EQU).is("||=", SPACING);
-    b.rule(LT).is("<", SPACING);
-    b.rule(GT).is(">", SPACING);
-    b.rule(LE).is("<=", SPACING);
-    b.rule(GE).is(">=", SPACING);
-    b.rule(XOR).is("^", SPACING);
-    b.rule(AND).is("&", SPACING);
-    b.rule(ANDAND).is("&&", SPACING);
-    b.rule(OR).is("|", SPACING);
-    b.rule(OROR).is("||", SPACING);
-    b.rule(QUERY).is("?", SPACING);
-    b.rule(TILD).is("~", SPACING);
-    // Consider that all statement ends with a semicolon
-    b.rule(SEMICOLON).is(";", SPACING);
-    b.rule(UNDERSCORE).is("_", SPACING);
-    b.rule(BACKSLASH).is("\\", SPACING);
-    b.rule(DOLLAR).is("$", SPACING);
-    // </editor-fold>
-
-    
-    /** 
-     * EXPRESSIONS
-     */
-    // <editor-fold defaultstate="collapsed" desc="Expressions definition">
+    // Regular expression according to ECMA 262
+    b.rule(REGULAR_EXPRESSION).is(b.regexp(
+       "/"
+       // Regular expression first char
+     + "([^\\n\\r\\*\\\\/]|(\\\\[^\\n\\r]))"
+       // Regular expression chars
+     + "([^\\n\\r\\\\/]|(\\\\[^\\n\\r]))*"
+     + "/"
+      // Regular expression flags
+     + "["+ UNICODE_LETTER + "\\$_(\\\\" + UNICODE_ESCAPE_SEQUENCE +")" 
+          + UNICODE_COMBINING_MARK + UNICODE_DIGIT 
+          + UNICODE_CONNECTOR_PUNCTUATION + "]*"));
+  }
+  
+  private static void expressions(LexerlessGrammarBuilder b) {
     // Identifiers
     b.rule(IDENTIFIER).is(b.firstOf(
       DYNAMIC,
@@ -563,8 +383,7 @@ public enum FlexGrammar implements GrammarRuleKey {
       STATIC,
       b.sequence(b.nextNot(KEYWORDS), IDENTIFIER_NAME)));
 
-    b.rule(IDENTIFIER_NAME).is(IDENTIFIER_START, 
-                               b.zeroOrMore(IDENTIFIER_PART), SPACING);
+    b.rule(IDENTIFIER_NAME).is(IDENTIFIER_START, b.zeroOrMore(IDENTIFIER_PART), SPACING);
     
     b.rule(IDENTIFIER_START).is(b.firstOf(
       b.regexp("[" + UNICODE_LETTER + "]"),
@@ -604,19 +423,6 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.sequence(AT_SIGN, BRACKETS),
       b.sequence(AT_SIGN, NON_ATTRIBUTE_QUALIFIED_IDENTIFIER),
       NON_ATTRIBUTE_QUALIFIED_IDENTIFIER));
-    
-    // Regular expression according to ECMA 262
-    b.rule(REGULAR_EXPRESSION).is(b.regexp(
-       "/"
-       // Regular expression first char
-     + "([^\\n\\r\\*\\\\/]|(\\\\[^\\n\\r]))"
-       // Regular expression chars
-     + "([^\\n\\r\\\\/]|(\\\\[^\\n\\r]))*"
-     + "/"
-      // Regular expression flags
-     + "["+ UNICODE_LETTER + "\\$_(\\\\" + UNICODE_ESCAPE_SEQUENCE +")" 
-          + UNICODE_COMBINING_MARK + UNICODE_DIGIT 
-          + UNICODE_CONNECTOR_PUNCTUATION + "]*"));
     
     //Primary expressions
     b.rule(PRIMARY_EXPR).is(b.firstOf(
@@ -673,9 +479,9 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(ARRAY_INITIALISER).is(LBRAKET, ELEMENT_LIST, RBRAKET);
 
     b.rule(ELEMENT_LIST).is(b.optional(b.firstOf(
-      LITERAL_ELEMENT,
       b.sequence(COMMA, ELEMENT_LIST),
-      b.sequence(LITERAL_ELEMENT, COMMA, ELEMENT_LIST))));
+      b.sequence(LITERAL_ELEMENT, COMMA, ELEMENT_LIST),
+      LITERAL_ELEMENT)));
 
     b.rule(LITERAL_ELEMENT).is(ASSIGNMENT_EXPR);
 
@@ -755,110 +561,70 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.sequence(DOT, LPARENTHESIS, LIST_EXPRESSION, RPARENTHESIS)));
 
     //Call expresions
-    b.rule(ARGUMENTS).is(b.firstOf(
-      b.sequence(LPARENTHESIS, RPARENTHESIS),
-      b.sequence(LPARENTHESIS, LIST_EXPRESSION, RPARENTHESIS)));
-
-    b.rule(ARGUMENTS_LIST).is(ASSIGNMENT_EXPR,
-      b.zeroOrMore(COMMA, ASSIGNMENT_EXPR));
-    b.rule(ARGUMENTS_LIST_NO_IN).is(ASSIGNMENT_EXPR_NO_IN,
-      b.zeroOrMore(COMMA, ASSIGNMENT_EXPR_NO_IN));
+    b.rule(ARGUMENTS).is(LPARENTHESIS, b.optional(LIST_EXPRESSION), RPARENTHESIS);
+    b.rule(ARGUMENTS_LIST).is(ASSIGNMENT_EXPR, b.zeroOrMore(COMMA, ASSIGNMENT_EXPR));
+    b.rule(ARGUMENTS_LIST_NO_IN).is(ASSIGNMENT_EXPR_NO_IN, b.zeroOrMore(COMMA, ASSIGNMENT_EXPR_NO_IN));
 
     // Unary expression
     b.rule(UNARY_EXPR).is(b.firstOf(
       b.sequence(b.firstOf(DELETE, DOUBLE_PLUS, DOUBLE_MINUS), POSTFIX_EXPR),
       b.sequence(b.firstOf(VOID, TYPEOF, PLUS, MINUS, NOT, TILD), UNARY_EXPR),
       POSTFIX_EXPR
-      // NegatedMinLong
+      // TODO NegatedMinLong
       ));
 
     // Binary expressions
-    b.rule(MULTIPLICATIVE_EXPR).is(UNARY_EXPR,
-      b.zeroOrMore(b.firstOf(STAR, DIV, MOD), UNARY_EXPR));
-    b.rule(ADDITIVE_EXPR).is(MULTIPLICATIVE_EXPR,
-      b.zeroOrMore(b.firstOf(PLUS, MINUS), MULTIPLICATIVE_EXPR));
-    b.rule(SHIFT_EXPR).is(ADDITIVE_EXPR,
-      b.zeroOrMore(b.firstOf(SL, SR2, SR), ADDITIVE_EXPR));
+    b.rule(MULTIPLICATIVE_EXPR).is(UNARY_EXPR, b.zeroOrMore(b.firstOf(STAR, DIV, MOD), UNARY_EXPR));
+    b.rule(ADDITIVE_EXPR).is(MULTIPLICATIVE_EXPR, b.zeroOrMore(b.firstOf(PLUS, MINUS), MULTIPLICATIVE_EXPR));
+    b.rule(SHIFT_EXPR).is(ADDITIVE_EXPR, b.zeroOrMore(b.firstOf(SL, SR2, SR), ADDITIVE_EXPR));
     
-    b.rule(RELATIONAL_EXPR).is(SHIFT_EXPR, b.zeroOrMore(b.firstOf(
-      b.sequence(LE, SHIFT_EXPR),
-      b.sequence(GE, SHIFT_EXPR),
-      b.sequence(LT, SHIFT_EXPR),
-      b.sequence(GT, SHIFT_EXPR),
-      b.sequence(IN, SHIFT_EXPR),
-      b.sequence(INSTANCEOF, SHIFT_EXPR),
-      b.sequence(IS, SHIFT_EXPR),
-      b.sequence(AS, SHIFT_EXPR))));
+    b.rule(RELATIONAL_EXPR).is(
+      SHIFT_EXPR,
+      b.zeroOrMore(
+        b.firstOf(LE, GE, LT, GT, IN, INSTANCEOF, IS, AS),
+        SHIFT_EXPR));
+    b.rule(RELATIONAL_EXPR_NO_IN).is(
+      SHIFT_EXPR,
+      b.zeroOrMore(
+        b.firstOf(LE, GE, LT, GT, INSTANCEOF, IS, AS),
+        SHIFT_EXPR));
     
-    b.rule(RELATIONAL_EXPR_NO_IN).is(SHIFT_EXPR, b.zeroOrMore(b.firstOf(
-      b.sequence(LE, SHIFT_EXPR),
-      b.sequence(GE, SHIFT_EXPR),
-      b.sequence(LT, SHIFT_EXPR),
-      b.sequence(GT, SHIFT_EXPR),
-      b.sequence(INSTANCEOF, SHIFT_EXPR),
-      b.sequence(IS, SHIFT_EXPR),
-      b.sequence(AS, SHIFT_EXPR))));
+    b.rule(EQUALITY_EXPR).is(
+      RELATIONAL_EXPR, 
+      b.zeroOrMore(
+        b.firstOf(NOTEQUAL2, EQUAL2, EQUAL, NOTEQUAL),
+        RELATIONAL_EXPR));
+    b.rule(EQUALITY_EXPR_NO_IN).is(
+      RELATIONAL_EXPR_NO_IN, 
+      b.zeroOrMore(
+        b.firstOf(NOTEQUAL2, EQUAL2, EQUAL, NOTEQUAL),
+        RELATIONAL_EXPR_NO_IN));
     
-    b.rule(EQUALITY_EXPR).is(RELATIONAL_EXPR, b.zeroOrMore(b.firstOf(
-      b.sequence(NOTEQUAL2, RELATIONAL_EXPR),
-      b.sequence(EQUAL2, RELATIONAL_EXPR),
-      b.sequence(EQUAL, RELATIONAL_EXPR),
-      b.sequence(NOTEQUAL, RELATIONAL_EXPR))));
-    b.rule(EQUALITY_EXPR_NO_IN).is(RELATIONAL_EXPR_NO_IN, b.zeroOrMore(b.firstOf(
-      b.sequence(NOTEQUAL2, RELATIONAL_EXPR_NO_IN),
-      b.sequence(EQUAL2, RELATIONAL_EXPR_NO_IN),
-      b.sequence(EQUAL, RELATIONAL_EXPR_NO_IN),
-      b.sequence(NOTEQUAL, RELATIONAL_EXPR_NO_IN))));
+    b.rule(BITEWISE_AND_EXPR).is(EQUALITY_EXPR, b.zeroOrMore(AND, EQUALITY_EXPR));
+    b.rule(BITEWISE_AND_EXPR_NO_IN).is(EQUALITY_EXPR_NO_IN, b.zeroOrMore(AND, EQUALITY_EXPR_NO_IN));
     
-    b.rule(BITEWISE_AND_EXPR).is(EQUALITY_EXPR,
-      b.zeroOrMore(b.sequence(AND, EQUALITY_EXPR)));
-    b.rule(BITEWISE_AND_EXPR_NO_IN).is(EQUALITY_EXPR_NO_IN,
-      b.zeroOrMore(b.sequence(AND, EQUALITY_EXPR_NO_IN)));
+    b.rule(BITEWISE_XOR_EXPR).is(BITEWISE_AND_EXPR, b.zeroOrMore(XOR, BITEWISE_AND_EXPR));
+    b.rule(BITEWISE_XOR_EXPR_NO_IN).is(BITEWISE_AND_EXPR_NO_IN, b.zeroOrMore(XOR, BITEWISE_AND_EXPR_NO_IN));
     
-    b.rule(BITEWISE_XOR_EXPR).is(BITEWISE_AND_EXPR,
-      b.zeroOrMore(b.sequence(XOR, BITEWISE_AND_EXPR)));
-    b.rule(BITEWISE_XOR_EXPR_NO_IN).is(BITEWISE_AND_EXPR_NO_IN,
-      b.zeroOrMore(b.sequence(XOR, BITEWISE_AND_EXPR_NO_IN)));
+    b.rule(BITEWISE_OR_EXPR).is(BITEWISE_XOR_EXPR, b.zeroOrMore(OR, BITEWISE_XOR_EXPR));
+    b.rule(BITEWISE_OR_EXPR_NO_IN).is(BITEWISE_XOR_EXPR_NO_IN, b.zeroOrMore(OR, BITEWISE_XOR_EXPR_NO_IN));
     
-    b.rule(BITEWISE_OR_EXPR).is(BITEWISE_XOR_EXPR,
-      b.zeroOrMore(b.sequence(OR, BITEWISE_XOR_EXPR)));
-    b.rule(BITEWISE_OR_EXPR_NO_IN).is(BITEWISE_XOR_EXPR_NO_IN,
-      b.zeroOrMore(b.sequence(OR, BITEWISE_XOR_EXPR_NO_IN)));
+    b.rule(LOGICAL_AND_EXPR).is(BITEWISE_OR_EXPR, b.zeroOrMore(ANDAND, BITEWISE_XOR_EXPR));
+    b.rule(LOGICAL_AND_EXPR_NO_IN).is(BITEWISE_OR_EXPR_NO_IN, b.zeroOrMore(ANDAND, BITEWISE_XOR_EXPR_NO_IN));
     
-    b.rule(LOGICAL_AND_EXPR).is(BITEWISE_OR_EXPR,
-      b.zeroOrMore(b.sequence(ANDAND, BITEWISE_XOR_EXPR)));
-    b.rule(LOGICAL_AND_EXPR_NO_IN).is(BITEWISE_OR_EXPR_NO_IN,
-      b.zeroOrMore(b.sequence(ANDAND, BITEWISE_XOR_EXPR_NO_IN)));
-    
-    b.rule(LOGICAL_OR_EXPR).is(LOGICAL_AND_EXPR,
-      b.zeroOrMore(b.sequence(OROR, LOGICAL_AND_EXPR)));
-    b.rule(LOGICAL_OR_EXPR_NO_IN).is(LOGICAL_AND_EXPR_NO_IN,
-      b.zeroOrMore(b.sequence(OROR, LOGICAL_AND_EXPR_NO_IN)));
+    b.rule(LOGICAL_OR_EXPR).is(LOGICAL_AND_EXPR, b.zeroOrMore(OROR, LOGICAL_AND_EXPR));
+    b.rule(LOGICAL_OR_EXPR_NO_IN).is(LOGICAL_AND_EXPR_NO_IN, b.zeroOrMore(OROR, LOGICAL_AND_EXPR_NO_IN));
 
     // Conditional expression
-    b.rule(CONDITIONAL_EXPR).is(b.firstOf(
-      LOGICAL_OR_EXPR,
-      b.sequence(LOGICAL_OR_EXPR, QUERY, ASSIGNMENT_EXPR,
-      COLON, ASSIGNMENT_EXPR)));
-    b.rule(CONDITIONAL_EXPR_NO_IN).is(b.firstOf(
-      LOGICAL_OR_EXPR_NO_IN,
-      b.sequence(LOGICAL_OR_EXPR_NO_IN, QUERY, ASSIGNMENT_EXPR_NO_IN,
-      COLON, ASSIGNMENT_EXPR_NO_IN)));
+    b.rule(CONDITIONAL_EXPR).is(LOGICAL_OR_EXPR, b.optional(QUERY, ASSIGNMENT_EXPR, COLON, ASSIGNMENT_EXPR));
+    b.rule(CONDITIONAL_EXPR_NO_IN).is(LOGICAL_OR_EXPR_NO_IN, b.optional(QUERY, ASSIGNMENT_EXPR_NO_IN, COLON, ASSIGNMENT_EXPR_NO_IN));
     
     // Non assignment expression
-    b.rule(NON_ASSIGNMENT_EXPR).is(b.firstOf(
-      LOGICAL_OR_EXPR,
-      b.sequence(LOGICAL_OR_EXPR, QUERY, NON_ASSIGNMENT_EXPR,
-      COLON, NON_ASSIGNMENT_EXPR)));
-    b.rule(NON_ASSIGNMENT_EXPR_NO_IN).is(b.firstOf(
-      LOGICAL_OR_EXPR_NO_IN,
-      b.sequence(LOGICAL_OR_EXPR_NO_IN, QUERY, NON_ASSIGNMENT_EXPR_NO_IN,
-      COLON, NON_ASSIGNMENT_EXPR_NO_IN)));
+    b.rule(NON_ASSIGNMENT_EXPR).is(LOGICAL_OR_EXPR, b.optional(QUERY, NON_ASSIGNMENT_EXPR, COLON, NON_ASSIGNMENT_EXPR));
+    b.rule(NON_ASSIGNMENT_EXPR_NO_IN).is(LOGICAL_OR_EXPR_NO_IN, b.optional(QUERY, NON_ASSIGNMENT_EXPR_NO_IN, COLON, NON_ASSIGNMENT_EXPR_NO_IN));
 
-    b.rule(LIST_EXPRESSION).is(ASSIGNMENT_EXPR,
-      b.zeroOrMore(b.sequence(COMMA, ASSIGNMENT_EXPR)));
-    b.rule(LIST_EXPRESSION_NO_IN).is(ASSIGNMENT_EXPR_NO_IN,
-      b.zeroOrMore(b.sequence(COMMA, ASSIGNMENT_EXPR_NO_IN)));
+    b.rule(LIST_EXPRESSION).is(ASSIGNMENT_EXPR, b.zeroOrMore(b.sequence(COMMA, ASSIGNMENT_EXPR)));
+    b.rule(LIST_EXPRESSION_NO_IN).is(ASSIGNMENT_EXPR_NO_IN, b.zeroOrMore(b.sequence(COMMA, ASSIGNMENT_EXPR_NO_IN)));
     
     // TODO convert into tests:
     // void
@@ -926,13 +692,156 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(XML_NAME).is(b.regexp("[" + UNICODE_LETTER + "_:" + "]" + "[" + UNICODE_LETTER + UNICODE_DIGIT + "\\.\\-_:" + "]*"));
     b.rule(XML_ATTRIBUTE_VALUE).is(b.regexp("(\"([^\"]*[//s//S]*)\")|(\'([^\']*[//s//S]*)\')"));
     b.rule(XML_WHITESPACE).is(b.regexp("[ \\t\\r\\n]+"));
+  }
+  
+  private static void statements(LexerlessGrammarBuilder b) {
+    b.rule(STATEMENT).is(b.firstOf(
+      b.sequence(SUPER_STATEMENT, SEMICOLON),
+      BLOCK,
+      IF_STATEMENT,
+      SWITCH_STATEMENT,
+      b.sequence(DO_STATEMENT, SEMICOLON),
+      WHILE_STATEMENT,
+      FOR_STATEMENT,
+      WITH_STATEMENT,
+      b.sequence(CONTINUE_STATEMENT, SEMICOLON),
+      b.sequence(BREAK_STATEMENT, SEMICOLON),
+      b.sequence(RETURN_STATEMENT, SEMICOLON),
+      b.sequence(THROW_STATEMENT, SEMICOLON),
+      TRY_STATEMENT,
+      b.sequence(EXPRESSION_STATEMENT, SEMICOLON),
+      LABELED_STATEMENT,
+      DEFAULT_XMLN_NAMESPACE_STATEMENT));
     
-    // </editor-fold> 
+    b.rule(SUB_STATEMENT).is(b.firstOf(
+      EMPTY_STATEMENT,
+      STATEMENT,
+      b.sequence(VARIABLE_DEF, SEMICOLON)));
     
-    /** 
-     * DEFINITIONS
-     */
-    // <editor-fold defaultstate="collapsed" desc="Definitions">
+    b.rule(SUB_STATEMENTS).is(b.optional(SUB_STATEMENT_PREFIX, SUB_STATEMENT));
+    b.rule(SUB_STATEMENT_PREFIX).is(b.optional(SUB_STATEMENT));
+
+    // Empty
+    b.rule(EMPTY_STATEMENT).is(SEMICOLON);
+    b.rule(SUPER_STATEMENT).is(SUPER, ARGUMENTS);
+    b.rule(BLOCK).is(LCURLYBRACE, DIRECTIVES, RCURLYBRACE);
+    b.rule(LABELED_STATEMENT).is(IDENTIFIER, COLON, SUB_STATEMENT);
+    
+    // Conditional statements
+    b.rule(IF_STATEMENT).is(IF, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT, 
+                            b.optional(ELSE, SUB_STATEMENT));
+    // 3 other rules with annotations
+    
+    b.rule(SWITCH_STATEMENT).is(SWITCH, PARENTHESIZED_LIST_EXPR,
+                                LCURLYBRACE, CASE_ELEMENTS, RCURLYBRACE);
+    b.rule(CASE_ELEMENTS).is(b.optional(b.firstOf(
+      // BEFORE: b.sequence(CASE_LABEL, CASE_ELEMENT_PREFIX, CASE_ELEMENT)
+      b.sequence(CASE_LABEL,  b.zeroOrMore(CASE_ELEMENT)),
+      CASE_LABEL)));
+    
+    b.rule(CASE_ELEMENT).is(b.firstOf(CASE_LABEL, DIRECTIVE));
+    b.rule(CASE_LABEL).is(b.firstOf(
+      b.sequence(DEFAULT, COLON),
+      b.sequence(CASE, LIST_EXPRESSION, COLON)
+      ));
+    
+    // Itteration
+    b.rule(DO_STATEMENT).is(DO, SUB_STATEMENT, WHILE, PARENTHESIZED_LIST_EXPR);
+    
+    b.rule(WHILE_STATEMENT).is(WHILE, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT);
+    
+    b.rule(FOR_STATEMENT).is(b.firstOf(
+      b.sequence(FOR, LPARENTHESIS, FOR_INITIALISER, SEMICOLON, 
+                 OPTIONAL_EXPRESSION, SEMICOLON, 
+                 OPTIONAL_EXPRESSION, RPARENTHESIS, SUB_STATEMENT),
+      b.sequence(FOR, LPARENTHESIS, FOR_IN_BINDING, IN, LIST_EXPRESSION,
+                  RPARENTHESIS, SUB_STATEMENT),
+      b.sequence(FOR, /*No line break*/ EACH, LPARENTHESIS, FOR_IN_BINDING,
+                 IN, LIST_EXPRESSION, RPARENTHESIS, SUB_STATEMENT)));
+    
+    b.rule(FOR_INITIALISER).is(b.optional(b.firstOf(
+      LIST_EXPRESSION_NO_IN,
+      VARIABLE_DEF_NO_IN)));
+    
+    b.rule(FOR_IN_BINDING).is(b.firstOf(
+      b.sequence(VARIABLE_DEF_KIND, VARIABLE_BINDING_NO_IN),
+      POSTFIX_EXPR));
+    
+    b.rule(OPTIONAL_EXPRESSION).is(b.optional(LIST_EXPRESSION));
+    b.rule(CONTINUE_STATEMENT).is(b.firstOf(
+      CONTINUE,
+      b.sequence(CONTINUE, /*No line break*/ IDENTIFIER)));
+     
+    b.rule(BREAK_STATEMENT).is(b.firstOf(
+      BREAK,
+      b.sequence(BREAK, /*No line break*/ IDENTIFIER)));
+    
+    b.rule(WITH_STATEMENT).is(WITH, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT);
+    
+    b.rule(RETURN_STATEMENT).is(b.firstOf(
+      RETURN, 
+      b.sequence(RETURN, /*No line break*/ LIST_EXPRESSION)));
+    
+    b.rule(THROW_STATEMENT).is(THROW, /*No line break*/ LIST_EXPRESSION);
+    
+    // Try
+    b.rule(TRY_STATEMENT).is(b.firstOf(
+      b.sequence(TRY, BLOCK, CATCH_CLAUSES),
+      b.sequence(TRY, BLOCK, CATCH_CLAUSES_OPT, FINALLY, BLOCK)));
+    
+    b.rule(CATCH_CLAUSES_OPT).is(b.optional(CATCH_CLAUSES));
+    
+    b.rule(CATCH_CLAUSES).is(CATCH_CLAUSE, b.zeroOrMore(CATCH_CLAUSE));
+    
+    b.rule(CATCH_CLAUSE).is(CATCH, LPARENTHESIS, PARAMETER, RPARENTHESIS, BLOCK);
+   
+    b.rule(DEFAULT_XMLN_NAMESPACE_STATEMENT).is(DEFAULT, /*No line break*/ XML,
+            /*no line break*/ NAMESPACE, EQU, NON_ASSIGNMENT_EXPR);
+    
+    // Note as [lookahead !{ function, { }] in adobe doc 
+    b.rule(EXPRESSION_STATEMENT).is(LIST_EXPRESSION, b.nextNot(FUNCTION, b.sequence(LCURLYBRACE, RCURLYBRACE)));
+  }
+  
+  private static void directives(LexerlessGrammarBuilder b)  {
+    b.rule(DIRECTIVE).is(b.firstOf(
+      EMPTY_STATEMENT,
+      STATEMENT,
+      ANNOTABLE_DIRECTIVE,
+      b.sequence(ATTRIBUTES, /*No line break*/ ANNOTABLE_DIRECTIVE),
+      b.sequence(INCLUDE_DIRECTIVE, /*No line break*/ SEMICOLON),
+      b.sequence(IMPORT_DIRECTIVE, /*No line break*/ SEMICOLON),
+      b.sequence(USE_DIRECTIVE, /*No line break*/ SEMICOLON)));
+    
+    b.rule(ANNOTABLE_DIRECTIVE).is(b.firstOf(
+      b.sequence(VARIABLE_DEF, SEMICOLON),
+      FUNCTION_DEF,
+      CLASS_DEF,
+      INTERFACE_DEF,
+      b.sequence(NAMESPACE_DEF, SEMICOLON)));
+
+    b.rule(DIRECTIVES).is(b.zeroOrMore(DIRECTIVE));
+
+    // Attributes
+    b.rule(ATTRIBUTES).is(b.oneOrMore(ATTRIBUTE));
+    b.rule(ATTRIBUTE_COMBINATION).is(ATTRIBUTE, /*No line break*/ ATTRIBUTES);
+    b.rule(ATTRIBUTE).is(b.firstOf(
+      ATTRIBUTE_EXPR,
+      RESERVED_NAMESPACE,
+      b.sequence(LBRAKET, ASSIGNMENT_EXPR, RBRAKET)));
+    
+    b.rule(ATTRIBUTE_EXPR).is(IDENTIFIER, b.zeroOrMore(PROPERTY_OPERATOR));
+   
+    // Import
+    b.rule(IMPORT_DIRECTIVE).is(IMPORT, PACKAGE_NAME, b.optional(DOT, STAR));
+    
+    // Include
+    b.rule(INCLUDE_DIRECTIVE).is(INCLUDE, /*No line break*/ STRING);
+    
+    // Use
+    b.rule(USE_DIRECTIVE).is(USE, NAMESPACE, LIST_EXPRESSION);
+  }
+  
+  private static void definitions(LexerlessGrammarBuilder b) {
     // Variable
     b.rule(VARIABLE_DEF).is(VARIABLE_DEF_KIND, VARIABLE_BINDING_LIST);
     b.rule(VARIABLE_DEF_NO_IN).is(VARIABLE_DEF_KIND, VARIABLE_BINDING_LIST_NO_IN);
@@ -1015,8 +924,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     
     // Package
     b.rule(PACKAGE_DEF).is(PACKAGE, b.optional(PACKAGE_NAME), BLOCK);
-    b.rule(PACKAGE_NAME).is(IDENTIFIER,
-                            b.optional(DOT, IDENTIFIER));
+    b.rule(PACKAGE_NAME).is(IDENTIFIER, b.zeroOrMore(DOT, IDENTIFIER));
 
     // Namespace
     b.rule(NAMESPACE_DEF).is(NAMESPACE, NAMESPACE_BINDING);
@@ -1027,171 +935,96 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     // Program
     b.rule(PROGRAM).is(b.firstOf(b.sequence(PACKAGE_DEF, PROGRAM), DIRECTIVES));
-    // </editor-fold>
-    
-    /** 
-     * STATEMENTS
-     */
-    // <editor-fold defaultstate="collapsed" desc="Statements">
-    // Statements
-    b.rule(STATEMENT).is(b.firstOf(
-      b.sequence(SUPER_STATEMENT, SEMICOLON),
-      BLOCK,
-      IF_STATEMENT,
-      SWITCH_STATEMENT,
-      b.sequence(DO_STATEMENT, SEMICOLON),
-      WHILE_STATEMENT,
-      FOR_STATEMENT,
-      WITH_STATEMENT,
-      b.sequence(CONTINUE_STATEMENT, SEMICOLON),
-      b.sequence(BREAK_STATEMENT, SEMICOLON),
-      b.sequence(RETURN_STATEMENT, SEMICOLON),
-      b.sequence(THROW_STATEMENT, SEMICOLON),
-      TRY_STATEMENT,
-      b.sequence(EXPRESSION_STATEMENT, SEMICOLON),
-      b.sequence(CONTINUE_STATEMENT, SEMICOLON),
-      LABELED_STATEMENT,
-      DEFAULT_XMLN_NAMESPACE_STATEMENT));
-    
-    b.rule(SUB_STATEMENT).is(b.firstOf(
-      EMPTY_STATEMENT,
-      STATEMENT,
-      b.sequence(VARIABLE_DEF, SEMICOLON)));
-    
-    b.rule(SUB_STATEMENTS).is(b.optional(SUB_STATEMENT_PREFIX, SUB_STATEMENT));
-    b.rule(SUB_STATEMENT_PREFIX).is(b.optional(SUB_STATEMENT));
-
-    // Empty
-    b.rule(EMPTY_STATEMENT).is(SEMICOLON);
-    b.rule(SUPER_STATEMENT).is(SUPER, ARGUMENTS);
-    b.rule(BLOCK).is(LCURLYBRACE, DIRECTIVES, RCURLYBRACE);
-    b.rule(LABELED_STATEMENT).is(IDENTIFIER, COLON, SUB_STATEMENT);
-    
-    // Conditional statements
-    b.rule(IF_STATEMENT).is(IF, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT, 
-                            b.optional(ELSE, SUB_STATEMENT));
-    // 3 other rules with annotations
-    
-    b.rule(SWITCH_STATEMENT).is(SWITCH, PARENTHESIZED_LIST_EXPR,
-                                LCURLYBRACE, CASE_ELEMENTS, RCURLYBRACE);
-    b.rule(CASE_ELEMENTS).is(b.optional(b.firstOf(
-      // BEFORE: b.sequence(CASE_LABEL, CASE_ELEMENT_PREFIX, CASE_ELEMENT)
-      b.sequence(CASE_LABEL,  b.zeroOrMore(CASE_ELEMENT)),
-      CASE_LABEL)));
-    
-    b.rule(CASE_ELEMENT).is(b.firstOf(CASE_LABEL, DIRECTIVE));
-    b.rule(CASE_LABEL).is(b.firstOf(
-      b.sequence(DEFAULT, COLON),
-      b.sequence(CASE, LIST_EXPRESSION, COLON)
-      ));
-    
-    // Itteration
-    b.rule(DO_STATEMENT).is(DO, SUB_STATEMENT, WHILE,
-                                    PARENTHESIZED_LIST_EXPR);
-    
-    b.rule(WHILE_STATEMENT).is(WHILE, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT);
-    
-    b.rule(FOR_STATEMENT).is(b.firstOf(
-      b.sequence(FOR, LPARENTHESIS, FOR_INITIALISER, SEMICOLON, 
-                 OPTIONAL_EXPRESSION, SEMICOLON, 
-                 OPTIONAL_EXPRESSION, RPARENTHESIS, SUB_STATEMENT),
-      b.sequence(FOR, LPARENTHESIS, FOR_IN_BINDING, IN, LIST_EXPRESSION,
-                  RPARENTHESIS, SUB_STATEMENT),
-      b.sequence(FOR, /*No line break*/ EACH, LPARENTHESIS, FOR_IN_BINDING,
-                 IN, LIST_EXPRESSION, RPARENTHESIS, SUB_STATEMENT)));
-    
-    b.rule(FOR_INITIALISER).is(b.optional(b.firstOf(
-      LIST_EXPRESSION_NO_IN,
-      VARIABLE_DEF_NO_IN)));
-    
-    b.rule(FOR_IN_BINDING).is(b.firstOf(
-      b.sequence(VARIABLE_DEF_KIND, VARIABLE_BINDING_NO_IN),
-      POSTFIX_EXPR));
-    
-    b.rule(OPTIONAL_EXPRESSION).is(b.optional(LIST_EXPRESSION));
-    b.rule(CONTINUE_STATEMENT).is(b.firstOf(
-      CONTINUE,
-      b.sequence(CONTINUE, /*No line break*/ IDENTIFIER)));
-     
-    b.rule(BREAK_STATEMENT).is(b.firstOf(
-      BREAK,
-      b.sequence(BREAK, /*No line break*/ IDENTIFIER)));
-    
-    b.rule(WITH_STATEMENT).is(WITH, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT);
-    
-    b.rule(RETURN_STATEMENT).is(b.firstOf(
-      RETURN, 
-      b.sequence(RETURN, /*No line break*/ LIST_EXPRESSION)));
-    
-    b.rule(THROW_STATEMENT).is(THROW, /*No line break*/ LIST_EXPRESSION);
-    
-    // Try
-    b.rule(TRY_STATEMENT).is(b.firstOf(
-      b.sequence(TRY, BLOCK, CATCH_CLAUSES),
-      b.sequence(TRY, BLOCK, CATCH_CLAUSES_OPT, FINALLY, BLOCK)));
-    
-    b.rule(CATCH_CLAUSES_OPT).is(b.optional(CATCH_CLAUSES));
-    
-    b.rule(CATCH_CLAUSES).is(CATCH_CLAUSE, b.zeroOrMore(CATCH_CLAUSE));
-    
-    b.rule(CATCH_CLAUSE).is(CATCH, LPARENTHESIS, PARAMETER, RPARENTHESIS, BLOCK);
-   
-    b.rule(DEFAULT_XMLN_NAMESPACE_STATEMENT).is(DEFAULT, /*No line break*/ XML,
-            /*no line break*/ NAMESPACE, EQU, NON_ASSIGNMENT_EXPR);
-    
-    // Note as [lookahead !{ function, { }] in adobe doc 
-    b.rule(EXPRESSION_STATEMENT).is(LIST_EXPRESSION,
-      b.nextNot(FUNCTION, b.sequence(LCURLYBRACE, RCURLYBRACE)));
-    // </editor-fold>
-    
-    /** 
-     * DIRECTIVES
-     */
-    // <editor-fold defaultstate="collapsed" desc="Directives definitions">
-    // Directives
-    b.rule(DIRECTIVE).is(b.firstOf(
-      EMPTY_STATEMENT,
-      STATEMENT,
-      ANNOTABLE_DIRECTIVE,
-      b.sequence(ATTRIBUTES, /*No line break*/ ANNOTABLE_DIRECTIVE),
-      b.sequence(INCLUDE_DIRECTIVE, /*No line break*/ SEMICOLON),
-      b.sequence(IMPORT_DIRECTIVE, /*No line break*/ SEMICOLON),
-      b.sequence(USE_DIRECTIVE, /*No line break*/ SEMICOLON)));
-    
-    b.rule(ANNOTABLE_DIRECTIVE).is(b.firstOf(
-      b.sequence(VARIABLE_DEF, SEMICOLON),
-      FUNCTION_DEF,
-      CLASS_DEF,
-      INTERFACE_DEF,
-      b.sequence(NAMESPACE_DEF, SEMICOLON)));
-
-    b.rule(DIRECTIVES).is(b.zeroOrMore(DIRECTIVE));
-
-    // Attributes
-    b.rule(ATTRIBUTES).is(b.firstOf(ATTRIBUTE, ATTRIBUTE_COMBINATION));
-    b.rule(ATTRIBUTE_COMBINATION).is(ATTRIBUTE, /*No line break*/ ATTRIBUTES);
-    b.rule(ATTRIBUTE).is(b.firstOf(
-      ATTRIBUTE_EXPR,
-      RESERVED_NAMESPACE,
-      b.sequence(LBRAKET, ASSIGNMENT_EXPR, RBRAKET)));
-    
-    b.rule(ATTRIBUTE_EXPR).is(IDENTIFIER, 
-                              b.zeroOrMore(PROPERTY_OPERATOR));
-   
-    // Import
-    b.rule(IMPORT_DIRECTIVE).is(b.firstOf(
-      b.sequence(IMPORT, PACKAGE_NAME, DOT, STAR),
-      b.sequence(IMPORT, PACKAGE_NAME, DOT, IDENTIFIER)
-      ));
-    
-    // Include
-    b.rule(INCLUDE_DIRECTIVE).is(INCLUDE, /*No line break*/ STRING);
-    
-    // Use
-    b.rule(USE_DIRECTIVE).is(USE, NAMESPACE, LIST_EXPRESSION);
-    
-    // </editor-fold>
-   
-    return b.build();
   }
+  
+  private static void keywords(LexerlessGrammarBuilder b) {
+    for (FlexKeyword k : FlexKeyword.values()) {
+      b.rule(k).is(k.toString().toLowerCase(), b.nextNot(IDENTIFIER_PART), SPACING);
+    }
+    
+    Object[] rest = new Object[FlexKeyword.values().length - 2];
+    for (int i = 2; i < FlexKeyword.values().length; i++){
+      rest[i - 2] = FlexKeyword.values()[i];
+    }
+
+    b.rule(KEYWORDS).is(b.firstOf(FlexKeyword.values()[0], FlexKeyword.values()[1], rest));
+    
+    /** 
+     * SYNTACTIC KEYWORDS
+     */
+    // <editor-fold defaultstate="collapsed" desc="Syntactic keywords definition">
+    b.rule(EACH).is("each", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(GET).is("get", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(SET).is("set", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(NAMESPACE).is("namespace", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(INCLUDE).is("include", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(DYNAMIC).is("dynamic", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(FINAL).is("final", b.nextNot(IDENTIFIER_NAME), SPACING); 
+    b.rule(OVERRIDE).is("override", b.nextNot(IDENTIFIER_NAME), SPACING);
+    b.rule(STATIC).is("static", b.nextNot(IDENTIFIER_NAME), SPACING);
+    // </editor-fold>
+  }
+  
+  private static void punctuators(LexerlessGrammarBuilder b) {
+    b.rule(AT_SIGN).is("@", SPACING);
+    b.rule(COMMA).is(",", SPACING);
+    b.rule(COLON).is(":", SPACING);
+    b.rule(DOUBLE_COLON).is("::", SPACING);
+    b.rule(DOT).is(".", SPACING);
+    b.rule(TRIPLE_DOTS).is("...", SPACING);
+    b.rule(DOUBLE_DOT).is("..", SPACING);
+    b.rule(RCURLYBRACE).is("}", SPACING);
+    b.rule(LCURLYBRACE).is("{", SPACING);
+    b.rule(RBRAKET).is("]", SPACING);
+    b.rule(LBRAKET).is("[", SPACING);
+    b.rule(RPARENTHESIS).is(")", SPACING);
+    b.rule(LPARENTHESIS).is("(", SPACING);
+    b.rule(DIV).is("/", SPACING);
+    b.rule(MOD).is("%", SPACING);
+    b.rule(STAR).is("*", SPACING);
+    b.rule(PLUS).is("+", SPACING);
+    b.rule(MINUS).is("-", SPACING);
+    b.rule(DOUBLE_PLUS).is("++", SPACING);
+    b.rule(DOUBLE_MINUS).is("--", SPACING);
+    b.rule(SL).is("<<", SPACING);
+    b.rule(SR).is(">>", SPACING);
+    b.rule(SR2).is(">>>", SPACING);
+    b.rule(NOT).is("!", SPACING);
+    b.rule(EQU).is("=", SPACING);
+    b.rule(EQUAL).is("==", SPACING);
+    b.rule(EQUAL2).is("===", SPACING);
+    b.rule(NOTEQUAL).is("!=", SPACING);
+    b.rule(NOTEQUAL2).is("!==", SPACING);
+    b.rule(STAR_EQU).is("*=", SPACING);
+    b.rule(DIV_EQU).is("/=", SPACING);
+    b.rule(MOD_EQU).is("%=", SPACING);
+    b.rule(PLUS_EQU).is("+=", SPACING);
+    b.rule(MINUS_EQU).is("-=", SPACING);
+    b.rule(SL_EQU).is("<<=", SPACING);
+    b.rule(SR_EQU).is(">>=", SPACING);
+    b.rule(SR_EQU2).is(">>>=", SPACING);
+    b.rule(AND_EQU).is("&=", SPACING);
+    b.rule(XOR_EQU).is("^=", SPACING);
+    b.rule(OR_EQU).is("|=", SPACING);
+    b.rule(ANDAND_EQU).is("&&=", SPACING);
+    b.rule(XORXOR_EQU).is("^^=", SPACING);
+    b.rule(OROR_EQU).is("||=", SPACING);
+    b.rule(LT).is("<", SPACING);
+    b.rule(GT).is(">", SPACING);
+    b.rule(LE).is("<=", SPACING);
+    b.rule(GE).is(">=", SPACING);
+    b.rule(XOR).is("^", SPACING);
+    b.rule(AND).is("&", SPACING);
+    b.rule(ANDAND).is("&&", SPACING);
+    b.rule(OR).is("|", SPACING);
+    b.rule(OROR).is("||", SPACING);
+    b.rule(QUERY).is("?", SPACING);
+    b.rule(TILD).is("~", SPACING);
+    // Consider that all statement ends with a semicolon
+    b.rule(SEMICOLON).is(";", SPACING);
+    b.rule(UNDERSCORE).is("_", SPACING);
+    b.rule(BACKSLASH).is("\\", SPACING);
+    b.rule(DOLLAR).is("$", SPACING);
+  }
+
 }

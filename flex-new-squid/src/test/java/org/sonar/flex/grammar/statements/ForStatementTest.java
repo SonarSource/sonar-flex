@@ -17,40 +17,39 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.grammar.directives;
+package org.sonar.flex.grammar.statements;
 
 import org.junit.Test;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class GlobalDirectivesTest {
+public class ForStatementTest {
 
   private LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void importDirective() {
-    Assertions.assertThat(g.rule(FlexGrammar.IMPORT_DIRECTIVE))
-      .matches("import a.b.c.d")
-      .matches("import a.b.c.d.*");
+  public void forStatement() {
+
+    Assertions.assertThat(g.rule(FlexGrammar.FOR_STATEMENT))
+      .matches("for (i = 0; i < 5; i++) { trace(i);}");
   }
-  
+
   @Test
-  public void includeDirective() {
-    Assertions.assertThat(g.rule(FlexGrammar.INCLUDE_DIRECTIVE))
-      .matches("include \"reusable.as\"");
+  public void forInStatement() {
+    Assertions.assertThat(g.rule(FlexGrammar.FOR_STATEMENT))
+      .matches("for (var i:String in myObj) { trace(i + \": \" + myObj[i]);}")
+      .matches("for (var n in e..name) { trace(i + \": \" + myObj[i]);}");
+
+    // Check for "allowIn" vs "noIn":
+    // This rule should not consume more than "var i:String "
+    Assertions.assertThat(g.rule(FlexGrammar.FOR_IN_BINDING))
+      .notMatches("var i:String in myObj");
   }
-  
+
   @Test
-  public void useDirective() {
-    Assertions.assertThat(g.rule(FlexGrammar.USE_DIRECTIVE))
-      .matches("use namespace ns1, ns2");
+  public void forEachInStatement() {
+    Assertions.assertThat(g.rule(FlexGrammar.FOR_STATEMENT))
+      .matches("for each (var num in myObj) {trace(num);}");
   }
-  
-  @Test
-  public void attributes() {
-    Assertions.assertThat(g.rule(FlexGrammar.ATTRIBUTES))
-      .matches("public static");
-  }
-  
 }

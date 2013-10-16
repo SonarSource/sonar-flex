@@ -17,40 +17,33 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.grammar.directives;
+package org.sonar.flex.grammar.definitions;
 
 import org.junit.Test;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class GlobalDirectivesTest {
+public class ClassDefinitionTest {
 
   private LexerlessGrammar g = FlexGrammar.createGrammar();
-
-  @Test
-  public void importDirective() {
-    Assertions.assertThat(g.rule(FlexGrammar.IMPORT_DIRECTIVE))
-      .matches("import a.b.c.d")
-      .matches("import a.b.c.d.*");
-  }
   
   @Test
-  public void includeDirective() {
-    Assertions.assertThat(g.rule(FlexGrammar.INCLUDE_DIRECTIVE))
-      .matches("include \"reusable.as\"");
+  public void classWithStaticAtribute() { 
+    Assertions.assertThat(g.rule(FlexGrammar.CLASS_DEF))
+      .matches("class Base {\n" +
+              "    public static var test:String = \"static\";\n" +
+              "}");
+    
+//    Assertions.assertThat(g.rule(FlexGrammar.DIRECTIVES))
+//      .matches("public static var test:String = \"static\";");
+//    
+//    Assertions.assertThat(g.rule(FlexGrammar.POSTFIX_EXPR))
+//      .matches("public static var test:String");
+    
+//    Assertions.assertThat(g.rule(FlexGrammar.ASSIGNMENT_EXPR))
+//      .matches("\"static\"");
+    
+    
   }
-  
-  @Test
-  public void useDirective() {
-    Assertions.assertThat(g.rule(FlexGrammar.USE_DIRECTIVE))
-      .matches("use namespace ns1, ns2");
-  }
-  
-  @Test
-  public void attributes() {
-    Assertions.assertThat(g.rule(FlexGrammar.ATTRIBUTES))
-      .matches("public static");
-  }
-  
 }

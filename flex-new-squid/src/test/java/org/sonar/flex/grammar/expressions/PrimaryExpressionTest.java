@@ -17,40 +17,47 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.grammar.directives;
+package org.sonar.flex.grammar.expressions;
 
+import org.sonar.flex.*;
 import org.junit.Test;
-import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class GlobalDirectivesTest {
+public class PrimaryExpressionTest {
 
   private LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void importDirective() {
-    Assertions.assertThat(g.rule(FlexGrammar.IMPORT_DIRECTIVE))
-      .matches("import a.b.c.d")
-      .matches("import a.b.c.d.*");
+  public void String() {
+    Assertions.assertThat(g.rule(FlexGrammar.PRIMARY_EXPR))
+      .matches("\"Sonar source\"");
   }
-  
+
   @Test
-  public void includeDirective() {
-    Assertions.assertThat(g.rule(FlexGrammar.INCLUDE_DIRECTIVE))
-      .matches("include \"reusable.as\"");
+  public void reservedNamespace() {
+    Assertions.assertThat(g.rule(FlexGrammar.PRIMARY_EXPR))
+      .matches("internal  ");
   }
-  
+
   @Test
-  public void useDirective() {
-    Assertions.assertThat(g.rule(FlexGrammar.USE_DIRECTIVE))
-      .matches("use namespace ns1, ns2");
+  public void emptyArrayInitialiser() {
+    Assertions.assertThat(g.rule(FlexGrammar.PRIMARY_EXPR))
+      .matches("[]")
+      .matches("[   ]");
   }
-  
+
   @Test
-  public void attributes() {
-    Assertions.assertThat(g.rule(FlexGrammar.ATTRIBUTES))
-      .matches("public static");
+  public void emptyObjectInitialiser() {
+    Assertions.assertThat(g.rule(FlexGrammar.PRIMARY_EXPR))
+      .matches("{}")
+      .matches("{   }");
   }
-  
+
+  @Test
+  public void filledObjectInitialiser() {
+    Assertions.assertThat(g.rule(FlexGrammar.PRIMARY_EXPR))
+      .matches("{ FirstName : \"John\", LastName: \"Smith\"}")
+      .matches("{ Age : 43}");
+  }
 }

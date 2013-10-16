@@ -17,29 +17,42 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.grammar.expressions;
+package org.sonar.flex.grammar.definitions;
 
-import org.sonar.flex.*;
 import org.junit.Test;
+import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class PostfixExpressionsTest {
+public class VariableDefinitionTest {
 
   private LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void postfixExpression() {
-    Assertions.assertThat(g.rule(FlexGrammar.POSTFIX_EXPR))
-      .matches("internal  ") // Primary expression
-      .matches("super().f") // Super expression
-      .matches("new Object()"); // Full new expression
+  public void simpleVariableDefintion() {
+    Assertions.assertThat(g.rule(FlexGrammar.VARIABLE_DEF))
+      .matches("var i")
+      .matches("var i:int")
+      .matches("var i:int = 20");
+  }
 
+  
+  @Test
+  public void multiVariableDefinition() {
+    Assertions.assertThat(g.rule(FlexGrammar.VARIABLE_DEF))
+      .matches("var a:int, b:int, c:int")
+      .matches("var a:int = 10, b:int = 20, c:int = 30");
+  }
+  
+  @Test
+  public void arrayVariableDefinition() {
+    Assertions.assertThat(g.rule(FlexGrammar.VARIABLE_DEF))
+      .matches("var numArray:Array = [\"zero\", \"one\", \"two\"]");
   }
 
   @Test
-  public void Argument() {
-    Assertions.assertThat(g.rule(FlexGrammar.ARGUMENTS))
-      .matches("()"); // Primary expression
+  public void objectVariableDefinition() {
+    Assertions.assertThat(g.rule(FlexGrammar.VARIABLE_DEF))
+      .matches("var customItem:CustomClass = new CustomClass()");
   }
 }

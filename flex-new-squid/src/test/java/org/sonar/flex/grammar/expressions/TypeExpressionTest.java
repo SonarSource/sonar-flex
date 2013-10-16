@@ -17,40 +17,27 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.grammar.directives;
+package org.sonar.flex.grammar.expressions;
 
+import org.sonar.flex.*;
 import org.junit.Test;
-import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class GlobalDirectivesTest {
+public class TypeExpressionTest {
 
   private LexerlessGrammar g = FlexGrammar.createGrammar();
-
-  @Test
-  public void importDirective() {
-    Assertions.assertThat(g.rule(FlexGrammar.IMPORT_DIRECTIVE))
-      .matches("import a.b.c.d")
-      .matches("import a.b.c.d.*");
-  }
   
   @Test
-  public void includeDirective() {
-    Assertions.assertThat(g.rule(FlexGrammar.INCLUDE_DIRECTIVE))
-      .matches("include \"reusable.as\"");
-  }
-  
-  @Test
-  public void useDirective() {
-    Assertions.assertThat(g.rule(FlexGrammar.USE_DIRECTIVE))
-      .matches("use namespace ns1, ns2");
-  }
-  
-  @Test
-  public void attributes() {
-    Assertions.assertThat(g.rule(FlexGrammar.ATTRIBUTES))
-      .matches("public static");
-  }
-  
+  public void typeExpression() {
+    Assertions.assertThat(g.rule(FlexGrammar.TYPE_EXPR))
+      .matches("void")
+      .matches("String")
+      .matches("int")
+      .matches("*")
+      //.matches("Vector.<Clock>")
+      //.matches("foo.bar.Vector.<T>")
+      ;
+    
+      }
 }

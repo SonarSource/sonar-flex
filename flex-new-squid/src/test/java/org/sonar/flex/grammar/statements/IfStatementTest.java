@@ -17,47 +17,47 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.grammar.expressions;
+package org.sonar.flex.grammar.statements;
 
-import org.sonar.flex.*;
 import org.junit.Test;
+import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class PrimaryExpressionsTest {
+public class IfStatementTest {
 
   private LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void String() {
-    Assertions.assertThat(g.rule(FlexGrammar.PRIMARY_EXPR))
-      .matches("\"Sonar source\"");
+  public void simpleIf() {
+    Assertions.assertThat(g.rule(FlexGrammar.IF_STATEMENT))
+      .matches("if (x >1);")
+      .matches("if (x >1) {  q=b;}")
+      .matches("if (x >1) {  q=b; \n var student : Object = {FirstName:\"John\", LastName:\"Smith\"};}");
   }
 
   @Test
-  public void reservedNamespace() {
-    Assertions.assertThat(g.rule(FlexGrammar.PRIMARY_EXPR))
-      .matches("internal  ");
+  public void ifElse() {
+    Assertions.assertThat(g.rule(FlexGrammar.IF_STATEMENT))
+      .matches("if (x > 20)\n"
+            + "{\n"
+            + "    trace(\"x is > 20\");\n"
+            + "}\n"
+            + "else\n"
+            + "{\n"
+            + "    trace(\"x is <= 20\");\n"
+            + "}");
   }
 
   @Test
-  public void emptyArrayInitialiser() {
-    Assertions.assertThat(g.rule(FlexGrammar.PRIMARY_EXPR))
-      .matches("[]")
-      .matches("[   ]");
-  }
-
-  @Test
-  public void emptyObjectInitialiser() {
-    Assertions.assertThat(g.rule(FlexGrammar.PRIMARY_EXPR))
-      .matches("{}")
-      .matches("{   }");
-  }
-
-  @Test
-  public void filledObjectInitialiser() {
-    Assertions.assertThat(g.rule(FlexGrammar.PRIMARY_EXPR))
-      .matches("{ FirstName : \"John\", LastName: \"Smith\"}")
-      .matches("{ Age : 43}");
-  }
+  public void if2Else() {
+    Assertions.assertThat(g.rule(FlexGrammar.IF_STATEMENT))
+      .matches("if (x > 0)\n" +
+              "    trace(\"x is positive\");\n" +
+              "else if (x < 0) \n" +
+              "    trace(\"x is negative\");\n" +
+              "else\n" +
+              "    trace(\"x is 0\");");
+    
+  }  
 }

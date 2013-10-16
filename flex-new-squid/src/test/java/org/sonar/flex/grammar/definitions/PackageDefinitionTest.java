@@ -24,34 +24,12 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class GlobalDefinitionsTest {
+public class PackageDefinitionTest {
 
   private LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void variableDefinition() {
-    Assertions.assertThat(g.rule(FlexGrammar.VARIABLE_DEF))
-      .matches("var student : Object = {FirstName:\"John\", LastName:\"Smith\" }")
-      .matches("const int= 3");
-  }
-
-  @Test
-  public void functionDefinition() {
-    Assertions.assertThat(g.rule(FlexGrammar.FUNCTION_DEF))
-      .matches("function f() : Number {}")
-      .matches("function get f() {}");
-  }
-
-  @Test
-  public void interfaceDefinition() {
-    Assertions.assertThat(g.rule(FlexGrammar.INTERFACE_DEF))
-      .matches("interface T  {}")
-      .matches("interface T extends Tye0bject{}")
-      .notMatches("interfaceT  {}");
-  }
-
-  @Test
-  public void packageDefinition() {
+  public void emptyPackage() {
     Assertions.assertThat(g.rule(FlexGrammar.PACKAGE_DEF))
       .matches("package p {}")
       .matches("package   parent.child {   } ")
@@ -59,19 +37,29 @@ public class GlobalDefinitionsTest {
   }
 
   @Test
-  public void namespaceDefinition() {
-    Assertions.assertThat(g.rule(FlexGrammar.NAMESPACE_DEF))
-      .matches("namespace NS1")
-      .matches("namespace NS2= NS1")
-      .matches("namespace NS3 = \"http://www.macromedia.com/flash/2005\"");
+  public void packageWithBody() {
+    Assertions.assertThat(g.rule(FlexGrammar.PACKAGE_DEF))
+      .matches("package samples\n"
+      + "{\n"
+      + "    public class SampleCode\n"
+      + "    {\n"
+      + "        private var sampleGreeting:String;\n"
+      + "        public function sampleFunction()\n"
+      + "        {\n"
+      + "            trace(sampleGreeting + \" from sampleFunction()\");\n"
+      + "        }\n"
+      + "    }\n"
+      + "}");
   }
 
   @Test
-  public void regexp() {
-    Assertions.assertThat(g.rule(FlexGrammar.REGULAR_EXPRESSION))
-      .matches("/test-\\d/i")
-      .matches("/<p>.*?<\\/p>/s")
-      .matches("/\\d{3}-\\d{3}-\\d{4}|\\(\\d{3}\\)\\s?\\d{3}-\\d{4}/");
-
+  public void childPackages() {
+    Assertions.assertThat(g.rule(FlexGrammar.PACKAGE_DEF))
+      .matches("package flash.xml\n"
+      + "{\n"
+      + "    class XMLDocument {}\n"
+      + "    class XMLNode {}\n"
+      + "    class XMLSocket {}\n"
+      + "}");
   }
 }

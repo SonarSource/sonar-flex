@@ -26,10 +26,10 @@ import org.sonar.sslr.tests.Assertions;
 
 public class PrimaryExpressionTest {
 
-  private LexerlessGrammar g = FlexGrammar.createGrammar();
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void String() {
+  public void string() {
     Assertions.assertThat(g.rule(FlexGrammar.PRIMARY_EXPR))
       .matches("\"Sonar source\"");
   }
@@ -60,4 +60,5 @@ public class PrimaryExpressionTest {
       .matches("{ FirstName : \"John\", LastName: \"Smith\"}")
       .matches("{ Age : 43}");
   }
+
 }

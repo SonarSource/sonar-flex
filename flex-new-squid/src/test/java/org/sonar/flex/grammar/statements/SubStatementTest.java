@@ -17,28 +17,26 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex;
+package org.sonar.flex.grammar.statements;
 
 import org.junit.Test;
+import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class FlexGrammarTest {
+public class SubStatementTest {
 
-  private LexerlessGrammar g = FlexGrammar.createGrammar();
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void each() {
-    Assertions.assertThat(g.rule(FlexGrammar.EACH))
-      .matches("each   ")
-      .notMatches("eachSomething")
-      .notMatches("throw");
+  public void test() {
+    Assertions.assertThat(g.rule(FlexGrammar.SUB_STATEMENT))
+      // empty statement
+      .matches(";")
+      // statement
+      .matches("{ }")
+      // variable definition
+      .matches("var i;");
+  }
 
-  }
-  
-  @Test
-  public void reservedNamespace() {
-    Assertions.assertThat(g.rule(FlexGrammar.GET))
-      .notMatches("internal  ");
-  }
 }

@@ -26,24 +26,18 @@ import org.sonar.sslr.tests.Assertions;
 
 public class SwitchStatementTest {
 
-  private LexerlessGrammar g = FlexGrammar.createGrammar();
-  
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
+
   @Test
-  public void switchStatement() {
+  public void test() {
+    Assertions.assertThat(g.rule(FlexGrammar.CASE_LABEL))
+      .matches("case 0:")
+      .matches("default:");
+
     Assertions.assertThat(g.rule(FlexGrammar.SWITCH_STATEMENT))
-      .matches("switch (dayNum) {  }")
-      .matches("switch (dayNum) {  case 0:}");
+      .matches("switch (e) { }")
+      .matches("switch (e) { case 0: }")
+      .matches("switch (e) { case 0: case 1: ; default: ; }");
   }
-  
-  @Test
-  public void completeSwitchStatement() {
-    Assertions.assertThat(g.rule(FlexGrammar.SWITCH_STATEMENT))
-      .matches("switch (dayNum) {    case 0: trace(\"Sunday\");"
-      + "        break;"
-      + "    case 1: trace(\"Monday\");"
-      + "        break;"
-      + "    default: trace(\"Out of range\");"
-      + "        break;}");
-  }
-  
+
 }

@@ -34,7 +34,6 @@ public class PostfixExpressionTest {
       .matches("internal  ") // Primary expression
       .matches("super().f") // Super expression
       .matches("new Object()"); // Full new expression
-
   }
 
   @Test
@@ -42,4 +41,5 @@ public class PostfixExpressionTest {
     Assertions.assertThat(g.rule(FlexGrammar.ARGUMENTS))
       .matches("()"); // Primary expression
   }
+
 }

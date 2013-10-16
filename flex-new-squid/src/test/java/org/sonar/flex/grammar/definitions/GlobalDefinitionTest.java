@@ -26,7 +26,7 @@ import org.sonar.sslr.tests.Assertions;
 
 public class GlobalDefinitionTest {
 
-  private LexerlessGrammar g = FlexGrammar.createGrammar();
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
   public void variableDefinition() {

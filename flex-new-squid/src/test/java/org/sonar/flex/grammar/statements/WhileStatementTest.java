@@ -26,16 +26,12 @@ import org.sonar.sslr.tests.Assertions;
 
 public class WhileStatementTest {
 
-  private LexerlessGrammar g = FlexGrammar.createGrammar();
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
   
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.WHILE_STATEMENT))
-      .matches("while (i < 5){}")
-      .matches("while (i < 5)\n"
-            + "{\n"
-            + "    trace(i);\n"
-            + "    i++;\n"
-            + "}");
-  }  
+      .matches("while (condition) { }");
+  }
+
 }

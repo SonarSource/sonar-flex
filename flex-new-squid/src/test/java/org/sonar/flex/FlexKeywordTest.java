@@ -19,15 +19,15 @@
  */
 package org.sonar.flex;
 
-import static org.fest.assertions.Assertions.assertThat;
-import static org.sonar.sslr.tests.Assertions.assertThat;
-
 import org.junit.Test;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import static org.fest.assertions.Assertions.assertThat;
+import static org.sonar.sslr.tests.Assertions.assertThat;
+
 public class FlexKeywordTest {
 
-  private LexerlessGrammar g = FlexGrammar.createGrammar();
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
   public void test() {
@@ -80,7 +80,8 @@ public class FlexKeywordTest {
       .matches("void")
       .matches("while")
       .matches("with");
-    
-    assertThat(FlexKeyword.values()).hasSize(45);
+
+    assertThat(FlexKeyword.keywords()).hasSize(45);
+    assertThat(FlexKeyword.values()).hasSize(45 + /* syntactic: */ 10);
   }
 }

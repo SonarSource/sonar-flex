@@ -25,7 +25,7 @@ import org.sonar.sslr.tests.Assertions;
 
 public class NumberTest {
 
-  private LexerlessGrammar g = FlexGrammar.createGrammar();
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
   public void integer() {
@@ -41,4 +41,5 @@ public class NumberTest {
       .matches("894792.09889798")
       .notMatches("894792.09889798djn");
   }
+
 }

@@ -17,33 +17,17 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.grammar.definitions;
+package org.sonar.flex;
 
 import org.junit.Test;
-import org.sonar.flex.FlexGrammar;
-import org.sonar.sslr.parser.LexerlessGrammar;
-import org.sonar.sslr.tests.Assertions;
 
-public class ProgramDefintionTest {
+import static org.fest.assertions.Assertions.assertThat;
 
-  private final LexerlessGrammar g = FlexGrammar.createGrammar();
-  
+public class FlexPunctuatorTest {
+
   @Test
-  public void helloWorld() {
-    Assertions.assertThat(g.rule(FlexGrammar.PROGRAM))
-      .matches("package{\n"
-      + "\n"
-      + "   import flash.display.Sprite;\n"
-      + "\n /* comment *()(*\n"
-      + "    * blabla"
-      + "    */"
-      + "   public class FilledCircle extends Sprite {\n"
-      + "\n // comment"
-      + "\n       function HelloWorld():void {\n"
-      + "\n"
-      + "         trace(\"Hello World!\");\n"
-      + "       }\n"
-      + "    }\n"
-      + " }");
+  public void test() {
+    assertThat(FlexPunctuator.values()).hasSize(55);
   }
+
 }

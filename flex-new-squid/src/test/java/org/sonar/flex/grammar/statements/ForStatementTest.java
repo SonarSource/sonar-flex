@@ -26,30 +26,30 @@ import org.sonar.sslr.tests.Assertions;
 
 public class ForStatementTest {
 
-  private LexerlessGrammar g = FlexGrammar.createGrammar();
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void forStatement() {
+  public void test() {
+    Assertions.assertThat(g.rule(FlexGrammar.FOR_INITIALISER))
+      // list expression
+      .matches("a = 1, b = 2")
+      // variable definition
+      .matches("var a = 1, b = 2");
 
-    Assertions.assertThat(g.rule(FlexGrammar.FOR_STATEMENT))
-      .matches("for (i = 0; i < 5; i++) { trace(i);}");
-  }
-
-  @Test
-  public void forInStatement() {
-    Assertions.assertThat(g.rule(FlexGrammar.FOR_STATEMENT))
-      .matches("for (var i:String in myObj) { trace(i + \": \" + myObj[i]);}")
-      .matches("for (var n in e..name) { trace(i + \": \" + myObj[i]);}");
-
-    // Check for "allowIn" vs "noIn":
-    // This rule should not consume more than "var i:String "
     Assertions.assertThat(g.rule(FlexGrammar.FOR_IN_BINDING))
-      .notMatches("var i:String in myObj");
+      // variable binding
+      .matches("var i")
+      // postfix expression
+      .matches("i");
+
+    Assertions.assertThat(g.rule(FlexGrammar.FOR_STATEMENT))
+      // for
+      .matches("for ( ; ; ) { }")
+      .matches("for (var i = 0; i < 5; i++) { }")
+      // for in
+      .matches("for (var item:String in items) { }")
+      // for each
+      .matches("for each (var item:String in items) { }");
   }
 
-  @Test
-  public void forEachInStatement() {
-    Assertions.assertThat(g.rule(FlexGrammar.FOR_STATEMENT))
-      .matches("for each (var num in myObj) {trace(num);}");
-  }
 }

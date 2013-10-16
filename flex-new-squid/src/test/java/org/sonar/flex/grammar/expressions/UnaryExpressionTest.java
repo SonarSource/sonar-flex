@@ -26,7 +26,7 @@ import org.sonar.sslr.tests.Assertions;
 
 public class UnaryExpressionTest {
 
-  private LexerlessGrammar g = FlexGrammar.createGrammar();
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
   public void unary() {
@@ -36,4 +36,5 @@ public class UnaryExpressionTest {
       .matches("++ new Int()")
       .matches("~ new Object()");
   }
+
 }

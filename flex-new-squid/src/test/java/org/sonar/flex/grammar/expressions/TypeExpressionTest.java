@@ -26,7 +26,7 @@ import org.sonar.sslr.tests.Assertions;
 
 public class TypeExpressionTest {
 
-  private LexerlessGrammar g = FlexGrammar.createGrammar();
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
   
   @Test
   public void typeExpression() {
@@ -35,9 +35,10 @@ public class TypeExpressionTest {
       .matches("String")
       .matches("int")
       .matches("*")
-      //.matches("Vector.<Clock>")
-      //.matches("foo.bar.Vector.<T>")
+      // FIXME
+//      .matches("Vector.<Clock>")
+//      .matches("foo.bar.Vector.<T>")
       ;
-    
-      }
+    }
+
 }

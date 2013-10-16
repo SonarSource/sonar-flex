@@ -17,33 +17,24 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.grammar.definitions;
+package org.sonar.flex.grammar.statements;
 
 import org.junit.Test;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class ProgramDefintionTest {
+public class TryStatementTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
-  
+
   @Test
-  public void helloWorld() {
-    Assertions.assertThat(g.rule(FlexGrammar.PROGRAM))
-      .matches("package{\n"
-      + "\n"
-      + "   import flash.display.Sprite;\n"
-      + "\n /* comment *()(*\n"
-      + "    * blabla"
-      + "    */"
-      + "   public class FilledCircle extends Sprite {\n"
-      + "\n // comment"
-      + "\n       function HelloWorld():void {\n"
-      + "\n"
-      + "         trace(\"Hello World!\");\n"
-      + "       }\n"
-      + "    }\n"
-      + " }");
+  public void test() {
+    Assertions.assertThat(g.rule(FlexGrammar.TRY_STATEMENT))
+      .matches("try { } catch (error) { }")
+      .matches("try { } catch (error:ErrorType1) { } catch (error:ErrorType2) { }")
+      .matches("try { } finally { }")
+      .matches("try { } catch (error) { } finally { }");
   }
+
 }

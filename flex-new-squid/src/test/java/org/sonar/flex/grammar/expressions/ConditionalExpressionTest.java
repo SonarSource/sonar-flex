@@ -26,13 +26,12 @@ import org.sonar.sslr.tests.Assertions;
 
 public class ConditionalExpressionTest {
 
-  private LexerlessGrammar g = FlexGrammar.createGrammar();
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.CONDITIONAL_EXPR))
-      .matches("1 == w")
-      .matches("c !== b? 3 :7");
-
+      .matches("0 ? 1 : 2");
   }
+
 }

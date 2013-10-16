@@ -26,38 +26,15 @@ import org.sonar.sslr.tests.Assertions;
 
 public class IfStatementTest {
 
-  private LexerlessGrammar g = FlexGrammar.createGrammar();
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void simpleIf() {
+  public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.IF_STATEMENT))
-      .matches("if (x >1);")
-      .matches("if (x >1) {  q=b;}")
-      .matches("if (x >1) {  q=b; \n var student : Object = {FirstName:\"John\", LastName:\"Smith\"};}");
+      .matches("if (e1) { }")
+      .matches("if (e1) { } else { }")
+      .matches("if (e1) { } else if (e2) { }")
+      .matches("if (e1) { } else if (e2) { } else { }");
   }
 
-  @Test
-  public void ifElse() {
-    Assertions.assertThat(g.rule(FlexGrammar.IF_STATEMENT))
-      .matches("if (x > 20)\n"
-            + "{\n"
-            + "    trace(\"x is > 20\");\n"
-            + "}\n"
-            + "else\n"
-            + "{\n"
-            + "    trace(\"x is <= 20\");\n"
-            + "}");
-  }
-
-  @Test
-  public void if2Else() {
-    Assertions.assertThat(g.rule(FlexGrammar.IF_STATEMENT))
-      .matches("if (x > 0)\n" +
-              "    trace(\"x is positive\");\n" +
-              "else if (x < 0) \n" +
-              "    trace(\"x is negative\");\n" +
-              "else\n" +
-              "    trace(\"x is 0\");");
-    
-  }  
 }

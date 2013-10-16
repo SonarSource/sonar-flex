@@ -26,7 +26,7 @@ import org.sonar.sslr.tests.Assertions;
 
 public class InterfaceDefinitionTest {
 
-  private LexerlessGrammar g = FlexGrammar.createGrammar();
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
   public void bsaicInterface() {

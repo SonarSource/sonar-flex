@@ -19,39 +19,131 @@
  */
 package org.sonar.flex;
 
-import static org.sonar.flex.FlexKeyword.*;
-
 import org.sonar.sslr.grammar.GrammarRuleKey;
 import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import java.util.List;
+
+import static org.sonar.flex.FlexKeyword.AS;
+import static org.sonar.flex.FlexKeyword.BREAK;
+import static org.sonar.flex.FlexKeyword.CASE;
+import static org.sonar.flex.FlexKeyword.CATCH;
+import static org.sonar.flex.FlexKeyword.CLASS;
+import static org.sonar.flex.FlexKeyword.CONST;
+import static org.sonar.flex.FlexKeyword.CONTINUE;
+import static org.sonar.flex.FlexKeyword.DEFAULT;
+import static org.sonar.flex.FlexKeyword.DELETE;
+import static org.sonar.flex.FlexKeyword.DO;
+import static org.sonar.flex.FlexKeyword.DYNAMIC;
+import static org.sonar.flex.FlexKeyword.EACH;
+import static org.sonar.flex.FlexKeyword.ELSE;
+import static org.sonar.flex.FlexKeyword.EXTENDS;
+import static org.sonar.flex.FlexKeyword.FALSE;
+import static org.sonar.flex.FlexKeyword.FINALLY;
+import static org.sonar.flex.FlexKeyword.FOR;
+import static org.sonar.flex.FlexKeyword.FUNCTION;
+import static org.sonar.flex.FlexKeyword.GET;
+import static org.sonar.flex.FlexKeyword.IF;
+import static org.sonar.flex.FlexKeyword.IMPLEMENTS;
+import static org.sonar.flex.FlexKeyword.IMPORT;
+import static org.sonar.flex.FlexKeyword.IN;
+import static org.sonar.flex.FlexKeyword.INCLUDE;
+import static org.sonar.flex.FlexKeyword.INSTANCEOF;
+import static org.sonar.flex.FlexKeyword.INTERFACE;
+import static org.sonar.flex.FlexKeyword.INTERNAL;
+import static org.sonar.flex.FlexKeyword.IS;
+import static org.sonar.flex.FlexKeyword.NAMESPACE;
+import static org.sonar.flex.FlexKeyword.NEW;
+import static org.sonar.flex.FlexKeyword.NULL;
+import static org.sonar.flex.FlexKeyword.PACKAGE;
+import static org.sonar.flex.FlexKeyword.PRIVATE;
+import static org.sonar.flex.FlexKeyword.PROTECTED;
+import static org.sonar.flex.FlexKeyword.PUBLIC;
+import static org.sonar.flex.FlexKeyword.RETURN;
+import static org.sonar.flex.FlexKeyword.SET;
+import static org.sonar.flex.FlexKeyword.STATIC;
+import static org.sonar.flex.FlexKeyword.SUPER;
+import static org.sonar.flex.FlexKeyword.SWITCH;
+import static org.sonar.flex.FlexKeyword.THIS;
+import static org.sonar.flex.FlexKeyword.THROW;
+import static org.sonar.flex.FlexKeyword.TRUE;
+import static org.sonar.flex.FlexKeyword.TRY;
+import static org.sonar.flex.FlexKeyword.TYPEOF;
+import static org.sonar.flex.FlexKeyword.USE;
+import static org.sonar.flex.FlexKeyword.VAR;
+import static org.sonar.flex.FlexKeyword.VOID;
+import static org.sonar.flex.FlexKeyword.WHILE;
+import static org.sonar.flex.FlexKeyword.WITH;
+import static org.sonar.flex.FlexKeyword.XML;
+import static org.sonar.flex.FlexPunctuator.AND;
+import static org.sonar.flex.FlexPunctuator.ANDAND;
+import static org.sonar.flex.FlexPunctuator.ANDAND_EQU;
+import static org.sonar.flex.FlexPunctuator.AND_EQU;
+import static org.sonar.flex.FlexPunctuator.AT_SIGN;
+import static org.sonar.flex.FlexPunctuator.COLON;
+import static org.sonar.flex.FlexPunctuator.COMMA;
+import static org.sonar.flex.FlexPunctuator.DIV;
+import static org.sonar.flex.FlexPunctuator.DIV_EQU;
+import static org.sonar.flex.FlexPunctuator.DOT;
+import static org.sonar.flex.FlexPunctuator.DOUBLE_COLON;
+import static org.sonar.flex.FlexPunctuator.DOUBLE_DOT;
+import static org.sonar.flex.FlexPunctuator.DOUBLE_MINUS;
+import static org.sonar.flex.FlexPunctuator.DOUBLE_PLUS;
+import static org.sonar.flex.FlexPunctuator.EQU;
+import static org.sonar.flex.FlexPunctuator.EQUAL;
+import static org.sonar.flex.FlexPunctuator.EQUAL2;
+import static org.sonar.flex.FlexPunctuator.GE;
+import static org.sonar.flex.FlexPunctuator.GT;
+import static org.sonar.flex.FlexPunctuator.LBRAKET;
+import static org.sonar.flex.FlexPunctuator.LCURLYBRACE;
+import static org.sonar.flex.FlexPunctuator.LE;
+import static org.sonar.flex.FlexPunctuator.LPARENTHESIS;
+import static org.sonar.flex.FlexPunctuator.LT;
+import static org.sonar.flex.FlexPunctuator.MINUS;
+import static org.sonar.flex.FlexPunctuator.MINUS_EQU;
+import static org.sonar.flex.FlexPunctuator.MOD;
+import static org.sonar.flex.FlexPunctuator.MOD_EQU;
+import static org.sonar.flex.FlexPunctuator.NOT;
+import static org.sonar.flex.FlexPunctuator.NOTEQUAL;
+import static org.sonar.flex.FlexPunctuator.NOTEQUAL2;
+import static org.sonar.flex.FlexPunctuator.OR;
+import static org.sonar.flex.FlexPunctuator.OROR;
+import static org.sonar.flex.FlexPunctuator.OROR_EQU;
+import static org.sonar.flex.FlexPunctuator.OR_EQU;
+import static org.sonar.flex.FlexPunctuator.PLUS;
+import static org.sonar.flex.FlexPunctuator.PLUS_EQU;
+import static org.sonar.flex.FlexPunctuator.QUERY;
+import static org.sonar.flex.FlexPunctuator.RBRAKET;
+import static org.sonar.flex.FlexPunctuator.RCURLYBRACE;
+import static org.sonar.flex.FlexPunctuator.RPARENTHESIS;
+import static org.sonar.flex.FlexPunctuator.SEMICOLON;
+import static org.sonar.flex.FlexPunctuator.SL;
+import static org.sonar.flex.FlexPunctuator.SL_EQU;
+import static org.sonar.flex.FlexPunctuator.SR;
+import static org.sonar.flex.FlexPunctuator.SR2;
+import static org.sonar.flex.FlexPunctuator.SR_EQU;
+import static org.sonar.flex.FlexPunctuator.SR_EQU2;
+import static org.sonar.flex.FlexPunctuator.STAR;
+import static org.sonar.flex.FlexPunctuator.STAR_EQU;
+import static org.sonar.flex.FlexPunctuator.TILD;
+import static org.sonar.flex.FlexPunctuator.TRIPLE_DOTS;
+import static org.sonar.flex.FlexPunctuator.XOR;
+import static org.sonar.flex.FlexPunctuator.XORXOR_EQU;
+import static org.sonar.flex.FlexPunctuator.XOR_EQU;
+
 public enum FlexGrammar implements GrammarRuleKey {
 
-  XML,
-  
-  /**
-   * SYNTATIC KEYWORDS 
-   */
-  // <editor-fold defaultstate="collapsed" desc="Syntactic Keywords">
-  EACH,
-  GET,
-  SET,
-  NAMESPACE,
-  INCLUDE,
-  DYNAMIC,
-  FINAL,
-  OVERRIDE,
-  STATIC,
-  STRING,
-  NUMBER,
-  INTEGER,
-  FLOAT,
   WHITESPACE,
   SPACING,
   INLINE_COMMENT,
   MULTILINE_COMMENT,
-  // </editor-fold>
-  
+
+  STRING,
+  NUMBER,
+  INTEGER,
+  FLOAT,
+
   /**
    * EXPRESSIONS
    */
@@ -62,9 +154,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   PARENTHESIZED_LIST_EXPR,
   FUNCTION_EXPR,
   OBJECT_INITIALISER,
-  FIELD_LIST,
   FIELD_NAME,
-  NON_EMPTY_FIELD_LIST,
   LITERAL_FIELD,
   ARRAY_INITIALISER,
   ELEMENT_LIST,
@@ -107,8 +197,11 @@ public enum FlexGrammar implements GrammarRuleKey {
   SHIFT_EXPR,
   RELATIONAL_EXPR,
   RELATIONAL_EXPR_NO_IN,
+  RELATIONAL_OPERATOR,
+  RELATIONAL_OPERATOR_NO_IN,
   EQUALITY_EXPR,
   EQUALITY_EXPR_NO_IN,
+  EQUALITY_OPERATOR,
   BITEWISE_AND_EXPR,
   BITEWISE_AND_EXPR_NO_IN,
   BITEWISE_XOR_EXPR,
@@ -122,6 +215,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   // Assignment expression
   ASSIGNMENT_EXPR,
   ASSIGNMENT_EXPR_NO_IN,
+  ASSIGNMENT_OPERATOR,
   // List expression
   LIST_EXPRESSION,
   LIST_EXPRESSION_NO_IN,
@@ -137,7 +231,6 @@ public enum FlexGrammar implements GrammarRuleKey {
   XML_ELEMENT,
   XML_TAG_CONTENT,
   XML_WHITESPACE,
-  XML_WHITESPACE_CHARACTER,
   XML_TAG_NAME,
   XML_ATTRIBUTE,
   XML_ATTRIBUTES,
@@ -148,7 +241,6 @@ public enum FlexGrammar implements GrammarRuleKey {
   XML_COMMENT,
   XML_CDATA,
   XML_PI,
-  UNICODE,
   KEYWORDS,
   REGULAR_EXPRESSION,
   // </editor-fold>
@@ -199,14 +291,11 @@ public enum FlexGrammar implements GrammarRuleKey {
   NAMESPACE_INITIALISATION,
   // Program
   PROGRAM,
-  DUMMY,
-  
   // </editor-fold>
   
   /**
    * STATEMENTS
    */
-
   // <editor-fold defaultstate="collapsed" desc="Statements">
   STATEMENT,
   SUPER_STATEMENT,
@@ -223,23 +312,17 @@ public enum FlexGrammar implements GrammarRuleKey {
   TRY_STATEMENT,
   EXPRESSION_STATEMENT,
   LABELED_STATEMENT,
-  DEFAULT_XMLN_NAMESPACE_STATEMENT,
+  DEFAULT_XML_NAMESPACE_STATEMENT,
   SUB_STATEMENT,
-  SUB_STATEMENTS,
   EMPTY_STATEMENT,
-  SIMPLE_VARIABLE_DEF,
-  SUB_STATEMENT_PREFIX,
   BLOCK,
   CASE_ELEMENT,
   CASE_ELEMENTS,
-  CASE_ELEMENT_PREFIX,
   CASE_LABEL,
   FOR_INITIALISER,
   FOR_IN_BINDING,
-  OPTIONAL_EXPRESSION,
   CATCH_CLAUSE,
   CATCH_CLAUSES,
-  CATCH_CLAUSES_OPT,
   // </editor-fold>
    
   /**
@@ -248,7 +331,6 @@ public enum FlexGrammar implements GrammarRuleKey {
   // <editor-fold defaultstate="collapsed" desc="Directives">
   DIRECTIVES,
   DIRECTIVE,
-  DIRECTIVES_PREFIX,
   ANNOTABLE_DIRECTIVE,
   USE_DIRECTIVE,
   IMPORT_DIRECTIVE,
@@ -256,74 +338,9 @@ public enum FlexGrammar implements GrammarRuleKey {
   ATTRIBUTES,
   ATTRIBUTE,
   ATTRIBUTE_COMBINATION,
-  ATTRIBUTE_EXPR,
+  ATTRIBUTE_EXPR;
   // </editor-fold>
-  
-  /**
-   * PONCTUATORS
-   */
-  // <editor-fold defaultstate="collapsed" desc="Ponctuators">
-  AT_SIGN,
-  COMMA,
-  COLON,
-  DOUBLE_COLON,
-  DOT,
-  DOUBLE_DOT,
-  RCURLYBRACE,
-  LCURLYBRACE,
-  RBRAKET,
-  LBRAKET,
-  RPARENTHESIS,
-  LPARENTHESIS,
-  STAR,
-  PLUS,
-  MINUS,
-  DOUBLE_PLUS,
-  DOUBLE_MINUS,
-  DIV,
-  MOD,
-  NOT,
-  EQU,
-  EQUAL,
-  EQUAL2,
-  NOTEQUAL,
-  NOTEQUAL2,
-  SL,
-  SR,
-  SR2,
-  STAR_EQU,
-  DIV_EQU,
-  MOD_EQU,
-  PLUS_EQU,
-  MINUS_EQU,
-  SL_EQU,
-  SR_EQU,
-  SR_EQU2,
-  AND_EQU,
-  XOR_EQU,
-  OR_EQU,
-  ANDAND_EQU,
-  XORXOR_EQU,
-  OROR_EQU,
-  LT,
-  GT,
-  LE,
-  GE,
-  AND,
-  ANDAND,
-  XOR,
-  OR,
-  OROR,
-  QUERY,
-  TILD,
-  TRIPLE_DOTS,
-  SEMICOLON,
-  UNDERSCORE,
-  BACKSLASH,
-  DOLLAR;
-  
-  // </editor-fold>
-    
+
   private static final String UNICODE_LETTER = "\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}";
   private static final String UNICODE_DIGIT = "\\p{Nd}";
   private static final String UNICODE_COMBINING_MARK = "\\p{Mn}\\p{Mc}";
@@ -331,15 +348,13 @@ public enum FlexGrammar implements GrammarRuleKey {
    
   public static LexerlessGrammar createGrammar() {
     LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
-    
+
     b.rule(WHITESPACE).is(b.regexp("\\s*"));
     b.rule(INLINE_COMMENT).is(b.regexp("//[^\\n\\r]*+"));
     b.rule(MULTILINE_COMMENT).is(b.regexp("/\\*[\\s\\S*]*\\*/"));
     b.rule(SPACING).is(WHITESPACE, b.zeroOrMore(b.firstOf(INLINE_COMMENT, MULTILINE_COMMENT), WHITESPACE));
     b.rule(UNICODE_ESCAPE_SEQUENCE).is(b.regexp("u[0-9a-fA-F]{4,4}"));
-    
-    b.rule(XML).is("xml", b.nextNot(IDENTIFIER_NAME), SPACING);
-    
+
     punctuators(b);
     keywords(b);
     literals(b);
@@ -347,10 +362,11 @@ public enum FlexGrammar implements GrammarRuleKey {
     statements(b);
     directives(b);
     definitions(b);
+    xml(b);
     
     return b.build();
   }
-  
+
   private static void literals(LexerlessGrammarBuilder b) {
     b.rule(STRING).is(b.regexp("\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\""), SPACING);
     b.rule(INTEGER).is(b.regexp("-?[0-9]+"), SPACING);
@@ -383,21 +399,21 @@ public enum FlexGrammar implements GrammarRuleKey {
       STATIC,
       b.sequence(b.nextNot(KEYWORDS), IDENTIFIER_NAME)));
 
+    // TODO merge into single regexp:
     b.rule(IDENTIFIER_NAME).is(IDENTIFIER_START, b.zeroOrMore(IDENTIFIER_PART), SPACING);
-    
     b.rule(IDENTIFIER_START).is(b.firstOf(
       b.regexp("[" + UNICODE_LETTER + "]"),
-      DOLLAR,
-      UNDERSCORE,
-      b.sequence(BACKSLASH, UNICODE_ESCAPE_SEQUENCE)));
-    
+      "$",
+      "_",
+      b.sequence("\\", UNICODE_ESCAPE_SEQUENCE)));
     b.rule(IDENTIFIER_PART).is(b.firstOf(
       IDENTIFIER_START,
       b.regexp("[" + UNICODE_COMBINING_MARK + "]"),
       b.regexp("[" + UNICODE_DIGIT + "]"),
       b.regexp("[" + UNICODE_CONNECTOR_PUNCTUATION + "]"),
+      // TODO seems incorrect:
       UNICODE_ESCAPE_SEQUENCE));
-    
+
     b.rule(PROPERTY_IDENTIFIER).is(b.firstOf(
       IDENTIFIER,
       STAR));
@@ -424,7 +440,6 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.sequence(AT_SIGN, NON_ATTRIBUTE_QUALIFIED_IDENTIFIER),
       NON_ATTRIBUTE_QUALIFIED_IDENTIFIER));
     
-    //Primary expressions
     b.rule(PRIMARY_EXPR).is(b.firstOf(
       NULL,
       TRUE,
@@ -441,79 +456,43 @@ public enum FlexGrammar implements GrammarRuleKey {
       QUALIFIED_IDENTIFIER,
       FUNCTION_EXPR));
 
-    // Reseved namespace
-    b.rule(RESERVED_NAMESPACE).is(b.firstOf(
-      PUBLIC,
-      PRIVATE,
-      PROTECTED,
-      INTERNAL));
+    b.rule(RESERVED_NAMESPACE).is(b.firstOf(PUBLIC, PRIVATE, PROTECTED, INTERNAL));
 
-    // Parenthesized expressions
-    b.rule(PARENTHESIZED_EXPR).is(LPARENTHESIS, ASSIGNMENT_EXPR, RPARENTHESIS); // <!-- here
+    b.rule(PARENTHESIZED_EXPR).is(LPARENTHESIS, ASSIGNMENT_EXPR, RPARENTHESIS);
     b.rule(PARENTHESIZED_LIST_EXPR).is(b.firstOf(
       PARENTHESIZED_EXPR,
-      b.sequence(LPARENTHESIS, LIST_EXPRESSION, COMMA,
-      ASSIGNMENT_EXPR, RPARENTHESIS)));
+      b.sequence(LPARENTHESIS, LIST_EXPRESSION, COMMA, ASSIGNMENT_EXPR, RPARENTHESIS)));
 
     b.rule(FUNCTION_EXPR).is(b.firstOf(
       b.sequence(FUNCTION, FUNCTION_COMMON),
       b.sequence(FUNCTION, IDENTIFIER, FUNCTION_COMMON)));
 
-    // Object initialiser
-    b.rule(OBJECT_INITIALISER).is(LCURLYBRACE, FIELD_LIST, RCURLYBRACE);
-
-    b.rule(FIELD_LIST).is(b.optional(NON_EMPTY_FIELD_LIST));
-
-    b.rule(NON_EMPTY_FIELD_LIST).is(b.firstOf(
-      b.sequence(LITERAL_FIELD, COMMA, NON_EMPTY_FIELD_LIST),
-      LITERAL_FIELD));
-
+    b.rule(OBJECT_INITIALISER).is(LCURLYBRACE, b.optional(LITERAL_FIELD, b.zeroOrMore(COMMA, LITERAL_FIELD)), RCURLYBRACE);
     b.rule(LITERAL_FIELD).is(FIELD_NAME, COLON, ASSIGNMENT_EXPR);
-
     b.rule(FIELD_NAME).is(b.firstOf(
       NON_ATTRIBUTE_QUALIFIED_IDENTIFIER,
       STRING,
       NUMBER));
 
     // Array initialiser
+    // TODO looks strange:
     b.rule(ARRAY_INITIALISER).is(LBRAKET, ELEMENT_LIST, RBRAKET);
-
     b.rule(ELEMENT_LIST).is(b.optional(b.firstOf(
       b.sequence(COMMA, ELEMENT_LIST),
       b.sequence(LITERAL_ELEMENT, COMMA, ELEMENT_LIST),
       LITERAL_ELEMENT)));
-
     b.rule(LITERAL_ELEMENT).is(ASSIGNMENT_EXPR);
 
     // Assignement expressions
     b.rule(ASSIGNMENT_EXPR).is(b.firstOf(
-      b.sequence(POSTFIX_EXPR, EQU, ASSIGNMENT_EXPR),
-      b.sequence(POSTFIX_EXPR, COMPOUND_ASSIGNMENT, ASSIGNMENT_EXPR),
-      b.sequence(POSTFIX_EXPR, LOGICAL_ASSIGNMENT, ASSIGNMENT_EXPR),
+      b.sequence(POSTFIX_EXPR, ASSIGNMENT_OPERATOR, ASSIGNMENT_EXPR),
       CONDITIONAL_EXPR));
     b.rule(ASSIGNMENT_EXPR_NO_IN).is(b.firstOf(
-      b.sequence(POSTFIX_EXPR, EQU, ASSIGNMENT_EXPR_NO_IN),
-      b.sequence(POSTFIX_EXPR, COMPOUND_ASSIGNMENT, ASSIGNMENT_EXPR_NO_IN),
-      b.sequence(POSTFIX_EXPR, LOGICAL_ASSIGNMENT, ASSIGNMENT_EXPR_NO_IN),
+      b.sequence(POSTFIX_EXPR, ASSIGNMENT_OPERATOR, ASSIGNMENT_EXPR_NO_IN),
       CONDITIONAL_EXPR));
-
-    b.rule(COMPOUND_ASSIGNMENT).is(b.firstOf(
-      STAR_EQU,
-      DIV_EQU,
-      MOD_EQU,
-      PLUS_EQU,
-      MINUS_EQU,
-      SL_EQU,
-      SR_EQU,
-      SR_EQU2,
-      AND_EQU,
-      XOR_EQU,
-      OR_EQU));
-
-    b.rule(LOGICAL_ASSIGNMENT).is(b.firstOf(
-      ANDAND_EQU,
-      XORXOR_EQU,
-      OROR_EQU));
+    b.rule(ASSIGNMENT_OPERATOR).is(b.firstOf(EQU, COMPOUND_ASSIGNMENT, LOGICAL_ASSIGNMENT));
+    b.rule(COMPOUND_ASSIGNMENT).is(b.firstOf(STAR_EQU, DIV_EQU, MOD_EQU, PLUS_EQU, MINUS_EQU, SL_EQU, SR_EQU, SR_EQU2, AND_EQU, XOR_EQU, OR_EQU));
+    b.rule(LOGICAL_ASSIGNMENT).is(b.firstOf(ANDAND_EQU, XORXOR_EQU, OROR_EQU));
 
     // Super expression
     b.rule(SUPER_EXPR).is(b.firstOf(
@@ -578,27 +557,14 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(ADDITIVE_EXPR).is(MULTIPLICATIVE_EXPR, b.zeroOrMore(b.firstOf(PLUS, MINUS), MULTIPLICATIVE_EXPR));
     b.rule(SHIFT_EXPR).is(ADDITIVE_EXPR, b.zeroOrMore(b.firstOf(SL, SR2, SR), ADDITIVE_EXPR));
     
-    b.rule(RELATIONAL_EXPR).is(
-      SHIFT_EXPR,
-      b.zeroOrMore(
-        b.firstOf(LE, GE, LT, GT, IN, INSTANCEOF, IS, AS),
-        SHIFT_EXPR));
-    b.rule(RELATIONAL_EXPR_NO_IN).is(
-      SHIFT_EXPR,
-      b.zeroOrMore(
-        b.firstOf(LE, GE, LT, GT, INSTANCEOF, IS, AS),
-        SHIFT_EXPR));
+    b.rule(RELATIONAL_EXPR).is(SHIFT_EXPR, b.zeroOrMore(RELATIONAL_OPERATOR, SHIFT_EXPR));
+    b.rule(RELATIONAL_EXPR_NO_IN).is(SHIFT_EXPR, b.zeroOrMore(RELATIONAL_OPERATOR_NO_IN, SHIFT_EXPR));
+    b.rule(RELATIONAL_OPERATOR).is(b.firstOf(LE, GE, LT, GT, IN, INSTANCEOF, IS, AS));
+    b.rule(RELATIONAL_OPERATOR_NO_IN).is(b.firstOf(LE, GE, LT, GT, INSTANCEOF, IS, AS));
     
-    b.rule(EQUALITY_EXPR).is(
-      RELATIONAL_EXPR, 
-      b.zeroOrMore(
-        b.firstOf(NOTEQUAL2, EQUAL2, EQUAL, NOTEQUAL),
-        RELATIONAL_EXPR));
-    b.rule(EQUALITY_EXPR_NO_IN).is(
-      RELATIONAL_EXPR_NO_IN, 
-      b.zeroOrMore(
-        b.firstOf(NOTEQUAL2, EQUAL2, EQUAL, NOTEQUAL),
-        RELATIONAL_EXPR_NO_IN));
+    b.rule(EQUALITY_EXPR).is(RELATIONAL_EXPR, b.zeroOrMore(EQUALITY_OPERATOR, RELATIONAL_EXPR));
+    b.rule(EQUALITY_EXPR_NO_IN).is(RELATIONAL_EXPR_NO_IN, b.zeroOrMore(EQUALITY_OPERATOR, RELATIONAL_EXPR_NO_IN));
+    b.rule(EQUALITY_OPERATOR).is(b.firstOf(NOTEQUAL2, EQUAL2, EQUAL, NOTEQUAL));
     
     b.rule(BITEWISE_AND_EXPR).is(EQUALITY_EXPR, b.zeroOrMore(AND, EQUALITY_EXPR));
     b.rule(BITEWISE_AND_EXPR_NO_IN).is(EQUALITY_EXPR_NO_IN, b.zeroOrMore(AND, EQUALITY_EXPR_NO_IN));
@@ -639,62 +605,10 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(TYPE_EXPR_NO_IN).is(b.firstOf(
       /* not in specs: */ VOID,
       NON_ASSIGNMENT_EXPR_NO_IN));
-    
-    // XML INITIALISER
-    b.rule(XML_INITIALISER).is(b.firstOf(
-      XML_MARKUP,
-      XML_ELEMENT,
-      b.sequence(LT, GT, XML_ELEMENT_CONTENT, LT, DIV, GT)));
-    
-    b.rule(XML_ELEMENT).is(b.firstOf(
-      b.sequence(LT, XML_TAG_CONTENT, b.optional(XML_WHITESPACE), DIV, GT),
-      b.sequence(LT, XML_TAG_CONTENT, b.optional(XML_WHITESPACE), 
-                 XML_ELEMENT_CONTENT, LT, DIV, XML_TAG_NAME, 
-                 b.optional(XML_WHITESPACE), GT)));
-    
-    b.rule(XML_TAG_CONTENT).is(XML_TAG_NAME, XML_ATTRIBUTES);
-    
-    b.rule(XML_TAG_NAME).is(b.firstOf(
-      b.sequence(LCURLYBRACE, EXPRESSION_STATEMENT),
-      XML_NAME));
-    
-    b.rule(XML_ATTRIBUTES).is(b.optional(b.firstOf(
-      b.sequence(XML_WHITESPACE, LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE),
-      b.sequence(XML_ATTRIBUTE, XML_ATTRIBUTES))));
- 
-    b.rule(XML_ATTRIBUTE).is(b.firstOf(
-      b.sequence(b.zeroOrMore(XML_WHITESPACE), XML_NAME, 
-                 b.optional(b.zeroOrMore(XML_WHITESPACE)), EQU,
-                 b.optional(b.zeroOrMore(XML_WHITESPACE)), LCURLYBRACE,
-                 EXPRESSION_STATEMENT, RCURLYBRACE),
-      b.sequence(b.zeroOrMore(XML_WHITESPACE), XML_NAME, 
-                 b.optional(b.zeroOrMore(XML_WHITESPACE)), EQU,
-                 b.optional(b.zeroOrMore(XML_WHITESPACE)), 
-                 XML_ATTRIBUTE_VALUE)));
-
-    b.rule(XML_ELEMENT_CONTENT).is(b.optional(
-      b.firstOf(
-        b.sequence(LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE, XML_ELEMENT_CONTENT),
-        b.sequence(XML_MARKUP, XML_ELEMENT_CONTENT),
-        b.sequence(XML_TEXT, XML_ELEMENT_CONTENT),
-        b.sequence(XML_ELEMENT, XML_ELEMENT_CONTENT)
-      )));
-    
-    b.rule(XML_MARKUP).is(b.firstOf(
-      XML_COMMENT,
-      XML_CDATA,
-      XML_PI));
-     
-    b.rule(XML_COMMENT).is(b.regexp("<!--(?:(?!--)[\\s\\S])*?-->"));
-    b.rule(XML_CDATA  ).is(b.regexp("<!\\[CDATA\\[(?:(?!]])[\\s\\S])*?]]>"));
-    b.rule(XML_PI).is(b.regexp("<\\?(?:(?!\\?>)[\\s\\S])*?\\?>"));
-    b.rule(XML_TEXT).is(b.regexp("[^{<]++"));
-    b.rule(XML_NAME).is(b.regexp("[" + UNICODE_LETTER + "_:" + "]" + "[" + UNICODE_LETTER + UNICODE_DIGIT + "\\.\\-_:" + "]*"));
-    b.rule(XML_ATTRIBUTE_VALUE).is(b.regexp("(\"([^\"]*[//s//S]*)\")|(\'([^\']*[//s//S]*)\')"));
-    b.rule(XML_WHITESPACE).is(b.regexp("[ \\t\\r\\n]+"));
   }
   
   private static void statements(LexerlessGrammarBuilder b) {
+    // TODO seems that SUPER_STATEMENT conflicts with EXPRESSION_STATEMENT
     b.rule(STATEMENT).is(b.firstOf(
       b.sequence(SUPER_STATEMENT, SEMICOLON),
       BLOCK,
@@ -711,95 +625,69 @@ public enum FlexGrammar implements GrammarRuleKey {
       TRY_STATEMENT,
       b.sequence(EXPRESSION_STATEMENT, SEMICOLON),
       LABELED_STATEMENT,
-      DEFAULT_XMLN_NAMESPACE_STATEMENT));
+      // TODO according to http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/statements.html#default_xml_namespace this is directive, not statement:
+      DEFAULT_XML_NAMESPACE_STATEMENT));
     
     b.rule(SUB_STATEMENT).is(b.firstOf(
       EMPTY_STATEMENT,
       STATEMENT,
       b.sequence(VARIABLE_DEF, SEMICOLON)));
-    
-    b.rule(SUB_STATEMENTS).is(b.optional(SUB_STATEMENT_PREFIX, SUB_STATEMENT));
-    b.rule(SUB_STATEMENT_PREFIX).is(b.optional(SUB_STATEMENT));
 
-    // Empty
     b.rule(EMPTY_STATEMENT).is(SEMICOLON);
+
     b.rule(SUPER_STATEMENT).is(SUPER, ARGUMENTS);
+
     b.rule(BLOCK).is(LCURLYBRACE, DIRECTIVES, RCURLYBRACE);
+
     b.rule(LABELED_STATEMENT).is(IDENTIFIER, COLON, SUB_STATEMENT);
     
-    // Conditional statements
-    b.rule(IF_STATEMENT).is(IF, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT, 
-                            b.optional(ELSE, SUB_STATEMENT));
-    // 3 other rules with annotations
-    
-    b.rule(SWITCH_STATEMENT).is(SWITCH, PARENTHESIZED_LIST_EXPR,
-                                LCURLYBRACE, CASE_ELEMENTS, RCURLYBRACE);
+    b.rule(IF_STATEMENT).is(IF, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT, b.optional(ELSE, SUB_STATEMENT));
+
+    // TODO looks strange:
+    b.rule(SWITCH_STATEMENT).is(SWITCH, PARENTHESIZED_LIST_EXPR, LCURLYBRACE, CASE_ELEMENTS, RCURLYBRACE);
     b.rule(CASE_ELEMENTS).is(b.optional(b.firstOf(
-      // BEFORE: b.sequence(CASE_LABEL, CASE_ELEMENT_PREFIX, CASE_ELEMENT)
       b.sequence(CASE_LABEL,  b.zeroOrMore(CASE_ELEMENT)),
       CASE_LABEL)));
-    
     b.rule(CASE_ELEMENT).is(b.firstOf(CASE_LABEL, DIRECTIVE));
     b.rule(CASE_LABEL).is(b.firstOf(
       b.sequence(DEFAULT, COLON),
-      b.sequence(CASE, LIST_EXPRESSION, COLON)
-      ));
+      b.sequence(CASE, LIST_EXPRESSION, COLON)));
     
-    // Itteration
     b.rule(DO_STATEMENT).is(DO, SUB_STATEMENT, WHILE, PARENTHESIZED_LIST_EXPR);
     
     b.rule(WHILE_STATEMENT).is(WHILE, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT);
-    
+
     b.rule(FOR_STATEMENT).is(b.firstOf(
-      b.sequence(FOR, LPARENTHESIS, FOR_INITIALISER, SEMICOLON, 
-                 OPTIONAL_EXPRESSION, SEMICOLON, 
-                 OPTIONAL_EXPRESSION, RPARENTHESIS, SUB_STATEMENT),
-      b.sequence(FOR, LPARENTHESIS, FOR_IN_BINDING, IN, LIST_EXPRESSION,
-                  RPARENTHESIS, SUB_STATEMENT),
-      b.sequence(FOR, /*No line break*/ EACH, LPARENTHESIS, FOR_IN_BINDING,
-                 IN, LIST_EXPRESSION, RPARENTHESIS, SUB_STATEMENT)));
-    
+      b.sequence(FOR, LPARENTHESIS, FOR_INITIALISER, SEMICOLON, b.optional(LIST_EXPRESSION), SEMICOLON, b.optional(LIST_EXPRESSION), RPARENTHESIS, SUB_STATEMENT),
+      b.sequence(FOR, LPARENTHESIS, FOR_IN_BINDING, IN, LIST_EXPRESSION, RPARENTHESIS, SUB_STATEMENT),
+      b.sequence(FOR, /*No line break*/ EACH, LPARENTHESIS, FOR_IN_BINDING, IN, LIST_EXPRESSION, RPARENTHESIS, SUB_STATEMENT)));
     b.rule(FOR_INITIALISER).is(b.optional(b.firstOf(
       LIST_EXPRESSION_NO_IN,
       VARIABLE_DEF_NO_IN)));
-    
     b.rule(FOR_IN_BINDING).is(b.firstOf(
       b.sequence(VARIABLE_DEF_KIND, VARIABLE_BINDING_NO_IN),
       POSTFIX_EXPR));
-    
-    b.rule(OPTIONAL_EXPRESSION).is(b.optional(LIST_EXPRESSION));
-    b.rule(CONTINUE_STATEMENT).is(b.firstOf(
-      CONTINUE,
-      b.sequence(CONTINUE, /*No line break*/ IDENTIFIER)));
-     
-    b.rule(BREAK_STATEMENT).is(b.firstOf(
-      BREAK,
-      b.sequence(BREAK, /*No line break*/ IDENTIFIER)));
+
+    b.rule(CONTINUE_STATEMENT).is(CONTINUE, b.optional(/*No line break*/ IDENTIFIER));
+
+    b.rule(BREAK_STATEMENT).is(BREAK, b.optional(/*No line break*/IDENTIFIER));
     
     b.rule(WITH_STATEMENT).is(WITH, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT);
     
-    b.rule(RETURN_STATEMENT).is(b.firstOf(
-      RETURN, 
-      b.sequence(RETURN, /*No line break*/ LIST_EXPRESSION)));
+    b.rule(RETURN_STATEMENT).is(RETURN, b.optional(/*No line break*/ LIST_EXPRESSION));
     
     b.rule(THROW_STATEMENT).is(THROW, /*No line break*/ LIST_EXPRESSION);
     
-    // Try
-    b.rule(TRY_STATEMENT).is(b.firstOf(
-      b.sequence(TRY, BLOCK, CATCH_CLAUSES),
-      b.sequence(TRY, BLOCK, CATCH_CLAUSES_OPT, FINALLY, BLOCK)));
-    
-    b.rule(CATCH_CLAUSES_OPT).is(b.optional(CATCH_CLAUSES));
-    
+    b.rule(TRY_STATEMENT).is(TRY, BLOCK, b.firstOf(
+      b.sequence(CATCH_CLAUSES, b.optional(FINALLY, BLOCK)),
+      b.sequence(FINALLY, BLOCK)
+    ));
     b.rule(CATCH_CLAUSES).is(CATCH_CLAUSE, b.zeroOrMore(CATCH_CLAUSE));
-    
     b.rule(CATCH_CLAUSE).is(CATCH, LPARENTHESIS, PARAMETER, RPARENTHESIS, BLOCK);
    
-    b.rule(DEFAULT_XMLN_NAMESPACE_STATEMENT).is(DEFAULT, /*No line break*/ XML,
-            /*no line break*/ NAMESPACE, EQU, NON_ASSIGNMENT_EXPR);
+    b.rule(DEFAULT_XML_NAMESPACE_STATEMENT).is(DEFAULT, /*No line break*/ XML, /*No line break*/ NAMESPACE, EQU, NON_ASSIGNMENT_EXPR);
     
-    // Note as [lookahead !{ function, { }] in adobe doc 
-    b.rule(EXPRESSION_STATEMENT).is(LIST_EXPRESSION, b.nextNot(FUNCTION, b.sequence(LCURLYBRACE, RCURLYBRACE)));
+    b.rule(EXPRESSION_STATEMENT).is(b.nextNot(b.firstOf(FUNCTION, LCURLYBRACE)), LIST_EXPRESSION);
   }
   
   private static void directives(LexerlessGrammarBuilder b)  {
@@ -821,44 +709,35 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(DIRECTIVES).is(b.zeroOrMore(DIRECTIVE));
 
-    // Attributes
     b.rule(ATTRIBUTES).is(b.oneOrMore(ATTRIBUTE));
     b.rule(ATTRIBUTE_COMBINATION).is(ATTRIBUTE, /*No line break*/ ATTRIBUTES);
     b.rule(ATTRIBUTE).is(b.firstOf(
       ATTRIBUTE_EXPR,
       RESERVED_NAMESPACE,
       b.sequence(LBRAKET, ASSIGNMENT_EXPR, RBRAKET)));
-    
     b.rule(ATTRIBUTE_EXPR).is(IDENTIFIER, b.zeroOrMore(PROPERTY_OPERATOR));
    
-    // Import
     b.rule(IMPORT_DIRECTIVE).is(IMPORT, PACKAGE_NAME, b.optional(DOT, STAR));
     
-    // Include
     b.rule(INCLUDE_DIRECTIVE).is(INCLUDE, /*No line break*/ STRING);
     
-    // Use
     b.rule(USE_DIRECTIVE).is(USE, NAMESPACE, LIST_EXPRESSION);
   }
   
   private static void definitions(LexerlessGrammarBuilder b) {
-    // Variable
     b.rule(VARIABLE_DEF).is(VARIABLE_DEF_KIND, VARIABLE_BINDING_LIST);
     b.rule(VARIABLE_DEF_NO_IN).is(VARIABLE_DEF_KIND, VARIABLE_BINDING_LIST_NO_IN);
     
     b.rule(VARIABLE_DEF_KIND).is(b.firstOf(VAR, CONST));
     
-    b.rule(VARIABLE_BINDING_LIST).is(VARIABLE_BINDING, 
-                                     b.zeroOrMore(COMMA, VARIABLE_BINDING));
-    b.rule(VARIABLE_BINDING_LIST_NO_IN).is(VARIABLE_BINDING_NO_IN, 
-                                     b.zeroOrMore(COMMA, VARIABLE_BINDING_NO_IN));
+    b.rule(VARIABLE_BINDING_LIST).is(VARIABLE_BINDING, b.zeroOrMore(COMMA, VARIABLE_BINDING));
+    b.rule(VARIABLE_BINDING_LIST_NO_IN).is(VARIABLE_BINDING_NO_IN, b.zeroOrMore(COMMA, VARIABLE_BINDING_NO_IN));
      
     b.rule(VARIABLE_BINDING).is(TYPED_IDENTIFIER, VARIABLE_INITIALISATION);
     b.rule(VARIABLE_BINDING_NO_IN).is(TYPED_IDENTIFIER_NO_IN, VARIABLE_INITIALISATION_NO_IN);
     
     b.rule(VARIABLE_INITIALISATION).is(b.optional(EQU, VARIABLE_INITIALISER));
-    b.rule(VARIABLE_INITIALISATION_NO_IN).is(
-      b.optional(EQU, VARIABLE_INITIALISER_NO_IN));
+    b.rule(VARIABLE_INITIALISATION_NO_IN).is(b.optional(EQU, VARIABLE_INITIALISER_NO_IN));
     
     b.rule(VARIABLE_INITIALISER).is(b.firstOf(
       ASSIGNMENT_EXPR, 
@@ -874,11 +753,10 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.sequence(IDENTIFIER, COLON, TYPE_EXPR_NO_IN),
       IDENTIFIER));
     
-    //Function
     b.rule(FUNCTION_DEF).is(FUNCTION, FUNCTION_NAME, FUNCTION_COMMON);
     b.rule(FUNCTION_NAME).is(b.firstOf(
-      b.sequence(GET, /*Non line break*/ IDENTIFIER),
-      b.sequence(SET, /*Non line break*/ IDENTIFIER),
+      b.sequence(GET, /*No line break*/ IDENTIFIER),
+      b.sequence(SET, /*No line break*/ IDENTIFIER),
       IDENTIFIER));
     
     b.rule(FUNCTION_COMMON).is(b.firstOf(
@@ -906,125 +784,100 @@ public enum FlexGrammar implements GrammarRuleKey {
     // TODO WTF in specs? other grammars don't use type_expr
     b.rule(RESULT_TYPE).is(b.optional(COLON, TYPE_EXPR));
     
-    // Class
     b.rule(CLASS_DEF).is(CLASS, CLASS_NAME, INHERITENCE, BLOCK);
     b.rule(CLASS_NAME).is(CLASS_IDENTIFIERS);
-    b.rule(CLASS_IDENTIFIERS).is(IDENTIFIER, 
-      b.zeroOrMore(b.sequence(DOT, IDENTIFIER)));
+    b.rule(CLASS_IDENTIFIERS).is(IDENTIFIER, b.zeroOrMore(b.sequence(DOT, IDENTIFIER)));
     b.rule(INHERITENCE).is(b.optional(b.firstOf(
       b.sequence(EXTENDS, TYPE_EXPR),
       b.sequence(IMPLEMENTS, TYPE_EXPRESSION_LIST),
       b.sequence(EXTENDS, TYPE_EXPR, IMPLEMENTS, TYPE_EXPRESSION_LIST))));
     
-    b.rule(TYPE_EXPRESSION_LIST).is(TYPE_EXPR, 
-      b.zeroOrMore(b.sequence(COMMA, TYPE_EXPR)));
+    b.rule(TYPE_EXPRESSION_LIST).is(TYPE_EXPR, b.zeroOrMore(b.sequence(COMMA, TYPE_EXPR)));
     
     b.rule(INTERFACE_DEF).is(INTERFACE, CLASS_NAME, EXTENDS_LIST, BLOCK);
     b.rule(EXTENDS_LIST).is(b.optional(EXTENDS, TYPE_EXPRESSION_LIST));
     
-    // Package
     b.rule(PACKAGE_DEF).is(PACKAGE, b.optional(PACKAGE_NAME), BLOCK);
     b.rule(PACKAGE_NAME).is(IDENTIFIER, b.zeroOrMore(DOT, IDENTIFIER));
 
-    // Namespace
     b.rule(NAMESPACE_DEF).is(NAMESPACE, NAMESPACE_BINDING);
-    b.rule(NAMESPACE_BINDING).is(IDENTIFIER, 
-                                 NAMESPACE_INITIALISATION);
-    
+    b.rule(NAMESPACE_BINDING).is(IDENTIFIER, NAMESPACE_INITIALISATION);
     b.rule(NAMESPACE_INITIALISATION).is(b.optional(EQU, ASSIGNMENT_EXPR));
 
-    // Program
     b.rule(PROGRAM).is(b.firstOf(b.sequence(PACKAGE_DEF, PROGRAM), DIRECTIVES));
   }
-  
+
+  // TODO review/test
+  private static void xml(LexerlessGrammarBuilder b) {
+    b.rule(XML_INITIALISER).is(b.firstOf(
+      XML_MARKUP,
+      XML_ELEMENT,
+      b.sequence(LT, GT, XML_ELEMENT_CONTENT, LT, DIV, GT)));
+
+    b.rule(XML_ELEMENT).is(b.firstOf(
+      b.sequence(LT, XML_TAG_CONTENT, b.optional(XML_WHITESPACE), DIV, GT),
+      b.sequence(LT, XML_TAG_CONTENT, b.optional(XML_WHITESPACE), XML_ELEMENT_CONTENT, LT, DIV, XML_TAG_NAME, b.optional(XML_WHITESPACE), GT)));
+
+    b.rule(XML_TAG_CONTENT).is(XML_TAG_NAME, XML_ATTRIBUTES);
+
+    b.rule(XML_TAG_NAME).is(b.firstOf(
+      b.sequence(LCURLYBRACE, EXPRESSION_STATEMENT),
+      XML_NAME));
+
+    b.rule(XML_ATTRIBUTES).is(b.optional(b.firstOf(
+      b.sequence(XML_WHITESPACE, LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE),
+      b.sequence(XML_ATTRIBUTE, XML_ATTRIBUTES))));
+
+    // TODO simplify
+    b.rule(XML_ATTRIBUTE).is(b.firstOf(
+      b.sequence(b.zeroOrMore(XML_WHITESPACE), XML_NAME,
+        b.optional(b.zeroOrMore(XML_WHITESPACE)), EQU,
+        b.optional(b.zeroOrMore(XML_WHITESPACE)), LCURLYBRACE,
+        EXPRESSION_STATEMENT, RCURLYBRACE),
+      b.sequence(b.zeroOrMore(XML_WHITESPACE), XML_NAME,
+        b.optional(b.zeroOrMore(XML_WHITESPACE)), EQU,
+        b.optional(b.zeroOrMore(XML_WHITESPACE)),
+        XML_ATTRIBUTE_VALUE)));
+
+    b.rule(XML_ELEMENT_CONTENT).is(b.optional(
+      b.firstOf(
+        b.sequence(LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE, XML_ELEMENT_CONTENT),
+        b.sequence(XML_MARKUP, XML_ELEMENT_CONTENT),
+        b.sequence(XML_TEXT, XML_ELEMENT_CONTENT),
+        b.sequence(XML_ELEMENT, XML_ELEMENT_CONTENT)
+      )));
+
+    b.rule(XML_MARKUP).is(b.firstOf(
+      XML_COMMENT,
+      XML_CDATA,
+      XML_PI));
+
+    b.rule(XML_COMMENT).is(b.regexp("<!--(?:(?!--)[\\s\\S])*?-->"));
+    b.rule(XML_CDATA  ).is(b.regexp("<!\\[CDATA\\[(?:(?!]])[\\s\\S])*?]]>"));
+    b.rule(XML_PI).is(b.regexp("<\\?(?:(?!\\?>)[\\s\\S])*?\\?>"));
+    b.rule(XML_TEXT).is(b.regexp("[^{<]++"));
+    b.rule(XML_NAME).is(b.regexp("[" + UNICODE_LETTER + "_:" + "]" + "[" + UNICODE_LETTER + UNICODE_DIGIT + "\\.\\-_:" + "]*"));
+    b.rule(XML_ATTRIBUTE_VALUE).is(b.regexp("(\"([^\"]*[//s//S]*)\")|(\'([^\']*[//s//S]*)\')"));
+    b.rule(XML_WHITESPACE).is(b.regexp("[ \\t\\r\\n]+"));
+  }
+
   private static void keywords(LexerlessGrammarBuilder b) {
     for (FlexKeyword k : FlexKeyword.values()) {
-      b.rule(k).is(k.toString().toLowerCase(), b.nextNot(IDENTIFIER_PART), SPACING);
-    }
-    
-    Object[] rest = new Object[FlexKeyword.values().length - 2];
-    for (int i = 2; i < FlexKeyword.values().length; i++){
-      rest[i - 2] = FlexKeyword.values()[i];
+      b.rule(k).is(k.getValue(), b.nextNot(IDENTIFIER_PART), SPACING);
     }
 
-    b.rule(KEYWORDS).is(b.firstOf(FlexKeyword.values()[0], FlexKeyword.values()[1], rest));
-    
-    /** 
-     * SYNTACTIC KEYWORDS
-     */
-    // <editor-fold defaultstate="collapsed" desc="Syntactic keywords definition">
-    b.rule(EACH).is("each", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(GET).is("get", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(SET).is("set", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(NAMESPACE).is("namespace", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(INCLUDE).is("include", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(DYNAMIC).is("dynamic", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(FINAL).is("final", b.nextNot(IDENTIFIER_NAME), SPACING); 
-    b.rule(OVERRIDE).is("override", b.nextNot(IDENTIFIER_NAME), SPACING);
-    b.rule(STATIC).is("static", b.nextNot(IDENTIFIER_NAME), SPACING);
-    // </editor-fold>
+    List<FlexKeyword> keywords = FlexKeyword.keywords();
+    Object[] rest = new Object[keywords.size() - 2];
+    for (int i = 2; i < keywords.size(); i++) {
+      rest[i - 2] = keywords.get(i);
+    }
+    b.rule(KEYWORDS).is(b.firstOf(keywords.get(0), keywords.get(1), rest));
   }
   
   private static void punctuators(LexerlessGrammarBuilder b) {
-    b.rule(AT_SIGN).is("@", SPACING);
-    b.rule(COMMA).is(",", SPACING);
-    b.rule(COLON).is(":", SPACING);
-    b.rule(DOUBLE_COLON).is("::", SPACING);
-    b.rule(DOT).is(".", SPACING);
-    b.rule(TRIPLE_DOTS).is("...", SPACING);
-    b.rule(DOUBLE_DOT).is("..", SPACING);
-    b.rule(RCURLYBRACE).is("}", SPACING);
-    b.rule(LCURLYBRACE).is("{", SPACING);
-    b.rule(RBRAKET).is("]", SPACING);
-    b.rule(LBRAKET).is("[", SPACING);
-    b.rule(RPARENTHESIS).is(")", SPACING);
-    b.rule(LPARENTHESIS).is("(", SPACING);
-    b.rule(DIV).is("/", SPACING);
-    b.rule(MOD).is("%", SPACING);
-    b.rule(STAR).is("*", SPACING);
-    b.rule(PLUS).is("+", SPACING);
-    b.rule(MINUS).is("-", SPACING);
-    b.rule(DOUBLE_PLUS).is("++", SPACING);
-    b.rule(DOUBLE_MINUS).is("--", SPACING);
-    b.rule(SL).is("<<", SPACING);
-    b.rule(SR).is(">>", SPACING);
-    b.rule(SR2).is(">>>", SPACING);
-    b.rule(NOT).is("!", SPACING);
-    b.rule(EQU).is("=", SPACING);
-    b.rule(EQUAL).is("==", SPACING);
-    b.rule(EQUAL2).is("===", SPACING);
-    b.rule(NOTEQUAL).is("!=", SPACING);
-    b.rule(NOTEQUAL2).is("!==", SPACING);
-    b.rule(STAR_EQU).is("*=", SPACING);
-    b.rule(DIV_EQU).is("/=", SPACING);
-    b.rule(MOD_EQU).is("%=", SPACING);
-    b.rule(PLUS_EQU).is("+=", SPACING);
-    b.rule(MINUS_EQU).is("-=", SPACING);
-    b.rule(SL_EQU).is("<<=", SPACING);
-    b.rule(SR_EQU).is(">>=", SPACING);
-    b.rule(SR_EQU2).is(">>>=", SPACING);
-    b.rule(AND_EQU).is("&=", SPACING);
-    b.rule(XOR_EQU).is("^=", SPACING);
-    b.rule(OR_EQU).is("|=", SPACING);
-    b.rule(ANDAND_EQU).is("&&=", SPACING);
-    b.rule(XORXOR_EQU).is("^^=", SPACING);
-    b.rule(OROR_EQU).is("||=", SPACING);
-    b.rule(LT).is("<", SPACING);
-    b.rule(GT).is(">", SPACING);
-    b.rule(LE).is("<=", SPACING);
-    b.rule(GE).is(">=", SPACING);
-    b.rule(XOR).is("^", SPACING);
-    b.rule(AND).is("&", SPACING);
-    b.rule(ANDAND).is("&&", SPACING);
-    b.rule(OR).is("|", SPACING);
-    b.rule(OROR).is("||", SPACING);
-    b.rule(QUERY).is("?", SPACING);
-    b.rule(TILD).is("~", SPACING);
-    // Consider that all statement ends with a semicolon
-    b.rule(SEMICOLON).is(";", SPACING);
-    b.rule(UNDERSCORE).is("_", SPACING);
-    b.rule(BACKSLASH).is("\\", SPACING);
-    b.rule(DOLLAR).is("$", SPACING);
+    for (FlexPunctuator p : FlexPunctuator.values()) {
+      b.rule(p).is(p.getValue(), SPACING);
+    }
   }
 
 }

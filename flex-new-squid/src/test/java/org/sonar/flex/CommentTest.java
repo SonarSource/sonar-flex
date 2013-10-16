@@ -25,7 +25,7 @@ import org.sonar.sslr.tests.Assertions;
 
 public class CommentTest {
 
-  private LexerlessGrammar g = FlexGrammar.createGrammar();
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
   public void inline() {
@@ -38,5 +38,6 @@ public class CommentTest {
     Assertions.assertThat(g.rule(FlexGrammar.MULTILINE_COMMENT))
       .matches("/*\n * blabla \n b;ab;a */")
       .notMatches("/*\n * blabla \n b;ab;a */ blao");
-  }  
+  }
+
 }

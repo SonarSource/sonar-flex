@@ -19,7 +19,10 @@
  */
 package org.sonar.flex;
 
+import com.google.common.collect.ImmutableList;
 import org.sonar.sslr.grammar.GrammarRuleKey;
+
+import java.util.List;
 
 public enum FlexKeyword implements GrammarRuleKey {
 
@@ -67,6 +70,41 @@ public enum FlexKeyword implements GrammarRuleKey {
   VAR,
   VOID,
   WHILE,
-  WITH;
-  
+  WITH,
+
+  EACH(true),
+  GET(true),
+  SET(true),
+  NAMESPACE(true),
+  INCLUDE(true),
+  DYNAMIC(true),
+  FINAL(true),
+  OVERRIDE(true),
+  STATIC(true),
+  XML(true);
+
+  private final boolean syntactic;
+
+  private FlexKeyword() {
+    this(false);
+  }
+
+  private FlexKeyword(boolean syntactic) {
+    this.syntactic = syntactic;
+  }
+
+  public static List<FlexKeyword> keywords() {
+    ImmutableList.Builder<FlexKeyword> keywords = ImmutableList.builder();
+    for (FlexKeyword keyword : values()) {
+      if (!keyword.syntactic) {
+        keywords.add(keyword);
+      }
+    }
+    return keywords.build();
+  }
+
+  public String getValue() {
+    return toString().toLowerCase();
+  }
+
 }

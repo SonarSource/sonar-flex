@@ -22,9 +22,6 @@ package org.sonar.flex.grammar.definitions.statements;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.sonar.flex.FlexGrammar;
-import static org.sonar.flex.FlexGrammar.FOR_IN_BINDING;
-import static org.sonar.flex.FlexGrammar.TYPE_EXPR;
-import static org.sonar.flex.FlexGrammar.VARIABLE_BINDING;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
@@ -65,18 +62,20 @@ public class GlobalStatementsTest {
 
   @Test
   public void forStatement() {
-    // Demonstrates problem with "allowIn" vs "noIn":
-    //Assertions.assertThat(g.rule(FlexGrammar.FOR_IN_BINDING))
-    //  .matches("var i:String in myObj");
-    //Assertions.assertThat(g.rule(FlexGrammar.FOR_STATEMENT))
-    //  .matches("for (var i:String in myObj) { trace(i + \": \" + myObj[i]);}")
+    // Check for "allowIn" vs "noIn":
+    // This rule should not consume more than "var i:String "
+    Assertions.assertThat(g.rule(FlexGrammar.FOR_IN_BINDING))
+      .notMatches("var i:String in myObj");
+    
+    Assertions.assertThat(g.rule(FlexGrammar.FOR_STATEMENT))
+      .matches("for (var i:String in myObj) { trace(i + \": \" + myObj[i]);}")
+      .matches("for (var n in e..name) { trace(i + \": \" + myObj[i]);}");
     
     Assertions.assertThat(g.rule(FlexGrammar.FOR_STATEMENT))
       .matches("for (i = 0; i < 5; i++) { trace(i);}")
       .matches("for each (var num in myObj) {trace(num);}");
   }
   
-  @Ignore
   @Test
   public void helloWorld() {
     Assertions.assertThat(g.rule(FlexGrammar.PROGRAM))

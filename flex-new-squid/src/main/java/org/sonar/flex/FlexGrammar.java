@@ -118,6 +118,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   ELEMENT_LIST,
   LITERAL_ELEMENT,
   CONDITIONAL_EXPR,
+  CONDITIONAL_EXPR_NO_IN,
   POSTFIX_EXPR,
   COMPOUND_ASSIGNMENT,
   LOGICAL_ASSIGNMENT,
@@ -145,6 +146,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   // Call expression
   ARGUMENTS,
   ARGUMENTS_LIST,
+  ARGUMENTS_LIST_NO_IN,
   // Unary expression
   UNARY_EXPR,
   // Binary expression
@@ -152,20 +154,31 @@ public enum FlexGrammar implements GrammarRuleKey {
   ADDITIVE_EXPR,
   SHIFT_EXPR,
   RELATIONAL_EXPR,
+  RELATIONAL_EXPR_NO_IN,
   EQUALITY_EXPR,
+  EQUALITY_EXPR_NO_IN,
   BITEWISE_AND_EXPR,
+  BITEWISE_AND_EXPR_NO_IN,
   BITEWISE_XOR_EXPR,
+  BITEWISE_XOR_EXPR_NO_IN,
   BITEWISE_OR_EXPR,
+  BITEWISE_OR_EXPR_NO_IN,
   LOGICAL_AND_EXPR,
+  LOGICAL_AND_EXPR_NO_IN,
   LOGICAL_OR_EXPR,
+  LOGICAL_OR_EXPR_NO_IN,
   // Assignment expression
   ASSIGNMENT_EXPR,
+  ASSIGNMENT_EXPR_NO_IN,
   // List expression
   LIST_EXPRESSION,
+  LIST_EXPRESSION_NO_IN,
   // Non assignment expression
   NON_ASSIGNMENT_EXPR,
+  NON_ASSIGNMENT_EXPR_NO_IN,
   // Type expression
   TYPE_EXPR,
+  TYPE_EXPR_NO_IN,
   // XML Initialiser
   XML_INITIALISER,
   XML_MARKUP,
@@ -194,12 +207,18 @@ public enum FlexGrammar implements GrammarRuleKey {
   // <editor-fold defaultstate="collapsed" desc="Definitions">
   // Variable
   VARIABLE_DEF,
+  VARIABLE_DEF_NO_IN,
   VARIABLE_DEF_KIND,
   VARIABLE_BINDING_LIST,
+  VARIABLE_BINDING_LIST_NO_IN,
   VARIABLE_BINDING,
+  VARIABLE_BINDING_NO_IN,
   VARIABLE_INITIALISATION,
+  VARIABLE_INITIALISATION_NO_IN,
   TYPED_IDENTIFIER,
+  TYPED_IDENTIFIER_NO_IN,
   VARIABLE_INITIALISER,
+  VARIABLE_INITIALISER_NO_IN,
   // Function
   FUNCTION_DEF,
   FUNCTION_NAME,
@@ -228,6 +247,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   NAMESPACE_INITIALISATION,
   // Program
   PROGRAM,
+  DUMMY,
   
   // </editor-fold>
   
@@ -665,6 +685,11 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.sequence(POSTFIX_EXPR, COMPOUND_ASSIGNMENT, ASSIGNMENT_EXPR),
       b.sequence(POSTFIX_EXPR, LOGICAL_ASSIGNMENT, ASSIGNMENT_EXPR),
       CONDITIONAL_EXPR));
+    b.rule(ASSIGNMENT_EXPR_NO_IN).is(b.firstOf(
+      b.sequence(POSTFIX_EXPR, EQU, ASSIGNMENT_EXPR_NO_IN),
+      b.sequence(POSTFIX_EXPR, COMPOUND_ASSIGNMENT, ASSIGNMENT_EXPR_NO_IN),
+      b.sequence(POSTFIX_EXPR, LOGICAL_ASSIGNMENT, ASSIGNMENT_EXPR_NO_IN),
+      CONDITIONAL_EXPR));
 
     b.rule(COMPOUND_ASSIGNMENT).is(b.firstOf(
       STAR_EQU,
@@ -705,7 +730,6 @@ public enum FlexGrammar implements GrammarRuleKey {
         /* No line break */ DOUBLE_MINUS))
     );
 
-
     // New expressions
     b.rule(FULL_NEW_EXPR).is(NEW, FULL_NEW_SUB_EXPR, ARGUMENTS);
     b.rule(FULL_NEW_SUB_EXPR).is(b.firstOf(
@@ -737,6 +761,8 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(ARGUMENTS_LIST).is(ASSIGNMENT_EXPR,
       b.zeroOrMore(COMMA, ASSIGNMENT_EXPR));
+    b.rule(ARGUMENTS_LIST_NO_IN).is(ASSIGNMENT_EXPR_NO_IN,
+      b.zeroOrMore(COMMA, ASSIGNMENT_EXPR_NO_IN));
 
     // Unary expression
     b.rule(UNARY_EXPR).is(b.firstOf(
@@ -753,6 +779,7 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.zeroOrMore(b.firstOf(PLUS, MINUS), MULTIPLICATIVE_EXPR));
     b.rule(SHIFT_EXPR).is(ADDITIVE_EXPR,
       b.zeroOrMore(b.firstOf(SL, SR2, SR), ADDITIVE_EXPR));
+    
     b.rule(RELATIONAL_EXPR).is(SHIFT_EXPR, b.zeroOrMore(b.firstOf(
       b.sequence(LE, SHIFT_EXPR),
       b.sequence(GE, SHIFT_EXPR),
@@ -762,38 +789,90 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.sequence(INSTANCEOF, SHIFT_EXPR),
       b.sequence(IS, SHIFT_EXPR),
       b.sequence(AS, SHIFT_EXPR))));
+    
+    b.rule(RELATIONAL_EXPR_NO_IN).is(SHIFT_EXPR, b.zeroOrMore(b.firstOf(
+      b.sequence(LE, SHIFT_EXPR),
+      b.sequence(GE, SHIFT_EXPR),
+      b.sequence(LT, SHIFT_EXPR),
+      b.sequence(GT, SHIFT_EXPR),
+      b.sequence(INSTANCEOF, SHIFT_EXPR),
+      b.sequence(IS, SHIFT_EXPR),
+      b.sequence(AS, SHIFT_EXPR))));
+    
     b.rule(EQUALITY_EXPR).is(RELATIONAL_EXPR, b.zeroOrMore(b.firstOf(
       b.sequence(NOTEQUAL2, RELATIONAL_EXPR),
       b.sequence(EQUAL2, RELATIONAL_EXPR),
       b.sequence(EQUAL, RELATIONAL_EXPR),
       b.sequence(NOTEQUAL, RELATIONAL_EXPR))));
+    b.rule(EQUALITY_EXPR_NO_IN).is(RELATIONAL_EXPR_NO_IN, b.zeroOrMore(b.firstOf(
+      b.sequence(NOTEQUAL2, RELATIONAL_EXPR_NO_IN),
+      b.sequence(EQUAL2, RELATIONAL_EXPR_NO_IN),
+      b.sequence(EQUAL, RELATIONAL_EXPR_NO_IN),
+      b.sequence(NOTEQUAL, RELATIONAL_EXPR_NO_IN))));
+    
     b.rule(BITEWISE_AND_EXPR).is(EQUALITY_EXPR,
       b.zeroOrMore(b.sequence(AND, EQUALITY_EXPR)));
+    b.rule(BITEWISE_AND_EXPR_NO_IN).is(EQUALITY_EXPR_NO_IN,
+      b.zeroOrMore(b.sequence(AND, EQUALITY_EXPR_NO_IN)));
+    
     b.rule(BITEWISE_XOR_EXPR).is(BITEWISE_AND_EXPR,
       b.zeroOrMore(b.sequence(XOR, BITEWISE_AND_EXPR)));
+    b.rule(BITEWISE_XOR_EXPR_NO_IN).is(BITEWISE_AND_EXPR_NO_IN,
+      b.zeroOrMore(b.sequence(XOR, BITEWISE_AND_EXPR_NO_IN)));
+    
     b.rule(BITEWISE_OR_EXPR).is(BITEWISE_XOR_EXPR,
       b.zeroOrMore(b.sequence(OR, BITEWISE_XOR_EXPR)));
+    b.rule(BITEWISE_OR_EXPR_NO_IN).is(BITEWISE_XOR_EXPR_NO_IN,
+      b.zeroOrMore(b.sequence(OR, BITEWISE_XOR_EXPR_NO_IN)));
+    
     b.rule(LOGICAL_AND_EXPR).is(BITEWISE_OR_EXPR,
       b.zeroOrMore(b.sequence(ANDAND, BITEWISE_XOR_EXPR)));
+    b.rule(LOGICAL_AND_EXPR_NO_IN).is(BITEWISE_OR_EXPR_NO_IN,
+      b.zeroOrMore(b.sequence(ANDAND, BITEWISE_XOR_EXPR_NO_IN)));
+    
     b.rule(LOGICAL_OR_EXPR).is(LOGICAL_AND_EXPR,
       b.zeroOrMore(b.sequence(OROR, LOGICAL_AND_EXPR)));
+    b.rule(LOGICAL_OR_EXPR_NO_IN).is(LOGICAL_AND_EXPR_NO_IN,
+      b.zeroOrMore(b.sequence(OROR, LOGICAL_AND_EXPR_NO_IN)));
 
     // Conditional expression
     b.rule(CONDITIONAL_EXPR).is(b.firstOf(
       LOGICAL_OR_EXPR,
       b.sequence(LOGICAL_OR_EXPR, QUERY, ASSIGNMENT_EXPR,
       COLON, ASSIGNMENT_EXPR)));
-
+    b.rule(CONDITIONAL_EXPR_NO_IN).is(b.firstOf(
+      LOGICAL_OR_EXPR_NO_IN,
+      b.sequence(LOGICAL_OR_EXPR_NO_IN, QUERY, ASSIGNMENT_EXPR_NO_IN,
+      COLON, ASSIGNMENT_EXPR_NO_IN)));
+    
     // Non assignment expression
     b.rule(NON_ASSIGNMENT_EXPR).is(b.firstOf(
       LOGICAL_OR_EXPR,
       b.sequence(LOGICAL_OR_EXPR, QUERY, NON_ASSIGNMENT_EXPR,
       COLON, NON_ASSIGNMENT_EXPR)));
+    b.rule(NON_ASSIGNMENT_EXPR_NO_IN).is(b.firstOf(
+      LOGICAL_OR_EXPR_NO_IN,
+      b.sequence(LOGICAL_OR_EXPR_NO_IN, QUERY, NON_ASSIGNMENT_EXPR_NO_IN,
+      COLON, NON_ASSIGNMENT_EXPR_NO_IN)));
 
     b.rule(LIST_EXPRESSION).is(ASSIGNMENT_EXPR,
       b.zeroOrMore(b.sequence(COMMA, ASSIGNMENT_EXPR)));
-
-    b.rule(TYPE_EXPR).is(NON_ASSIGNMENT_EXPR);
+    b.rule(LIST_EXPRESSION_NO_IN).is(ASSIGNMENT_EXPR_NO_IN,
+      b.zeroOrMore(b.sequence(COMMA, ASSIGNMENT_EXPR_NO_IN)));
+    
+    // TODO convert into tests:
+    // void
+    // String
+    // int
+    // *
+    // Vector.<Clock>
+    // foo.bar.Vector.<T>
+    b.rule(TYPE_EXPR).is(b.firstOf(
+      /* not in specs: */ VOID,
+      NON_ASSIGNMENT_EXPR));
+    b.rule(TYPE_EXPR_NO_IN).is(b.firstOf(
+      /* not in specs: */ VOID,
+      NON_ASSIGNMENT_EXPR_NO_IN));
     
     // XML INITIALISER
     b.rule(XML_INITIALISER).is(b.firstOf(
@@ -856,19 +935,34 @@ public enum FlexGrammar implements GrammarRuleKey {
     // <editor-fold defaultstate="collapsed" desc="Definitions">
     // Variable
     b.rule(VARIABLE_DEF).is(VARIABLE_DEF_KIND, VARIABLE_BINDING_LIST);
+    b.rule(VARIABLE_DEF_NO_IN).is(VARIABLE_DEF_KIND, VARIABLE_BINDING_LIST_NO_IN);
+    
     b.rule(VARIABLE_DEF_KIND).is(b.firstOf(VAR, CONST));
+    
     b.rule(VARIABLE_BINDING_LIST).is(VARIABLE_BINDING, 
                                      b.zeroOrMore(COMMA, VARIABLE_BINDING));
-    
+    b.rule(VARIABLE_BINDING_LIST_NO_IN).is(VARIABLE_BINDING_NO_IN, 
+                                     b.zeroOrMore(COMMA, VARIABLE_BINDING_NO_IN));
+     
     b.rule(VARIABLE_BINDING).is(TYPED_IDENTIFIER, VARIABLE_INITIALISATION);
+    b.rule(VARIABLE_BINDING_NO_IN).is(TYPED_IDENTIFIER_NO_IN, VARIABLE_INITIALISATION_NO_IN);
+    
     b.rule(VARIABLE_INITIALISATION).is(b.optional(EQU, VARIABLE_INITIALISER));
+    b.rule(VARIABLE_INITIALISATION_NO_IN).is(
+      b.optional(EQU, VARIABLE_INITIALISER_NO_IN));
     
     b.rule(VARIABLE_INITIALISER).is(b.firstOf(
       ASSIGNMENT_EXPR, 
       ATTRIBUTE_COMBINATION));
-    
+    b.rule(VARIABLE_INITIALISER_NO_IN).is(b.firstOf(
+      ASSIGNMENT_EXPR_NO_IN, 
+      ATTRIBUTE_COMBINATION));
+      
     b.rule(TYPED_IDENTIFIER).is(b.firstOf(
       b.sequence(IDENTIFIER, COLON, TYPE_EXPR),
+      IDENTIFIER));
+    b.rule(TYPED_IDENTIFIER_NO_IN).is(b.firstOf(
+      b.sequence(IDENTIFIER, COLON, TYPE_EXPR_NO_IN),
       IDENTIFIER));
     
     //Function
@@ -895,7 +989,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(PARAMETER).is(b.firstOf(
       TYPED_IDENTIFIER,
       b.sequence(TYPED_IDENTIFIER, EQU, ASSIGNMENT_EXPR)));
-    
+   
     b.rule(REST_PARAMETERS).is(b.firstOf(
       TRIPLE_DOTS,
       b.sequence(TRIPLE_DOTS, IDENTIFIER)));
@@ -928,6 +1022,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(NAMESPACE_DEF).is(NAMESPACE, NAMESPACE_BINDING);
     b.rule(NAMESPACE_BINDING).is(IDENTIFIER, 
                                  NAMESPACE_INITIALISATION);
+    
     b.rule(NAMESPACE_INITIALISATION).is(b.optional(EQU, ASSIGNMENT_EXPR));
 
     // Program
@@ -1006,11 +1101,11 @@ public enum FlexGrammar implements GrammarRuleKey {
                  IN, LIST_EXPRESSION, RPARENTHESIS, SUB_STATEMENT)));
     
     b.rule(FOR_INITIALISER).is(b.optional(b.firstOf(
-      LIST_EXPRESSION,
-      VARIABLE_DEF)));
+      LIST_EXPRESSION_NO_IN,
+      VARIABLE_DEF_NO_IN)));
     
     b.rule(FOR_IN_BINDING).is(b.firstOf(
-      b.sequence(VARIABLE_DEF_KIND, VARIABLE_BINDING),
+      b.sequence(VARIABLE_DEF_KIND, VARIABLE_BINDING_NO_IN),
       POSTFIX_EXPR));
     
     b.rule(OPTIONAL_EXPRESSION).is(b.optional(LIST_EXPRESSION));

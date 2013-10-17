@@ -513,7 +513,7 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.sequence(DOUBLE_DOT, QUALIFIED_IDENTIFIER),
       b.sequence(DOT, LPARENTHESIS, LIST_EXPRESSION, RPARENTHESIS)));
 
-    //Call expresions
+    // Call expresions
     b.rule(ARGUMENTS).is(LPARENTHESIS, b.optional(LIST_EXPRESSION), RPARENTHESIS);
 
     // Unary expression
@@ -654,6 +654,7 @@ public enum FlexGrammar implements GrammarRuleKey {
 
   private static void directives(LexerlessGrammarBuilder b)  {
     b.rule(DIRECTIVE).is(b.firstOf(
+      // TODO why EMPTY_STATEMENT not part of STATEMENT?
       EMPTY_STATEMENT,
       STATEMENT,
       ANNOTABLE_DIRECTIVE,
@@ -686,7 +687,7 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(USE_DIRECTIVE).is(USE, NAMESPACE, LIST_EXPRESSION);
     
-      b.rule(DEFAULT_XML_NAMESPACE_DIRECTIVE).is(DEFAULT, /*No line break*/ XML, /*No line break*/ NAMESPACE, EQUAL1, NON_ASSIGNMENT_EXPR);
+    b.rule(DEFAULT_XML_NAMESPACE_DIRECTIVE).is(DEFAULT, /*No line break*/ XML, /*No line break*/ NAMESPACE, EQUAL1, NON_ASSIGNMENT_EXPR);
   }
 
   private static void definitions(LexerlessGrammarBuilder b) {

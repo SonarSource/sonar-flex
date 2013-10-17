@@ -33,6 +33,6 @@ public class NonAssignmentExpressionTest {
     Assertions.assertThat(g.rule(FlexGrammar.NON_ASSIGNMENT_EXPR))
       .matches("a")
       .matches("a ? b : c");
-
   }
+
 }

@@ -43,7 +43,6 @@ public class BinaryExpressionTest {
       .matches("a - b");
   }
   
-  
   @Test
   public void shift() {
     Assertions.assertThat(g.rule(FlexGrammar.SHIFT_EXPR))
@@ -96,4 +95,5 @@ public class BinaryExpressionTest {
     Assertions.assertThat(g.rule(FlexGrammar.LOGICAL_OR_EXPR))
       .matches("a || b");
   }
+
 }

@@ -24,14 +24,18 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class AttributesTest {
+public class AttributeTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
   public void test() {
-    Assertions.assertThat(g.rule(FlexGrammar.ATTRIBUTES))
-      .matches("public static");
+    Assertions.assertThat(g.rule(FlexGrammar.ATTRIBUTE))
+      .matches("public")
+      .matches("static")
+      .matches("attribute")
+      .matches("attribute.attribute")
+      .matches("[attribute]");
   }
 
 }

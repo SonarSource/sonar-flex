@@ -24,14 +24,18 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class AttributesTest {
+public class DirectiveTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
   public void test() {
-    Assertions.assertThat(g.rule(FlexGrammar.ATTRIBUTES))
-      .matches("public static");
+    Assertions.assertThat(g.rule(FlexGrammar.DIRECTIVE))
+      // TODO add more tests
+      .matches("default xml namespace = ns")
+      .matches("include \"reusable.as\";")
+      .matches("import a;")
+      .matches("use namespace ns;");
   }
 
 }

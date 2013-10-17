@@ -17,35 +17,24 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.grammar.definitions;
+package org.sonar.flex.grammar.expressions;
 
 import org.junit.Test;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class IdentifierTest {
+public class ExpressionQualifiedIdentifierTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void unicodeEscapeSequence() {
-    Assertions.assertThat(g.rule(FlexGrammar.UNICODE_ESCAPE_SEQUENCE))
-      .matches("u12aF");
+  public void test() {
+    Assertions.assertThat(g.rule(FlexGrammar.EXPR_QUALIFIED_IDENTIFIER))
+      .matches("(null)::*")
+      .matches("(null)::identifier")
+      
+      .matches("(null)[null]");
   }
 
-  @Test
-  public void identifierStart() {
-    Assertions.assertThat(g.rule(FlexGrammar.IDENTIFIER_START))
-      .matches("$")
-      .matches("N");
-  }
-
-  @Test
-  public void identifierPart() {
-    Assertions.assertThat(g.rule(FlexGrammar.IDENTIFIER))
-      .matches("$var")
-      .matches("_arg ")
-      .notMatches("if");
-  }
 }

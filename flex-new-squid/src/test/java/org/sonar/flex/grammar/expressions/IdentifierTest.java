@@ -42,7 +42,12 @@ public class IdentifierTest {
       .matches("static")
 
       .notMatches("for")
-      .matches("for2");
+      .matches("for27")
+
+      .matches("_")
+      .matches("$")
+      // unicode escape sequence
+      .matches("\\u1234");
   }
 
 }

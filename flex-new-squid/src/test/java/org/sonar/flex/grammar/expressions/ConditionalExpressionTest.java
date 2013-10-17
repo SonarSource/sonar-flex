@@ -31,6 +31,7 @@ public class ConditionalExpressionTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.CONDITIONAL_EXPR))
+      .matches("0")
       .matches("0 ? 1 : 2");
   }
 

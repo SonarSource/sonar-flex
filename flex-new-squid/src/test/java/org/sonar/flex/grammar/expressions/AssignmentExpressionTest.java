@@ -31,7 +31,21 @@ public class AssignmentExpressionTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.ASSIGNMENT_EXPR))
-      .matches("1 + 3*4/w")
-      .matches("a &= x |= b");
+      .matches("a")
+      .matches("a = 1")
+      .matches("a *= 1")
+      .matches("a /= 1")
+      .matches("a %= 1")
+      .matches("a -= 1")
+      .matches("a <<= 1")
+      .matches("a >>= 1")
+      .matches("a >>>= 1")
+      .matches("a &= 1")
+      .matches("a ^= 1")
+      .matches("a |= 1")
+      .matches("a &&= 1")
+      .matches("a ^^= 1")
+      .matches("a ||= 1");
   }
+
 }

@@ -19,20 +19,20 @@
  */
 package org.sonar.flex.grammar.expressions;
 
-import org.sonar.flex.*;
 import org.junit.Test;
+import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class NonAssignmentExpressionTest {
+public class ListExpressionTest {
 
-  private LexerlessGrammar g = FlexGrammar.createGrammar();
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
   public void test() {
-    Assertions.assertThat(g.rule(FlexGrammar.NON_ASSIGNMENT_EXPR))
+    Assertions.assertThat(g.rule(FlexGrammar.LIST_EXPRESSION))
       .matches("a")
-      .matches("a ? b : c");
-
+      .matches("a, b, c");
   }
+
 }

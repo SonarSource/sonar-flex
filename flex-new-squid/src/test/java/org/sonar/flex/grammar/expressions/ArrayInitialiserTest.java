@@ -30,9 +30,11 @@ public class ArrayInitialiserTest {
 
   @Test
   public void test() {
-    // TODO add more tests
     Assertions.assertThat(g.rule(FlexGrammar.ARRAY_INITIALISER))
-      .matches("[ ]");
+      .matches("[ ]")
+      .matches("[a]")
+      .matches("[a, b, c]")
+      .matches("[, a, b, c ,]");
   }
 
 }

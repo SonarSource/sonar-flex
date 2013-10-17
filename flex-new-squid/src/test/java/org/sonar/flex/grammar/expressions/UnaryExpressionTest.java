@@ -31,10 +31,20 @@ public class UnaryExpressionTest {
   @Test
   public void unary() {
     Assertions.assertThat(g.rule(FlexGrammar.UNARY_EXPR))
-      .matches("delete f().y")
-      .matches("! size")
-      .matches("++ new Int()")
-      .matches("~ new Object()");
+      .matches("a")
+      .matches("delete a")
+      .matches("++ a")
+      .matches("-- a")
+
+      .matches("void a")
+      .matches("typeof a")
+      .matches("+ a")
+      .matches("- a")
+      .matches("! a")
+      .matches("~ a")
+      
+      .matches("void ++ a")
+      ;
   }
 
 }

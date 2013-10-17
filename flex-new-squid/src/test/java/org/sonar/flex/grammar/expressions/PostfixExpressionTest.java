@@ -31,15 +31,14 @@ public class PostfixExpressionTest {
   @Test
   public void postfixExpression() {
     Assertions.assertThat(g.rule(FlexGrammar.POSTFIX_EXPR))
-      .matches("internal  ") // Primary expression
-      .matches("super().f") // Super expression
-      .matches("new Object()"); // Full new expression
+      .matches("new a()")
+      .matches("super().f")
+      .matches("new a")
+      
+      .matches("super().f.c.a")
+      .matches("a ().a")
+      .matches("a++")
+      .matches("a--")
+      .matches("a..n..z");
   }
-
-  @Test
-  public void Argument() {
-    Assertions.assertThat(g.rule(FlexGrammar.ARGUMENTS))
-      .matches("()"); // Primary expression
-  }
-
 }

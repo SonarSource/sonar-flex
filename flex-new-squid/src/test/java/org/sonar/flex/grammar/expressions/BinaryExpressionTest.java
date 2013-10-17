@@ -31,63 +31,69 @@ public class BinaryExpressionTest {
   @Test
   public void multiplicative() {
     Assertions.assertThat(g.rule(FlexGrammar.MULTIPLICATIVE_EXPR))
-      .matches("25*3")
-      .matches("25*10*2")
-      .matches("25 %  10*2");
+      .matches("a * b")
+      .matches("a / b")
+      .matches("a % b");
   }
 
   @Test
   public void additive() {
     Assertions.assertThat(g.rule(FlexGrammar.ADDITIVE_EXPR))
-      .matches("3+  7")
-      .matches("3+  7+ 2");
+      .matches("a + b")
+      .matches("a - b");
   }
   
   
   @Test
   public void shift() {
     Assertions.assertThat(g.rule(FlexGrammar.SHIFT_EXPR))
-      .matches("3 <<  7")
-      .matches("3+  7 >>2")
-      .matches("3+  7 >>>2");
+      .matches("a << b")
+      .matches("a >> b")
+      .matches("a >>> b");
   }
   
   @Test
   public void relational() {
     Assertions.assertThat(g.rule(FlexGrammar.RELATIONAL_EXPR))
-      .matches("3 > 2 < 1")
-      .matches("( 3 >= 2) < 1")
-      .matches("(true) < 1")
-      .matches("f is I");
+      .matches("a <= b")
+      .matches("a >= b")
+      .matches("a < b")
+      .matches("a > b")
+      .matches("a in b")
+      .matches("a instanceof b")
+      .matches("a is b")
+      .matches("a as b");
+      
   }
   
   @Test
   public void equality() {
     Assertions.assertThat(g.rule(FlexGrammar.EQUALITY_EXPR))
-      .matches("x == new Object()")
-      .matches("x == f(y, z)")
-      .matches("x == f(y , z).yeah");
+      .matches("a !== b")
+      .matches("a === b")
+      .matches("a == b")
+      .matches("a != b");
   }
   
   @Test
   public void bitewise() {
     Assertions.assertThat(g.rule(FlexGrammar.BITEWISE_AND_EXPR))
-      .matches("x&f(y , z).yeah");
+      .matches("a & b");
     
     Assertions.assertThat(g.rule(FlexGrammar.BITEWISE_XOR_EXPR))
-      .matches("a + b ^ c");
+      .matches("a ^ b");
     
     Assertions.assertThat(g.rule(FlexGrammar.BITEWISE_OR_EXPR))
-      .matches("x().z |f(y, z)");
+      .matches("a | b");
   }
   
   
   @Test
   public void logical() {
     Assertions.assertThat(g.rule(FlexGrammar.LOGICAL_AND_EXPR))
-      .matches("x&f(y , z).yeah &&plouf");
+      .matches("a && b");
     
     Assertions.assertThat(g.rule(FlexGrammar.LOGICAL_OR_EXPR))
-      .matches("x&f(y , z).yeah ||plouf || pelouse43");
+      .matches("a || b");
   }
 }

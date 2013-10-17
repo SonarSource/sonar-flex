@@ -24,15 +24,15 @@ import org.junit.Test;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class NonAssignmentExpressionTest {
+public class ParenthesizedListExpressionTest {
 
-  private LexerlessGrammar g = FlexGrammar.createGrammar();
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
   public void test() {
-    Assertions.assertThat(g.rule(FlexGrammar.NON_ASSIGNMENT_EXPR))
-      .matches("a")
-      .matches("a ? b : c");
-
+    Assertions.assertThat(g.rule(FlexGrammar.PARENTHESIZED_LIST_EXPR))
+      .matches("(null)")
+      .matches("(1, 2, 3)");
   }
+  
 }

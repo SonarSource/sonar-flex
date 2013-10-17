@@ -17,21 +17,21 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.grammar.statements;
+package org.sonar.flex.grammar.definitions;
 
 import org.junit.Test;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class DefaultXmlNamespaceStatementTest {
+public class TypedIdentifierTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
   public void test() {
-    Assertions.assertThat(g.rule(FlexGrammar.DEFAULT_XML_NAMESPACE_STATEMENT))
-      .matches("default xml namespace = ns");
+    Assertions.assertThat(g.rule(FlexGrammar.TYPED_IDENTIFIER))
+      .matches("a")
+      .matches("a : a");
   }
-
 }

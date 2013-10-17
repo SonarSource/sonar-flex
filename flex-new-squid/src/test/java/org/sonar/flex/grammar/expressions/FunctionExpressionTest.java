@@ -30,9 +30,11 @@ public class FunctionExpressionTest {
 
   @Test
   public void test() {
-    Assertions.assertThat(g.rule(FlexGrammar.FUNCTION_EXPR))
-      .matches("function () {}")
-      .matches("function name () {}");
+    Assertions.assertThat(g.rule(FlexGrammar.FUNCTION_DEF))
+      .matches("function name ()")
+      .matches("function name () {}")
+      .matches("function get name () {}")
+      .matches("function set name () {}");
   }
 
 }

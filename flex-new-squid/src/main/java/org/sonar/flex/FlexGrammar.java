@@ -266,7 +266,6 @@ public enum FlexGrammar implements GrammarRuleKey {
   RESULT_TYPE,
   PARAMETERS,
   PARAMETER,
-  NON_EMPTY_PARAMETERS,
   REST_PARAMETERS,
   // Class
   CLASS_DEF,
@@ -307,7 +306,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   TRY_STATEMENT,
   EXPRESSION_STATEMENT,
   LABELED_STATEMENT,
-  DEFAULT_XML_NAMESPACE_STATEMENT,
+  DEFAULT_XML_NAMESPACE_DIRECTIVE,
   SUB_STATEMENT,
   EMPTY_STATEMENT,
   BLOCK,
@@ -597,9 +596,7 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.sequence(THROW_STATEMENT, SEMICOLON),
       TRY_STATEMENT,
       b.sequence(EXPRESSION_STATEMENT, SEMICOLON),
-      LABELED_STATEMENT,
-      // TODO according to http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/statements.html#default_xml_namespace this is directive, not statement:
-      DEFAULT_XML_NAMESPACE_STATEMENT));
+      LABELED_STATEMENT));
 
     b.rule(SUB_STATEMENT).is(b.firstOf(
       EMPTY_STATEMENT,
@@ -617,26 +614,20 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(IF_STATEMENT).is(IF, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT, b.optional(ELSE, SUB_STATEMENT));
 
     // TODO looks strange:
-    b.rule(SWITCH_STATEMENT).is(SWITCH, PARENTHESIZED_LIST_EXPR, LCURLYBRACE, CASE_ELEMENTS, RCURLYBRACE);
-    b.rule(CASE_ELEMENTS).is(b.optional(b.firstOf(
-      b.sequence(CASE_LABEL,  b.zeroOrMore(CASE_ELEMENT)),
-      CASE_LABEL)));
+    b.rule(SWITCH_STATEMENT).is(SWITCH, PARENTHESIZED_LIST_EXPR, LCURLYBRACE, b.optional(CASE_ELEMENTS), RCURLYBRACE);
+    b.rule(CASE_ELEMENTS).is(CASE_LABEL, b.zeroOrMore(CASE_ELEMENT));
     b.rule(CASE_ELEMENT).is(b.firstOf(CASE_LABEL, DIRECTIVE));
-    b.rule(CASE_LABEL).is(b.firstOf(
-      b.sequence(DEFAULT, COLON),
-      b.sequence(CASE, LIST_EXPRESSION, COLON)));
+    b.rule(CASE_LABEL).is(b.firstOf(DEFAULT, b.sequence(CASE, LIST_EXPRESSION)),COLON);
 
     b.rule(DO_STATEMENT).is(DO, SUB_STATEMENT, WHILE, PARENTHESIZED_LIST_EXPR);
 
     b.rule(WHILE_STATEMENT).is(WHILE, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT);
 
     b.rule(FOR_STATEMENT).is(b.firstOf(
-      b.sequence(FOR, LPARENTHESIS, FOR_INITIALISER, SEMICOLON, b.optional(LIST_EXPRESSION), SEMICOLON, b.optional(LIST_EXPRESSION), RPARENTHESIS, SUB_STATEMENT),
+      b.sequence(FOR, LPARENTHESIS, b.optional(FOR_INITIALISER), SEMICOLON, b.optional(LIST_EXPRESSION), SEMICOLON, b.optional(LIST_EXPRESSION), RPARENTHESIS, SUB_STATEMENT),
       b.sequence(FOR, LPARENTHESIS, FOR_IN_BINDING, IN, LIST_EXPRESSION, RPARENTHESIS, SUB_STATEMENT),
       b.sequence(FOR, /*No line break*/ EACH, LPARENTHESIS, FOR_IN_BINDING, IN, LIST_EXPRESSION, RPARENTHESIS, SUB_STATEMENT)));
-    b.rule(FOR_INITIALISER).is(b.optional(b.firstOf(
-      LIST_EXPRESSION_NO_IN,
-      VARIABLE_DEF_NO_IN)));
+    b.rule(FOR_INITIALISER).is(b.firstOf(LIST_EXPRESSION_NO_IN, VARIABLE_DEF_NO_IN));
     b.rule(FOR_IN_BINDING).is(b.firstOf(
       b.sequence(VARIABLE_DEF_KIND, VARIABLE_BINDING_NO_IN),
       POSTFIX_EXPR));
@@ -658,8 +649,6 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(CATCH_CLAUSES).is(CATCH_CLAUSE, b.zeroOrMore(CATCH_CLAUSE));
     b.rule(CATCH_CLAUSE).is(CATCH, LPARENTHESIS, PARAMETER, RPARENTHESIS, BLOCK);
 
-    b.rule(DEFAULT_XML_NAMESPACE_STATEMENT).is(DEFAULT, /*No line break*/ XML, /*No line break*/ NAMESPACE, EQUAL1, NON_ASSIGNMENT_EXPR);
-
     b.rule(EXPRESSION_STATEMENT).is(b.nextNot(b.firstOf(FUNCTION, LCURLYBRACE)), LIST_EXPRESSION);
   }
 
@@ -668,6 +657,7 @@ public enum FlexGrammar implements GrammarRuleKey {
       EMPTY_STATEMENT,
       STATEMENT,
       ANNOTABLE_DIRECTIVE,
+      DEFAULT_XML_NAMESPACE_DIRECTIVE,
       b.sequence(ATTRIBUTES, /*No line break*/ ANNOTABLE_DIRECTIVE),
       b.sequence(INCLUDE_DIRECTIVE, /*No line break*/ SEMICOLON),
       b.sequence(IMPORT_DIRECTIVE, /*No line break*/ SEMICOLON),
@@ -695,6 +685,8 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(INCLUDE_DIRECTIVE).is(INCLUDE, /*No line break*/ STRING);
 
     b.rule(USE_DIRECTIVE).is(USE, NAMESPACE, LIST_EXPRESSION);
+    
+      b.rule(DEFAULT_XML_NAMESPACE_DIRECTIVE).is(DEFAULT, /*No line break*/ XML, /*No line break*/ NAMESPACE, EQUAL1, NON_ASSIGNMENT_EXPR);
   }
 
   private static void definitions(LexerlessGrammarBuilder b) {
@@ -706,11 +698,11 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(VARIABLE_BINDING_LIST).is(VARIABLE_BINDING, b.zeroOrMore(COMMA, VARIABLE_BINDING));
     b.rule(VARIABLE_BINDING_LIST_NO_IN).is(VARIABLE_BINDING_NO_IN, b.zeroOrMore(COMMA, VARIABLE_BINDING_NO_IN));
 
-    b.rule(VARIABLE_BINDING).is(TYPED_IDENTIFIER, VARIABLE_INITIALISATION);
-    b.rule(VARIABLE_BINDING_NO_IN).is(TYPED_IDENTIFIER_NO_IN, VARIABLE_INITIALISATION_NO_IN);
+    b.rule(VARIABLE_BINDING).is(TYPED_IDENTIFIER, b.optional(VARIABLE_INITIALISATION));
+    b.rule(VARIABLE_BINDING_NO_IN).is(TYPED_IDENTIFIER_NO_IN, b.optional(VARIABLE_INITIALISATION_NO_IN));
 
-    b.rule(VARIABLE_INITIALISATION).is(b.optional(EQUAL1, VARIABLE_INITIALISER));
-    b.rule(VARIABLE_INITIALISATION_NO_IN).is(b.optional(EQUAL1, VARIABLE_INITIALISER_NO_IN));
+    b.rule(VARIABLE_INITIALISATION).is(EQUAL1, VARIABLE_INITIALISER);
+    b.rule(VARIABLE_INITIALISATION_NO_IN).is(EQUAL1, VARIABLE_INITIALISER_NO_IN);
 
     b.rule(VARIABLE_INITIALISER).is(b.firstOf(
       ASSIGNMENT_EXPR,
@@ -736,48 +728,47 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.sequence(FUNCTION_SIGNATURE, BLOCK),
       FUNCTION_SIGNATURE));
 
-    b.rule(FUNCTION_SIGNATURE).is(b.firstOf(
-      b.sequence(LPARENTHESIS, RPARENTHESIS, RESULT_TYPE),
-      b.sequence(LPARENTHESIS, PARAMETERS, RPARENTHESIS, RESULT_TYPE)));
+    b.rule(FUNCTION_SIGNATURE).is(b.sequence(LPARENTHESIS, b.optional(PARAMETERS), RPARENTHESIS, RESULT_TYPE));
 
-    b.rule(PARAMETERS).is(b.optional(NON_EMPTY_PARAMETERS));
-    b.rule(NON_EMPTY_PARAMETERS).is(b.firstOf(
+    b.rule(PARAMETERS).is(b.firstOf(
+      b.sequence(PARAMETER, COMMA, PARAMETERS),
       PARAMETER,
-      b.sequence(PARAMETER, COMMA, NON_EMPTY_PARAMETERS),
       REST_PARAMETERS));
 
     b.rule(PARAMETER).is(b.firstOf(
-      TYPED_IDENTIFIER,
-      b.sequence(TYPED_IDENTIFIER, EQUAL1, ASSIGNMENT_EXPR)));
+      b.sequence(TYPED_IDENTIFIER, EQUAL1, ASSIGNMENT_EXPR),
+      TYPED_IDENTIFIER));
 
     b.rule(REST_PARAMETERS).is(b.firstOf(
-      TRIPLE_DOTS,
-      b.sequence(TRIPLE_DOTS, IDENTIFIER)));
+      b.sequence(TRIPLE_DOTS, IDENTIFIER),
+      TRIPLE_DOTS));
 
     // TODO WTF in specs? other grammars don't use type_expr
     b.rule(RESULT_TYPE).is(b.optional(COLON, TYPE_EXPR));
 
-    b.rule(CLASS_DEF).is(CLASS, CLASS_NAME, INHERITENCE, BLOCK);
+    b.rule(CLASS_DEF).is(CLASS, CLASS_NAME, b.optional(INHERITENCE), BLOCK);
     b.rule(CLASS_NAME).is(CLASS_IDENTIFIERS);
     b.rule(CLASS_IDENTIFIERS).is(IDENTIFIER, b.zeroOrMore(b.sequence(DOT, IDENTIFIER)));
-    b.rule(INHERITENCE).is(b.optional(b.firstOf(
-      b.sequence(EXTENDS, TYPE_EXPR),
+    b.rule(INHERITENCE).is(b.firstOf(
       b.sequence(IMPLEMENTS, TYPE_EXPRESSION_LIST),
-      b.sequence(EXTENDS, TYPE_EXPR, IMPLEMENTS, TYPE_EXPRESSION_LIST))));
+      b.sequence(EXTENDS, TYPE_EXPR, IMPLEMENTS, TYPE_EXPRESSION_LIST),
+      b.sequence(EXTENDS, TYPE_EXPR)));
 
     b.rule(TYPE_EXPRESSION_LIST).is(TYPE_EXPR, b.zeroOrMore(b.sequence(COMMA, TYPE_EXPR)));
 
-    b.rule(INTERFACE_DEF).is(INTERFACE, CLASS_NAME, EXTENDS_LIST, BLOCK);
-    b.rule(EXTENDS_LIST).is(b.optional(EXTENDS, TYPE_EXPRESSION_LIST));
+    b.rule(INTERFACE_DEF).is(INTERFACE, CLASS_NAME, b.optional(EXTENDS_LIST), BLOCK);
+    b.rule(EXTENDS_LIST).is(EXTENDS, TYPE_EXPRESSION_LIST);
 
     b.rule(PACKAGE_DEF).is(PACKAGE, b.optional(PACKAGE_NAME), BLOCK);
     b.rule(PACKAGE_NAME).is(IDENTIFIER, b.zeroOrMore(DOT, IDENTIFIER));
 
     b.rule(NAMESPACE_DEF).is(NAMESPACE, NAMESPACE_BINDING);
-    b.rule(NAMESPACE_BINDING).is(IDENTIFIER, NAMESPACE_INITIALISATION);
-    b.rule(NAMESPACE_INITIALISATION).is(b.optional(EQUAL1, ASSIGNMENT_EXPR));
+    b.rule(NAMESPACE_BINDING).is(IDENTIFIER, b.optional(NAMESPACE_INITIALISATION));
+    b.rule(NAMESPACE_INITIALISATION).is(EQUAL1, ASSIGNMENT_EXPR);
 
-    b.rule(PROGRAM).is(b.firstOf(b.sequence(PACKAGE_DEF, PROGRAM), DIRECTIVES));
+    b.rule(PROGRAM).is(b.firstOf(
+      b.sequence(PACKAGE_DEF, PROGRAM),
+      DIRECTIVES));
   }
 
   // TODO review/test

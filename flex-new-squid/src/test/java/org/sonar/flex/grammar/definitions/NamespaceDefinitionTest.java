@@ -24,16 +24,15 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class ClassDefinitionTest {
+public class NamespaceDefinitionTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
   
   @Test
   public void classWithStaticAtribute() { 
-    Assertions.assertThat(g.rule(FlexGrammar.CLASS_DEF))
-      .matches("class a {}")
-      .matches("class a extends b {}")
-      .matches("class Base { public static var test:String = \"static\";}");
+    Assertions.assertThat(g.rule(FlexGrammar.NAMESPACE_DEF))
+      .matches("namespace a")
+      .matches("namespace a = b");
       
   }
 }

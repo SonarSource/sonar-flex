@@ -31,19 +31,8 @@ public class InterfaceDefinitionTest {
   @Test
   public void bsaicInterface() {
     Assertions.assertThat(g.rule(FlexGrammar.INTERFACE_DEF))
-      .matches("interface IExternalizable\n"
-            + "{\n"
-            + "    function writeExternal(output:IDataOutput):void;\n"
-            + "    function readExternal(input:IDataInput):void;\n"
-            + "}");
-  }
-
-  @Test
-  public void interfaceExtendingInterface() {
-    Assertions.assertThat(g.rule(FlexGrammar.INTERFACE_DEF))
-      .matches("interface IExample extends IExternalizable\n" +
-              "{\n" +
-              "    function extra():void;\n" +
-              "}");
+      .matches("interface a {}")
+      .matches("interface a extends b {}")
+      .matches("interface a extends b, c {}");
   }
 }

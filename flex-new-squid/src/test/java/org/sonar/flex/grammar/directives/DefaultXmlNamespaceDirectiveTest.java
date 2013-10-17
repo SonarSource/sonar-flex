@@ -17,23 +17,21 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.grammar.definitions;
+package org.sonar.flex.grammar.directives;
 
 import org.junit.Test;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class ClassDefinitionTest {
+public class DefaultXmlNamespaceDirectiveTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
-  
+
   @Test
-  public void classWithStaticAtribute() { 
-    Assertions.assertThat(g.rule(FlexGrammar.CLASS_DEF))
-      .matches("class a {}")
-      .matches("class a extends b {}")
-      .matches("class Base { public static var test:String = \"static\";}");
-      
+  public void test() {
+    Assertions.assertThat(g.rule(FlexGrammar.DEFAULT_XML_NAMESPACE_DIRECTIVE))
+      .matches("default xml namespace = ns");
   }
+
 }

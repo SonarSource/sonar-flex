@@ -29,30 +29,9 @@ public class VariableDefinitionTest {
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void simpleVariableDefintion() {
+  public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.VARIABLE_DEF))
-      .matches("var i")
-      .matches("var i:int")
-      .matches("var i:int = 20");
-  }
-
-  
-  @Test
-  public void multiVariableDefinition() {
-    Assertions.assertThat(g.rule(FlexGrammar.VARIABLE_DEF))
-      .matches("var a:int, b:int, c:int")
-      .matches("var a:int = 10, b:int = 20, c:int = 30");
-  }
-  
-  @Test
-  public void arrayVariableDefinition() {
-    Assertions.assertThat(g.rule(FlexGrammar.VARIABLE_DEF))
-      .matches("var numArray:Array = [\"zero\", \"one\", \"two\"]");
-  }
-
-  @Test
-  public void objectVariableDefinition() {
-    Assertions.assertThat(g.rule(FlexGrammar.VARIABLE_DEF))
-      .matches("var customItem:CustomClass = new CustomClass()");
+      .matches("var a")
+      .matches("const a");
   }
 }

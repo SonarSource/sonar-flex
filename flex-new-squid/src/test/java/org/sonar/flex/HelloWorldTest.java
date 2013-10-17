@@ -17,23 +17,31 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.grammar.definitions;
+package org.sonar.flex;
 
 import org.junit.Test;
-import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class ClassDefinitionTest {
+public class HelloWorldTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
-  
+
   @Test
-  public void classWithStaticAtribute() { 
-    Assertions.assertThat(g.rule(FlexGrammar.CLASS_DEF))
-      .matches("class a {}")
-      .matches("class a extends b {}")
-      .matches("class Base { public static var test:String = \"static\";}");
-      
+  public void helloWorld() {
+    Assertions.assertThat(g.rule(FlexGrammar.PROGRAM))
+      .matches("package{ "
+            + "   import flash.display.Sprite;\n"
+            + "\n /* comment *()(*\n"
+            + "    * blabla"
+            + "    */"
+            + "   public class FilledCircle extends Sprite {\n"
+            + "\n // comment"
+            + "\n       function HelloWorld():void {\n"
+            + "\n"
+            + "         trace(\"Hello World!\");\n"
+            + "       }"
+            + "    }"
+            + " }");
   }
 }

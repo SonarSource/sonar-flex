@@ -29,21 +29,11 @@ public class ProgramDefintionTest {
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
   
   @Test
-  public void helloWorld() {
+  public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.PROGRAM))
-      .matches("package{\n"
-      + "\n"
-      + "   import flash.display.Sprite;\n"
-      + "\n /* comment *()(*\n"
-      + "    * blabla"
-      + "    */"
-      + "   public class FilledCircle extends Sprite {\n"
-      + "\n // comment"
-      + "\n       function HelloWorld():void {\n"
-      + "\n"
-      + "         trace(\"Hello World!\");\n"
-      + "       }\n"
-      + "    }\n"
-      + " }");
+      .matches("package A { function f() {} }")
+      .matches("package A { function f() {} } A.f();");
   }
+    
+  
 }

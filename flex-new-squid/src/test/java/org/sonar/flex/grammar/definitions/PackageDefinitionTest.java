@@ -32,7 +32,7 @@ public class PackageDefinitionTest {
   public void emptyPackage() {
     Assertions.assertThat(g.rule(FlexGrammar.PACKAGE_DEF))
       .matches("package p {}")
-      .matches("package   parent.child {   } ")
+      .matches("package   parent.child {   }")
       .matches("package p{}");
   }
 

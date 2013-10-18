@@ -54,7 +54,7 @@ public class GlobalDefinitionTest {
   public void packageDefinition() {
     Assertions.assertThat(g.rule(FlexGrammar.PACKAGE_DEF))
       .matches("package p {}")
-      .matches("package   parent.child {   } ")
+      .matches("package   parent.child {   }")
       .matches("package p{}")
       .matches("package samples\n" +
               "{\n" +

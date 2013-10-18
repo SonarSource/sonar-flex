@@ -31,7 +31,7 @@ public class ShortNewExpressionTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.SHORT_NEW_EXPR))
-      .matches("new a ")
-      .matches("new new a ");
+      .matches("new a")
+      .matches("new new a");
   }
 }

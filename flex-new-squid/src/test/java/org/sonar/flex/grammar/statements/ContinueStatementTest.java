@@ -31,6 +31,9 @@ public class ContinueStatementTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.CONTINUE_STATEMENT))
+      .matches("continue;")
+      .matches("continue label;")
+      
       .matches("continue")
       .matches("continue label");
   }

@@ -31,8 +31,12 @@ public class BreakStatementTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.BREAK_STATEMENT))
+      .matches("break;")
+      .matches("break label;")
+      
       .matches("break")
       .matches("break label");
+    
   }
 
 }

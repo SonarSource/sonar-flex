@@ -31,6 +31,10 @@ public class ReturnStatementTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.RETURN_STATEMENT))
+      .matches("return;")
+      .matches("return expression;")
+      
+      // virtual semicolon
       .matches("return")
       .matches("return expression");
   }

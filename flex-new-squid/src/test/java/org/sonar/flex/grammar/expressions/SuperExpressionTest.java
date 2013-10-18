@@ -31,7 +31,7 @@ public class SuperExpressionTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.SUPER_EXPR))
-      .matches("super ")
+      .matches("super")
       .matches("super ()");
   }
 

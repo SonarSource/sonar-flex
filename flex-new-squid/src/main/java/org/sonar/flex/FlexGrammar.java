@@ -143,6 +143,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   NUMBER,
   INTEGER,
   FLOAT,
+  HEXADECIMAL,
 
   /**
    * EXPRESSIONS
@@ -348,7 +349,8 @@ public enum FlexGrammar implements GrammarRuleKey {
   public static LexerlessGrammar createGrammar() {
     LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
 
-    b.rule(WHITESPACE).is(b.regexp("\\s*"));
+    // TODO add test:
+    b.rule(WHITESPACE).is(b.regexp("[\\s\\uFEFF]*"));
     b.rule(INLINE_COMMENT).is(b.regexp("//[^\\n\\r]*+"));
     b.rule(MULTILINE_COMMENT).is(b.regexp("/\\*[\\s\\S*]*?\\*/"));
     b.rule(SPACING).is(WHITESPACE, b.zeroOrMore(b.firstOf(INLINE_COMMENT, MULTILINE_COMMENT), WHITESPACE));
@@ -368,10 +370,15 @@ public enum FlexGrammar implements GrammarRuleKey {
   }
 
   private static void literals(LexerlessGrammarBuilder b) {
-    b.rule(STRING).is(b.regexp("\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\""), SPACING);
+    b.rule(STRING).is(
+      b.firstOf(
+        b.regexp("\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\""),
+        b.regexp("\'([^\'\\\\]*+(\\\\[\\s\\S])?+)*+\'")
+      ), SPACING);
     b.rule(INTEGER).is(b.regexp("-?[0-9]+"), SPACING);
     b.rule(FLOAT).is(b.regexp("-?[0-9]+\\.[0-9]+"), SPACING);
     b.rule(NUMBER).is(b.firstOf(FLOAT, INTEGER));
+    b.rule(HEXADECIMAL).is(b.regexp("0[xX][0-9a-fA-F]++"));
 
     // Regular expression according to ECMA 262
     b.rule(REGULAR_EXPRESSION).is(b.regexp(
@@ -429,6 +436,7 @@ public enum FlexGrammar implements GrammarRuleKey {
       NULL,
       TRUE,
       FALSE,
+      HEXADECIMAL,
       NUMBER,
       STRING,
       THIS,
@@ -568,10 +576,14 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(TYPE_EXPR).is(b.firstOf(
       /* not in specs: */ VOID,
-      NON_ASSIGNMENT_EXPR));
+      //NON_ASSIGNMENT_EXPR
+      POSTFIX_EXPR
+      ));
     b.rule(TYPE_EXPR_NO_IN).is(b.firstOf(
       /* not in specs: */ VOID,
-      NON_ASSIGNMENT_EXPR_NO_IN));
+      //NON_ASSIGNMENT_EXPR_NO_IN
+      POSTFIX_EXPR
+      ));
   }
 
   private static void statements(LexerlessGrammarBuilder b) {
@@ -649,8 +661,8 @@ public enum FlexGrammar implements GrammarRuleKey {
   private static void directives(LexerlessGrammarBuilder b)  {
     b.rule(DIRECTIVE).is(b.firstOf(
       EMPTY_STATEMENT,
-      STATEMENT,
       ANNOTABLE_DIRECTIVE,
+      STATEMENT,
       DEFAULT_XML_NAMESPACE_DIRECTIVE,
       b.sequence(ATTRIBUTES, /*No line break*/ ANNOTABLE_DIRECTIVE),
       b.sequence(INCLUDE_DIRECTIVE, /*No line break*/ SEMICOLON),
@@ -669,7 +681,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(ATTRIBUTES).is(b.oneOrMore(ATTRIBUTE));
     b.rule(ATTRIBUTE_COMBINATION).is(ATTRIBUTE, /*No line break*/ ATTRIBUTES);
     b.rule(ATTRIBUTE).is(b.firstOf(
-      ATTRIBUTE_EXPR,
+      b.sequence(/* hack: */b.nextNot(NAMESPACE), ATTRIBUTE_EXPR),
       RESERVED_NAMESPACE,
       b.sequence(LBRAKET, ASSIGNMENT_EXPR, RBRAKET)));
     b.rule(ATTRIBUTE_EXPR).is(IDENTIFIER, b.zeroOrMore(PROPERTY_OPERATOR));

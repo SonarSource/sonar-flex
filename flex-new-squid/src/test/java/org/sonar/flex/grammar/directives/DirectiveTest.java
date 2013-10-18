@@ -39,7 +39,9 @@ public class DirectiveTest {
       .matches("a var a;")
       .matches("include \"String\";")
       .matches("import a;")
-      .matches("use namespace a;");
+      .matches("use namespace a;")
+
+      .matches("public namespace ns = \"...\";");
   }
 
 }

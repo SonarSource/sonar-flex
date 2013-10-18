@@ -31,8 +31,11 @@ public class AnnotableDirectiveTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.ANNOTABLE_DIRECTIVE))
-    // TODO add more tests
-    ;
+      .matches("var a;")
+      .matches("function a () {}")
+      .matches("class a {}")
+      .matches("interface b {}")
+      .matches("namespace a;");
   }
 
 }

@@ -31,11 +31,15 @@ public class DirectiveTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.DIRECTIVE))
-      // TODO add more tests
-      .matches("default xml namespace = ns")
-      .matches("include \"reusable.as\";")
+      .matches(";")
+      .matches("{}")
+      .matches("var a;")
+      .matches("default xml namespace = a")
+
+      .matches("a var a;")
+      .matches("include \"String\";")
       .matches("import a;")
-      .matches("use namespace ns;");
+      .matches("use namespace a;");
   }
 
 }

@@ -31,8 +31,8 @@ public class AttributeExpressionTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.ATTRIBUTE_EXPR))
-    // TODO add more tests
-    ;
+      .matches("a")
+      .matches("a.b.c");
   }
 
 }

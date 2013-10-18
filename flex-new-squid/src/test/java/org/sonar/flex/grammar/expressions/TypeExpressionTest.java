@@ -35,6 +35,7 @@ public class TypeExpressionTest {
       .matches("String")
       .matches("int")
       .matches("*")
+      .matches("foo.bar")
       // FIXME
 //      .matches("Vector.<Clock>")
 //      .matches("foo.bar.Vector.<T>")

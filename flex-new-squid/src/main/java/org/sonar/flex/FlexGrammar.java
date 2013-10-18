@@ -520,9 +520,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(UNARY_EXPR).is(b.firstOf(
       b.sequence(b.firstOf(DELETE, DOUBLE_PLUS, DOUBLE_MINUS), POSTFIX_EXPR),
       b.sequence(b.firstOf(VOID, TYPEOF, PLUS, MINUS, NOT, TILD), UNARY_EXPR),
-      POSTFIX_EXPR
-      // TODO NegatedMinLong 
-      ));
+      POSTFIX_EXPR));
 
     // Binary expressions
     b.rule(MULTIPLICATIVE_EXPR).is(UNARY_EXPR, b.zeroOrMore(b.firstOf(STAR, DIV, MOD), UNARY_EXPR));
@@ -564,13 +562,6 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(LIST_EXPRESSION).is(ASSIGNMENT_EXPR, b.zeroOrMore(b.sequence(COMMA, ASSIGNMENT_EXPR)));
     b.rule(LIST_EXPRESSION_NO_IN).is(ASSIGNMENT_EXPR_NO_IN, b.zeroOrMore(b.sequence(COMMA, ASSIGNMENT_EXPR_NO_IN)));
 
-    // TODO convert into tests:
-    // void
-    // String
-    // int
-    // *
-    // Vector.<Clock>
-    // foo.bar.Vector.<T>
     b.rule(TYPE_EXPR).is(b.firstOf(
       /* not in specs: */ VOID,
       NON_ASSIGNMENT_EXPR));
@@ -613,7 +604,6 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(IF_STATEMENT).is(IF, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT, b.optional(ELSE, SUB_STATEMENT));
 
-    // TODO looks strange:
     b.rule(SWITCH_STATEMENT).is(SWITCH, PARENTHESIZED_LIST_EXPR, LCURLYBRACE, b.optional(CASE_ELEMENTS), RCURLYBRACE);
     b.rule(CASE_ELEMENTS).is(CASE_LABEL, b.zeroOrMore(CASE_ELEMENT));
     b.rule(CASE_ELEMENT).is(b.firstOf(CASE_LABEL, DIRECTIVE));
@@ -654,7 +644,6 @@ public enum FlexGrammar implements GrammarRuleKey {
 
   private static void directives(LexerlessGrammarBuilder b)  {
     b.rule(DIRECTIVE).is(b.firstOf(
-      // TODO why EMPTY_STATEMENT not part of STATEMENT?
       EMPTY_STATEMENT,
       STATEMENT,
       ANNOTABLE_DIRECTIVE,
@@ -786,22 +775,19 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(XML_TAG_CONTENT).is(XML_TAG_NAME, XML_ATTRIBUTES);
 
     b.rule(XML_TAG_NAME).is(b.firstOf(
-      b.sequence(LCURLYBRACE, EXPRESSION_STATEMENT),
+      b.sequence(LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE),
       XML_NAME));
 
     b.rule(XML_ATTRIBUTES).is(b.optional(b.firstOf(
-      b.sequence(XML_WHITESPACE, LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE),
-      b.sequence(XML_ATTRIBUTE, XML_ATTRIBUTES))));
+      b.sequence(XML_ATTRIBUTE, XML_ATTRIBUTES),
+      b.sequence(XML_WHITESPACE, LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE))));
 
-    // TODO simplify
     b.rule(XML_ATTRIBUTE).is(b.firstOf(
       b.sequence(b.zeroOrMore(XML_WHITESPACE), XML_NAME,
-        b.optional(b.zeroOrMore(XML_WHITESPACE)), EQUAL1,
-        b.optional(b.zeroOrMore(XML_WHITESPACE)), LCURLYBRACE,
-        EXPRESSION_STATEMENT, RCURLYBRACE),
+        b.zeroOrMore(XML_WHITESPACE), EQUAL1, b.zeroOrMore(XML_WHITESPACE), 
+        LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE),      
       b.sequence(b.zeroOrMore(XML_WHITESPACE), XML_NAME,
-        b.optional(b.zeroOrMore(XML_WHITESPACE)), EQUAL1,
-        b.optional(b.zeroOrMore(XML_WHITESPACE)),
+        b.zeroOrMore(XML_WHITESPACE), EQUAL1, b.zeroOrMore(XML_WHITESPACE),
         XML_ATTRIBUTE_VALUE)));
 
     b.rule(XML_ELEMENT_CONTENT).is(b.optional(
@@ -818,7 +804,7 @@ public enum FlexGrammar implements GrammarRuleKey {
       XML_PI));
 
     b.rule(XML_COMMENT).is(b.regexp("<!--(?:(?!--)[\\s\\S])*?-->"));
-    b.rule(XML_CDATA  ).is(b.regexp("<!\\[CDATA\\[(?:(?!]])[\\s\\S])*?]]>"));
+    b.rule(XML_CDATA).is(b.regexp("<!\\[CDATA\\[(?:(?!]])[\\s\\S])*?]]>"));
     b.rule(XML_PI).is(b.regexp("<\\?(?:(?!\\?>)[\\s\\S])*?\\?>"));
     b.rule(XML_TEXT).is(b.regexp("[^{<]++"));
     b.rule(XML_NAME).is(b.regexp("[" + UNICODE_LETTER + "_:" + "]" + "[" + UNICODE_LETTER + UNICODE_DIGIT + "\\.\\-_:" + "]*"));

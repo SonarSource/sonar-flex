@@ -30,9 +30,9 @@ public class SuperExpressionTest {
 
   @Test
   public void test() {
-    // TODO add more tests
     Assertions.assertThat(g.rule(FlexGrammar.SUPER_EXPR))
       .matches("super ")
       .matches("super ()");
   }
+
 }

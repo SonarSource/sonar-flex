@@ -19,7 +19,6 @@
  */
 package org.sonar.flex.grammar.definitions;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
@@ -29,7 +28,6 @@ public class FunctionSignatureTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
-  @Ignore
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.FUNCTION_SIGNATURE))

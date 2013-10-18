@@ -350,7 +350,7 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(WHITESPACE).is(b.regexp("\\s*"));
     b.rule(INLINE_COMMENT).is(b.regexp("//[^\\n\\r]*+"));
-    b.rule(MULTILINE_COMMENT).is(b.regexp("/\\*[\\s\\S*]*\\*/"));
+    b.rule(MULTILINE_COMMENT).is(b.regexp("/\\*[\\s\\S*]*?\\*/"));
     b.rule(SPACING).is(WHITESPACE, b.zeroOrMore(b.firstOf(INLINE_COMMENT, MULTILINE_COMMENT), WHITESPACE));
 
     punctuators(b);
@@ -362,6 +362,8 @@ public enum FlexGrammar implements GrammarRuleKey {
     definitions(b);
     xml(b);
 
+    b.setRootRule(PROGRAM);
+    
     return b.build();
   }
 
@@ -505,6 +507,8 @@ public enum FlexGrammar implements GrammarRuleKey {
     // Property accessors
     b.rule(PROPERTY_OPERATOR).is(b.firstOf(
       b.sequence(DOT, QUALIFIED_IDENTIFIER),
+      // not in specs:
+      b.sequence(DOT, LT,  TYPE_EXPRESSION_LIST, GT),
       BRACKETS));
     b.rule(BRACKETS).is(LBRAKET, LIST_EXPRESSION, RBRAKET);
 
@@ -756,12 +760,14 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(NAMESPACE_BINDING).is(IDENTIFIER, b.optional(NAMESPACE_INITIALISATION));
     b.rule(NAMESPACE_INITIALISATION).is(EQUAL1, ASSIGNMENT_EXPR);
 
-    b.rule(PROGRAM).is(b.firstOf(
-      b.sequence(PACKAGE_DEF, PROGRAM),
-      DIRECTIVES));
+    b.rule(PROGRAM).is(
+      SPACING,
+      b.firstOf(
+        b.sequence(PACKAGE_DEF, PROGRAM),
+        DIRECTIVES),
+      b.endOfInput());
   }
 
-  // TODO review/test
   private static void xml(LexerlessGrammarBuilder b) {
     b.rule(XML_INITIALISER).is(b.firstOf(
       XML_MARKUP,

@@ -30,14 +30,14 @@ public class CommentTest {
   @Test
   public void inline() {
     Assertions.assertThat(g.rule(FlexGrammar.INLINE_COMMENT))
-      .matches("//blalbsjidj =-9992#$$");
+      .matchesPrefix("// comment", "\n not comment");
   }
 
   @Test
   public void multiLine() {
     Assertions.assertThat(g.rule(FlexGrammar.MULTILINE_COMMENT))
-      .matches("/*\n * blabla \n b;ab;a */")
-      .notMatches("/*\n * blabla \n b;ab;a */ blao");
+      .matchesPrefix("/* comment */", "/* another comment */")
+      .matchesPrefix("/* comment */", "not comment");
   }
 
 }

@@ -315,6 +315,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   DEFAULT_XML_NAMESPACE_DIRECTIVE,
   SUB_STATEMENT,
   EMPTY_STATEMENT,
+  VARIABLE_DECLARATION_STATEMENT,
   BLOCK,
   CASE_ELEMENT,
   CASE_ELEMENTS,
@@ -649,7 +650,9 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(SUB_STATEMENT).is(b.firstOf(
       EMPTY_STATEMENT,
       STATEMENT,
-      b.sequence(VARIABLE_DEF, EOS)));
+      VARIABLE_DECLARATION_STATEMENT));
+
+    b.rule(VARIABLE_DECLARATION_STATEMENT).is(VARIABLE_DEF, EOS);
 
     b.rule(EMPTY_STATEMENT).is(SEMICOLON);
 
@@ -719,7 +722,7 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.sequence(USE_DIRECTIVE, /*No line break*/ EOS_NO_LB)));
 
     b.rule(ANNOTABLE_DIRECTIVE).is(b.firstOf(
-      VARIABLE_DEF,
+      VARIABLE_DECLARATION_STATEMENT,
       FUNCTION_DEF,
       CLASS_DEF,
       INTERFACE_DEF,
@@ -745,7 +748,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   }
 
   private static void definitions(LexerlessGrammarBuilder b) {
-    b.rule(VARIABLE_DEF).is(VARIABLE_DEF_KIND, VARIABLE_BINDING_LIST, EOS);
+    b.rule(VARIABLE_DEF).is(VARIABLE_DEF_KIND, VARIABLE_BINDING_LIST);
     b.rule(VARIABLE_DEF_NO_IN).is(VARIABLE_DEF_KIND, VARIABLE_BINDING_LIST_NO_IN);
 
     b.rule(VARIABLE_DEF_KIND).is(b.firstOf(VAR, CONST));

@@ -17,29 +17,23 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex;
+package org.sonar.flex.grammar.literals;
 
+import org.sonar.flex.grammar.statements.*;
 import org.junit.Test;
+import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class NumberTest {
+public class HexadecimalTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void integer() {
-    Assertions.assertThat(g.rule(FlexGrammar.INTEGER))
-      .matches("-894792")
-      .matches("894792");
-  }
-
-  @Test
-  public void floats() {
-    Assertions.assertThat(g.rule(FlexGrammar.FLOAT))
-      .matches("-894792.08907")
-      .matches("894792.09889798")
-      .notMatches("894792.09889798djn");
+  public void test() {
+    Assertions.assertThat(g.rule(FlexGrammar.HEXADECIMAL))
+      .matches("0x01aF");
+    
   }
 
 }

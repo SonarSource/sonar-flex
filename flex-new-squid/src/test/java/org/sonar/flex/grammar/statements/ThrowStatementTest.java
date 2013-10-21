@@ -31,7 +31,8 @@ public class ThrowStatementTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.THROW_STATEMENT))
-      .matches("throw expression");
+      .matches("throw expression")
+      .matches("throw expression;");
   }
 
 }

@@ -36,10 +36,17 @@ public class DirectiveTest {
       .matches("var a;")
       .matches("default xml namespace = a")
 
-      .matches("a var a;")
+      .matches("attribute var a;")
+      .notMatches("attribute \n var a;")
+      
       .matches("include \"String\";")
+      .matches("include \"String\"")
+      
       .matches("import a;")
+      .matches("import a")
+      
       .matches("use namespace a;")
+      .matches("use namespace a")
 
       .matches("public namespace ns = \"...\";");
   }

@@ -49,7 +49,8 @@ public class ForStatementTest {
       // for in
       .matches("for (var item:String in items) { }")
       // for each
-      .matches("for each (var item:String in items) { }");
+      .matches("for each (var item:String in items) { }")
+      .notMatches("for \n each (var item:String in items) { }");
   }
 
 }

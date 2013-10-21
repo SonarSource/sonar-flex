@@ -37,7 +37,8 @@ public class PrimaryExpressionTest {
   @Test
   public void reservedNamespace() {
     Assertions.assertThat(g.rule(FlexGrammar.PRIMARY_EXPR))
-      .matches("internal");
+      .matches("internal")
+      .matches("private::identifier");
   }
 
   @Test

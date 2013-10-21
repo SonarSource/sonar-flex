@@ -32,6 +32,12 @@ public class FunctionDefinitionTest {
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.FUNCTION_DEF))
       .matches("function name () {}")
-      .matches("function name ()");
+      .matches("function name ()")
+      
+      .matches("function get name ()")
+      .notMatches("function get \n name ()")
+      
+      .matches("function set name ()")
+      .notMatches("function set \n name ()");
   }
 }

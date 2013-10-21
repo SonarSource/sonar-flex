@@ -31,7 +31,7 @@ public class XmlContentTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.XML_ELEMENT_CONTENT))
-      .matches(" ")
+      .matches("")
       .matches("{a, b, c}")
       .matches("{a, b, c} {a, b}")
       

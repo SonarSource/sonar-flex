@@ -37,8 +37,13 @@ public class PostfixExpressionTest {
       
       .matches("super().f.c.a")
       .matches("a ().a")
+      
       .matches("a++")
+      .notMatches("a\n++")
+      
       .matches("a--")
+      .notMatches("a\n--")
+      
       .matches("a..n..z");
   }
 }

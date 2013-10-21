@@ -31,7 +31,9 @@ public class DefaultXmlNamespaceDirectiveTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.DEFAULT_XML_NAMESPACE_DIRECTIVE))
-      .matches("default xml namespace = ns");
+      .matches("default xml namespace = ns")
+      .notMatches("default \n xml namespace = ns")
+      .notMatches("default xml \n namespace = ns");
   }
 
 }

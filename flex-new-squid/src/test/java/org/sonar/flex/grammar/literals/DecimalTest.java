@@ -17,20 +17,34 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.grammar.definitions;
+package org.sonar.flex.grammar.literals;
 
+import org.sonar.flex.grammar.statements.*;
 import org.junit.Test;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class VariableInitialisationTest {
+public class DecimalTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
   public void test() {
-    Assertions.assertThat(g.rule(FlexGrammar.VARIABLE_INITIALISATION))
-      .matches("= a") ;
+    Assertions.assertThat(g.rule(FlexGrammar.DECIMAL))
+      .matches("0")
+      .matches("1")
+      .matches("12")
+      .notMatches("01")
+      
+      .matches(".2")
+      .matches("2.")
+      .matches("0.2")
+      
+      .matches("1e2")
+      .matches("1.2E-3")
+      .matches("1.2E+3");
+    
   }
+
 }

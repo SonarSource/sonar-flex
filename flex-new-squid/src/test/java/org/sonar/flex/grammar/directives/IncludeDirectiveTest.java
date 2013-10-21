@@ -31,7 +31,8 @@ public class IncludeDirectiveTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.INCLUDE_DIRECTIVE))
-      .matches("include \"reusable.as\"");
+      .matches("include \"reusable.as\"")
+      .notMatches("include \n \"reusable.as\"");
   }
 
 }

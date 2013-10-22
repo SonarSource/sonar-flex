@@ -20,42 +20,54 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.impl.ast.AstXmlPrinter;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.flex.api.FlexGrammar;
+import org.sonar.flex.FlexGrammar;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "FunctionSinglePointOfExit",
   priority = Priority.MINOR)
-public class FunctionSinglePointOfExitCheck extends SquidCheck<FlexGrammar> {
+public class FunctionSinglePointOfExitCheck extends SquidCheck<LexerlessGrammar> {
 
   private int returnStatements;
 
   @Override
   public void init() {
-    subscribeTo(getContext().getGrammar().methodDefinition, getContext().getGrammar().returnStatement);
+    subscribeTo(FlexGrammar.FUNCTION_DEF, FlexGrammar.RETURN_STATEMENT);
   }
 
   @Override
   public void visitNode(AstNode node) {
-    if (node.is(getContext().getGrammar().methodDefinition)) {
+    if (node.is(FlexGrammar.FUNCTION_DEF)) {
       returnStatements = 0;
-    } else if (node.is(getContext().getGrammar().returnStatement)) {
+    } else if (node.is(FlexGrammar.RETURN_STATEMENT)) {
       returnStatements++;
     }
   }
 
   @Override
   public void leaveNode(AstNode node) {
-    if (node.is(getContext().getGrammar().methodDefinition) && (returnStatements != 0) && (returnStatements > 1 || !hasReturnAtEnd(node))) {
+    if (node.is(FlexGrammar.FUNCTION_DEF) && (returnStatements != 0) && (returnStatements > 1 || !hasReturnAtEnd(node))) {
       getContext().createLineViolation(this, "A function shall have a single point of exit at the end of the function.", node);
     }
   }
 
-  private boolean hasReturnAtEnd(AstNode methodDefinition) {
-    AstNode compoundStatement = methodDefinition.findFirstDirectChild(getContext().getGrammar().block);
-    return compoundStatement.getChild(compoundStatement.getNumberOfChildren() - 2).getFirstChild().is(getContext().getGrammar().returnStatement);
+  private boolean hasReturnAtEnd(AstNode functionDefinitionNode) {
+    AstNode lastDirectiveNode = functionDefinitionNode
+      .getFirstChild(FlexGrammar.FUNCTION_COMMON)
+      .getFirstChild(FlexGrammar.BLOCK)
+      .getFirstChild(FlexGrammar.DIRECTIVES)
+      .getLastChild();
+    if (lastDirectiveNode != null) {
+      AstNode statementNode = lastDirectiveNode.getFirstChild(FlexGrammar.STATEMENT);
+      if (statementNode != null && statementNode.getFirstChild().is(FlexGrammar.RETURN_STATEMENT)) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }

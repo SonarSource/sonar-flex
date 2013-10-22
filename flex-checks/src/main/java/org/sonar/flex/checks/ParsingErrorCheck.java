@@ -19,30 +19,16 @@
  */
 package org.sonar.flex.checks;
 
-import com.sonar.sslr.api.AuditListener;
-import com.sonar.sslr.api.RecognitionException;
-import com.sonar.sslr.squid.checks.SquidCheck;
+import com.sonar.sslr.squid.checks.AbstractParseErrorCheck;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.flex.api.FlexGrammar;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "ParsingError",
   priority = Priority.MAJOR,
   name = "Flex parser failure")
-public class ParsingErrorCheck extends SquidCheck<FlexGrammar> implements AuditListener {
-
-  public void processException(Exception e) {
-    StringWriter exception = new StringWriter();
-    e.printStackTrace(new PrintWriter(exception));
-    getContext().createFileViolation(this, exception.toString());
-  }
-
-  public void processRecognitionException(RecognitionException e) {
-    getContext().createLineViolation(this, e.getMessage(), e.getLine());
-  }
+public class ParsingErrorCheck extends AbstractParseErrorCheck<LexerlessGrammar> {
 
 }

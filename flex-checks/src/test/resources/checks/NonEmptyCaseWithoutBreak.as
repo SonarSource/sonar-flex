@@ -12,7 +12,8 @@ function foo() {
   }
 
   switch (param) {
-    case 0: // NOK
+    case 0:
+    case 1: // NOK
       doSomething();
     default: // NOK
       doSomethingElse();

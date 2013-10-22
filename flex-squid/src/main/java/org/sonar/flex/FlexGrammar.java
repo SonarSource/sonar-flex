@@ -19,6 +19,7 @@
  */
 package org.sonar.flex;
 
+import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.sslr.grammar.GrammarRuleKey;
 import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
 import org.sonar.sslr.parser.LexerlessGrammar;
@@ -138,10 +139,10 @@ public enum FlexGrammar implements GrammarRuleKey {
   SPACING,
   SPACING_NO_LB,
   NEXT_NOT_LB,
-  
+
   EOS,
   EOS_NO_LB,
-  
+
   INLINE_COMMENT,
   MULTILINE_COMMENT,
 
@@ -318,7 +319,6 @@ public enum FlexGrammar implements GrammarRuleKey {
   VARIABLE_DECLARATION_STATEMENT,
   BLOCK,
   CASE_ELEMENT,
-  CASE_ELEMENTS,
   CASE_LABEL,
   FOR_INITIALISER,
   FOR_IN_BINDING,
@@ -335,6 +335,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   // <editor-fold defaultstate="collapsed" desc="Directives">
   DIRECTIVES,
   DIRECTIVE,
+  CONFIG_CONDITION,
   ANNOTABLE_DIRECTIVE,
   USE_DIRECTIVE,
   IMPORT_DIRECTIVE,
@@ -354,15 +355,15 @@ public enum FlexGrammar implements GrammarRuleKey {
   private static final String IDENTIFIER_START_REGEXP = "(?:[$_" + UNICODE_LETTER + "]|\\\\" + UNICODE_ESCAPE_SEQUENCE_REGEXP + ")";
   private static final String IDENTIFIER_PART_REGEXP = "(?:" +
     IDENTIFIER_START_REGEXP + "|[" + UNICODE_COMBINING_MARK + UNICODE_DIGIT + UNICODE_CONNECTOR_PUNCTUATION + "])";
- 
+
   private static final String EXPONENT_PART_REGEXP = "([eE][-+]?[0-9]++)?";
   private static final String DECIMAL_INTEGER_REGEXP = "(0|([1-9][0-9]*+))";
   private static final String DECIMAL_DIGITS_REGEXP = "([0-9]*+)";
-  private static final String DECIMAL_REGEXP = 
+  private static final String DECIMAL_REGEXP =
     DECIMAL_INTEGER_REGEXP + "\\." + DECIMAL_DIGITS_REGEXP + "?" + EXPONENT_PART_REGEXP +
-    "|\\." + DECIMAL_DIGITS_REGEXP + EXPONENT_PART_REGEXP +
-    "|" + DECIMAL_INTEGER_REGEXP + EXPONENT_PART_REGEXP;
-  
+      "|\\." + DECIMAL_DIGITS_REGEXP + EXPONENT_PART_REGEXP +
+      "|" + DECIMAL_INTEGER_REGEXP + EXPONENT_PART_REGEXP;
+
   public static LexerlessGrammar createGrammar() {
     LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
 
@@ -370,19 +371,19 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(WHITESPACE).is(b.regexp("[\\s\\uFEFF]*"));
     b.rule(INLINE_COMMENT).is(b.regexp("//[^\\n\\r]*+"));
     b.rule(MULTILINE_COMMENT).is(b.regexp("/\\*[\\s\\S*]*?\\*/"));
-    
-    b.rule(SPACING).is(WHITESPACE, b.zeroOrMore(b.firstOf(INLINE_COMMENT, MULTILINE_COMMENT), WHITESPACE));
+
+    b.rule(SPACING).is(b.skippedTrivia(WHITESPACE), b.zeroOrMore(b.firstOf(b.commentTrivia(INLINE_COMMENT), b.commentTrivia(MULTILINE_COMMENT)), b.skippedTrivia(WHITESPACE))).skip();
 
     b.rule(SPACING_NO_LB).is(b.zeroOrMore(b.firstOf(
-      b.regexp("[\\s&&[^\n\r]]++"),
-      INLINE_COMMENT
+      b.skippedTrivia(b.regexp("[\\s&&[^\n\r]]++")),
+      b.commentTrivia(INLINE_COMMENT)
       // TODO multiline comment
     )));
     b.rule(NEXT_NOT_LB).is(b.nextNot(
       b.regexp("[\n\r]")
       // TODO comments
     ));
-    
+
     b.rule(EOS).is(b.firstOf(
       b.sequence(SPACING, SEMICOLON),
       b.sequence(SPACING_NO_LB, b.regexp("(?:\\n|\\r\\n|\\r)")),
@@ -395,7 +396,7 @@ public enum FlexGrammar implements GrammarRuleKey {
       // TODO see EcmaScript
       b.sequence(SPACING_NO_LB, b.endOfInput())
     ));
-    
+
     punctuators(b);
     keywords(b);
     literals(b);
@@ -406,10 +407,10 @@ public enum FlexGrammar implements GrammarRuleKey {
     xml(b);
 
     b.setRootRule(PROGRAM);
-    
+
     return b.build();
   }
-  
+
   private static void literals(LexerlessGrammarBuilder b) {
     b.rule(STRING).is(
       SPACING,
@@ -424,14 +425,14 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     // Regular expression according to ECMA 262
     b.rule(REGULAR_EXPRESSION).is(SPACING, b.regexp(
-       "/"
-       // Regular expression first char
-     + "([^\\n\\r\\*\\\\/]|(\\\\[^\\n\\r]))"
-       // Regular expression chars
-     + "([^\\n\\r\\\\/]|(\\\\[^\\n\\r]))*"
-     + "/"
-      // Regular expression flags
-     + IDENTIFIER_PART_REGEXP + "*+"));
+      "/"
+        // Regular expression first char
+        + "([^\\n\\r\\*\\\\/]|(\\\\[^\\n\\r]))"
+        // Regular expression chars
+        + "([^\\n\\r\\\\/]|(\\\\[^\\n\\r]))*"
+        + "/"
+        // Regular expression flags
+        + IDENTIFIER_PART_REGEXP + "*+"));
   }
 
   private static void expressions(LexerlessGrammarBuilder b) {
@@ -445,7 +446,7 @@ public enum FlexGrammar implements GrammarRuleKey {
       SET,
       STATIC,
       b.sequence(SPACING, b.nextNot(KEYWORDS), b.regexp(IDENTIFIER_START_REGEXP + IDENTIFIER_PART_REGEXP + "*+"))
-     ));
+    ));
     b.rule(IDENTIFIER_PART).is(b.regexp(IDENTIFIER_PART_REGEXP));
 
     b.rule(PROPERTY_IDENTIFIER).is(b.firstOf(
@@ -508,7 +509,7 @@ public enum FlexGrammar implements GrammarRuleKey {
       NUMBER));
 
     // Array initialiser
-    b.rule(ARRAY_INITIALISER).is(LBRAKET, b.optional(ELEMENT_LIST), RBRAKET);   
+    b.rule(ARRAY_INITIALISER).is(LBRAKET, b.optional(ELEMENT_LIST), RBRAKET);
     b.rule(ELEMENT_LIST).is(b.optional(COMMA), LITERAL_ELEMENT, b.zeroOrMore(COMMA, LITERAL_ELEMENT), b.optional(COMMA));
     b.rule(LITERAL_ELEMENT).is(ASSIGNMENT_EXPR);
 
@@ -558,7 +559,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(PROPERTY_OPERATOR).is(b.firstOf(
       b.sequence(DOT, QUALIFIED_IDENTIFIER),
       // not in specs:
-      b.sequence(DOT, LT,  TYPE_EXPRESSION_LIST, GT),
+      b.sequence(DOT, LT, TYPE_EXPRESSION_LIST, GT),
       BRACKETS));
     b.rule(BRACKETS).is(LBRAKET, LIST_EXPRESSION, RBRAKET);
 
@@ -620,12 +621,12 @@ public enum FlexGrammar implements GrammarRuleKey {
       /* not in specs: */ VOID,
       //NON_ASSIGNMENT_EXPR
       POSTFIX_EXPR
-      ));
+    ));
     b.rule(TYPE_EXPR_NO_IN).is(b.firstOf(
       /* not in specs: */ VOID,
       //NON_ASSIGNMENT_EXPR_NO_IN
       POSTFIX_EXPR
-      ));
+    ));
   }
 
   private static void statements(LexerlessGrammarBuilder b) {
@@ -664,10 +665,9 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(IF_STATEMENT).is(IF, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT, b.optional(ELSE, SUB_STATEMENT));
 
-    b.rule(SWITCH_STATEMENT).is(SWITCH, PARENTHESIZED_LIST_EXPR, LCURLYBRACE, b.optional(CASE_ELEMENTS), RCURLYBRACE);
-    b.rule(CASE_ELEMENTS).is(CASE_LABEL, b.zeroOrMore(CASE_ELEMENT));
-    b.rule(CASE_ELEMENT).is(b.firstOf(CASE_LABEL, DIRECTIVE));
-    b.rule(CASE_LABEL).is(b.firstOf(DEFAULT, b.sequence(CASE, LIST_EXPRESSION)),COLON);
+    b.rule(SWITCH_STATEMENT).is(SWITCH, PARENTHESIZED_LIST_EXPR, LCURLYBRACE, b.zeroOrMore(CASE_ELEMENT), RCURLYBRACE);
+    b.rule(CASE_ELEMENT).is(b.oneOrMore(CASE_LABEL), b.zeroOrMore(DIRECTIVE));
+    b.rule(CASE_LABEL).is(b.firstOf(DEFAULT, b.sequence(CASE, LIST_EXPRESSION)), COLON);
 
     b.rule(DO_STATEMENT).is(DO, SUB_STATEMENT, WHILE, PARENTHESIZED_LIST_EXPR, EOS);
 
@@ -710,8 +710,9 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(EXPRESSION_STATEMENT).is(b.nextNot(b.firstOf(FUNCTION, LCURLYBRACE)), LIST_EXPRESSION);
   }
 
-  private static void directives(LexerlessGrammarBuilder b)  {
+  private static void directives(LexerlessGrammarBuilder b) {
     b.rule(DIRECTIVE).is(b.firstOf(
+      CONFIG_CONDITION,
       EMPTY_STATEMENT,
       ANNOTABLE_DIRECTIVE,
       STATEMENT,
@@ -720,6 +721,8 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.sequence(INCLUDE_DIRECTIVE, /*No line break*/ EOS_NO_LB),
       b.sequence(IMPORT_DIRECTIVE, /*No line break*/ EOS_NO_LB),
       b.sequence(USE_DIRECTIVE, /*No line break*/ EOS_NO_LB)));
+
+    b.rule(CONFIG_CONDITION).is(IDENTIFIER, DOUBLE_COLON, IDENTIFIER, LCURLYBRACE, DIRECTIVES, RCURLYBRACE);
 
     b.rule(ANNOTABLE_DIRECTIVE).is(b.firstOf(
       VARIABLE_DECLARATION_STATEMENT,
@@ -743,7 +746,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(INCLUDE_DIRECTIVE).is(INCLUDE, /*No line break*/ SPACING_NO_LB, NEXT_NOT_LB, STRING);
 
     b.rule(USE_DIRECTIVE).is(USE, NAMESPACE, LIST_EXPRESSION);
-    
+
     b.rule(DEFAULT_XML_NAMESPACE_DIRECTIVE).is(DEFAULT, /*No line break*/SPACING_NO_LB, NEXT_NOT_LB, XML, /*No line break*/ SPACING_NO_LB, NEXT_NOT_LB, NAMESPACE, EQUAL1, NON_ASSIGNMENT_EXPR);
   }
 
@@ -832,7 +835,7 @@ public enum FlexGrammar implements GrammarRuleKey {
         b.sequence(PACKAGE_DEF, PROGRAM),
         DIRECTIVES),
       SPACING,
-      b.endOfInput());
+      b.token(GenericTokenType.EOF, b.endOfInput()));
   }
 
   private static void xml(LexerlessGrammarBuilder b) {
@@ -857,8 +860,8 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(XML_ATTRIBUTE).is(b.firstOf(
       b.sequence(b.zeroOrMore(XML_WHITESPACE), XML_NAME,
-        b.zeroOrMore(XML_WHITESPACE), EQUAL1, b.zeroOrMore(XML_WHITESPACE), 
-        LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE),      
+        b.zeroOrMore(XML_WHITESPACE), EQUAL1, b.zeroOrMore(XML_WHITESPACE),
+        LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE),
       b.sequence(b.zeroOrMore(XML_WHITESPACE), XML_NAME,
         b.zeroOrMore(XML_WHITESPACE), EQUAL1, b.zeroOrMore(XML_WHITESPACE),
         XML_ATTRIBUTE_VALUE)));

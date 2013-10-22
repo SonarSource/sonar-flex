@@ -22,19 +22,17 @@ package org.sonar.flex.parser;
 import com.sonar.sslr.impl.Parser;
 import com.sonar.sslr.impl.events.ParsingEventListener;
 import org.sonar.flex.FlexConfiguration;
-import org.sonar.flex.api.FlexGrammar;
-import org.sonar.flex.lexer.FlexLexer;
+import org.sonar.flex.FlexGrammar;
+import org.sonar.sslr.parser.LexerlessGrammar;
+import org.sonar.sslr.parser.ParserAdapter;
 
 public final class FlexParser {
 
   private FlexParser() {
   }
 
-  public static Parser<FlexGrammar> create(FlexConfiguration conf, ParsingEventListener... parsingEventListeners) {
-    return Parser.builder((FlexGrammar) new FlexGrammarImpl())
-        .withLexer(FlexLexer.create(conf))
-        .setParsingEventListeners(parsingEventListeners)
-        .build();
+  public static Parser<LexerlessGrammar> create(FlexConfiguration conf, ParsingEventListener... parsingEventListeners) {
+    return new ParserAdapter<LexerlessGrammar>(conf.getCharset(), FlexGrammar.createGrammar());
   }
 
 }

@@ -27,16 +27,16 @@ import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.resources.File;
 import org.sonar.api.resources.Project;
-import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.api.FlexMetric;
 
 import java.util.List;
 import java.util.Set;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * Visitor that computes {@link CoreMetrics#NCLOC_DATA_KEY} and {@link CoreMetrics#COMMENT_LINES_DATA_KEY} metrics used by the DevCockpit.
  */
-public class FileLinesVisitor extends SquidAstVisitor<FlexGrammar> implements AstAndTokenVisitor {
+public class FileLinesVisitor extends SquidAstVisitor<LexerlessGrammar> implements AstAndTokenVisitor {
 
   private final Project project;
   private final FileLinesContextFactory fileLinesContextFactory;

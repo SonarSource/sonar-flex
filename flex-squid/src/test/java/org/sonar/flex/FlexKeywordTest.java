@@ -33,7 +33,7 @@ public class FlexKeywordTest {
   public void test() {
     assertThat(g.rule(FlexGrammar.KEYWORDS))
       .notMatches("break2");
-    
+
     assertThat(g.rule(FlexGrammar.KEYWORDS))
       .matches("as")
       .matches("break")

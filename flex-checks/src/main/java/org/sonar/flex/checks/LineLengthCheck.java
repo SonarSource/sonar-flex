@@ -26,12 +26,12 @@ import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
-import org.sonar.flex.api.FlexGrammar;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "LineLength",
   priority = Priority.MINOR)
-public class LineLengthCheck extends SquidCheck<FlexGrammar> implements AstAndTokenVisitor {
+public class LineLengthCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
 
   private static final int DEFAULT_MAXIMUM_LINE_LENHGTH = 80;
 
@@ -56,6 +56,7 @@ public class LineLengthCheck extends SquidCheck<FlexGrammar> implements AstAndTo
     previousToken = null;
   }
 
+  @Override
   public void visitToken(Token token) {
     if (!token.isGeneratedCode()) {
       if (previousToken != null && previousToken.getLine() != token.getLine()) {

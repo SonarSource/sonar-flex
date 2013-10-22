@@ -25,15 +25,16 @@ import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
-import org.sonar.flex.api.FlexGrammar;
+import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.api.FlexMetric;
 import org.sonar.squid.api.SourceFunction;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "FunctionComplexity",
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
-public class FunctionComplexityCheck extends SquidCheck<FlexGrammar> {
+public class FunctionComplexityCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final int DEFAULT_MAXIMUM_FUNCTION_COMPLEXITY_THRESHOLD = 10;
 
@@ -44,7 +45,7 @@ public class FunctionComplexityCheck extends SquidCheck<FlexGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(getContext().getGrammar().methodDefinition, getContext().getGrammar().functionExpression);
+    subscribeTo(FlexGrammar.FUNCTION_DEF, FlexGrammar.FUNCTION_EXPR);
   }
 
   @Override

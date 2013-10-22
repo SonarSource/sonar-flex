@@ -20,30 +20,43 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.impl.ast.AstXmlPrinter;
 import com.sonar.sslr.squid.checks.SquidCheck;
+import java.util.List;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.flex.api.FlexGrammar;
-import org.sonar.flex.api.FlexPunctuator;
+import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.FlexKeyword;
+import org.sonar.flex.FlexPunctuator;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "SwitchWithoutDefault",
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
-public class SwitchWithoutDefaultCheck extends SquidCheck<FlexGrammar> {
+public class SwitchWithoutDefaultCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(getContext().getGrammar().switchStatement);
+    subscribeTo(FlexGrammar.SWITCH_STATEMENT);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    AstNode defaultClause = astNode.findFirstDirectChild(getContext().getGrammar().defaultClause);
-    if (defaultClause == null) {
+    AstNode defaultCaseElement = null;
+    for (AstNode caseElementNode : astNode.getChildren(FlexGrammar.CASE_ELEMENT)) {
+      for (AstNode caseLabelNode : caseElementNode.getChildren(FlexGrammar.CASE_LABEL)) {
+        if (caseLabelNode.getFirstChild().is(FlexKeyword.DEFAULT)) {
+          defaultCaseElement = caseElementNode;
+          break;
+        }
+      }
+    }
+
+    if (defaultCaseElement == null) {
       getContext().createLineViolation(this, "Avoid switch statement without a \"default\" clause.", astNode);
-    } else if (defaultClause.nextSibling().isNot(FlexPunctuator.RCURLY)) {
+    } else if (defaultCaseElement.getNextSibling().isNot(FlexPunctuator.RCURLYBRACE)) {
       getContext().createLineViolation(this, "\"default\" clause should be the last one.", astNode);
     }
   }

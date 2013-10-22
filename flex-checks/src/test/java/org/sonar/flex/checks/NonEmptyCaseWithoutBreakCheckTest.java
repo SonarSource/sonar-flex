@@ -34,8 +34,8 @@ public class NonEmptyCaseWithoutBreakCheckTest {
 
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/NonEmptyCaseWithoutBreak.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-        .next().atLine(15).withMessage("Last statement in this switch-clause should be an unconditional break.")
-        .next().atLine(17)
+        .next().atLine(16).withMessage("Last statement in this switch-clause should be an unconditional break.")
+        .next().atLine(18)
         .noMore();
   }
 

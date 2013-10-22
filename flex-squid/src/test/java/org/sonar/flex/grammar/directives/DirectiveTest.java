@@ -17,34 +17,40 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.parser.grammar.statements;
+package org.sonar.flex.grammar.directives;
 
-import com.google.common.base.Charsets;
-import com.sonar.sslr.impl.Parser;
-import org.junit.Before;
 import org.junit.Test;
-import org.sonar.flex.FlexConfiguration;
-import org.sonar.flex.api.FlexGrammar;
-import org.sonar.flex.parser.FlexParser;
+import org.sonar.flex.FlexGrammar;
+import org.sonar.sslr.parser.LexerlessGrammar;
+import org.sonar.sslr.tests.Assertions;
 
-import static org.sonar.sslr.tests.Assertions.assertThat;
+public class DirectiveTest {
 
-public class ExpressionStatementTest {
-
-  Parser<FlexGrammar> p = FlexParser.create(new FlexConfiguration(Charsets.UTF_8));
-  FlexGrammar g = p.getGrammar();
-
-  @Before
-  public void init() {
-    p.setRootRule(g.expressionStatement);
-  }
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void ok() {
-    g.expression.mock();
+  public void test() {
+    Assertions.assertThat(g.rule(FlexGrammar.DIRECTIVE))
+      .matches(";")
+      .matches("{}")
+      .matches("var a;")
+      .matches("default xml namespace = a")
 
-    assertThat(p)
-        .matches("expression;");
+      .matches("attribute var a;")
+      .notMatches("attribute \n var a;")
+      
+      .matches("include \"String\";")
+      .matches("include \"String\"")
+      
+      .matches("import a;")
+      .matches("import a")
+      
+      .matches("use namespace a;")
+      .matches("use namespace a")
+
+      .matches("public namespace ns = \"...\";")
+
+      .matches("CONFIG::debug { }");
   }
 
 }

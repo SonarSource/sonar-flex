@@ -25,9 +25,11 @@ import org.sonar.flex.FlexAstScanner;
 import org.sonar.squid.api.SourceFile;
 
 import java.io.File;
+import org.junit.Ignore;
 
 public class ActionScript2CheckTest {
 
+  @Ignore
   @Test
   public void test() {
     ActionScript2Check check = new ActionScript2Check();

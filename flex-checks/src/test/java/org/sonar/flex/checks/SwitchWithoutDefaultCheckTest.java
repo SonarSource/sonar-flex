@@ -34,8 +34,8 @@ public class SwitchWithoutDefaultCheckTest {
 
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/SwitchWithoutDefault.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-        .next().atLine(10).withMessage("Avoid switch statement without a \"default\" clause.")
-        .next().atLine(15).withMessage("\"default\" clause should be the last one.")
+        .next().atLine(11).withMessage("Avoid switch statement without a \"default\" clause.")
+        .next().atLine(16).withMessage("\"default\" clause should be the last one.")
         .noMore();
   }
 

@@ -24,17 +24,18 @@ import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.flex.api.FlexGrammar;
+import org.sonar.flex.FlexGrammar;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "WithStatement",
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
-public class WithStatementCheck extends SquidCheck<FlexGrammar> {
+public class WithStatementCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(getContext().getGrammar().withStatement);
+    subscribeTo(FlexGrammar.WITH_STATEMENT);
   }
 
   @Override

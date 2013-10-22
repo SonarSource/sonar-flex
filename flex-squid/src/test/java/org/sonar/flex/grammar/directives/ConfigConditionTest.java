@@ -17,38 +17,21 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.parser.grammar.expressions;
+package org.sonar.flex.grammar.directives;
 
-import com.google.common.base.Charsets;
-import com.sonar.sslr.impl.Parser;
-import org.junit.Before;
 import org.junit.Test;
-import org.sonar.flex.FlexConfiguration;
-import org.sonar.flex.api.FlexGrammar;
-import org.sonar.flex.parser.FlexParser;
+import org.sonar.flex.FlexGrammar;
+import org.sonar.sslr.parser.LexerlessGrammar;
+import org.sonar.sslr.tests.Assertions;
 
-import static org.sonar.sslr.tests.Assertions.assertThat;
+public class ConfigConditionTest {
 
-public class ExpressionTest {
-
-  Parser<FlexGrammar> p = FlexParser.create(new FlexConfiguration(Charsets.UTF_8));
-  FlexGrammar g = p.getGrammar();
-
-  @Before
-  public void init() {
-    p.setRootRule(g.expression);
-  }
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void realLife() {
-    assertThat(p)
-        .matches("2 > 1")
-        .matches("(2 + 3) * 4")
-        .matches("value != null")
-        .matches("a > b ? a : b")
-        .matches("new DefaultLogger(name)")
-        .matches("new Vector.<String>()")
-        .matches("new <int>[0]");
+  public void test() {
+    Assertions.assertThat(g.rule(FlexGrammar.CONFIG_CONDITION))
+      .matches("CONFIG::debug { }");
   }
 
 }

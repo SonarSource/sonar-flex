@@ -20,13 +20,15 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.impl.ast.AstXmlPrinter;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
-import org.sonar.flex.api.FlexGrammar;
-import org.sonar.flex.api.FlexKeyword;
+import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.FlexKeyword;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**
  * Note that implementation differs from AbstractNestedIfCheck - see SONARPLUGINS-1855 and SONARPLUGINS-2178
@@ -35,7 +37,7 @@ import org.sonar.flex.api.FlexKeyword;
   key = "NestedIfDepth",
   priority = Priority.MINOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MINOR)
-public class NestedIfDepthCheck extends SquidCheck<FlexGrammar> {
+public class NestedIfDepthCheck extends SquidCheck<LexerlessGrammar> {
 
   private int nestingLevel;
 
@@ -52,7 +54,7 @@ public class NestedIfDepthCheck extends SquidCheck<FlexGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(getContext().getGrammar().ifStatement);
+    subscribeTo(FlexGrammar.IF_STATEMENT);
   }
 
   @Override
@@ -80,8 +82,8 @@ public class NestedIfDepthCheck extends SquidCheck<FlexGrammar> {
   }
 
   private boolean isElseIf(AstNode astNode) {
-    return astNode.getParent().previousSibling() != null
-        && astNode.getParent().previousSibling().is(FlexKeyword.ELSE);
+    return astNode.getParent().getParent().getPreviousSibling() != null
+        && astNode.getParent().getParent().getPreviousSibling().is(FlexKeyword.ELSE);
   }
 
 }

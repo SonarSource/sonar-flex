@@ -34,7 +34,7 @@ public class ParsingErrorCheckTest {
   public void test() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ParsingError.as"), new ParsingErrorCheck());
     CheckMessagesVerifier.verify(file.getCheckMessages())
-        .next().atLine(1).withMessageThat(containsString("IDENTIFIER expected but \"EOF\" [EOF] found"))
+        .next().atLine(1).withMessageThat(containsString("Parse error at line 1 column 8"))
         .noMore();
   }
 

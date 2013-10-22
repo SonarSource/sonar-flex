@@ -42,7 +42,6 @@ import org.sonar.api.rules.Violation;
 import org.sonar.flex.FlexAstScanner;
 import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.FlexSquidPackage;
-import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.api.FlexMetric;
 import org.sonar.flex.checks.CheckList;
 import org.sonar.flex.metrics.FileLinesVisitor;
@@ -58,6 +57,7 @@ import org.sonar.squid.indexer.QueryByType;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 public class FlexSquidSensor implements Sensor {
 
@@ -70,7 +70,7 @@ public class FlexSquidSensor implements Sensor {
 
   private Project project;
   private SensorContext context;
-  private AstScanner<FlexGrammar> scanner;
+  private AstScanner<LexerlessGrammar> scanner;
 
   public FlexSquidSensor(RulesProfile profile, FlexResourceBridge resourceBridge, FileLinesContextFactory fileLinesContextFactory) {
     this.annotationCheckFactory = AnnotationCheckFactory.create(profile, CheckList.REPOSITORY_KEY, CheckList.getChecks());
@@ -92,8 +92,8 @@ public class FlexSquidSensor implements Sensor {
     this.project = project;
     this.context = context;
 
-    Collection<SquidAstVisitor<FlexGrammar>> squidChecks = annotationCheckFactory.getChecks();
-    List<SquidAstVisitor<FlexGrammar>> visitors = Lists.newArrayList(squidChecks);
+    Collection<SquidAstVisitor<LexerlessGrammar>> squidChecks = annotationCheckFactory.getChecks();
+    List<SquidAstVisitor<LexerlessGrammar>> visitors = Lists.newArrayList(squidChecks);
     visitors.add(new FileLinesVisitor(project, fileLinesContextFactory));
     this.scanner = FlexAstScanner.create(createConfiguration(project), visitors.toArray(new SquidAstVisitor[visitors.size()]));
     Collection<java.io.File> files = InputFileUtils.toFiles(project.getFileSystem().mainFiles(Flex.KEY));

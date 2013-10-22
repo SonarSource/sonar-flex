@@ -128,5 +128,4 @@ public class FlexSquidSensorTest {
     sensor.analyse(project, context);
     verify(context, times(2)).saveMeasure(Mockito.any(Directory.class), Mockito.eq(CoreMetrics.PACKAGES), Mockito.eq(1.0));
   }
-
 }

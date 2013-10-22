@@ -21,59 +21,63 @@ package org.sonar.flex.checks;
 
 import com.google.common.collect.ImmutableSet;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.impl.Lexer;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.flex.api.FlexGrammar;
 
 import java.util.Set;
+import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.FlexKeyword;
+import org.sonar.flex.FlexPunctuator;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "ActionScript2",
   priority = Priority.BLOCKER)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.BLOCKER)
-public class ActionScript2Check extends SquidCheck<FlexGrammar> {
+public class ActionScript2Check extends SquidCheck<LexerlessGrammar> {
 
-  private final Set<String> deprecatedOperators = ImmutableSet.of("or", "and", "ne", "eq", "ge", "gt", "le", "lt", "add", "<>");
-
-  @Override
-  public void init() {
-    FlexGrammar grammar = getContext().getGrammar();
-    subscribeTo(
-        grammar.setVariableStatement,
-        grammar.unaryExpression,
-        grammar.modifier,
-        grammar.logicalOrOperator,
-        grammar.logicalAndOperator,
-        grammar.equalityOperator,
-        grammar.relationalOperator,
-        grammar.additiveOperator);
-  }
-
-  @Override
-  public void visitNode(AstNode astNode) {
-    FlexGrammar grammar = getContext().getGrammar();
-    if (astNode.is(grammar.setVariableStatement)) {
-      getContext().createLineViolation(this, "'set variable statement' not available in ActionScript 3.0", astNode);
-    } else if (astNode.is(grammar.modifier) && "intrinsic".equals(astNode.getTokenValue())) {
-      getContext().createLineViolation(this, "'intrinsic' not available in ActionScript 3.0", astNode);
-    } else if (astNode.is(grammar.unaryExpression) && "not".equals(astNode.getFirstChild().getTokenValue())) {
-      getContext().createLineViolation(this, "Operator 'not' not available in ActionScript 3.0", astNode.getFirstChild());
-    } else {
-      String operator = getValue(astNode);
-      if (deprecatedOperators.contains(operator)) {
-        getContext().createLineViolation(this, "Operator '" + operator + "' not available in ActionScript 3.0", astNode);
-      }
-    }
-  }
-
-  private String getValue(AstNode astNode) {
-    StringBuilder sb = new StringBuilder();
-    for (AstNode child : astNode.getChildren()) {
-      sb.append(child.getTokenValue());
-    }
-    return sb.toString();
-  }
+//  private final Set<String> deprecatedOperators = ImmutableSet.of("or", "and", "ne", "eq", "ge", "gt", "le", "lt", "add", "<>");
+//
+//  @Override
+//  public void init() {
+//    FlexGrammar grammar = getContext().getGrammar();
+//    subscribeTo(
+//        grammar.setVariableStatement,
+//        grammar.unaryExpression,
+//        grammar.modifier,
+//        grammar.logicalOrOperator,
+//        grammar.logicalAndOperator,
+//        grammar.equalityOperator,
+//        grammar.relationalOperator,
+//        grammar.additiveOperator);
+//  }
+//
+//  @Override
+//  public void visitNode(AstNode astNode) {
+//    FlexGrammar grammar = getContext().getGrammar();
+//    if (astNode.is(grammar.setVariableStatement)) {
+//      getContext().createLineViolation(this, "'set variable statement' not available in ActionScript 3.0", astNode);
+//    } else if (astNode.is(grammar.modifier) && "intrinsic".equals(astNode.getTokenValue())) {
+//      getContext().createLineViolation(this, "'intrinsic' not available in ActionScript 3.0", astNode);
+//    } else if (astNode.is(grammar.unaryExpression) && "not".equals(astNode.getFirstChild().getTokenValue())) {
+//      getContext().createLineViolation(this, "Operator 'not' not available in ActionScript 3.0", astNode.getFirstChild());
+//    } else {
+//      String operator = getValue(astNode);
+//      if (deprecatedOperators.contains(operator)) {
+//        getContext().createLineViolation(this, "Operator '" + operator + "' not available in ActionScript 3.0", astNode);
+//      }
+//    }
+//  }
+//
+//  private String getValue(AstNode astNode) {
+//    StringBuilder sb = new StringBuilder();
+//    for (AstNode child : astNode.getChildren()) {
+//      sb.append(child.getTokenValue());
+//    }
+//    return sb.toString();
+//  }
 
 }

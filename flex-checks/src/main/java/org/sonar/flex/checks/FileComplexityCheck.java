@@ -26,15 +26,15 @@ import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
-import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.api.FlexMetric;
 import org.sonar.squid.api.SourceFile;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "FileComplexity",
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
-public class FileComplexityCheck extends SquidCheck<FlexGrammar> {
+public class FileComplexityCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final int DEFAULT_MAXIMUM_FILE_COMPLEXITY_THRESHOLD = 80;
 

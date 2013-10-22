@@ -20,30 +20,36 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.squid.checks.AbstractOneStatementPerLineCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.flex.api.FlexGrammar;
+import org.sonar.flex.FlexGrammar;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "OneStatementPerLine",
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
-public class OneStatementPerLineCheck extends AbstractOneStatementPerLineCheck<FlexGrammar> {
+public class OneStatementPerLineCheck extends AbstractOneStatementPerLineCheck<LexerlessGrammar> {
 
   @Override
-  public com.sonar.sslr.api.Rule getStatementRule() {
-    return getContext().getGrammar().statement;
+  public void init() {
+    subscribeTo(FlexGrammar.STATEMENT);
+  }
+
+  @Override
+  public AstNodeType getStatementRule() {
+    return null;
   }
 
   @Override
   public boolean isExcluded(AstNode astNode) {
-    FlexGrammar g = getContext().getGrammar();
     AstNode statementNode = astNode.getChild(0);
-    return statementNode.is(g.block)
-        || statementNode.is(g.emptyStatement)
-        || statementNode.is(g.labelledStatement);
+    return statementNode.is(FlexGrammar.BLOCK)
+        || statementNode.is(FlexGrammar.EMPTY_STATEMENT)
+        || statementNode.is(FlexGrammar.LABELED_STATEMENT);
   }
 
 }

@@ -93,6 +93,16 @@ public enum FlexKeyword implements GrammarRuleKey {
     this.syntactic = syntactic;
   }
 
+  public static String[] keywordValues() {
+    String[] keywordsValue = new String[FlexKeyword.values().length];
+    int i = 0;
+    for (FlexKeyword keyword : FlexKeyword.values()) {
+      keywordsValue[i] = keyword.getValue();
+      i++;
+    }
+    return keywordsValue;
+  }
+
   public static List<FlexKeyword> keywords() {
     ImmutableList.Builder<FlexKeyword> keywords = ImmutableList.builder();
     for (FlexKeyword keyword : values()) {

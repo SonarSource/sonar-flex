@@ -26,15 +26,15 @@ import com.sonar.sslr.api.CommentAnalyser;
 import com.sonar.sslr.impl.Parser;
 import com.sonar.sslr.squid.*;
 import com.sonar.sslr.squid.metrics.*;
-import org.sonar.flex.api.FlexGrammar;
 import org.sonar.flex.api.FlexMetric;
-import org.sonar.flex.api.FlexPunctuator;
 import org.sonar.flex.parser.FlexParser;
 import org.sonar.squid.api.*;
 import org.sonar.squid.indexer.QueryByType;
 
 import java.io.File;
 import java.util.Collection;
+import static org.sonar.flex.FlexGrammar.PACKAGE_NAME;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 public final class FlexAstScanner {
 
@@ -44,11 +44,11 @@ public final class FlexAstScanner {
   /**
    * Helper method for testing checks without having to deploy them on a Sonar instance.
    */
-  public static SourceFile scanSingleFile(File file, SquidAstVisitor<FlexGrammar>... visitors) {
+  public static SourceFile scanSingleFile(File file, SquidAstVisitor<LexerlessGrammar>... visitors) {
     if (!file.isFile()) {
       throw new IllegalArgumentException("File '" + file + "' not found.");
     }
-    AstScanner<FlexGrammar> scanner = create(new FlexConfiguration(Charsets.UTF_8), visitors);
+    AstScanner<LexerlessGrammar> scanner = create(new FlexConfiguration(Charsets.UTF_8), visitors);
     scanner.scanFile(file);
     Collection<SourceCode> sources = scanner.getIndex().search(new QueryByType(SourceFile.class));
     if (sources.size() != 1) {
@@ -57,11 +57,11 @@ public final class FlexAstScanner {
     return (SourceFile) sources.iterator().next();
   }
 
-  public static AstScanner<FlexGrammar> create(FlexConfiguration conf, SquidAstVisitor<FlexGrammar>... visitors) {
-    final SquidAstVisitorContextImpl<FlexGrammar> context = new SquidAstVisitorContextImpl<FlexGrammar>(new SourceProject("Flex Project"));
-    final Parser<FlexGrammar> parser = FlexParser.create(conf);
+  public static AstScanner<LexerlessGrammar> create(FlexConfiguration conf, SquidAstVisitor<LexerlessGrammar>... visitors) {
+    final SquidAstVisitorContextImpl<LexerlessGrammar> context = new SquidAstVisitorContextImpl<LexerlessGrammar>(new SourceProject("Flex Project"));
+    final Parser<LexerlessGrammar> parser = FlexParser.create(conf);
 
-    AstScanner.Builder<FlexGrammar> builder = AstScanner.<FlexGrammar> builder(context).setBaseParser(parser);
+    AstScanner.Builder<LexerlessGrammar> builder = AstScanner.<LexerlessGrammar> builder(context).setBaseParser(parser);
 
     /* Metrics */
     builder.withMetrics(FlexMetric.values());
@@ -89,11 +89,11 @@ public final class FlexAstScanner {
     builder.setFilesMetric(FlexMetric.FILES);
 
     /* Packages */
-    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<FlexGrammar>(new SourceCodeBuilderCallback() {
+    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<LexerlessGrammar>(new SourceCodeBuilderCallback() {
       public SourceCode createSourceCode(SourceCode parentSourceCode, AstNode astNode) {
-        AstNode packageNameNode = astNode.getChild(1);
+        AstNode packageNameNode = astNode.getFirstChild(FlexGrammar.PACKAGE_NAME);
         final String packageName;
-        if (packageNameNode.is(parser.getGrammar().identifier)) {
+        if (packageNameNode != null) {
           StringBuilder sb = new StringBuilder();
           for (AstNode part : packageNameNode.getChildren()) {
             sb.append(part.getTokenValue());
@@ -104,98 +104,99 @@ public final class FlexAstScanner {
         }
         return new FlexSquidPackage(packageName);
       }
-    }, parser.getGrammar().packageDecl));
+    }, FlexGrammar.PACKAGE_DEF));
 
     /* Classes */
-    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<FlexGrammar>(new SourceCodeBuilderCallback() {
+    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<LexerlessGrammar>(new SourceCodeBuilderCallback() {
+      private int seq = 0;
+      @Override
       public SourceCode createSourceCode(SourceCode parentSourceCode, AstNode astNode) {
-        String className = astNode.getChild(1).getTokenValue();
-        SourceClass cls = new SourceClass(className + ":" + astNode.getToken().getLine());
+        seq++;
+        SourceClass cls = new SourceClass("class:" + seq);
         cls.setStartAtLine(astNode.getTokenLine());
         return cls;
       }
-    }, parser.getGrammar().classDefinition, parser.getGrammar().interfaceDefinition));
+    }, FlexGrammar.CLASS_DEF, FlexGrammar.INTERFACE_DEF));
 
-    builder.withSquidAstVisitor(CounterVisitor.<FlexGrammar> builder()
+    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar> builder()
         .setMetricDef(FlexMetric.CLASSES)
-        .subscribeTo(parser.getGrammar().classDefinition, parser.getGrammar().interfaceDefinition)
+        .subscribeTo(FlexGrammar.CLASS_DEF, FlexGrammar.INTERFACE_DEF)
         .build());
 
     /* Functions */
-    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<FlexGrammar>(new SourceCodeBuilderCallback() {
+    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<LexerlessGrammar>(new SourceCodeBuilderCallback() {
+      private int seq = 0;
+
+      @Override
       public SourceCode createSourceCode(SourceCode parentSourceCode, AstNode astNode) {
-        String functionName = astNode.getChild(1).getTokenValue();
-        SourceFunction function = new SourceFunction(functionName + ":" + astNode.getToken().getLine());
+        seq++;
+        SourceFunction function = new SourceFunction("function:" + seq);
         function.setStartAtLine(astNode.getTokenLine());
         return function;
       }
-    }, parser.getGrammar().methodDefinition, parser.getGrammar().functionExpression));
+    }, FlexGrammar.FUNCTION_DEF, FlexGrammar.FUNCTION_EXPR));
 
-    builder.withSquidAstVisitor(CounterVisitor.<FlexGrammar> builder()
+    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar> builder()
         .setMetricDef(FlexMetric.FUNCTIONS)
-        .subscribeTo(parser.getGrammar().methodDefinition, parser.getGrammar().functionExpression)
+        .subscribeTo(FlexGrammar.FUNCTION_DEF, FlexGrammar.FUNCTION_EXPR)
         .build());
 
     /* Metrics */
-    builder.withSquidAstVisitor(new LinesVisitor<FlexGrammar>(FlexMetric.LINES));
-    builder.withSquidAstVisitor(new LinesOfCodeVisitor<FlexGrammar>(FlexMetric.LINES_OF_CODE));
-    builder.withSquidAstVisitor(CommentsVisitor.<FlexGrammar> builder().withCommentMetric(FlexMetric.COMMENT_LINES)
-        .withBlankCommentMetric(FlexMetric.COMMENT_BLANK_LINES)
+    builder.withSquidAstVisitor(new LinesVisitor<LexerlessGrammar>(FlexMetric.LINES));
+    builder.withSquidAstVisitor(new LinesOfCodeVisitor<LexerlessGrammar>(FlexMetric.LINES_OF_CODE));
+    builder.withSquidAstVisitor(CommentsVisitor.<LexerlessGrammar> builder().withCommentMetric(FlexMetric.COMMENT_LINES)
         .withNoSonar(true)
         .withIgnoreHeaderComment(conf.getIgnoreHeaderComments())
         .build());
-    builder.withSquidAstVisitor(CounterVisitor.<FlexGrammar> builder()
+    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar> builder()
         .setMetricDef(FlexMetric.STATEMENTS)
         .subscribeTo(
-            parser.getGrammar().defaultXmlNamespaceStatement,
-            parser.getGrammar().declarationStatement,
-            parser.getGrammar().expressionStatement,
-            parser.getGrammar().ifStatement,
-            parser.getGrammar().forEachStatement,
-            parser.getGrammar().forStatement,
-            parser.getGrammar().whileStatement,
-            parser.getGrammar().doWhileStatement,
-            parser.getGrammar().withStatement,
-            parser.getGrammar().switchStatement,
-            parser.getGrammar().breakStatement,
-            parser.getGrammar().continueStatement,
-            parser.getGrammar().returnStatement,
-            parser.getGrammar().throwStatement,
-            parser.getGrammar().tryStatement,
-            parser.getGrammar().setVariableStatement,
-            parser.getGrammar().emptyStatement)
+          FlexGrammar.DEFAULT_XML_NAMESPACE_DIRECTIVE,
+          FlexGrammar.VARIABLE_DECLARATION_STATEMENT,
+          FlexGrammar.EXPRESSION_STATEMENT,
+          FlexGrammar.IF_STATEMENT,
+          FlexGrammar.FOR_STATEMENT,
+          FlexGrammar.WHILE_STATEMENT,
+          FlexGrammar.DO_STATEMENT,
+          FlexGrammar.WITH_STATEMENT,
+          FlexGrammar.SWITCH_STATEMENT,
+          FlexGrammar.BREAK_STATEMENT,
+          FlexGrammar.CONTINUE_STATEMENT,
+          FlexGrammar.RETURN_STATEMENT,
+          FlexGrammar.THROW_STATEMENT,
+          FlexGrammar.TRY_STATEMENT,
+          // TODO parser.getGrammar().setVariableStatement,
+           FlexGrammar.EMPTY_STATEMENT)
         .build());
 
     AstNodeType[] complexityAstNodeType = new AstNodeType[] {
       // Entry points
-      parser.getGrammar().methodDefinition,
-      parser.getGrammar().functionExpression,
+      FlexGrammar.FUNCTION_DEF,
+      FlexGrammar.FUNCTION_EXPR,
 
       // Branching nodes
-      parser.getGrammar().ifStatement,
-      parser.getGrammar().forStatement,
-      parser.getGrammar().forEachStatement,
-      parser.getGrammar().whileStatement,
-      parser.getGrammar().doWhileStatement,
-      parser.getGrammar().switchStatement,
-      parser.getGrammar().caseClause,
-      parser.getGrammar().defaultClause,
-      parser.getGrammar().catchBlock,
-      parser.getGrammar().returnStatement,
-      parser.getGrammar().throwStatement,
+      FlexGrammar.IF_STATEMENT,
+      FlexGrammar.FOR_STATEMENT,
+      FlexGrammar.WHILE_STATEMENT,
+      FlexGrammar.DO_STATEMENT,
+      FlexGrammar.SWITCH_STATEMENT,
+      FlexGrammar.CASE_LABEL,
+      FlexGrammar.CATCH_CLAUSE,
+      FlexGrammar.RETURN_STATEMENT,
+      FlexGrammar.THROW_STATEMENT,
 
       // Expressions
-      FlexPunctuator.QUESTION,
-      FlexPunctuator.LAND,
-      FlexPunctuator.LOR
+      FlexPunctuator.QUERY,
+      FlexPunctuator.ANDAND,
+      FlexPunctuator.OROR
     };
-    builder.withSquidAstVisitor(ComplexityVisitor.<FlexGrammar> builder()
+    builder.withSquidAstVisitor(ComplexityVisitor.<LexerlessGrammar> builder()
         .setMetricDef(FlexMetric.COMPLEXITY)
         .subscribeTo(complexityAstNodeType)
         .build());
 
     /* External visitors (typically Check ones) */
-    for (SquidAstVisitor<FlexGrammar> visitor : visitors) {
+    for (SquidAstVisitor<LexerlessGrammar> visitor : visitors) {
       builder.withSquidAstVisitor(visitor);
     }
 

@@ -27,18 +27,18 @@ import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.flex.api.FlexGrammar;
-import org.sonar.flex.api.FlexKeyword;
 import org.sonar.squid.recognizer.*;
+import org.sonar.flex.FlexKeyword;
 
 import java.util.Set;
 import java.util.regex.Pattern;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "CommentedCode",
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
-public class CommentedCodeCheck extends SquidCheck<FlexGrammar> implements AstAndTokenVisitor {
+public class CommentedCodeCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
 
   private static final double THRESHOLD = 0.9;
 

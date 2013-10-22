@@ -19,30 +19,31 @@
  */
 package org.sonar.flex.checks;
 
+import com.google.common.collect.Iterables;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.flex.api.FlexGrammar;
+import org.sonar.flex.FlexGrammar;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "NonEmptyCaseWithoutBreak",
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
-public class NonEmptyCaseWithoutBreakCheck extends SquidCheck<FlexGrammar> {
+public class NonEmptyCaseWithoutBreakCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(getContext().getGrammar().caseClause, getContext().getGrammar().defaultClause);
+    subscribeTo(FlexGrammar.CASE_ELEMENT);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    FlexGrammar grammar = getContext().getGrammar();
     AstNode lastAstNode = astNode.getLastChild();
-    if (lastAstNode.is(grammar.statement) && lastAstNode.getFirstChild().isNot(grammar.breakStatement, grammar.returnStatement, grammar.throwStatement)) {
-      getContext().createLineViolation(this, "Last statement in this switch-clause should be an unconditional break.", astNode);
+    if (lastAstNode.getFirstChild().is(FlexGrammar.STATEMENT) && lastAstNode.getFirstChild().getFirstChild().isNot(FlexGrammar.BREAK_STATEMENT, FlexGrammar.RETURN_STATEMENT, FlexGrammar.THROW_STATEMENT)) {
+      getContext().createLineViolation(this, "Last statement in this switch-clause should be an unconditional break.", Iterables.getLast(astNode.getChildren(FlexGrammar.CASE_LABEL)));
     }
   }
 

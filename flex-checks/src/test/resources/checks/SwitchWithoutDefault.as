@@ -3,6 +3,7 @@ function foo() {
   switch (param) {
     case 0:
       break;
+    case 1:
     default: // OK
       break;
   }

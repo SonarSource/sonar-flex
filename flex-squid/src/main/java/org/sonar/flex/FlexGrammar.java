@@ -792,9 +792,9 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(FUNCTION_SIGNATURE).is(b.sequence(LPARENTHESIS, b.optional(PARAMETERS), RPARENTHESIS, RESULT_TYPE));
 
     b.rule(PARAMETERS).is(b.firstOf(
-      b.sequence(PARAMETER, COMMA, PARAMETERS),
-      PARAMETER,
-      REST_PARAMETERS));
+      b.sequence(PARAMETER, b.zeroOrMore(COMMA, PARAMETER), b.optional(COMMA, REST_PARAMETERS)),
+      REST_PARAMETERS
+    ));
 
     b.rule(PARAMETER).is(b.firstOf(
       b.sequence(TYPED_IDENTIFIER, EQUAL1, ASSIGNMENT_EXPR),

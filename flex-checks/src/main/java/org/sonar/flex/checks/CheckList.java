@@ -48,6 +48,7 @@ public final class CheckList {
         NonEmptyCaseWithoutBreakCheck.class,
         FunctionSinglePointOfExitCheck.class,
         ActionScript2Check.class,
+        FunctionWithTooManyParametersCheck.class,
         ParsingErrorCheck.class);
   }
 

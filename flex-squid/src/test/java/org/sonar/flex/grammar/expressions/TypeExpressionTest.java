@@ -29,15 +29,15 @@ public class TypeExpressionTest {
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
   
   @Test
-  public void typeExpression() {
+  public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.TYPE_EXPR))
-      .matches("void")
+      .matches("*")
       .matches("String")
       .matches("int")
-      .matches("*")
       .matches("foo.bar")
-      .matches("Vector.<Clock>")
-      .matches("foo.bar.Vector.<T>");
+      .matches("Vector.<String>")
+      .matches("foo.bar.Vector.<String>")
+      .matches("Vector.<*>");
     }
 
 }

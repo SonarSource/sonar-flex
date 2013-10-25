@@ -227,6 +227,8 @@ public enum FlexGrammar implements GrammarRuleKey {
   // Type expression
   TYPE_EXPR,
   TYPE_EXPR_NO_IN,
+  TYPE_APPLICATION,
+  VECTOR_LITERAL_EXPRESSION,
   // XML Initialiser
   XML_INITIALISER,
   XML_MARKUP,
@@ -543,14 +545,14 @@ public enum FlexGrammar implements GrammarRuleKey {
     );
 
     // New expressions
-    b.rule(FULL_NEW_EXPR).is(NEW, FULL_NEW_SUB_EXPR, ARGUMENTS);
+    b.rule(FULL_NEW_EXPR).is(NEW, b.firstOf(FULL_NEW_SUB_EXPR, VECTOR_LITERAL_EXPRESSION), ARGUMENTS);
     b.rule(FULL_NEW_SUB_EXPR).is(b.firstOf(
       PRIMARY_EXPR,
       b.sequence(FULL_NEW_EXPR, PROPERTY_OPERATOR),
       FULL_NEW_EXPR,
       b.sequence(SUPER_EXPR, PROPERTY_OPERATOR)));
 
-    b.rule(SHORT_NEW_EXPR).is(NEW, SHORT_NEW_SUB_EXPR);
+    b.rule(SHORT_NEW_EXPR).is(NEW, b.firstOf(SHORT_NEW_SUB_EXPR, VECTOR_LITERAL_EXPRESSION));
     b.rule(SHORT_NEW_SUB_EXPR).is(b.firstOf(
       FULL_NEW_SUB_EXPR,
       SHORT_NEW_EXPR));
@@ -559,7 +561,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(PROPERTY_OPERATOR).is(b.firstOf(
       b.sequence(DOT, QUALIFIED_IDENTIFIER),
       // not in specs:
-      b.sequence(DOT, LT, TYPE_EXPRESSION_LIST, GT),
+      TYPE_APPLICATION,
       BRACKETS));
     b.rule(BRACKETS).is(LBRAKET, LIST_EXPRESSION, RBRAKET);
 
@@ -618,15 +620,14 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(LIST_EXPRESSION_NO_IN).is(ASSIGNMENT_EXPR_NO_IN, b.zeroOrMore(b.sequence(COMMA, ASSIGNMENT_EXPR_NO_IN)));
 
     b.rule(TYPE_EXPR).is(b.firstOf(
-      /* not in specs: */ VOID,
-      //NON_ASSIGNMENT_EXPR
-      POSTFIX_EXPR
+      STAR,
+      b.sequence(/* Godin: not sure about QUALIFIED_IDENTIFIER, but it works: */QUALIFIED_IDENTIFIER, b.zeroOrMore(DOT, QUALIFIED_IDENTIFIER), b.optional(TYPE_APPLICATION))
     ));
-    b.rule(TYPE_EXPR_NO_IN).is(b.firstOf(
-      /* not in specs: */ VOID,
-      //NON_ASSIGNMENT_EXPR_NO_IN
-      POSTFIX_EXPR
-    ));
+    b.rule(TYPE_APPLICATION).is(DOT, LT, TYPE_EXPRESSION_LIST, GT);
+    // TODO try to remove:
+    b.rule(TYPE_EXPR_NO_IN).is(TYPE_EXPR);
+
+    b.rule(VECTOR_LITERAL_EXPRESSION).is(LT, TYPE_EXPR, GT, BRACKETS);
   }
 
   private static void statements(LexerlessGrammarBuilder b) {
@@ -801,14 +802,11 @@ public enum FlexGrammar implements GrammarRuleKey {
       TYPED_IDENTIFIER));
 
     b.rule(REST_PARAMETERS).is(b.firstOf(
-      // Not in specification
-      // public function sendCritical(...args:Array):void {
       b.sequence(TRIPLE_DOTS, TYPED_IDENTIFIER),
       b.sequence(TRIPLE_DOTS, IDENTIFIER),
       TRIPLE_DOTS));
 
-    // TODO WTF in specs? other grammars don't use type_expr
-    b.rule(RESULT_TYPE).is(b.optional(COLON, TYPE_EXPR));
+    b.rule(RESULT_TYPE).is(b.optional(COLON, b.firstOf(VOID, TYPE_EXPR)));
 
     b.rule(CLASS_DEF).is(CLASS, CLASS_NAME, b.optional(INHERITENCE), BLOCK);
     b.rule(CLASS_NAME).is(CLASS_IDENTIFIERS);

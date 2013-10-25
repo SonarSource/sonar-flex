@@ -32,6 +32,8 @@ public class RestParameterTest {
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.REST_PARAMETERS))
       .matches("...")
-      .matches("... a");
+      .matches("... param")
+      .matches("... param:Array");
   }
+
 }

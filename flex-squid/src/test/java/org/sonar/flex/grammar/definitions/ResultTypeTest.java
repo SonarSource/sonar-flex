@@ -24,15 +24,15 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class FunctionSignatureTest {
+public class ResultTypeTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
   public void test() {
-    Assertions.assertThat(g.rule(FlexGrammar.FUNCTION_SIGNATURE))
-      .matches("( ) : resultType")
-      .matches("(param1, param2) : resultType");
+    Assertions.assertThat(g.rule(FlexGrammar.RESULT_TYPE))
+      .matches(": void")
+      .matches(": int");
   }
 
 }

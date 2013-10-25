@@ -31,12 +31,14 @@ public class FullNewExpressionTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.FULL_NEW_EXPR))
-      .matches("new a ()")
+      .matches("new a()")
       
-      .matches("new new a () ()")
-      .matches("new new a().b ()")
+      .matches("new new a()()")
+      .matches("new new a().b()")
       
-      .matches("new  super.b ()");
+      .matches("new super.b()")
+
+      .matches("new <int>[1]()");
   }
 
 }

@@ -84,7 +84,6 @@ public class FlexAstScannerTest {
     assertThat(file.getInt(FlexMetric.CLASSES)).isEqualTo(2);
   }
 
-  @Ignore
   @Test
   public void packages() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/metrics/packages.as"));

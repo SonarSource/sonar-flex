@@ -52,14 +52,13 @@ public class ConstantNameCheck extends SquidCheck<LexerlessGrammar> {
     if (astNode.getFirstChild(FlexGrammar.VARIABLE_DEF_KIND).getFirstChild(FlexKeyword.CONST) != null) {
 
       for (AstNode variableBindingNode : astNode.getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST).getChildren(FlexGrammar.VARIABLE_BINDING)) {
-        String identifier = variableBindingNode
+        AstNode identifierNode = variableBindingNode
           .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
-          .getFirstChild(FlexGrammar.IDENTIFIER)
-          .getTokenValue();
+          .getFirstChild(FlexGrammar.IDENTIFIER);
 
-        if (!identifier.matches(format)) {
+        if (!identifierNode.getTokenValue().matches(format)) {
           getContext().createLineViolation(this, "Rename this constant name to match the regular expression {0}",
-            astNode, format);
+            identifierNode, format);
         }
 
       }

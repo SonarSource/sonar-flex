@@ -34,8 +34,8 @@ public class ConstantNameCheckTest {
   public void defaults(){
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ConstantName.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(3).withMessage("Rename this constant name to match the regular expression ^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$")
-      .next().atLine(3).withMessage("Rename this constant name to match the regular expression ^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$")
+      .next().atLine(3).withMessage("Rename this constant name to match the regular expression " + check.format)
+      .next().atLine(3).withMessage("Rename this constant name to match the regular expression " + check.format)
       .noMore();
   }
 

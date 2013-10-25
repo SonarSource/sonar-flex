@@ -38,7 +38,7 @@ public class ConstantNameCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final String DEFAULT = "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$";
   @RuleProperty(
-    key = "max",
+    key = "format",
     defaultValue = DEFAULT)
    String format = DEFAULT;
 

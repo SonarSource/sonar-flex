@@ -50,6 +50,7 @@ public final class CheckList {
         ActionScript2Check.class,
         FunctionWithTooManyParametersCheck.class,
         ConstantNameCheck.class,
+        FieldNameCheck.class,
         ParsingErrorCheck.class);
   }
 

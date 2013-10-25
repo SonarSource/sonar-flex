@@ -49,6 +49,7 @@ public final class CheckList {
         FunctionSinglePointOfExitCheck.class,
         ActionScript2Check.class,
         FunctionWithTooManyParametersCheck.class,
+        ConstantNameCheck.class,
         ParsingErrorCheck.class);
   }
 

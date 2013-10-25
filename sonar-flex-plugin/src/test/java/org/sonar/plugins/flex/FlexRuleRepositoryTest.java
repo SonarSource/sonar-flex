@@ -34,7 +34,7 @@ public class FlexRuleRepositoryTest {
   public void test() {
     FlexRuleRepository ruleRepository = new FlexRuleRepository(new AnnotationRuleParser());
     assertThat(ruleRepository.getKey()).isEqualTo("flex");
-    assertThat(ruleRepository.getName()).isEqualTo("Sonar");
+    assertThat(ruleRepository.getName()).isEqualTo("SonarQube");
     List<Rule> rules = ruleRepository.createRules();
     assertThat(rules.size()).isEqualTo(CheckList.getChecks().size());
   }

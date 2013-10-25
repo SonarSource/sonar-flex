@@ -29,7 +29,7 @@ import java.util.List;
 
 public class FlexRuleRepository extends RuleRepository {
 
-  private static final String REPOSITORY_NAME = "Sonar";
+  private static final String REPOSITORY_NAME = "SonarQube";
 
   private final AnnotationRuleParser annotationRuleParser;
 

@@ -143,9 +143,6 @@ public enum FlexGrammar implements GrammarRuleKey {
   EOS,
   EOS_NO_LB,
 
-  INLINE_COMMENT,
-  MULTILINE_COMMENT,
-
   STRING,
   NUMBER,
   DECIMAL,
@@ -366,36 +363,40 @@ public enum FlexGrammar implements GrammarRuleKey {
       "|\\." + DECIMAL_DIGITS_REGEXP + EXPONENT_PART_REGEXP +
       "|" + DECIMAL_INTEGER_REGEXP + EXPONENT_PART_REGEXP;
 
+  private static final String SINGLE_LINE_COMMENT_REGEXP = "//[^\\n\\r]*+";
+
+  private static final String MULTI_LINE_COMMENT_REGEXP = "/\\*[\\s\\S]*?\\*/";
+  private static final String MULTI_LINE_COMMENT_NO_LB_REGEXP = "/\\*[^\\n\\r]*?\\*/";
+
   public static LexerlessGrammar createGrammar() {
     LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
 
-    // TODO add test:
-    b.rule(WHITESPACE).is(b.regexp("[\\s\\uFEFF]*"));
-    b.rule(INLINE_COMMENT).is(b.regexp("//[^\\n\\r]*+"));
-    b.rule(MULTILINE_COMMENT).is(b.regexp("/\\*[\\s\\S*]*?\\*/"));
+    // TODO extract whitespaces and line terminators into constants:
+    b.rule(WHITESPACE).is(b.regexp("[\\s\\uFEFF]*+"));
 
-    b.rule(SPACING).is(b.skippedTrivia(WHITESPACE), b.zeroOrMore(b.firstOf(b.commentTrivia(INLINE_COMMENT), b.commentTrivia(MULTILINE_COMMENT)), b.skippedTrivia(WHITESPACE))).skip();
+    b.rule(SPACING).is(
+      b.skippedTrivia(WHITESPACE),
+      b.zeroOrMore(
+        b.commentTrivia(b.regexp("(?:" + SINGLE_LINE_COMMENT_REGEXP + "|" + MULTI_LINE_COMMENT_REGEXP + ")")),
+        b.skippedTrivia(WHITESPACE))
+    ).skip();
 
     b.rule(SPACING_NO_LB).is(b.zeroOrMore(b.firstOf(
       b.skippedTrivia(b.regexp("[\\s&&[^\n\r]]++")),
-      b.commentTrivia(INLINE_COMMENT)
-      // TODO multiline comment
-    )));
-    b.rule(NEXT_NOT_LB).is(b.nextNot(
-      b.regexp("[\n\r]")
-      // TODO comments
-    ));
+      b.commentTrivia(b.regexp("(?:" + SINGLE_LINE_COMMENT_REGEXP + "|" + MULTI_LINE_COMMENT_NO_LB_REGEXP + ")"))
+    ))).skip();
+    b.rule(NEXT_NOT_LB).is(b.nextNot(b.regexp("(?:" + "[\n\r]" + "|" + MULTI_LINE_COMMENT_REGEXP + ")"))).skip();
 
     b.rule(EOS).is(b.firstOf(
-      b.sequence(SPACING, SEMICOLON),
+      b.sequence(SPACING, ";"),
       b.sequence(SPACING_NO_LB, b.regexp("(?:\\n|\\r\\n|\\r)")),
-      // TODO see EcmaScript
-      b.sequence(SPACING_NO_LB, b.endOfInput())
+      b.sequence(SPACING_NO_LB, b.next("}")),
+      b.sequence(SPACING, b.endOfInput())
     ));
     b.rule(EOS_NO_LB).is(b.firstOf(
       b.sequence(SPACING_NO_LB, ";"),
       b.sequence(SPACING_NO_LB, b.regexp("(?:\\n|\\r\\n|\\r)")),
-      // TODO see EcmaScript
+      b.sequence(SPACING_NO_LB, b.next("}")),
       b.sequence(SPACING_NO_LB, b.endOfInput())
     ));
 
@@ -677,28 +678,28 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(FOR_STATEMENT).is(b.firstOf(
       b.sequence(FOR, LPARENTHESIS, b.optional(FOR_INITIALISER), SEMICOLON, b.optional(LIST_EXPRESSION), SEMICOLON, b.optional(LIST_EXPRESSION), RPARENTHESIS, SUB_STATEMENT),
       b.sequence(FOR, LPARENTHESIS, FOR_IN_BINDING, IN, LIST_EXPRESSION, RPARENTHESIS, SUB_STATEMENT),
-      b.sequence(FOR, b.sequence(/*No line break*/ SPACING_NO_LB, NEXT_NOT_LB, EACH, LPARENTHESIS, FOR_IN_BINDING, IN, LIST_EXPRESSION, RPARENTHESIS, SUB_STATEMENT))));
+      b.sequence(FOR, b.sequence(/* No line break */ SPACING_NO_LB, NEXT_NOT_LB, EACH, LPARENTHESIS, FOR_IN_BINDING, IN, LIST_EXPRESSION, RPARENTHESIS, SUB_STATEMENT))));
     b.rule(FOR_INITIALISER).is(b.firstOf(LIST_EXPRESSION_NO_IN, VARIABLE_DEF_NO_IN));
     b.rule(FOR_IN_BINDING).is(b.firstOf(
       b.sequence(VARIABLE_DEF_KIND, VARIABLE_BINDING_NO_IN),
       POSTFIX_EXPR));
 
     b.rule(CONTINUE_STATEMENT).is(CONTINUE, b.firstOf(
-      b.sequence(/*No line break*/ SPACING_NO_LB, NEXT_NOT_LB, IDENTIFIER, EOS),
+      b.sequence(/* No line break */ SPACING_NO_LB, NEXT_NOT_LB, IDENTIFIER, EOS),
       EOS_NO_LB));
 
     b.rule(BREAK_STATEMENT).is(BREAK, b.firstOf(
-      b.sequence( /*No line break*/ SPACING_NO_LB, NEXT_NOT_LB, IDENTIFIER, EOS),
+      b.sequence(/* No line break */ SPACING_NO_LB, NEXT_NOT_LB, IDENTIFIER, EOS),
       EOS_NO_LB));
 
     b.rule(WITH_STATEMENT).is(WITH, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT);
 
     b.rule(RETURN_STATEMENT).is(RETURN, b.firstOf(
-      b.sequence(/*No line break*/ SPACING_NO_LB, NEXT_NOT_LB, LIST_EXPRESSION, EOS),
+      b.sequence(/* No line break */ SPACING_NO_LB, NEXT_NOT_LB, LIST_EXPRESSION, EOS),
       EOS_NO_LB));
 
     b.rule(THROW_STATEMENT).is(THROW, b.firstOf(
-      b.sequence(/*No line break*/ SPACING_NO_LB, NEXT_NOT_LB, LIST_EXPRESSION, EOS),
+      b.sequence(/* No line break */ SPACING_NO_LB, NEXT_NOT_LB, LIST_EXPRESSION, EOS),
       EOS_NO_LB));
 
     b.rule(TRY_STATEMENT).is(TRY, BLOCK, b.firstOf(
@@ -718,10 +719,10 @@ public enum FlexGrammar implements GrammarRuleKey {
       ANNOTABLE_DIRECTIVE,
       STATEMENT,
       DEFAULT_XML_NAMESPACE_DIRECTIVE,
-      b.sequence(ATTRIBUTES, /*No line break*/ SPACING_NO_LB, NEXT_NOT_LB, ANNOTABLE_DIRECTIVE),
-      b.sequence(INCLUDE_DIRECTIVE, /*No line break*/ EOS_NO_LB),
-      b.sequence(IMPORT_DIRECTIVE, /*No line break*/ EOS_NO_LB),
-      b.sequence(USE_DIRECTIVE, /*No line break*/ EOS_NO_LB)));
+      b.sequence(ATTRIBUTES, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, ANNOTABLE_DIRECTIVE),
+      b.sequence(INCLUDE_DIRECTIVE, /* No line break */ EOS_NO_LB),
+      b.sequence(IMPORT_DIRECTIVE, /* No line break */ EOS_NO_LB),
+      b.sequence(USE_DIRECTIVE, /* No line break */ EOS_NO_LB)));
 
     b.rule(CONFIG_CONDITION).is(IDENTIFIER, DOUBLE_COLON, IDENTIFIER, LCURLYBRACE, DIRECTIVES, RCURLYBRACE);
 
@@ -735,7 +736,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(DIRECTIVES).is(b.zeroOrMore(DIRECTIVE));
 
     b.rule(ATTRIBUTES).is(b.oneOrMore(ATTRIBUTE));
-    b.rule(ATTRIBUTE_COMBINATION).is(ATTRIBUTE, /*No line break*/ SPACING_NO_LB, NEXT_NOT_LB, ATTRIBUTES);
+    b.rule(ATTRIBUTE_COMBINATION).is(ATTRIBUTE, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, ATTRIBUTES);
     b.rule(ATTRIBUTE).is(b.firstOf(
       b.sequence(/* hack: */b.nextNot(NAMESPACE), ATTRIBUTE_EXPR),
       RESERVED_NAMESPACE,
@@ -744,11 +745,11 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(IMPORT_DIRECTIVE).is(IMPORT, PACKAGE_NAME, b.optional(DOT, STAR));
 
-    b.rule(INCLUDE_DIRECTIVE).is(INCLUDE, /*No line break*/ SPACING_NO_LB, NEXT_NOT_LB, STRING);
+    b.rule(INCLUDE_DIRECTIVE).is(INCLUDE, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, STRING);
 
     b.rule(USE_DIRECTIVE).is(USE, NAMESPACE, LIST_EXPRESSION);
 
-    b.rule(DEFAULT_XML_NAMESPACE_DIRECTIVE).is(DEFAULT, /*No line break*/SPACING_NO_LB, NEXT_NOT_LB, XML, /*No line break*/ SPACING_NO_LB, NEXT_NOT_LB, NAMESPACE, EQUAL1, NON_ASSIGNMENT_EXPR);
+    b.rule(DEFAULT_XML_NAMESPACE_DIRECTIVE).is(DEFAULT, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, XML, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, NAMESPACE, EQUAL1, NON_ASSIGNMENT_EXPR);
   }
 
   private static void definitions(LexerlessGrammarBuilder b) {
@@ -782,8 +783,8 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(FUNCTION_DEF).is(FUNCTION, FUNCTION_NAME, FUNCTION_COMMON);
     b.rule(FUNCTION_NAME).is(b.firstOf(
-      b.sequence(GET, /*No line break*/ SPACING_NO_LB, NEXT_NOT_LB, IDENTIFIER),
-      b.sequence(SET, /*No line break*/ SPACING_NO_LB, NEXT_NOT_LB, IDENTIFIER),
+      b.sequence(GET, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, IDENTIFIER),
+      b.sequence(SET, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, IDENTIFIER),
       IDENTIFIER));
 
     b.rule(FUNCTION_COMMON).is(b.firstOf(

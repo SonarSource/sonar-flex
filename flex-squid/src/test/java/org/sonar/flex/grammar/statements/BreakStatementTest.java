@@ -29,14 +29,32 @@ public class BreakStatementTest {
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void test() {
+  public void eos_is_line_terminator() {
     Assertions.assertThat(g.rule(FlexGrammar.BREAK_STATEMENT))
-      .matches("break;")
-      .matches("break label;")
-      
-      .matches("break")
-      .matches("break label");
-    
+      .matchesPrefix("break \n", "another-statement ;")
+      .matchesPrefix("break label \n", "another-statement ;")
+      .matchesPrefix("break \n", ";");
+  }
+
+  @Test
+  public void eos_is_semicolon() {
+    Assertions.assertThat(g.rule(FlexGrammar.BREAK_STATEMENT))
+      .matchesPrefix("break ;", "another-statement")
+      .matchesPrefix("break label ;", "another-statement");
+  }
+
+  @Test
+  public void eos_before_right_curly_bracket() {
+    Assertions.assertThat(g.rule(FlexGrammar.BREAK_STATEMENT))
+      .matchesPrefix("break ", "}")
+      .matchesPrefix("break label ", "}");
+  }
+
+  @Test
+  public void eos_is_end_of_input() {
+    Assertions.assertThat(g.rule(FlexGrammar.BREAK_STATEMENT))
+      .matches("break ")
+      .matches("break label ");
   }
 
 }

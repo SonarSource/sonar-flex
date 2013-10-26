@@ -17,44 +17,49 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.grammar.statements;
+package org.sonar.flex.grammar.lexical;
 
 import org.junit.Test;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
-import org.sonar.sslr.tests.Assertions;
 
-public class ContinueStatementTest {
+import static org.sonar.sslr.tests.Assertions.assertThat;
+
+public class SpacingTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
+  /**
+   * Must allow empty matches, otherwise "optional(SPACING)" will be used everywhere in grammar,
+   * which leads to dramatic degradation of performance.
+   */
   @Test
-  public void eos_is_line_terminator() {
-    Assertions.assertThat(g.rule(FlexGrammar.CONTINUE_STATEMENT))
-      .matchesPrefix("continue \n", "another-statement ;")
-      .matchesPrefix("continue label \n", "another-statement ;")
-      .matchesPrefix("continue \n", ";");
+  public void empty() {
+    assertThat(g.rule(FlexGrammar.SPACING))
+      .matches("");
   }
 
   @Test
-  public void eos_is_semicolon() {
-    Assertions.assertThat(g.rule(FlexGrammar.CONTINUE_STATEMENT))
-      .matchesPrefix("continue ;", "another-statement")
-      .matchesPrefix("continue label ;", "another-statement");
+  public void whitespace() {
+    assertThat(g.rule(FlexGrammar.SPACING))
+      .matches(" ")
+      .matches("\n")
+      .matches("\r")
+      .matches("\r\n");
   }
 
   @Test
-  public void eos_before_right_curly_bracket() {
-    Assertions.assertThat(g.rule(FlexGrammar.CONTINUE_STATEMENT))
-      .matchesPrefix("continue ", "}")
-      .matchesPrefix("continue label ", "}");
+  public void single_line_comment() {
+    assertThat(g.rule(FlexGrammar.SPACING))
+      .matches(" // comment")
+      .matches(" // comment \n");
   }
 
   @Test
-  public void eos_is_end_of_input() {
-    Assertions.assertThat(g.rule(FlexGrammar.CONTINUE_STATEMENT))
-      .matches("continue ")
-      .matches("continue label ");
+  public void multi_line_comment() {
+    assertThat(g.rule(FlexGrammar.SPACING))
+      .matches(" /* comment */ /* comment */ ")
+      .matches("/* comment \n */");
   }
 
 }

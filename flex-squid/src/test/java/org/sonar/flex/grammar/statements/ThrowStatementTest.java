@@ -29,10 +29,32 @@ public class ThrowStatementTest {
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void test() {
+  public void eos_is_line_terminator() {
     Assertions.assertThat(g.rule(FlexGrammar.THROW_STATEMENT))
-      .matches("throw expression")
-      .matches("throw expression;");
+      .matchesPrefix("throw \n", "another-statement ;")
+      .matchesPrefix("throw expression \n", "another-statement ;")
+      .matchesPrefix("throw \n", ";");
+  }
+
+  @Test
+  public void eos_is_semicolon() {
+    Assertions.assertThat(g.rule(FlexGrammar.THROW_STATEMENT))
+      .matchesPrefix("throw ;", "another-statement")
+      .matchesPrefix("throw expression ;", "another-statement");
+  }
+
+  @Test
+  public void eos_before_right_curly_bracket() {
+    Assertions.assertThat(g.rule(FlexGrammar.THROW_STATEMENT))
+      .matchesPrefix("throw ", "}")
+      .matchesPrefix("throw expression ", "}");
+  }
+
+  @Test
+  public void eos_is_end_of_input() {
+    Assertions.assertThat(g.rule(FlexGrammar.THROW_STATEMENT))
+      .matches("throw ")
+      .matches("throw expression ");
   }
 
 }

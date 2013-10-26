@@ -17,27 +17,44 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex;
+package org.sonar.flex.grammar.lexical;
 
 import org.junit.Test;
+import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
-import org.sonar.sslr.tests.Assertions;
 
-public class CommentTest {
+import static org.sonar.sslr.tests.Assertions.assertThat;
+
+public class SpacingNoLineBreakTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void inline() {
-    Assertions.assertThat(g.rule(FlexGrammar.INLINE_COMMENT))
-      .matchesPrefix("// comment", "\n not comment");
+  public void empty() {
+    assertThat(g.rule(FlexGrammar.SPACING_NO_LB))
+      .matches("");
   }
 
   @Test
-  public void multiLine() {
-    Assertions.assertThat(g.rule(FlexGrammar.MULTILINE_COMMENT))
-      .matchesPrefix("/* comment */", "/* another comment */")
-      .matchesPrefix("/* comment */", "not comment");
+  public void whitespace() {
+    assertThat(g.rule(FlexGrammar.SPACING_NO_LB))
+      .matches(" ")
+      .notMatches("\n")
+      .notMatches("\r")
+      .notMatches("\r\n");
+  }
+
+  @Test
+  public void single_line_comment() {
+    assertThat(g.rule(FlexGrammar.SPACING_NO_LB))
+      .matchesPrefix(" // comment", "\n");
+  }
+
+  @Test
+  public void multi_line_comment() {
+    assertThat(g.rule(FlexGrammar.SPACING_NO_LB))
+      .matches(" /* comment */ /* comment */ ")
+      .notMatches("/* comment \n */");
   }
 
 }

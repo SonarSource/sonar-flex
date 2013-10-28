@@ -50,6 +50,7 @@ public final class CheckList {
         FunctionWithTooManyParametersCheck.class,
         ConstantNameCheck.class,
         FieldNameCheck.class,
+        StarTypeUseCheck.class,
         ParsingErrorCheck.class);
   }
 

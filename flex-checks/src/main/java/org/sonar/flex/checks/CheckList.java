@@ -42,7 +42,6 @@ public final class CheckList {
         ClassComplexityCheck.class,
         OneStatementPerLineCheck.class,
         CommentedCodeCheck.class,
-        FileComplexityCheck.class,
         SwitchWithoutDefaultCheck.class,
         WithStatementCheck.class,
         NonEmptyCaseWithoutBreakCheck.class,

@@ -62,7 +62,6 @@ public enum FlexKeyword implements GrammarRuleKey {
   SWITCH,
   THIS,
   THROW,
-  TO,
   TRUE,
   TRY,
   TYPEOF,

@@ -71,7 +71,6 @@ public class FlexKeywordTest {
       .matches("switch")
       .matches("this")
       .matches("throw")
-      .matches("to")
       .matches("true")
       .matches("try")
       .matches("typeof")
@@ -81,7 +80,7 @@ public class FlexKeywordTest {
       .matches("while")
       .matches("with");
 
-    assertThat(FlexKeyword.keywords()).hasSize(45);
-    assertThat(FlexKeyword.values()).hasSize(45 + /* syntactic: */ 10);
+    assertThat(FlexKeyword.keywords()).hasSize(44);
+    assertThat(FlexKeyword.values()).hasSize(44 + /* syntactic: */ 10);
   }
 }

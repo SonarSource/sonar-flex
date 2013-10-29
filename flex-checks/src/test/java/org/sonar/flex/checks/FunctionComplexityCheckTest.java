@@ -35,7 +35,7 @@ public class FunctionComplexityCheckTest {
 
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/FunctionComplexity.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-        .next().atLine(1).withMessage("Function has a complexity of 5 which is greater than 2 authorized.")
+        .next().atLine(1).withMessage("Function has a complexity of 3 which is greater than 2 authorized.")
         .noMore();
   }
 

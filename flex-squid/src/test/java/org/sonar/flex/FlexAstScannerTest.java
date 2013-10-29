@@ -95,7 +95,7 @@ public class FlexAstScannerTest {
   @Test
   public void complexity() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/metrics/complexity.as"));
-    assertThat(file.getInt(FlexMetric.COMPLEXITY)).isEqualTo(16);
+    assertThat(file.getInt(FlexMetric.COMPLEXITY)).isEqualTo(13);
   }
 
 }

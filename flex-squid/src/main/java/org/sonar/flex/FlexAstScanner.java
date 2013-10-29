@@ -21,12 +21,12 @@ package org.sonar.flex;
 
 import com.google.common.base.Charsets;
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.CommentAnalyser;
 import com.sonar.sslr.impl.Parser;
 import com.sonar.sslr.squid.*;
 import com.sonar.sslr.squid.metrics.*;
 import org.sonar.flex.api.FlexMetric;
+import org.sonar.flex.metrics.ComplexityVisitor;
 import org.sonar.flex.parser.FlexParser;
 import org.sonar.squid.api.*;
 import org.sonar.squid.indexer.QueryByType;
@@ -169,31 +169,7 @@ public final class FlexAstScanner {
            FlexGrammar.EMPTY_STATEMENT)
         .build());
 
-    AstNodeType[] complexityAstNodeType = new AstNodeType[] {
-      // Entry points
-      FlexGrammar.FUNCTION_DEF,
-      FlexGrammar.FUNCTION_EXPR,
-
-      // Branching nodes
-      FlexGrammar.IF_STATEMENT,
-      FlexGrammar.FOR_STATEMENT,
-      FlexGrammar.WHILE_STATEMENT,
-      FlexGrammar.DO_STATEMENT,
-      FlexGrammar.SWITCH_STATEMENT,
-      FlexGrammar.CASE_LABEL,
-      FlexGrammar.CATCH_CLAUSE,
-      FlexGrammar.RETURN_STATEMENT,
-      FlexGrammar.THROW_STATEMENT,
-
-      // Expressions
-      FlexPunctuator.QUERY,
-      FlexPunctuator.ANDAND,
-      FlexPunctuator.OROR
-    };
-    builder.withSquidAstVisitor(ComplexityVisitor.<LexerlessGrammar> builder()
-        .setMetricDef(FlexMetric.COMPLEXITY)
-        .subscribeTo(complexityAstNodeType)
-        .build());
+    builder.withSquidAstVisitor(new ComplexityVisitor());
 
     /* External visitors (typically Check ones) */
     for (SquidAstVisitor<LexerlessGrammar> visitor : visitors) {

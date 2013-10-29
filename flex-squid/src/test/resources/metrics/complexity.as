@@ -1,4 +1,6 @@
 public class Foo {
+  var property;
+
   function foo() // +1 functionDeclaration
   {
     if (foo) // +1 ifStatement
@@ -6,7 +8,7 @@ public class Foo {
       return 0; // +1 returnStatement
     }
 
-    for (i = 0; i < 10; i++) // +1 iterationStatement
+    for (var i = 0; i < 10; i++) // +1 iterationStatement
     {
     }
 
@@ -14,11 +16,11 @@ public class Foo {
     {
     }
 
-    switch (foo) // +1 switchStatement
+    switch (foo) // +0 switchStatement
     {
       case 1: // +1 caseClause
       case 2: // +1 caseClause
-      default: // +1 defaultClause
+      default: // +0 defaultClause
       ;
     }
 
@@ -34,6 +36,10 @@ public class Foo {
 
     func = function(){}; // +1 functionExpression
 
-    return 1; // +1 returnStatement
+    return 1; // +0 LastReturnStatement
+  }
+
+  function get property(){ // +0 accessor
+    return property;       // +0 lastReturnStatement
   }
 }

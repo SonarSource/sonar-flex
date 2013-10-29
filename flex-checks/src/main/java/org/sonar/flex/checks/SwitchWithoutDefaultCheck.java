@@ -20,9 +20,7 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.impl.ast.AstXmlPrinter;
 import com.sonar.sslr.squid.checks.SquidCheck;
-import java.util.List;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;

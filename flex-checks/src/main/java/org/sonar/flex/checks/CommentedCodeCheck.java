@@ -27,12 +27,12 @@ import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.squid.recognizer.*;
 import org.sonar.flex.FlexKeyword;
+import org.sonar.squid.recognizer.*;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.Set;
 import java.util.regex.Pattern;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "CommentedCode",

@@ -19,18 +19,10 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.ImmutableSet;
-import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.impl.Lexer;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-
-import java.util.Set;
-import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.FlexKeyword;
-import org.sonar.flex.FlexPunctuator;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(

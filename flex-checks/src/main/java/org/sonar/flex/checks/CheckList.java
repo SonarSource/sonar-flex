@@ -52,6 +52,7 @@ public final class CheckList {
         FieldNameCheck.class,
         StarTypeUseCheck.class,
         NotEnoughCaseForSwitchCheck.class,
+        EmptyStatementCheck.class,
         ParsingErrorCheck.class);
   }
 

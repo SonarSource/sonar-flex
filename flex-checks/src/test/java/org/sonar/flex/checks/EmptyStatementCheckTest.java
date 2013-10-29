@@ -17,23 +17,26 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.grammar.directives;
+package org.sonar.flex.checks;
 
+import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
 import org.junit.Test;
-import org.sonar.flex.FlexGrammar;
-import org.sonar.sslr.parser.LexerlessGrammar;
-import org.sonar.sslr.tests.Assertions;
+import org.sonar.flex.FlexAstScanner;
+import org.sonar.squid.api.SourceFile;
 
-public class DefaultXmlNamespaceDirectiveTest {
+import java.io.File;
 
-  private final LexerlessGrammar g = FlexGrammar.createGrammar();
+public class EmptyStatementCheckTest {
+
+  private EmptyStatementCheck check = new EmptyStatementCheck();
 
   @Test
   public void test() {
-    Assertions.assertThat(g.rule(FlexGrammar.DEFAULT_XML_NAMESPACE_DIRECTIVE))
-      .matches("default xml namespace = ns ;")
-      .notMatches("default \n xml namespace = ns ;")
-      .notMatches("default xml \n namespace = ns ;");
+    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/EmptyStatement.as"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(2).withMessage("Remove this empty statement.")
+      .next().atLine(6)
+      .next().atLine(7)
+      .noMore();
   }
-
 }

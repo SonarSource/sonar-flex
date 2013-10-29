@@ -1,0 +1,35 @@
+<p>
+  Empty statements, i.e. <code>;</code>, are usually introduced by mistake, for example because:
+  <ul>
+    <li>It was meant to be replaced by an actual statement, but this was forgotten.</li>
+    <li>There was a typo which lead the semicolon to be doubled, i.e. <code>;;</code>.</li>
+  </ul>
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+function doSomething():void {
+  ;                                           // Noncompliant
+}
+
+function doSomethingElse():void {
+  trace("Hello, world!");;                    // Noncompliant
+  ...
+  for (var i:int = 0; i < 3; trace(i), i++);  // Noncompliant
+  ...
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+function doSomething():void {}
+
+function doSomethingElse():void {
+  trace("Hello, world!");
+  ...
+  for (var i:int = 0; i < 3; i++){
+    trace(i);
+  }
+  ...
+}
+</pre>

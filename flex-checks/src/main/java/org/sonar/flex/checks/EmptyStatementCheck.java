@@ -17,23 +17,29 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.grammar.directives;
+package org.sonar.flex.checks;
 
-import org.junit.Test;
+import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.squid.checks.SquidCheck;
+import org.sonar.check.BelongsToProfile;
+import org.sonar.check.Priority;
+import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
-import org.sonar.sslr.tests.Assertions;
 
-public class DefaultXmlNamespaceDirectiveTest {
+@Rule(
+  key = "S1116",
+  priority = Priority.MAJOR)
+@BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
+public class EmptyStatementCheck extends SquidCheck<LexerlessGrammar> {
 
-  private final LexerlessGrammar g = FlexGrammar.createGrammar();
-
-  @Test
-  public void test() {
-    Assertions.assertThat(g.rule(FlexGrammar.DEFAULT_XML_NAMESPACE_DIRECTIVE))
-      .matches("default xml namespace = ns ;")
-      .notMatches("default \n xml namespace = ns ;")
-      .notMatches("default xml \n namespace = ns ;");
+  @Override
+  public void init(){
+    subscribeTo(FlexGrammar.EMPTY_STATEMENT);
   }
 
+  @Override
+  public void  visitNode (AstNode astNode) {
+    getContext().createLineViolation(this, "Remove this empty statement.", astNode);
+  }
 }

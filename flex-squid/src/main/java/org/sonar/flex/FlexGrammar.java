@@ -749,7 +749,7 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(USE_DIRECTIVE).is(USE, NAMESPACE, LIST_EXPRESSION);
 
-    b.rule(DEFAULT_XML_NAMESPACE_DIRECTIVE).is(DEFAULT, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, XML, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, NAMESPACE, EQUAL1, NON_ASSIGNMENT_EXPR);
+    b.rule(DEFAULT_XML_NAMESPACE_DIRECTIVE).is(DEFAULT, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, XML, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, NAMESPACE, EQUAL1, NON_ASSIGNMENT_EXPR, EOS);
   }
 
   private static void definitions(LexerlessGrammarBuilder b) {
@@ -789,7 +789,7 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(FUNCTION_COMMON).is(b.firstOf(
       b.sequence(FUNCTION_SIGNATURE, BLOCK),
-      FUNCTION_SIGNATURE));
+      b.sequence(FUNCTION_SIGNATURE, EOS)));
 
     b.rule(FUNCTION_SIGNATURE).is(b.sequence(LPARENTHESIS, b.optional(PARAMETERS), RPARENTHESIS, RESULT_TYPE));
 

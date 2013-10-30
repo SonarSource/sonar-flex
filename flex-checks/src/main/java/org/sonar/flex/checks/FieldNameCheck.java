@@ -37,10 +37,12 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 public class FieldNameCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final String DEFAULT = "^[_a-z][a-zA-Z0-9]*$";
+
   @RuleProperty(
     key = "format",
     defaultValue = DEFAULT)
-   String format = DEFAULT;
+  String format = DEFAULT;
+
 
   @Override
   public void init() {

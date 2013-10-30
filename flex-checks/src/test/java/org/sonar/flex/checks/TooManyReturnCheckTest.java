@@ -34,7 +34,7 @@ public class TooManyReturnCheckTest {
   public void defaults() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/TooManyReturn.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(1).withMessage("Reduce the number of returns of this method 4, down to the maximum allowed " +  + check.max + ".")
+      .next().atLine(1).withMessage("Reduce the number of returns of this function 4, down to the maximum allowed " +  + check.max + ".")
       .noMore();
   }
 

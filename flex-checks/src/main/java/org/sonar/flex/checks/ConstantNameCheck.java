@@ -57,8 +57,8 @@ public class ConstantNameCheck extends SquidCheck<LexerlessGrammar> {
           .getFirstChild(FlexGrammar.IDENTIFIER);
 
         if (!identifierNode.getTokenValue().matches(format)) {
-          getContext().createLineViolation(this, "Rename this constant name to match the regular expression {0}",
-            identifierNode, format);
+          getContext().createLineViolation(this, "Rename this constant ''{0}'' to match the regular expression {1}",
+            identifierNode, identifierNode.getTokenValue(), format);
         }
 
       }

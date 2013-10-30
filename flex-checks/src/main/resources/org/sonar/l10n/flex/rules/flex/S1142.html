@@ -1,10 +1,10 @@
 <p>
-  Having too many return statements in a method increases the method's essential complexity because the flow of execution is broken each time a return statement is encountered. This makes it harder to read and understand the logic of the method.
+  Having too many return statements in a function increases the function's essential complexity because the flow of execution is broken each time a return statement is encountered. This makes it harder to read and understand the logic of the function. The following code snippet illustrates this rule with the default threshold of 3:
 </p>
 
 <h2>Noncompliant Code Example</h2>
 <pre>
-function myMethod():boolean { // Noncompliant
+function myFunction():boolean { // Noncompliant
   if (condition1) {
     return true;
   } else {
@@ -20,7 +20,7 @@ function myMethod():boolean { // Noncompliant
 
 <h2>Compliant Solution</h2>
 <pre>
-function myMethod():boolean { // Compliant
+function myFunction():boolean { // Compliant
   if (condition1) {
     return true;
   } else if (condition2) {

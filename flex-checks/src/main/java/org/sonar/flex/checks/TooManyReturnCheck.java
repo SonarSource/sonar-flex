@@ -54,7 +54,7 @@ public class TooManyReturnCheck extends SquidCheck<LexerlessGrammar> {
 
        int nbReturn = blockNode.getDescendants(FlexGrammar.RETURN_STATEMENT).size();
        if (nbReturn > max) {
-         getContext().createLineViolation(this, "Reduce the number of returns of this method {0,number,integer}, down to the maximum allowed {1,number,integer}.",
+         getContext().createLineViolation(this, "Reduce the number of returns of this function {0,number,integer}, down to the maximum allowed {1,number,integer}.",
            astNode, nbReturn, max);
        }
      }

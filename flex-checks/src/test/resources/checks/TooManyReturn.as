@@ -1,4 +1,4 @@
-function myMethod():boolean { // NOK
+function myFuncion():boolean { // NOK
   if (condition1) {
     return true;
   } else {
@@ -11,7 +11,7 @@ function myMethod():boolean { // NOK
   return false;
 }
 
-function myMethod():boolean { // OK
+function myFunction():boolean { // OK
   if (condition1) {
     return true;
   } else if (condition2) {

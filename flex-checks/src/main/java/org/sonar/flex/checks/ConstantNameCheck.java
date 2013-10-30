@@ -40,7 +40,7 @@ public class ConstantNameCheck extends SquidCheck<LexerlessGrammar> {
   @RuleProperty(
     key = "format",
     defaultValue = DEFAULT)
-   String format = DEFAULT;
+  String format = DEFAULT;
 
   @Override
   public void init() {
@@ -57,8 +57,8 @@ public class ConstantNameCheck extends SquidCheck<LexerlessGrammar> {
           .getFirstChild(FlexGrammar.IDENTIFIER);
 
         if (!identifierNode.getTokenValue().matches(format)) {
-          getContext().createLineViolation(this, "Rename this constant ''{0}'' to match the regular expression {1}",
-            identifierNode, identifierNode.getTokenValue(), format);
+          getContext().createLineViolation(this, "Rename this constant '" + identifierNode.getTokenValue() + "' to match the regular expression " + format + "",
+            identifierNode);
         }
 
       }

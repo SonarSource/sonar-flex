@@ -53,6 +53,7 @@ public final class CheckList {
         StarTypeUseCheck.class,
         NotEnoughCaseForSwitchCheck.class,
         EmptyStatementCheck.class,
+        TooManyReturnCheck.class,
         ParsingErrorCheck.class);
   }
 

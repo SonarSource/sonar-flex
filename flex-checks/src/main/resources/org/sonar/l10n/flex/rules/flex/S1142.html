@@ -1,0 +1,31 @@
+<p>
+  Having too many return statements in a method increases the method's essential complexity because the flow of execution is broken each time a return statement is encountered. This makes it harder to read and understand the logic of the method.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+function myMethod():boolean { // Noncompliant
+  if (condition1) {
+    return true;
+  } else {
+    if (condition2) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  return false;
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+function myMethod():boolean { // Compliant
+  if (condition1) {
+    return true;
+  } else if (condition2) {
+      return false;
+  }
+  return false;
+}
+</pre>

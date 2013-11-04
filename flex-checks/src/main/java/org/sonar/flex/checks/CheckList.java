@@ -56,6 +56,7 @@ public final class CheckList {
         TooManyReturnCheck.class,
         CollapsibleIfStatementCheck.class,
         EqEqEqCheck.class,
+        ClassNameCheck.class,
         ParsingErrorCheck.class);
   }
 

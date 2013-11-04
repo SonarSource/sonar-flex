@@ -50,7 +50,7 @@ public class ClassNameCheck extends SquidCheck<LexerlessGrammar>{
   public void visitNode(AstNode astNode) {
     String classIdentifier = astNode.getFirstChild(FlexGrammar.CLASS_NAME)
                                     .getFirstChild(FlexGrammar.CLASS_IDENTIFIERS)
-                                    .getFirstChild(FlexGrammar.IDENTIFIER)
+                                    .getLastChild()
                                     .getTokenValue();
     if (!classIdentifier.matches(format)) {
       getContext().createLineViolation(this, "Rename this class name to match the regular expression {0}", astNode, format);

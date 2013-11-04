@@ -54,6 +54,7 @@ public final class CheckList {
         NotEnoughCaseForSwitchCheck.class,
         EmptyStatementCheck.class,
         TooManyReturnCheck.class,
+        CollapsibleIfStatementCheck.class,
         ParsingErrorCheck.class);
   }
 

@@ -57,6 +57,7 @@ public final class CheckList {
         CollapsibleIfStatementCheck.class,
         EqEqEqCheck.class,
         ClassNameCheck.class,
+        PackageNameCheck.class,
         ParsingErrorCheck.class);
   }
 

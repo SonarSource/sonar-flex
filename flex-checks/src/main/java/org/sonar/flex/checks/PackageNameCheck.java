@@ -1,0 +1,69 @@
+/*
+ * Sonar Flex Plugin
+ * Copyright (C) 2010 SonarSource
+ * dev@sonar.codehaus.org
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ */
+package org.sonar.flex.checks;
+
+import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.Token;
+import com.sonar.sslr.impl.ast.AstXmlPrinter;
+import com.sonar.sslr.squid.checks.SquidCheck;
+import org.sonar.check.BelongsToProfile;
+import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
+import org.sonar.flex.FlexGrammar;
+import org.sonar.sslr.parser.LexerlessGrammar;
+
+@Rule(
+  key = "S120",
+  priority = Priority.MAJOR)
+@BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
+public class PackageNameCheck extends SquidCheck<LexerlessGrammar> {
+
+  private static final String DEFAULT = "^[a-z]+(\\.[a-z][a-z0-9]*)*$";
+
+  @RuleProperty(
+    key = "format",
+    defaultValue = DEFAULT)
+  String format = DEFAULT;
+
+  @Override
+  public void init() {
+    subscribeTo(FlexGrammar.PACKAGE_DEF);
+  }
+
+  @Override
+  public void visitNode(AstNode astNode) {
+    AstNode nameNode = astNode.getFirstChild(FlexGrammar.PACKAGE_NAME);
+    if (nameNode != null) {
+      String packageIdentifier = concatenate(nameNode);
+      if (!packageIdentifier.matches(format)) {
+        getContext().createLineViolation(this, "Rename this package name to match the regular expression {0}", astNode, format);
+      }
+    }
+  }
+
+  private String concatenate(AstNode astNode) {
+    StringBuilder sb = new StringBuilder();
+    for (Token token : astNode.getTokens()) {
+      sb.append(token.getValue());
+    }
+    return sb.toString();
+  }
+}

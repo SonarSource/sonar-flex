@@ -147,6 +147,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   NUMBER,
   DECIMAL,
   HEXADECIMAL,
+  OCTAL,
 
   /**
    * EXPRESSIONS
@@ -423,8 +424,9 @@ public enum FlexGrammar implements GrammarRuleKey {
       ));
 
     b.rule(HEXADECIMAL).is(SPACING, b.regexp("0[xX][0-9a-fA-F]++"));
+    b.rule(OCTAL).is(SPACING, b.regexp("0[0-7]++"));
     b.rule(DECIMAL).is(SPACING, b.regexp(DECIMAL_REGEXP));
-    b.rule(NUMBER).is(b.firstOf(DECIMAL, HEXADECIMAL));
+    b.rule(NUMBER).is(b.firstOf(OCTAL, DECIMAL, HEXADECIMAL));
 
     // Regular expression according to ECMA 262
     b.rule(REGULAR_EXPRESSION).is(SPACING, b.regexp(

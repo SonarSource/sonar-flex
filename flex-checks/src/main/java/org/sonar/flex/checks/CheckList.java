@@ -58,6 +58,7 @@ public final class CheckList {
         EqEqEqCheck.class,
         ClassNameCheck.class,
         PackageNameCheck.class,
+        TooManyLinesInCaseCheck.class,
         ParsingErrorCheck.class);
   }
 

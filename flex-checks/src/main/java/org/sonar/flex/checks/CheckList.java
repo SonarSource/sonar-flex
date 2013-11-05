@@ -61,6 +61,7 @@ public final class CheckList {
         TooManyLinesInCaseCheck.class,
         PackageDefInClassDefCheck.class,
         OctalValueCheck.class,
+        ClassWithTooManyFunctionsCheck.class,
         ParsingErrorCheck.class);
   }
 

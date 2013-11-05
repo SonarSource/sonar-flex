@@ -1,32 +1,19 @@
 p<p>
-  Having too many return statements in a function increases the function's essential complexity because the flow of execution is broken each time a return statement is encountered. This makes it harder to read and understand the logic of the function.
+  Merging collapsible <code>if</code> statements increases the code's readability.
 </p>
 
 <h2>Noncompliant Code Example</h2>
-<p>The following code snippet illustrates this rule with the default threshold of 3:</p>
 <pre>
-function myFunction():boolean { // Noncompliant
-  if (condition1) {
-    return true;
-  } else {
-    if (condition2) {
-      return false;
-    } else {
-      return true;
-    }
+if (condition1) {
+  if (condition2) {             // Noncompliant
+    ...
   }
-  return false;
 }
 </pre>
 
 <h2>Compliant Solution</h2>
 <pre>
-function myFunction():boolean { // Compliant
-  if (condition1) {
-    return true;
-  } else if (condition2) {
-      return false;
-  }
-  return false;
+if (condition1 && condition2) { // Compliant
+  ...
 }
 </pre>

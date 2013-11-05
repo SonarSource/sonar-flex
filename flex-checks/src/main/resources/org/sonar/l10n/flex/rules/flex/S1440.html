@@ -1,5 +1,5 @@
 <p>
   The == and != operators do type coercion before comparing values, but === and !== don't. </br >
   This is bad because it can mask type errors. For example, it evaluates <code>' \t\r\n' == 0</code> as <code>true</code>, and <code>foo == null</code> as <code>true</code>, even if foo, in the last example, is <code>undefined</code>. </br >
-  It is best to not use == and != and to always use the side-effect-less === and !== operators instead.
+  It is best to always use the side-effect-less === and !== operators instead.
 </p>

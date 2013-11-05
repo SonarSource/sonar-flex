@@ -2,20 +2,35 @@
   Switch cases should remain small to keep the overall switch compact and readable.
 </p>
 
-<h2>Code Example</h2>
+<h2>Noncompliant Code Example</h2>
 <p>The following code snippet illustrates this rule with the default threshold of 5:</p>
 <pre>
 switch (myVariable) {
-  case 0:             // Compliant
-    trace("");
-    trace("");
-    trace("");
-    break;
-  default:           // Noncompliant
+  case 0:       // Non-Compliant - 6 lines till next case or default case
     trace("");
     trace("");
     trace("");
     trace("");
     break;
+  case 1:
+  ...
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+switch (myVariable) {
+  case 0:
+    printSomething()
+    break;
+  case 1:
+  ...
+}
+...
+private void printSomething() {
+  trace("");
+  trace("");
+  trace("");
+  trace("");
 }
 </pre>

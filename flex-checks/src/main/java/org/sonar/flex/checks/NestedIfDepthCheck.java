@@ -67,8 +67,8 @@ public class NestedIfDepthCheck extends SquidCheck<LexerlessGrammar> {
       nestingLevel++;
       if (nestingLevel == getMaximumNestingLevel() + 1) {
         getContext().createLineViolation(this, "This if has a nesting level of {0}, which is higher than the maximum allowed {1}.", astNode,
-            nestingLevel,
-            getMaximumNestingLevel());
+          nestingLevel,
+          getMaximumNestingLevel());
       }
     }
   }
@@ -82,7 +82,7 @@ public class NestedIfDepthCheck extends SquidCheck<LexerlessGrammar> {
 
   private boolean isElseIf(AstNode astNode) {
     return astNode.getParent().getParent().getPreviousSibling() != null
-        && astNode.getParent().getParent().getPreviousSibling().is(FlexKeyword.ELSE);
+      && astNode.getParent().getParent().getPreviousSibling().is(FlexKeyword.ELSE);
   }
 
 }

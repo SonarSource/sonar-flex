@@ -64,10 +64,10 @@ public class LineLengthCheck extends SquidCheck<LexerlessGrammar> implements Ast
         if (length > getMaximumLineLength()) {
           // Note that method from AbstractLineLengthCheck generates other message - see SONARPLUGINS-1809
           getContext().createLineViolation(this,
-              "The line contains {0,number,integer} characters which is greater than {1,number,integer} authorized.",
-              previousToken.getLine(),
-              length,
-              getMaximumLineLength());
+            "The line contains {0,number,integer} characters which is greater than {1,number,integer} authorized.",
+            previousToken.getLine(),
+            length,
+            getMaximumLineLength());
         }
       }
       previousToken = token;

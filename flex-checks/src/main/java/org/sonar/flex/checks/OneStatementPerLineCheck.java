@@ -48,8 +48,8 @@ public class OneStatementPerLineCheck extends AbstractOneStatementPerLineCheck<L
   public boolean isExcluded(AstNode astNode) {
     AstNode statementNode = astNode.getChild(0);
     return statementNode.is(FlexGrammar.BLOCK)
-        || statementNode.is(FlexGrammar.EMPTY_STATEMENT)
-        || statementNode.is(FlexGrammar.LABELED_STATEMENT);
+      || statementNode.is(FlexGrammar.EMPTY_STATEMENT)
+      || statementNode.is(FlexGrammar.LABELED_STATEMENT);
   }
 
 }

@@ -54,10 +54,10 @@ public class ClassWithTooManyFunctionsCheck extends SquidCheck<LexerlessGrammar>
   public void visitNode(AstNode astNode) {
     AstNode classDirectives = astNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES);
 
-    if (classDirectives.getChildren(FlexGrammar.DIRECTIVE) != null){
+    if (classDirectives.getChildren(FlexGrammar.DIRECTIVE) != null) {
       List<AstNode> functionDefs = classDirectives.getDescendants(FlexGrammar.FUNCTION_DEF);
 
-      if (functionDefs != null && functionDefs.size() > maximumFunctionThreshold){
+      if (functionDefs != null && functionDefs.size() > maximumFunctionThreshold) {
         String className = astNode.getFirstChild(FlexGrammar.CLASS_NAME).getFirstChild(FlexGrammar.CLASS_IDENTIFIERS).getLastChild().getTokenValue();
         getContext().createLineViolation(this, "Class \"{0}\" has {1} functions, which is greater than {2} authorized. Split it into smaller classes.",
           astNode, className, functionDefs.size(), maximumFunctionThreshold);

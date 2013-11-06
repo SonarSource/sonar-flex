@@ -55,10 +55,10 @@ public class ClassComplexityCheck extends SquidCheck<LexerlessGrammar> {
     int complexity = ChecksHelper.getRecursiveMeasureInt(sourceClass, FlexMetric.COMPLEXITY);
     if (complexity > maximumClassComplexityThreshold) {
       getContext().createLineViolation(this,
-          "Class has a complexity of {0,number,integer} which is greater than {1,number,integer} authorized.",
-          node,
-          complexity,
-          maximumClassComplexityThreshold);
+        "Class has a complexity of {0,number,integer} which is greater than {1,number,integer} authorized.",
+        node,
+        complexity,
+        maximumClassComplexityThreshold);
     }
   }
 

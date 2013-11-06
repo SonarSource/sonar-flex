@@ -53,8 +53,8 @@ public class FunctionComplexityCheck extends SquidCheck<LexerlessGrammar> {
     SourceFunction function = (SourceFunction) getContext().peekSourceCode();
     if (function.getInt(FlexMetric.COMPLEXITY) > maximumFunctionComplexityThreshold) {
       getContext().createLineViolation(this,
-          "Function has a complexity of {0,number,integer} which is greater than {1,number,integer} authorized.", node,
-          function.getInt(FlexMetric.COMPLEXITY), maximumFunctionComplexityThreshold);
+        "Function has a complexity of {0,number,integer} which is greater than {1,number,integer} authorized.", node,
+        function.getInt(FlexMetric.COMPLEXITY), maximumFunctionComplexityThreshold);
     }
   }
 

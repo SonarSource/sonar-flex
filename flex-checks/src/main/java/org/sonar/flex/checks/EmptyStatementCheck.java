@@ -34,12 +34,12 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 public class EmptyStatementCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
-  public void init(){
+  public void init() {
     subscribeTo(FlexGrammar.EMPTY_STATEMENT);
   }
 
   @Override
-  public void  visitNode (AstNode astNode) {
+  public void visitNode(AstNode astNode) {
     getContext().createLineViolation(this, "Remove this empty statement.", astNode);
   }
 }

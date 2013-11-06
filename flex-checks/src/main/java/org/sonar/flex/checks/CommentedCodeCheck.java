@@ -28,7 +28,12 @@ import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexKeyword;
-import org.sonar.squid.recognizer.*;
+import org.sonar.squid.recognizer.CodeRecognizer;
+import org.sonar.squid.recognizer.ContainsDetector;
+import org.sonar.squid.recognizer.Detector;
+import org.sonar.squid.recognizer.EndWithDetector;
+import org.sonar.squid.recognizer.KeywordsDetector;
+import org.sonar.squid.recognizer.LanguageFootprint;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.Set;
@@ -49,11 +54,11 @@ public class CommentedCodeCheck extends SquidCheck<LexerlessGrammar> implements 
 
     public Set<Detector> getDetectors() {
       return ImmutableSet.of(
-          new EndWithDetector(0.95, '}', ';', '{'),
-          new KeywordsDetector(0.3, FlexKeyword.keywordValues()),
-          new ContainsDetector(0.95, "++", "--"),
-          new ContainsDetector(0.95, "*=", "/=", "%=", "+=", "-=", "<<=", ">>=", ">>>=", "&=", "^=", "|="),
-          new ContainsDetector(0.95, "==", "!=", "===", "!=="));
+        new EndWithDetector(0.95, '}', ';', '{'),
+        new KeywordsDetector(0.3, FlexKeyword.keywordValues()),
+        new ContainsDetector(0.95, "++", "--"),
+        new ContainsDetector(0.95, "*=", "/=", "%=", "+=", "-=", "<<=", ">>=", ">>>=", "&=", "^=", "|="),
+        new ContainsDetector(0.95, "==", "!=", "===", "!=="));
     }
 
   }

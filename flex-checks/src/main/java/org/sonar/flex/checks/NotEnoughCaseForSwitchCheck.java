@@ -46,7 +46,7 @@ public class NotEnoughCaseForSwitchCheck extends SquidCheck<LexerlessGrammar> {
     int nbCase = 0;
     for (AstNode caseElementNode : astNode.getChildren(FlexGrammar.CASE_ELEMENT)) {
       if (caseElementNode.getFirstChild(FlexGrammar.CASE_LABEL).getFirstChild().is(FlexKeyword.CASE)) {
-        nbCase ++;
+        nbCase++;
       }
     }
 

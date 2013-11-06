@@ -32,7 +32,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   key = "S101",
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
-public class ClassNameCheck extends SquidCheck<LexerlessGrammar>{
+public class ClassNameCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final String DEFAULT = "^[A-Z][a-zA-Z0-9]*$";
 
@@ -49,9 +49,9 @@ public class ClassNameCheck extends SquidCheck<LexerlessGrammar>{
   @Override
   public void visitNode(AstNode astNode) {
     String classIdentifier = astNode.getFirstChild(FlexGrammar.CLASS_NAME)
-                                    .getFirstChild(FlexGrammar.CLASS_IDENTIFIERS)
-                                    .getLastChild()
-                                    .getTokenValue();
+      .getFirstChild(FlexGrammar.CLASS_IDENTIFIERS)
+      .getLastChild()
+      .getTokenValue();
     if (!classIdentifier.matches(format)) {
       getContext().createLineViolation(this, "Rename this class name to match the regular expression {0}", astNode, format);
     }

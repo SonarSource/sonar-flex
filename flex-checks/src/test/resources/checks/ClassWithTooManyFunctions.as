@@ -1,6 +1,6 @@
 class bar {       // OK
-  function a(){}
-  function b(){}
+  public function a(){}
+  public function b(){}
 }
 
 class foo {       // NOK

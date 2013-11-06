@@ -52,16 +52,24 @@ public class ClassWithTooManyFunctionsCheck extends SquidCheck<LexerlessGrammar>
 
   @Override
   public void visitNode(AstNode astNode) {
-    AstNode classDirectives = astNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES);
+    List<AstNode> classDirectives = astNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES).getChildren(FlexGrammar.DIRECTIVE);
 
-    if (classDirectives.getChildren(FlexGrammar.DIRECTIVE) != null) {
-      List<AstNode> functionDefs = classDirectives.getDescendants(FlexGrammar.FUNCTION_DEF);
+    if (classDirectives != null && classDirectives.size() > maximumFunctionThreshold) {
 
-      if (functionDefs != null && functionDefs.size() > maximumFunctionThreshold) {
+      int nbFunction = 0;
+      for (AstNode directive : classDirectives) {
+        if (directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE) != null && directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE).getFirstChild().is(FlexGrammar.FUNCTION_DEF)) {
+          nbFunction++;
+        }
+      }
+
+      if (nbFunction > maximumFunctionThreshold) {
+
         String className = astNode.getFirstChild(FlexGrammar.CLASS_NAME).getFirstChild(FlexGrammar.CLASS_IDENTIFIERS).getLastChild().getTokenValue();
         getContext().createLineViolation(this, "Class \"{0}\" has {1} functions, which is greater than {2} authorized. Split it into smaller classes.",
-          astNode, className, functionDefs.size(), maximumFunctionThreshold);
+          astNode, className, nbFunction, maximumFunctionThreshold);
       }
+
     }
   }
 }

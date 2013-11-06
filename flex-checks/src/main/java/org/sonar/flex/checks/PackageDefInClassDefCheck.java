@@ -41,7 +41,7 @@ public class PackageDefInClassDefCheck extends SquidCheck<LexerlessGrammar> {
   @Override
   public void visitNode(AstNode astNode) {
     if (astNode.getFirstChild(FlexGrammar.CLASS_NAME).getFirstChild(FlexGrammar.CLASS_IDENTIFIERS).getChildren().size() > 1) {
-       getContext().createLineViolation(this, "Make the Package definition nest the Class definition", astNode);
+      getContext().createLineViolation(this, "Make the Package definition nest the Class definition", astNode);
     }
 
   }

@@ -35,7 +35,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
 public class TooManyLinesInCaseCheck extends SquidCheck<LexerlessGrammar> {
 
-  private final int DEFAULT = 5;
+  private static final int DEFAULT = 5;
 
   @RuleProperty(
     key = "max",

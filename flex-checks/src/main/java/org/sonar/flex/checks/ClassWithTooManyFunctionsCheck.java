@@ -54,7 +54,7 @@ public class ClassWithTooManyFunctionsCheck extends SquidCheck<LexerlessGrammar>
   public void visitNode(AstNode astNode) {
     List<AstNode> classDirectives = astNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES).getChildren(FlexGrammar.DIRECTIVE);
 
-    if (classDirectives != null && classDirectives.size() > maximumFunctionThreshold) {
+    if (classDirectives.size() > maximumFunctionThreshold) {
 
       int nbFunction = 0;
       for (AstNode directive : classDirectives) {

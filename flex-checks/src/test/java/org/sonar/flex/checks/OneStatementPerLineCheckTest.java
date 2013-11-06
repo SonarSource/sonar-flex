@@ -34,9 +34,10 @@ public class OneStatementPerLineCheckTest {
 
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/OneStatementPerLine.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-        .next().atLine(2).withMessage("At most one statement is allowed per line, but 2 statements were found on this line.")
-        .next().atLine(6)
-        .noMore();
+      .next().atLine(2).withMessage("At most one statement is allowed per line, but 2 statements were found on this line.")
+      .next().atLine(4)
+      .next().atLine(8)
+      .noMore();
   }
 
 }

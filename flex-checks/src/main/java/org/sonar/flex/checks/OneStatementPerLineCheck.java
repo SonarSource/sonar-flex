@@ -36,7 +36,7 @@ public class OneStatementPerLineCheck extends AbstractOneStatementPerLineCheck<L
 
   @Override
   public void init() {
-    subscribeTo(FlexGrammar.STATEMENT);
+    subscribeTo(FlexGrammar.STATEMENT, FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
   }
 
   @Override

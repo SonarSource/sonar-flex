@@ -1,4 +1,6 @@
 function sayHello() {
+  var foo = "foo";var bar = "bar"; // NOK
+
   alert("Hello World!"); alert("Hello World!"); // NOK
 
   if (a) {} // OK

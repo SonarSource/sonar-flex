@@ -25,7 +25,6 @@ import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.FlexKeyword;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
@@ -44,10 +43,8 @@ public class NotEnoughCaseForSwitchCheck extends SquidCheck<LexerlessGrammar> {
   @Override
   public void visitNode(AstNode astNode) {
     int nbCase = 0;
-    for (AstNode caseElementNode : astNode.getChildren(FlexGrammar.CASE_ELEMENT)) {
-      if (caseElementNode.getFirstChild(FlexGrammar.CASE_LABEL).getFirstChild().is(FlexKeyword.CASE)) {
-        nbCase++;
-      }
+    for (AstNode caseElement : astNode.getChildren(FlexGrammar.CASE_ELEMENT)) {
+      nbCase += caseElement.getChildren(FlexGrammar.CASE_LABEL).size();
     }
 
     if (nbCase < MINIMUM_CASE) {

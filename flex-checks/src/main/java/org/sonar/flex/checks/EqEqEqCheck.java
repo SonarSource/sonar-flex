@@ -40,6 +40,11 @@ public class EqEqEqCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    getContext().createLineViolation(this, "Replace [==|!=] with [===|!==]", astNode);
+    if (astNode.is(FlexPunctuator.EQUAL2)) {
+      getContext().createLineViolation(this, "Replace == with ===", astNode);
+    }
+    if (astNode.is(FlexPunctuator.NOTEQUAL1)) {
+      getContext().createLineViolation(this, "Replace != with !==", astNode);
+    }
   }
 }

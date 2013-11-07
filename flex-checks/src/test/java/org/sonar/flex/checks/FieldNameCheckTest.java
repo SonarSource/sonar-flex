@@ -34,7 +34,7 @@ public class FieldNameCheckTest {
   public void defaults(){
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/FieldName.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(3).withMessage("Rename this variable name to match the regular expression " + check.format)
+      .next().atLine(3).withMessage("Rename this field name to match the regular expression " + check.format)
       .noMore();
   }
 

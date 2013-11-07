@@ -20,6 +20,7 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.impl.ast.AstXmlPrinter;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
@@ -29,14 +30,18 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import java.util.List;
+import java.util.regex.Pattern;
+
 
 @Rule(
-  key = "S102",
+  key = "S116",
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
 public class FieldNameCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final String DEFAULT = "^[_a-z][a-zA-Z0-9]*$";
+  private Pattern pattern = null;
 
   @RuleProperty(
     key = "format",
@@ -46,25 +51,44 @@ public class FieldNameCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(FlexGrammar.VARIABLE_DEF);
+    subscribeTo(FlexGrammar.CLASS_DEF);
+  }
+
+  public void visitFile(AstNode astNode) {
+    if (pattern == null) {
+      pattern = Pattern.compile(format);
+    }
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.getFirstChild(FlexGrammar.VARIABLE_DEF_KIND).getFirstChild(FlexKeyword.VAR) != null) {
+    List<AstNode> classDirectives = astNode
+      .getFirstChild(FlexGrammar.BLOCK)
+      .getFirstChild(FlexGrammar.DIRECTIVES)
+      .getChildren(FlexGrammar.DIRECTIVE);
 
-      for (AstNode variableBindingNode : astNode.getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST).getChildren(FlexGrammar.VARIABLE_BINDING)) {
-        AstNode identifierNode = variableBindingNode
-          .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
-          .getFirstChild(FlexGrammar.IDENTIFIER);
+    for (AstNode directive : classDirectives) {
 
-        if (!identifierNode.getTokenValue().matches(format)) {
-          getContext().createLineViolation(this, "Rename this variable name to match the regular expression {0}",
-            identifierNode, format);
+      if (directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE) != null
+        && directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE).getFirstChild().is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)) {
+
+        AstNode variableDef = directive
+          .getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE)
+          .getFirstChild(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)
+          .getFirstChild(FlexGrammar.VARIABLE_DEF);
+
+        if (variableDef.getFirstChild(FlexGrammar.VARIABLE_DEF_KIND).getFirstChild().is(FlexKeyword.VAR)) {
+          for (AstNode variableBindingNode : variableDef.getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST).getChildren(FlexGrammar.VARIABLE_BINDING)) {
+            AstNode identifierNode = variableBindingNode
+              .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
+              .getFirstChild(FlexGrammar.IDENTIFIER);
+
+            if (!pattern.matcher(identifierNode.getTokenValue()).matches()) {
+              getContext().createLineViolation(this, "Rename this field name to match the regular expression {0}", identifierNode, format);
+            }
+          }
         }
-
       }
-
     }
   }
 }

@@ -46,6 +46,7 @@ public class TooManyReturnCheckTest {
     CheckMessagesVerifier.verify(file.getCheckMessages())
       .next().atLine(1).withMessage("Reduce the number of returns of this function 4, down to the maximum allowed " +  + check.max + ".")
       .next().atLine(14)
+      .next().atLine(23)
       .noMore();
   }
 }

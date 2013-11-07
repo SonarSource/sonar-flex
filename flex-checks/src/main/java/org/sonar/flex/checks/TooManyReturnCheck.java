@@ -28,6 +28,8 @@ import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import java.util.Stack;
+
 @Rule(
   key = "S1142",
   priority = Priority.MAJOR)
@@ -35,6 +37,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 public class TooManyReturnCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final int DEFAULT = 3;
+  private final Stack<Integer> returnStatementCounter = new Stack<Integer>();
 
   @RuleProperty(
     key = "max",
@@ -44,20 +47,42 @@ public class TooManyReturnCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(FlexGrammar.FUNCTION_COMMON);
+    subscribeTo(FlexGrammar.FUNCTION_COMMON, FlexGrammar.RETURN_STATEMENT);
+  }
+
+  @Override
+  public void visitFile(AstNode astNode) {
+    returnStatementCounter.clear();
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    AstNode blockNode = astNode.getFirstChild(FlexGrammar.BLOCK);
-    if (blockNode != null) {
-
-      int nbReturn = blockNode.getDescendants(FlexGrammar.RETURN_STATEMENT).size();
-      if (nbReturn > max) {
-        getContext().createLineViolation(this, "Reduce the number of returns of this function {0,number,integer}, down to the maximum allowed {1,number,integer}.",
-          astNode, nbReturn, max);
-      }
+    if (astNode.is(FlexGrammar.RETURN_STATEMENT)) {
+      setReturnStatementCounter(getReturnStatementCounter() + 1);
+    } else {
+      returnStatementCounter.push(0);
     }
+
   }
 
+  @Override
+  public void leaveNode(AstNode astNode) {
+    if (astNode.is(FlexGrammar.FUNCTION_COMMON)) {
+      if (getReturnStatementCounter() > max) {
+        getContext().createLineViolation(this, "Reduce the number of returns of this function {0,number,integer}, down to the maximum allowed {1,number,integer}.",
+          astNode, getReturnStatementCounter(), max);
+      }
+      returnStatementCounter.pop();
+    }
+
+  }
+
+  private int getReturnStatementCounter() {
+    return returnStatementCounter.peek();
+  }
+
+  private void setReturnStatementCounter(int value) {
+    returnStatementCounter.pop();
+    returnStatementCounter.push(value);
+  }
 }

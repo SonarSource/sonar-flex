@@ -58,7 +58,8 @@ public class ClassWithTooManyFunctionsCheck extends SquidCheck<LexerlessGrammar>
 
       int nbFunction = 0;
       for (AstNode directive : classDirectives) {
-        if (directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE) != null && directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE).getFirstChild().is(FlexGrammar.FUNCTION_DEF)) {
+        if (directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE) != null
+          && directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE).getFirstChild().is(FlexGrammar.FUNCTION_DEF)) {
           nbFunction++;
         }
       }

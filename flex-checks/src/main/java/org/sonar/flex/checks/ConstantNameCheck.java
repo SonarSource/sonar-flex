@@ -29,6 +29,8 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import java.util.regex.Pattern;
+
 
 @Rule(
   key = "S115",
@@ -37,6 +39,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 public class ConstantNameCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final String DEFAULT = "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$";
+  private Pattern pattern = null;
+
   @RuleProperty(
     key = "format",
     defaultValue = DEFAULT)
@@ -45,6 +49,12 @@ public class ConstantNameCheck extends SquidCheck<LexerlessGrammar> {
   @Override
   public void init() {
     subscribeTo(FlexGrammar.VARIABLE_DEF);
+  }
+
+  public void visitFile(AstNode astNode) {
+    if (pattern == null) {
+      pattern = Pattern.compile(format);
+    }
   }
 
   @Override
@@ -56,7 +66,7 @@ public class ConstantNameCheck extends SquidCheck<LexerlessGrammar> {
           .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
           .getFirstChild(FlexGrammar.IDENTIFIER);
 
-        if (!identifierNode.getTokenValue().matches(format)) {
+        if (!pattern.matcher(identifierNode.getTokenValue()).matches()) {
           getContext().createLineViolation(this, "Rename this constant '" + identifierNode.getTokenValue() + "' to match the regular expression " + format + "",
             identifierNode);
         }

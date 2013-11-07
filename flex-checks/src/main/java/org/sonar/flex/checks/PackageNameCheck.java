@@ -29,6 +29,8 @@ import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import java.util.regex.Pattern;
+
 @Rule(
   key = "S120",
   priority = Priority.MAJOR)
@@ -36,6 +38,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 public class PackageNameCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final String DEFAULT = "^[a-z]+(\\.[a-z][a-z0-9]*)*$";
+  private Pattern pattern = null;
 
   @RuleProperty(
     key = "format",
@@ -47,12 +50,19 @@ public class PackageNameCheck extends SquidCheck<LexerlessGrammar> {
     subscribeTo(FlexGrammar.PACKAGE_DEF);
   }
 
+
+  public void visitFile(AstNode astNode) {
+    if (pattern == null) {
+      pattern = Pattern.compile(format);
+    }
+  }
+
   @Override
   public void visitNode(AstNode astNode) {
     AstNode nameNode = astNode.getFirstChild(FlexGrammar.PACKAGE_NAME);
     if (nameNode != null) {
       String packageIdentifier = concatenate(nameNode);
-      if (!packageIdentifier.matches(format)) {
+      if (!pattern.matcher(packageIdentifier).matches()) {
         getContext().createLineViolation(this, "Rename this package name to match the regular expression {0}", astNode, format);
       }
     }

@@ -28,6 +28,8 @@ import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import java.util.regex.Pattern;
+
 @Rule(
   key = "S101",
   priority = Priority.MAJOR)
@@ -35,6 +37,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 public class ClassNameCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final String DEFAULT = "^[A-Z][a-zA-Z0-9]*$";
+  private Pattern pattern = null;
 
   @RuleProperty(
     key = "format",
@@ -46,13 +49,19 @@ public class ClassNameCheck extends SquidCheck<LexerlessGrammar> {
     subscribeTo(FlexGrammar.CLASS_DEF);
   }
 
+  public void visitFile(AstNode astNode) {
+    if (pattern == null) {
+      pattern = Pattern.compile(format);
+    }
+  }
+
   @Override
   public void visitNode(AstNode astNode) {
     String classIdentifier = astNode.getFirstChild(FlexGrammar.CLASS_NAME)
       .getFirstChild(FlexGrammar.CLASS_IDENTIFIERS)
       .getLastChild()
       .getTokenValue();
-    if (!classIdentifier.matches(format)) {
+    if (!pattern.matcher(classIdentifier).matches()) {
       getContext().createLineViolation(this, "Rename this class name to match the regular expression {0}", astNode, format);
     }
   }

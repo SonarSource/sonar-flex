@@ -20,7 +20,6 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.impl.ast.AstXmlPrinter;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
@@ -32,7 +31,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.List;
 import java.util.regex.Pattern;
-
 
 @Rule(
   key = "S116",

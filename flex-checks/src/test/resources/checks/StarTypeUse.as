@@ -1,3 +1,4 @@
+var obj;                   // OK
 var obj:Something;                   // OK
 var foo:Something = new Something(); // OK
 

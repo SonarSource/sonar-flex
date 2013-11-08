@@ -33,8 +33,8 @@ public class EqEqEqCheckTest {
   @Test public void test() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/EqEqEq.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(3).withMessage("Replace == with ===")
-      .next().atLine(4)
+      .next().atLine(4).withMessage("Replace == with ===")
+      .next().atLine(5)
       .noMore();
   }
 }

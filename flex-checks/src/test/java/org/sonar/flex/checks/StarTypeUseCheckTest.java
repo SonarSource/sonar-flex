@@ -34,8 +34,8 @@ public class StarTypeUseCheckTest {
   public void test() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/StarTypeUse.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(4).withMessage("Remove usage of this \"star\" type")
-      .next().atLine(5)
+      .next().atLine(5).withMessage("Remove usage of this \"star\" type")
+      .next().atLine(6)
       .noMore();
   }
 }

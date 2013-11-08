@@ -1,3 +1,5 @@
+package { // OK
+}
 package org.example { // OK
 }
 

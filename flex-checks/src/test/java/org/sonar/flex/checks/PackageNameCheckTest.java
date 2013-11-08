@@ -34,7 +34,7 @@ public class PackageNameCheckTest {
   public void defaults() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/PackageName.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(4);
+      .next().atLine(6);
   }
 
   @Test
@@ -43,7 +43,7 @@ public class PackageNameCheckTest {
 
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/PackageName.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(1);
+      .next().atLine(3);
   }
 
 }

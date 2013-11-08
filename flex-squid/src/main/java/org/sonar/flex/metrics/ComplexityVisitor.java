@@ -48,8 +48,8 @@ public class ComplexityVisitor extends SquidAstVisitor<LexerlessGrammar> {
 
       // Expressions
       FlexPunctuator.QUERY,
-      FlexPunctuator.ANDAND,
-      FlexPunctuator.OROR);
+      FlexGrammar.LOGICAL_AND_OPERATOR,
+      FlexGrammar.LOGICAL_OR_OPERATOR);
   }
 
   @Override

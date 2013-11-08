@@ -194,6 +194,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   // Binary expression
   MULTIPLICATIVE_EXPR,
   ADDITIVE_EXPR,
+  ADDITIVE_OPERATOR,
   SHIFT_EXPR,
   RELATIONAL_EXPR,
   RELATIONAL_EXPR_NO_IN,
@@ -210,8 +211,10 @@ public enum FlexGrammar implements GrammarRuleKey {
   BITEWISE_OR_EXPR_NO_IN,
   LOGICAL_AND_EXPR,
   LOGICAL_AND_EXPR_NO_IN,
+  LOGICAL_AND_OPERATOR,
   LOGICAL_OR_EXPR,
   LOGICAL_OR_EXPR_NO_IN,
+  LOGICAL_OR_OPERATOR,
   // Assignment expression
   ASSIGNMENT_EXPR,
   ASSIGNMENT_EXPR_NO_IN,
@@ -579,22 +582,32 @@ public enum FlexGrammar implements GrammarRuleKey {
     // Unary expression
     b.rule(UNARY_EXPR).is(b.firstOf(
       b.sequence(b.firstOf(DELETE, DOUBLE_PLUS, DOUBLE_MINUS), POSTFIX_EXPR),
-      b.sequence(b.firstOf(VOID, TYPEOF, PLUS, MINUS, NOT, TILD), UNARY_EXPR),
+      b.sequence(b.firstOf(VOID, TYPEOF, PLUS, MINUS, NOT, TILD, /* Action Script 2: */ word(b, "not")), UNARY_EXPR),
       POSTFIX_EXPR)).skipIfOneChild();
 
     // Binary expressions
     b.rule(MULTIPLICATIVE_EXPR).is(UNARY_EXPR, b.zeroOrMore(b.firstOf(STAR, DIV, MOD), UNARY_EXPR)).skipIfOneChild();
-    b.rule(ADDITIVE_EXPR).is(MULTIPLICATIVE_EXPR, b.zeroOrMore(b.firstOf(PLUS, MINUS), MULTIPLICATIVE_EXPR)).skipIfOneChild();
+    b.rule(ADDITIVE_EXPR).is(MULTIPLICATIVE_EXPR, b.zeroOrMore(ADDITIVE_OPERATOR, MULTIPLICATIVE_EXPR)).skipIfOneChild();
+    b.rule(ADDITIVE_OPERATOR).is(b.firstOf(PLUS, MINUS, /* Action Script 2: */ word(b, "add")));
     b.rule(SHIFT_EXPR).is(ADDITIVE_EXPR, b.zeroOrMore(b.firstOf(SL, SR2, SR), ADDITIVE_EXPR)).skipIfOneChild();
 
     b.rule(RELATIONAL_EXPR).is(SHIFT_EXPR, b.zeroOrMore(RELATIONAL_OPERATOR, SHIFT_EXPR)).skipIfOneChild();
     b.rule(RELATIONAL_EXPR_NO_IN).is(SHIFT_EXPR, b.zeroOrMore(RELATIONAL_OPERATOR_NO_IN, SHIFT_EXPR)).skipIfOneChild();
-    b.rule(RELATIONAL_OPERATOR).is(b.firstOf(LE, GE, LT, GT, IN, INSTANCEOF, IS, AS));
-    b.rule(RELATIONAL_OPERATOR_NO_IN).is(b.firstOf(LE, GE, LT, GT, INSTANCEOF, IS, AS));
+    b.rule(RELATIONAL_OPERATOR).is(b.firstOf(LE, GE, LT, GT, IN, INSTANCEOF, IS, AS, /* Action Script 2: */ word(b, "le"), word(b, "ge"), word(b, "lt"), word(b, "gt")));
+    b.rule(RELATIONAL_OPERATOR_NO_IN).is(b.firstOf(LE, GE, LT, GT, INSTANCEOF, IS, AS, /* Action Script 2: */ word(b, "le"), word(b, "ge"), word(b, "lt"), word(b, "gt")));
 
     b.rule(EQUALITY_EXPR).is(RELATIONAL_EXPR, b.zeroOrMore(EQUALITY_OPERATOR, RELATIONAL_EXPR)).skipIfOneChild();
     b.rule(EQUALITY_EXPR_NO_IN).is(RELATIONAL_EXPR_NO_IN, b.zeroOrMore(EQUALITY_OPERATOR, RELATIONAL_EXPR_NO_IN)).skipIfOneChild();
-    b.rule(EQUALITY_OPERATOR).is(b.firstOf(NOTEQUAL2, EQUAL3, EQUAL2, NOTEQUAL1));
+    b.rule(EQUALITY_OPERATOR).is(b.firstOf(
+      NOTEQUAL2,
+      EQUAL3,
+      EQUAL2,
+      NOTEQUAL1,
+      /* ActionScript 2: */
+      b.sequence(SPACING, "<>"),
+      word(b, "eq"),
+      word(b, "ne")
+    ));
 
     b.rule(BITEWISE_AND_EXPR).is(EQUALITY_EXPR, b.zeroOrMore(AND, EQUALITY_EXPR)).skipIfOneChild();
     b.rule(BITEWISE_AND_EXPR_NO_IN).is(EQUALITY_EXPR_NO_IN, b.zeroOrMore(AND, EQUALITY_EXPR_NO_IN)).skipIfOneChild();
@@ -605,11 +618,21 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(BITEWISE_OR_EXPR).is(BITEWISE_XOR_EXPR, b.zeroOrMore(OR, BITEWISE_XOR_EXPR)).skipIfOneChild();
     b.rule(BITEWISE_OR_EXPR_NO_IN).is(BITEWISE_XOR_EXPR_NO_IN, b.zeroOrMore(OR, BITEWISE_XOR_EXPR_NO_IN)).skipIfOneChild();
 
-    b.rule(LOGICAL_AND_EXPR).is(BITEWISE_OR_EXPR, b.zeroOrMore(ANDAND, BITEWISE_XOR_EXPR)).skipIfOneChild();
-    b.rule(LOGICAL_AND_EXPR_NO_IN).is(BITEWISE_OR_EXPR_NO_IN, b.zeroOrMore(ANDAND, BITEWISE_XOR_EXPR_NO_IN)).skipIfOneChild();
+    b.rule(LOGICAL_AND_EXPR).is(BITEWISE_OR_EXPR, b.zeroOrMore(LOGICAL_AND_OPERATOR, BITEWISE_XOR_EXPR)).skipIfOneChild();
+    b.rule(LOGICAL_AND_EXPR_NO_IN).is(BITEWISE_OR_EXPR_NO_IN, b.zeroOrMore(LOGICAL_AND_OPERATOR, BITEWISE_XOR_EXPR_NO_IN)).skipIfOneChild();
+    b.rule(LOGICAL_AND_OPERATOR).is(b.firstOf(
+      ANDAND,
+      /* ActionScript 2: */
+      b.sequence(SPACING, "and", b.nextNot(IDENTIFIER_PART))
+    ));
 
-    b.rule(LOGICAL_OR_EXPR).is(LOGICAL_AND_EXPR, b.zeroOrMore(OROR, LOGICAL_AND_EXPR)).skipIfOneChild();
-    b.rule(LOGICAL_OR_EXPR_NO_IN).is(LOGICAL_AND_EXPR_NO_IN, b.zeroOrMore(OROR, LOGICAL_AND_EXPR_NO_IN)).skipIfOneChild();
+    b.rule(LOGICAL_OR_EXPR).is(LOGICAL_AND_EXPR, b.zeroOrMore(LOGICAL_OR_OPERATOR, LOGICAL_AND_EXPR)).skipIfOneChild();
+    b.rule(LOGICAL_OR_EXPR_NO_IN).is(LOGICAL_AND_EXPR_NO_IN, b.zeroOrMore(LOGICAL_OR_OPERATOR, LOGICAL_AND_EXPR_NO_IN)).skipIfOneChild();
+    b.rule(LOGICAL_OR_OPERATOR).is(b.firstOf(
+      OROR,
+      /* ActionScript 2: */
+      b.sequence(SPACING, "or", b.nextNot(IDENTIFIER_PART))
+    ));
 
     // Conditional expression
     b.rule(CONDITIONAL_EXPR).is(LOGICAL_OR_EXPR, b.optional(QUERY, ASSIGNMENT_EXPR, COLON, ASSIGNMENT_EXPR)).skipIfOneChild();
@@ -906,6 +929,10 @@ public enum FlexGrammar implements GrammarRuleKey {
     for (FlexPunctuator p : FlexPunctuator.values()) {
       b.rule(p).is(SPACING, p.getValue());
     }
+  }
+
+  private static Object word(LexerlessGrammarBuilder b, String word) {
+    return b.sequence(SPACING, word, b.nextNot(IDENTIFIER_PART));
   }
 
 }

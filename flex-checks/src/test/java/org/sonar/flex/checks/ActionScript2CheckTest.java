@@ -25,22 +25,23 @@ import org.sonar.flex.FlexAstScanner;
 import org.sonar.squid.api.SourceFile;
 
 import java.io.File;
-import org.junit.Ignore;
 
 public class ActionScript2CheckTest {
 
-  @Ignore
+  private final ActionScript2Check check = new ActionScript2Check();
+
   @Test
   public void test() {
-    ActionScript2Check check = new ActionScript2Check();
-
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ActionScript2.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-        .next().atLine(1).withMessage("'intrinsic' not available in ActionScript 3.0")
-        .next().atLine(2).withMessage("Operator '<>' not available in ActionScript 3.0")
-        .next().atLine(4).withMessage("Operator 'not' not available in ActionScript 3.0")
-        .next().atLine(6).withMessage("'set variable statement' not available in ActionScript 3.0")
-        .noMore();
+//      .next().atLine(1).withMessage("'intrinsic' not available in ActionScript 3.0")
+      .next().atLine(2).withMessage("Operator '<>' not available in ActionScript 3.0")
+      .next().atLine(4).withMessage("Operator 'not' not available in ActionScript 3.0")
+      .next().atLine(6).withMessage("Operator 'or' not available in ActionScript 3.0")
+      .next().atLine(8).withMessage("Operator 'and' not available in ActionScript 3.0")
+      .next().atLine(10).withMessage("Operator 'lt' not available in ActionScript 3.0")
+//      .next().atLine(12).withMessage("'set variable statement' not available in ActionScript 3.0")
+      .noMore();
   }
 
 }

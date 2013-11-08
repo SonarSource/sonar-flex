@@ -19,11 +19,16 @@
  */
 package org.sonar.flex.checks;
 
+import com.google.common.collect.ImmutableSet;
+import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
+
+import java.util.Set;
 
 @Rule(
   key = "ActionScript2",
@@ -31,45 +36,46 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.BLOCKER)
 public class ActionScript2Check extends SquidCheck<LexerlessGrammar> {
 
-//  private final Set<String> deprecatedOperators = ImmutableSet.of("or", "and", "ne", "eq", "ge", "gt", "le", "lt", "add", "<>");
-//
-//  @Override
-//  public void init() {
-//    FlexGrammar grammar = getContext().getGrammar();
-//    subscribeTo(
+  private final Set<String> deprecatedOperators = ImmutableSet.of("or", "and", "ne", "eq", "ge", "gt", "le", "lt", "add", "<>");
+
+  @Override
+  public void init() {
+    subscribeTo(
 //        grammar.setVariableStatement,
-//        grammar.unaryExpression,
+      FlexGrammar.UNARY_EXPR,
 //        grammar.modifier,
-//        grammar.logicalOrOperator,
-//        grammar.logicalAndOperator,
-//        grammar.equalityOperator,
-//        grammar.relationalOperator,
-//        grammar.additiveOperator);
-//  }
-//
-//  @Override
-//  public void visitNode(AstNode astNode) {
-//    FlexGrammar grammar = getContext().getGrammar();
+      FlexGrammar.LOGICAL_OR_OPERATOR,
+      FlexGrammar.LOGICAL_AND_OPERATOR,
+      FlexGrammar.EQUALITY_OPERATOR,
+      FlexGrammar.RELATIONAL_OPERATOR,
+      FlexGrammar.RELATIONAL_OPERATOR_NO_IN,
+      FlexGrammar.ADDITIVE_OPERATOR
+    );
+  }
+
+  @Override
+  public void visitNode(AstNode astNode) {
 //    if (astNode.is(grammar.setVariableStatement)) {
 //      getContext().createLineViolation(this, "'set variable statement' not available in ActionScript 3.0", astNode);
 //    } else if (astNode.is(grammar.modifier) && "intrinsic".equals(astNode.getTokenValue())) {
 //      getContext().createLineViolation(this, "'intrinsic' not available in ActionScript 3.0", astNode);
-//    } else if (astNode.is(grammar.unaryExpression) && "not".equals(astNode.getFirstChild().getTokenValue())) {
-//      getContext().createLineViolation(this, "Operator 'not' not available in ActionScript 3.0", astNode.getFirstChild());
-//    } else {
-//      String operator = getValue(astNode);
-//      if (deprecatedOperators.contains(operator)) {
-//        getContext().createLineViolation(this, "Operator '" + operator + "' not available in ActionScript 3.0", astNode);
-//      }
-//    }
-//  }
-//
-//  private String getValue(AstNode astNode) {
-//    StringBuilder sb = new StringBuilder();
-//    for (AstNode child : astNode.getChildren()) {
-//      sb.append(child.getTokenValue());
-//    }
-//    return sb.toString();
-//  }
+//    } else
+    if (astNode.is(FlexGrammar.UNARY_EXPR) && "not".equals(astNode.getFirstChild().getTokenValue())) {
+      getContext().createLineViolation(this, "Operator 'not' not available in ActionScript 3.0", astNode.getFirstChild());
+    } else {
+      String operator = getValue(astNode);
+      if (deprecatedOperators.contains(operator)) {
+        getContext().createLineViolation(this, "Operator '" + operator + "' not available in ActionScript 3.0", astNode);
+      }
+    }
+  }
+
+  private String getValue(AstNode astNode) {
+    StringBuilder sb = new StringBuilder();
+    for (AstNode child : astNode.getChildren()) {
+      sb.append(child.getTokenValue());
+    }
+    return sb.toString();
+  }
 
 }

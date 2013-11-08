@@ -40,7 +40,9 @@ public class BinaryExpressionTest {
   public void additive() {
     Assertions.assertThat(g.rule(FlexGrammar.ADDITIVE_EXPR))
       .matches("a + b")
-      .matches("a - b");
+      .matches("a - b")
+      // ActionScript 2:
+      .matches("a add b");
   }
   
   @Test
@@ -61,8 +63,12 @@ public class BinaryExpressionTest {
       .matches("a in b")
       .matches("a instanceof b")
       .matches("a is b")
-      .matches("a as b");
-      
+      .matches("a as b")
+      // ActionScript 2:
+      .matches("a lt b")
+      .matches("a gt b")
+      .matches("a le b")
+      .matches("a ge b");
   }
   
   @Test
@@ -71,7 +77,11 @@ public class BinaryExpressionTest {
       .matches("a !== b")
       .matches("a === b")
       .matches("a == b")
-      .matches("a != b");
+      .matches("a != b")
+      // ActionScript 2:
+      .matches("a <> b")
+      .matches("a eq b")
+      .matches("a ne b");
   }
   
   @Test
@@ -86,14 +96,15 @@ public class BinaryExpressionTest {
       .matches("a | b");
   }
   
-  
   @Test
   public void logical() {
     Assertions.assertThat(g.rule(FlexGrammar.LOGICAL_AND_EXPR))
-      .matches("a && b");
+      .matches("a && b")
+      .matches("a and b");
     
     Assertions.assertThat(g.rule(FlexGrammar.LOGICAL_OR_EXPR))
-      .matches("a || b");
+      .matches("a || b")
+      .matches("a or b");
   }
 
 }

@@ -47,7 +47,10 @@ public class IdentifierTest {
       .matches("_")
       .matches("$")
       // unicode escape sequence
-      .matches("\\u1234");
+      .matches("\\u1234")
+
+      // "as" is not keyword in ActionScript 2:
+      .matches("as");
   }
 
 }

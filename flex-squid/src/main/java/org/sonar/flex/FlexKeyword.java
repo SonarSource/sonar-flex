@@ -26,7 +26,10 @@ import java.util.List;
 
 public enum FlexKeyword implements GrammarRuleKey {
 
-  AS,
+  /**
+   * "as" is not keyword in ActionScript 2, so we treat it as syntactic keyword
+   */
+  AS(true),
   BREAK,
   CASE,
   CATCH,

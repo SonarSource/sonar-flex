@@ -35,7 +35,6 @@ public class FlexKeywordTest {
       .notMatches("break2");
 
     assertThat(g.rule(FlexGrammar.KEYWORDS))
-      .matches("as")
       .matches("break")
       .matches("case")
       .matches("catch")
@@ -80,7 +79,7 @@ public class FlexKeywordTest {
       .matches("while")
       .matches("with");
 
-    assertThat(FlexKeyword.keywords()).hasSize(44);
-    assertThat(FlexKeyword.values()).hasSize(44 + /* syntactic: */ 10);
+    assertThat(FlexKeyword.keywords()).hasSize(43);
+    assertThat(FlexKeyword.values()).hasSize(43 + /* syntactic: */ 11);
   }
 }

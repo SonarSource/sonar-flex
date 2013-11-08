@@ -582,7 +582,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     // Unary expression
     b.rule(UNARY_EXPR).is(b.firstOf(
       b.sequence(b.firstOf(DELETE, DOUBLE_PLUS, DOUBLE_MINUS), POSTFIX_EXPR),
-      b.sequence(b.firstOf(VOID, TYPEOF, PLUS, MINUS, NOT, TILD, /* Action Script 2: */ word(b, "not")), UNARY_EXPR),
+      b.sequence(b.firstOf(VOID, TYPEOF, PLUS, MINUS, NOT, TILD), UNARY_EXPR),
       POSTFIX_EXPR)).skipIfOneChild();
 
     // Binary expressions

@@ -46,7 +46,8 @@ public class UnaryExpressionTest {
       .matches("void ++ a")
 
       // ActionScript 2:
-      .matches("not a");
+//      .matches("not a")
+    ;
   }
 
 }

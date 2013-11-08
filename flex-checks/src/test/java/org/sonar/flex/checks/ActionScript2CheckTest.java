@@ -36,7 +36,7 @@ public class ActionScript2CheckTest {
     CheckMessagesVerifier.verify(file.getCheckMessages())
 //      .next().atLine(1).withMessage("'intrinsic' not available in ActionScript 3.0")
       .next().atLine(2).withMessage("Operator '<>' not available in ActionScript 3.0")
-      .next().atLine(4).withMessage("Operator 'not' not available in ActionScript 3.0")
+//      .next().atLine(4).withMessage("Operator 'not' not available in ActionScript 3.0")
       .next().atLine(6).withMessage("Operator 'or' not available in ActionScript 3.0")
       .next().atLine(8).withMessage("Operator 'and' not available in ActionScript 3.0")
       .next().atLine(10).withMessage("Operator 'lt' not available in ActionScript 3.0")

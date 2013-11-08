@@ -58,8 +58,11 @@ class A {
   }
 }
 
-  {
     if (false) { // Compliant
     }
-  }
+
+    if (false) { // Compliant
+      doSomething();
+    }
+
 }

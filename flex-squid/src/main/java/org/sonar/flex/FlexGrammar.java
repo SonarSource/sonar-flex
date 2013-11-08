@@ -650,14 +650,12 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.sequence(/* Godin: not sure about QUALIFIED_IDENTIFIER, but it works: */QUALIFIED_IDENTIFIER, b.zeroOrMore(DOT, QUALIFIED_IDENTIFIER), b.optional(TYPE_APPLICATION))
     ));
     b.rule(TYPE_APPLICATION).is(DOT, LT, TYPE_EXPRESSION_LIST, GT);
-    // TODO try to remove:
     b.rule(TYPE_EXPR_NO_IN).is(TYPE_EXPR);
 
     b.rule(VECTOR_LITERAL_EXPRESSION).is(LT, TYPE_EXPR, GT, BRACKETS);
   }
 
   private static void statements(LexerlessGrammarBuilder b) {
-    // TODO seems that SUPER_STATEMENT conflicts with EXPRESSION_STATEMENT
     b.rule(STATEMENT).is(b.firstOf(
       SUPER_STATEMENT,
       BLOCK,

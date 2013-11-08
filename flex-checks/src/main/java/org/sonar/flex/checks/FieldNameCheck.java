@@ -32,6 +32,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 import java.util.List;
 import java.util.regex.Pattern;
 
+
 @Rule(
   key = "S116",
   priority = Priority.MAJOR)
@@ -67,26 +68,32 @@ public class FieldNameCheck extends SquidCheck<LexerlessGrammar> {
 
     for (AstNode directive : classDirectives) {
 
-      if (directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE) != null
-        && directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE).getFirstChild().is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)) {
-
+      if (isVariableDefinition(directive)) {
         AstNode variableDef = directive
           .getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE)
           .getFirstChild(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)
           .getFirstChild(FlexGrammar.VARIABLE_DEF);
 
-        if (variableDef.getFirstChild(FlexGrammar.VARIABLE_DEF_KIND).getFirstChild().is(FlexKeyword.VAR)) {
-          for (AstNode variableBindingNode : variableDef.getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST).getChildren(FlexGrammar.VARIABLE_BINDING)) {
-            AstNode identifierNode = variableBindingNode
-              .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
-              .getFirstChild(FlexGrammar.IDENTIFIER);
+        for (AstNode variableBindingNode : variableDef.getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST).getChildren(FlexGrammar.VARIABLE_BINDING)) {
+          AstNode identifierNode = variableBindingNode
+            .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
+            .getFirstChild(FlexGrammar.IDENTIFIER);
 
-            if (!pattern.matcher(identifierNode.getTokenValue()).matches()) {
-              getContext().createLineViolation(this, "Rename this field name to match the regular expression {0}", identifierNode, format);
-            }
+          if (!pattern.matcher(identifierNode.getTokenValue()).matches()) {
+            getContext().createLineViolation(this, "Rename this field name to match the regular expression {0}", identifierNode, format);
           }
         }
       }
     }
+  }
+
+  private static boolean isVariableDefinition(AstNode directive) {
+    if (directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE) != null) {
+      AstNode annotableDir = directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE).getFirstChild();
+
+      return annotableDir.is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)
+        && annotableDir.getFirstChild(FlexGrammar.VARIABLE_DEF).getFirstChild(FlexGrammar.VARIABLE_DEF_KIND).getFirstChild().is(FlexKeyword.VAR);
+    }
+    return false;
   }
 }

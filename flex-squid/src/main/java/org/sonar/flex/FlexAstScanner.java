@@ -165,7 +165,6 @@ public final class FlexAstScanner {
           FlexGrammar.RETURN_STATEMENT,
           FlexGrammar.THROW_STATEMENT,
           FlexGrammar.TRY_STATEMENT,
-          // TODO parser.getGrammar().setVariableStatement,
            FlexGrammar.EMPTY_STATEMENT)
         .build());
 

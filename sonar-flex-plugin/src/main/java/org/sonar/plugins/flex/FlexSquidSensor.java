@@ -64,6 +64,12 @@ public class FlexSquidSensor implements Sensor {
   private static final Number[] FUNCTIONS_DISTRIB_BOTTOM_LIMITS = {1, 2, 4, 6, 8, 10, 12};
   private static final Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
 
+  private static final Predicate<java.io.File> MXML_FILTER = new Predicate<java.io.File>() {
+    public boolean apply(java.io.File input) {
+      return input != null && input.getAbsolutePath().endsWith(".mxml");
+    }
+  };
+
   private final AnnotationCheckFactory annotationCheckFactory;
   private final FlexResourceBridge resourceBridge;
   private final FileLinesContextFactory fileLinesContextFactory;
@@ -81,12 +87,6 @@ public class FlexSquidSensor implements Sensor {
   public boolean shouldExecuteOnProject(Project project) {
     return Flex.KEY.equals(project.getLanguageKey());
   }
-
-  private static final Predicate<java.io.File> MXML_FILTER = new Predicate<java.io.File>() {
-    public boolean apply(java.io.File input) {
-      return input != null && input.getAbsolutePath().endsWith(".mxml");
-    }
-  };
 
   public void analyse(Project project, SensorContext context) {
     this.project = project;

@@ -38,6 +38,8 @@ import java.util.Iterator;
 
 public class FlexTokenizer implements Tokenizer {
 
+  private static final String NORMALIZED_CHARACTER_LITERAL = "$CHARS";
+  private static final String NORMALIZED_NUMERIC_LITERAL = "$NUMBER";
   private final Charset charset;
 
   public FlexTokenizer(Charset charset) {
@@ -72,9 +74,6 @@ public class FlexTokenizer implements Tokenizer {
     }
     cpdTokens.add(TokenEntry.getEOF());
   }
-
-  private static final String NORMALIZED_CHARACTER_LITERAL = "$CHARS";
-  private static final String NORMALIZED_NUMERIC_LITERAL = "$NUMBER";
 
   private static String getTokenImage(Token token) {
     if (token.getType() == GenericTokenType.LITERAL) {

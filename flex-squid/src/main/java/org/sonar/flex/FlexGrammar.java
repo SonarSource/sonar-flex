@@ -352,7 +352,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   private static final String UNICODE_LETTER = "\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}";
   private static final String UNICODE_DIGIT = "\\p{Nd}";
   private static final String UNICODE_COMBINING_MARK = "\\p{Mn}\\p{Mc}";
-  private static final String UNICODE_CONNECTOR_PUNCTUATION = "\\p{Mn}\\p{Mc}";
+  private static final String UNICODE_CONNECTOR_PUNCTUATION = "\\p{Pc}";
 
   private static final String UNICODE_ESCAPE_SEQUENCE_REGEXP = "u[0-9a-fA-F]{4,4}";
   private static final String IDENTIFIER_START_REGEXP = "(?:[$_" + UNICODE_LETTER + "]|\\\\" + UNICODE_ESCAPE_SEQUENCE_REGEXP + ")";
@@ -774,7 +774,8 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(USE_DIRECTIVE).is(USE, NAMESPACE, LIST_EXPRESSION);
 
-    b.rule(DEFAULT_XML_NAMESPACE_DIRECTIVE).is(DEFAULT, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, XML, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, NAMESPACE, EQUAL1, NON_ASSIGNMENT_EXPR, EOS);
+    b.rule(DEFAULT_XML_NAMESPACE_DIRECTIVE).is(DEFAULT, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, XML,
+    /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, NAMESPACE, EQUAL1, NON_ASSIGNMENT_EXPR, EOS);
   }
 
   private static void definitions(LexerlessGrammarBuilder b) {

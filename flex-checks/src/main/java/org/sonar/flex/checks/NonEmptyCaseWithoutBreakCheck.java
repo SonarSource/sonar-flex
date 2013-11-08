@@ -42,8 +42,10 @@ public class NonEmptyCaseWithoutBreakCheck extends SquidCheck<LexerlessGrammar> 
   @Override
   public void visitNode(AstNode astNode) {
     AstNode lastAstNode = astNode.getLastChild();
-    if (lastAstNode.getFirstChild().is(FlexGrammar.STATEMENT) && lastAstNode.getFirstChild().getFirstChild().isNot(FlexGrammar.BREAK_STATEMENT, FlexGrammar.RETURN_STATEMENT, FlexGrammar.THROW_STATEMENT)) {
-      getContext().createLineViolation(this, "Last statement in this switch-clause should be an unconditional break.", Iterables.getLast(astNode.getChildren(FlexGrammar.CASE_LABEL)));
+    if (lastAstNode.getFirstChild().is(FlexGrammar.STATEMENT)
+      && lastAstNode.getFirstChild().getFirstChild().isNot(FlexGrammar.BREAK_STATEMENT, FlexGrammar.RETURN_STATEMENT, FlexGrammar.THROW_STATEMENT)) {
+      getContext().createLineViolation(this, "Last statement in this switch-clause should be an unconditional break.",
+        Iterables.getLast(astNode.getChildren(FlexGrammar.CASE_LABEL)));
     }
   }
 

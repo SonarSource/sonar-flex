@@ -34,6 +34,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 public class LineLengthCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
 
   private static final int DEFAULT_MAXIMUM_LINE_LENHGTH = 80;
+  private Token previousToken;
 
   @RuleProperty(
     key = "maximumLineLength",
@@ -43,8 +44,6 @@ public class LineLengthCheck extends SquidCheck<LexerlessGrammar> implements Ast
   public int getMaximumLineLength() {
     return maximumLineLength;
   }
-
-  private Token previousToken;
 
   @Override
   public void visitFile(AstNode astNode) {

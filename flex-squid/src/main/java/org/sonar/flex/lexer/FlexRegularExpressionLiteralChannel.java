@@ -40,54 +40,34 @@ public class FlexRegularExpressionLiteralChannel extends Channel<Lexer> {
 
   private final Channel<Lexer> delegate;
 
-  public FlexRegularExpressionLiteralChannel() {
-    this.delegate = regexp(FlexTokenType.REGULAR_EXPRESSION_LITERAL, "/([^/\\n\\\\]*+(\\\\.)?+)*+/\\p{javaJavaIdentifierPart}*+");
-  }
-
-  @Override
-  public boolean consume(CodeReader code, Lexer output) {
-    if (code.peek() == '/') {
-      Token lastToken = getLastToken(output);
-      if (lastToken == null || guessNextIsRegexp(lastToken.getValue())) {
-        return delegate.consume(code, output);
-      }
-    }
-    return false;
-  }
-
-  private static Token getLastToken(Lexer output) {
-    List<Token> tokens = output.getTokens();
-    return tokens.isEmpty() ? null : tokens.get(tokens.size() - 1);
-  }
-
   private static final Set<String> WHOLE_TOKENS = ImmutableSet.of(
-      "break",
-      "case",
-      "continue",
-      "delete",
-      "do",
-      "else",
-      "finally",
-      "in",
-      "instanceof",
-      "return",
-      "throw",
-      "try",
-      "typeof",
-      "void",
-      // Binary operators which cannot be followed by a division operator:
-      // Match + but not ++. += is handled below.
-      "+",
-      // Match - but not --. -= is handled below.
-      "-",
-      // Match . but not a number with a trailing decimal.
-      ".",
-      // Match /, but not a regexp. /= is handled below.
-      "/",
-      // Second binary operand cannot start a division.
-      ",",
-      // Ditto binary operand.
-      "*");
+    "break",
+    "case",
+    "continue",
+    "delete",
+    "do",
+    "else",
+    "finally",
+    "in",
+    "instanceof",
+    "return",
+    "throw",
+    "try",
+    "typeof",
+    "void",
+    // Binary operators which cannot be followed by a division operator:
+    // Match + but not ++. += is handled below.
+    "+",
+    // Match - but not --. -= is handled below.
+    "-",
+    // Match . but not a number with a trailing decimal.
+    ".",
+    // Match /, but not a regexp. /= is handled below.
+    "/",
+    // Second binary operand cannot start a division.
+    ",",
+    // Ditto binary operand.
+    "*");
 
   private static final String[] ENDS = new String[] {
     // ! prefix operator operand cannot start with a division
@@ -127,6 +107,26 @@ public class FlexRegularExpressionLiteralChannel extends Channel<Lexer> {
     // ~ ditto binary operand
     "~"
   };
+
+  public FlexRegularExpressionLiteralChannel() {
+    this.delegate = regexp(FlexTokenType.REGULAR_EXPRESSION_LITERAL, "/([^/\\n\\\\]*+(\\\\.)?+)*+/\\p{javaJavaIdentifierPart}*+");
+  }
+
+  @Override
+  public boolean consume(CodeReader code, Lexer output) {
+    if (code.peek() == '/') {
+      Token lastToken = getLastToken(output);
+      if (lastToken == null || guessNextIsRegexp(lastToken.getValue())) {
+        return delegate.consume(code, output);
+      }
+    }
+    return false;
+  }
+
+  private static Token getLastToken(Lexer output) {
+    List<Token> tokens = output.getTokens();
+    return tokens.isEmpty() ? null : tokens.get(tokens.size() - 1);
+  }
 
   // The exclusion of ++ and -- from the above is also problematic.
   // Both are prefix and postfix operators.

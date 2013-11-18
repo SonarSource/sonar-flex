@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -33,10 +33,10 @@ public class FunctionDefinitionTest {
     Assertions.assertThat(g.rule(FlexGrammar.FUNCTION_DEF))
       .matches("function name () {}")
       .matches("function name () ;")
-      
+
       .matches("function get name ()")
       .notMatches("function get \n name ()")
-      
+
       .matches("function set name ()")
       .notMatches("function set \n name ()");
   }

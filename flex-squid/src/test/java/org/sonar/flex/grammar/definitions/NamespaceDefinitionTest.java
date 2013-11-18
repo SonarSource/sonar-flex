@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -27,12 +27,12 @@ import org.sonar.sslr.tests.Assertions;
 public class NamespaceDefinitionTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
-  
+
   @Test
-  public void classWithStaticAtribute() { 
+  public void classWithStaticAtribute() {
     Assertions.assertThat(g.rule(FlexGrammar.NAMESPACE_DEF))
       .matches("namespace a")
       .matches("namespace a = b");
-      
+
   }
 }

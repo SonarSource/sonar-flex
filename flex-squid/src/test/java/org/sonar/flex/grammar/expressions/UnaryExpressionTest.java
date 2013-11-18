@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -42,7 +42,7 @@ public class UnaryExpressionTest {
       .matches("- a")
       .matches("! a")
       .matches("~ a")
-      
+
       .matches("void ++ a")
 
       // ActionScript 2:

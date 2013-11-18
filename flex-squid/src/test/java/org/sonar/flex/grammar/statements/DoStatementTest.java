@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -33,5 +33,5 @@ public class DoStatementTest {
     Assertions.assertThat(g.rule(FlexGrammar.DO_STATEMENT))
       .matches("do { } while (condition)");
   }
-  
+
 }

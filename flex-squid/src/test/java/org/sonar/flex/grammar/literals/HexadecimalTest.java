@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -33,7 +33,7 @@ public class HexadecimalTest {
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.HEXADECIMAL))
       .matches("0x01aF");
-    
+
   }
 
 }

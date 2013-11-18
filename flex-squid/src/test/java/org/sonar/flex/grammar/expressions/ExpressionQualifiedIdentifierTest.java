@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -33,7 +33,7 @@ public class ExpressionQualifiedIdentifierTest {
     Assertions.assertThat(g.rule(FlexGrammar.EXPR_QUALIFIED_IDENTIFIER))
       .matches("(null)::*")
       .matches("(null)::identifier")
-      
+
       .matches("(null)[null]");
   }
 

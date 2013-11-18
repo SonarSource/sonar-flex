@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -36,15 +36,15 @@ public class DecimalTest {
       .matches("1")
       .matches("12")
       .notMatches("01")
-      
+
       .matches(".2")
       .matches("2.")
       .matches("0.2")
-      
+
       .matches("1e2")
       .matches("1.2E-3")
       .matches("1.2E+3");
-    
+
   }
 
 }

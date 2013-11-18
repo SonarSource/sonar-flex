@@ -40,6 +40,10 @@
       <id>fabemn</id>
       <name>Fabrice Bellingard</name>
     </developer>
+    <developer>
+      <id>lindamartin</id>
+      <name>Linda Martin</name>
+    </developer>
   </developers>
 
   <modules>
@@ -65,7 +69,7 @@
   </ciManagement>
 
   <properties>
-    <license.title>Sonar Flex Plugin</license.title>
+    <license.title>SonarQube Flex Plugin</license.title>
 
     <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
 

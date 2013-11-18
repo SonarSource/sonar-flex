@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -34,7 +34,7 @@ public class XmlContentTest {
       .matches("")
       .matches("{a, b, c}")
       .matches("{a, b, c} {a, b}")
-      
+
       .matches("<? ?>")
       .matches("Text")
       .matches("<tag />");

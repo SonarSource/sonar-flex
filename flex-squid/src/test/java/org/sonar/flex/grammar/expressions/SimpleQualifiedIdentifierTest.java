@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -33,9 +33,9 @@ public class SimpleQualifiedIdentifierTest {
     Assertions.assertThat(g.rule(FlexGrammar.SIMPLE_QUALIFIED_IDENTIFIER))
       .matches("private::*")
       .matches("identifier::identifier")
-      
+
       .matches("identifier::[null]")
-      
+
       .matches("*")
       .matches("identifier");
   }

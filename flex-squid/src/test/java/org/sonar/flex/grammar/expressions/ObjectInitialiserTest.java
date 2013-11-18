@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -34,7 +34,7 @@ public class ObjectInitialiserTest {
       .matches("{ }")
       .matches("{ a: c }")
       .matches("{ a: 1, b: 2 }")
-      
+
       .matches("{ 1: a, 1: a }")
       .matches("{ \"First\": 1, \"Second\": 2 }")
       .matches("{ (a)::Integer: 1, (b)::Integer: 2 }");

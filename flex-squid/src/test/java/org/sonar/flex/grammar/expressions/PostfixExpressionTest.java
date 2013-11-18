@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -34,16 +34,16 @@ public class PostfixExpressionTest {
       .matches("new a()")
       .matches("super().f")
       .matches("new a")
-      
+
       .matches("super().f.c.a")
       .matches("a ().a")
-      
+
       .matches("a++")
       .notMatches("a\n++")
-      
+
       .matches("a--")
       .notMatches("a\n--")
-      
+
       .matches("a..n..z");
   }
 }

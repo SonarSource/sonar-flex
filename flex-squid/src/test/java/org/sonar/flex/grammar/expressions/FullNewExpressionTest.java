@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -32,10 +32,10 @@ public class FullNewExpressionTest {
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.FULL_NEW_EXPR))
       .matches("new a()")
-      
+
       .matches("new new a()()")
       .matches("new new a().b()")
-      
+
       .matches("new super.b()")
 
       .matches("new <int>[1]()");

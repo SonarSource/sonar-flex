@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -38,13 +38,13 @@ public class DirectiveTest {
 
       .matches("attribute var a;")
       .notMatches("attribute \n var a;")
-      
+
       .matches("include \"String\";")
       .matches("include \"String\"")
-      
+
       .matches("import a;")
       .matches("import a")
-      
+
       .matches("use namespace a;")
       .matches("use namespace a")
 

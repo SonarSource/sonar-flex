@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -115,7 +115,7 @@ abstract class AbstractFlexFile implements IFlexFile {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IFlexFile#contains(java.lang.String, int)
    */
   public final boolean contains(final String stringToLookup,
@@ -140,7 +140,7 @@ abstract class AbstractFlexFile implements IFlexFile {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
@@ -155,7 +155,7 @@ abstract class AbstractFlexFile implements IFlexFile {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IFlexFile#getClassName()
    */
   public final String getClassName()
@@ -165,21 +165,21 @@ abstract class AbstractFlexFile implements IFlexFile {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IFlexFile#getCommentClosingTag()
    */
   public abstract String getCommentClosingTag();
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IFlexFile#getCommentOpeningTag()
    */
   public abstract String getCommentOpeningTag();
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IFlexFile#getFilename()
    */
   public final String getFilename()
@@ -189,7 +189,7 @@ abstract class AbstractFlexFile implements IFlexFile {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IFlexFile#getFilePath()
    */
   public final String getFilePath()
@@ -199,7 +199,7 @@ abstract class AbstractFlexFile implements IFlexFile {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IFlexFile#getFullyQualifiedName()
    */
   public final String getFullyQualifiedName()
@@ -212,7 +212,7 @@ abstract class AbstractFlexFile implements IFlexFile {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IFlexFile#getLineAt(int)
    */
   public String getLineAt(final int lineIndex)
@@ -222,7 +222,7 @@ abstract class AbstractFlexFile implements IFlexFile {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IFlexFile#getLines()
    */
   public final List<String> getLines()
@@ -232,7 +232,7 @@ abstract class AbstractFlexFile implements IFlexFile {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IFlexFile#getLinesNb()
    */
   public int getLinesNb()
@@ -242,7 +242,7 @@ abstract class AbstractFlexFile implements IFlexFile {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IFlexFile#getPackageName()
    */
   public final String getPackageName()
@@ -252,7 +252,7 @@ abstract class AbstractFlexFile implements IFlexFile {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#hashCode()
    */
   @Override
@@ -263,14 +263,14 @@ abstract class AbstractFlexFile implements IFlexFile {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IFlexFile#isMainApplication()
    */
   public abstract boolean isMainApplication();
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IFlexFile#isMxml()
    */
   public abstract boolean isMxml();

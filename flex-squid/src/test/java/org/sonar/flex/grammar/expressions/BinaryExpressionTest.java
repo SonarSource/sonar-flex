@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -44,7 +44,7 @@ public class BinaryExpressionTest {
       // ActionScript 2:
       .matches("a add b");
   }
-  
+
   @Test
   public void shift() {
     Assertions.assertThat(g.rule(FlexGrammar.SHIFT_EXPR))
@@ -52,7 +52,7 @@ public class BinaryExpressionTest {
       .matches("a >> b")
       .matches("a >>> b");
   }
-  
+
   @Test
   public void relational() {
     Assertions.assertThat(g.rule(FlexGrammar.RELATIONAL_EXPR))
@@ -70,7 +70,7 @@ public class BinaryExpressionTest {
       .matches("a le b")
       .matches("a ge b");
   }
-  
+
   @Test
   public void equality() {
     Assertions.assertThat(g.rule(FlexGrammar.EQUALITY_EXPR))
@@ -83,25 +83,25 @@ public class BinaryExpressionTest {
       .matches("a eq b")
       .matches("a ne b");
   }
-  
+
   @Test
   public void bitewise() {
     Assertions.assertThat(g.rule(FlexGrammar.BITEWISE_AND_EXPR))
       .matches("a & b");
-    
+
     Assertions.assertThat(g.rule(FlexGrammar.BITEWISE_XOR_EXPR))
       .matches("a ^ b");
-    
+
     Assertions.assertThat(g.rule(FlexGrammar.BITEWISE_OR_EXPR))
       .matches("a | b");
   }
-  
+
   @Test
   public void logical() {
     Assertions.assertThat(g.rule(FlexGrammar.LOGICAL_AND_EXPR))
       .matches("a && b")
       .matches("a and b");
-    
+
     Assertions.assertThat(g.rule(FlexGrammar.LOGICAL_OR_EXPR))
       .matches("a || b")
       .matches("a or b");

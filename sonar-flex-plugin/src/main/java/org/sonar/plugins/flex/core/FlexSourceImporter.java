@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -29,9 +29,9 @@ import org.sonar.api.resources.Resource;
 
 /**
  * Source code importer for Flex projects.
- * 
+ *
  * While importing files, it automatically fills the {@link FlexResourceBridge}.
- * 
+ *
  */
 @Phase(name = Phase.Name.PRE)
 public class FlexSourceImporter extends AbstractSourceImporter {

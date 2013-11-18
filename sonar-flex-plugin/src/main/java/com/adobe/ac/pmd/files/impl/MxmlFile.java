@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -58,7 +58,7 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IMxmlFile#getActualScriptBlock()
    */
   public final String[] getActualScriptBlock()
@@ -68,7 +68,7 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IMxmlFile#getBeginningScriptBlock()
    */
   public int getBeginningScriptBlock()
@@ -78,7 +78,7 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#getCommentClosingTag()
    */
   @Override
@@ -89,7 +89,7 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#getCommentOpeningTag()
    */
   @Override
@@ -100,7 +100,7 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IMxmlFile#getEndingScriptBlock()
    */
   public int getEndingScriptBlock()
@@ -110,7 +110,7 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IMxmlFile#getScriptBlock()
    */
   public final String[] getScriptBlock()
@@ -120,7 +120,7 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.IFlexFile#getSingleLineComment()
    */
   public String getSingleLineComment()
@@ -130,7 +130,7 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#isMainApplication()
    */
   @Override
@@ -141,7 +141,7 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#isMxml()
    */
   @Override

@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -34,6 +34,6 @@ public class InheritenceTest {
       .matches("extends a")
       .matches("implements a, b, c")
       .matches("extends a implements b, c");
-    
+
   }
 }

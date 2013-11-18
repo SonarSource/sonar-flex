@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -34,5 +34,5 @@ public class ParenthesizedListExpressionTest {
       .matches("(null)")
       .matches("(1, 2, 3)");
   }
-  
+
 }

@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -27,13 +27,13 @@ import org.sonar.sslr.tests.Assertions;
 public class ProgramDefintionTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
-  
+
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.PROGRAM))
       .matches("package A { function f() {} }")
       .matches("package A { function f() {} } A.f();");
   }
-    
-  
+
+
 }

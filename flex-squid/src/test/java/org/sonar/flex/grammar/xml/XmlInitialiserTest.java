@@ -1,5 +1,5 @@
 /*
- * Sonar Flex Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010 SonarSource
  * dev@sonar.codehaus.org
  *
@@ -27,7 +27,7 @@ import org.sonar.sslr.tests.Assertions;
 public class XmlInitialiserTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
-  
+
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.XML_INITIALISER))

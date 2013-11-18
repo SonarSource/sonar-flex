@@ -63,6 +63,7 @@ public final class CheckList {
       OctalValueCheck.class,
       ClassWithTooManyFunctionsCheck.class,
       IfConditionAlwaysTrueOrFalseCheck.class,
+      LocalVarAndParameterNameCheck.class,
       ParsingErrorCheck.class);
   }
 

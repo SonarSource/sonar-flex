@@ -17,23 +17,26 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.grammar.definitions;
+package org.sonar.flex.checks;
 
+import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
 import org.junit.Test;
-import org.sonar.flex.FlexGrammar;
-import org.sonar.sslr.parser.LexerlessGrammar;
-import org.sonar.sslr.tests.Assertions;
+import org.sonar.flex.FlexAstScanner;
+import org.sonar.squid.api.SourceFile;
 
-public class ClassDefinitionTest {
+import java.io.File;
 
-  private final LexerlessGrammar g = FlexGrammar.createGrammar();
+public class LocalVarAndParameterNameCheckTest {
+
+  private LocalVarAndParameterNameCheck check = new LocalVarAndParameterNameCheck();
 
   @Test
-  public void classWithStaticAtribute() {
-    Assertions.assertThat(g.rule(FlexGrammar.CLASS_DEF))
-      .matches("class a {}")
-      .matches("class a extends b {}")
-      .matches("class Base { public static var test:String = \"static\";}");
-
+  public void defaults(){
+    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/LocalVarAndParameterName.as"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .next().atLine(1)
+      .next().atLine(1)
+      .next().atLine(3)
+      .noMore();
   }
 }

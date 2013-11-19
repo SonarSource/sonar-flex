@@ -36,7 +36,7 @@ public final class CheckList {
     return ImmutableList.<Class>of(
       CommentRegularExpressionCheck.class,
       LineLengthCheck.class,
-      NestedIfDepthCheck.class,
+      ControlFlowStmtDepthCheck.class,
       XPathCheck.class,
       FunctionComplexityCheck.class,
       ClassComplexityCheck.class,

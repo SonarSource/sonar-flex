@@ -26,16 +26,17 @@ import org.sonar.squid.api.SourceFile;
 
 import java.io.File;
 
-public class NestedIfDepthCheckTest {
+public class ControlFlowStmtDepthCheckTest {
 
-  private NestedIfDepthCheck check = new NestedIfDepthCheck();
+  private ControlFlowStmtDepthCheck check = new ControlFlowStmtDepthCheck();
 
   @Test
   public void testDefault() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/NestedIfDepth.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-        .next().atLine(5).withMessage("This if has a nesting level of 4, which is higher than the maximum allowed 3.")
-        .noMore();
+      .next().atLine(5).withMessage("This if has a nesting level of 4, which is higher than the maximum allowed 3.")
+      .next().atLine(19)
+      .noMore();
   }
 
   @Test
@@ -44,10 +45,11 @@ public class NestedIfDepthCheckTest {
 
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/NestedIfDepth.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-        .next().atLine(3).withMessage("This if has a nesting level of 2, which is higher than the maximum allowed 1.")
-        .next().atLine(12)
-        .next().atLine(15)
-        .noMore();
+      .next().atLine(3).withMessage("This if has a nesting level of 2, which is higher than the maximum allowed 1.")
+      .next().atLine(15)
+      .next().atLine(31)
+      .next().atLine(34)
+      .noMore();
   }
 
 }

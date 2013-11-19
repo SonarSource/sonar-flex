@@ -33,10 +33,10 @@ import org.sonar.sslr.parser.LexerlessGrammar;
  * Note that implementation differs from AbstractNestedIfCheck - see SONARPLUGINS-1855 and SONARPLUGINS-2178
  */
 @Rule(
-  key = "NestedIfDepth",
+  key = "S134",
   priority = Priority.MINOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MINOR)
-public class NestedIfDepthCheck extends SquidCheck<LexerlessGrammar> {
+public class ControlFlowStmtDepthCheck extends SquidCheck<LexerlessGrammar> {
 
   private int nestingLevel;
 
@@ -53,7 +53,12 @@ public class NestedIfDepthCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(FlexGrammar.IF_STATEMENT);
+    subscribeTo(
+      FlexGrammar.IF_STATEMENT,
+      FlexGrammar.DO_STATEMENT,
+      FlexGrammar.WHILE_STATEMENT,
+      FlexGrammar.FOR_STATEMENT,
+      FlexGrammar.SWITCH_STATEMENT);
   }
 
   @Override

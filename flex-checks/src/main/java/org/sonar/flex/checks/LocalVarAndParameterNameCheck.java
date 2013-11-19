@@ -40,6 +40,7 @@ public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> 
 
 
   private static final String DEFAULT = "^[_a-z][a-zA-Z0-9]*$";
+  private static final String MESSAGE = "Rename this local variable \"{0}\" to match the regular expression {1}";
   private Pattern pattern = null;
 
   @RuleProperty(
@@ -65,11 +66,11 @@ public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> 
       .getFirstChild(FlexGrammar.FUNCTION_SIGNATURE)
       .getFirstChild(FlexGrammar.PARAMETERS));
 
-    if (astNode.getFirstChild(FlexGrammar.FUNCTION_COMMON).getFirstChild(FlexGrammar.BLOCK) != null){
-    checkLocalVariableName(astNode.getFirstChild(FlexGrammar.FUNCTION_COMMON)
-      .getFirstChild(FlexGrammar.BLOCK)
-      .getFirstChild(FlexGrammar.DIRECTIVES)
-      .getChildren(FlexGrammar.DIRECTIVE));
+    if (astNode.getFirstChild(FlexGrammar.FUNCTION_COMMON).getFirstChild(FlexGrammar.BLOCK) != null) {
+      checkLocalVariableName(astNode.getFirstChild(FlexGrammar.FUNCTION_COMMON)
+        .getFirstChild(FlexGrammar.BLOCK)
+        .getFirstChild(FlexGrammar.DIRECTIVES)
+        .getChildren(FlexGrammar.DIRECTIVE));
     }
   }
 
@@ -88,8 +89,7 @@ public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> 
             .getFirstChild(FlexGrammar.IDENTIFIER);
 
           if (!pattern.matcher(identifierNode.getTokenValue()).matches()) {
-            getContext().createLineViolation(this, "Rename this local variable \"{0}\" to match the regular expression {1}",
-              identifierNode, identifierNode.getTokenValue(), format);
+            getContext().createLineViolation(this, MESSAGE, identifierNode, identifierNode.getTokenValue(), format);
           }
         }
       }
@@ -103,15 +103,13 @@ public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> 
         String variableName = parameter.getFirstChild(FlexGrammar.TYPED_IDENTIFIER).getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue();
 
         if (!pattern.matcher(variableName).matches()) {
-          getContext().createLineViolation(this, "Rename this parameter \"{0}\" to match the regular expression {1}",
-            parametersNode, variableName, format);
+          getContext().createLineViolation(this, MESSAGE, parametersNode, variableName, format);
         }
       }
 
       String restParameterName = getRestParameterName(parametersNode.getFirstChild(FlexGrammar.REST_PARAMETERS));
       if (restParameterName != null && !pattern.matcher(restParameterName).matches()) {
-        getContext().createLineViolation(this, "Rename this parameter \"{0}\" to match the regular expression {1}",
-          parametersNode, restParameterName, format);
+        getContext().createLineViolation(this, MESSAGE, parametersNode, restParameterName, format);
       }
     }
   }

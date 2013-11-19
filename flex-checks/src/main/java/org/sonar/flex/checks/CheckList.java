@@ -68,6 +68,7 @@ public final class CheckList {
       PublicStaticFieldCheck.class,
       DynamicClassCheck.class,
       LabelPlacementCheck.class,
+      ConstructorWithVoidReturnTypeCheck.class,
       ParsingErrorCheck.class);
   }
 

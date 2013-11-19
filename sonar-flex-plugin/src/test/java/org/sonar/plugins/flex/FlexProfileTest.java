@@ -49,7 +49,7 @@ public class FlexProfileTest {
 
     assertThat(profile.getLanguage()).isEqualTo(Flex.KEY);
     assertThat(profile.getName()).isEqualTo(RulesProfile.SONAR_WAY_NAME);
-    assertThat(profile.getActiveRulesByRepository(CheckList.REPOSITORY_KEY)).hasSize(30);
+    assertThat(profile.getActiveRulesByRepository(CheckList.REPOSITORY_KEY)).hasSize(31);
     assertThat(profile.getActiveRulesByRepository(FlexPmdRuleRepository.REPOSITORY_KEY)).hasSize(41);
     assertThat(validation.hasErrors()).isFalse();
   }

@@ -1,0 +1,21 @@
+<p>
+  Even though this is syntactically correct, the "void" return type should not be used in the signature of a constructor. Indeed some developers might be confused by this syntax, believing that the constructor is in fact a standard function.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Foo
+{
+  public function Foo() : void
+  {...}
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+public class Foo
+{
+  public function Foo()
+  {...}
+}
+</pre>

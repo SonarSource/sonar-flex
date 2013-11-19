@@ -67,6 +67,7 @@ public final class CheckList {
       BooleanEqualityComparisonCheck.class,
       PublicStaticFieldCheck.class,
       DynamicClassCheck.class,
+      LabelPlacementCheck.class,
       ParsingErrorCheck.class);
   }
 

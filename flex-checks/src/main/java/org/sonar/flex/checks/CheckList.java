@@ -65,6 +65,7 @@ public final class CheckList {
       IfConditionAlwaysTrueOrFalseCheck.class,
       LocalVarAndParameterNameCheck.class,
       BooleanEqualityComparisonCheck.class,
+      PublicStaticFieldCheck.class,
       ParsingErrorCheck.class);
   }
 

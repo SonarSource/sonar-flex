@@ -115,12 +115,10 @@ public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> 
   }
 
   private static String getRestParameterName(AstNode restParameterNode) {
-    if (restParameterNode != null) {
-      if (restParameterNode.getFirstChild(FlexGrammar.IDENTIFIER) != null) {
-        return restParameterNode.getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue();
-      } else if (restParameterNode.getFirstChild(FlexGrammar.TYPED_IDENTIFIER) != null) {
-        return restParameterNode.getFirstChild(FlexGrammar.TYPED_IDENTIFIER).getTokenValue();
-      }
+    if (restParameterNode != null && restParameterNode.getFirstChild(FlexGrammar.TYPED_IDENTIFIER) != null) {
+        return restParameterNode.getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
+          .getFirstChild(FlexGrammar.IDENTIFIER)
+          .getTokenValue();
     }
     return null;
   }

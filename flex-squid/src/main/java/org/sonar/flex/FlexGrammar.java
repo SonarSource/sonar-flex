@@ -828,7 +828,6 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(REST_PARAMETERS).is(b.firstOf(
       b.sequence(TRIPLE_DOTS, TYPED_IDENTIFIER),
-      b.sequence(TRIPLE_DOTS, IDENTIFIER),
       TRIPLE_DOTS));
 
     b.rule(RESULT_TYPE).is(b.optional(COLON, b.firstOf(VOID, TYPE_EXPR)));

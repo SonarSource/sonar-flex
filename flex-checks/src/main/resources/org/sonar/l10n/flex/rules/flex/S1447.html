@@ -1,0 +1,30 @@
+<p>
+  In ActionScript 3, constructor code is always interpreted rather than compiled by the JIT at runtime that's why the body of constructors should be as light as possible. As soon as this body contains some branch (<code>if</code>, <code>for</code>, <code>switch</code>, ...) an issue is logged.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Foo
+{
+  public function Foo()
+  {
+    ... //lot of logic and control flow statements
+  }
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+public class Foo
+{
+  public function Foo()
+  {
+    init()
+  }
+
+  private function init():void
+  {
+    ... //lot of logic and control flow statements
+  }
+}
+</pre>

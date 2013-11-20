@@ -71,6 +71,7 @@ public final class CheckList {
       ConstructorWithVoidReturnTypeCheck.class,
       ConstructorNotLightweightCheck.class,
       EmptyNestedBlockCheck.class,
+      AlertShowUseCheck.class,
       ParsingErrorCheck.class);
   }
 

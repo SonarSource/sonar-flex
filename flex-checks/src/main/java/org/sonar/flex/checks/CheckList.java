@@ -70,6 +70,7 @@ public final class CheckList {
       LabelPlacementCheck.class,
       ConstructorWithVoidReturnTypeCheck.class,
       ConstructorNotLightweightCheck.class,
+      EmptyNestedBlockCheck.class,
       ParsingErrorCheck.class);
   }
 

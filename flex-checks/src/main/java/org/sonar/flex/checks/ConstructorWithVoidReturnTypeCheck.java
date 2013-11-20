@@ -41,37 +41,43 @@ public class ConstructorWithVoidReturnTypeCheck extends SquidCheck<LexerlessGram
 
   @Override
   public void visitNode(AstNode astNode) {
-    AstNode constructorDef = getConstructor(astNode);
-    if (constructorDef != null) {
-      AstNode resultTypeNode = constructorDef.getFirstChild(FlexGrammar.FUNCTION_COMMON)
-        .getFirstChild(FlexGrammar.FUNCTION_SIGNATURE)
-        .getFirstChild(FlexGrammar.RESULT_TYPE);
-
-      if (resultTypeNode != null && resultTypeNode.getFirstChild(FlexKeyword.VOID) != null) {
-        getContext().createLineViolation(this, "Remove the \"void\" return type from this \"{0}\" constructor", constructorDef,
-          constructorDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild().getTokenValue());
-      }
-    }
-  }
-
-  private static AstNode getConstructor(AstNode classDefNode) {
-    final String className = classDefNode.getFirstChild(FlexGrammar.CLASS_NAME)
+    String className = astNode.getFirstChild(FlexGrammar.CLASS_NAME)
       .getFirstChild(FlexGrammar.CLASS_IDENTIFIERS)
       .getLastChild()
       .getTokenValue();
 
-    for (AstNode directive : classDefNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES).getChildren()) {
+    AstNode constructorDef = getConstructor(astNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES), className);
 
-      if (directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE) != null
-          && directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE).getFirstChild().is(FlexGrammar.FUNCTION_DEF)) {
-          AstNode functionDef = directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE).getFirstChild(FlexGrammar.FUNCTION_DEF);
+    if (constructorDef != null && hasVoidReturnType(constructorDef)) {
+      getContext().createLineViolation(this, "Remove the \"void\" return type from this \"{0}\" constructor", constructorDef, className);
+    }
+  }
 
-          if (functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getNumberOfChildren() == 1
-            && functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild().getTokenValue().equals(className)) {
-              return functionDef;
-          }
-        }
+  private static boolean hasVoidReturnType(AstNode functionDef) {
+    AstNode resultTypeNode = functionDef.getFirstChild(FlexGrammar.FUNCTION_COMMON)
+      .getFirstChild(FlexGrammar.FUNCTION_SIGNATURE)
+      .getFirstChild(FlexGrammar.RESULT_TYPE);
+
+    return resultTypeNode != null && resultTypeNode.getFirstChild(FlexKeyword.VOID) != null;
+  }
+
+  private static AstNode getConstructor(AstNode classDirectives, String className) {
+    for (AstNode directive : classDirectives.getChildren()) {
+      AstNode functionDef = getFunctionDefinition(directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE));
+
+      if (functionDef != null && isConstructor(functionDef, className)) {
+        return functionDef;
+      }
     }
     return null;
+  }
+
+  private static AstNode getFunctionDefinition(AstNode annotableDir) {
+    return annotableDir != null && annotableDir.getFirstChild().is(FlexGrammar.FUNCTION_DEF) ? annotableDir.getFirstChild() : null;
+  }
+
+  private static boolean isConstructor(AstNode functionDef, String className) {
+    return functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getNumberOfChildren() == 1
+      && functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild().getTokenValue().equals(className);
   }
 }

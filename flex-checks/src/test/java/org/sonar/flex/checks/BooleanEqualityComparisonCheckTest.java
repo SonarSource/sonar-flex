@@ -35,6 +35,6 @@ public class BooleanEqualityComparisonCheckTest {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/BooleanEqualityComparison.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
       .next().atLine(1)
-      .next().atLine(2);
+      .next().atLine(3);
   }
 }

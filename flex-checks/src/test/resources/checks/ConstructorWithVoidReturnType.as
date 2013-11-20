@@ -13,11 +13,19 @@ public class Foo
   }
 }
 
-public class Bla
+public class Foo
 {
-  public function bla() : void {
+  public function foo() : void {
   }
 
-  public function Bla() : void {  // nOK
+  public function Foo() : void {  // NOK
   }
+}
+
+public class Foo {
+}
+
+
+public class Foo {
+  private var _field;
 }

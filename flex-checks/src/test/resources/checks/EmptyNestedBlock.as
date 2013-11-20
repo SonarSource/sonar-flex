@@ -23,6 +23,7 @@ switch (a) {                        // OK
 
 function f()                       // OK
 {
+  doSomething();
 }
 
 class c {}                        // OK

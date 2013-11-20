@@ -13,11 +13,21 @@ public class Foo {
 
 
 public class Bar {
+  private var _name;
+  private var _age;
 
-  public function Bar(name:String, age:Age) { // OK
+  public function Bar(name, age) { // OK
     _name = name;
     _age = age;
   }
+
+  public function get name() {}
+  public function get age() {}
+}
+
+
+public class FooBar {
+  public function FooBar();
 }
 
 public class FooBar {

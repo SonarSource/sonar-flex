@@ -58,7 +58,7 @@ public class FunctionOnlyCallsSuperCheck extends SquidCheck<LexerlessGrammar> {
         .getFirstChild(FlexGrammar.IDENTIFIER)
         .getTokenValue();
 
-      if (isUselessCallToSuper(singleDirectiveNode.getFirstChild(FlexGrammar.STATEMENT), methodName, parameters) && hasMetadata(astNode)) {
+      if (isUselessCallToSuper(singleDirectiveNode.getFirstChild(FlexGrammar.STATEMENT), methodName, parameters)) {
         getContext().createLineViolation(this, "Remove this method to simply inherit it.", astNode);
       }
     }
@@ -142,9 +142,5 @@ public class FunctionOnlyCallsSuperCheck extends SquidCheck<LexerlessGrammar> {
     String expected = FlexKeyword.SUPER.getValue() + "." + methodName + "(" + Joiner.on(",").join(paramaters) + ")";
 
     return actual.equals(expected) || actual.equals(FlexKeyword.RETURN.getValue() + expected + ";");
-  }
-
-  private static boolean hasMetadata(AstNode functionDef) {
-    return true; // TODO: handle metadata
   }
 }

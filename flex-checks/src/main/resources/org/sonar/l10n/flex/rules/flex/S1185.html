@@ -1,0 +1,30 @@
+<p>
+  Overriding a method just to call the same method from the super class without performing any other actions is useless and misleading.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+override public function doSomething() : void
+{
+  super.doSomething();
+}
+
+override public isLegal(action:Action) : Boolean
+{
+  return super.isLegal(action);
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+override public function doSomething() : void
+{
+  super.doSomething();
+  doSomethingElse();
+}
+
+override public isLegal(action:Action) : Boolean
+{
+  return super.isLegal(new Action(...));   // Compliant - not simply forwarding the call
+}
+</pre>

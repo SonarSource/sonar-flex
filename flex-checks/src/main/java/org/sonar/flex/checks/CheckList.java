@@ -72,6 +72,7 @@ public final class CheckList {
       ConstructorNotLightweightCheck.class,
       EmptyNestedBlockCheck.class,
       AlertShowUseCheck.class,
+      FunctionOnlyCallsSuperCheck.class,
       ParsingErrorCheck.class);
   }
 

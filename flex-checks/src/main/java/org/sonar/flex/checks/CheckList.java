@@ -73,6 +73,7 @@ public final class CheckList {
       EmptyNestedBlockCheck.class,
       AlertShowUseCheck.class,
       FunctionOnlyCallsSuperCheck.class,
+      HardcodedEventNameCheck.class,
       ParsingErrorCheck.class);
   }
 

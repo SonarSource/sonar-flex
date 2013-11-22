@@ -1,0 +1,47 @@
+<p>
+  Listening to a plain string event name is an anti-pattern because in case of renaming the application can start behaving unexpectedly. Constant variable should be used instead.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+import flash.display.Sprite;
+import flash.events.MouseEvent;
+
+class ChildSprite extends Sprite
+{
+    public function ChildSprite()
+    {
+        ...
+        addEventListener("CustomEvent", clickHandler);
+    }
+}
+
+function clickHandler(event:CustomEvent):void
+{
+    trace("clickHandler detected an event of type: " + event.type);
+    trace("the this keyword refers to: " + this);
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+import flash.display.Sprite;
+import flash.events.MouseEvent;
+
+class ChildSprite extends Sprite
+{
+   public const CUSTOM_EVENT:String = "CustomEvent";
+
+    public function ChildSprite()
+    {
+        ...
+        addEventListener(CUSTOM_EVENT, clickHandler);
+    }
+}
+
+function clickHandler(event:CustomEvent):void
+{
+    trace("clickHandler detected an event of type: " + event.type);
+    trace("the this keyword refers to: " + this);
+}
+</pre>

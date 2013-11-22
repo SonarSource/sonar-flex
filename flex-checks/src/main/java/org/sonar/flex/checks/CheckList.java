@@ -74,6 +74,7 @@ public final class CheckList {
       AlertShowUseCheck.class,
       FunctionOnlyCallsSuperCheck.class,
       HardcodedEventNameCheck.class,
+      PublicConstNotStaticCheck.class,
       ParsingErrorCheck.class);
   }
 

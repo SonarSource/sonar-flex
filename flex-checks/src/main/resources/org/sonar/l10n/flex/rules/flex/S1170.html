@@ -1,0 +1,19 @@
+<p>
+  Making a constant just <code>const</code> as opposed to <code>static const</code> leads to duplicating its value for every instance of the class, uselessly increasing the amount of memory required to execute the application.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Myclass
+{
+  public const THRESHOLD:int = 3;
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+public class Myclass
+{
+  public static const THRESHOLD:int = 3;
+}
+</pre>

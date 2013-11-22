@@ -26,6 +26,7 @@ import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import java.util.regex.Pattern;
 
@@ -36,8 +37,7 @@ import java.util.regex.Pattern;
 
 public class HardcodedEventNameCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
 
-  private static final Pattern stringPattern = Pattern.compile("(\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\")|('([^'\\\\]*+(\\\\[\\s\\S])?+)*+')");
-
+  private static final Pattern stringPattern = Pattern.compile(FlexGrammar.STRING_REGEXP);
 
   private static enum State {
     EXPECTING_ADD_EVENT,

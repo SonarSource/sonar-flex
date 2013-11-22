@@ -85,12 +85,14 @@ public class ConstructorNotLightweightCheck extends SquidCheck<LexerlessGrammar>
   }
 
   private static boolean isBranch(AstNode directive) {
-    return directive.getFirstChild().is(FlexGrammar.STATEMENT)
-      && directive.getFirstChild().getFirstChild().is(
+    AstNode astNode = directive.getFirstChild();
+    return astNode.is(FlexGrammar.STATEMENT)
+      && astNode.getFirstChild().is(
       FlexGrammar.IF_STATEMENT,
       FlexGrammar.SWITCH_STATEMENT,
       FlexGrammar.DO_STATEMENT,
       FlexGrammar.WHILE_STATEMENT,
       FlexGrammar.FOR_STATEMENT);
   }
+
 }

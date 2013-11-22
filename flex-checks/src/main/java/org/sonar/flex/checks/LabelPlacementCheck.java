@@ -47,7 +47,9 @@ public class LabelPlacementCheck extends SquidCheck<LexerlessGrammar> {
   }
 
   private static boolean isIterationStatement(AstNode subStatement) {
-    return subStatement.getFirstChild().is(FlexGrammar.STATEMENT)
-      && subStatement.getFirstChild().getFirstChild().is(FlexGrammar.WHILE_STATEMENT, FlexGrammar.DO_STATEMENT, FlexGrammar.FOR_STATEMENT);
+    AstNode astNode = subStatement.getFirstChild();
+    return astNode.is(FlexGrammar.STATEMENT)
+      && astNode.getFirstChild().is(FlexGrammar.WHILE_STATEMENT, FlexGrammar.DO_STATEMENT, FlexGrammar.FOR_STATEMENT);
   }
+
 }

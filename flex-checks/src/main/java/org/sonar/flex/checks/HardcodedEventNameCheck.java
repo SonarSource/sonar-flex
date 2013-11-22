@@ -21,13 +21,11 @@ package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstAndTokenVisitor;
-import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import java.util.regex.Pattern;
 
@@ -35,7 +33,6 @@ import java.util.regex.Pattern;
   key = "S1462",
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
-public class HardcodedEventNameCheck extends SquidCheck<LexerlessGrammar> {
 
 public class HardcodedEventNameCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
 

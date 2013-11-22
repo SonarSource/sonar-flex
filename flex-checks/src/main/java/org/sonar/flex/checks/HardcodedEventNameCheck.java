@@ -37,7 +37,7 @@ import java.util.regex.Pattern;
 
 public class HardcodedEventNameCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
 
-  private static final Pattern stringPattern = Pattern.compile(FlexGrammar.STRING_REGEXP);
+  private static final Pattern stringPattern = Pattern.compile("(?:\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\"|'([^'\\\\]*+(\\\\[\\s\\S])?+)*+')");
 
   private static enum State {
     EXPECTING_ADD_EVENT,

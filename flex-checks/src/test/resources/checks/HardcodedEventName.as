@@ -1,25 +1,24 @@
 class A {
 
   public function foo() {
-    addEventListener("CustomEvent", clickHandler);    // NOK
+    addEventListener("Event", handler);       // NOK
+    this.addEventListener("Event", handler);  // NOK
   }
 }
 
 
 class B {
 
-  public const CUSTOM_EVENT:String = "CustomEvent";
+  public const EVENT:String = "Event";
 
   public function foo() {
-    addEventListener(CUSTOM_EVENT, clickHandler);     // OK
+    addEventListener(EVENT, handler);       // OK
+    this.addEventListener(EVENT, handler);       // OK
   }
 }
 
-
-class C {
-
-  public function foo() {
-    a.f();
-    doSomething("Just do it");
-  }
+public function foo() {
+  a.f();
+  doSomething("Just do it");
 }
+

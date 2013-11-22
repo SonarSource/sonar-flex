@@ -20,12 +20,16 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstAndTokenVisitor;
+import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.Token;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
+import java.util.regex.Pattern;
 
 @Rule(
   key = "S1462",
@@ -33,38 +37,65 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
 public class HardcodedEventNameCheck extends SquidCheck<LexerlessGrammar> {
 
-  @Override
-  public void init() {
-    subscribeTo(FlexGrammar.POSTFIX_EXPR);
+public class HardcodedEventNameCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
+
+  private static final Pattern stringPattern = Pattern.compile("(\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\")|('([^'\\\\]*+(\\\\[\\s\\S])?+)*+')");
+
+
+  private static enum State {
+    EXPECTING_ADD_EVENT,
+    EXPECTING_BRACE,
+    EXPECTING_STRING,
+    FOUND_ISSUE
+  }
+
+  private static enum Symbol {
+    OTHER,
+    ADD_EVENT,
+    BRACE,
+    STRING
+  }
+
+  private static final State[][] TRANSITIONS = new State[State.values().length][Symbol.values().length];
+  static {
+    for (int i = 0; i < TRANSITIONS.length; i++) {
+      for (int j = 0; j < TRANSITIONS[i].length; j++) {
+        TRANSITIONS[i][j] = State.EXPECTING_ADD_EVENT;
+      }
+    }
+
+    TRANSITIONS[State.EXPECTING_ADD_EVENT.ordinal()][Symbol.ADD_EVENT.ordinal()] = State.EXPECTING_BRACE;
+    TRANSITIONS[State.EXPECTING_BRACE.ordinal()][Symbol.BRACE.ordinal()] = State.EXPECTING_STRING;
+    TRANSITIONS[State.EXPECTING_STRING.ordinal()][Symbol.STRING.ordinal()] = State.FOUND_ISSUE;
+  }
+
+  private State currentState;
+
+  public void visitFile(AstNode astNode) {
+    currentState = State.EXPECTING_ADD_EVENT;
   }
 
   @Override
-  public void visitNode(AstNode astNode) {
-    if (isAddEventFunctionCall(astNode.getFirstChild(FlexGrammar.PRIMARY_EXPR))) {
-      AstNode eventName = getEventName(astNode.getFirstChild(FlexGrammar.ARGUMENTS));
+  public void visitToken(Token token) {
+    currentState = TRANSITIONS[currentState.ordinal()][getSymbol(token.getValue()).ordinal()];
 
-      if (eventName != null && eventName.is(FlexGrammar.STRING)) {
-        getContext().createLineViolation(this, "The event name {0} should be defined in a constant variable.", astNode, eventName.getTokenValue());
-      }
+    if (currentState == State.FOUND_ISSUE) {
+      getContext().createLineViolation(this, "The event name {0} should be defined in a constant variable.", token, token.getValue());
+      currentState = State.EXPECTING_ADD_EVENT;
     }
   }
 
-  private static boolean isAddEventFunctionCall(AstNode primaryExpr) {
-    return primaryExpr != null && primaryExpr.getTokenValue().equals("addEventListener");
-  }
+  private static Symbol getSymbol(String value) {
+    Symbol result = Symbol.OTHER;
 
-  private static AstNode getEventName(AstNode argumentsNode) {
-    if (argumentsNode != null && argumentsNode.getFirstChild(FlexGrammar.LIST_EXPRESSION) != null) {
-      AstNode postfixExpr = argumentsNode
-        .getFirstChild(FlexGrammar.LIST_EXPRESSION)
-        .getFirstChild(FlexGrammar.ASSIGNMENT_EXPR)
-        .getFirstChild(FlexGrammar.POSTFIX_EXPR);
-
-      if (postfixExpr.getFirstChild(FlexGrammar.PRIMARY_EXPR) != null) {
-        return postfixExpr.getFirstChild(FlexGrammar.PRIMARY_EXPR).getFirstChild();
-      }
+    if ("(".equals(value)) {
+      result = Symbol.BRACE;
+    } else if ("addEventListener".equals(value)) {
+      result = Symbol.ADD_EVENT;
+    } else if (stringPattern.matcher(value).matches()) {
+      result = Symbol.STRING;
     }
-    return null;
-  }
 
+    return result;
+  }
 }

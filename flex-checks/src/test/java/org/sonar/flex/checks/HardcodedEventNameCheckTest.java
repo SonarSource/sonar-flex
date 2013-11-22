@@ -34,6 +34,8 @@ public class HardcodedEventNameCheckTest {
   public void test() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/HardcodedEventName.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-    .next().atLine(4).withMessage("The event name \"CustomEvent\" should be defined in a constant variable.");
+      .next().atLine(4).withMessage("The event name \"Event\" should be defined in a constant variable.")
+      .next().atLine(5)
+      .noMore();
   }
 }

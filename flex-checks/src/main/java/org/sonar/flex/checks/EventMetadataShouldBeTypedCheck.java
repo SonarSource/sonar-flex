@@ -48,7 +48,7 @@ public class EventMetadataShouldBeTypedCheck extends SquidCheck<LexerlessGrammar
     AstNode eventNode = getEventTag(astNode.getFirstChild(FlexGrammar.ARRAY_INITIALISER).getFirstChild(FlexGrammar.ELEMENT_LIST));
 
     if (eventNode != null) {
-      EventProperty eventProperty = getEventProperties(eventNode.getFirstChild(FlexGrammar.ARGUMENTS));
+      EventProperty eventProperty = getEventProperty(eventNode.getFirstChild(FlexGrammar.ARGUMENTS));
 
       if (eventProperty != null && !eventProperty.isTypeDefined) {
         getContext().createLineViolation(this, "The {0} event type is missing in this metadata tag", astNode, eventProperty.name);
@@ -75,7 +75,7 @@ public class EventMetadataShouldBeTypedCheck extends SquidCheck<LexerlessGrammar
     return postfixExpr != null && postfixExpr.getTokenValue().equals("Event");
   }
 
-  private static EventProperty getEventProperties(AstNode arguments) {
+  private static EventProperty getEventProperty(AstNode arguments) {
     if (arguments == null || arguments.getFirstChild(FlexGrammar.LIST_EXPRESSION) == null) {
       return null;
     }

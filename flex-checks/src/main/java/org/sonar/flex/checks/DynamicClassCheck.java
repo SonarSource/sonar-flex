@@ -42,7 +42,11 @@ public class DynamicClassCheck extends SquidCheck<LexerlessGrammar> {
   @Override
   public void visitNode(AstNode astNode) {
     if (astNode.getPreviousAstNode() != null && astNode.getPreviousAstNode().is(FlexGrammar.ATTRIBUTES) && isDynamic(astNode.getPreviousAstNode())) {
-      getContext().createLineViolation(this, "Make this class non-dynamic", astNode);
+      String className = astNode
+        .getFirstChild(FlexGrammar.CLASS_NAME)
+        .getFirstChild(FlexGrammar.CLASS_IDENTIFIERS)
+        .getLastChild().getTokenValue();
+      getContext().createLineViolation(this, "Make this \"{0}\" class non-dynamic", astNode, className);
     }
   }
 

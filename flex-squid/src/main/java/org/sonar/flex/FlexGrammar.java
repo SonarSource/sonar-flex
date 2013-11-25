@@ -373,6 +373,8 @@ public enum FlexGrammar implements GrammarRuleKey {
   private static final String MULTI_LINE_COMMENT_REGEXP = "/\\*[\\s\\S]*?\\*/";
   private static final String MULTI_LINE_COMMENT_NO_LB_REGEXP = "/\\*[^\\n\\r]*?\\*/";
 
+  public static final String STRING_REGEXP = "(?:\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\"|\'([^\'\\\\]*+(\\\\[\\s\\S])?+)*+\')";
+
   public static LexerlessGrammar createGrammar() {
     LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
 
@@ -420,12 +422,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   }
 
   private static void literals(LexerlessGrammarBuilder b) {
-    b.rule(STRING).is(
-      SPACING,
-      b.firstOf(
-        b.regexp("\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\""),
-        b.regexp("\'([^\'\\\\]*+(\\\\[\\s\\S])?+)*+\'")
-      ));
+    b.rule(STRING).is(SPACING, b.regexp(STRING_REGEXP));
 
     b.rule(HEXADECIMAL).is(SPACING, b.regexp("0[xX][0-9a-fA-F]++"));
     b.rule(OCTAL).is(SPACING, b.regexp("0[0-7]++"));

@@ -33,7 +33,7 @@ import java.util.List;
 @Rule(key = "S1469",
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
-public class ArrayElementTypeCheck extends SquidCheck<LexerlessGrammar> {
+public class ArrayFieldElementTypeCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {

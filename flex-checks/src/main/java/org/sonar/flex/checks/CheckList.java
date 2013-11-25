@@ -76,7 +76,7 @@ public final class CheckList {
       HardcodedEventNameCheck.class,
       PublicConstNotStaticCheck.class,
       EventMetadataShouldBeTypedCheck.class,
-      ArrayElementTypeCheck.class,
+      ArrayFieldElementTypeCheck.class,
       ParsingErrorCheck.class);
   }
 

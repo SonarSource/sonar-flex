@@ -27,7 +27,7 @@ import java.io.File;
 
 public class ArrayFieldElementTypeCheckTest {
 
-  private ArrayElementTypeCheck check = new ArrayElementTypeCheck();
+  private ArrayFieldElementTypeCheck check = new ArrayFieldElementTypeCheck();
 
   @Test
   public void test() {

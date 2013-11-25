@@ -316,6 +316,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   TRY_STATEMENT,
   EXPRESSION_STATEMENT,
   LABELED_STATEMENT,
+  METADATA_STATEMENT,
   DEFAULT_XML_NAMESPACE_DIRECTIVE,
   SUB_STATEMENT,
   EMPTY_STATEMENT,
@@ -657,6 +658,7 @@ public enum FlexGrammar implements GrammarRuleKey {
 
   private static void statements(LexerlessGrammarBuilder b) {
     b.rule(STATEMENT).is(b.firstOf(
+      METADATA_STATEMENT,
       SUPER_STATEMENT,
       BLOCK,
       IF_STATEMENT,
@@ -677,6 +679,9 @@ public enum FlexGrammar implements GrammarRuleKey {
       EMPTY_STATEMENT,
       STATEMENT,
       VARIABLE_DECLARATION_STATEMENT));
+
+    // Not in spec:
+    b.rule(METADATA_STATEMENT).is(ARRAY_INITIALISER);
 
     b.rule(VARIABLE_DECLARATION_STATEMENT).is(VARIABLE_DEF, EOS);
 

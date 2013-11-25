@@ -1,0 +1,13 @@
+<p>
+  Calling Security.allowDomain("*") lets any domain cross-script into the domain of this SWF and exercise its functionality.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+Security.allowDomain("*");
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+Security.allowDomain("www.myDomain.com");
+</pre>

@@ -77,6 +77,7 @@ public final class CheckList {
       PublicConstNotStaticCheck.class,
       EventMetadataShouldBeTypedCheck.class,
       ArrayFieldElementTypeCheck.class,
+      StarTypeUseCheck.class,
       ParsingErrorCheck.class);
   }
 

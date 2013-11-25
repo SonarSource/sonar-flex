@@ -1,0 +1,26 @@
+<p>
+  Quoted from the Flex documentation :
+</p>
+<blockquote>
+  <p>
+    When you define an Array variable in ActionScript, you specify Array as the data type of the variable. However, you cannot specify the data type of the elements of the Array.
+  </p>
+  <p>
+    To allow the Flex MXML compiler to perform type checking on Array elements, you can use the [ArrayElementType] metadata tag to specify the allowed data type of the Array elements.
+  </p>
+</blockquote>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+public var newStringProperty:Array;
+public var newNumberProperty:Array;
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+[ArrayElementType("String")]
+public var newStringProperty:Array;
+
+[ArrayElementType("Number")]
+public var newNumberProperty:Array;
+</pre>

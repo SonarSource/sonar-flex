@@ -58,7 +58,7 @@ public class ArrayFieldElementTypeCheck extends SquidCheck<LexerlessGrammar> {
 
         for (AstNode varBinding : varBindingList.getChildren(FlexGrammar.VARIABLE_BINDING)) {
 
-          if (!hasInitialisation(varBinding) && isArray(varBinding) && !hasMetadataWithType(astNode)) {
+          if (!hasInitialisation(varBinding) && isArray(varBinding) && !hasMetadataWithType(directive)) {
             getContext().createLineViolation(this, "Define the element type for this ''{0}'' array", varBinding,
               varBinding.getFirstChild(FlexGrammar.TYPED_IDENTIFIER).getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue());
           }
@@ -77,11 +77,11 @@ public class ArrayFieldElementTypeCheck extends SquidCheck<LexerlessGrammar> {
 
     return typeExpr != null
       && typeExpr.getNumberOfChildren() == 1
-      && typeExpr.getFirstChild().getTokenValue().equals("Array");
+      && "Array".equals(typeExpr.getFirstChild().getTokenValue());
   }
 
-  private static boolean hasMetadataWithType(AstNode variableDeclaration) {
-    AstNode previousDirective = variableDeclaration.getParent().getParent().getPreviousAstNode();
+  private static boolean hasMetadataWithType(AstNode directive) {
+    AstNode previousDirective = directive.getPreviousAstNode();
 
     if (previousDirective != null && isMetadataTag(previousDirective)) {
       AstNode elementList = previousDirective.getFirstChild()
@@ -89,8 +89,9 @@ public class ArrayFieldElementTypeCheck extends SquidCheck<LexerlessGrammar> {
         .getFirstChild(FlexGrammar.ARRAY_INITIALISER)
         .getFirstChild(FlexGrammar.ELEMENT_LIST);
 
-      for (AstNode literalElement : elementList.getChildren(FlexGrammar.ELEMENT_LIST)) {
-        if (literalElement.equals("ArrayElementType")) {
+      for (AstNode literalElement : elementList.getChildren(FlexGrammar.LITERAL_ELEMENT)) {
+
+        if ("ArrayElementType".equals(literalElement.getTokenValue())) {
           return true;
         }
       }

@@ -1,3 +1,5 @@
-Security.allowDomain("*");                 // NOK
+function f() {
+  Security.allowDomain("*");                 // NOK
 
-Security.allowDomain("www.myDomain.com");  // NOK
+  Security.allowDomain("www.myDomain.com");  // NOK
+}

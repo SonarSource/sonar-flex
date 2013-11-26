@@ -23,10 +23,16 @@ import com.sonar.sslr.api.AstAndTokenVisitor;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.squid.checks.SquidCheck;
+import org.sonar.check.BelongsToProfile;
+import org.sonar.check.Priority;
+import org.sonar.check.Rule;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import javax.annotation.Nullable;
 
+@Rule(key = "S1468",
+      priority = Priority.CRITICAL)
+@BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.CRITICAL)
 public class StarUseForDomainCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
 
   private static enum State {

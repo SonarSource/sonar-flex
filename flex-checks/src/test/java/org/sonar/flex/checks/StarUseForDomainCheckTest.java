@@ -34,6 +34,6 @@ public class StarUseForDomainCheckTest {
   public void test() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/StarUseForDomain.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(1);
+      .next().atLine(2);
   }
 }

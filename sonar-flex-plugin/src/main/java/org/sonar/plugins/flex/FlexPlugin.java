@@ -25,14 +25,11 @@ import org.sonar.api.Extension;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
 import org.sonar.api.SonarPlugin;
-import org.sonar.plugins.flex.cobertura.FlexCoberturaSensor;
 import org.sonar.plugins.flex.colorizer.FlexColorizerFormat;
 import org.sonar.plugins.flex.core.Flex;
 import org.sonar.plugins.flex.core.FlexResourceBridge;
 import org.sonar.plugins.flex.core.FlexSourceImporter;
 import org.sonar.plugins.flex.duplications.FlexCpdMapping;
-import org.sonar.plugins.flex.surefire.FlexMojosMavenPluginHandler;
-import org.sonar.plugins.flex.surefire.FlexSurefireSensor;
 
 import java.util.List;
 
@@ -57,11 +54,6 @@ public class FlexPlugin extends SonarPlugin {
         FlexCpdMapping.class,
 
         FlexCommonRulesEngineProvider.class,
-
-        FlexSurefireSensor.class,
-        FlexMojosMavenPluginHandler.class,
-
-        FlexCoberturaSensor.class,
 
         FlexSquidSensor.class,
 

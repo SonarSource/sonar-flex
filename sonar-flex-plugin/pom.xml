@@ -42,18 +42,6 @@
       <artifactId>flex-checks</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>org.codehaus.sonar.plugins</groupId>
-      <artifactId>sonar-surefire-plugin</artifactId>
-      <type>sonar-plugin</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.sonar.plugins</groupId>
-      <artifactId>sonar-cobertura-plugin</artifactId>
-      <type>sonar-plugin</type>
-      <scope>provided</scope>
-    </dependency>
     <!-- unit tests -->
     <dependency>
       <groupId>org.codehaus.sonar</groupId>
@@ -93,8 +81,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <maxsize>620000</maxsize>
-                  <minsize>616000</minsize>
+                  <maxsize>615000</maxsize>
+                  <minsize>611000</minsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>

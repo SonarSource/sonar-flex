@@ -80,6 +80,7 @@ public final class CheckList {
       StarUseForDomainCheck.class,
       OverrideEventCloneFunctionCheck.class,
       StarUseForLocalConnectionCheck.class,
+      ExactSettingsSetToFalseCheck.class,
       ParsingErrorCheck.class);
   }
 

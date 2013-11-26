@@ -79,6 +79,7 @@ public final class CheckList {
       ArrayFieldElementTypeCheck.class,
       StarUseForDomainCheck.class,
       OverrideEventCloneFunctionCheck.class,
+      StarUseForLocalConnectionCheck.class,
       ParsingErrorCheck.class);
   }
 

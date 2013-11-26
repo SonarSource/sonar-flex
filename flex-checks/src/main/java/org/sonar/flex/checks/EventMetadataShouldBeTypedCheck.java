@@ -72,7 +72,7 @@ public class EventMetadataShouldBeTypedCheck extends SquidCheck<LexerlessGrammar
   }
 
   private static boolean isTagEvent(AstNode postfixExpr) {
-    return postfixExpr != null && postfixExpr.getTokenValue().equals("Event");
+    return postfixExpr != null && "Event".equals(postfixExpr.getTokenValue());
   }
 
   private static EventProperty getEventProperty(AstNode arguments) {
@@ -82,20 +82,20 @@ public class EventMetadataShouldBeTypedCheck extends SquidCheck<LexerlessGrammar
 
     EventProperty eventProperty = new EventProperty();
 
-      for (AstNode assignmentExpr : arguments.getFirstChild(FlexGrammar.LIST_EXPRESSION).getChildren(FlexGrammar.ASSIGNMENT_EXPR)) {
-        AstNode postfixExpr = assignmentExpr.getFirstChild(FlexGrammar.POSTFIX_EXPR);
+    for (AstNode assignmentExpr : arguments.getFirstChild(FlexGrammar.LIST_EXPRESSION).getChildren(FlexGrammar.ASSIGNMENT_EXPR)) {
+      AstNode postfixExpr = assignmentExpr.getFirstChild(FlexGrammar.POSTFIX_EXPR);
 
-        if (isProperty(postfixExpr, "type")) {
-          eventProperty.isTypeDefined = true;
-        } else if (isProperty(postfixExpr, "name")) {
-          eventProperty.name = assignmentExpr.getLastChild().getTokenValue();
-        }
+      if (isProperty(postfixExpr, "type")) {
+        eventProperty.isTypeDefined = true;
+      } else if (isProperty(postfixExpr, "name")) {
+        eventProperty.name = assignmentExpr.getLastChild().getTokenValue();
       }
+    }
     return eventProperty;
   }
 
   private static boolean isProperty(AstNode postfixExpr, String name) {
-    return postfixExpr != null && postfixExpr.getTokenValue().equals(name);
+    return postfixExpr != null && name.equals(postfixExpr.getTokenValue());
   }
 
 }

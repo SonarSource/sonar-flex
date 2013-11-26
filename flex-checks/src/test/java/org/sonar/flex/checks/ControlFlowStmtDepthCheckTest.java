@@ -34,18 +34,18 @@ public class ControlFlowStmtDepthCheckTest {
   public void testDefault() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/NestedIfDepth.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(5).withMessage("This if has a nesting level of 4, which is higher than the maximum allowed 3.")
+      .next().atLine(5).withMessage("Refactor this code to not nest more than 3 if/for/while/switch statements.")
       .next().atLine(19)
       .noMore();
   }
 
   @Test
   public void testCustomDepth() {
-    check.maximumNestingLevel = 1;
+    check.max = 1;
 
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/NestedIfDepth.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(3).withMessage("This if has a nesting level of 2, which is higher than the maximum allowed 1.")
+      .next().atLine(3).withMessage("Refactor this code to not nest more than 1 if/for/while/switch statements.")
       .next().atLine(15)
       .next().atLine(31)
       .next().atLine(34)

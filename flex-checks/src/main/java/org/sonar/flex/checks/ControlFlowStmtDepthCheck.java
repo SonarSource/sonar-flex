@@ -40,15 +40,15 @@ public class ControlFlowStmtDepthCheck extends SquidCheck<LexerlessGrammar> {
 
   private int nestingLevel;
 
-  private static final int DEFAULT_MAXIMUM_NESTING_LEVEL = 3;
+  private static final int DEFAULT_MAX = 3;
 
   @RuleProperty(
-    key = "maximumNestingLevel",
-    defaultValue = "" + DEFAULT_MAXIMUM_NESTING_LEVEL)
-  public int maximumNestingLevel = DEFAULT_MAXIMUM_NESTING_LEVEL;
+    key = "max",
+    defaultValue = "" + DEFAULT_MAX)
+  public int max = DEFAULT_MAX;
 
-  public int getMaximumNestingLevel() {
-    return maximumNestingLevel;
+  public int getMax() {
+    return max;
   }
 
   @Override
@@ -70,10 +70,8 @@ public class ControlFlowStmtDepthCheck extends SquidCheck<LexerlessGrammar> {
   public void visitNode(AstNode astNode) {
     if (!isElseIf(astNode)) {
       nestingLevel++;
-      if (nestingLevel == getMaximumNestingLevel() + 1) {
-        getContext().createLineViolation(this, "This if has a nesting level of {0}, which is higher than the maximum allowed {1}.", astNode,
-          nestingLevel,
-          getMaximumNestingLevel());
+      if (nestingLevel == getMax() + 1) {
+        getContext().createLineViolation(this, "Refactor this code to not nest more than {0} if/for/while/switch statements.", astNode, getMax());
       }
     }
   }

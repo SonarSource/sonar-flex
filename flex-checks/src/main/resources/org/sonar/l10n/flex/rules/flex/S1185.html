@@ -23,7 +23,7 @@ override public function doSomething() : void
   doSomethingElse();
 }
 
-override public isLegal(action:Action) : Boolean
+override public function isLegal(action:Action) : Boolean
 {
   return super.isLegal(new Action(...));   // Compliant - not simply forwarding the call
 }

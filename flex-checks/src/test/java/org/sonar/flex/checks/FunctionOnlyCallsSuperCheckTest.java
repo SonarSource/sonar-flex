@@ -34,7 +34,7 @@ public class FunctionOnlyCallsSuperCheckTest {
   public void test() throws Exception {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/FunctionOnlyCallsSuper.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(11).withMessage("Remove this method to simply inherit it.")
+      .next().atLine(11).withMessage("Remove this method \"f\" to simply inherit it.")
       .next().atLine(15)
       .next().atLine(27)
       .next().atLine(31)

@@ -31,10 +31,6 @@ import org.sonar.plugins.flex.core.Flex;
 import org.sonar.plugins.flex.core.FlexResourceBridge;
 import org.sonar.plugins.flex.core.FlexSourceImporter;
 import org.sonar.plugins.flex.duplications.FlexCpdMapping;
-import org.sonar.plugins.flex.flexpmd.FlexPmdProfileExporter;
-import org.sonar.plugins.flex.flexpmd.FlexPmdProfileImporter;
-import org.sonar.plugins.flex.flexpmd.FlexPmdRuleRepository;
-import org.sonar.plugins.flex.flexpmd.FlexPmdSensor;
 import org.sonar.plugins.flex.surefire.FlexMojosMavenPluginHandler;
 import org.sonar.plugins.flex.surefire.FlexSurefireSensor;
 
@@ -59,11 +55,6 @@ public class FlexPlugin extends SonarPlugin {
         FlexColorizerFormat.class,
 
         FlexCpdMapping.class,
-
-        FlexPmdSensor.class,
-        FlexPmdRuleRepository.class,
-        FlexPmdProfileExporter.class,
-        FlexPmdProfileImporter.class,
 
         FlexCommonRulesEngineProvider.class,
 

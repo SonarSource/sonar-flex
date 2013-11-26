@@ -30,7 +30,6 @@ import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.flex.checks.CheckList;
 import org.sonar.plugins.flex.core.Flex;
-import org.sonar.plugins.flex.flexpmd.FlexPmdRuleRepository;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Matchers.anyString;
@@ -50,7 +49,6 @@ public class FlexProfileTest {
     assertThat(profile.getLanguage()).isEqualTo(Flex.KEY);
     assertThat(profile.getName()).isEqualTo(RulesProfile.SONAR_WAY_NAME);
     assertThat(profile.getActiveRulesByRepository(CheckList.REPOSITORY_KEY)).hasSize(43);
-    assertThat(profile.getActiveRulesByRepository(FlexPmdRuleRepository.REPOSITORY_KEY)).hasSize(41);
     assertThat(validation.hasErrors()).isFalse();
   }
 

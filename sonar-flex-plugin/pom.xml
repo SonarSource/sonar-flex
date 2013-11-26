@@ -20,43 +20,6 @@
     <sonar.pluginName>Flex</sonar.pluginName>
   </properties>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>com.adobe.ac</groupId>
-        <artifactId>flex-pmd-ruleset-api</artifactId>
-        <version>1.2</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.adobe.ac</groupId>
-            <artifactId>flex-pmd-files</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>ant</groupId>
-            <artifactId>ant</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>xom</groupId>
-            <artifactId>xom</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>asm</groupId>
-            <artifactId>asm</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>com.adobe.ac</groupId>
-        <artifactId>flex-pmd-ruleset</artifactId>
-        <version>1.2</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <dependencies>
     <dependency>
       <groupId>org.codehaus.sonar</groupId>
@@ -68,12 +31,6 @@
       <groupId>org.codehaus.sonar.common-rules</groupId>
       <artifactId>sonar-common-rules</artifactId>
       <version>1.0.1</version>
-    </dependency>
-
-    <!-- FlexPMD -->
-    <dependency>
-      <groupId>com.adobe.ac</groupId>
-      <artifactId>flex-pmd-ruleset</artifactId>
     </dependency>
 
     <dependency>
@@ -142,15 +99,6 @@
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>
                 </requireFilesSize>
-                <bannedDependencies>
-                  <searchTransitive>true</searchTransitive>
-                  <excludes>
-                    <!-- SONARPLUGINS-959 -->
-                    <exclude>com.adobe.ac:flex-pmd-core</exclude>
-                    <!-- SONARPLUGINS-793 -->
-                    <exclude>com.adobe.ac:flex-pmd-files</exclude>
-                  </excludes>
-                </bannedDependencies>
               </rules>
             </configuration>
           </execution>
@@ -158,20 +106,4 @@
       </plugin>
     </plugins>
   </build>
-
-  <repositories>
-    <repository>
-      <!-- For FlexPMD -->
-      <id>flexpmd.opensource.adobe</id>
-      <name>FlexPMD repository on opensource.adobe.com</name>
-      <url>http://opensource.adobe.com/svn/opensource/flexpmd/maven-repository/release/</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-
 </project>

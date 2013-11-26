@@ -78,6 +78,7 @@ public final class CheckList {
       EventMetadataShouldBeTypedCheck.class,
       ArrayFieldElementTypeCheck.class,
       StarTypeUseCheck.class,
+      OverrideEventCloneFunctionCheck.class,
       ParsingErrorCheck.class);
   }
 

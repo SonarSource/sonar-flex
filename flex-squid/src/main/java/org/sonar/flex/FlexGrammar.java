@@ -817,7 +817,7 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.sequence(FUNCTION_SIGNATURE, BLOCK),
       b.sequence(FUNCTION_SIGNATURE, EOS)));
 
-    b.rule(FUNCTION_SIGNATURE).is(b.sequence(LPARENTHESIS, b.optional(PARAMETERS), RPARENTHESIS, RESULT_TYPE));
+    b.rule(FUNCTION_SIGNATURE).is(b.sequence(LPARENTHESIS, b.optional(PARAMETERS), RPARENTHESIS, b.optional(RESULT_TYPE)));
 
     b.rule(PARAMETERS).is(b.firstOf(
       b.sequence(PARAMETER, b.zeroOrMore(COMMA, PARAMETER), b.optional(COMMA, REST_PARAMETERS)),
@@ -832,7 +832,7 @@ public enum FlexGrammar implements GrammarRuleKey {
       b.sequence(TRIPLE_DOTS, TYPED_IDENTIFIER),
       TRIPLE_DOTS));
 
-    b.rule(RESULT_TYPE).is(b.optional(COLON, b.firstOf(VOID, TYPE_EXPR)));
+    b.rule(RESULT_TYPE).is(COLON, b.firstOf(VOID, TYPE_EXPR));
 
     b.rule(CLASS_DEF).is(CLASS, CLASS_NAME, b.optional(INHERITENCE), BLOCK);
     b.rule(CLASS_NAME).is(CLASS_IDENTIFIERS);

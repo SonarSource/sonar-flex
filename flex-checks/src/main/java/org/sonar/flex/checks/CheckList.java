@@ -84,6 +84,7 @@ public final class CheckList {
       PrivateStaticConstLoggerCheck.class,
       FunctionNameCheck.class,
       SemicolonCheck.class,
+      ObjectTypeUseCheck.class,
       ParsingErrorCheck.class);
   }
 

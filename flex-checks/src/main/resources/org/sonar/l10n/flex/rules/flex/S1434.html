@@ -1,0 +1,15 @@
+<p>
+  Creating a new variable with the type "Object" means that this variable may be used to store any kind of object. This feature might be useful in some specific contexts, but most of the time this is hazardous, and if there is future refactoring, the compiler will be unable to do any kind of type checking.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+var obj:Object = new String();
+var foo = new Object();
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+var obj:String = new String();
+var foo:IPortfolio = new Portfolio();
+</pre>

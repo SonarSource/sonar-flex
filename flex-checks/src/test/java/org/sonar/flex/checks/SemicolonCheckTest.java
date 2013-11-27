@@ -38,8 +38,8 @@ public class SemicolonCheckTest {
     CheckMessagesVerifier.verify(file.getCheckMessages())
       .next().atLine(3).withMessage("Add a semicolon at the end of this statement")
       .next().atLine(4)
-      .next().atLine(17)
-      .next().atLine(22)
+      .next().atLine(19)
+      .next().atLine(25)
       .noMore();
   }
 }

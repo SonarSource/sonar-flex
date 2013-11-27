@@ -36,14 +36,7 @@ public class SemicolonCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(
-      FlexGrammar.THROW_STATEMENT,
-      FlexGrammar.RETURN_STATEMENT,
-      FlexGrammar.CONTINUE_STATEMENT,
-      FlexGrammar.BREAK_STATEMENT,
-      FlexGrammar.EXPRESSION_STATEMENT,
-      FlexGrammar.VARIABLE_DECLARATION_STATEMENT,
-      FlexGrammar.DEFAULT_XML_NAMESPACE_DIRECTIVE);
+    subscribeTo(FlexGrammar.EOS, FlexGrammar.EOS_NO_LB);
   }
 
   @Override

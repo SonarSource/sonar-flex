@@ -82,6 +82,7 @@ public final class CheckList {
       StarUseForLocalConnectionCheck.class,
       ExactSettingsSetToFalseCheck.class,
       PrivateStaticConstLoggerCheck.class,
+      FunctionNameCheck.class,
       ParsingErrorCheck.class);
   }
 

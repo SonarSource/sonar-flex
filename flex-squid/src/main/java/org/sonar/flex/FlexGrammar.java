@@ -315,6 +315,7 @@ public enum FlexGrammar implements GrammarRuleKey {
   THROW_STATEMENT,
   TRY_STATEMENT,
   EXPRESSION_STATEMENT,
+  EXPRESSION,
   LABELED_STATEMENT,
   METADATA_STATEMENT,
   DEFAULT_XML_NAMESPACE_DIRECTIVE,
@@ -669,13 +670,15 @@ public enum FlexGrammar implements GrammarRuleKey {
       RETURN_STATEMENT,
       THROW_STATEMENT,
       TRY_STATEMENT,
-      b.sequence(EXPRESSION_STATEMENT, EOS),
+      EXPRESSION_STATEMENT,
       LABELED_STATEMENT));
 
     b.rule(SUB_STATEMENT).is(b.firstOf(
       EMPTY_STATEMENT,
       STATEMENT,
       VARIABLE_DECLARATION_STATEMENT));
+
+    b.rule(EXPRESSION_STATEMENT).is(EXPRESSION, EOS);
 
     // Not in spec:
     b.rule(METADATA_STATEMENT).is(ARRAY_INITIALISER);
@@ -734,7 +737,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(CATCH_CLAUSES).is(CATCH_CLAUSE, b.zeroOrMore(CATCH_CLAUSE));
     b.rule(CATCH_CLAUSE).is(CATCH, LPARENTHESIS, PARAMETER, RPARENTHESIS, BLOCK);
 
-    b.rule(EXPRESSION_STATEMENT).is(b.nextNot(b.firstOf(FUNCTION, LCURLYBRACE)), LIST_EXPRESSION);
+    b.rule(EXPRESSION).is(b.nextNot(b.firstOf(FUNCTION, LCURLYBRACE)), LIST_EXPRESSION);
   }
 
   private static void directives(LexerlessGrammarBuilder b) {
@@ -875,24 +878,24 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(XML_TAG_CONTENT).is(XML_TAG_NAME, XML_ATTRIBUTES);
 
     b.rule(XML_TAG_NAME).is(b.firstOf(
-      b.sequence(LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE),
+      b.sequence(LCURLYBRACE, EXPRESSION, RCURLYBRACE),
       XML_NAME));
 
     b.rule(XML_ATTRIBUTES).is(b.optional(b.firstOf(
       b.sequence(XML_ATTRIBUTE, XML_ATTRIBUTES),
-      b.sequence(XML_WHITESPACE, LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE))));
+      b.sequence(XML_WHITESPACE, LCURLYBRACE, EXPRESSION, RCURLYBRACE))));
 
     b.rule(XML_ATTRIBUTE).is(b.firstOf(
       b.sequence(b.zeroOrMore(XML_WHITESPACE), XML_NAME,
         b.zeroOrMore(XML_WHITESPACE), EQUAL1, b.zeroOrMore(XML_WHITESPACE),
-        LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE),
+        LCURLYBRACE, EXPRESSION, RCURLYBRACE),
       b.sequence(b.zeroOrMore(XML_WHITESPACE), XML_NAME,
         b.zeroOrMore(XML_WHITESPACE), EQUAL1, b.zeroOrMore(XML_WHITESPACE),
         XML_ATTRIBUTE_VALUE)));
 
     b.rule(XML_ELEMENT_CONTENT).is(b.optional(
       b.firstOf(
-        b.sequence(LCURLYBRACE, EXPRESSION_STATEMENT, RCURLYBRACE, XML_ELEMENT_CONTENT),
+        b.sequence(LCURLYBRACE, EXPRESSION, RCURLYBRACE, XML_ELEMENT_CONTENT),
         b.sequence(XML_MARKUP, XML_ELEMENT_CONTENT),
         b.sequence(XML_TEXT, XML_ELEMENT_CONTENT),
         b.sequence(XML_ELEMENT, XML_ELEMENT_CONTENT)

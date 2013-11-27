@@ -81,7 +81,7 @@ public class FunctionOnlyCallsSuperCheck extends SquidCheck<LexerlessGrammar> {
 
   private static boolean isSuperReference(AstNode statement) {
     return statement.getFirstChild(FlexGrammar.EXPRESSION_STATEMENT) != null
-      && isSuperExpression(statement.getFirstChild().getFirstChild());
+      && isSuperExpression(statement.getFirstChild().getFirstChild().getFirstChild());
   }
 
   private static boolean isSuperExpression(AstNode listExpression) {
@@ -145,8 +145,8 @@ public class FunctionOnlyCallsSuperCheck extends SquidCheck<LexerlessGrammar> {
     }
 
     String actual = sb.toString();
-    String expected = FlexKeyword.SUPER.getValue() + "." + methodName + "(" + Joiner.on(",").join(paramaters) + ")";
+    String expected = FlexKeyword.SUPER.getValue() + "." + methodName + "(" + Joiner.on(",").join(paramaters) + ");";
 
-    return actual.equals(expected) || actual.equals(FlexKeyword.RETURN.getValue() + expected + ";");
+    return actual.equals(expected) || actual.equals(FlexKeyword.RETURN.getValue() + expected);
   }
 }

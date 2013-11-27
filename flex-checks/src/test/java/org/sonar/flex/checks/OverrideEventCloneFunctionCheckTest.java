@@ -34,7 +34,7 @@ public class OverrideEventCloneFunctionCheckTest {
   public void test() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/OverrideEventCloneFunction.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(1).withMessage("Override Event.clone() in this class.")
+      .next().atLine(1).withMessage("Make this class \"MyEvent\" override \"Event.clone()\" function.")
       .noMore();
 
 

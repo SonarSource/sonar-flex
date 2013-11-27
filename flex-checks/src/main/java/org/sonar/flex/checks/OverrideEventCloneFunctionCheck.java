@@ -58,7 +58,8 @@ public class OverrideEventCloneFunctionCheck extends SquidCheck<LexerlessGrammar
       }
     }
 
-    getContext().createLineViolation(this, "Override Event.clone() in this class.", astNode);
+    getContext().createLineViolation(this, "Make this class \"{0}\" override \"Event.clone()\" function.", astNode,
+      astNode.getFirstChild(FlexGrammar.CLASS_NAME).getFirstChild(FlexGrammar.CLASS_IDENTIFIERS).getLastChild().getTokenValue());
   }
 
   private static boolean isCloneFunction(AstNode directive) {

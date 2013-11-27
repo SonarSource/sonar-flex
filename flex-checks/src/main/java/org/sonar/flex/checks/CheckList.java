@@ -83,6 +83,7 @@ public final class CheckList {
       ExactSettingsSetToFalseCheck.class,
       PrivateStaticConstLoggerCheck.class,
       FunctionNameCheck.class,
+      SemicolonCheck.class,
       ParsingErrorCheck.class);
   }
 

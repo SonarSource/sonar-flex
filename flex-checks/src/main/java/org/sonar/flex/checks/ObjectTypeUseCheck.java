@@ -45,7 +45,7 @@ public class ObjectTypeUseCheck extends SquidCheck<LexerlessGrammar> {
     for (AstNode varBinding : astNode.getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST).getChildren(FlexGrammar.VARIABLE_BINDING)) {
       if (isDeclareAsObject(varBinding) || isInitialisedAsObject(varBinding.getFirstChild(FlexGrammar.VARIABLE_INITIALISATION))) {
 
-        getContext().createLineViolation(this, "Clearly define the type of this ''{c0}'' variable", astNode,
+        getContext().createLineViolation(this, "Clearly define the type of this ''{0}'' variable", astNode,
           varBinding.getFirstChild(FlexGrammar.TYPED_IDENTIFIER).getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue());
       }
     }

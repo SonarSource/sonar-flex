@@ -81,6 +81,7 @@ public final class CheckList {
       OverrideEventCloneFunctionCheck.class,
       StarUseForLocalConnectionCheck.class,
       ExactSettingsSetToFalseCheck.class,
+      PrivateStaticConstLoggerCheck.class,
       ParsingErrorCheck.class);
   }
 

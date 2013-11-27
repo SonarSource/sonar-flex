@@ -1,0 +1,18 @@
+<p>
+  A logger should be:
+</p>
+<ul>
+  <li><code>private</code>: Never be accessible outside of its parent class. If another class needs to log something, it should instantiate its own logger.</li>
+  <li><code>static</code>: Not dependent on an instance of a class (an object). When logging something, contextual information can of course be provided in the messages but the logger should be created at class level to prevent creating a logger along with each object.</li>
+  <li><code>const</code>: Be created once and only once per class.</li>
+</ul>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+public const logger:ILogger = LogUtil.getLogger(MyClass);
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+private static const LOG:ILogger = LogUtil.getLogger(MyClass);
+</pre>

@@ -60,7 +60,6 @@ public class FunctionNameCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    System.out.println(AstXmlPrinter.print(astNode));
     String functionName = astNode.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue();
     if (!pattern.matcher(functionName).matches()) {
       getContext().createLineViolation(this, "Rename this \"{0}\" function to match the regular expression {1}", astNode, functionName, format);

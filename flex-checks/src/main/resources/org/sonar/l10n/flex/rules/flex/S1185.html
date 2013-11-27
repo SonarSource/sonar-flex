@@ -9,7 +9,7 @@ override public function doSomething() : void
   super.doSomething();
 }
 
-override public isLegal(action:Action) : Boolean
+override public function isLegal(action:Action) : Boolean
 {
   return super.isLegal(action);
 }
@@ -19,12 +19,18 @@ override public isLegal(action:Action) : Boolean
 <pre>
 override public function doSomething() : void
 {
-  super.doSomething();
+  super.doSomething();                             // Compliant - not simply forwarding the call
   doSomethingElse();
 }
 
 override public function isLegal(action:Action) : Boolean
 {
   return super.isLegal(new Action(...));   // Compliant - not simply forwarding the call
+}
+
+[Deprecated(replacement="isAuthorized")]
+override public function isLegal(action:Action) : Boolean
+{
+  return super.isLegal(action);   // Compliant as there is a metadata
 }
 </pre>

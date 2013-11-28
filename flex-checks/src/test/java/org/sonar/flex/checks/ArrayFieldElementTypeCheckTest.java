@@ -33,7 +33,7 @@ public class ArrayFieldElementTypeCheckTest {
   public void test() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ArrayFieldElementType.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(9).withMessage("Define the element type for this 'newNumberProperty' array")
+      .next().atLine(13).withMessage("Define the element type for this 'newNumberProperty' array")
       .noMore();
   }
 }

@@ -26,6 +26,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
+import org.sonar.flex.checks.utils.MetadataTag;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.List;
@@ -58,7 +59,7 @@ public class ArrayFieldElementTypeCheck extends SquidCheck<LexerlessGrammar> {
 
         for (AstNode varBinding : varBindingList.getChildren(FlexGrammar.VARIABLE_BINDING)) {
 
-          if (!hasInitialisation(varBinding) && isArray(varBinding) && !hasMetadataWithType(directive)) {
+          if (!hasInitialisation(varBinding) && isArray(varBinding) && !hasArrayTypeTag(directive)) {
             getContext().createLineViolation(this, "Define the element type for this ''{0}'' array", varBinding,
               varBinding.getFirstChild(FlexGrammar.TYPED_IDENTIFIER).getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue());
           }
@@ -80,21 +81,14 @@ public class ArrayFieldElementTypeCheck extends SquidCheck<LexerlessGrammar> {
       && "Array".equals(typeExpr.getFirstChild().getTokenValue());
   }
 
-  private static boolean hasMetadataWithType(AstNode directive) {
+  private static boolean hasArrayTypeTag(AstNode directive) {
     AstNode previousDirective = directive.getPreviousAstNode();
 
-    if (previousDirective != null && isMetadataTag(previousDirective)) {
-      AstNode elementList = previousDirective.getFirstChild()
-        .getFirstChild(FlexGrammar.METADATA_STATEMENT)
-        .getFirstChild(FlexGrammar.ARRAY_INITIALISER)
-        .getFirstChild(FlexGrammar.ELEMENT_LIST);
-
-      for (AstNode literalElement : elementList.getChildren(FlexGrammar.LITERAL_ELEMENT)) {
-
-        if ("ArrayElementType".equals(literalElement.getTokenValue())) {
-          return true;
-        }
+    while (previousDirective != null && isMetadataTag(previousDirective)) {
+      if (MetadataTag.isTag(previousDirective.getFirstChild().getFirstChild(FlexGrammar.METADATA_STATEMENT), "ArrayElementType")) {
+        return true;
       }
+      previousDirective = previousDirective.getPreviousAstNode();
     }
     return false;
   }

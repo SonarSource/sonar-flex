@@ -25,18 +25,16 @@ import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.checks.utils.MetadataTag;
 import org.sonar.sslr.parser.LexerlessGrammar;
+
+import java.util.Map;
 
 @Rule(
   key = "S1463",
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
 public class EventMetadataShouldBeTypedCheck extends SquidCheck<LexerlessGrammar> {
-
-  private static class EventProperty {
-    String name = null;
-    boolean isTypeDefined = false;
-  }
 
   @Override
   public void init() {
@@ -45,57 +43,13 @@ public class EventMetadataShouldBeTypedCheck extends SquidCheck<LexerlessGrammar
 
   @Override
   public void visitNode(AstNode astNode) {
-    AstNode eventNode = getEventTag(astNode.getFirstChild(FlexGrammar.ARRAY_INITIALISER).getFirstChild(FlexGrammar.ELEMENT_LIST));
+    if (MetadataTag.isTag(astNode, "Event")) {
+      Map<String, String> properties = MetadataTag.getTagProperties(astNode);
 
-    if (eventNode != null) {
-      EventProperty eventProperty = getEventProperty(eventNode.getFirstChild(FlexGrammar.ARGUMENTS));
-
-      if (eventProperty != null && !eventProperty.isTypeDefined) {
-        getContext().createLineViolation(this, "The {0} event type is missing in this metadata tag", astNode, eventProperty.name);
+      if (properties != null && !properties.containsKey("type")) {
+        getContext().createLineViolation(this, "The {0} event type is missing in this metadata tag", astNode, properties.get("name"));
       }
     }
 
   }
-
-  private static AstNode getEventTag(AstNode elementList) {
-    if (elementList != null) {
-
-      for (AstNode literalElement : elementList.getChildren(FlexGrammar.LITERAL_ELEMENT)) {
-        AstNode postfixExpr = literalElement.getFirstChild().getFirstChild(FlexGrammar.POSTFIX_EXPR);
-
-        if (isTagEvent(postfixExpr)) {
-          return postfixExpr;
-        }
-      }
-    }
-    return null;
-  }
-
-  private static boolean isTagEvent(AstNode postfixExpr) {
-    return postfixExpr != null && "Event".equals(postfixExpr.getTokenValue());
-  }
-
-  private static EventProperty getEventProperty(AstNode arguments) {
-    if (arguments == null || arguments.getFirstChild(FlexGrammar.LIST_EXPRESSION) == null) {
-      return null;
-    }
-
-    EventProperty eventProperty = new EventProperty();
-
-    for (AstNode assignmentExpr : arguments.getFirstChild(FlexGrammar.LIST_EXPRESSION).getChildren(FlexGrammar.ASSIGNMENT_EXPR)) {
-      AstNode postfixExpr = assignmentExpr.getFirstChild(FlexGrammar.POSTFIX_EXPR);
-
-      if (isProperty(postfixExpr, "type")) {
-        eventProperty.isTypeDefined = true;
-      } else if (isProperty(postfixExpr, "name")) {
-        eventProperty.name = assignmentExpr.getLastChild().getTokenValue();
-      }
-    }
-    return eventProperty;
-  }
-
-  private static boolean isProperty(AstNode postfixExpr, String name) {
-    return postfixExpr != null && name.equals(postfixExpr.getTokenValue());
-  }
-
 }

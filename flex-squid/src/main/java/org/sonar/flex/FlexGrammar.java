@@ -681,7 +681,7 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(EXPRESSION_STATEMENT).is(EXPRESSION, EOS);
 
     // Not in spec:
-    b.rule(METADATA_STATEMENT).is(ARRAY_INITIALISER);
+    b.rule(METADATA_STATEMENT).is(b.sequence(LBRAKET, ASSIGNMENT_EXPR, RBRAKET));
 
     b.rule(VARIABLE_DECLARATION_STATEMENT).is(VARIABLE_DEF, EOS);
 

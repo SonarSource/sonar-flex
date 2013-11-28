@@ -31,6 +31,7 @@ public class MetadataTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.METADATA_STATEMENT))
-      .matches("[meta=\"data\"]");
+      .matches("[meta=\"data\"]")
+      .notMatches("[meta=\"data\", secondMetad=\"data\"]");
   }
 }

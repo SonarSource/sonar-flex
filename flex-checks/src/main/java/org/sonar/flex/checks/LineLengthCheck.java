@@ -19,58 +19,51 @@
  */
 package org.sonar.flex.checks;
 
-import com.sonar.sslr.api.AstAndTokenVisitor;
+import com.google.common.io.Files;
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.api.Token;
 import com.sonar.sslr.squid.checks.SquidCheck;
+import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.flex.api.CharsetAwareVisitor;
 import org.sonar.sslr.parser.LexerlessGrammar;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
 
 @Rule(
   key = "LineLength",
   priority = Priority.MINOR)
-public class LineLengthCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
+public class LineLengthCheck extends SquidCheck<LexerlessGrammar> implements CharsetAwareVisitor {
 
   private static final int DEFAULT_MAXIMUM_LINE_LENHGTH = 80;
-  private Token previousToken;
+  private Charset charset;
 
   @RuleProperty(
     key = "maximumLineLength",
     defaultValue = "" + DEFAULT_MAXIMUM_LINE_LENHGTH)
   public int maximumLineLength = DEFAULT_MAXIMUM_LINE_LENHGTH;
 
-  public int getMaximumLineLength() {
-    return maximumLineLength;
+  public void setCharset(Charset charset) {
+    this.charset = charset;
   }
 
   @Override
   public void visitFile(AstNode astNode) {
-    previousToken = null;
-  }
+    List<String> lines;
 
-  @Override
-  public void leaveFile(AstNode astNode) {
-    previousToken = null;
-  }
-
-  @Override
-  public void visitToken(Token token) {
-    if (!token.isGeneratedCode()) {
-      if (previousToken != null && previousToken.getLine() != token.getLine()) {
-        int length = previousToken.getColumn() + previousToken.getValue().length();
-        if (length > getMaximumLineLength()) {
-          // Note that method from AbstractLineLengthCheck generates other message - see SONARPLUGINS-1809
-          getContext().createLineViolation(this,
-            "The line contains {0,number,integer} characters which is greater than {1,number,integer} authorized.",
-            previousToken.getLine(),
-            length,
-            getMaximumLineLength());
-        }
+    try {
+      lines = Files.readLines(getContext().getFile(), charset);
+    } catch (IOException e) {
+      throw new SonarException(e);
+    }
+    for (int i = 0; i < lines.size(); i++) {
+      String line = lines.get(i);
+      if (line.length() > maximumLineLength) {
+        getContext().createLineViolation(this, "Split this {0} characters long line (which is greater than {1} authorized).", i + 1, line.length(), maximumLineLength);
       }
-      previousToken = token;
     }
   }
-
 }

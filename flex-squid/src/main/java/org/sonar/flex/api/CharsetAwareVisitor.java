@@ -17,26 +17,11 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.flex.checks;
+package org.sonar.flex.api;
 
-import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
-import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squid.api.SourceFile;
+import java.nio.charset.Charset;
 
-import java.io.File;
+public interface CharsetAwareVisitor {
 
-public class LineLengthCheckTest {
-
-  @Test
-  public void test() {
-    LineLengthCheck check = new LineLengthCheck();
-    check.maximumLineLength = 30;
-
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/LineLength.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
-        .next().atLine(2).withMessage("Split this 44 characters long line (which is greater than 30 authorized).")
-        .noMore();
-  }
-
+  void setCharset(Charset charset);
 }

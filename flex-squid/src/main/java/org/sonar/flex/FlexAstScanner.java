@@ -25,6 +25,7 @@ import com.sonar.sslr.api.CommentAnalyser;
 import com.sonar.sslr.impl.Parser;
 import com.sonar.sslr.squid.*;
 import com.sonar.sslr.squid.metrics.*;
+import org.sonar.flex.api.CharsetAwareVisitor;
 import org.sonar.flex.api.FlexMetric;
 import org.sonar.flex.metrics.ComplexityVisitor;
 import org.sonar.flex.parser.FlexParser;
@@ -172,6 +173,9 @@ public final class FlexAstScanner {
 
     /* External visitors (typically Check ones) */
     for (SquidAstVisitor<LexerlessGrammar> visitor : visitors) {
+      if (visitor instanceof CharsetAwareVisitor) {
+        ((CharsetAwareVisitor) visitor).setCharset(conf.getCharset());
+      }
       builder.withSquidAstVisitor(visitor);
     }
 

@@ -35,6 +35,8 @@ import javax.annotation.Nullable;
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
 public class StarUseForLocalConnectionCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
 
+  private Token previousToken = null;
+
   private static enum State {
     EXPECTING_DOT,
     EXPECTING_ALLOW_DOMAIN,
@@ -80,12 +82,13 @@ public class StarUseForLocalConnectionCheck extends SquidCheck<LexerlessGrammar>
       getContext().createLineViolation(this, "Replace this wildcard character '*' with a well defined domain", token);
       currentState = State.EXPECTING_DOT;
     }
+    previousToken = token;
   }
 
-  private static Symbol getSymbol(String value) {
+  private Symbol getSymbol(String value) {
     Symbol result = Symbol.OTHER;
 
-    if (".".equals(value)) {
+    if (".".equals(value) && previousToken != null && !"Security".equals(previousToken.getValue())) {
       result = Symbol.DOT;
     } else if ("allowDomain".equals(value)) {
       result = Symbol.ALLOW_DOMAIN;

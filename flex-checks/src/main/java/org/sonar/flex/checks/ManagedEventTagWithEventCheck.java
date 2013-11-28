@@ -77,7 +77,7 @@ public class ManagedEventTagWithEventCheck extends SquidCheck<LexerlessGrammar> 
   private void searchEventInPreviousTag(AstNode metadata) {
     AstNode previousDirective = metadata.getParent().getParent().getPreviousAstNode();
 
-    while (previousDirective != null && isMetadataTag(previousDirective)) {
+    while (previousDirective != null && MetadataTag.isMetadataTag(previousDirective)) {
       checkEventTag(previousDirective);
       previousDirective = previousDirective.getPreviousAstNode();
     }
@@ -86,7 +86,7 @@ public class ManagedEventTagWithEventCheck extends SquidCheck<LexerlessGrammar> 
   private void searchEventInNextTag(AstNode metadata) {
     AstNode nextDirective = metadata.getParent().getParent().getNextAstNode();
 
-    while (nextDirective != null && isMetadataTag(nextDirective)) {
+    while (nextDirective != null && MetadataTag.isMetadataTag(nextDirective)) {
       checkEventTag(nextDirective);
       nextDirective = nextDirective.getNextAstNode();
     }
@@ -104,10 +104,5 @@ public class ManagedEventTagWithEventCheck extends SquidCheck<LexerlessGrammar> 
         isDeclaredInEventTag.put(eventName, true);
       }
     }
-  }
-
-  private static boolean isMetadataTag(AstNode directive) {
-    return directive.getFirstChild().is(FlexGrammar.STATEMENT)
-      && directive.getFirstChild().getFirstChild().is(FlexGrammar.METADATA_STATEMENT);
   }
 }

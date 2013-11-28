@@ -84,18 +84,13 @@ public class ArrayFieldElementTypeCheck extends SquidCheck<LexerlessGrammar> {
   private static boolean hasArrayTypeTag(AstNode directive) {
     AstNode previousDirective = directive.getPreviousAstNode();
 
-    while (previousDirective != null && isMetadataTag(previousDirective)) {
+    while (previousDirective != null && MetadataTag.isMetadataTag(previousDirective)) {
       if (MetadataTag.isTag(previousDirective.getFirstChild().getFirstChild(FlexGrammar.METADATA_STATEMENT), "ArrayElementType")) {
         return true;
       }
       previousDirective = previousDirective.getPreviousAstNode();
     }
     return false;
-  }
-
-  private static boolean isMetadataTag(AstNode directive) {
-    return directive.getFirstChild().is(FlexGrammar.STATEMENT)
-      && directive.getFirstChild().getFirstChild().is(FlexGrammar.METADATA_STATEMENT);
   }
 
   private static boolean isVariableDefinition(AstNode directive) {

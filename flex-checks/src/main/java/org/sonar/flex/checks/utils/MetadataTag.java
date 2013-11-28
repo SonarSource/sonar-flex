@@ -95,4 +95,9 @@ public class MetadataTag {
       .getFirstChild(FlexGrammar.ARGUMENTS);
     return arguments != null && arguments.getFirstChild(FlexGrammar.LIST_EXPRESSION) != null;
   }
+
+  public static boolean isMetadataTag(AstNode directive) {
+    return directive.getFirstChild().is(FlexGrammar.STATEMENT)
+      && directive.getFirstChild().getFirstChild().is(FlexGrammar.METADATA_STATEMENT);
+  }
 }

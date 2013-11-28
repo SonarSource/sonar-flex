@@ -1,0 +1,13 @@
+<h2>Noncompliant Code Example</h2>
+<pre>
+[Event(name="message", type="my.package.MyEvemt")]
+[ManagedEvents("mes")]
+public class MyClass {...}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+[Event(name="message", type="my.package.MyEvemt")]
+[ManagedEvents("message")]
+public class MyClass {...}
+</pre>

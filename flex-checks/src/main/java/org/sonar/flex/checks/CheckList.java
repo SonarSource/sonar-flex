@@ -85,6 +85,7 @@ public final class CheckList {
       FunctionNameCheck.class,
       SemicolonCheck.class,
       ObjectTypeUseCheck.class,
+      ManagedEventTagWithEventCheck.class,
       ParsingErrorCheck.class);
   }
 

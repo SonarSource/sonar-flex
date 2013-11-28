@@ -44,7 +44,7 @@ public class EventMetadataShouldBeTypedCheck extends SquidCheck<LexerlessGrammar
   @Override
   public void visitNode(AstNode astNode) {
     if (MetadataTag.isTag(astNode, "Event")) {
-      Map<String, String> properties = MetadataTag.getTagProperties(astNode);
+      Map<String, String> properties = MetadataTag.getTagPropertiesMap(astNode);
 
       if (properties != null && !properties.containsKey("type")) {
         getContext().createLineViolation(this, "The {0} event type is missing in this metadata tag", astNode, properties.get("name"));

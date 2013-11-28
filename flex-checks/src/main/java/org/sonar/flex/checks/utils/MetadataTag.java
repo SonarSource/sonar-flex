@@ -22,7 +22,9 @@ package org.sonar.flex.checks.utils;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.flex.FlexGrammar;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MetadataTag {
@@ -38,7 +40,29 @@ public class MetadataTag {
     return false;
   }
 
-  public static Map<String, String> getTagProperties(AstNode metadata) {
+  // [Metadata("property, in, one, string")] --> [property, in, one, string]
+  public static List<String> getSinglePropertyAsList(AstNode metadata) {
+    if (isNotEmpty(metadata) && hasProperty(metadata)) {
+      AstNode properties = metadata
+        .getFirstChild(FlexGrammar.ASSIGNMENT_EXPR)
+        .getFirstChild(FlexGrammar.POSTFIX_EXPR)
+        .getFirstChild(FlexGrammar.ARGUMENTS)
+        .getFirstChild(FlexGrammar.LIST_EXPRESSION);
+
+      if (properties.getNumberOfChildren() == 1) {
+        String singleProperty = properties.getFirstChild(FlexGrammar.ASSIGNMENT_EXPR).getTokenValue();
+        List<String> propertyList = new ArrayList<String>();
+
+        for (String property : singleProperty.substring(1, singleProperty.length() - 1).split(",")) {
+          propertyList.add(property.trim());
+        }
+        return propertyList;
+      }
+    }
+    return null;
+  }
+
+  public static Map<String, String> getTagPropertiesMap(AstNode metadata) {
     if (isNotEmpty(metadata) && hasProperty(metadata)) {
 
       Map<String, String> properties = new HashMap<String, String>();
@@ -59,12 +83,12 @@ public class MetadataTag {
     return null;
   }
 
-  private static boolean isNotEmpty(AstNode metadata) {
+  public static boolean isNotEmpty(AstNode metadata) {
     return metadata.getFirstChild(FlexGrammar.ASSIGNMENT_EXPR) != null
       && metadata.getFirstChild(FlexGrammar.ASSIGNMENT_EXPR).getFirstChild(FlexGrammar.POSTFIX_EXPR) != null;
   }
 
-  private static boolean hasProperty(AstNode metadata) {
+  public static boolean hasProperty(AstNode metadata) {
     AstNode arguments = metadata
       .getFirstChild(FlexGrammar.ASSIGNMENT_EXPR)
       .getFirstChild(FlexGrammar.POSTFIX_EXPR)

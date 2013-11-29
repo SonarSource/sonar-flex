@@ -25,6 +25,7 @@ import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
@@ -40,34 +41,12 @@ public class ConstructorNotLightweightCheck extends SquidCheck<LexerlessGrammar>
 
   @Override
   public void visitNode(AstNode astNode) {
-    AstNode constructorDef = getConstructor(astNode);
+    AstNode constructorDef = Clazz.getConstructor(astNode);
 
     if (constructorDef != null && containsBranch(constructorDef)) {
       getContext().createLineViolation(this, "Extract the content of this \"{0}\" constructor into a dedicated function", constructorDef,
         constructorDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild().getTokenValue());
     }
-  }
-
-  private static AstNode getConstructor(AstNode classDefNode) {
-    final String className = classDefNode.getFirstChild(FlexGrammar.CLASS_NAME)
-      .getFirstChild(FlexGrammar.CLASS_IDENTIFIERS)
-      .getLastChild()
-      .getTokenValue();
-
-    for (AstNode directive : classDefNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES).getChildren()) {
-      AstNode functionDef = getFunctionDef(directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE));
-
-      if (functionDef != null && functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getNumberOfChildren() == 1
-        && functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild().getTokenValue().equals(className)) {
-        return functionDef;
-      }
-    }
-
-    return null;
-  }
-
-  private static AstNode getFunctionDef(AstNode annotableDir) {
-    return annotableDir != null && annotableDir.getFirstChild().is(FlexGrammar.FUNCTION_DEF) ? annotableDir.getFirstChild() : null;
   }
 
   private static boolean containsBranch(AstNode constructorDef) {

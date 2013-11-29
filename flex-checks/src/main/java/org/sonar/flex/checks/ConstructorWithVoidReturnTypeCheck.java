@@ -26,6 +26,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
+import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
@@ -41,15 +42,11 @@ public class ConstructorWithVoidReturnTypeCheck extends SquidCheck<LexerlessGram
 
   @Override
   public void visitNode(AstNode astNode) {
-    String className = astNode.getFirstChild(FlexGrammar.CLASS_NAME)
-      .getFirstChild(FlexGrammar.CLASS_IDENTIFIERS)
-      .getLastChild()
-      .getTokenValue();
-
-    AstNode constructorDef = getConstructor(astNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES), className);
+    AstNode constructorDef = Clazz.getConstructor(astNode);
 
     if (constructorDef != null && hasVoidReturnType(constructorDef)) {
-      getContext().createLineViolation(this, "Remove the \"void\" return type from this \"{0}\" constructor", constructorDef, className);
+      getContext().createLineViolation(this, "Remove the \"void\" return type from this \"{0}\" constructor", constructorDef,
+        astNode.getFirstChild(FlexGrammar.CLASS_NAME).getFirstChild(FlexGrammar.CLASS_IDENTIFIERS).getLastChild().getTokenValue());
     }
   }
 
@@ -59,25 +56,5 @@ public class ConstructorWithVoidReturnTypeCheck extends SquidCheck<LexerlessGram
       .getFirstChild(FlexGrammar.RESULT_TYPE);
 
     return resultTypeNode != null && resultTypeNode.getFirstChild(FlexKeyword.VOID) != null;
-  }
-
-  private static AstNode getConstructor(AstNode classDirectives, String className) {
-    for (AstNode directive : classDirectives.getChildren()) {
-      AstNode functionDef = getFunctionDefinition(directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE));
-
-      if (functionDef != null && isConstructor(functionDef, className)) {
-        return functionDef;
-      }
-    }
-    return null;
-  }
-
-  private static AstNode getFunctionDefinition(AstNode annotableDir) {
-    return annotableDir != null && annotableDir.getFirstChild().is(FlexGrammar.FUNCTION_DEF) ? annotableDir.getFirstChild() : null;
-  }
-
-  private static boolean isConstructor(AstNode functionDef, String className) {
-    return functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getNumberOfChildren() == 1
-      && functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild().getTokenValue().equals(className);
   }
 }

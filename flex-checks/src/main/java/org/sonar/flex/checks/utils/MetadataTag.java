@@ -29,6 +29,9 @@ import java.util.Map;
 
 public class MetadataTag {
 
+  private MetadataTag() {
+  }
+
   public static boolean isTag(AstNode metadata, String tagName) {
     if (isNotEmpty(metadata)) {
       AstNode postfixExpr = metadata
@@ -42,6 +45,8 @@ public class MetadataTag {
 
   // [Metadata("property, in, one, string")] --> [property, in, one, string]
   public static List<String> getSinglePropertyAsList(AstNode metadata) {
+    List<String> propertyList = new ArrayList<String>();
+
     if (isNotEmpty(metadata) && hasProperty(metadata)) {
       AstNode properties = metadata
         .getFirstChild(FlexGrammar.ASSIGNMENT_EXPR)
@@ -51,15 +56,13 @@ public class MetadataTag {
 
       if (properties.getNumberOfChildren() == 1) {
         String singleProperty = properties.getFirstChild(FlexGrammar.ASSIGNMENT_EXPR).getTokenValue();
-        List<String> propertyList = new ArrayList<String>();
 
         for (String property : singleProperty.substring(1, singleProperty.length() - 1).split(",")) {
           propertyList.add(property.trim());
         }
-        return propertyList;
       }
     }
-    return null;
+    return propertyList;
   }
 
   public static Map<String, String> getTagPropertiesMap(AstNode metadata) {

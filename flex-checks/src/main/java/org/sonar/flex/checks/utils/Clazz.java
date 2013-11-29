@@ -36,13 +36,17 @@ public class Clazz {
     for (AstNode directive : classDefNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES).getChildren()) {
       AstNode functionDef = getFunctionDefinition(directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE));
 
-      if (functionDef != null && functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getNumberOfChildren() == 1
-        && functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild().getTokenValue().equals(className)) {
+      if (functionDef != null && isConstructor(functionDef, className)) {
         return functionDef;
       }
     }
 
     return null;
+  }
+
+  public static boolean isConstructor(AstNode functionDef, String className) {
+    return functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getNumberOfChildren() == 1
+      && functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild().getTokenValue().equals(className);
   }
 
   private static AstNode getFunctionDefinition(AstNode annotableDir) {

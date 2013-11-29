@@ -22,7 +22,7 @@ package org.sonar.flex.checks.utils;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.flex.FlexGrammar;
 
-import java.util.ArrayList;
+import com.google.common.collect.Lists;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +45,7 @@ public class MetadataTag {
 
   // [Metadata("property, in, one, string")] --> [property, in, one, string]
   public static List<String> getSinglePropertyAsList(AstNode metadata) {
-    List<String> propertyList = new ArrayList<String>();
+    List<String> propertyList = Lists.newArrayList();
 
     if (isNotEmpty(metadata) && hasProperty(metadata)) {
       AstNode properties = metadata

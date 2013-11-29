@@ -20,6 +20,7 @@
 package org.sonar.flex.checks;
 
 import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.squid.checks.SquidCheck;
@@ -30,7 +31,6 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Rule(
@@ -117,7 +117,7 @@ public class FunctionOnlyCallsSuperCheck extends SquidCheck<LexerlessGrammar> {
   }
 
   private static List<String> getParameters(AstNode functionDef) {
-    List<String> parameters = new ArrayList<String>();
+    List<String> parameters = Lists.newArrayList();
     AstNode parametersNode = functionDef
       .getFirstChild(FlexGrammar.FUNCTION_COMMON)
       .getFirstChild(FlexGrammar.FUNCTION_SIGNATURE)

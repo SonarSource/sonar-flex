@@ -77,7 +77,7 @@ public class ConstructorCallsDispatchEventCheck extends SquidCheck<LexerlessGram
     else if (isConstructor(astNode)) {
       classStack.peek().isInContructor = true;
     } else if (isCallToDispatchEventInConstructor(astNode)) {
-      getContext().createLineViolation(this, "Remove this event dispatch from the {0} constructor", astNode, classStack.peek().className);
+      getContext().createLineViolation(this, "Remove this event dispatch from the \"{0}\" constructor", astNode, classStack.peek().className);
     }
   }
 

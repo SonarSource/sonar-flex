@@ -1,30 +1,30 @@
-public class MyClass
+public class A
 {
-  public function MyClass() {
-    dispatchEvent(new Event("uselessEvent"));   // NOK
-  }
-
   public function dispatchEvent() {
     dispatchEvent("Event");                     // OK
   }
 
-  public class InnerFirst {
-    public function InnerFirst() {
-      dispatchEvent(new Event("uselessEvent")); // NOK
+  public class Inner {
+    public function Inner() {
+      dispatchEvent(new Event("Event")); // NOK
     }
   }
-}
 
-public class MyClass
-{
-  public function MyClass() {
-    dispatchEvent(new Event("uselessEvent"));   // NOK
+  public function A() {
+    dispatchEvent(new Event("Event"));   // NOK
   }
 }
 
-public class MyClass
+public class B
 {
-  public function MyClass() {
+  public function B() {
+    dispatchEvent(new Event("Event"));   // NOK
+  }
+}
+
+public class C
+{
+  public function C() {
     doSomething();
   }
 }

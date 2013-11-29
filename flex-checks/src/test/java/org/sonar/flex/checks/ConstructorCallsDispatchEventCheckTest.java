@@ -34,8 +34,8 @@ public class ConstructorCallsDispatchEventCheckTest {
   public void test() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ConstructorCallsDispatchEvent.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(4).withMessage("Remove this event dispatch from the MyClass constructor")
-      .next().atLine(13)
+      .next().atLine(9)
+      .next().atLine(14).withMessage("Remove this event dispatch from the MyClass constructor")
       .next().atLine(21)
       .noMore();
   }

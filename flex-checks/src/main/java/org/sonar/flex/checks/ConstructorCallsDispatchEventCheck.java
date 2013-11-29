@@ -29,6 +29,7 @@ import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import javax.annotation.Nullable;
+import java.util.Stack;
 
 @Rule(
   key = "S1467",
@@ -36,9 +37,18 @@ import javax.annotation.Nullable;
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.BLOCKER)
 public class ConstructorCallsDispatchEventCheck extends SquidCheck<LexerlessGrammar> {
 
-  private boolean isInContructor;
-  private boolean isInClass;
-  private String className;
+  boolean isInClass;
+  private Stack<ClassState> classStack = new Stack<ClassState>();
+
+  class ClassState {
+    String className;
+    private boolean isInContructor;
+
+    public ClassState (String className) {
+      this.className = className;
+    }
+  }
+
   // TODO: Nested class
 
   @Override
@@ -51,23 +61,32 @@ public class ConstructorCallsDispatchEventCheck extends SquidCheck<LexerlessGram
 
   @Override
   public void visitFile(@Nullable AstNode astNode) {
-    isInContructor = false;
-    className = null;
+    classStack.clear();
   }
 
   @Override
   public void visitNode(AstNode astNode) {
     if (astNode.is(FlexGrammar.CLASS_DEF)) {
       isInClass = true;
-      className = astNode
+      String className = astNode
         .getFirstChild(FlexGrammar.CLASS_NAME)
         .getFirstChild(FlexGrammar.CLASS_IDENTIFIERS)
         .getLastChild().getTokenValue();
-    } else if (isInClass && astNode.is(FlexGrammar.FUNCTION_DEF) && Clazz.isConstructor(astNode, className)) {
-      isInContructor = true;
-    } else if (isInContructor && astNode.is(FlexGrammar.PRIMARY_EXPR) && isCallToDispatchEvent(astNode)) {
-      getContext().createLineViolation(this, "Remove this event dispatch from the {0} constructor", astNode, className);
+      classStack.push(new ClassState(className));
     }
+    else if (isConstructor(astNode)) {
+      classStack.peek().isInContructor = true;
+    } else if (isCallToDispatchEventInConstructor(astNode)) {
+      getContext().createLineViolation(this, "Remove this event dispatch from the {0} constructor", astNode, classStack.peek().className);
+    }
+  }
+
+  private boolean isConstructor(AstNode astNode) {
+    return isInClass && astNode.is(FlexGrammar.FUNCTION_DEF) && Clazz.isConstructor(astNode, classStack.peek().className);
+  }
+
+  private boolean  isCallToDispatchEventInConstructor(AstNode astNode) {
+    return isInClass && classStack.peek().isInContructor && astNode.is(FlexGrammar.PRIMARY_EXPR) && isCallToDispatchEvent(astNode);
   }
 
   private static boolean isCallToDispatchEvent(AstNode primaryExpr) {
@@ -78,11 +97,11 @@ public class ConstructorCallsDispatchEventCheck extends SquidCheck<LexerlessGram
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (isInContructor && astNode.is(FlexGrammar.FUNCTION_DEF)) {
-      isInContructor = false;
-    }
-    if (isInClass && astNode.is(FlexGrammar.CLASS_DEF)) {
-      isInClass = false;
+    if (isInClass && classStack.peek().isInContructor && astNode.is(FlexGrammar.FUNCTION_DEF)) {
+      classStack.peek().isInContructor = false;
+    } else if (isInClass && astNode.is(FlexGrammar.CLASS_DEF)) {
+      classStack.pop();
+      isInClass = classStack.empty() ? false : true;
     }
   }
 }

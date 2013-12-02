@@ -31,11 +31,32 @@ public class Clazz {
   private Clazz() {
   }
 
-  public static AstNode getConstructor(AstNode classDefNode) {
-    final String className = classDefNode.getFirstChild(FlexGrammar.CLASS_NAME)
+  public static List<AstNode> getFields(AstNode classDefNode) {
+    List<AstNode> fields = Lists.newArrayList();
+
+    for (AstNode directive : classDefNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES).getChildren()) {
+      AstNode fieldDef = getFieldDefinition(directive);
+      if (fieldDef != null) {
+      fields.add(fieldDef);
+      }
+    }
+    return fields;
+  }
+
+  public static String getName(AstNode classDefNode) {
+    return classDefNode.getFirstChild(FlexGrammar.CLASS_NAME)
       .getFirstChild(FlexGrammar.CLASS_IDENTIFIERS)
       .getLastChild()
       .getTokenValue();
+  }
+
+  private static AstNode getFieldDefinition(AstNode directive) {
+    AstNode annotableDir = directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE);
+    return annotableDir == null ? null : annotableDir.getFirstChild(FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
+  }
+
+  public static AstNode getConstructor(AstNode classDefNode) {
+    final String className = Clazz.getName(classDefNode);
 
     for (AstNode directive : classDefNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES).getChildren()) {
       AstNode functionDef = getFunctionDefinition(directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE));
@@ -68,7 +89,7 @@ public class Clazz {
 
     for (AstNode directive : classDefNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES).getChildren()) {
       AstNode functionDef = getFunctionDefinition(directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE));
-      String className = classDefNode.getFirstChild(FlexGrammar.CLASS_NAME).getFirstChild(FlexGrammar.CLASS_IDENTIFIERS).getLastChild().getTokenValue();
+      String className = Clazz.getName(classDefNode);
 
       if (functionDef != null && !isEmptyCOnstructor(functionDef, className) && !isAccessor(functionDef) && isFunctionPrivate(directive)) {
         privateFunctions.add(functionDef);

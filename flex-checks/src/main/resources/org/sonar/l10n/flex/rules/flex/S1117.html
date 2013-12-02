@@ -1,0 +1,19 @@
+<p>
+  Shadowing fields with a local variable is a bad practice reducing code readability: It makes it confusing to know whether the field or the variable is and should be accessed.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+ class Foo {
+  public var myField:int;
+
+  public function Foo(myField:int) {                   // Compliant - method/constructor parameters are not checked
+    this.myField = myField;
+  }
+
+  public function doSomething():String {
+    var myField:int = 0;                          // Non-Compliant - should be renamed
+    ...
+  }
+}
+</pre>

@@ -88,6 +88,7 @@ public final class CheckList {
       ManagedEventTagWithEventCheck.class,
       ConstructorCallsDispatchEventCheck.class,
       UnusedPrivateFunctionCheck.class,
+      LocalVarShadowsFieldCheck.class,
       ParsingErrorCheck.class);
   }
 

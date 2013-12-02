@@ -26,9 +26,8 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.List;
 
 @Rule(
   key = "S1448",
@@ -52,25 +51,11 @@ public class ClassWithTooManyFunctionsCheck extends SquidCheck<LexerlessGrammar>
 
   @Override
   public void visitNode(AstNode astNode) {
-    List<AstNode> classDirectives = astNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES).getChildren(FlexGrammar.DIRECTIVE);
+    int nbFunction = Clazz.getFunctions(astNode).size();
 
-    if (classDirectives.size() > maximumFunctionThreshold) {
-
-      int nbFunction = 0;
-      for (AstNode directive : classDirectives) {
-        if (directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE) != null
-          && directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE).getFirstChild().is(FlexGrammar.FUNCTION_DEF)) {
-          nbFunction++;
-        }
-      }
-
-      if (nbFunction > maximumFunctionThreshold) {
-
-        String className = astNode.getFirstChild(FlexGrammar.CLASS_NAME).getFirstChild(FlexGrammar.CLASS_IDENTIFIERS).getLastChild().getTokenValue();
-        getContext().createLineViolation(this, "Class \"{0}\" has {1} functions, which is greater than {2} authorized. Split it into smaller classes.",
-          astNode, className, nbFunction, maximumFunctionThreshold);
-      }
-
+    if (nbFunction > maximumFunctionThreshold) {
+      getContext().createLineViolation(this, "Class \"{0}\" has {1} functions, which is greater than {2} authorized. Split it into smaller classes.",
+        astNode, Clazz.getName(astNode), nbFunction, maximumFunctionThreshold);
     }
   }
 }

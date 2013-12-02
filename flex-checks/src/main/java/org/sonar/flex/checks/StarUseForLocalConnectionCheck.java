@@ -54,6 +54,7 @@ public class StarUseForLocalConnectionCheck extends SquidCheck<LexerlessGrammar>
   }
 
   private static final State[][] TRANSITIONS = new State[State.values().length][Symbol.values().length];
+
   static {
     for (int i = 0; i < TRANSITIONS.length; i++) {
       for (int j = 0; j < TRANSITIONS[i].length; j++) {

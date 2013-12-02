@@ -22,7 +22,6 @@ package org.sonar.flex.checks.utils;
 import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.FlexKeyword;
 
 import java.util.List;
 
@@ -31,13 +30,20 @@ public class Clazz {
   private Clazz() {
   }
 
+  public static List<AstNode> getDirectives(AstNode classDefNode) {
+    return classDefNode
+      .getFirstChild(FlexGrammar.BLOCK)
+      .getFirstChild(FlexGrammar.DIRECTIVES)
+      .getChildren(FlexGrammar.DIRECTIVE);
+  }
+
   public static List<AstNode> getFields(AstNode classDefNode) {
     List<AstNode> fields = Lists.newArrayList();
 
     for (AstNode directive : classDefNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES).getChildren()) {
       AstNode fieldDef = getFieldDefinition(directive);
       if (fieldDef != null) {
-      fields.add(fieldDef);
+        fields.add(fieldDef);
       }
     }
     return fields;
@@ -50,18 +56,13 @@ public class Clazz {
       .getTokenValue();
   }
 
-  private static AstNode getFieldDefinition(AstNode directive) {
-    AstNode annotableDir = directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE);
-    return annotableDir == null ? null : annotableDir.getFirstChild(FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
-  }
-
   public static AstNode getConstructor(AstNode classDefNode) {
     final String className = Clazz.getName(classDefNode);
 
     for (AstNode directive : classDefNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES).getChildren()) {
       AstNode functionDef = getFunctionDefinition(directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE));
 
-      if (functionDef != null && isConstructor(functionDef, className)) {
+      if (functionDef != null && Function.isConstructor(functionDef, className)) {
         return functionDef;
       }
     }
@@ -69,51 +70,26 @@ public class Clazz {
     return null;
   }
 
-  public static boolean isConstructor(AstNode functionDef, String className) {
-    return functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getNumberOfChildren() == 1
-      && functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild().getTokenValue().equals(className);
-  }
-
-  public static boolean isEmptyCOnstructor(AstNode functionDef, String className) {
-    AstNode functionBlock = functionDef.getFirstChild(FlexGrammar.FUNCTION_COMMON).getFirstChild(FlexGrammar.BLOCK);
-    return isConstructor(functionDef, className)
-      && (functionBlock == null || functionBlock.getFirstChild(FlexGrammar.DIRECTIVES).getChildren().isEmpty());
+  private static AstNode getFieldDefinition(AstNode directive) {
+    AstNode annotableDir = directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE);
+    return annotableDir == null ? null : annotableDir.getFirstChild(FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
   }
 
   private static AstNode getFunctionDefinition(AstNode annotableDir) {
     return annotableDir != null && annotableDir.getFirstChild().is(FlexGrammar.FUNCTION_DEF) ? annotableDir.getFirstChild() : null;
   }
 
-  public static List<AstNode> getPrivateFunctionsExcudingAccessors(AstNode classDefNode) {
-    List<AstNode> privateFunctions = Lists.newArrayList();
+  public static List<AstNode> getFunctions(AstNode classDefNode) {
+    List<AstNode> functions = Lists.newArrayList();
 
     for (AstNode directive : classDefNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES).getChildren()) {
       AstNode functionDef = getFunctionDefinition(directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE));
-      String className = Clazz.getName(classDefNode);
 
-      if (functionDef != null && !isEmptyCOnstructor(functionDef, className) && !isAccessor(functionDef) && isFunctionPrivate(directive)) {
-        privateFunctions.add(functionDef);
+      if (functionDef != null) {
+        functions.add(functionDef);
       }
     }
-    return privateFunctions;
+    return functions;
   }
 
-  public static boolean isAccessor(AstNode functionDef) {
-     return functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild(FlexKeyword.GET, FlexKeyword.SET) != null;
-  }
-
-  public static boolean isFunctionPrivate(AstNode functionDirective) {
-    AstNode attributesNode = functionDirective.getFirstChild(FlexGrammar.ATTRIBUTES);
-
-    if (attributesNode != null) {
-
-      for (AstNode attribute : attributesNode.getChildren(FlexGrammar.ATTRIBUTE)) {
-        if (attribute.getFirstChild(FlexGrammar.RESERVED_NAMESPACE) != null
-          && attribute.getFirstChild(FlexGrammar.RESERVED_NAMESPACE).getFirstChild().is(FlexKeyword.PRIVATE)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
 }

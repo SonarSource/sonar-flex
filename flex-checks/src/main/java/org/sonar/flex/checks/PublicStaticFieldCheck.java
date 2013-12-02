@@ -25,10 +25,10 @@ import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.FlexKeyword;
+import org.sonar.flex.checks.utils.Clazz;
+import org.sonar.flex.checks.utils.Modifiers;
+import org.sonar.flex.checks.utils.Variable;
 import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.List;
 
 @Rule(
   key = "S1444",
@@ -43,44 +43,15 @@ public class PublicStaticFieldCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    List<AstNode> classDirectives = astNode
-      .getFirstChild(FlexGrammar.BLOCK)
-      .getFirstChild(FlexGrammar.DIRECTIVES)
-      .getChildren(FlexGrammar.DIRECTIVE);
+    for (AstNode directive : Clazz.getDirectives(astNode)) {
 
-    for (AstNode directive : classDirectives) {
-      if (isVariableDefinition(directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE)) && isPublicStatic(directive.getFirstChild(FlexGrammar.ATTRIBUTES))) {
-        getContext().createLineViolation(this, "Make this \"public static\" field const", directive);
+      if (Variable.isVariable(directive)) {
+        Modifiers varModifiers = Modifiers.getModifiers(directive.getFirstChild(FlexGrammar.ATTRIBUTES));
+
+        if (varModifiers.isPublic && varModifiers.isStatic) {
+          getContext().createLineViolation(this, "Make this \"public static\" field const", directive);
+        }
       }
     }
   }
-
-  private static boolean isVariableDefinition(AstNode annotableDir) {
-    return annotableDir != null
-      && annotableDir.getFirstChild().is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)
-      && annotableDir.getFirstChild().getFirstChild(FlexGrammar.VARIABLE_DEF).getFirstChild(FlexGrammar.VARIABLE_DEF_KIND).getFirstChild().is(FlexKeyword.VAR);
-  }
-
-  private static boolean isPublicStatic(AstNode attributesNode) {
-    if (attributesNode == null) {
-      return false;
-    }
-    boolean isPublic = false, isStatic = false;
-
-    for (AstNode attribute : attributesNode.getChildren(FlexGrammar.ATTRIBUTE)) {
-      if (attribute.getFirstChild(FlexGrammar.RESERVED_NAMESPACE) != null
-        && attribute.getFirstChild(FlexGrammar.RESERVED_NAMESPACE).getFirstChild().is(FlexKeyword.PUBLIC)) {
-        isPublic = true;
-      }
-
-      if (attribute.getFirstChild(FlexGrammar.ATTRIBUTE_EXPR) != null
-        && attribute.getFirstChild(FlexGrammar.ATTRIBUTE_EXPR).getFirstChild(FlexGrammar.IDENTIFIER).getFirstChild().is(FlexKeyword.STATIC)) {
-        isStatic = true;
-      }
-
-    }
-
-    return isPublic && isStatic;
-  }
-
 }

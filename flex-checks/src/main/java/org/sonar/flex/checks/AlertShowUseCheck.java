@@ -51,6 +51,7 @@ public class AlertShowUseCheck extends SquidCheck<LexerlessGrammar> implements A
   }
 
   private static final State[][] TRANSITIONS = new State[State.values().length][Symbol.values().length];
+
   static {
     for (int i = 0; i < TRANSITIONS.length; i++) {
       for (int j = 0; j < TRANSITIONS[i].length; j++) {

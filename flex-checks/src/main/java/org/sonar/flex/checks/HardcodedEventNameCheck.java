@@ -19,8 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstAndTokenVisitor;
+import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
@@ -28,6 +28,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
+
 import java.util.regex.Pattern;
 
 @Rule(
@@ -54,6 +55,7 @@ public class HardcodedEventNameCheck extends SquidCheck<LexerlessGrammar> implem
   }
 
   private static final State[][] TRANSITIONS = new State[State.values().length][Symbol.values().length];
+
   static {
     for (int i = 0; i < TRANSITIONS.length; i++) {
       for (int j = 0; j < TRANSITIONS[i].length; j++) {

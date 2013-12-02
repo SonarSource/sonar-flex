@@ -25,7 +25,8 @@ import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.FlexKeyword;
+import org.sonar.flex.checks.utils.Clazz;
+import org.sonar.flex.checks.utils.Modifiers;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
@@ -41,25 +42,9 @@ public class DynamicClassCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.getPreviousAstNode() != null && astNode.getPreviousAstNode().is(FlexGrammar.ATTRIBUTES) && isDynamic(astNode.getPreviousAstNode())) {
-      String className = astNode
-        .getFirstChild(FlexGrammar.CLASS_NAME)
-        .getFirstChild(FlexGrammar.CLASS_IDENTIFIERS)
-        .getLastChild().getTokenValue();
-      getContext().createLineViolation(this, "Make this \"{0}\" class non-dynamic", astNode, className);
+
+    if (astNode.getPreviousAstNode() != null && Modifiers.getModifiers(astNode.getPreviousAstNode()).isDynamic) {
+      getContext().createLineViolation(this, "Make this \"{0}\" class non-dynamic", astNode, Clazz.getName(astNode));
     }
   }
-
-  private static boolean isDynamic(AstNode attributesNode) {
-    for (AstNode attribute : attributesNode.getChildren(FlexGrammar.ATTRIBUTE)) {
-
-      if (attribute.getFirstChild().is(FlexGrammar.ATTRIBUTE_EXPR)
-        && attribute.getFirstChild().getNumberOfChildren() == 1
-        && attribute.getFirstChild().getFirstChild(FlexGrammar.IDENTIFIER).getFirstChild().is(FlexKeyword.DYNAMIC)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
 }

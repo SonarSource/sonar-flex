@@ -31,7 +31,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 import javax.annotation.Nullable;
 
 @Rule(key = "S1468",
-      priority = Priority.CRITICAL)
+  priority = Priority.CRITICAL)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.CRITICAL)
 public class StarUseForDomainCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
 
@@ -54,6 +54,7 @@ public class StarUseForDomainCheck extends SquidCheck<LexerlessGrammar> implemen
   }
 
   private static final State[][] TRANSITIONS = new State[State.values().length][Symbol.values().length];
+
   static {
     for (int i = 0; i < TRANSITIONS.length; i++) {
       for (int j = 0; j < TRANSITIONS[i].length; j++) {

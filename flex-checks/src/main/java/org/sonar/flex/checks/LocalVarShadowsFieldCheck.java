@@ -27,6 +27,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
+import org.sonar.flex.checks.utils.Function;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import javax.annotation.Nullable;
@@ -86,7 +87,7 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
   public void visitNode(AstNode astNode) {
     if (astNode.is(FlexGrammar.CLASS_DEF)) {
       classStack.push(new ClassState(astNode));
-    } else if (!classStack.empty() && astNode.is(FlexGrammar.FUNCTION_DEF) && !Clazz.isConstructor(astNode, classStack.peek().className) && !Clazz.isAccessor(astNode)) {
+    } else if (!classStack.empty() && astNode.is(FlexGrammar.FUNCTION_DEF) && !Function.isConstructor(astNode, classStack.peek().className) && !Function.isAccessor(astNode)) {
       functionNestedLevel++;
       checkParamaeters(astNode);
     } else if (!classStack.empty() && functionNestedLevel > 0 && astNode.is(FlexGrammar.VARIABLE_DEF)) {

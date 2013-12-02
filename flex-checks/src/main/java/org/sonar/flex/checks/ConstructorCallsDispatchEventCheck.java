@@ -26,6 +26,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
+import org.sonar.flex.checks.utils.Function;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import javax.annotation.Nullable;
@@ -44,7 +45,7 @@ public class ConstructorCallsDispatchEventCheck extends SquidCheck<LexerlessGram
     String className;
     private boolean isInContructor;
 
-    public ClassState (String className) {
+    public ClassState(String className) {
       this.className = className;
     }
   }
@@ -68,13 +69,9 @@ public class ConstructorCallsDispatchEventCheck extends SquidCheck<LexerlessGram
   public void visitNode(AstNode astNode) {
     if (astNode.is(FlexGrammar.CLASS_DEF)) {
       isInClass = true;
-      String className = astNode
-        .getFirstChild(FlexGrammar.CLASS_NAME)
-        .getFirstChild(FlexGrammar.CLASS_IDENTIFIERS)
-        .getLastChild().getTokenValue();
+      String className = Clazz.getName(astNode);
       classStack.push(new ClassState(className));
-    }
-    else if (isConstructor(astNode)) {
+    } else if (isConstructor(astNode)) {
       classStack.peek().isInContructor = true;
     } else if (isCallToDispatchEventInConstructor(astNode)) {
       getContext().createLineViolation(this, "Remove this event dispatch from the \"{0}\" constructor", astNode, classStack.peek().className);
@@ -82,10 +79,10 @@ public class ConstructorCallsDispatchEventCheck extends SquidCheck<LexerlessGram
   }
 
   private boolean isConstructor(AstNode astNode) {
-    return isInClass && astNode.is(FlexGrammar.FUNCTION_DEF) && Clazz.isConstructor(astNode, classStack.peek().className);
+    return isInClass && astNode.is(FlexGrammar.FUNCTION_DEF) && Function.isConstructor(astNode, classStack.peek().className);
   }
 
-  private boolean  isCallToDispatchEventInConstructor(AstNode astNode) {
+  private boolean isCallToDispatchEventInConstructor(AstNode astNode) {
     return isInClass && classStack.peek().isInContructor && astNode.is(FlexGrammar.PRIMARY_EXPR) && isCallToDispatchEvent(astNode);
   }
 

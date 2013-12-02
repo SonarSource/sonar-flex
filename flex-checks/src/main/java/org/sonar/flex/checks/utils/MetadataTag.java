@@ -19,10 +19,10 @@
  */
 package org.sonar.flex.checks.utils;
 
+import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.flex.FlexGrammar;
 
-import com.google.common.collect.Lists;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

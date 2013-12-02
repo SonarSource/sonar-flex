@@ -67,9 +67,9 @@ public class ManagedEventTagWithEventCheck extends SquidCheck<LexerlessGrammar> 
   }
 
   private void initEventMap(List<String> managedEventNames) {
-      for (String eventName : managedEventNames) {
-        isDeclaredInEventTag.put("\"" + eventName + "\"", false);
-      }
+    for (String eventName : managedEventNames) {
+      isDeclaredInEventTag.put("\"" + eventName + "\"", false);
+    }
   }
 
   private void searchEventInPreviousTag(AstNode metadata) {

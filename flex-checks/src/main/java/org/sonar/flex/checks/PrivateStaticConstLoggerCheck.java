@@ -27,9 +27,10 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
+import org.sonar.flex.checks.utils.Clazz;
+import org.sonar.flex.checks.utils.Modifiers;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-import java.util.List;
 import java.util.regex.Pattern;
 
 @Rule(
@@ -59,12 +60,7 @@ public class PrivateStaticConstLoggerCheck extends SquidCheck<LexerlessGrammar> 
 
   @Override
   public void visitNode(AstNode astNode) {
-    List<AstNode> classDirectives = astNode
-      .getFirstChild(FlexGrammar.BLOCK)
-      .getFirstChild(FlexGrammar.DIRECTIVES)
-      .getChildren(FlexGrammar.DIRECTIVE);
-
-    for (AstNode directive : classDirectives) {
+    for (AstNode directive : Clazz.getDirectives(astNode)) {
 
       if (isVariableDeclaration(directive)) {
         AstNode variableDef = directive
@@ -77,13 +73,15 @@ public class PrivateStaticConstLoggerCheck extends SquidCheck<LexerlessGrammar> 
             AstNode identifierNode = variableBindingNode
               .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
               .getFirstChild(FlexGrammar.IDENTIFIER);
+            Modifiers modifiers = Modifiers.getModifiers(directive.getFirstChild(FlexGrammar.ATTRIBUTES));
 
-            reportIssue(isPrivateStatic(directive) && isConst(variableDef), pattern.matcher(identifierNode.getTokenValue()).matches(), variableBindingNode);
+            reportIssue(modifiers.isPrivate && modifiers.isStatic && isConst(variableDef), pattern.matcher(identifierNode.getTokenValue()).matches(), variableBindingNode);
           }
         }
       }
     }
   }
+
   private void reportIssue(boolean isPrivateStaticConst, boolean matchesFormat, AstNode identifierNode) {
     String identifier = identifierNode.getTokenValue();
 
@@ -94,29 +92,6 @@ public class PrivateStaticConstLoggerCheck extends SquidCheck<LexerlessGrammar> 
     } else if (!matchesFormat) {
       getContext().createLineViolation(this, "Rename the \"{0}\" logger to comply with the format \"{1}\".", identifierNode, identifier, format);
     }
-  }
-
-  private static boolean isPrivateStatic(AstNode directiveNode) {
-    AstNode attributesNode = directiveNode.getFirstChild(FlexGrammar.ATTRIBUTES);
-
-    if (attributesNode == null) {
-      return false;
-    }
-
-    boolean isPrivate = false, isStatic = false;
-
-    for (AstNode attribute : attributesNode.getChildren(FlexGrammar.ATTRIBUTE)) {
-      if (attribute.getFirstChild(FlexGrammar.RESERVED_NAMESPACE) != null
-        && attribute.getFirstChild(FlexGrammar.RESERVED_NAMESPACE).getFirstChild().is(FlexKeyword.PRIVATE)) {
-        isPrivate = true;
-      }
-
-      if (attribute.getFirstChild(FlexGrammar.ATTRIBUTE_EXPR) != null
-        && attribute.getFirstChild(FlexGrammar.ATTRIBUTE_EXPR).getFirstChild(FlexGrammar.IDENTIFIER).getFirstChild().is(FlexKeyword.STATIC)) {
-        isStatic = true;
-      }
-    }
-    return isPrivate && isStatic;
   }
 
   private static boolean isILogger(AstNode variableBinding) {
@@ -132,7 +107,6 @@ public class PrivateStaticConstLoggerCheck extends SquidCheck<LexerlessGrammar> 
   }
 
   private static boolean isVariableDeclaration(AstNode directive) {
-
     return directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE) != null &&
       directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE).getFirstChild().is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
   }

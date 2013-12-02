@@ -26,10 +26,10 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.FlexKeyword;
+import org.sonar.flex.checks.utils.Clazz;
+import org.sonar.flex.checks.utils.Variable;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-import java.util.List;
 import java.util.regex.Pattern;
 
 
@@ -61,14 +61,9 @@ public class FieldNameCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    List<AstNode> classDirectives = astNode
-      .getFirstChild(FlexGrammar.BLOCK)
-      .getFirstChild(FlexGrammar.DIRECTIVES)
-      .getChildren(FlexGrammar.DIRECTIVE);
+    for (AstNode directive : Clazz.getDirectives(astNode)) {
 
-    for (AstNode directive : classDirectives) {
-
-      if (isVariableDefinition(directive)) {
+      if (Variable.isVariable(directive)) {
         AstNode variableDef = directive
           .getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE)
           .getFirstChild(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)
@@ -85,15 +80,5 @@ public class FieldNameCheck extends SquidCheck<LexerlessGrammar> {
         }
       }
     }
-  }
-
-  private static boolean isVariableDefinition(AstNode directive) {
-    if (directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE) != null) {
-      AstNode annotableDir = directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE).getFirstChild();
-
-      return annotableDir.is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)
-        && annotableDir.getFirstChild(FlexGrammar.VARIABLE_DEF).getFirstChild(FlexGrammar.VARIABLE_DEF_KIND).getFirstChild().is(FlexKeyword.VAR);
-    }
-    return false;
   }
 }

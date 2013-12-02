@@ -26,6 +26,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.regex.Pattern;
@@ -57,10 +58,8 @@ public class ClassNameCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    String classIdentifier = astNode.getFirstChild(FlexGrammar.CLASS_NAME)
-      .getFirstChild(FlexGrammar.CLASS_IDENTIFIERS)
-      .getLastChild()
-      .getTokenValue();
+    String classIdentifier = Clazz.getName(astNode);
+
     if (!pattern.matcher(classIdentifier).matches()) {
       getContext().createLineViolation(this, "Rename this class name to match the regular expression {0}", astNode, format);
     }

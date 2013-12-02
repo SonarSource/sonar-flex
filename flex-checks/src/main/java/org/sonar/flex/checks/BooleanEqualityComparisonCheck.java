@@ -41,7 +41,7 @@ public class BooleanEqualityComparisonCheck extends SquidCheck<LexerlessGrammar>
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (hasBooleanLiteralOperand(astNode.getFirstChild(FlexGrammar.EQUALITY_OPERATOR).getNextAstNode())){
+    if (hasBooleanLiteralOperand(astNode.getFirstChild(FlexGrammar.EQUALITY_OPERATOR).getNextAstNode())) {
       getContext().createLineViolation(this, "Remove the unnecessary boolean comparison to simplify this expression.", astNode);
     }
   }

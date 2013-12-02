@@ -25,10 +25,11 @@ import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.FlexKeyword;
+import org.sonar.flex.checks.utils.Clazz;
+import org.sonar.flex.checks.utils.Modifiers;
+import org.sonar.flex.checks.utils.Variable;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-import java.util.List;
 @Rule(
   key = "S1170",
   priority = Priority.MAJOR)
@@ -42,52 +43,15 @@ public class PublicConstNotStaticCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    List<AstNode> classDirectives = astNode
-      .getFirstChild(FlexGrammar.BLOCK)
-      .getFirstChild(FlexGrammar.DIRECTIVES)
-      .getChildren(FlexGrammar.DIRECTIVE);
+    for (AstNode directive : Clazz.getDirectives(astNode)) {
+      if (Variable.isConst(directive)) {
+        Modifiers varModifiers = Modifiers.getModifiers(directive.getFirstChild(FlexGrammar.ATTRIBUTES));
 
-    for (AstNode directive : classDirectives) {
-      if (isConstDefinition(directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE)) && isPublicAndNotStatic(directive.getFirstChild(FlexGrammar.ATTRIBUTES))) {
-        getContext().createLineViolation(this, "Make this const field \"{0}\" static too", directive,
-          getConstName(directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE)));
+        if (varModifiers.isPublic && !varModifiers.isStatic) {
+          getContext().createLineViolation(this, "Make this const field \"{0}\" static too", directive,
+            Variable.getName(directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE).getFirstChild()));
+        }
       }
     }
-  }
-
-  private static String getConstName(AstNode annotableDir) {
-    return annotableDir.getFirstChild()
-      .getFirstChild(FlexGrammar.VARIABLE_DEF)
-      .getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST)
-      .getFirstChild(FlexGrammar.VARIABLE_BINDING)
-      .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
-      .getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue();
-  }
-
-  private static boolean isConstDefinition(AstNode annotableDir) {
-    return annotableDir != null
-      && annotableDir.getFirstChild().is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)
-      && annotableDir.getFirstChild().getFirstChild(FlexGrammar.VARIABLE_DEF).getFirstChild(FlexGrammar.VARIABLE_DEF_KIND).getFirstChild().is(FlexKeyword.CONST);
-  }
-
-  private static boolean isPublicAndNotStatic(AstNode attributesNode) {
-    if (attributesNode == null) {
-      return false;
-    }
-    boolean isPublic = false, isStatic = false;
-
-    for (AstNode attribute : attributesNode.getChildren(FlexGrammar.ATTRIBUTE)) {
-      if (attribute.getFirstChild(FlexGrammar.RESERVED_NAMESPACE) != null
-        && attribute.getFirstChild(FlexGrammar.RESERVED_NAMESPACE).getFirstChild().is(FlexKeyword.PUBLIC)) {
-        isPublic = true;
-      }
-
-      if (attribute.getFirstChild(FlexGrammar.ATTRIBUTE_EXPR) != null
-        && attribute.getFirstChild(FlexGrammar.ATTRIBUTE_EXPR).getFirstChild(FlexGrammar.IDENTIFIER).getFirstChild().is(FlexKeyword.STATIC)) {
-        isStatic = true;
-      }
-
-    }
-    return isPublic && !isStatic;
   }
 }

@@ -57,7 +57,7 @@ public class ObjectTypeUseCheck extends SquidCheck<LexerlessGrammar> {
   }
 
   private static boolean isInitialisedAsObject(AstNode varInitialisation) {
-    if (varInitialisation == null){
+    if (varInitialisation == null) {
       return false;
     }
     AstNode assignmentExpr = varInitialisation.getFirstChild(FlexGrammar.VARIABLE_INITIALISER).getFirstChild(FlexGrammar.ASSIGNMENT_EXPR);

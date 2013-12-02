@@ -34,8 +34,8 @@ import java.util.Map;
 
 @Rule(
   key = "S1464",
-  priority = Priority.MAJOR)
-@BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
+  priority = Priority.BLOCKER)
+@BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.BLOCKER)
 public class ManagedEventTagWithEventCheck extends SquidCheck<LexerlessGrammar> {
 
   private Map<String, Boolean> isDeclaredInEventTag = new HashMap<String, Boolean>();

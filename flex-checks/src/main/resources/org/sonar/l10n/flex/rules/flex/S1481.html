@@ -1,0 +1,20 @@
+<p>
+  If a local variable is declared but not used in the program, it can be considered dead code and should therefore be removed. This will improve maintainability because developers will not wonder what the variable is used for.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+public function compute(a:int):int
+{
+  var foo:int = 6;
+  return a * 4;
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+public function compute(a:int):int
+{
+  return a * 4;
+}
+</pre>

@@ -56,9 +56,6 @@ public class Modifiers {
     return isInternal;
   }
 
-  public Modifiers() {
-  }
-
   public static Modifiers getModifiers(AstNode attributes) {
     Modifiers modifiers = new Modifiers();
     if (attributes != null && attributes.is(FlexGrammar.ATTRIBUTES)) {

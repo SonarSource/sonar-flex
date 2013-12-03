@@ -41,7 +41,7 @@ public class ConstructorCallsDispatchEventCheck extends SquidCheck<LexerlessGram
   boolean isInClass;
   private Stack<ClassState> classStack = new Stack<ClassState>();
 
-  class ClassState {
+  private static class ClassState {
     String className;
     private boolean isInContructor;
 
@@ -49,8 +49,6 @@ public class ConstructorCallsDispatchEventCheck extends SquidCheck<LexerlessGram
       this.className = className;
     }
   }
-
-  // TODO: Nested class
 
   @Override
   public void init() {

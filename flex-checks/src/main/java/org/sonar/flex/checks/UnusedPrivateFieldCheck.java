@@ -54,10 +54,8 @@ public class UnusedPrivateFieldCheck extends SquidCheck<LexerlessGrammar> {
 
   private static class ClassState {
     private final Map<String, PrivateField> privateFields;
-    public final String className;
 
     public ClassState(AstNode classDef) {
-      className = Clazz.getName(classDef);
       this.privateFields = Maps.newHashMap();
       retrieveAllPrivateFields(classDef);
     }

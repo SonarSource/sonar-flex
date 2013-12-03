@@ -28,6 +28,9 @@ import java.util.Set;
 
 public class Modifiers {
 
+  private Modifiers() {
+  }
+
   public static Set<AstNodeType> getModifiers(AstNode attributes) {
     Set<AstNodeType> modifiersSet = Sets.newHashSet();
 

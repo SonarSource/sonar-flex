@@ -48,7 +48,6 @@ public class UnusedParametersCheck extends SquidCheck<LexerlessGrammar> {
     }
   }
 
-
   private static class Scope {
     private final Scope outerScope;
     private final Map<String, Parameter> parameters;
@@ -96,7 +95,7 @@ public class UnusedParametersCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.is(FlexGrammar.FUNCTION_DEF)) {
+    if (astNode.is(FlexGrammar.FUNCTION_DEF) && Function.hasBody(astNode)) {
       currentScope = new Scope(currentScope, astNode);
     } else if (currentScope != null && astNode.is(FlexGrammar.QUALIFIED_IDENTIFIER)) {
       currentScope.use(astNode);
@@ -105,7 +104,7 @@ public class UnusedParametersCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (astNode.is(FlexGrammar.FUNCTION_DEF)) {
+    if (astNode.is(FlexGrammar.FUNCTION_DEF) && Function.hasBody(astNode)) {
       reportUnusedPrivateField();
       currentScope = currentScope.outerScope;
     }

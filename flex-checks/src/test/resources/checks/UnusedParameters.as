@@ -22,3 +22,8 @@ class A {
     compute(a);
   }
 }
+
+public interface I {
+
+  public function fI();    // OK
+}

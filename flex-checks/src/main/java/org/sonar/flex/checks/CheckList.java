@@ -89,7 +89,7 @@ public final class CheckList {
       ConstructorCallsDispatchEventCheck.class,
       UnusedPrivateFunctionCheck.class,
       LocalVarShadowsFieldCheck.class,
-      UnusedPrivateFieldCheck.class,
+      UnusedParametersCheck.class,
       UnusedPrivateFieldCheck.class,
       UnusedLocalVariableCheck.class,
       TooManyUnaryOperatorCheck.class,

@@ -92,6 +92,7 @@ public final class CheckList {
       UnusedPrivateFieldCheck.class,
       UnusedPrivateFieldCheck.class,
       UnusedLocalVariableCheck.class,
+      TooManyUnaryOperatorCheck.class,
       ParsingErrorCheck.class);
   }
 

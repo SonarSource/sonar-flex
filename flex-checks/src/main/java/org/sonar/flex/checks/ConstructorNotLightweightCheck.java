@@ -26,6 +26,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
+import org.sonar.flex.checks.utils.Function;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
@@ -44,8 +45,8 @@ public class ConstructorNotLightweightCheck extends SquidCheck<LexerlessGrammar>
     AstNode constructorDef = Clazz.getConstructor(astNode);
 
     if (constructorDef != null && containsBranch(constructorDef)) {
-      getContext().createLineViolation(this, "Extract the content of this \"{0}\" constructor into a dedicated function", constructorDef,
-        constructorDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild().getTokenValue());
+      getContext().createLineViolation(this, "Extract the content of this \"{0}\" constructor into a dedicated function",
+        constructorDef, Function.getName(constructorDef));
     }
   }
 

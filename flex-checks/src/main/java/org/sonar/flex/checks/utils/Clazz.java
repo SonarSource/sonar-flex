@@ -19,6 +19,7 @@
  */
 package org.sonar.flex.checks.utils;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.flex.FlexGrammar;
@@ -31,6 +32,7 @@ public class Clazz {
   }
 
   public static List<AstNode> getDirectives(AstNode classDefNode) {
+    Preconditions.checkArgument(classDefNode.is(FlexGrammar.CLASS_DEF));
     return classDefNode
       .getFirstChild(FlexGrammar.BLOCK)
       .getFirstChild(FlexGrammar.DIRECTIVES)
@@ -38,6 +40,7 @@ public class Clazz {
   }
 
   public static List<AstNode> getFields(AstNode classDefNode) {
+    Preconditions.checkArgument(classDefNode.is(FlexGrammar.CLASS_DEF));
     List<AstNode> fields = Lists.newArrayList();
 
     for (AstNode directive : classDefNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES).getChildren()) {
@@ -50,6 +53,7 @@ public class Clazz {
   }
 
   public static String getName(AstNode classDefNode) {
+    Preconditions.checkArgument(classDefNode.is(FlexGrammar.CLASS_DEF));
     return classDefNode.getFirstChild(FlexGrammar.CLASS_NAME)
       .getFirstChild(FlexGrammar.CLASS_IDENTIFIERS)
       .getLastChild()
@@ -57,6 +61,7 @@ public class Clazz {
   }
 
   public static AstNode getConstructor(AstNode classDefNode) {
+    Preconditions.checkArgument(classDefNode.is(FlexGrammar.CLASS_DEF));
     final String className = Clazz.getName(classDefNode);
 
     for (AstNode directive : classDefNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES).getChildren()) {
@@ -71,15 +76,19 @@ public class Clazz {
   }
 
   private static AstNode getFieldDefinition(AstNode directive) {
+    Preconditions.checkArgument(directive.is(FlexGrammar.DIRECTIVE));
     AstNode annotableDir = directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE);
     return annotableDir == null ? null : annotableDir.getFirstChild(FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
   }
 
   private static AstNode getFunctionDefinition(AstNode annotableDir) {
-    return annotableDir != null && annotableDir.getFirstChild().is(FlexGrammar.FUNCTION_DEF) ? annotableDir.getFirstChild() : null;
+    return annotableDir != null
+      && annotableDir.is(FlexGrammar.ANNOTABLE_DIRECTIVE)
+      && annotableDir.getFirstChild().is(FlexGrammar.FUNCTION_DEF) ? annotableDir.getFirstChild() : null;
   }
 
   public static List<AstNode> getFunctions(AstNode classDefNode) {
+    Preconditions.checkArgument(classDefNode.is(FlexGrammar.CLASS_DEF));
     List<AstNode> functions = Lists.newArrayList();
 
     for (AstNode directive : classDefNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES).getChildren()) {

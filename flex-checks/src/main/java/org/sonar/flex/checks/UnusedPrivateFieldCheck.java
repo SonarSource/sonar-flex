@@ -26,6 +26,7 @@ import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Modifiers;
 import org.sonar.flex.checks.utils.Variable;
@@ -63,7 +64,7 @@ public class UnusedPrivateFieldCheck extends SquidCheck<LexerlessGrammar> {
 
     private void retrieveAllPrivateFields(AstNode classDef) {
       for (AstNode varDeclaration : Clazz.getFields(classDef)) {
-        if (Modifiers.getModifiers(varDeclaration.getParent().getPreviousAstNode()).isPrivate()) {
+        if (Modifiers.getModifiers(varDeclaration.getParent().getPreviousAstNode()).contains(FlexKeyword.PRIVATE)) {
           for (AstNode identifier : Variable.getDeclaredIdentifiers(varDeclaration)) {
 
             privateFields.put(identifier.getTokenValue(), new PrivateField(identifier, 0));

@@ -26,6 +26,7 @@ import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Function;
 import org.sonar.flex.checks.utils.Modifiers;
@@ -62,7 +63,7 @@ public class UnusedPrivateFunctionCheck extends SquidCheck<LexerlessGrammar> {
       for (AstNode functionDef : Clazz.getFunctions(classDef)) {
 
         if (!Function.isAccessor(functionDef)
-          && Modifiers.getModifiers(functionDef.getPreviousAstNode()).isPrivate()
+          && Modifiers.getModifiers(functionDef.getPreviousAstNode()).contains(FlexKeyword.PRIVATE)
           && !Function.isEmptyConstructor(functionDef, Clazz.getName(classDef))) {
           AstNode identifierNode = functionDef
             .getFirstChild(FlexGrammar.FUNCTION_NAME)

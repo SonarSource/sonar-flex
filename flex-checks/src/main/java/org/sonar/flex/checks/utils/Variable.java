@@ -19,6 +19,7 @@
  */
 package org.sonar.flex.checks.utils;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.flex.FlexGrammar;
@@ -31,8 +32,9 @@ public class Variable {
   private Variable() {
   }
 
-  public static String getName(AstNode variableDecStmt) {
-    return variableDecStmt
+  public static String getName(AstNode varDeclStatement) {
+    Preconditions.checkArgument(varDeclStatement.is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT));
+    return varDeclStatement
       .getFirstChild(FlexGrammar.VARIABLE_DEF)
       .getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST)
       .getFirstChild(FlexGrammar.VARIABLE_BINDING)
@@ -41,6 +43,7 @@ public class Variable {
   }
 
   public static boolean isVariable(AstNode directive) {
+    Preconditions.checkArgument(directive.is(FlexGrammar.DIRECTIVE));
     if (directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE) != null) {
       AstNode variableDecStmt = directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE).getFirstChild(FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
 
@@ -55,6 +58,7 @@ public class Variable {
   }
 
   public static boolean isConst(AstNode directive) {
+    Preconditions.checkArgument(directive.is(FlexGrammar.DIRECTIVE));
     if (directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE) != null) {
       AstNode variableDecStmt = directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE).getFirstChild(FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
 
@@ -68,10 +72,11 @@ public class Variable {
     return false;
   }
 
-  public static List<AstNode> getDeclaredIdentifiers(AstNode varDecStatement) {
+  public static List<AstNode> getDeclaredIdentifiers(AstNode varDeclStatement) {
+    Preconditions.checkArgument(varDeclStatement.is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT));
     List<AstNode> identifiers = Lists.newArrayList();
-    if (varDecStatement.is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)) {
-      AstNode varBindingList = varDecStatement
+    if (varDeclStatement.is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)) {
+      AstNode varBindingList = varDeclStatement
         .getFirstChild(FlexGrammar.VARIABLE_DEF)
         .getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST);
 

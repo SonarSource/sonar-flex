@@ -19,72 +19,29 @@
  */
 package org.sonar.flex.checks.utils;
 
+import com.google.common.collect.Sets;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.FlexKeyword;
+
+import java.util.Set;
 
 public class Modifiers {
 
-  private boolean isPrivate = false;
-  private boolean isProtected = false;
-  private boolean isPublic = false;
-  private boolean isStatic = false;
-  private boolean isDynamic = false;
-  private boolean isInternal = false;
+  public static Set<AstNodeType> getModifiers(AstNode attributes) {
+    Set<AstNodeType> modifiersSet = Sets.newHashSet();
 
-  public boolean isPrivate() {
-    return isPrivate;
-  }
-
-  public boolean isProtected() {
-    return isProtected;
-  }
-
-  public boolean isPublic() {
-    return isPublic;
-  }
-
-  public boolean isStatic() {
-    return isStatic;
-  }
-
-  public boolean isDynamic() {
-    return isDynamic;
-  }
-
-  public boolean isInternal() {
-    return isInternal;
-  }
-
-  public static Modifiers getModifiers(AstNode attributes) {
-    Modifiers modifiers = new Modifiers();
     if (attributes != null && attributes.is(FlexGrammar.ATTRIBUTES)) {
-
       for (AstNode attribute : attributes.getChildren(FlexGrammar.ATTRIBUTE)) {
 
         if (attribute.getFirstChild().is(FlexGrammar.RESERVED_NAMESPACE)) {
-          AstNode reservedNamespace = attribute.getFirstChild(FlexGrammar.RESERVED_NAMESPACE).getFirstChild();
+          modifiersSet.add(attribute.getFirstChild(FlexGrammar.RESERVED_NAMESPACE).getFirstChild().getType());
 
-          if (reservedNamespace.is(FlexKeyword.PUBLIC)) {
-            modifiers.isPublic = true;
-          } else if (reservedNamespace.is(FlexKeyword.PRIVATE)) {
-            modifiers.isPrivate = true;
-          } else if (reservedNamespace.is(FlexKeyword.PROTECTED)) {
-            modifiers.isProtected = true;
-          } else if (reservedNamespace.is(FlexKeyword.INTERNAL)) {
-            modifiers.isInternal = true;
-          }
         } else if (attribute.getFirstChild().is(FlexGrammar.ATTRIBUTE_EXPR) && attribute.getFirstChild().getNumberOfChildren() == 1) {
-          AstNode identifier = attribute.getFirstChild().getFirstChild(FlexGrammar.IDENTIFIER).getFirstChild();
-
-          if (identifier.is(FlexKeyword.DYNAMIC)) {
-            modifiers.isDynamic = true;
-          } else if (identifier.is(FlexKeyword.STATIC)) {
-            modifiers.isStatic = true;
-          }
+          modifiersSet.add(attribute.getFirstChild().getFirstChild(FlexGrammar.IDENTIFIER).getFirstChild().getType());
         }
       }
     }
-    return modifiers;
+    return modifiersSet;
   }
 }

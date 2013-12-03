@@ -26,6 +26,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.checks.utils.Function;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.regex.Pattern;
@@ -59,7 +60,8 @@ public class FunctionNameCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    String functionName = astNode.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue();
+    String functionName = Function.getName(astNode);
+
     if (!pattern.matcher(functionName).matches()) {
       getContext().createLineViolation(this, "Rename this \"{0}\" function to match the regular expression {1}", astNode, functionName, format);
     }

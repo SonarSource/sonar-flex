@@ -63,7 +63,7 @@ public class ConstantNameCheck extends SquidCheck<LexerlessGrammar> {
     if (astNode.getFirstChild(FlexGrammar.VARIABLE_DEF).getFirstChild(FlexGrammar.VARIABLE_DEF_KIND).getFirstChild(FlexKeyword.CONST) != null) {
 
       for (AstNode identifier : Variable.getDeclaredIdentifiers(astNode)) {
-        String varName =  identifier.getTokenValue();
+        String varName = identifier.getTokenValue();
 
         if (!pattern.matcher(varName).matches()) {
           getContext().createLineViolation(this, "Rename this constant '" + varName + "' to match the regular expression " + format + "",

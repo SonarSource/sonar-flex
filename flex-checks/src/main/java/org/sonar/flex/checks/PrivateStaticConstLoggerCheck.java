@@ -20,6 +20,7 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
@@ -31,6 +32,7 @@ import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Modifiers;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import java.util.Set;
 import java.util.regex.Pattern;
 
 @Rule(
@@ -73,9 +75,10 @@ public class PrivateStaticConstLoggerCheck extends SquidCheck<LexerlessGrammar> 
             AstNode identifierNode = variableBindingNode
               .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
               .getFirstChild(FlexGrammar.IDENTIFIER);
-            Modifiers modifiers = Modifiers.getModifiers(directive.getFirstChild(FlexGrammar.ATTRIBUTES));
+            Set<AstNodeType> modifiers = Modifiers.getModifiers(directive.getFirstChild(FlexGrammar.ATTRIBUTES));
+            boolean isPrivateStaticConst = modifiers.contains(FlexKeyword.PRIVATE) && modifiers.contains(FlexKeyword.STATIC) && isConst(variableDef);
 
-            reportIssue(modifiers.isPrivate() && modifiers.isStatic() && isConst(variableDef), pattern.matcher(identifierNode.getTokenValue()).matches(), variableBindingNode);
+            reportIssue(isPrivateStaticConst, pattern.matcher(identifierNode.getTokenValue()).matches(), variableBindingNode);
           }
         }
       }

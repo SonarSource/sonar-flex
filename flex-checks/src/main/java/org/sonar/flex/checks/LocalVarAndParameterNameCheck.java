@@ -26,6 +26,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.checks.utils.Function;
 import org.sonar.flex.checks.utils.Variable;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -62,9 +63,7 @@ public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> 
 
   @Override
   public void visitNode(AstNode astNode) {
-    checkFunctionParametersName(astNode.getFirstChild(FlexGrammar.FUNCTION_COMMON)
-      .getFirstChild(FlexGrammar.FUNCTION_SIGNATURE)
-      .getFirstChild(FlexGrammar.PARAMETERS));
+    checkFunctionParametersName(astNode);
 
     if (astNode.getFirstChild(FlexGrammar.FUNCTION_COMMON).getFirstChild(FlexGrammar.BLOCK) != null) {
       checkLocalVariableName(astNode.getFirstChild(FlexGrammar.FUNCTION_COMMON)
@@ -93,30 +92,13 @@ public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> 
     }
   }
 
-  private void checkFunctionParametersName(AstNode parametersNode) {
-    if (parametersNode != null) {
+  private void checkFunctionParametersName(AstNode functionDef) {
+    for (AstNode paramIdentifier : Function.getParametersNames(functionDef)) {
+      String paramName = paramIdentifier.getTokenValue();
 
-      for (AstNode parameter : parametersNode.getChildren(FlexGrammar.PARAMETER)) {
-        String variableName = parameter.getFirstChild(FlexGrammar.TYPED_IDENTIFIER).getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue();
-
-        if (!pattern.matcher(variableName).matches()) {
-          getContext().createLineViolation(this, MESSAGE, parametersNode, variableName, format);
-        }
-      }
-
-      String restParameterName = getRestParameterName(parametersNode.getFirstChild(FlexGrammar.REST_PARAMETERS));
-      if (restParameterName != null && !pattern.matcher(restParameterName).matches()) {
-        getContext().createLineViolation(this, MESSAGE, parametersNode, restParameterName, format);
+      if (!pattern.matcher(paramName).matches()) {
+        getContext().createLineViolation(this, MESSAGE, paramIdentifier, paramName, format);
       }
     }
-  }
-
-  private static String getRestParameterName(AstNode restParameterNode) {
-    if (restParameterNode != null && restParameterNode.getFirstChild(FlexGrammar.TYPED_IDENTIFIER) != null) {
-      return restParameterNode.getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
-        .getFirstChild(FlexGrammar.IDENTIFIER)
-        .getTokenValue();
-    }
-    return null;
   }
 }

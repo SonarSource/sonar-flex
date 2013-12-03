@@ -93,7 +93,7 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
       classStack.push(new ClassState(astNode));
     } else if (isClassFunctionNotConstructorAndAccessor(astNode)) {
       functionNestedLevel++;
-      checkParamaeters(astNode);
+      checkParameters(astNode);
     } else if (!classStack.empty() && functionNestedLevel > 0 && astNode.is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)) {
       checkVariableNames(astNode);
     }
@@ -117,23 +117,13 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
     }
   }
 
-  private void checkParamaeters(AstNode functionDef) {
-    AstNode paramaters = functionDef
-      .getFirstChild(FlexGrammar.FUNCTION_COMMON)
-      .getFirstChild(FlexGrammar.FUNCTION_SIGNATURE)
-      .getFirstChild(FlexGrammar.PARAMETERS);
+  private void checkParameters(AstNode functionDef) {
+    for (AstNode paramIdentifier : Function.getParametersNames(functionDef)) {
+      String paramName = paramIdentifier.getTokenValue();
+      AstNode field = classStack.peek().getFieldNamed(paramName);
 
-    if (paramaters != null) {
-      for (AstNode param : paramaters.getChildren(FlexGrammar.PARAMETER)) {
-        String paramName = param
-          .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
-          .getFirstChild(FlexGrammar.IDENTIFIER)
-          .getTokenValue();
-        AstNode field = classStack.peek().getFieldNamed(paramName);
-
-        if (field != null) {
-          getContext().createLineViolation(this, MESSAGE, param, paramName, field.getToken().getLine());
-        }
+      if (field != null) {
+        getContext().createLineViolation(this, MESSAGE, paramIdentifier, paramName, field.getToken().getLine());
       }
     }
   }

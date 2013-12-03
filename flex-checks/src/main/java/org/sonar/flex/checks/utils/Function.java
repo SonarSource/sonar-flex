@@ -19,6 +19,7 @@
  */
 package org.sonar.flex.checks.utils;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.flex.FlexGrammar;
@@ -31,35 +32,47 @@ public class Function {
   private Function() {
   }
 
+  public static String getName(AstNode functionDef) {
+    Preconditions.checkArgument(functionDef.is(FlexGrammar.FUNCTION_DEF));
+    return functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue();
+  }
+
   public static boolean isAccessor(AstNode functionDef) {
+    Preconditions.checkArgument(functionDef.is(FlexGrammar.FUNCTION_DEF));
     return functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild(FlexKeyword.GET, FlexKeyword.SET) != null;
   }
 
 
   public static boolean isEmptyConstructor(AstNode functionDef, String className) {
+    Preconditions.checkArgument(functionDef.is(FlexGrammar.FUNCTION_DEF));
     AstNode functionBlock = functionDef.getFirstChild(FlexGrammar.FUNCTION_COMMON).getFirstChild(FlexGrammar.BLOCK);
+
     return isConstructor(functionDef, className)
       && (functionBlock == null || functionBlock.getFirstChild(FlexGrammar.DIRECTIVES).getChildren().isEmpty());
   }
 
   public static boolean isConstructor(AstNode functionDef, String className) {
+    Preconditions.checkArgument(functionDef.is(FlexGrammar.FUNCTION_DEF));
     return functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getNumberOfChildren() == 1
       && functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild().getTokenValue().equals(className);
   }
 
 
-  public static List<String> getParametersNames(AstNode functionDef) {
-    List<String> parametersNames = Lists.newArrayList();
+  public static List<AstNode> getParametersNames(AstNode functionDef) {
+    Preconditions.checkArgument(functionDef.is(FlexGrammar.FUNCTION_DEF));
+    List<AstNode> paramIdentifier = Lists.newArrayList();
     AstNode parameters = functionDef
       .getFirstChild(FlexGrammar.FUNCTION_COMMON)
       .getFirstChild(FlexGrammar.FUNCTION_SIGNATURE)
       .getFirstChild(FlexGrammar.PARAMETERS);
 
     if (parameters != null) {
-      for (AstNode parameter : parameters.getChildren(FlexGrammar.PARAMETER)) {
-        parametersNames.add(parameter.getFirstChild(FlexGrammar.TYPED_IDENTIFIER).getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue());
+      for (AstNode parameter : parameters.getChildren(FlexGrammar.PARAMETER, FlexGrammar.REST_PARAMETERS)) {
+        if (parameter.getFirstChild(FlexGrammar.TYPED_IDENTIFIER) != null) {
+          paramIdentifier.add(parameter.getFirstChild(FlexGrammar.TYPED_IDENTIFIER).getFirstChild(FlexGrammar.IDENTIFIER));
+        }
       }
     }
-    return parametersNames;
+    return paramIdentifier;
   }
 }

@@ -20,15 +20,19 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Modifiers;
 import org.sonar.flex.checks.utils.Variable;
 import org.sonar.sslr.parser.LexerlessGrammar;
+
+import java.util.Set;
 
 @Rule(
   key = "S1170",
@@ -45,9 +49,9 @@ public class PublicConstNotStaticCheck extends SquidCheck<LexerlessGrammar> {
   public void visitNode(AstNode astNode) {
     for (AstNode directive : Clazz.getDirectives(astNode)) {
       if (Variable.isConst(directive)) {
-        Modifiers varModifiers = Modifiers.getModifiers(directive.getFirstChild(FlexGrammar.ATTRIBUTES));
+        Set<AstNodeType> varModifiers = Modifiers.getModifiers(directive.getFirstChild(FlexGrammar.ATTRIBUTES));
 
-        if (varModifiers.isPublic() && !varModifiers.isStatic()) {
+        if (varModifiers.contains(FlexKeyword.PUBLIC) && !varModifiers.contains(FlexKeyword.STATIC)) {
           getContext().createLineViolation(this, "Make this const field \"{0}\" static too", directive,
             Variable.getName(directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE).getFirstChild()));
         }

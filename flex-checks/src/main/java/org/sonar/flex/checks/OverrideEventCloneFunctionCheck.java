@@ -26,6 +26,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
+import org.sonar.flex.checks.utils.Function;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.List;
@@ -67,10 +68,7 @@ public class OverrideEventCloneFunctionCheck extends SquidCheck<LexerlessGrammar
       .getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE)
       .getFirstChild(FlexGrammar.FUNCTION_DEF);
 
-    String functionName = functionDef
-      .getFirstChild(FlexGrammar.FUNCTION_NAME)
-      .getFirstChild(FlexGrammar.IDENTIFIER)
-      .getTokenValue();
+    String functionName = Function.getName(functionDef);
 
     return "clone".equals(functionName) && EVENT_TYPE_NAME.equals(getResultType(functionDef));
   }

@@ -29,6 +29,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
+import org.sonar.flex.checks.utils.Function;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.List;
@@ -52,11 +53,8 @@ public class FunctionOnlyCallsSuperCheck extends SquidCheck<LexerlessGrammar> {
     AstNode singleDirectiveNode = getSingleStatementBlock(astNode);
 
     if (singleDirectiveNode != null && isSuperOrReturnOfSuperReference(singleDirectiveNode.getFirstChild())) {
-      List<String> parameters = getParameters(astNode);
-      String methodName = astNode
-        .getFirstChild(FlexGrammar.FUNCTION_NAME)
-        .getFirstChild(FlexGrammar.IDENTIFIER)
-        .getTokenValue();
+      List<String> parameters = getParametersName(astNode);
+      String methodName = Function.getName(astNode);
 
       if (isUselessCallToSuper(singleDirectiveNode.getFirstChild(FlexGrammar.STATEMENT), methodName, parameters)
         && !hasMetadataTag(astNode.getParent().getParent().getPreviousAstNode())) {
@@ -102,6 +100,14 @@ public class FunctionOnlyCallsSuperCheck extends SquidCheck<LexerlessGrammar> {
 
   }
 
+  private static List<String> getParametersName(AstNode functionDef) {
+    List<String> parametersNames = Lists.newArrayList();
+    for (AstNode identifier : Function.getParametersNames(functionDef)) {
+      parametersNames.add(identifier.getTokenValue());
+    }
+    return parametersNames;
+  }
+
   private static boolean isOverridingParentFunction(AstNode attributesNode) {
     if (attributesNode != null && attributesNode.is(FlexGrammar.ATTRIBUTES)) {
 
@@ -116,28 +122,7 @@ public class FunctionOnlyCallsSuperCheck extends SquidCheck<LexerlessGrammar> {
     return false;
   }
 
-  private static List<String> getParameters(AstNode functionDef) {
-    List<String> parameters = Lists.newArrayList();
-    AstNode parametersNode = functionDef
-      .getFirstChild(FlexGrammar.FUNCTION_COMMON)
-      .getFirstChild(FlexGrammar.FUNCTION_SIGNATURE)
-      .getFirstChild(FlexGrammar.PARAMETERS);
-
-    if (parametersNode != null) {
-
-      for (AstNode parameter : parametersNode.getChildren(FlexGrammar.PARAMETER, FlexGrammar.REST_PARAMETERS)) {
-        if (parameter.getFirstChild(FlexGrammar.TYPED_IDENTIFIER) != null) {
-          parameters.add(parameter
-            .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
-            .getFirstChild(FlexGrammar.IDENTIFIER)
-            .getTokenValue());
-        }
-      }
-    }
-    return parameters;
-  }
-
-  private static boolean isUselessCallToSuper(AstNode singleStatement, String methodName, List<String> paramaters) {
+  private static boolean isUselessCallToSuper(AstNode singleStatement, String methodName, List<String> parameters) {
     StringBuilder sb = new StringBuilder();
 
     for (Token token : singleStatement.getFirstChild().getTokens()) {
@@ -145,7 +130,7 @@ public class FunctionOnlyCallsSuperCheck extends SquidCheck<LexerlessGrammar> {
     }
 
     String actual = sb.toString();
-    String expected = FlexKeyword.SUPER.getValue() + "." + methodName + "(" + Joiner.on(",").join(paramaters) + ");";
+    String expected = FlexKeyword.SUPER.getValue() + "." + methodName + "(" + Joiner.on(",").join(parameters) + ");";
 
     return actual.equals(expected) || actual.equals(FlexKeyword.RETURN.getValue() + expected);
   }

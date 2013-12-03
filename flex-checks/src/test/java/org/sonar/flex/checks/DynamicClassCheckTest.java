@@ -34,7 +34,7 @@ public class DynamicClassCheckTest {
   public void test() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/DynamicClass.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-    .next().atLine(1).withMessage("Make this \"DynamicFoo\" class non-dynamic")
+    .next().atLine(5).withMessage("Make this \"DynamicFoo\" class non-dynamic")
     .noMore();
   }
 }

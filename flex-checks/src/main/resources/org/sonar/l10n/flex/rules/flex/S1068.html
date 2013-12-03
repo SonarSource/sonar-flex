@@ -1,0 +1,24 @@
+<p>
+  If a private field is declared but not used in the program, it can be considered dead code and should therefore be removed. This will improve maintainability because developers will not wonder what the variable is used for.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+ public class MyClass {
+  private var foo:int = 4;                       //foo is unused
+
+  public function compute(a:int):int{
+    return a * 4;
+  }
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+public class MyClass {
+
+  public function compute(a:int):int{
+    return a * 4;
+  }
+}
+</pre>

@@ -58,7 +58,7 @@ public class Function {
   }
 
 
-  public static List<AstNode> getParametersNames(AstNode functionDef) {
+  public static List<AstNode> getParametersIdentifiers(AstNode functionDef) {
     Preconditions.checkArgument(functionDef.is(FlexGrammar.FUNCTION_DEF));
     List<AstNode> paramIdentifier = Lists.newArrayList();
     AstNode parameters = functionDef

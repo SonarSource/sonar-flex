@@ -93,7 +93,7 @@ public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> 
   }
 
   private void checkFunctionParametersName(AstNode functionDef) {
-    for (AstNode paramIdentifier : Function.getParametersNames(functionDef)) {
+    for (AstNode paramIdentifier : Function.getParametersIdentifiers(functionDef)) {
       String paramName = paramIdentifier.getTokenValue();
 
       if (!pattern.matcher(paramName).matches()) {

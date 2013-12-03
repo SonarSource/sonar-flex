@@ -102,7 +102,7 @@ public class FunctionOnlyCallsSuperCheck extends SquidCheck<LexerlessGrammar> {
 
   private static List<String> getParametersName(AstNode functionDef) {
     List<String> parametersNames = Lists.newArrayList();
-    for (AstNode identifier : Function.getParametersNames(functionDef)) {
+    for (AstNode identifier : Function.getParametersIdentifiers(functionDef)) {
       parametersNames.add(identifier.getTokenValue());
     }
     return parametersNames;

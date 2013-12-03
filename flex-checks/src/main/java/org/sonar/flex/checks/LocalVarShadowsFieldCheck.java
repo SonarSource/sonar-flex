@@ -118,7 +118,7 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
   }
 
   private void checkParameters(AstNode functionDef) {
-    for (AstNode paramIdentifier : Function.getParametersNames(functionDef)) {
+    for (AstNode paramIdentifier : Function.getParametersIdentifiers(functionDef)) {
       String paramName = paramIdentifier.getTokenValue();
       AstNode field = classStack.peek().getFieldNamed(paramName);
 

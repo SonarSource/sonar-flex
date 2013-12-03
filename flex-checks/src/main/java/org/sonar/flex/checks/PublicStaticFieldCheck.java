@@ -48,7 +48,7 @@ public class PublicStaticFieldCheck extends SquidCheck<LexerlessGrammar> {
       if (Variable.isVariable(directive)) {
         Modifiers varModifiers = Modifiers.getModifiers(directive.getFirstChild(FlexGrammar.ATTRIBUTES));
 
-        if (varModifiers.isPublic && varModifiers.isStatic) {
+        if (varModifiers.isPublic() && varModifiers.isStatic()) {
           getContext().createLineViolation(this, "Make this \"public static\" field const", directive);
         }
       }

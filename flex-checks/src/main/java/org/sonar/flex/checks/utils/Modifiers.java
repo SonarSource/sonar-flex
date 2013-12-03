@@ -25,12 +25,36 @@ import org.sonar.flex.FlexKeyword;
 
 public class Modifiers {
 
-  public boolean isPrivate = false;
-  public boolean isProtected = false;
-  public boolean isPublic = false;
-  public boolean isStatic = false;
-  public boolean isDynamic = false;
-  public boolean isInternal = false;
+  private boolean isPrivate = false;
+  private boolean isProtected = false;
+  private boolean isPublic = false;
+  private boolean isStatic = false;
+  private boolean isDynamic = false;
+  private boolean isInternal = false;
+
+  public boolean isPrivate() {
+    return isPrivate;
+  }
+
+  public boolean isProtected() {
+    return isProtected;
+  }
+
+  public boolean isPublic() {
+    return isPublic;
+  }
+
+  public boolean isStatic() {
+    return isStatic;
+  }
+
+  public boolean isDynamic() {
+    return isDynamic;
+  }
+
+  public boolean isInternal() {
+    return isInternal;
+  }
 
   public Modifiers() {
   }

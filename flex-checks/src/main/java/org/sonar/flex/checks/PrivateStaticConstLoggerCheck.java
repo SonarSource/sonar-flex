@@ -75,7 +75,7 @@ public class PrivateStaticConstLoggerCheck extends SquidCheck<LexerlessGrammar> 
               .getFirstChild(FlexGrammar.IDENTIFIER);
             Modifiers modifiers = Modifiers.getModifiers(directive.getFirstChild(FlexGrammar.ATTRIBUTES));
 
-            reportIssue(modifiers.isPrivate && modifiers.isStatic && isConst(variableDef), pattern.matcher(identifierNode.getTokenValue()).matches(), variableBindingNode);
+            reportIssue(modifiers.isPrivate() && modifiers.isStatic() && isConst(variableDef), pattern.matcher(identifierNode.getTokenValue()).matches(), variableBindingNode);
           }
         }
       }

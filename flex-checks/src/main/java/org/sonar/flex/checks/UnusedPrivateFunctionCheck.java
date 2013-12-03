@@ -62,7 +62,7 @@ public class UnusedPrivateFunctionCheck extends SquidCheck<LexerlessGrammar> {
       for (AstNode functionDef : Clazz.getFunctions(classDef)) {
 
         if (!Function.isAccessor(functionDef)
-          && Modifiers.getModifiers(functionDef.getPreviousAstNode()).isPrivate
+          && Modifiers.getModifiers(functionDef.getPreviousAstNode()).isPrivate()
           && !Function.isEmptyConstructor(functionDef, Clazz.getName(classDef))) {
           AstNode identifierNode = functionDef
             .getFirstChild(FlexGrammar.FUNCTION_NAME)
@@ -89,7 +89,6 @@ public class UnusedPrivateFunctionCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    // TODO: false postive for recursive function
     subscribeTo(
       FlexGrammar.CLASS_DEF,
       FlexGrammar.FUNCTION_DEF,
@@ -108,8 +107,6 @@ public class UnusedPrivateFunctionCheck extends SquidCheck<LexerlessGrammar> {
       classStack.push(new ClassState(astNode));
     } else if (inClass && astNode.is(FlexGrammar.QUALIFIED_IDENTIFIER)) {
       classStack.peek().use(astNode);
-    } else if (inClass && astNode.is(FlexGrammar.FUNCTION_DEF)) {
-      // TODO: Handle recursive call
     }
   }
 

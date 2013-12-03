@@ -64,18 +64,13 @@ public class FieldNameCheck extends SquidCheck<LexerlessGrammar> {
     for (AstNode directive : Clazz.getDirectives(astNode)) {
 
       if (Variable.isVariable(directive)) {
-        AstNode variableDef = directive
+        AstNode variableDeclStatement = directive
           .getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE)
-          .getFirstChild(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)
-          .getFirstChild(FlexGrammar.VARIABLE_DEF);
+          .getFirstChild(FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
 
-        for (AstNode variableBindingNode : variableDef.getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST).getChildren(FlexGrammar.VARIABLE_BINDING)) {
-          AstNode identifierNode = variableBindingNode
-            .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
-            .getFirstChild(FlexGrammar.IDENTIFIER);
-
-          if (!pattern.matcher(identifierNode.getTokenValue()).matches()) {
-            getContext().createLineViolation(this, "Rename this field name to match the regular expression {0}", identifierNode, format);
+        for (AstNode identifier : Variable.getDeclaredIdentifiers(variableDeclStatement)) {
+          if (!pattern.matcher(identifier.getTokenValue()).matches()) {
+            getContext().createLineViolation(this, "Rename this field name to match the regular expression {0}", identifier, format);
           }
         }
       }

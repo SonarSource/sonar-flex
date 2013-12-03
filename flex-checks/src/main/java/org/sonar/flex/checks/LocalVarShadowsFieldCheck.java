@@ -28,6 +28,7 @@ import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Function;
+import org.sonar.flex.checks.utils.Variable;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import javax.annotation.Nullable;
@@ -42,7 +43,7 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
 
   private static class ClassState {
     private final Map<String, AstNode> classFields;
-    public final String className;
+    private final String className;
 
     public ClassState(AstNode classDef) {
       className = Clazz.getName(classDef);
@@ -51,11 +52,9 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
     }
 
     private void initFieldsMap(AstNode classDef) {
-      for (AstNode varDeclaration : Clazz.getFields(classDef)) {
+      for (AstNode varDeclStatement : Clazz.getFields(classDef)) {
 
-        for (AstNode varBinding : varDeclaration.getFirstChild(FlexGrammar.VARIABLE_DEF).getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST).getChildren(FlexGrammar.VARIABLE_BINDING)) {
-          AstNode identifier = varBinding.getFirstChild(FlexGrammar.TYPED_IDENTIFIER).getFirstChild(FlexGrammar.IDENTIFIER);
-
+        for (AstNode identifier : Variable.getDeclaredIdentifiers(varDeclStatement)) {
           classFields.put(identifier.getTokenValue(), identifier);
         }
       }
@@ -64,17 +63,22 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
     public AstNode getFieldNamed(String name) {
       return classFields.get(name);
     }
+
+    public String getClassName() {
+      return this.className;
+    }
   }
 
   private Stack<ClassState> classStack = new Stack<ClassState>();
   private int functionNestedLevel;
+  private static final String MESSAGE = "Rename \"{0}\" which hides the field declared at line {1}.";
 
   @Override
   public void init() {
     subscribeTo(
       FlexGrammar.CLASS_DEF,
       FlexGrammar.FUNCTION_DEF,
-      FlexGrammar.VARIABLE_DEF);
+      FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
   }
 
   @Override
@@ -87,20 +91,27 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
   public void visitNode(AstNode astNode) {
     if (astNode.is(FlexGrammar.CLASS_DEF)) {
       classStack.push(new ClassState(astNode));
-    } else if (!classStack.empty() && astNode.is(FlexGrammar.FUNCTION_DEF) && !Function.isConstructor(astNode, classStack.peek().className) && !Function.isAccessor(astNode)) {
+    } else if (isClassFunctionNotConstructorAndAccessor(astNode)) {
       functionNestedLevel++;
       checkParamaeters(astNode);
-    } else if (!classStack.empty() && functionNestedLevel > 0 && astNode.is(FlexGrammar.VARIABLE_DEF)) {
+    } else if (!classStack.empty() && functionNestedLevel > 0 && astNode.is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)) {
       checkVariableNames(astNode);
     }
   }
 
-  private void checkVariableNames(AstNode varDef) {
-    for (AstNode varBinding : varDef.getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST).getChildren(FlexGrammar.VARIABLE_BINDING)) {
-      String varName = varBinding.getFirstChild(FlexGrammar.TYPED_IDENTIFIER).getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue();
+  private boolean isClassFunctionNotConstructorAndAccessor(AstNode functionDef) {
+    return !classStack.empty() && functionDef.is(FlexGrammar.FUNCTION_DEF)
+      && !Function.isConstructor(functionDef, classStack.peek().getClassName())
+      && !Function.isAccessor(functionDef);
+  }
+
+  private void checkVariableNames(AstNode varDeclStatement) {
+    for (AstNode identifier : Variable.getDeclaredIdentifiers(varDeclStatement)) {
+      String varName = identifier.getTokenValue();
       AstNode field = classStack.peek().getFieldNamed(varName);
+
       if (field != null) {
-        getContext().createLineViolation(this, "Rename \"{0}\" which hides the field declared at line {1}.", varBinding,
+        getContext().createLineViolation(this, MESSAGE, identifier,
           varName, field.getToken().getLine());
       }
     }
@@ -121,8 +132,7 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
         AstNode field = classStack.peek().getFieldNamed(paramName);
 
         if (field != null) {
-          getContext().createLineViolation(this, "Rename \"{0}\" which hides the field declared at line {1}.", param,
-            paramName, field.getToken().getLine());
+          getContext().createLineViolation(this, MESSAGE, param, paramName, field.getToken().getLine());
         }
       }
     }

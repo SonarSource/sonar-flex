@@ -19,9 +19,12 @@
  */
 package org.sonar.flex.checks.utils;
 
+import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
+
+import java.util.List;
 
 public class Variable {
 
@@ -63,6 +66,20 @@ public class Variable {
       }
     }
     return false;
+  }
+
+  public static List<AstNode> getDeclaredIdentifiers(AstNode varDecStatement) {
+    List<AstNode> identifiers = Lists.newArrayList();
+    if (varDecStatement.is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)) {
+      AstNode varBindingList = varDecStatement
+        .getFirstChild(FlexGrammar.VARIABLE_DEF)
+        .getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST);
+
+      for (AstNode varBinding : varBindingList.getChildren(FlexGrammar.VARIABLE_BINDING)) {
+        identifiers.add(varBinding.getFirstChild(FlexGrammar.TYPED_IDENTIFIER).getFirstChild(FlexGrammar.IDENTIFIER));
+      }
+    }
+    return identifiers;
   }
 
 }

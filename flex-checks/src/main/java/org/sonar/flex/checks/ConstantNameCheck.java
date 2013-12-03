@@ -27,6 +27,7 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
+import org.sonar.flex.checks.utils.Variable;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.regex.Pattern;
@@ -48,7 +49,7 @@ public class ConstantNameCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(FlexGrammar.VARIABLE_DEF);
+    subscribeTo(FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
   }
 
   public void visitFile(AstNode astNode) {
@@ -59,20 +60,16 @@ public class ConstantNameCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.getFirstChild(FlexGrammar.VARIABLE_DEF_KIND).getFirstChild(FlexKeyword.CONST) != null) {
+    if (astNode.getFirstChild(FlexGrammar.VARIABLE_DEF).getFirstChild(FlexGrammar.VARIABLE_DEF_KIND).getFirstChild(FlexKeyword.CONST) != null) {
 
-      for (AstNode variableBindingNode : astNode.getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST).getChildren(FlexGrammar.VARIABLE_BINDING)) {
-        AstNode identifierNode = variableBindingNode
-          .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
-          .getFirstChild(FlexGrammar.IDENTIFIER);
+      for (AstNode identifier : Variable.getDeclaredIdentifiers(astNode)) {
+        String varName =  identifier.getTokenValue();
 
-        if (!pattern.matcher(identifierNode.getTokenValue()).matches()) {
-          getContext().createLineViolation(this, "Rename this constant '" + identifierNode.getTokenValue() + "' to match the regular expression " + format + "",
-            identifierNode);
+        if (!pattern.matcher(varName).matches()) {
+          getContext().createLineViolation(this, "Rename this constant '" + varName + "' to match the regular expression " + format + "",
+            identifier);
         }
-
       }
-
     }
   }
 }

@@ -47,7 +47,7 @@ public class PublicConstNotStaticCheck extends SquidCheck<LexerlessGrammar> {
       if (Variable.isConst(directive)) {
         Modifiers varModifiers = Modifiers.getModifiers(directive.getFirstChild(FlexGrammar.ATTRIBUTES));
 
-        if (varModifiers.isPublic && !varModifiers.isStatic) {
+        if (varModifiers.isPublic() && !varModifiers.isStatic()) {
           getContext().createLineViolation(this, "Make this const field \"{0}\" static too", directive,
             Variable.getName(directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE).getFirstChild()));
         }

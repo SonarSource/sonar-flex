@@ -78,18 +78,15 @@ public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> 
     for (AstNode directive : functionDirectives) {
 
       if (Variable.isVariable(directive)) {
-        AstNode variableDef = directive
+        AstNode variableDeclStatement = directive
           .getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE)
-          .getFirstChild(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)
-          .getFirstChild(FlexGrammar.VARIABLE_DEF);
+          .getFirstChild(FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
 
-        for (AstNode variableBindingNode : variableDef.getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST).getChildren(FlexGrammar.VARIABLE_BINDING)) {
-          AstNode identifierNode = variableBindingNode
-            .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
-            .getFirstChild(FlexGrammar.IDENTIFIER);
+        for (AstNode identifier : Variable.getDeclaredIdentifiers(variableDeclStatement)) {
+          String varName = identifier.getTokenValue();
 
-          if (!pattern.matcher(identifierNode.getTokenValue()).matches()) {
-            getContext().createLineViolation(this, MESSAGE, identifierNode, identifierNode.getTokenValue(), format);
+          if (!pattern.matcher(varName).matches()) {
+            getContext().createLineViolation(this, MESSAGE, identifier, varName, format);
           }
         }
       }

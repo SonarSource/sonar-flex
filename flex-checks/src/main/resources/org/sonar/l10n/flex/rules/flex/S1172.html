@@ -1,0 +1,19 @@
+<p>
+  Unused parameters are misleading. Whatever the value passed to such parameters is, the behavior will be the same.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+function doSomething(a:int, b:int):void      // "b" is unused
+{
+  compute(a);
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+function doSomething(a:int):void
+{
+  compute(a);
+}
+</pre>

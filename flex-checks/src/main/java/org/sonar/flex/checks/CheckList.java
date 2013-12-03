@@ -90,6 +90,7 @@ public final class CheckList {
       UnusedPrivateFunctionCheck.class,
       LocalVarShadowsFieldCheck.class,
       UnusedPrivateFieldCheck.class,
+      UnusedPrivateFieldCheck.class,
       ParsingErrorCheck.class);
   }
 

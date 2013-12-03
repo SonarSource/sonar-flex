@@ -37,6 +37,9 @@ import javax.annotation.Nullable;
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MINOR)
 public class TooManyUnaryOperatorCheck extends SquidCheck<LexerlessGrammar> {
 
+  private boolean assignmentExpression;
+  private int counter;
+
   @Override
   public void init() {
     subscribeTo(
@@ -44,9 +47,6 @@ public class TooManyUnaryOperatorCheck extends SquidCheck<LexerlessGrammar> {
       FlexPunctuator.DOUBLE_MINUS,
       FlexPunctuator.DOUBLE_PLUS);
   }
-
-  private boolean assignmentExpression;
-  private int counter;
 
   @Override
   public void visitFile(@Nullable AstNode astNode) {

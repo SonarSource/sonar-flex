@@ -39,8 +39,8 @@ import java.util.Map;
 public class UnusedParametersCheck extends SquidCheck<LexerlessGrammar> {
 
   private static class Parameter {
-   final AstNode declaration;
-   int usages;
+    final AstNode declaration;
+    int usages;
 
     private Parameter(AstNode declaration, int usages) {
       this.declaration = declaration;

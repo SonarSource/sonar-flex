@@ -26,8 +26,10 @@ import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Function;
+import org.sonar.flex.checks.utils.Modifiers;
 import org.sonar.flex.checks.utils.Variable;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -91,7 +93,7 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
   public void visitNode(AstNode astNode) {
     if (astNode.is(FlexGrammar.CLASS_DEF)) {
       classStack.push(new ClassState(astNode));
-    } else if (isClassFunctionNotConstructorAndAccessor(astNode)) {
+    } else if (isClassFunctionNotConstructorAccessorAnStatic(astNode)) {
       functionNestedLevel++;
       checkParameters(astNode);
     } else if (!classStack.empty() && functionNestedLevel > 0 && astNode.is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)) {
@@ -99,10 +101,17 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
     }
   }
 
-  private boolean isClassFunctionNotConstructorAndAccessor(AstNode functionDef) {
+  private boolean isClassFunctionNotConstructorAccessorAnStatic(AstNode functionDef) {
     return !classStack.empty() && functionDef.is(FlexGrammar.FUNCTION_DEF)
       && !Function.isConstructor(functionDef, classStack.peek().getClassName())
-      && !Function.isAccessor(functionDef);
+      && !isAccessor(functionDef)
+      && !Modifiers.getModifiers(functionDef.getParent().getPreviousAstNode()).contains(FlexKeyword.STATIC);
+  }
+
+  private boolean isAccessor(AstNode functionDef) {
+    String functionName = Function.getName(functionDef);
+    return Function.isAccessor(functionDef)
+      || functionName.length() > 2 && "set".equals(functionName.substring(0, 3));
   }
 
   private void checkVariableNames(AstNode varDeclStatement) {
@@ -111,8 +120,7 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
       AstNode field = classStack.peek().getFieldNamed(varName);
 
       if (field != null) {
-        getContext().createLineViolation(this, MESSAGE, identifier,
-          varName, field.getToken().getLine());
+        getContext().createLineViolation(this, MESSAGE, identifier,varName, field.getToken().getLine());
       }
     }
   }

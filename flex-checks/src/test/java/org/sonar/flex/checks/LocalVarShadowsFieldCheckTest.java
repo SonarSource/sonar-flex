@@ -34,9 +34,9 @@ public class LocalVarShadowsFieldCheckTest {
   public void test() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/LocalVarShadowsField.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(13).withMessage("Rename \"field\" which hides the field declared at line 2.")
-      .next().atLine(16)
-      .next().atLine(20)
+      .next().atLine(18).withMessage("Rename \"field\" which hides the field declared at line 2.")
+      .next().atLine(21)
+      .next().atLine(25)
       .noMore();
   }
 }

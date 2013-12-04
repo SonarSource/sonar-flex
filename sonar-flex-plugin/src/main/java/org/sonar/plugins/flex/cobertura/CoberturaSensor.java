@@ -35,13 +35,13 @@ public class CoberturaSensor implements Sensor {
   private Settings settings;
   private static final Logger LOG = LoggerFactory.getLogger(CoberturaSensor.class);
 
+  public CoberturaSensor(Settings settings) {
+    this.settings = settings;
+  }
+
   @Override
   public boolean shouldExecuteOnProject(Project project) {
     return Flex.KEY.equals(project.getLanguageKey());
-  }
-
-  public CoberturaSensor(Settings settings) {
-    this.settings = settings;
   }
 
   @Override

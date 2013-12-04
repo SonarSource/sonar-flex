@@ -22,8 +22,6 @@ package org.sonar.plugins.flex;
 import org.sonar.api.profiles.AnnotationProfileParser;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.profiles.XMLProfileParser;
-import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.flex.checks.CheckList;
 import org.sonar.plugins.flex.core.Flex;

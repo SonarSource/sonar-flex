@@ -57,7 +57,8 @@ public class CoberturaSensor implements Sensor {
       } else {
         logger.info("Cobertura xml report not found: " + reportPath);
       }
+    } else {
+      logger.info("No Cobertura report provided (see 'sonar.flex.cobertura.reportPath' property)");
     }
-    logger.info("No Cobertura report provided (see 'sonar.flex.cobertura.reportPath' property)");
   }
 }

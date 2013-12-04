@@ -33,7 +33,7 @@ import java.io.File;
 public class CoberturaSensor implements Sensor {
 
   private Settings settings;
-  private static final Logger LOG = LoggerFactory.getLogger(CoberturaSensor.class);
+  private static final Logger logger = LoggerFactory.getLogger(CoberturaSensor.class);
 
   public CoberturaSensor(Settings settings) {
     this.settings = settings;
@@ -52,11 +52,12 @@ public class CoberturaSensor implements Sensor {
       File xmlFile = new File(reportPath);
 
       if (xmlFile.exists()) {
-        LOG.info("Analyzing Cobertura report: " + reportPath);
+        logger.info("Analyzing Cobertura report: " + reportPath);
         CoberturaReportPasrer.parseReport(xmlFile, context);
       } else {
-        LOG.info("Cobertura xml report not found: " + reportPath);
+        logger.info("Cobertura xml report not found: " + reportPath);
       }
     }
+    logger.info("No Cobertura report provided (see 'sonar.flex.cobertura.reportPath' property)");
   }
 }

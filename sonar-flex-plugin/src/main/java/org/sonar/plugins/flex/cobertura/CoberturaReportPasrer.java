@@ -20,7 +20,6 @@
 package org.sonar.plugins.flex.cobertura;
 
 import com.google.common.collect.Maps;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.staxmate.in.SMHierarchicCursor;
 import org.codehaus.staxmate.in.SMInputCursor;
@@ -110,11 +109,5 @@ public class CoberturaReportPasrer {
         builder.setConditions(lineId, Integer.parseInt(conditions[1]), Integer.parseInt(conditions[0]));
       }
     }
-  }
-
-  private static String sanitizeFilename(String s) {
-    String fileName = FilenameUtils.removeExtension(s);
-    fileName = fileName.replace('/', '.').replace('\\', '.');
-    return fileName;
   }
 }

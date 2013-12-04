@@ -32,14 +32,13 @@ public class FlexProfile extends ProfileDefinition {
 
   private final AnnotationProfileParser annotationProfileParser;
 
-  public FlexProfile(AnnotationProfileParser annotationProfileParser, XMLProfileParser xmlProfileParser) {
+  public FlexProfile(AnnotationProfileParser annotationProfileParser) {
     this.annotationProfileParser = annotationProfileParser;
   }
 
   @Override
   public RulesProfile createProfile(ValidationMessages validation) {
-    RulesProfile rulesProfile = annotationProfileParser.parse(CheckList.REPOSITORY_KEY, CheckList.SONAR_WAY_PROFILE, Flex.KEY, CheckList.getChecks(), validation);
-    return rulesProfile;
+    return annotationProfileParser.parse(CheckList.REPOSITORY_KEY, CheckList.SONAR_WAY_PROFILE, Flex.KEY, CheckList.getChecks(), validation);
   }
 
 }

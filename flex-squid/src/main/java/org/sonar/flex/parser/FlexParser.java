@@ -25,7 +25,6 @@ import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.ParserAdapter2;
 import org.sonar.sslr.parser.LexerlessGrammar;
-import org.sonar.sslr.parser.ParserAdapter;
 
 public final class FlexParser {
 

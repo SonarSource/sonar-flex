@@ -47,8 +47,8 @@
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
+          <val>30.0</val>
+          <txt>mn</txt>
         </prop>
       </chc>
     </chc>
@@ -59,19 +59,6 @@
     <chc>
       <key>SOFTWARE_RELATED_PORTABILITY</key>
       <name>Software</name>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.architecture.MonkeyPatchingRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>2.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
     </chc>
     <chc>
       <key>TIME_ZONE_RELATED_PORTABILITY</key>
@@ -85,166 +72,6 @@
       <key>READABILITY</key>
       <name>Readability</name>
       <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.style.ImportFromSamePackageRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.013000000000000001</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.maintanability.AvoidProtectedFieldInFinalClassRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>30.0</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.sizing.TooLongSwitchCaseRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.125</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.style.ConstructorNonEmptyReturnTypeRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>30.0</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.unused.UnusedPrivateMethodRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.013000000000000001</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.unused.UnusedLocalVariableRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.013000000000000001</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.unused.UnusedParameterRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.013000000000000001</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.unused.EmptyPrivateMethodRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.125</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.unused.UnusedFieldRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.013000000000000001</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.style.OverLongLineRule</rule-key>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.01</val>
-        </prop>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.maintanability.TrueFalseConditionRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.013000000000000001</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.cairngorm.BadCairngormEventNameFormatRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.naming.CapitalizeConstantsRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
         <rule-repo>flex</rule-repo>
         <rule-key>OneStatementPerLine</rule-key>
         <prop>
@@ -253,20 +80,7 @@
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>10.0</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.naming.InterfaceNamingRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>30.0</val>
+          <val>2.0</val>
           <txt>mn</txt>
         </prop>
       </chc>
@@ -279,72 +93,7 @@
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>10.0</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.maintanability.OnlyOneReturnRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
           <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.parsley.RedundantMessageHandlerTypeAttributeRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>10.0</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.parsley.RedundantMethodAttributeRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>10.0</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.naming.TooLongFunctionNameRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>10.0</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.naming.VariableNameEndingWithNumericRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>10.0</val>
           <txt>mn</txt>
         </prop>
       </chc>
@@ -357,20 +106,7 @@
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>30.0</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.naming.WronglyNamedVariableRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>30.0</val>
+          <val>5.0</val>
           <txt>mn</txt>
         </prop>
       </chc>
@@ -478,46 +214,36 @@
           <txt>mn</txt>
         </prop>
       </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1125</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>2.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1445</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>5.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
     </chc>
     <chc>
       <key>UNDERSTANDABILITY</key>
       <name>Understandability</name>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.naming.TooShortVariableRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.038</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.naming.IncorrectClassCase</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.038</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.naming.PackageCaseRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.038</val>
-        </prop>
-      </chc>
       <chc>
         <rule-repo>flex</rule-repo>
         <rule-key>CommentedCode</rule-key>
@@ -527,8 +253,8 @@
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
+          <val>20.0</val>
+          <txt>mn</txt>
         </prop>
       </chc>
       <chc>
@@ -540,7 +266,7 @@
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>3.0</val>
+          <val>1.0</val>
           <txt>mn</txt>
         </prop>
       </chc>
@@ -553,13 +279,130 @@
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>30.0</val>
+          <val>20.0</val>
           <txt>mn</txt>
         </prop>
       </chc>
       <chc>
         <rule-repo>flex</rule-repo>
         <rule-key>S1142</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>10.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1463</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>5.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S100</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>5.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S117</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>2.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1312</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>5.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1454</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>2.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1185</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>5.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1481</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>10.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1068</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>10.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1144</rule-key>
         <prop>
           <key>remediationFunction</key>
           <txt>linear</txt>
@@ -586,39 +429,13 @@
     <chc>
       <key>INPUT_VALIDATION_AND_REPRESENTATION</key>
       <name>Input validation and representation</name>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.security.AllowAllSecureDomainRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
     </chc>
     <chc>
       <key>SECURITY_FEATURES</key>
       <name>Security features</name>
       <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.security.AllowInsecureDomainRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.style.CopyrightMissingRule</rule-key>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1465</rule-key>
         <prop>
           <key>remediationFunction</key>
           <txt>linear</txt>
@@ -630,42 +447,29 @@
         </prop>
       </chc>
       <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.security.ImportLoadBestPracticeRule</rule-key>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1468</rule-key>
         <prop>
           <key>remediationFunction</key>
           <txt>linear</txt>
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.security.InsecureExactSettingsRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>30.0</val>
+          <val>10.0</val>
           <txt>mn</txt>
         </prop>
       </chc>
       <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.security.LocalConnectionStarRule</rule-key>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1466</rule-key>
         <prop>
           <key>remediationFunction</key>
           <txt>linear</txt>
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
+          <val>10.0</val>
+          <txt>mn</txt>
         </prop>
       </chc>
     </chc>
@@ -677,15 +481,16 @@
       <key>MEMORY_EFFICIENCY</key>
       <name>Memory use</name>
       <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.maintanability.NonStaticConstantFieldRule</rule-key>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1170</rule-key>
         <prop>
           <key>remediationFunction</key>
           <txt>linear</txt>
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>0.013000000000000001</val>
+          <val>2.0</val>
+          <txt>mn</txt>
         </prop>
       </chc>
     </chc>
@@ -693,103 +498,15 @@
       <key>CPU_EFFICIENCY</key>
       <name>Processor use</name>
       <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.performance.HeavyConstructorRule</rule-key>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1447</rule-key>
         <prop>
           <key>remediationFunction</key>
           <txt>linear</txt>
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>0.125</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.performance.RecursiveStyleManagerRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.125</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.performance.AvoidInstanciationInLoopRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>30.0</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.component.UpdateChildrenNumberInUpdateDisplayListRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.375</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.performance.AvoidUsingMathCeilRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.performance.AvoidUsingMathFloorRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.performance.AvoidUsingMathRoundRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.binding.TooLongBindingExpressionRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>30.0</val>
+          <val>5.0</val>
           <txt>mn</txt>
         </prop>
       </chc>
@@ -801,130 +518,6 @@
     <chc>
       <key>ARCHITECTURE_CHANGEABILITY</key>
       <name>Architecture</name>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.maintanability.ExcessiveImportRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseDictionaryTypeRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.5</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseObjectTypeRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.375</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.sizing.TooManyFieldsRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.5</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.sizing.TooManyFieldInVORule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.5</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.sizing.TooManyFunctionRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.5</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.cairngorm.ReferenceModelLocatorOutsideTheMainApplicationRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>2.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.css.StyleBlockInMxmlRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.sizing.TooManyPublicRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>2.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.architecture.ViewComponentReferencedInModelRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
       <chc>
         <rule-repo>flex</rule-repo>
         <rule-key>S1448</rule-key>
@@ -951,85 +544,36 @@
           <txt>mn</txt>
         </prop>
       </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1442</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>10.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1446</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>30.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
     </chc>
     <chc>
       <key>DATA_CHANGEABILITY</key>
       <name>Data</name>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.binding.ChangeWatcherRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.event.DispatchHardCodedEventNameRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.013000000000000001</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.event.PublicVariableInCustomEventRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.038</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.maintanability.AvoidUsingWithKeyWordRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.event.ListenForHardCodedEventNameRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.013000000000000001</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.maintanability.AvoidUsingPublicStaticFieldRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
     </chc>
     <chc>
       <key>LOGIC_CHANGEABILITY</key>
@@ -1043,8 +587,21 @@
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
+          <val>30.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S134</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>10.0</val>
+          <txt>mn</txt>
         </prop>
       </chc>
     </chc>
@@ -1056,28 +613,55 @@
       <key>ARCHITECTURE_RELIABILITY</key>
       <name>Architecture</name>
       <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.maintanability.ClassAndExtensionAreIdenticalRule</rule-key>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1470</rule-key>
         <prop>
           <key>remediationFunction</key>
           <txt>linear</txt>
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>4.0</val>
-          <txt>h</txt>
+          <val>5.0</val>
+          <txt>mn</txt>
         </prop>
       </chc>
       <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.maintanability.ProtectedStaticMethodRule</rule-key>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1464</rule-key>
         <prop>
           <key>remediationFunction</key>
           <txt>linear</txt>
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>0.013000000000000001</val>
+          <val>5.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1462</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>5.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1469</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>5.0</val>
+          <txt>mn</txt>
         </prop>
       </chc>
     </chc>
@@ -1085,51 +669,42 @@
       <key>DATA_RELIABILITY</key>
       <name>Data</name>
       <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.css.UseCssInsteadOfEmbedMetaDataRule</rule-key>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1444</rule-key>
         <prop>
           <key>remediationFunction</key>
           <txt>linear</txt>
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>0.125</val>
+          <val>20.0</val>
+          <txt>mn</txt>
         </prop>
       </chc>
       <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.maintanability.DynamicClassRule</rule-key>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1117</rule-key>
         <prop>
           <key>remediationFunction</key>
           <txt>linear</txt>
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>0.375</val>
+          <val>2.0</val>
+          <txt>mn</txt>
         </prop>
       </chc>
       <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseGenericTypeRule</rule-key>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1434</rule-key>
         <prop>
           <key>remediationFunction</key>
           <txt>linear</txt>
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>0.375</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.naming.PropertyHiddenByLocalVariableRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.125</val>
+          <val>20.0</val>
+          <txt>mn</txt>
         </prop>
       </chc>
     </chc>
@@ -1140,137 +715,10 @@
     <chc>
       <key>FAULT_TOLERANCE</key>
       <name>Fault tolerance</name>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.maintanability.AlertShowRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>30.0</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.empty.EmptyCatchStatementRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.125</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.switchrules.TooFewBrancheInSwitchStatementRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.125</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.switchrules.SwitchStatementsShouldHaveDefaultRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.125</val>
-        </prop>
-      </chc>
     </chc>
     <chc>
       <key>INSTRUCTION_RELIABILITY</key>
       <name>Instruction</name>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.naming.IncorrectEventHandlerNameRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>30.0</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.parsley.MessageInterceptorSignatureRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.parsley.MismatchedManagedEventRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>30.0</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.parsley.MisplacedMetaDataRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>10.0</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.event.UnboundTypeInMetadataRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>30.0</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.parsley.UnknownMetaDataAttributeRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>30.0</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
       <chc>
         <rule-repo>flex</rule-repo>
         <rule-key>S1440</rule-key>
@@ -1310,46 +758,23 @@
           <txt>mn</txt>
         </prop>
       </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1467</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>10.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
     </chc>
     <chc>
       <key>LOGIC_RELIABILITY</key>
       <name>Logic</name>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.maintanability.UselessOverridenFunctionRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.013000000000000001</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.empty.EmptyIfStmtRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.013000000000000001</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.switchrules.IdenticalSwitchCasesRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.125</val>
-        </prop>
-      </chc>
       <chc>
         <rule-repo>flex</rule-repo>
         <rule-key>SwitchWithoutDefault</rule-key>
@@ -1359,20 +784,7 @@
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>30.0</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.switchrules.NonBreakableSwitchCaseRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>30.0</val>
+          <val>10.0</val>
           <txt>mn</txt>
         </prop>
       </chc>
@@ -1389,6 +801,45 @@
           <txt>mn</txt>
         </prop>
       </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1438</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>5.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S108</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>5.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1439</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>20.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
     </chc>
     <chc>
       <key>RESOURCE_RELIABILITY</key>
@@ -1397,67 +848,6 @@
     <chc>
       <key>SYNCHRONIZATION_RELIABILITY</key>
       <name>Synchronization</name>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.event.ConstructorDispatchingEventRule</rule-key>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.maintanability.EmptyStatementRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.013000000000000001</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.event.DefaultEventNameRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.013000000000000001</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.event.EventMissingCloneFunctionRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.125</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.event.UntypedEventMetadataRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.038</val>
-        </prop>
-      </chc>
     </chc>
     <chc>
       <key>UNIT_TESTS</key>
@@ -1471,7 +861,7 @@
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>30.0</val>
+          <val>5.0</val>
           <txt>mn</txt>
         </prop>
       </chc>
@@ -1484,7 +874,7 @@
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>10.0</val>
+          <val>1.0</val>
           <txt>mn</txt>
         </prop>
       </chc>
@@ -1501,81 +891,6 @@
       <key>UNIT_TESTABILITY</key>
       <name>Unit level</name>
       <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.flexunit.EmptyUnitTest</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.125</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.performance.CyclomaticComplexityRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.sizing.TooManyParametersRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.375</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.mxml.TooLongScriptBlockRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>0.375</val>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.component.CallLaterDirectlyRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flex</rule-repo>
-        <rule-key>NestedIfDepth</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
         <rule-repo>flex</rule-repo>
         <rule-key>ClassComplexity</rule-key>
         <prop>
@@ -1584,7 +899,7 @@
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>2.0</val>
+          <val>1.0</val>
           <txt>h</txt>
         </prop>
       </chc>
@@ -1597,73 +912,8 @@
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.mxml.CodeBehindInMxmlRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>2.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.performance.DeeplyNestedIfRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.cairngorm.FatControllerRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.switchrules.NestedSwitchRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>flexplugin</rule-repo>
-        <rule-key>com.adobe.ac.pmd.rules.sizing.TooLongFunctionRule</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>linear</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>1.0</val>
-          <txt>h</txt>
+          <val>30.0</val>
+          <txt>mn</txt>
         </prop>
       </chc>
       <chc>
@@ -1675,7 +925,7 @@
         </prop>
         <prop>
           <key>remediationFactor</key>
-          <val>30.0</val>
+          <val>20.0</val>
           <txt>mn</txt>
         </prop>
       </chc>

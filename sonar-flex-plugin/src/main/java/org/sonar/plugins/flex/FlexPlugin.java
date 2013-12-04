@@ -25,6 +25,7 @@ import org.sonar.api.Extension;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
 import org.sonar.api.SonarPlugin;
+import org.sonar.plugins.flex.cobertura.CoberturaSensor;
 import org.sonar.plugins.flex.colorizer.FlexColorizerFormat;
 import org.sonar.plugins.flex.core.Flex;
 import org.sonar.plugins.flex.core.FlexResourceBridge;
@@ -33,16 +34,25 @@ import org.sonar.plugins.flex.duplications.FlexCpdMapping;
 
 import java.util.List;
 
-@Properties({@Property(
-  key = FlexPlugin.FILE_SUFFIXES_KEY,
-  defaultValue = Flex.DEFAULT_FILE_SUFFIXES,
-  name = "File suffixes",
-  description = "Comma-separated list of suffixes for files to analyze. To not filter, leave the list empty.",
-  global = true,
-  project = true)})
+@Properties({
+  @Property(
+    key = FlexPlugin.FILE_SUFFIXES_KEY,
+    defaultValue = Flex.DEFAULT_FILE_SUFFIXES,
+    name = "File suffixes",
+    description = "Comma-separated list of suffixes for files to analyze. To not filter, leave the list empty.",
+    global = true,
+    project = true),
+  @Property(
+    key = FlexPlugin.COBERTURA_REPORT_PATH,
+    name = "Cobertura xml report path",
+    description = "",
+    global = true,
+    project = true)
+})
 public class FlexPlugin extends SonarPlugin {
 
   public static final String FILE_SUFFIXES_KEY = "sonar.flex.file.suffixes";
+  public static final String COBERTURA_REPORT_PATH = "sonar.flex.cobertura.reportPath";
 
   public List<Class<? extends Extension>> getExtensions() {
     return ImmutableList.of(
@@ -56,6 +66,7 @@ public class FlexPlugin extends SonarPlugin {
         FlexCommonRulesEngineProvider.class,
 
         FlexSquidSensor.class,
+        CoberturaSensor.class,
 
         FlexRuleRepository.class,
         FlexProfile.class);

@@ -39,6 +39,12 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 public class FlexAstScannerTest {
 
   @Test
+  public void parse_error() {
+    AstScanner<LexerlessGrammar> scanner = FlexAstScanner.create(new FlexConfiguration(Charsets.UTF_8));
+    scanner.scanFile(new File("src/test/resources/metrics/parse_error.as"));
+  }
+
+  @Test
   public void files() {
     AstScanner<LexerlessGrammar> scanner = FlexAstScanner.create(new FlexConfiguration(Charsets.UTF_8));
     scanner.scanFiles(ImmutableList.of(new File("src/test/resources/metrics/lines.as"), new File("src/test/resources/metrics/lines_of_code.as")));

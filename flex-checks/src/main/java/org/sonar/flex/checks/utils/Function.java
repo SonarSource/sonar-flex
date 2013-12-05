@@ -76,7 +76,4 @@ public class Function {
     return paramIdentifier;
   }
 
-  public static boolean hasBody(AstNode functiondef) {
-    return functiondef.getFirstChild(FlexGrammar.FUNCTION_COMMON).getFirstChild(FlexGrammar.BLOCK) != null;
-  }
 }

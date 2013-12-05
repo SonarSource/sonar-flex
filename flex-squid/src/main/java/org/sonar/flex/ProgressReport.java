@@ -56,7 +56,9 @@ public class ProgressReport implements Runnable {
         thread.interrupt();
       }
     }
-    logger.info(files + "/" + files + " source files analyzed");
+    synchronized (ProgressReport.this) {
+      logger.info(files + "/" + files + " source files analyzed");
+    }
   }
 
   public synchronized void start(int files) {

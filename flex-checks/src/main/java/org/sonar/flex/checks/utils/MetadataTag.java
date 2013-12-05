@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MetadataTag {
+public final class MetadataTag {
 
   private MetadataTag() {
   }
@@ -108,4 +108,5 @@ public class MetadataTag {
     return directive.getFirstChild().is(FlexGrammar.STATEMENT)
       && directive.getFirstChild().getFirstChild().is(FlexGrammar.METADATA_STATEMENT);
   }
+
 }

@@ -27,7 +27,7 @@ import org.sonar.flex.FlexKeyword;
 
 import java.util.List;
 
-public class Variable {
+public final class Variable {
 
   private Variable() {
   }

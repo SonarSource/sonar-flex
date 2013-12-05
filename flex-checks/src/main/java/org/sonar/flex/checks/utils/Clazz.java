@@ -26,7 +26,7 @@ import org.sonar.flex.FlexGrammar;
 
 import java.util.List;
 
-public class Clazz {
+public final class Clazz {
 
   private Clazz() {
   }

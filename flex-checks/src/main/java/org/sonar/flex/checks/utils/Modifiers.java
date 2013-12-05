@@ -26,7 +26,7 @@ import org.sonar.flex.FlexGrammar;
 
 import java.util.Set;
 
-public class Modifiers {
+public final class Modifiers {
 
   private Modifiers() {
   }
@@ -47,4 +47,5 @@ public class Modifiers {
     }
     return modifiersSet;
   }
+
 }

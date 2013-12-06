@@ -17,18 +17,18 @@ class Foo {
 
   public function setMyField(int myField):void{           // Compliant - setter methods are not checked
     this.myField = myField;
-  } 
+  }
 
   public function set myField(int myField):void{           // Compliant - implicit setter methods are not checked
     this.myField = myField;
-  } 
+  }
 
   public function doSomething():String {
-    var myField:int = 0;                          // Non-Compliant - should be renamed
+    var myField:int = 0;                          // Noncompliant - should be renamed
     ...
   }
 
-  public function doSomethingElse(myField:int):String {   // Non-Compliant - should be renamed                 
+  public function doSomethingElse(myField:int):String {   // Noncompliant - should be renamed
     ...
   }
 }

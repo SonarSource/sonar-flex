@@ -12,13 +12,13 @@ function func2() { // Compliant
 
 function func3(); // Compliant
 
-function func4() { // Non-compliant - there are two points of exit
+function func4() { // Noncompliant - there are two points of exit
   if (false) {
     return;
   }
 }
 
-function func5() { // Non-compliant - there are two points of exit
+function func5() { // Noncompliant - there are two points of exit
   if (a > 0) {
     return 0;
   }

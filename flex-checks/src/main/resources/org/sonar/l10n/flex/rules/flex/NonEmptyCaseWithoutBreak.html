@@ -21,9 +21,9 @@ switch (param) {
     return;
   case 3: // Compliant
     throw new Error();
-  case 4: // Non-compliant
+  case 4: // Noncompliant
     doSomething();
-  default: // Non-compliant - default must also have "break"
+  default: // Noncompliant - default must also have "break"
     doSomethingElse();
 }
 </pre>

@@ -20,18 +20,23 @@
 package org.sonar.plugins.flex;
 
 import org.junit.Test;
+import org.sonar.commonrules.api.CommonRulesRepository;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class FlexCommonRulesEngineProviderTest {
+public class FlexCommonRulesEngineTest {
 
   @Test
-  public void shouldProvideExpectedExtensions() {
-    FlexCommonRulesEngineProvider provider = new FlexCommonRulesEngineProvider();
-    assertThat(provider.provide().size()).isGreaterThan(1);
-
-    provider = new FlexCommonRulesEngineProvider(null);
-    assertThat(provider.provide().size()).isGreaterThan(1);
+  public void provide_extensions() {
+    FlexCommonRulesEngine engine = new FlexCommonRulesEngine();
+    assertThat(engine.provide().size()).isGreaterThan(1);
   }
 
+  @Test
+  public void enable_common_rules() {
+    FlexCommonRulesEngine engine = new FlexCommonRulesEngine();
+    CommonRulesRepository repo = engine.newRepository();
+    assertThat(repo.rules()).hasSize(4);
+    assertThat(repo.rule(CommonRulesRepository.RULE_INSUFFICIENT_COMMENT_DENSITY)).isNotNull();
+  }
 }

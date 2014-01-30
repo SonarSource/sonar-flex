@@ -63,7 +63,7 @@ public class FlexPlugin extends SonarPlugin {
 
         FlexCpdMapping.class,
 
-        FlexCommonRulesEngineProvider.class,
+        FlexCommonRulesEngine.class,
 
         FlexSquidSensor.class,
         CoberturaSensor.class,

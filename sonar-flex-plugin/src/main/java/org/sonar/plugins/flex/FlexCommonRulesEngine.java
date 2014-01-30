@@ -19,32 +19,24 @@
  */
 package org.sonar.plugins.flex;
 
-import org.sonar.api.resources.Project;
 import org.sonar.commonrules.api.CommonRulesEngine;
-import org.sonar.commonrules.api.CommonRulesEngineProvider;
+import org.sonar.commonrules.api.CommonRulesRepository;
 import org.sonar.plugins.flex.core.Flex;
 
-public class FlexCommonRulesEngineProvider extends CommonRulesEngineProvider {
+public class FlexCommonRulesEngine extends CommonRulesEngine {
 
-  public FlexCommonRulesEngineProvider() {
-    super();
-  }
-
-  public FlexCommonRulesEngineProvider(Project project) {
-    super(project);
+  public FlexCommonRulesEngine() {
+    super(Flex.KEY);
   }
 
   @Override
-  protected void doActivation(CommonRulesEngine engine) {
-    engine.activateRule("DuplicatedBlocks");
-    engine.activateRule("InsufficientCommentDensity");
-    engine.activateRule("InsufficientLineCoverage");
-    engine.activateRule("InsufficientBranchCoverage");
+  protected void doEnableRules(CommonRulesRepository repository) {
+    // null parameters -> keep the default values of parameters as hardcoded
+    // in sonar-common-rules
+    repository
+      .enableDuplicatedBlocksRule()
+      .enableInsufficientCommentDensityRule(null)
+      .enableInsufficientLineCoverageRule(null)
+      .enableInsufficientBranchCoverageRule(null);
   }
-
-  @Override
-  protected String getLanguageKey() {
-    return Flex.KEY;
-  }
-
 }

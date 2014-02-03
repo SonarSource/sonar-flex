@@ -20,23 +20,18 @@
 package org.sonar.plugins.flex;
 
 import org.junit.Test;
-import org.sonar.commonrules.api.CommonRulesRepository;
+import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.resources.ProjectFileSystem;
+import org.sonar.plugins.flex.core.Flex;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
-public class FlexCommonRulesEngineTest {
-
-  @Test
-  public void provide_extensions() {
-    FlexCommonRulesEngine engine = new FlexCommonRulesEngine();
-    assertThat(engine.provide()).isNotEmpty();
-  }
+public class FlexCommonRulesDecoratorTest {
 
   @Test
-  public void enable_common_rules() {
-    FlexCommonRulesEngine engine = new FlexCommonRulesEngine();
-    CommonRulesRepository repo = engine.newRepository();
-    assertThat(repo.rules()).hasSize(4);
-    assertThat(repo.rule(CommonRulesRepository.RULE_INSUFFICIENT_COMMENT_DENSITY)).isNotNull();
+  public void test_declaration() throws Exception {
+    FlexCommonRulesDecorator decorator = new FlexCommonRulesDecorator(mock(ProjectFileSystem.class), mock(RulesProfile.class));
+    assertThat(decorator.language()).isEqualTo(Flex.KEY);
   }
 }

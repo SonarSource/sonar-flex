@@ -19,24 +19,13 @@
  */
 package org.sonar.plugins.flex;
 
-import org.junit.Test;
-import org.sonar.commonrules.api.CommonRulesRepository;
+import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.resources.ProjectFileSystem;
+import org.sonar.commonrules.api.CommonRulesDecorator;
+import org.sonar.plugins.flex.core.Flex;
 
-import static org.fest.assertions.Assertions.assertThat;
-
-public class FlexCommonRulesEngineTest {
-
-  @Test
-  public void provide_extensions() {
-    FlexCommonRulesEngine engine = new FlexCommonRulesEngine();
-    assertThat(engine.provide()).isNotEmpty();
-  }
-
-  @Test
-  public void enable_common_rules() {
-    FlexCommonRulesEngine engine = new FlexCommonRulesEngine();
-    CommonRulesRepository repo = engine.newRepository();
-    assertThat(repo.rules()).hasSize(4);
-    assertThat(repo.rule(CommonRulesRepository.RULE_INSUFFICIENT_COMMENT_DENSITY)).isNotNull();
+public class FlexCommonRulesDecorator extends CommonRulesDecorator {
+  public FlexCommonRulesDecorator(ProjectFileSystem fs, RulesProfile qProfile) {
+    super(Flex.KEY, fs, qProfile);
   }
 }

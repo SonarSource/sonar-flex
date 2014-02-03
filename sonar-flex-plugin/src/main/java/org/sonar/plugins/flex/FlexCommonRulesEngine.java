@@ -19,6 +19,8 @@
  */
 package org.sonar.plugins.flex;
 
+import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.commonrules.api.CommonRulesEngine;
 import org.sonar.commonrules.api.CommonRulesRepository;
 import org.sonar.plugins.flex.core.Flex;
@@ -27,6 +29,10 @@ public class FlexCommonRulesEngine extends CommonRulesEngine {
 
   public FlexCommonRulesEngine() {
     super(Flex.KEY);
+  }
+
+  public FlexCommonRulesEngine(RulesProfile rulesProfile, ProjectFileSystem fs) {
+    super(Flex.KEY, rulesProfile, fs);
   }
 
   @Override

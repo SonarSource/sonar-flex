@@ -374,10 +374,14 @@ public enum FlexGrammar implements GrammarRuleKey {
   private static final String MULTI_LINE_COMMENT_REGEXP = "/\\*[\\s\\S]*?\\*/";
   private static final String MULTI_LINE_COMMENT_NO_LB_REGEXP = "/\\*[^\\n\\r]*?\\*/";
 
-  // LF, CR, LS, PS
+ /**
+  * LF, CR, LS, PS
+  */
   private static final String LINE_TERMINATOR_REGEXP = "\\n\\r\\p{Zl}\\p{Zp}";
 
-  // tab, vertical tab, form feed, space, no-break space, Byte Order Mark, any other Unicode "space character"
+  /**
+   * tab, vertical tab, form feed, space, no-break space, Byte Order Mark, any other Unicode "space character"
+   */
   private static final String WHITESPACE_REGEXP = "\\t\\v\\f\\u0020\\u00A0\\uFEFF\\p{Zs}";
 
   public static final String STRING_REGEXP = "(?:\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\"|\'([^\'\\\\]*+(\\\\[\\s\\S])?+)*+\')";

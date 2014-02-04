@@ -36,7 +36,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Map;
-import java.util.Stack;
 
 @Rule(
   key = "S1068",

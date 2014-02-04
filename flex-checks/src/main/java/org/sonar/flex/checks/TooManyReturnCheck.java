@@ -30,7 +30,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Stack;
 
 @Rule(
   key = "S1142",

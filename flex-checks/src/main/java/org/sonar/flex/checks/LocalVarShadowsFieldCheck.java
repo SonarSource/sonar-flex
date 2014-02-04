@@ -37,7 +37,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Map;
-import java.util.Stack;
 
 @Rule(key = "S1117",
   priority = Priority.MAJOR)
@@ -105,7 +104,7 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
 
   private boolean isClassFunctionNotConstructor(AstNode node) {
     return !classStack.isEmpty() && node.is(FlexGrammar.FUNCTION_DEF)
-    && !Function.isConstructor(node, classStack.peek().getClassName());
+      && !Function.isConstructor(node, classStack.peek().getClassName());
   }
 
   private boolean isStatic(AstNode functionDef) {
@@ -124,7 +123,7 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
       AstNode field = classStack.peek().getFieldNamed(varName);
 
       if (field != null) {
-        getContext().createLineViolation(this, MESSAGE, identifier,varName, field.getToken().getLine());
+        getContext().createLineViolation(this, MESSAGE, identifier, varName, field.getToken().getLine());
       }
     }
   }

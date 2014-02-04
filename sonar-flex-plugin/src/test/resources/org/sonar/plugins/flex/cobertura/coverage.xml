@@ -12,7 +12,8 @@
           <methods>
           </methods>
           <lines>
-            <line number="1" hits="0" branch="false"/>
+            <line number="1" hits="0" branch="true" condition-coverage="50% (1/2)"/>
+            <line number="1" hits="0" branch="true"/>
             <line number="7" hits="0" branch="false"/>
           </lines>
         </class>

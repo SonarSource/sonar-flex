@@ -25,6 +25,7 @@ import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Project;
+import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.core.Flex;
 
@@ -34,9 +35,11 @@ public class CoberturaSensor implements Sensor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CoberturaSensor.class);
   private final Settings settings;
+  private final ProjectFileSystem fileSystem;
 
-  public CoberturaSensor(Settings settings) {
+  public CoberturaSensor(Settings settings, ProjectFileSystem fileSystem) {
     this.settings = settings;
+    this.fileSystem = fileSystem;
   }
 
   @Override
@@ -49,7 +52,7 @@ public class CoberturaSensor implements Sensor {
     String reportPath = settings.getString(FlexPlugin.COBERTURA_REPORT_PATH);
 
     if (reportPath != null) {
-      File xmlFile = new File(reportPath);
+      File xmlFile = fileSystem.resolvePath(reportPath);
 
       if (xmlFile.exists()) {
         LOGGER.info("Analyzing Cobertura report: " + reportPath);

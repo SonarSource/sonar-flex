@@ -27,12 +27,14 @@ import org.sonar.api.config.Settings;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.resources.Project;
+import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.test.IsMeasure;
 import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.core.Flex;
 import org.sonar.test.TestUtils;
 
+import java.io.File;
 import java.util.Properties;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -112,14 +114,18 @@ public class CoberturaSensorTest {
   }
 
   private Sensor newSensorWithProperty(String key, String value) {
+    ProjectFileSystem fs = mock(ProjectFileSystem.class);
+
     Properties props = new Properties();
     if (key != null && value != null) {
       props.put(key, value);
+      when(fs.resolvePath(any(String.class))).thenReturn(new File(value));
     }
+
 
     Settings settings = new Settings();
     settings.addProperties(props);
 
-    return new CoberturaSensor(settings);
+    return new CoberturaSensor(settings, fs);
   }
 }

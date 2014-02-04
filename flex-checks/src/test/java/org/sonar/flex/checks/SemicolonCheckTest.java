@@ -20,9 +20,7 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
-import org.junit.Ignore;
 import org.junit.Test;
-
 import org.sonar.flex.FlexAstScanner;
 import org.sonar.squid.api.SourceFile;
 
@@ -40,6 +38,7 @@ public class SemicolonCheckTest {
       .next().atLine(4)
       .next().atLine(19)
       .next().atLine(25)
+      .next().atLine(28)
       .noMore();
   }
 }

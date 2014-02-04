@@ -24,3 +24,5 @@ function sayHello() {
     'j': 2
   }
 }
+
+{ doSomething() }

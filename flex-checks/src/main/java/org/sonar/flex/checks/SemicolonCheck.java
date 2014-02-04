@@ -20,6 +20,7 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.Token;
 import com.sonar.sslr.squid.checks.SquidCheck;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
@@ -41,8 +42,9 @@ public class SemicolonCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (!astNode.getLastChild().getTokenValue().equals(FlexPunctuator.SEMICOLON.getValue())) {
-      getContext().createLineViolation(this, "Add a semicolon at the end of this statement", astNode);
+    Token lastToken = astNode.getLastToken();
+    if (lastToken == null || !FlexPunctuator.SEMICOLON.getValue().equals(lastToken.getValue())) {
+      getContext().createLineViolation(this, "Add a semicolon at the end of this statement", astNode.getParent().getLastToken());
     }
   }
 

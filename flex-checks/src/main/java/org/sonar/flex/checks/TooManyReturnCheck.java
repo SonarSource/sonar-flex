@@ -28,6 +28,8 @@ import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Stack;
 
 @Rule(
@@ -37,7 +39,7 @@ import java.util.Stack;
 public class TooManyReturnCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final int DEFAULT = 3;
-  private final Stack<Integer> returnStatementCounter = new Stack<Integer>();
+  private final Deque<Integer> returnStatementCounter = new ArrayDeque<Integer>();
 
   @RuleProperty(
     key = "max",

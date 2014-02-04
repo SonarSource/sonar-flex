@@ -39,6 +39,40 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 public final class FlexAstScanner {
 
+  private static class FlexCommentAnalyser extends CommentAnalyser {
+    @Override
+    public boolean isBlank(String line) {
+      for (int i = 0; i < line.length(); i++) {
+        if (Character.isLetterOrDigit(line.charAt(i))) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    @Override
+    public String getContents(String comment) {
+      return comment.startsWith("//") ? comment.substring(2) : comment.substring(2, comment.length() - 2);
+    }
+  }
+
+  private static class PackageSourceCodeBuilderCallback implements SourceCodeBuilderCallback {
+    public SourceCode createSourceCode(SourceCode parentSourceCode, AstNode astNode) {
+      AstNode packageNameNode = astNode.getFirstChild(FlexGrammar.PACKAGE_NAME);
+      final String packageName;
+      if (packageNameNode != null) {
+        StringBuilder sb = new StringBuilder();
+        for (AstNode part : packageNameNode.getChildren()) {
+          sb.append(part.getTokenValue());
+        }
+        packageName = sb.toString();
+      } else {
+        packageName = "";
+      }
+      return new FlexSquidPackage(packageName);
+    }
+  }
+
   private FlexAstScanner() {
   }
 
@@ -49,6 +83,7 @@ public final class FlexAstScanner {
     if (!file.isFile()) {
       throw new IllegalArgumentException("File '" + file + "' not found.");
     }
+
     AstScanner<LexerlessGrammar> scanner = create(new FlexConfiguration(Charsets.UTF_8), visitors);
     scanner.scanFile(file);
     Collection<SourceCode> sources = scanner.getIndex().search(new QueryByType(SourceFile.class));
@@ -68,44 +103,13 @@ public final class FlexAstScanner {
     builder.withMetrics(FlexMetric.values());
 
     /* Comments */
-    builder.setCommentAnalyser(
-        new CommentAnalyser() {
-          @Override
-          public boolean isBlank(String line) {
-            for (int i = 0; i < line.length(); i++) {
-              if (Character.isLetterOrDigit(line.charAt(i))) {
-                return false;
-              }
-            }
-            return true;
-          }
-
-          @Override
-          public String getContents(String comment) {
-            return comment.startsWith("//") ? comment.substring(2) : comment.substring(2, comment.length() - 2);
-          }
-        });
+    builder.setCommentAnalyser(new FlexCommentAnalyser());
 
     /* Files */
     builder.setFilesMetric(FlexMetric.FILES);
 
     /* Packages */
-    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<LexerlessGrammar>(new SourceCodeBuilderCallback() {
-      public SourceCode createSourceCode(SourceCode parentSourceCode, AstNode astNode) {
-        AstNode packageNameNode = astNode.getFirstChild(FlexGrammar.PACKAGE_NAME);
-        final String packageName;
-        if (packageNameNode != null) {
-          StringBuilder sb = new StringBuilder();
-          for (AstNode part : packageNameNode.getChildren()) {
-            sb.append(part.getTokenValue());
-          }
-          packageName = sb.toString();
-        } else {
-          packageName = "";
-        }
-        return new FlexSquidPackage(packageName);
-      }
-    }, FlexGrammar.PACKAGE_DEF));
+    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<LexerlessGrammar>(new PackageSourceCodeBuilderCallback(), FlexGrammar.PACKAGE_DEF));
 
     /* Classes */
     builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<LexerlessGrammar>(new SourceCodeBuilderCallback() {

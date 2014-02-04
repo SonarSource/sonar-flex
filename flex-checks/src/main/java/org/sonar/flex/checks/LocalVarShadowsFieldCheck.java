@@ -34,6 +34,8 @@ import org.sonar.flex.checks.utils.Variable;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import javax.annotation.Nullable;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Map;
 import java.util.Stack;
 
@@ -71,7 +73,7 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
     }
   }
 
-  private Stack<ClassState> classStack = new Stack<ClassState>();
+  private Deque<ClassState> classStack = new ArrayDeque<ClassState>();
   private int functionNestedLevel;
   private static final String MESSAGE = "Rename \"{0}\" which hides the field declared at line {1}.";
 
@@ -90,22 +92,24 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
   }
 
   @Override
-  public void visitNode(AstNode astNode) {
-    if (astNode.is(FlexGrammar.CLASS_DEF)) {
-      classStack.push(new ClassState(astNode));
-    } else if (isClassFunctionNotConstructorAccessorAnStatic(astNode)) {
+  public void visitNode(AstNode node) {
+    if (node.is(FlexGrammar.CLASS_DEF)) {
+      classStack.push(new ClassState(node));
+    } else if (isClassFunctionNotConstructor(node) && !isAccessor(node) && !isStatic(node)) {
       functionNestedLevel++;
-      checkParameters(astNode);
-    } else if (!classStack.empty() && functionNestedLevel > 0 && astNode.is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)) {
-      checkVariableNames(astNode);
+      checkParameters(node);
+    } else if (!classStack.isEmpty() && functionNestedLevel > 0 && node.is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)) {
+      checkVariableNames(node);
     }
   }
 
-  private boolean isClassFunctionNotConstructorAccessorAnStatic(AstNode functionDef) {
-    return !classStack.empty() && functionDef.is(FlexGrammar.FUNCTION_DEF)
-      && !Function.isConstructor(functionDef, classStack.peek().getClassName())
-      && !isAccessor(functionDef)
-      && !Modifiers.getModifiers(functionDef.getParent().getPreviousAstNode()).contains(FlexKeyword.STATIC);
+  private boolean isClassFunctionNotConstructor(AstNode node) {
+    return !classStack.isEmpty() && node.is(FlexGrammar.FUNCTION_DEF)
+    && !Function.isConstructor(node, classStack.peek().getClassName());
+  }
+
+  private boolean isStatic(AstNode functionDef) {
+    return Modifiers.getModifiers(functionDef.getParent().getPreviousAstNode()).contains(FlexKeyword.STATIC);
   }
 
   private boolean isAccessor(AstNode functionDef) {
@@ -140,7 +144,7 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
   public void leaveNode(AstNode astNode) {
     if (astNode.is(FlexGrammar.CLASS_DEF)) {
       classStack.pop();
-    } else if (!classStack.empty() && astNode.is(FlexGrammar.FUNCTION_DEF) && functionNestedLevel > 0) {
+    } else if (!classStack.isEmpty() && astNode.is(FlexGrammar.FUNCTION_DEF) && functionNestedLevel > 0) {
       functionNestedLevel--;
     }
   }

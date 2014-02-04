@@ -30,6 +30,8 @@ import org.sonar.flex.checks.utils.Function;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import javax.annotation.Nullable;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Stack;
 
 @Rule(
@@ -39,11 +41,11 @@ import java.util.Stack;
 public class ConstructorCallsDispatchEventCheck extends SquidCheck<LexerlessGrammar> {
 
   boolean isInClass;
-  private Stack<ClassState> classStack = new Stack<ClassState>();
+  private Deque<ClassState> classStack = new ArrayDeque<ClassState>();
 
   private static class ClassState {
     String className;
-    private boolean isInContructor;
+    boolean isInConstructor;
 
     public ClassState(String className) {
       this.className = className;
@@ -70,7 +72,7 @@ public class ConstructorCallsDispatchEventCheck extends SquidCheck<LexerlessGram
       String className = Clazz.getName(astNode);
       classStack.push(new ClassState(className));
     } else if (isConstructor(astNode)) {
-      classStack.peek().isInContructor = true;
+      classStack.peek().isInConstructor = true;
     } else if (isCallToDispatchEventInConstructor(astNode)) {
       getContext().createLineViolation(this, "Remove this event dispatch from the \"{0}\" constructor", astNode, classStack.peek().className);
     }
@@ -81,7 +83,7 @@ public class ConstructorCallsDispatchEventCheck extends SquidCheck<LexerlessGram
   }
 
   private boolean isCallToDispatchEventInConstructor(AstNode astNode) {
-    return isInClass && classStack.peek().isInContructor && astNode.is(FlexGrammar.PRIMARY_EXPR) && isCallToDispatchEvent(astNode);
+    return isInClass && classStack.peek().isInConstructor && astNode.is(FlexGrammar.PRIMARY_EXPR) && isCallToDispatchEvent(astNode);
   }
 
   private static boolean isCallToDispatchEvent(AstNode primaryExpr) {
@@ -92,11 +94,11 @@ public class ConstructorCallsDispatchEventCheck extends SquidCheck<LexerlessGram
 
   @Override
   public void leaveNode(AstNode astNode) {
-    if (isInClass && classStack.peek().isInContructor && astNode.is(FlexGrammar.FUNCTION_DEF)) {
-      classStack.peek().isInContructor = false;
+    if (isInClass && classStack.peek().isInConstructor && astNode.is(FlexGrammar.FUNCTION_DEF)) {
+      classStack.peek().isInConstructor = false;
     } else if (isInClass && astNode.is(FlexGrammar.CLASS_DEF)) {
       classStack.pop();
-      isInClass = classStack.empty() ? false : true;
+      isInClass = classStack.isEmpty() ? false : true;
     }
   }
 }

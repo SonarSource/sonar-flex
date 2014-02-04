@@ -32,6 +32,8 @@ import org.sonar.flex.checks.utils.Function;
 import org.sonar.flex.checks.utils.Modifiers;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Map;
 import java.util.Stack;
 
@@ -85,7 +87,7 @@ public class UnusedPrivateFunctionCheck extends SquidCheck<LexerlessGrammar> {
     }
   }
 
-  private Stack<ClassState> classStack = new Stack<ClassState>();
+  private Deque<ClassState> classStack = new ArrayDeque<ClassState>();
   private boolean inClass;
 
   @Override
@@ -117,7 +119,7 @@ public class UnusedPrivateFunctionCheck extends SquidCheck<LexerlessGrammar> {
     if (astNode.is(FlexGrammar.CLASS_DEF)) {
       reportUnusedPrivateFunction();
       classStack.pop();
-      inClass = classStack.empty() ? false : true;
+      inClass = classStack.isEmpty() ? false : true;
     }
   }
 

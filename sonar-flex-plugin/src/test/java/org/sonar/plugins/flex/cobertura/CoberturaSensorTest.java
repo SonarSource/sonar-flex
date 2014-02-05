@@ -46,6 +46,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 public class CoberturaSensorTest {
@@ -81,6 +82,21 @@ public class CoberturaSensorTest {
       eq(flexFile),
       argThat(new IsMeasure(CoreMetrics.COVERAGE_LINE_HITS_DATA, "1=0;7=0")));
 
+    verify(context).saveMeasure(
+      eq(flexFile),
+      argThat(new IsMeasure(CoreMetrics.CONDITIONS_TO_COVER, 2.0)));
+
+    verify(context).saveMeasure(
+      eq(flexFile),
+      argThat(new IsMeasure(CoreMetrics.UNCOVERED_CONDITIONS, 1.0)));
+
+    verify(context).saveMeasure(
+      eq(flexFile),
+      argThat(new IsMeasure(CoreMetrics.CONDITIONS_BY_LINE, "1=2")));
+
+    verify(context).saveMeasure(
+      eq(flexFile),
+      argThat(new IsMeasure(CoreMetrics.COVERED_CONDITIONS_BY_LINE, "1=1")));
   }
 
   @Test

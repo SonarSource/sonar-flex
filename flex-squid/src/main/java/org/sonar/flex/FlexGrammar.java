@@ -390,7 +390,6 @@ public enum FlexGrammar implements GrammarRuleKey {
   public static LexerlessGrammar createGrammar() {
     LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
 
-    // TODO extract whitespaces and line terminators into constants:
     b.rule(WHITESPACE).is(b.regexp("[" + LINE_TERMINATOR_REGEXP + WHITESPACE_REGEXP + "]*+"));
 
     b.rule(SPACING).is(

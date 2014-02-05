@@ -29,6 +29,7 @@ import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import javax.annotation.Nullable;
 import java.util.regex.Pattern;
 
 @Rule(
@@ -70,7 +71,7 @@ public class HardcodedEventNameCheck extends SquidCheck<LexerlessGrammar> implem
 
   private State currentState;
 
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     currentState = State.EXPECTING_ADD_EVENT;
   }
 

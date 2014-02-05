@@ -32,6 +32,7 @@ import org.sonar.flex.checks.utils.Function;
 import org.sonar.flex.checks.utils.Modifiers;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import javax.annotation.Nullable;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Map;
@@ -98,7 +99,7 @@ public class UnusedPrivateFunctionCheck extends SquidCheck<LexerlessGrammar> {
   }
 
   @Override
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     classStack.clear();
   }
 

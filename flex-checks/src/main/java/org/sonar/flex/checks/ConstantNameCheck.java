@@ -30,6 +30,7 @@ import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Variable;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import javax.annotation.Nullable;
 import java.util.regex.Pattern;
 
 
@@ -52,7 +53,7 @@ public class ConstantNameCheck extends SquidCheck<LexerlessGrammar> {
     subscribeTo(FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
   }
 
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     if (pattern == null) {
       pattern = Pattern.compile(format);
     }

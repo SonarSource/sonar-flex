@@ -29,6 +29,7 @@ import org.sonar.check.RuleProperty;
 import org.sonar.flex.api.CharsetAwareVisitor;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
@@ -51,7 +52,7 @@ public class LineLengthCheck extends SquidCheck<LexerlessGrammar> implements Cha
   }
 
   @Override
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     List<String> lines;
 
     try {

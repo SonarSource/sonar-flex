@@ -30,6 +30,7 @@ import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Variable;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import javax.annotation.Nullable;
 import java.util.regex.Pattern;
 
 
@@ -53,7 +54,7 @@ public class FieldNameCheck extends SquidCheck<LexerlessGrammar> {
     subscribeTo(FlexGrammar.CLASS_DEF);
   }
 
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     if (pattern == null) {
       pattern = Pattern.compile(format);
     }

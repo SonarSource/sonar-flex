@@ -30,6 +30,7 @@ import org.sonar.flex.checks.utils.Function;
 import org.sonar.flex.checks.utils.Variable;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -55,7 +56,7 @@ public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> 
     subscribeTo(FlexGrammar.FUNCTION_DEF);
   }
 
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     if (pattern == null) {
       pattern = Pattern.compile(format);
     }

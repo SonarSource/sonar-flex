@@ -386,6 +386,7 @@ public enum FlexGrammar implements GrammarRuleKey {
 
   public static final String STRING_REGEXP = "(?:\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\"|\'([^\'\\\\]*+(\\\\[\\s\\S])?+)*+\')";
 
+  private static final String NEWLINE_REGEXP = "(?:\\n|\\r\\n|\\r)";
 
   public static LexerlessGrammar createGrammar() {
     LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
@@ -407,13 +408,13 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(EOS).is(b.firstOf(
       b.sequence(SPACING, ";"),
-      b.sequence(SPACING_NO_LB, b.regexp("(?:\\n|\\r\\n|\\r)")),
+      b.sequence(SPACING_NO_LB, b.regexp(NEWLINE_REGEXP)),
       b.sequence(SPACING_NO_LB, b.next("}")),
       b.sequence(SPACING, b.endOfInput())
     ));
     b.rule(EOS_NO_LB).is(b.firstOf(
       b.sequence(SPACING_NO_LB, ";"),
-      b.sequence(SPACING_NO_LB, b.regexp("(?:\\n|\\r\\n|\\r)")),
+      b.sequence(SPACING_NO_LB, b.regexp(NEWLINE_REGEXP)),
       b.sequence(SPACING_NO_LB, b.next("}")),
       b.sequence(SPACING_NO_LB, b.endOfInput())
     ));

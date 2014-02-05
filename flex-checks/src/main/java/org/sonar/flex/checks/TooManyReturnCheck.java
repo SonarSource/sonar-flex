@@ -28,6 +28,7 @@ import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import javax.annotation.Nullable;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -52,7 +53,7 @@ public class TooManyReturnCheck extends SquidCheck<LexerlessGrammar> {
   }
 
   @Override
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     returnStatementCounter.clear();
   }
 

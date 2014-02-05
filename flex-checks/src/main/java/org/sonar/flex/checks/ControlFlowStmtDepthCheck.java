@@ -29,6 +29,8 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import javax.annotation.Nullable;
+
 /**
  * Note that implementation differs from AbstractNestedIfCheck - see SONARPLUGINS-1855 and SONARPLUGINS-2178
  */
@@ -62,7 +64,7 @@ public class ControlFlowStmtDepthCheck extends SquidCheck<LexerlessGrammar> {
   }
 
   @Override
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     nestingLevel = 0;
   }
 

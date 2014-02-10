@@ -45,8 +45,8 @@ import java.util.List;
     key = FlexPlugin.COBERTURA_REPORT_PATH,
     name = "Cobertura xml report path",
     description = "",
-    global = true,
-    project = true)
+    global = false,
+    project = false)
 })
 public class FlexPlugin extends SonarPlugin {
 

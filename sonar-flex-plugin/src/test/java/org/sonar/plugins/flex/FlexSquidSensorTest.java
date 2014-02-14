@@ -34,6 +34,7 @@ import org.sonar.plugins.flex.core.FlexResourceBridge;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.util.Collections;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -55,11 +56,15 @@ public class FlexSquidSensorTest {
   }
 
   @Test
-  public void should_execute_on_javascript_project() {
-    Project project = new Project("key");
-    project.setLanguageKey("java");
+  public void test_should_execute_on_project() {
+    Project project = mock(Project.class);
+    ProjectFileSystem fileSystem = mock(ProjectFileSystem.class);
+    when(project.getFileSystem()).thenReturn(fileSystem);
+
+    when(fileSystem.mainFiles("flex")).thenReturn(Collections.<InputFile>emptyList());
     assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
-    project.setLanguageKey("flex");
+
+    when(fileSystem.mainFiles("flex")).thenReturn(Collections.<InputFile>singletonList(mock(InputFile.class)));
     assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
   }
 

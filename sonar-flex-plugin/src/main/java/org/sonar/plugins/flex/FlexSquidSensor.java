@@ -85,7 +85,7 @@ public class FlexSquidSensor implements Sensor {
   }
 
   public boolean shouldExecuteOnProject(Project project) {
-    return Flex.KEY.equals(project.getLanguageKey());
+    return Flex.isEnabled(project);
   }
 
   public void analyse(Project project, SensorContext context) {

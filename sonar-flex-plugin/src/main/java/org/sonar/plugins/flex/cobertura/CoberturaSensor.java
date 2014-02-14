@@ -44,7 +44,7 @@ public class CoberturaSensor implements Sensor {
 
   @Override
   public boolean shouldExecuteOnProject(Project project) {
-    return Flex.KEY.equals(project.getLanguageKey());
+    return Flex.isEnabled(project);
   }
 
   @Override

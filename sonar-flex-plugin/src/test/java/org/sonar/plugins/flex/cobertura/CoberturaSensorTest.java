@@ -19,6 +19,7 @@
  */
 package org.sonar.plugins.flex.cobertura;
 
+import org.fest.assertions.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.batch.Sensor;
@@ -26,6 +27,7 @@ import org.sonar.api.batch.SensorContext;
 import org.sonar.api.config.Settings;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Metric;
+import org.sonar.api.resources.InputFile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.api.resources.Resource;
@@ -35,6 +37,7 @@ import org.sonar.plugins.flex.core.Flex;
 import org.sonar.test.TestUtils;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.Properties;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -116,10 +119,18 @@ public class CoberturaSensorTest {
   }
 
   @Test
-  public void shouldExecuteOnProject() {
+  public void test_should_execute_on_project() {
     Sensor sensor = newSensorWithProperty(null, null);
-    assertThat(sensor.shouldExecuteOnProject(mockProject("java")), is(false));
-    assertThat(sensor.shouldExecuteOnProject(project), is(true));
+
+    Project project = mock(Project.class);
+    ProjectFileSystem fileSystem = mock(ProjectFileSystem.class);
+    when(project.getFileSystem()).thenReturn(fileSystem);
+
+    when(fileSystem.mainFiles("flex")).thenReturn(Collections.<InputFile>emptyList());
+    Assertions.assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
+
+    when(fileSystem.mainFiles("flex")).thenReturn(Collections.<InputFile>singletonList(mock(InputFile.class)));
+    Assertions.assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
   }
 
   private Project mockProject(String languageKey) {

@@ -25,6 +25,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.AbstractLanguage;
+import org.sonar.api.resources.Project;
 import org.sonar.plugins.flex.FlexPlugin;
 
 import com.google.common.collect.Lists;
@@ -71,6 +72,10 @@ public class Flex extends AbstractLanguage {
       }
     }
     return nonEmptyStrings.toArray(new String[nonEmptyStrings.size()]);
+  }
+
+  public static boolean isEnabled(Project project) {
+    return !project.getFileSystem().mainFiles(KEY).isEmpty();
   }
 
 }

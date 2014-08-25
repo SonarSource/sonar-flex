@@ -38,7 +38,7 @@ public class Flex extends AbstractLanguage {
   public static final String NAME = "Flex";
   public static final String KEY = "flex";
 
-  public static final String DEFAULT_FILE_SUFFIXES = "as,mxml";
+  public static final String DEFAULT_FILE_SUFFIXES = "as";
 
   private final Settings settings;
 

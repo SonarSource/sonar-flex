@@ -33,10 +33,10 @@ public class FlexTest {
     Settings settings = new Settings();
     Flex flex = new Flex(settings);
 
-    assertThat(flex.getFileSuffixes()).isEqualTo(new String[] {"as", "mxml"});
+    assertThat(flex.getFileSuffixes()).isEqualTo(new String[] {"as"});
 
     settings.setProperty(FlexPlugin.FILE_SUFFIXES_KEY, "");
-    assertThat(flex.getFileSuffixes()).isEqualTo(new String[] {"as", "mxml"});
+    assertThat(flex.getFileSuffixes()).isEqualTo(new String[] {"as"});
 
     settings.setProperty(FlexPlugin.FILE_SUFFIXES_KEY, "as, swc");
     assertThat(flex.getFileSuffixes()).isEqualTo(new String[] {"as", "swc"});

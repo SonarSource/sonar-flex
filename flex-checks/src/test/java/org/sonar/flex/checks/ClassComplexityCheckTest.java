@@ -19,10 +19,10 @@
  */
 package org.sonar.flex.checks;
 
-import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
 import org.junit.Test;
 import org.sonar.flex.FlexAstScanner;
-import org.sonar.squid.api.SourceFile;
+import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -35,8 +35,8 @@ public class ClassComplexityCheckTest {
 
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ClassComplexity.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-        .next().atLine(1).withMessage("Class has a complexity of 3 which is greater than 2 authorized.")
-        .noMore();
+      .next().atLine(1).withMessage("Class has a complexity of 3 which is greater than 2 authorized.")
+      .noMore();
   }
 
 }

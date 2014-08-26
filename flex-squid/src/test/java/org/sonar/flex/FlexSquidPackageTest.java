@@ -20,7 +20,7 @@
 package org.sonar.flex;
 
 import org.junit.Test;
-import org.sonar.squid.api.SourceClass;
+import org.sonar.squidbridge.api.SourceClass;
 
 import static org.fest.assertions.Assertions.assertThat;
 

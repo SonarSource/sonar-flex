@@ -21,7 +21,6 @@ package org.sonar.flex.metrics;
 
 import com.google.common.collect.Sets;
 import com.sonar.sslr.api.*;
-import com.sonar.sslr.squid.SquidAstVisitor;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
@@ -31,6 +30,8 @@ import org.sonar.flex.api.FlexMetric;
 
 import java.util.List;
 import java.util.Set;
+
+import org.sonar.squidbridge.SquidAstVisitor;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 /**

@@ -19,10 +19,10 @@
  */
 package org.sonar.flex.checks;
 
-import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
 import org.junit.Test;
 import org.sonar.flex.FlexAstScanner;
-import org.sonar.squid.api.SourceFile;
+import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -31,7 +31,7 @@ public class ClassNameCheckTest {
   private ClassNameCheck check = new ClassNameCheck();
 
   @Test
-  public void defaults(){
+  public void defaults() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ClassName.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
       .next().atLine(4);
@@ -46,4 +46,4 @@ public class ClassNameCheckTest {
       .next().atLine(1);
   }
 
-  }
+}

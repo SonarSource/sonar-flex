@@ -21,19 +21,18 @@ package org.sonar.flex;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
-import com.sonar.sslr.squid.AstScanner;
 import org.junit.Test;
 import org.sonar.flex.api.FlexMetric;
-import org.sonar.squid.api.SourceCode;
-import org.sonar.squid.api.SourceFile;
-import org.sonar.squid.api.SourceProject;
-import org.sonar.squid.indexer.QueryByType;
+import org.sonar.squidbridge.AstScanner;
+import org.sonar.squidbridge.api.SourceCode;
+import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.api.SourceProject;
+import org.sonar.squidbridge.indexer.QueryByType;
 
 import java.io.File;
 import java.util.Set;
 
 import static org.fest.assertions.Assertions.assertThat;
-import org.junit.Ignore;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 public class FlexAstScannerTest {

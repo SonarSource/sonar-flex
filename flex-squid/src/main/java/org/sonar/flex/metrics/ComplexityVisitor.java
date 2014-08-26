@@ -20,11 +20,11 @@
 package org.sonar.flex.metrics;
 
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.squid.SquidAstVisitor;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.FlexPunctuator;
 import org.sonar.flex.api.FlexMetric;
+import org.sonar.squidbridge.SquidAstVisitor;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 public class ComplexityVisitor extends SquidAstVisitor<LexerlessGrammar> {

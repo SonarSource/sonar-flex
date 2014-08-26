@@ -19,8 +19,9 @@
  */
 package org.sonar.flex.api;
 
-import org.sonar.squid.measures.CalculatedMetricFormula;
-import org.sonar.squid.measures.MetricDef;
+
+import org.sonar.squidbridge.measures.CalculatedMetricFormula;
+import org.sonar.squidbridge.measures.MetricDef;
 
 public enum FlexMetric implements MetricDef {
 

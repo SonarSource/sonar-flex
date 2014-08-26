@@ -19,7 +19,8 @@
  */
 package org.sonar.flex;
 
-import org.sonar.squid.api.SourceCode;
+
+import org.sonar.squidbridge.api.SourceCode;
 
 public class FlexSquidPackage extends SourceCode {
 

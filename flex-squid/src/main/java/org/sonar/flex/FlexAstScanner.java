@@ -21,20 +21,31 @@ package org.sonar.flex;
 
 import com.google.common.base.Charsets;
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.api.CommentAnalyser;
 import com.sonar.sslr.impl.Parser;
-import com.sonar.sslr.squid.*;
-import com.sonar.sslr.squid.metrics.*;
 import org.sonar.flex.api.CharsetAwareVisitor;
 import org.sonar.flex.api.FlexMetric;
 import org.sonar.flex.metrics.ComplexityVisitor;
 import org.sonar.flex.parser.FlexParser;
-import org.sonar.squid.api.*;
-import org.sonar.squid.indexer.QueryByType;
 
 import java.io.File;
 import java.util.Collection;
-import static org.sonar.flex.FlexGrammar.PACKAGE_NAME;
+
+import org.sonar.squidbridge.AstScanner;
+import org.sonar.squidbridge.CommentAnalyser;
+import org.sonar.squidbridge.SourceCodeBuilderCallback;
+import org.sonar.squidbridge.SourceCodeBuilderVisitor;
+import org.sonar.squidbridge.SquidAstVisitor;
+import org.sonar.squidbridge.SquidAstVisitorContextImpl;
+import org.sonar.squidbridge.api.SourceClass;
+import org.sonar.squidbridge.api.SourceCode;
+import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.api.SourceFunction;
+import org.sonar.squidbridge.api.SourceProject;
+import org.sonar.squidbridge.indexer.QueryByType;
+import org.sonar.squidbridge.metrics.CommentsVisitor;
+import org.sonar.squidbridge.metrics.CounterVisitor;
+import org.sonar.squidbridge.metrics.LinesOfCodeVisitor;
+import org.sonar.squidbridge.metrics.LinesVisitor;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 public final class FlexAstScanner {

@@ -23,7 +23,6 @@ import com.google.common.base.Charsets;
 import com.sonar.sslr.api.GenericTokenType;
 import com.sonar.sslr.impl.Lexer;
 import com.sonar.sslr.impl.channel.BomCharacterChannel;
-import com.sonar.sslr.impl.channel.UnknownCharacterChannel;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sonar.flex.FlexConfiguration;

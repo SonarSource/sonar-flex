@@ -19,8 +19,8 @@
  */
 package org.sonar.flex.grammar.expressions;
 
-import org.sonar.flex.*;
 import org.junit.Test;
+import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 

@@ -26,10 +26,6 @@ import org.sonar.flex.api.CharsetAwareVisitor;
 import org.sonar.flex.api.FlexMetric;
 import org.sonar.flex.metrics.ComplexityVisitor;
 import org.sonar.flex.parser.FlexParser;
-
-import java.io.File;
-import java.util.Collection;
-
 import org.sonar.squidbridge.AstScanner;
 import org.sonar.squidbridge.CommentAnalyser;
 import org.sonar.squidbridge.SourceCodeBuilderCallback;
@@ -47,6 +43,9 @@ import org.sonar.squidbridge.metrics.CounterVisitor;
 import org.sonar.squidbridge.metrics.LinesOfCodeVisitor;
 import org.sonar.squidbridge.metrics.LinesVisitor;
 import org.sonar.sslr.parser.LexerlessGrammar;
+
+import java.io.File;
+import java.util.Collection;
 
 public final class FlexAstScanner {
 

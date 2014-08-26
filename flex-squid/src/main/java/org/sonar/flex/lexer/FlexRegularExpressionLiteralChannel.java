@@ -23,9 +23,9 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableSet;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.impl.Lexer;
+import org.sonar.flex.api.FlexTokenType;
 import org.sonar.sslr.channel.Channel;
 import org.sonar.sslr.channel.CodeReader;
-import org.sonar.flex.api.FlexTokenType;
 
 import java.util.List;
 import java.util.Set;

@@ -28,12 +28,12 @@ import org.sonar.squidbridge.api.SourceCode;
 import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.api.SourceProject;
 import org.sonar.squidbridge.indexer.QueryByType;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.io.File;
 import java.util.Set;
 
 import static org.fest.assertions.Assertions.assertThat;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 public class FlexAstScannerTest {
 

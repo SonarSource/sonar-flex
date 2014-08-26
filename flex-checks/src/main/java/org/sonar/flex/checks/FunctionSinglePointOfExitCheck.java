@@ -20,10 +20,10 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
-import  org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
+import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(

@@ -135,18 +135,6 @@ public class CoberturaSensorTest {
     return prj;
   }
 
-  @Test
-  public void get_IO_file() {
-    File baseDir = new File("/base/dir/");
-    ModuleFileSystem fs = mock(ModuleFileSystem.class);
-    when(fs.baseDir()).thenReturn(baseDir);
-    CoberturaSensor sensor = new CoberturaSensor(null, fs);
-
-    Assertions.assertThat(sensor.getIOFile("myFile")).isAbsolute();
-    Assertions.assertThat(sensor.getIOFile("/base/dir/myFile")).isAbsolute();
-
-  }
-
   private Sensor newSensorWithProperty(String key, String value) {
 
     Properties props = new Properties();

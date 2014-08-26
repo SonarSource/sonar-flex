@@ -66,6 +66,7 @@ public class FlexPlugin extends SonarPlugin {
         PropertyDefinition.builder(COBERTURA_REPORT_PATH)
           .name("Cobertura xml report path")
           .description("Path to the Cobertura coverage report file. The path may be either absolute or relative to the project base directory.")
+          .onQualifiers(Qualifiers.MODULE, Qualifiers.PROJECT)
           .build());
   }
 

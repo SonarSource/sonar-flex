@@ -25,7 +25,7 @@ import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Project;
-import org.sonar.api.resources.ProjectFileSystem;
+import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.core.Flex;
 
@@ -35,16 +35,16 @@ public class CoberturaSensor implements Sensor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CoberturaSensor.class);
   private final Settings settings;
-  private final ProjectFileSystem fileSystem;
+  private final ModuleFileSystem fileSystem;
 
-  public CoberturaSensor(Settings settings, ProjectFileSystem fileSystem) {
+  public CoberturaSensor(Settings settings, ModuleFileSystem fileSystem) {
     this.settings = settings;
     this.fileSystem = fileSystem;
   }
 
   @Override
   public boolean shouldExecuteOnProject(Project project) {
-    return Flex.isEnabled(project);
+    return !fileSystem.files(Flex.FILE_QUERY_ON_SOURCES).isEmpty();
   }
 
   @Override
@@ -52,7 +52,7 @@ public class CoberturaSensor implements Sensor {
     String reportPath = settings.getString(FlexPlugin.COBERTURA_REPORT_PATH);
 
     if (reportPath != null) {
-      File xmlFile = fileSystem.resolvePath(reportPath);
+      File xmlFile = getIOFile(reportPath);
 
       if (xmlFile.exists()) {
         LOGGER.info("Analyzing Cobertura report: " + reportPath);
@@ -63,6 +63,19 @@ public class CoberturaSensor implements Sensor {
     } else {
       LOGGER.info("No Cobertura report provided (see '" + FlexPlugin.COBERTURA_REPORT_PATH + "' property)");
     }
+  }
+
+  /**
+   * Returns a java.io.File for the given path.
+   * If path is not absolute, returns a File with module base directory as parent path.
+   */
+  public File getIOFile(String path) {
+    File file = new File(path);
+    if (!file.isAbsolute()) {
+      file = new File(fileSystem.baseDir(), path);
+    }
+
+    return file;
   }
 
 }

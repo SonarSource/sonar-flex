@@ -24,19 +24,26 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.component.ResourcePerspectives;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.resources.*;
-import org.sonar.plugins.flex.core.Flex;
+import org.sonar.api.resources.Directory;
+import org.sonar.api.resources.Project;
+import org.sonar.api.resources.ProjectFileSystem;
+import org.sonar.api.resources.Resource;
+import org.sonar.api.scan.filesystem.FileQuery;
+import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.plugins.flex.core.FlexResourceBridge;
+import org.sonar.test.TestUtils;
 
 import java.io.File;
 import java.nio.charset.Charset;
 import java.util.Collections;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -46,41 +53,40 @@ public class FlexSquidSensorTest {
 
   private FlexSquidSensor sensor;
 
+  private ModuleFileSystem fs = mock(ModuleFileSystem.class);
+  private ResourcePerspectives perspectives = mock(ResourcePerspectives.class);
+  private final Project dummyProject = new Project("dummy");
+
   @Before
   public void setUp() {
     FlexResourceBridge resourceBridge = new FlexResourceBridge();
     FileLinesContextFactory fileLinesContextFactory = mock(FileLinesContextFactory.class);
     FileLinesContext fileLinesContext = mock(FileLinesContext.class);
     when(fileLinesContextFactory.createFor(Mockito.any(Resource.class))).thenReturn(fileLinesContext);
-    sensor = new FlexSquidSensor(mock(RulesProfile.class), resourceBridge, fileLinesContextFactory);
+
+    sensor = new FlexSquidSensor(mock(RulesProfile.class), resourceBridge, fileLinesContextFactory, fs, perspectives);
+
+    when(fs.sourceCharset()).thenReturn(Charset.forName("UTF-8"));
   }
 
   @Test
   public void test_should_execute_on_project() {
-    Project project = mock(Project.class);
-    ProjectFileSystem fileSystem = mock(ProjectFileSystem.class);
-    when(project.getFileSystem()).thenReturn(fileSystem);
+    when(fs.files(any(FileQuery.class))).thenReturn(Collections.<File>emptyList());
+    assertThat(sensor.shouldExecuteOnProject(dummyProject)).isFalse();
 
-    when(fileSystem.mainFiles("flex")).thenReturn(Collections.<InputFile>emptyList());
-    assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
-
-    when(fileSystem.mainFiles("flex")).thenReturn(Collections.<InputFile>singletonList(mock(InputFile.class)));
-    assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
+    when(fs.files(any(FileQuery.class))).thenReturn(Collections.singletonList(mock(File.class)));
+    assertThat(sensor.shouldExecuteOnProject(dummyProject)).isTrue();
   }
 
   @Test
   public void should_analyse() {
-    ProjectFileSystem fs = mock(ProjectFileSystem.class);
-    when(fs.getSourceCharset()).thenReturn(Charset.forName("UTF-8"));
-    InputFile inputFile = InputFileUtils.create(
-        new File("src/test/resources/org/sonar/plugins/flex/duplications"),
-        new File("src/test/resources/org/sonar/plugins/flex/duplications/SmallFile.as"));
-    when(fs.mainFiles(Flex.KEY)).thenReturn(ImmutableList.of(inputFile));
-    Project project = new Project("key");
-    project.setFileSystem(fs);
+    dummyProject.setFileSystem(mockProjectFileSystem("org/sonar/plugins/flex/duplications"));
+
+    ImmutableList<File> files = ImmutableList.of(TestUtils.getResource("org/sonar/plugins/flex/duplications/SmallFile.as"));
+    when(fs.files(any(FileQuery.class))).thenReturn(files);
     SensorContext context = mock(SensorContext.class);
 
-    sensor.analyse(project, context);
+    sensor.analyse(dummyProject, context);
 
     verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.FILES), Mockito.eq(1.0));
     verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.LINES), Mockito.eq(10.0));
@@ -94,17 +100,13 @@ public class FlexSquidSensorTest {
 
   @Test
   public void should_analyse2() {
-    ProjectFileSystem fs = mock(ProjectFileSystem.class);
-    when(fs.getSourceCharset()).thenReturn(Charset.forName("UTF-8"));
-    InputFile inputFile = InputFileUtils.create(
-        new File("src/test/resources/org/sonar/plugins/flex/squid/"),
-        new File("src/test/resources/org/sonar/plugins/flex/squid/TimeFormatter.as"));
-    when(fs.mainFiles(Flex.KEY)).thenReturn(ImmutableList.of(inputFile));
-    Project project = new Project("key");
-    project.setFileSystem(fs);
+    dummyProject.setFileSystem(mockProjectFileSystem("org/sonar/plugins/flex/squid/"));
+
+    ImmutableList<File> files = ImmutableList.of(TestUtils.getResource("org/sonar/plugins/flex/squid/TimeFormatter.as"));
+    when(fs.files(any(FileQuery.class))).thenReturn(files);
     SensorContext context = mock(SensorContext.class);
 
-    sensor.analyse(project, context);
+    sensor.analyse(dummyProject, context);
 
     verify(context).saveMeasure(Mockito.any(Resource.class), Mockito.eq(CoreMetrics.FILES), Mockito.eq(1.0));
     // TODO Godin: why 103 ? I expected 102 - see SSLRSQBR-10
@@ -119,18 +121,23 @@ public class FlexSquidSensorTest {
 
   @Test
   public void should_compute_number_of_packages() {
-    ProjectFileSystem fs = mock(ProjectFileSystem.class);
-    when(fs.getSourceCharset()).thenReturn(Charset.forName("UTF-8"));
-    File baseDir = new File("src/test/resources/org/sonar/plugins/flex/squid/");
-    InputFile inputFile1 = InputFileUtils.create(baseDir, "package1.as");
-    InputFile inputFile2 = InputFileUtils.create(baseDir, "package2.as");
-    InputFile inputFile3 = InputFileUtils.create(baseDir, "package3.as");
-    when(fs.mainFiles(Flex.KEY)).thenReturn(ImmutableList.of(inputFile1, inputFile2, inputFile3));
-    Project project = new Project("key");
-    project.setFileSystem(fs);
+    File baseDir = TestUtils.getResource("org/sonar/plugins/flex/squid/");
+    File file1 = new File(baseDir, "package1.as");
+    File file2 = new File(baseDir, "package2.as");
+    File file3 = new File(baseDir, "package3.as");
+    when(fs.files(any(FileQuery.class))).thenReturn(ImmutableList.of(file1, file2, file3));
+
+    dummyProject.setFileSystem(mockProjectFileSystem("org/sonar/plugins/flex/squid/"));
+
     SensorContext context = mock(SensorContext.class);
 
-    sensor.analyse(project, context);
+    sensor.analyse(dummyProject, context);
     verify(context, times(2)).saveMeasure(Mockito.any(Directory.class), Mockito.eq(CoreMetrics.PACKAGES), Mockito.eq(1.0));
+  }
+
+  private static ProjectFileSystem mockProjectFileSystem(String srcDir) {
+    ProjectFileSystem pfs = mock(ProjectFileSystem.class);
+    when(pfs.getSourceDirs()).thenReturn(ImmutableList.of(TestUtils.getResource(srcDir)));
+    return pfs;
   }
 }

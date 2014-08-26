@@ -27,10 +27,10 @@ import org.sonar.api.batch.SensorContext;
 import org.sonar.api.config.Settings;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Metric;
-import org.sonar.api.resources.InputFile;
 import org.sonar.api.resources.Project;
-import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.api.resources.Resource;
+import org.sonar.api.scan.filesystem.FileQuery;
+import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.api.test.IsMeasure;
 import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.core.Flex;
@@ -40,8 +40,6 @@ import java.io.File;
 import java.util.Collections;
 import java.util.Properties;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyDouble;
 import static org.mockito.Matchers.argThat;
@@ -49,7 +47,6 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 public class CoberturaSensorTest {
@@ -112,7 +109,7 @@ public class CoberturaSensorTest {
 
   @Test
   public void noReport() {
-    Sensor sensor = newSensorWithProperty(null, null);
+    CoberturaSensor sensor = new CoberturaSensor(new Settings(), null);
     sensor.analyse(project, context);
 
     verify(context, never()).saveMeasure(any(org.sonar.api.resources.File.class), any(Metric.class), anyDouble());
@@ -120,16 +117,14 @@ public class CoberturaSensorTest {
 
   @Test
   public void test_should_execute_on_project() {
-    Sensor sensor = newSensorWithProperty(null, null);
+    ModuleFileSystem fs = mock(ModuleFileSystem.class);
+    CoberturaSensor sensor = new CoberturaSensor(null, fs);
 
-    Project project = mock(Project.class);
-    ProjectFileSystem fileSystem = mock(ProjectFileSystem.class);
-    when(project.getFileSystem()).thenReturn(fileSystem);
 
-    when(fileSystem.mainFiles("flex")).thenReturn(Collections.<InputFile>emptyList());
+    when(fs.files(any(FileQuery.class))).thenReturn(Collections.<File>emptyList());
     Assertions.assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
 
-    when(fileSystem.mainFiles("flex")).thenReturn(Collections.<InputFile>singletonList(mock(InputFile.class)));
+    when(fs.files(any(FileQuery.class))).thenReturn(Collections.<File>singletonList(mock(File.class)));
     Assertions.assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
   }
 
@@ -140,19 +135,29 @@ public class CoberturaSensorTest {
     return prj;
   }
 
+  @Test
+  public void get_IO_file() {
+    File baseDir = new File("/base/dir/");
+    ModuleFileSystem fs = mock(ModuleFileSystem.class);
+    when(fs.baseDir()).thenReturn(baseDir);
+    CoberturaSensor sensor = new CoberturaSensor(null, fs);
+
+    Assertions.assertThat(sensor.getIOFile("myFile")).isAbsolute();
+    Assertions.assertThat(sensor.getIOFile("/base/dir/myFile")).isAbsolute();
+
+  }
+
   private Sensor newSensorWithProperty(String key, String value) {
-    ProjectFileSystem fs = mock(ProjectFileSystem.class);
 
     Properties props = new Properties();
     if (key != null && value != null) {
       props.put(key, value);
-      when(fs.resolvePath(any(String.class))).thenReturn(new File(value));
     }
-
 
     Settings settings = new Settings();
     settings.addProperties(props);
 
-    return new CoberturaSensor(settings, fs);
+    return new CoberturaSensor(settings, mock(ModuleFileSystem.class));
   }
+
 }

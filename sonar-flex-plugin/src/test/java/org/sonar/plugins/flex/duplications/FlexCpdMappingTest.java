@@ -21,7 +21,7 @@
 package org.sonar.plugins.flex.duplications;
 
 import org.junit.Test;
-import org.sonar.api.resources.ProjectFileSystem;
+import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.plugins.flex.core.Flex;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -32,8 +32,7 @@ public class FlexCpdMappingTest {
   @Test
   public void test() {
     Flex language = mock(Flex.class);
-    ProjectFileSystem fs = mock(ProjectFileSystem.class);
-    FlexCpdMapping mapping = new FlexCpdMapping(language, fs);
+    FlexCpdMapping mapping = new FlexCpdMapping(language, mock(ModuleFileSystem.class));
     assertThat(mapping.getLanguage()).isSameAs(language);
     assertThat(mapping.getTokenizer()).isInstanceOf(FlexTokenizer.class);
   }

@@ -70,7 +70,7 @@ public final class FlexLexer {
         .withChannel(new IdentifierAndKeywordChannel("\\p{javaJavaIdentifierStart}++\\p{javaJavaIdentifierPart}*+", true, FlexKeyword.values()))
         .withChannel(new PunctuatorChannel(FlexPunctuator.values()))
 
-        .withChannel(new UnknownCharacterChannel(true))
+        .withChannel(new UnknownCharacterChannel())
 
         .build();
   }

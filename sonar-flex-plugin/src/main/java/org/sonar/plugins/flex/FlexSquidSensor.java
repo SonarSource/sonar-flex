@@ -27,6 +27,9 @@ import com.google.common.collect.Lists;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.checks.AnnotationCheckFactory;
+import org.sonar.api.component.ResourcePerspectives;
+import org.sonar.api.issue.Issuable;
+import org.sonar.api.issue.Issue;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.measures.PersistenceMode;
@@ -34,9 +37,10 @@ import org.sonar.api.measures.RangeDistributionBuilder;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Directory;
 import org.sonar.api.resources.File;
-import org.sonar.api.resources.InputFileUtils;
 import org.sonar.api.resources.Project;
-import org.sonar.api.rules.Violation;
+import org.sonar.api.rule.RuleKey;
+import org.sonar.api.rules.ActiveRule;
+import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.flex.FlexAstScanner;
 import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.FlexSquidPackage;
@@ -45,20 +49,19 @@ import org.sonar.flex.checks.CheckList;
 import org.sonar.flex.metrics.FileLinesVisitor;
 import org.sonar.plugins.flex.core.Flex;
 import org.sonar.plugins.flex.core.FlexResourceBridge;
+import org.sonar.squidbridge.AstScanner;
+import org.sonar.squidbridge.SquidAstVisitor;
 import org.sonar.squidbridge.api.CheckMessage;
 import org.sonar.squidbridge.api.SourceCode;
 import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.api.SourceFunction;
 import org.sonar.squidbridge.indexer.QueryByParent;
 import org.sonar.squidbridge.indexer.QueryByType;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
-
-import org.sonar.squidbridge.AstScanner;
-import org.sonar.squidbridge.SquidAstVisitor;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 public class FlexSquidSensor implements Sensor {
 
@@ -74,19 +77,24 @@ public class FlexSquidSensor implements Sensor {
   private final AnnotationCheckFactory annotationCheckFactory;
   private final FlexResourceBridge resourceBridge;
   private final FileLinesContextFactory fileLinesContextFactory;
+  private final ModuleFileSystem fileSystem;
+  private final ResourcePerspectives resourcePerspectives;
 
   private Project project;
   private SensorContext context;
   private AstScanner<LexerlessGrammar> scanner;
 
-  public FlexSquidSensor(RulesProfile profile, FlexResourceBridge resourceBridge, FileLinesContextFactory fileLinesContextFactory) {
+  public FlexSquidSensor(RulesProfile profile, FlexResourceBridge resourceBridge, FileLinesContextFactory fileLinesContextFactory,
+                         ModuleFileSystem fileSystem, ResourcePerspectives resourcePerspectives) {
     this.annotationCheckFactory = AnnotationCheckFactory.create(profile, CheckList.REPOSITORY_KEY, CheckList.getChecks());
     this.resourceBridge = resourceBridge;
     this.fileLinesContextFactory = fileLinesContextFactory;
+    this.fileSystem = fileSystem;
+    this.resourcePerspectives = resourcePerspectives;
   }
 
   public boolean shouldExecuteOnProject(Project project) {
-    return Flex.isEnabled(project);
+    return !fileSystem.files(Flex.FILE_QUERY_ON_SOURCES).isEmpty();
   }
 
   public void analyse(Project project, SensorContext context) {
@@ -96,8 +104,8 @@ public class FlexSquidSensor implements Sensor {
     Collection<SquidAstVisitor<LexerlessGrammar>> squidChecks = annotationCheckFactory.getChecks();
     List<SquidAstVisitor<LexerlessGrammar>> visitors = Lists.newArrayList(squidChecks);
     visitors.add(new FileLinesVisitor(project, fileLinesContextFactory));
-    this.scanner = FlexAstScanner.create(createConfiguration(project), visitors.toArray(new SquidAstVisitor[visitors.size()]));
-    Collection<java.io.File> files = InputFileUtils.toFiles(project.getFileSystem().mainFiles(Flex.KEY));
+    this.scanner = FlexAstScanner.create(createConfiguration(), visitors.toArray(new SquidAstVisitor[visitors.size()]));
+    Collection<java.io.File> files = fileSystem.files(Flex.FILE_QUERY_ON_SOURCES);
     files = ImmutableList.copyOf(Collections2.filter(files, Predicates.not(MXML_FILTER)));
     scanner.scanFiles(files);
 
@@ -114,8 +122,8 @@ public class FlexSquidSensor implements Sensor {
     }
   }
 
-  private FlexConfiguration createConfiguration(Project project) {
-    return new FlexConfiguration(project.getFileSystem().getSourceCharset());
+  private FlexConfiguration createConfiguration() {
+    return new FlexConfiguration(fileSystem.sourceCharset());
   }
 
   private void save(Collection<SourceCode> squidSourceFiles) {
@@ -160,11 +168,20 @@ public class FlexSquidSensor implements Sensor {
   private void saveViolations(File sonarFile, SourceFile squidFile) {
     Collection<CheckMessage> messages = squidFile.getCheckMessages();
     if (messages != null) {
+
       for (CheckMessage message : messages) {
-        Violation violation = Violation.create(annotationCheckFactory.getActiveRule(message.getCheck()), sonarFile)
-            .setLineId(message.getLine())
-            .setMessage(message.getText(Locale.ENGLISH));
-        context.saveViolation(violation);
+        ActiveRule rule = annotationCheckFactory.getActiveRule(message.getCheck());
+        Issuable issuable = resourcePerspectives.as(Issuable.class, sonarFile);
+
+        if (issuable != null) {
+          Issue issue = issuable.newIssueBuilder()
+            .ruleKey(RuleKey.of(rule.getRepositoryKey(), rule.getRuleKey()))
+            .line(message.getLine())
+            .message(message.getText(Locale.ENGLISH))
+            .build();
+
+          issuable.addIssue(issue);
+        }
       }
     }
   }

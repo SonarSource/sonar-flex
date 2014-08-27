@@ -57,16 +57,21 @@ public class ObjectTypeUseCheck extends SquidCheck<LexerlessGrammar> {
   }
 
   private static boolean isInitialisedAsObject(AstNode varInitialisation) {
-    if (varInitialisation == null) {
-      return false;
-    }
-    AstNode assignmentExpr = varInitialisation.getFirstChild(FlexGrammar.VARIABLE_INITIALISER).getFirstChild(FlexGrammar.ASSIGNMENT_EXPR);
+    if (varInitialisation != null) {
+      AstNode assignmentExpr = varInitialisation.getFirstChild(FlexGrammar.VARIABLE_INITIALISER).getFirstChild(FlexGrammar.ASSIGNMENT_EXPR);
 
-    if (assignmentExpr != null && assignmentExpr.getFirstChild().is(FlexGrammar.POSTFIX_EXPR)) {
-      AstNode newExpr = assignmentExpr.getFirstChild().getFirstChild(FlexGrammar.FULL_NEW_EXPR, FlexGrammar.SHORT_NEW_EXPR);
-      if (newExpr != null) {
-        AstNode subExpr = newExpr.getFirstChild(FlexGrammar.FULL_NEW_SUB_EXPR, FlexGrammar.SHORT_NEW_SUB_EXPR);
-        return subExpr != null && OBJECT_TYPE.equals(subExpr.getTokenValue());
+      if (assignmentExpr != null && assignmentExpr.getNumberOfChildren() == 1 && assignmentExpr.getFirstChild().is(FlexGrammar.POSTFIX_EXPR)) {
+        AstNode postfixExprChild = assignmentExpr.getFirstChild(FlexGrammar.POSTFIX_EXPR).getFirstChild();
+
+        // Check for object initialiser, e.g {attr1:Type, attr2:Type}
+        if (postfixExprChild.is(FlexGrammar.PRIMARY_EXPR)) {
+          return postfixExprChild.getFirstChild().is(FlexGrammar.OBJECT_INITIALISER);
+
+          // Check for instantiation of Object, e.g new Object()
+        } else if (postfixExprChild.is(FlexGrammar.FULL_NEW_EXPR, FlexGrammar.SHORT_NEW_EXPR)) {
+          AstNode subExpr = postfixExprChild.getFirstChild(FlexGrammar.FULL_NEW_SUB_EXPR, FlexGrammar.SHORT_NEW_SUB_EXPR);
+          return subExpr != null && OBJECT_TYPE.equals(subExpr.getTokenValue());
+        }
       }
     }
     return false;

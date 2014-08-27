@@ -51,10 +51,7 @@ import org.sonar.plugins.flex.core.Flex;
 import org.sonar.plugins.flex.core.FlexResourceBridge;
 import org.sonar.squidbridge.AstScanner;
 import org.sonar.squidbridge.SquidAstVisitor;
-import org.sonar.squidbridge.api.CheckMessage;
-import org.sonar.squidbridge.api.SourceCode;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.api.SourceFunction;
+import org.sonar.squidbridge.api.*;
 import org.sonar.squidbridge.indexer.QueryByParent;
 import org.sonar.squidbridge.indexer.QueryByType;
 import org.sonar.sslr.parser.LexerlessGrammar;
@@ -132,6 +129,7 @@ public class FlexSquidSensor implements Sensor {
 
       File sonarFile = File.fromIOFile(new java.io.File(squidFile.getKey()), project);
 
+      saveClassComplexity(sonarFile, squidFile);
       saveMeasures(sonarFile, squidFile);
       saveFunctionsComplexityDistribution(sonarFile, squidFile);
       saveFilesComplexityDistribution(sonarFile, squidFile);
@@ -148,6 +146,16 @@ public class FlexSquidSensor implements Sensor {
     context.saveMeasure(sonarFile, CoreMetrics.FUNCTIONS, squidFile.getDouble(FlexMetric.FUNCTIONS));
     context.saveMeasure(sonarFile, CoreMetrics.STATEMENTS, squidFile.getDouble(FlexMetric.STATEMENTS));
     context.saveMeasure(sonarFile, CoreMetrics.COMPLEXITY, squidFile.getDouble(FlexMetric.COMPLEXITY));
+  }
+
+  private void saveClassComplexity(org.sonar.api.resources.File sonarFile, SourceFile squidFile) {
+    Collection<SourceCode> classes = scanner.getIndex().search(new QueryByParent(squidFile), new QueryByType(SourceClass.class));
+    double complexityInClasses = 0;
+    for (SourceCode squidClass : classes) {
+      double classComplexity = squidClass.getDouble(FlexMetric.COMPLEXITY);
+      complexityInClasses += classComplexity;
+    }
+    context.saveMeasure(sonarFile, CoreMetrics.COMPLEXITY_IN_CLASSES, complexityInClasses);
   }
 
   private void saveFunctionsComplexityDistribution(File sonarFile, SourceFile squidFile) {

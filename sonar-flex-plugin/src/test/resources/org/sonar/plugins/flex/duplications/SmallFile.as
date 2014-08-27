@@ -7,3 +7,6 @@ public class Foo {
     print("Hello");
   }
 }
+
+function oustsie_class() {
+}

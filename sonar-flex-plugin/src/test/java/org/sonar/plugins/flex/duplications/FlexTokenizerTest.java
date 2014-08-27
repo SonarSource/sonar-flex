@@ -47,7 +47,7 @@ public class FlexTokenizerTest {
     Tokens tokens = new Tokens();
     tokenizer.tokenize(source, tokens);
 
-    assertThat(tokens.size()).isEqualTo(23);
+    assertThat(tokens.size()).isEqualTo(29);
   }
 
   @Test

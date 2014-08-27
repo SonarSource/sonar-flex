@@ -51,7 +51,7 @@ public class ClassWithTooManyFunctionsCheck extends SquidCheck<LexerlessGrammar>
   int maximumFunctionThreshold = DEFAULT_MAX;
 
   @RuleProperty(
-    key = "maximumFunctionThreshold",
+    key = "countNonpublicMethods",
     type = "BOOLEAN",
     defaultValue = "" + DEFAULT_INCLUDE_NON_PUBLIC)
   boolean countNonpublicMethods = DEFAULT_INCLUDE_NON_PUBLIC;

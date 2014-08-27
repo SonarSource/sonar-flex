@@ -21,6 +21,8 @@ package org.sonar.plugins.flex.cobertura;
 
 import org.junit.Test;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.resources.Project;
+import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.api.utils.XmlParserException;
 import org.sonar.test.TestUtils;
 
@@ -31,6 +33,7 @@ public class CoberturaReportParserTest {
   @Test(expected = XmlParserException.class)
   public void invalidXmlFile() throws Exception {
     SensorContext context = mock(SensorContext.class);
-    CoberturaReportPasrer.parseReport(TestUtils.getResource("org/sonar/plugins/flex/cobertura/coverage-invalid.xml"), context);
+    CoberturaReportPasrer.parseReport(TestUtils.getResource("org/sonar/plugins/flex/cobertura/coverage-invalid.xml"),
+      context, new Project(""), mock(ModuleFileSystem.class));
   }
 }

@@ -3,7 +3,8 @@
 
 <coverage line-rate="0.0" branch-rate="1.0" lines-covered="0" lines-valid="4" branches-covered="0" branches-valid="0" complexity="0.0" version="1.9.4" timestamp="1386168382336">
   <sources>
-    <source>/Users/linda.martin/test/flex/sampleflexgroup/src/main/flex</source>
+    <!-- Not retrieved nor used in cobertura parser -->
+    <source>/my/path/to/src/main/flex</source>
   </sources>
   <packages>
     <package name="example" line-rate="0.0" branch-rate="1.0" complexity="0.0">

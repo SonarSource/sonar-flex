@@ -23,13 +23,18 @@ import com.google.common.collect.Maps;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.staxmate.in.SMHierarchicCursor;
 import org.codehaus.staxmate.in.SMInputCursor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.measures.CoverageMeasuresBuilder;
 import org.sonar.api.measures.Measure;
+import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
+import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.api.utils.StaxParser;
 import org.sonar.api.utils.XmlParserException;
 
+import javax.annotation.Nullable;
 import javax.xml.stream.XMLStreamException;
 import java.io.File;
 import java.text.ParseException;
@@ -40,19 +45,21 @@ import static org.sonar.api.utils.ParsingUtils.parseNumber;
 
 public class CoberturaReportPasrer {
 
+  private static final Logger LOG = LoggerFactory.getLogger(CoberturaReportPasrer.class);
+
   private CoberturaReportPasrer() {
   }
 
   /**
    * Parse a Cobertura xml report and create measures accordingly
    */
-  public static void parseReport(File xmlFile, final SensorContext context) {
+  public static void parseReport(File xmlFile, final SensorContext context, final Project project, final ModuleFileSystem fileSystem) {
     try {
       StaxParser parser = new StaxParser(new StaxParser.XmlStreamHandler() {
 
         public void stream(SMHierarchicCursor rootCursor) throws XMLStreamException {
           rootCursor.advance();
-          collectPackageMeasures(rootCursor.descendantElementCursor("package"), context);
+          collectPackageMeasures(rootCursor.descendantElementCursor("package"), context, project, fileSystem);
         }
       });
       parser.parse(xmlFile);
@@ -61,23 +68,41 @@ public class CoberturaReportPasrer {
     }
   }
 
-  private static void collectPackageMeasures(SMInputCursor pack, SensorContext context) throws XMLStreamException {
+  private static void collectPackageMeasures(SMInputCursor pack, SensorContext context, Project project, ModuleFileSystem fileSystem) throws XMLStreamException {
     while (pack.getNext() != null) {
       Map<String, CoverageMeasuresBuilder> builderByFilename = Maps.newHashMap();
       collectFileMeasures(pack.descendantElementCursor("class"), builderByFilename);
+
       for (Map.Entry<String, CoverageMeasuresBuilder> entry : builderByFilename.entrySet()) {
-        org.sonar.api.resources.File file = new org.sonar.api.resources.File(entry.getKey());
-        if (fileExists(context, file)) {
+        Resource resource = getResourceForFileRelativeName(entry.getKey(), fileSystem, project);
+
+        if (resource != null) {
           for (Measure measure : entry.getValue().createMeasures()) {
-            context.saveMeasure(file, measure);
+            context.saveMeasure(resource, measure);
           }
+        } else {
+          LOG.warn("Cannot save coverage result for file: {}, because resource not found.", entry.getKey());
         }
       }
     }
   }
 
-  private static boolean fileExists(SensorContext context, Resource file) {
-    return context.getResource(file) != null;
+  /**
+   * Return resource from file name relative to source directory.
+   * Cobertura gives relative path from source directory.
+   * <p/>
+   * Example: "example/File.as"
+   */
+  @Nullable
+  private static org.sonar.api.resources.File getResourceForFileRelativeName(String relativeFileName, ModuleFileSystem fileSystem, Project project) {
+    for (File srcDir : fileSystem.sourceDirs()) {
+      File file = new File(srcDir, relativeFileName);
+
+      if (file.exists()) {
+        return org.sonar.api.resources.File.fromIOFile(file, project);
+      }
+    }
+    return null;
   }
 
   private static void collectFileMeasures(SMInputCursor clazz, Map<String, CoverageMeasuresBuilder> builderByFilename) throws XMLStreamException {

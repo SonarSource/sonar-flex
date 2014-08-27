@@ -19,6 +19,7 @@
  */
 package org.sonar.plugins.flex.cobertura;
 
+import com.google.common.collect.ImmutableList;
 import org.fest.assertions.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +29,7 @@ import org.sonar.api.config.Settings;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.resources.Project;
+import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.scan.filesystem.FileQuery;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
@@ -44,10 +46,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyDouble;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class CoberturaSensorTest {
 
@@ -67,8 +66,19 @@ public class CoberturaSensorTest {
 
   @Test
   public void shouldParseReport() throws Exception {
-    Sensor sensor = newSensorWithProperty(FlexPlugin.COBERTURA_REPORT_PATH, TestUtils.getResource("org/sonar/plugins/flex/cobertura/coverage.xml").getPath());
-    sensor.analyse(project, context);
+    File srcDir = TestUtils.getResource("org/sonar/plugins/flex/cobertura");
+
+    ModuleFileSystem fs = mock(ModuleFileSystem.class);
+    when(fs.sourceDirs()).thenReturn(ImmutableList.of(srcDir));
+
+    ProjectFileSystem pfs = mock(ProjectFileSystem.class);
+    when(pfs.getSourceDirs()).thenReturn(ImmutableList.of(srcDir));
+
+    Project project1 = mock(Project.class);
+    when(project1.getFileSystem()).thenReturn(pfs);
+
+    Sensor sensor = newSensorWithProperty(FlexPlugin.COBERTURA_REPORT_PATH, TestUtils.getResource("org/sonar/plugins/flex/cobertura/coverage.xml").getPath(), fs);
+    sensor.analyse(project1, context);
 
     verify(context).saveMeasure(
       eq(flexFile),
@@ -101,7 +111,7 @@ public class CoberturaSensorTest {
 
   @Test
   public void reportNotFound() {
-    Sensor sensor = newSensorWithProperty(FlexPlugin.COBERTURA_REPORT_PATH, "/fake/path");
+    Sensor sensor = newSensorWithProperty(FlexPlugin.COBERTURA_REPORT_PATH, "/fake/path", mock(ModuleFileSystem.class));
     sensor.analyse(project, context);
 
     verify(context, never()).saveMeasure(any(org.sonar.api.resources.File.class), any(Metric.class), anyDouble());
@@ -135,7 +145,7 @@ public class CoberturaSensorTest {
     return prj;
   }
 
-  private Sensor newSensorWithProperty(String key, String value) {
+  private Sensor newSensorWithProperty(String key, String value, ModuleFileSystem fs) {
 
     Properties props = new Properties();
     if (key != null && value != null) {
@@ -145,7 +155,7 @@ public class CoberturaSensorTest {
     Settings settings = new Settings();
     settings.addProperties(props);
 
-    return new CoberturaSensor(settings, mock(ModuleFileSystem.class));
+    return new CoberturaSensor(settings, fs);
   }
 
 }

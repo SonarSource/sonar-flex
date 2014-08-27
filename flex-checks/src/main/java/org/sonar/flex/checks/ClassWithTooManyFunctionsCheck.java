@@ -66,7 +66,7 @@ public class ClassWithTooManyFunctionsCheck extends SquidCheck<LexerlessGrammar>
     int nbMethods = getNumberOfMethods(astNode);
 
     if (nbMethods > maximumFunctionThreshold) {
-      getContext().createLineViolation(this, "Class \"{0}\" has {1} functions, which is greater than {2} authorized. Split it into smaller classes.",
+      getContext().createLineViolation(this, "Class \"{0}\" has {1} methods, which is greater than {2} authorized. Split it into smaller classes.",
         astNode, Clazz.getName(astNode), nbMethods, maximumFunctionThreshold);
     }
   }

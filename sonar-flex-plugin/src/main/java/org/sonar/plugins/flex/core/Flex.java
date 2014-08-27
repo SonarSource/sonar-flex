@@ -76,8 +76,4 @@ public class Flex extends AbstractLanguage {
     return nonEmptyStrings.toArray(new String[nonEmptyStrings.size()]);
   }
 
-  public static boolean isEnabled(Project project) {
-    return !project.getFileSystem().mainFiles(KEY).isEmpty();
-  }
-
 }

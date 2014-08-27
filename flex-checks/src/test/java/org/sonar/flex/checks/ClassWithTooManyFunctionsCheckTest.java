@@ -31,7 +31,7 @@ public class ClassWithTooManyFunctionsCheckTest {
   private ClassWithTooManyFunctionsCheck check = new ClassWithTooManyFunctionsCheck();
 
   @Test
-  public void defaults(){
+  public void defaults() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
       .next().atLine(6).withMessage("Class \"foo\" has 21 functions, which is greater than 20 authorized. Split it into smaller classes.")
@@ -39,12 +39,32 @@ public class ClassWithTooManyFunctionsCheckTest {
   }
 
   @Test
-  public void custom(){
+  public void custom_maximum_function_threshold() {
     check.maximumFunctionThreshold = 1;
 
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
       .next().atLine(1)
+      .next().atLine(6)
+      .noMore();
+  }
+
+  @Test
+  public void custom_count_non_publicMethods() {
+    check.countNonpublicMethods = false;
+
+    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages())
+      .noMore();
+  }
+
+  @Test
+  public void custom_both_parameters() {
+    check.maximumFunctionThreshold = 1;
+    check.countNonpublicMethods = false;
+
+    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check);
+    CheckMessagesVerifier.verify(file.getCheckMessages())
       .next().atLine(6)
       .noMore();
   }

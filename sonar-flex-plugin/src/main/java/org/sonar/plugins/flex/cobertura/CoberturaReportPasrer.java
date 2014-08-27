@@ -80,7 +80,8 @@ public class CoberturaReportPasrer {
           for (Measure measure : entry.getValue().createMeasures()) {
             context.saveMeasure(resource, measure);
           }
-        } else {
+          // mxml files are not imported by the plugin because they are not supported
+        } else if (!entry.getKey().endsWith(".mxml")){
           LOG.warn("Cannot save coverage result for file: {}, because resource not found.", entry.getKey());
         }
       }
@@ -108,7 +109,10 @@ public class CoberturaReportPasrer {
   private static void collectFileMeasures(SMInputCursor clazz, Map<String, CoverageMeasuresBuilder> builderByFilename) throws XMLStreamException {
     while (clazz.getNext() != null) {
       String fileName = clazz.getAttrValue("filename");
+
+      // mxml files are not supported by the plugin
       CoverageMeasuresBuilder builder = builderByFilename.get(fileName);
+
       if (builder == null) {
         builder = CoverageMeasuresBuilder.create();
         builderByFilename.put(fileName, builder);

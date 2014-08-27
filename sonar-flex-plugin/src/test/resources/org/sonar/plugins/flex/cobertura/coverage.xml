@@ -20,5 +20,17 @@
         </class>
       </classes>
     </package>
+      <package name="" line-rate="0.0" branch-rate="1.0" complexity="0.0">
+          <classes>
+              <class name=".Main" filename="Main.mxml" line-rate="0.0" branch-rate="1.0" complexity="0.0">
+                  <methods>
+                  </methods>
+                  <lines>
+                      <line number="13" hits="0" branch="false"/>
+                      <line number="17" hits="0" branch="false"/>
+                  </lines>
+              </class>
+          </classes>
+      </package>
   </packages>
 </coverage>

@@ -54,7 +54,7 @@ public class ClassWithTooManyFieldsCheckTest {
 
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ClassWithTooManyFields.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(1).withMessage("Refactor this class so it has no more than " + check.maximumFieldThreshold + " fields, rather than the 3 it currently has.")
+      .next().atLine(1).withMessage("Refactor this class so it has no more than " + check.maximumFieldThreshold + " public fields, rather than the 3 it currently has.")
       .noMore();
   }
 

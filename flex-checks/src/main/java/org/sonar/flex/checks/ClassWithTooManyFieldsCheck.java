@@ -63,8 +63,9 @@ public class ClassWithTooManyFieldsCheck extends SquidCheck<LexerlessGrammar> {
     int nbFields = getNumberOfFields(astNode);
 
     if (nbFields > maximumFieldThreshold) {
+      String msg = countNonpublicFields ? String.valueOf(maximumFieldThreshold) : maximumFieldThreshold + " public";
       getContext().createLineViolation(this, "Refactor this class so it has no more than {0} fields, rather than the {1} it currently has.", astNode,
-        maximumFieldThreshold, nbFields);
+         msg, nbFields);
     }
   }
 

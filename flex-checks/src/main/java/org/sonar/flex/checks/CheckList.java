@@ -94,6 +94,7 @@ public final class CheckList {
       TooManyUnaryOperatorCheck.class,
       TooManyLinesInFunctionCheck.class,
       TraceUseCheck.class,
+      MethodVisibilityCheck.class,
       ParsingErrorCheck.class);
   }
 

@@ -95,6 +95,7 @@ public final class CheckList {
       TooManyLinesInFunctionCheck.class,
       TraceUseCheck.class,
       MethodVisibilityCheck.class,
+      NestedSwitchCheck.class,
       ParsingErrorCheck.class);
   }
 

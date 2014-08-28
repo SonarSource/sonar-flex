@@ -93,6 +93,7 @@ public final class CheckList {
       UnusedLocalVariableCheck.class,
       TooManyUnaryOperatorCheck.class,
       TooManyLinesInFunctionCheck.class,
+      TraceUseCheck.class,
       ParsingErrorCheck.class);
   }
 

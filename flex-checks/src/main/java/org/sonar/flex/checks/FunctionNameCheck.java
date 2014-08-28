@@ -25,11 +25,14 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Function;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import javax.annotation.Nullable;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.regex.Pattern;
 
 @Rule(
@@ -41,6 +44,7 @@ public class FunctionNameCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final String DEFAULT = "^[a-z][a-zA-Z0-9]*$";
   private Pattern pattern = null;
+  private Deque<String> classes = new ArrayDeque<String>();
 
   @RuleProperty(
     key = "format",
@@ -50,21 +54,32 @@ public class FunctionNameCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void init() {
-    subscribeTo(FlexGrammar.FUNCTION_DEF);
+    subscribeTo(
+      FlexGrammar.FUNCTION_DEF,
+      FlexGrammar.CLASS_DEF);
   }
 
   public void visitFile(@Nullable AstNode astNode) {
     if (pattern == null) {
       pattern = Pattern.compile(format);
     }
+    classes.clear();
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    String functionName = Function.getName(astNode);
+    if (astNode.is(FlexGrammar.CLASS_DEF)) {
+      classes.push(Clazz.getName(astNode));
+    } else {
+      String functionName = Function.getName(astNode);
 
-    if (!pattern.matcher(functionName).matches()) {
-      getContext().createLineViolation(this, "Rename this \"{0}\" function to match the regular expression {1}", astNode, functionName, format);
+      if (!isConstructor(astNode) && !pattern.matcher(functionName).matches()) {
+        getContext().createLineViolation(this, "Rename this \"{0}\" function to match the regular expression {1}", astNode, functionName, format);
+      }
     }
+  }
+
+  private boolean isConstructor(AstNode functionNode) {
+    return !classes.isEmpty() && Function.isConstructor(functionNode, classes.peek());
   }
 }

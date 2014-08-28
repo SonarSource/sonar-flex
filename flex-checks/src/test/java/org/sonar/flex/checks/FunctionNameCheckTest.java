@@ -34,8 +34,9 @@ public class FunctionNameCheckTest {
   public void defaultFormat() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/FunctionName.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-    .next().atLine(1).withMessage("Rename this \"DoSomething\" function to match the regular expression " + check.format)
-    .noMore();
+      .next().atLine(1).withMessage("Rename this \"DoSomething\" function to match the regular expression " + check.format)
+      .next().atLine(16)
+      .noMore();
   }
 
   @Test
@@ -44,6 +45,7 @@ public class FunctionNameCheckTest {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/FunctionName.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
       .next().atLine(4).withMessage("Rename this \"doSomething\" function to match the regular expression " + check.format)
+      .next().atLine(16)
       .noMore();
   }
 }

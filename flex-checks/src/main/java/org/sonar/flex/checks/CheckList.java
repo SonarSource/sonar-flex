@@ -96,6 +96,7 @@ public final class CheckList {
       TraceUseCheck.class,
       MethodVisibilityCheck.class,
       NestedSwitchCheck.class,
+      EmptyMethodCheck.class,
       ParsingErrorCheck.class);
   }
 

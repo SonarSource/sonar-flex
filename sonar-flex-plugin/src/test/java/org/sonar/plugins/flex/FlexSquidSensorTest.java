@@ -35,6 +35,7 @@ import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.scan.filesystem.FileQuery;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
+import org.sonar.plugins.flex.core.Flex;
 import org.sonar.plugins.flex.core.FlexResourceBridge;
 import org.sonar.test.TestUtils;
 
@@ -68,11 +69,23 @@ public class FlexSquidSensorTest {
 
   @Test
   public void test_should_execute_on_project() {
+    Project project = mock(Project.class);
+
+    // Multi-language mode check
+    when(project.getLanguageKey()).thenReturn(null);
+
     when(fs.files(any(FileQuery.class))).thenReturn(Collections.<File>emptyList());
-    assertThat(sensor.shouldExecuteOnProject(dummyProject)).isFalse();
+    assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
 
     when(fs.files(any(FileQuery.class))).thenReturn(Collections.singletonList(mock(File.class)));
-    assertThat(sensor.shouldExecuteOnProject(dummyProject)).isTrue();
+    assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
+
+    // Compatibility 3.7
+    when(project.getLanguageKey()).thenReturn("java");
+    assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
+
+    when(project.getLanguageKey()).thenReturn(Flex.KEY);
+    assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
   }
 
   @Test

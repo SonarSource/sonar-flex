@@ -24,6 +24,7 @@ import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang.StringUtils;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.checks.AnnotationCheckFactory;
@@ -91,7 +92,9 @@ public class FlexSquidSensor implements Sensor {
   }
 
   public boolean shouldExecuteOnProject(Project project) {
-    return !fileSystem.files(Flex.FILE_QUERY_ON_SOURCES).isEmpty();
+    // compatiblity with 3.7
+    return Flex.KEY.equals(project.getLanguageKey())
+      || (StringUtils.isBlank(project.getLanguageKey()) && !fileSystem.files(Flex.FILE_QUERY_ON_SOURCES).isEmpty());
   }
 
   public void analyse(Project project, SensorContext context) {

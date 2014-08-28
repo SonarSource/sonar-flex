@@ -19,6 +19,7 @@
  */
 package org.sonar.plugins.flex.cobertura;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
@@ -44,7 +45,9 @@ public class CoberturaSensor implements Sensor {
 
   @Override
   public boolean shouldExecuteOnProject(Project project) {
-    return !fileSystem.files(Flex.FILE_QUERY_ON_SOURCES).isEmpty();
+    // compatiblity with 3.7
+    return Flex.KEY.equals(project.getLanguageKey())
+      || (StringUtils.isBlank(project.getLanguageKey()) && !fileSystem.files(Flex.FILE_QUERY_ON_SOURCES).isEmpty());
   }
 
   @Override

@@ -127,14 +127,25 @@ public class CoberturaSensorTest {
 
   @Test
   public void test_should_execute_on_project() {
+    Project project = mock(Project.class);
     ModuleFileSystem fs = mock(ModuleFileSystem.class);
     CoberturaSensor sensor = new CoberturaSensor(null, fs);
 
+
+    // Multi-language mode check
+    when(project.getLanguageKey()).thenReturn(null);
 
     when(fs.files(any(FileQuery.class))).thenReturn(Collections.<File>emptyList());
     Assertions.assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
 
     when(fs.files(any(FileQuery.class))).thenReturn(Collections.<File>singletonList(mock(File.class)));
+    Assertions.assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
+
+    // Compatibility 3.7
+    when(project.getLanguageKey()).thenReturn("java");
+    Assertions.assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
+
+    when(project.getLanguageKey()).thenReturn(Flex.KEY);
     Assertions.assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
   }
 

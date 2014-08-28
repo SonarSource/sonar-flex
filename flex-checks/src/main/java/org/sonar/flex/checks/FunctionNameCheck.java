@@ -79,6 +79,13 @@ public class FunctionNameCheck extends SquidCheck<LexerlessGrammar> {
     }
   }
 
+  @Override
+  public void leaveNode(AstNode astNode) {
+    if (astNode.is(FlexGrammar.CLASS_DEF)) {
+      classes.pop();
+    }
+  }
+
   private boolean isConstructor(AstNode functionNode) {
     return !classes.isEmpty() && Function.isConstructor(functionNode, classes.peek());
   }

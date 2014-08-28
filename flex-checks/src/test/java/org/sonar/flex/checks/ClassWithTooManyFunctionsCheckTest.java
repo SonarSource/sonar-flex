@@ -34,7 +34,7 @@ public class ClassWithTooManyFunctionsCheckTest {
   public void defaults() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(6).withMessage("Class \"foo\" has 21 functions, which is greater than 20 authorized. Split it into smaller classes.")
+      .next().atLine(6).withMessage("Class \"foo\" has 21 methods, which is greater than 20 authorized. Split it into smaller classes.")
       .noMore();
   }
 

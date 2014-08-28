@@ -1,0 +1,101 @@
+/*
+ * SonarQube Flex Plugin
+ * Copyright (C) 2010 SonarSource
+ * dev@sonar.codehaus.org
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
+ */
+package org.sonar.flex.checks;
+
+import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
+import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.FlexKeyword;
+import org.sonar.flex.checks.utils.Clazz;
+import org.sonar.flex.checks.utils.Modifiers;
+import org.sonar.squidbridge.checks.SquidCheck;
+import org.sonar.sslr.parser.LexerlessGrammar;
+
+import java.util.List;
+
+@Rule(
+  key = "S1820",
+  priority = Priority.MAJOR)
+public class ClassWithTooManyFieldsCheck extends SquidCheck<LexerlessGrammar> {
+
+
+  public static final int DEFAULT_MAX = 20;
+  public static final boolean DEFAULT_COUNT_NON_PUBLIC = true;
+
+  @RuleProperty(
+    key = "maximumFieldThreshold",
+    defaultValue = "" + DEFAULT_MAX)
+  int maximumFieldThreshold = DEFAULT_MAX;
+
+  @RuleProperty(
+    key = "countNonpublicFields",
+    type = "BOOLEAN",
+    defaultValue = "" + DEFAULT_COUNT_NON_PUBLIC)
+  boolean countNonpublicFields = DEFAULT_COUNT_NON_PUBLIC;
+
+  @Override
+  public void init() {
+    subscribeTo(FlexGrammar.CLASS_DEF);
+  }
+
+  @Override
+  public void visitNode(AstNode astNode) {
+    int nbFields = getNumberOfFields(astNode);
+
+    if (nbFields > maximumFieldThreshold) {
+      getContext().createLineViolation(this, "Refactor this class so it has no more than {0} fields, rather than the {1} it currently has.", astNode,
+        maximumFieldThreshold, nbFields);
+    }
+  }
+
+  private int getNumberOfFields(AstNode classDef) {
+    List<AstNode> fields = Clazz.getFields(classDef);
+    int nbFields = fields.size();
+
+    if (!countNonpublicFields) {
+      nbFields -= getNumberOfNonPublicFields(fields);
+    }
+    return nbFields;
+  }
+
+  private static int getNumberOfNonPublicFields(List<AstNode> fields) {
+    int nbNonPublicFields = 0;
+
+    for (AstNode field : fields) {
+      if (isNonPublic(field)) {
+        nbNonPublicFields++;
+      }
+    }
+    return nbNonPublicFields;
+  }
+
+  private static boolean isNonPublic(AstNode field) {
+    for (AstNodeType modifier : Modifiers.getModifiers(field.getPreviousAstNode())) {
+      if (modifier.equals(FlexKeyword.INTERNAL) || modifier.equals(FlexKeyword.PROTECTED) || modifier.equals(FlexKeyword.PRIVATE)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+}

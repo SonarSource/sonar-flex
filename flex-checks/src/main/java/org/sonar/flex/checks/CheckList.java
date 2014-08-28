@@ -97,6 +97,7 @@ public final class CheckList {
       MethodVisibilityCheck.class,
       NestedSwitchCheck.class,
       EmptyMethodCheck.class,
+      ClassWithTooManyFieldsCheck.class,
       ParsingErrorCheck.class);
   }
 

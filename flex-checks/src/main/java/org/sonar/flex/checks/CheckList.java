@@ -99,6 +99,7 @@ public final class CheckList {
       EmptyMethodCheck.class,
       ClassWithTooManyFieldsCheck.class,
       UnusedFunctionParametersCheck.class,
+      FileHeaderCheck.class,
       ParsingErrorCheck.class);
   }
 

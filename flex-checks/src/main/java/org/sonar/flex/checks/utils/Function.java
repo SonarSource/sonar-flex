@@ -59,7 +59,7 @@ public class Function {
 
 
   public static List<AstNode> getParametersIdentifiers(AstNode functionDef) {
-    Preconditions.checkArgument(functionDef.is(FlexGrammar.FUNCTION_DEF));
+    Preconditions.checkArgument(functionDef.is(FlexGrammar.FUNCTION_DEF, FlexGrammar.FUNCTION_EXPR));
     List<AstNode> paramIdentifier = Lists.newArrayList();
     AstNode parameters = functionDef
       .getFirstChild(FlexGrammar.FUNCTION_COMMON)
@@ -76,4 +76,20 @@ public class Function {
     return paramIdentifier;
   }
 
+  public static boolean isOverriding(AstNode functionDef) {
+    Preconditions.checkArgument(functionDef.is(FlexGrammar.FUNCTION_DEF));
+    AstNode attributesNode = functionDef.getPreviousAstNode();
+
+    if (attributesNode != null && attributesNode.is(FlexGrammar.ATTRIBUTES)) {
+
+      for (AstNode attribute : attributesNode.getChildren()) {
+        if (attribute.getFirstChild().is(FlexGrammar.ATTRIBUTE_EXPR)
+          && attribute.getFirstChild().getNumberOfChildren() == 1
+          && attribute.getFirstChild().getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue().equals(FlexKeyword.OVERRIDE.getValue())) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }

@@ -98,6 +98,7 @@ public final class CheckList {
       NestedSwitchCheck.class,
       EmptyMethodCheck.class,
       ClassWithTooManyFieldsCheck.class,
+      UnusedFunctionParametersCheck.class,
       ParsingErrorCheck.class);
   }
 

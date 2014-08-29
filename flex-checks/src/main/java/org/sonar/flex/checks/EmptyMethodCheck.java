@@ -46,7 +46,9 @@ public class EmptyMethodCheck extends SquidCheck<LexerlessGrammar> {
       AstNode block = function.getFirstChild(FlexGrammar.FUNCTION_COMMON).getFirstChild(FlexGrammar.BLOCK);
 
       if (block != null && isEmptyBlock(block)) {
-        getContext().createLineViolation(this, "Add a nested comment explaining why this method is empty, throw an NotSupportedException or complete the implementation.", function);
+        getContext().createLineViolation(this,
+          "Add a nested comment explaining why this method is empty, throw an NotSupportedException or complete the implementation.",
+          function);
       }
     }
   }

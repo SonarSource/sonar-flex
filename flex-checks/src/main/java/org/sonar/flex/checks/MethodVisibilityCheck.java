@@ -54,7 +54,7 @@ public class MethodVisibilityCheck extends SquidCheck<LexerlessGrammar> {
         if (annotableDirective != null) {
           AstNode annotableDirectiveChild = annotableDirective.getFirstChild();
 
-          if (annotableDirectiveChild.is(FlexGrammar.FUNCTION_DEF) & !hasVisibility(annotableDirectiveChild)) {
+          if (annotableDirectiveChild.is(FlexGrammar.FUNCTION_DEF) && !hasVisibility(annotableDirectiveChild)) {
             getContext().createLineViolation(this, "Explicitly declare the visibility of this method \"{0}\".", annotableDirectiveChild,
               Function.getName(annotableDirectiveChild));
           }

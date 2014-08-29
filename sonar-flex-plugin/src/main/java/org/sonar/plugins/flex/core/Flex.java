@@ -20,16 +20,14 @@
 
 package org.sonar.plugins.flex.core;
 
-import java.util.List;
-
+import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.AbstractLanguage;
-import org.sonar.api.resources.Project;
 import org.sonar.api.scan.filesystem.FileQuery;
 import org.sonar.plugins.flex.FlexPlugin;
 
-import com.google.common.collect.Lists;
+import java.util.List;
 
 /**
  * Class that actually represents ActionScript, the language of Flex.
@@ -48,7 +46,6 @@ public class Flex extends AbstractLanguage {
    * Creates the {@link Flex} language.
    * <br/>
    * <b>Do not call, this constructor is called by Pico container.</b>
-   *
    */
   public Flex(Settings settings) {
     super(KEY, NAME);

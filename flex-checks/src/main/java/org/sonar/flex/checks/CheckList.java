@@ -101,6 +101,7 @@ public final class CheckList {
       UnusedFunctionParametersCheck.class,
       FileHeaderCheck.class,
       DuplicateSwitchCaseConditionCheck.class,
+      InstantiationInLoopCheck.class,
       ParsingErrorCheck.class);
   }
 

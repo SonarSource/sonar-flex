@@ -100,6 +100,7 @@ public final class CheckList {
       ClassWithTooManyFieldsCheck.class,
       UnusedFunctionParametersCheck.class,
       FileHeaderCheck.class,
+      DuplicateSwitchCaseConditionCheck.class,
       ParsingErrorCheck.class);
   }
 

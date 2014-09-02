@@ -64,7 +64,8 @@ public class DuplicateSwitchCaseConditionCheck extends SquidCheck<LexerlessGramm
     AstNode duplicateCase = casesByCondition.get(expression);
 
     if (duplicateCase != null) {
-      getContext().createLineViolation(this, "There are two cases with condition \"{0}\".", caseLabel, expression);
+      getContext().createLineViolation(this, "This case duplicates the case on line {0} with condition \"{1}\".", caseLabel,
+        duplicateCase.getTokenLine(), expression);
     } else {
       casesByCondition.put(expression, caseLabel);
     }

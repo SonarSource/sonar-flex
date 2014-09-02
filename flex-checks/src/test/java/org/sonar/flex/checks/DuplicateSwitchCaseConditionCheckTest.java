@@ -34,8 +34,8 @@ public class DuplicateSwitchCaseConditionCheckTest {
   public void test() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/DuplicateSwitchCaseCondition.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(7).withMessage("There are two cases with condition \"1\".")
-      .next().atLine(16)
+      .next().atLine(7).withMessage("This case duplicates the case on line 2 with condition \"1\".")
+      .next().atLine(16).withMessage("This case duplicates the case on line 13 with condition \"1\".")
       .noMore();
   }
 }

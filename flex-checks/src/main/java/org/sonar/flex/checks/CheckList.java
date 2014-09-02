@@ -102,6 +102,7 @@ public final class CheckList {
       FileHeaderCheck.class,
       DuplicateSwitchCaseConditionCheck.class,
       InstantiationInLoopCheck.class,
+      ASDocCheck.class,
       ParsingErrorCheck.class);
   }
 

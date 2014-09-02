@@ -19,10 +19,33 @@ function doSomething(a:int):void      // "b" is unused
 </pre>
 
 <h2>Exceptions</h2>
-<p>Methods overriding or implementing another one should be excluded</p>
+<p>The following cases are ignore</p>
+<ul>
+  <li>overriding methods.</li>
+  <li>all methods in classes implementing one or more interfaces.</li>
+  <li>methods which are empty or where the body consists of a single comment or a single throw statement (i.e. where the intention is apparently to simulate an abstract class).</li>
+</ul>
 <pre>
-override function doSomething(a:int):void     // no issue reported on b
-{
+override function doSomething(a:int):void {    // ignored
   compute(a);
+}
+
+...
+
+class AbstractSomething {
+  public function doSomething(a:int) {  // ignored
+    throw new IllegalOperationError("doSomething() is abstract");
+  }
+
+...
+
+interface I {
+  function action(a:int, b:int);
+}
+
+class C extends I {
+  function action(a:int, b:int) { // ignored
+    return doSomethignWith(a);
+  }
 }
 </pre>

@@ -35,3 +35,25 @@ class A extends B {
   override function f(a:int) {       // OK
   }
 }
+
+class B {
+
+  function f1(p1) {                  // OK
+  }
+
+  function f2(p1) {                  // OK
+      throw new IllegalOperationError("f2() is abstract");
+  }
+
+  function f3(p1) {                  // OK
+    // Abstract
+  }
+
+}
+
+class C implements I {
+
+  function f1(p1) {                  // OK
+  }
+
+}

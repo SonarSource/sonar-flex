@@ -28,12 +28,15 @@ import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Function;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.grammar.GrammarRuleKey;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import javax.annotation.Nullable;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +45,8 @@ import java.util.Map;
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
 public class UnusedFunctionParametersCheck extends SquidCheck<LexerlessGrammar> {
+
+  private Deque<Boolean> classes = new ArrayDeque<Boolean>();
 
   private static class Scope {
     private final Scope outerScope;
@@ -81,18 +86,22 @@ public class UnusedFunctionParametersCheck extends SquidCheck<LexerlessGrammar> 
   public void init() {
     subscribeTo(
       FlexGrammar.POSTFIX_EXPR,
-      FlexGrammar.PARAMETERS);
+      FlexGrammar.PARAMETERS,
+      FlexGrammar.CLASS_DEF);
     subscribeTo(FUNCTION_NODES);
   }
 
   @Override
   public void visitFile(@Nullable AstNode astNode) {
     currentScope = null;
+    classes.clear();
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.is(FUNCTION_NODES)) {
+    if (astNode.is(FlexGrammar.CLASS_DEF)) {
+      classes.push(implementsAnInterface(astNode));
+    } else if (astNode.is(FUNCTION_NODES)) {
       // enter new scope
       currentScope = new Scope(currentScope, astNode);
 
@@ -112,19 +121,13 @@ public class UnusedFunctionParametersCheck extends SquidCheck<LexerlessGrammar> 
   public void leaveNode(AstNode astNode) {
     if (astNode.is(FUNCTION_NODES) && isNotAbstract(astNode)) {
       // leave scope
-      if (!isOverriding(astNode)) {
+      if (!isExcluded(astNode)) {
         reportUnusedArgument();
       }
       currentScope = currentScope.outerScope;
+    } else if (astNode.is(FlexGrammar.CLASS_DEF)) {
+      classes.pop();
     }
-  }
-
-  private boolean isOverriding(AstNode functionDef) {
-    return functionDef.is(FlexGrammar.FUNCTION_DEF) && Function.isOverriding(functionDef);
-  }
-
-  private boolean isNotAbstract(AstNode functionDef) {
-    return functionDef.getFirstChild(FlexGrammar.FUNCTION_COMMON).getLastChild().is(FlexGrammar.BLOCK);
   }
 
   private void reportUnusedArgument() {
@@ -145,18 +148,59 @@ public class UnusedFunctionParametersCheck extends SquidCheck<LexerlessGrammar> 
     }
   }
 
-  private String getPrimaryExpressionStringValue(AstNode postfixExpr) {
-    StringBuilder builder = new StringBuilder();
-    for (Token t : postfixExpr.getTokens()) {
-      builder.append(t.getValue());
+  private boolean isExcluded(AstNode functionDec) {
+    AstNode directives = functionDec
+      .getFirstChild(FlexGrammar.FUNCTION_COMMON)
+      .getFirstChild(FlexGrammar.BLOCK)
+      .getFirstChild(FlexGrammar.DIRECTIVES);
+
+    return isOverriding(functionDec) || isEmpty(directives)
+      || containsOnlyThrowStmt(directives) || isInClassImplementingInterface();
+  }
+
+  private Boolean implementsAnInterface(AstNode classDef) {
+    AstNode inheritenceNode = classDef.getFirstChild(FlexGrammar.INHERITENCE);
+    return inheritenceNode != null && inheritenceNode.getFirstChild().is(FlexKeyword.IMPLEMENTS);
+  }
+
+  private boolean isInClassImplementingInterface() {
+    return !classes.isEmpty() && classes.peek();
+  }
+
+  private boolean containsOnlyThrowStmt(AstNode directives) {
+    List<AstNode> directiveList = directives.getChildren();
+
+    if (directiveList.size() == 1) {
+      AstNode directiveKind = directiveList.get(0).getFirstChild().getFirstChild();
+      return directiveKind.is(FlexGrammar.THROW_STATEMENT);
     }
-    return builder.toString();
+    return false;
+  }
+
+  private boolean isEmpty(AstNode directives) {
+    return directives.getNumberOfChildren() == 0;
   }
 
   private void declareInCurrentScope(List<AstNode> identifiers) {
     for (AstNode identifier : identifiers) {
       currentScope.declare(identifier);
     }
+  }
+
+  private boolean isOverriding(AstNode functionDef) {
+    return functionDef.is(FlexGrammar.FUNCTION_DEF) && Function.isOverriding(functionDef);
+  }
+
+  private boolean isNotAbstract(AstNode functionDef) {
+    return functionDef.getFirstChild(FlexGrammar.FUNCTION_COMMON).getLastChild().is(FlexGrammar.BLOCK);
+  }
+
+  private String getPrimaryExpressionStringValue(AstNode postfixExpr) {
+    StringBuilder builder = new StringBuilder();
+    for (Token t : postfixExpr.getTokens()) {
+      builder.append(t.getValue());
+    }
+    return builder.toString();
   }
 
 }

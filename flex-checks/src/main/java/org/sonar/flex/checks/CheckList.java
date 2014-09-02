@@ -103,6 +103,7 @@ public final class CheckList {
       DuplicateSwitchCaseConditionCheck.class,
       InstantiationInLoopCheck.class,
       ASDocCheck.class,
+      OnEnterFrameUseCheck.class,
       ParsingErrorCheck.class);
   }
 

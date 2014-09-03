@@ -59,4 +59,9 @@ public final class Modifiers {
     return false;
   }
 
+  public static boolean isPublic(AstNode attriutes) {
+    Set<AstNodeType> modifiers = getModifiers(attriutes);
+    return modifiers.contains(FlexKeyword.PUBLIC) || !isNonPublic(modifiers);
+  }
+
 }

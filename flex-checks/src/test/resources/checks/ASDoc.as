@@ -58,5 +58,9 @@ class B {                      // NOK - no doc above
  */
 class C {     // OK
 
+    internal function f1() {}   // OK
+    private function f2() {}    // OK
+    protected function f3() {}  // OK
+
 }
 

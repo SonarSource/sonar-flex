@@ -27,6 +27,7 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.ASDocCheck;
 import org.sonar.flex.checks.utils.Function;
+import org.sonar.flex.checks.utils.Modifiers;
 
 import java.util.List;
 import java.util.Set;
@@ -46,7 +47,7 @@ public class ASDocMemberCheck {
     for (AstNode directive : classDirectives) {
       AstNode annotableDirective = directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE);
 
-      if (annotableDirective != null) {
+      if (annotableDirective != null && Modifiers.isPublic(annotableDirective.getPreviousAstNode())) {
         AstNode annotableDirChild = annotableDirective.getFirstChild();
 
         // Fields

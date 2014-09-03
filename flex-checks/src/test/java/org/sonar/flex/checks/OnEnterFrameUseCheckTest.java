@@ -34,7 +34,7 @@ public class OnEnterFrameUseCheckTest {
   public void test() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/OnEnterFrameUse.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(1).withMessage("Refactor this code to remove the usage of \"onEnterFrame\" event handler.")
+      .next().atLine(1).withMessage("Refactor this code to remove the use of \"onEnterFrame\" event handler.")
       .noMore();
   }
 

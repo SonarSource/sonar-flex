@@ -40,7 +40,7 @@ public class OnEnterFrameUseCheck extends SquidCheck<LexerlessGrammar> {
   @Override
   public void visitNode(AstNode astNode) {
     if (astNode.getNumberOfChildren() > 1 && isOnEnterFrame(astNode.getFirstChild()) && isFunctionExpr(astNode.getLastChild())) {
-      getContext().createLineViolation(this, "Refactor this code to remove the usage of \"onEnterFrame\" event handler.", astNode);
+      getContext().createLineViolation(this, "Refactor this code to remove the use of \"onEnterFrame\" event handler.", astNode);
     }
   }
 

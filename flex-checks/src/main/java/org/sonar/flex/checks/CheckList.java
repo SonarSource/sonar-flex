@@ -104,6 +104,7 @@ public final class CheckList {
       InstantiationInLoopCheck.class,
       ASDocCheck.class,
       OnEnterFrameUseCheck.class,
+      VariantStopConditionInForLoopCheck.class,
       ParsingErrorCheck.class);
   }
 

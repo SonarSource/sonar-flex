@@ -20,12 +20,10 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.api.AstNodeType;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Modifiers;
 import org.sonar.squidbridge.checks.SquidCheck;
@@ -65,7 +63,7 @@ public class ClassWithTooManyFieldsCheck extends SquidCheck<LexerlessGrammar> {
     if (nbFields > maximumFieldThreshold) {
       String msg = countNonpublicFields ? String.valueOf(maximumFieldThreshold) : maximumFieldThreshold + " public";
       getContext().createLineViolation(this, "Refactor this class so it has no more than {0} fields, rather than the {1} it currently has.", astNode,
-         msg, nbFields);
+        msg, nbFields);
     }
   }
 
@@ -83,20 +81,11 @@ public class ClassWithTooManyFieldsCheck extends SquidCheck<LexerlessGrammar> {
     int nbNonPublicFields = 0;
 
     for (AstNode field : fields) {
-      if (isNonPublic(field)) {
+      if (Modifiers.isNonPublic(Modifiers.getModifiers(field.getPreviousAstNode()))) {
         nbNonPublicFields++;
       }
     }
     return nbNonPublicFields;
-  }
-
-  private static boolean isNonPublic(AstNode field) {
-    for (AstNodeType modifier : Modifiers.getModifiers(field.getPreviousAstNode())) {
-      if (modifier.equals(FlexKeyword.INTERNAL) || modifier.equals(FlexKeyword.PROTECTED) || modifier.equals(FlexKeyword.PRIVATE)) {
-        return true;
-      }
-    }
-    return false;
   }
 
 }

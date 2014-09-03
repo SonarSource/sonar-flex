@@ -23,7 +23,9 @@ import com.google.common.collect.Sets;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.FlexKeyword;
 
+import java.util.List;
 import java.util.Set;
 
 public final class Modifiers {
@@ -46,6 +48,15 @@ public final class Modifiers {
       }
     }
     return modifiersSet;
+  }
+
+  public static boolean isNonPublic(Set<AstNodeType> modifiers) {
+    for (AstNodeType modifier : modifiers) {
+      if (modifier.equals(FlexKeyword.INTERNAL) || modifier.equals(FlexKeyword.PROTECTED) || modifier.equals(FlexKeyword.PRIVATE)) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }

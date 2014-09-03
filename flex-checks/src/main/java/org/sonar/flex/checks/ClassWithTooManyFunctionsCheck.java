@@ -20,20 +20,17 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.api.AstNodeType;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Modifiers;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.util.List;
-import java.util.Set;
 
 @Rule(
   key = "S1448",
@@ -86,9 +83,7 @@ public class ClassWithTooManyFunctionsCheck extends SquidCheck<LexerlessGrammar>
     int nbNonPublicMethod = 0;
 
     for (AstNode method : methods) {
-      Set<AstNodeType> modifiers = Modifiers.getModifiers(method.getPreviousAstNode());
-
-      if (modifiers.contains(FlexKeyword.PRIVATE) || modifiers.contains(FlexKeyword.PROTECTED) || modifiers.contains(FlexKeyword.INTERNAL)) {
+      if (Modifiers.isNonPublic(Modifiers.getModifiers(method.getPreviousAstNode()))) {
         nbNonPublicMethod++;
       }
     }

@@ -66,7 +66,7 @@ public class ASDocMemberCheck {
    * Verifies that an ASDoc is present above the field declaration.
    */
   private void checkField(ASDocCheck check, List<Trivia> trivia, AstNode variableDec) {
-    if (!check.hasASDoc(trivia)) {
+    if (!check.hasASDoc(trivia) && !check.hasPrivateTag(trivia)) {
       check.getContext().createLineViolation(check, "Add the missing ASDoc for this field declaration.", variableDec);
     }
   }
@@ -79,6 +79,10 @@ public class ASDocMemberCheck {
    * </ul>
    */
   private void checkMethod(ASDocCheck check, List<Trivia> trivia, AstNode functionDef) {
+    if (check.hasPrivateTag(trivia)) {
+      // skip all documentation check if has @private tag
+      return;
+    }
     // General missing ASDoc for the method
     if (!check.hasASDoc(trivia)) {
       check.getContext().createLineViolation(check, "Add the missing ASDoc for this method.", functionDef);

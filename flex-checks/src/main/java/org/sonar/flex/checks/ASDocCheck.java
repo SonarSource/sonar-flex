@@ -84,9 +84,11 @@ public class ASDocCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    classChecker.visitNode(this, astNode);
-    memberChecker.visitNode(this, Clazz.getDirectives(astNode));
+    boolean hasPrivateTag = classChecker.visitNode(this, astNode);
 
+    if (!hasPrivateTag) {
+      memberChecker.visitNode(this, Clazz.getDirectives(astNode));
+    }
   }
 
   public boolean hasASDoc(List<Trivia> trivia) {
@@ -95,6 +97,15 @@ public class ASDocCheck extends SquidCheck<LexerlessGrammar> {
     for (Trivia comment : trivia) {
       value = comment.getToken().getValue().trim();
       if (value.startsWith("/**") && value.endsWith("*/")) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public boolean hasPrivateTag(List<Trivia> trivia) {
+    for (Trivia comment : trivia) {
+      if (comment.getToken().getValue().contains("@private")) {
         return true;
       }
     }

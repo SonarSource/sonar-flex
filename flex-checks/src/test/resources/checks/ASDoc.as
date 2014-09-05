@@ -64,3 +64,28 @@ class C {     // OK
 
 }
 
+/**
+ * @private
+ */
+class C {     // OK
+
+   public function f1() {}   // OK - class has private tag
+
+}
+
+/**
+ * ASDoc
+ */
+class C {     // OK
+
+    /**
+     * @private
+     */
+    public var field1:String;           // OK - has private tag
+
+    /**
+     * @private
+     */
+    public function f1(p1):Boolean {}   // OK - has private tag
+
+}

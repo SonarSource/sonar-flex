@@ -20,30 +20,35 @@
 package org.sonar.flex.checks.asdoc;
 
 import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.api.Token;
+import com.sonar.sslr.api.Trivia;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.ASDocCheck;
 
+import java.util.List;
+
 public class ASDocClassCheck {
 
-  public void visitNode(ASDocCheck check, AstNode astNode) {
-    if (check.classes) {
-      checkASDocPresence(check, astNode);
-    }
-  }
+  /**
+   * Return true if class has @private tag in ASDoc comment.
+   */
+  public boolean visitNode(ASDocCheck check, AstNode astNode) {
+    AstNode attributes = astNode.getPreviousAstNode();
+    List<Trivia> triviaList = isAttributes(attributes) ? attributes.getToken().getTrivia() : astNode.getToken().getTrivia();
 
-  private void checkASDocPresence(ASDocCheck check, AstNode classDef) {
-    AstNode attributes = classDef.getPreviousAstNode();
-    Token t = isAttributes(attributes) ? attributes.getToken() : classDef.getToken();
+    if (check.hasPrivateTag(triviaList)) {
+      return true;
 
-    if (!check.hasASDoc(t.getTrivia())) {
-      check.getContext().createLineViolation(check, "Add the missing ASDoc for this class.", classDef);
+    } else if (check.classes) {
+      if (!check.hasASDoc(triviaList)) {
+        check.getContext().createLineViolation(check, "Add the missing ASDoc for this class.", astNode);
+      }
     }
+
+    return false;
   }
 
   private boolean isAttributes(AstNode classDefPreviousNode) {
     return classDefPreviousNode != null && classDefPreviousNode.is(FlexGrammar.ATTRIBUTES);
   }
-
 
 }

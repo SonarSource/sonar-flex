@@ -37,6 +37,15 @@ public class ASDocMemberCheck {
   public static class MethodASDoc {
     Set<String> parameters = Sets.newHashSet();
     boolean hasReturn = false;
+
+    public boolean isParameterDocumented(String paramName) {
+      for (String param : parameters) {
+        if (param.equalsIgnoreCase(paramName)) {
+          return true;
+        }
+      }
+      return false;
+    }
   }
 
   public void visitNode(ASDocCheck check, List<AstNode> classDirectives) {
@@ -52,21 +61,46 @@ public class ASDocMemberCheck {
 
         // Fields
         if (check.properties && annotableDirChild.is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)) {
-          checkField(check, directive.getToken().getTrivia(), annotableDirChild);
+          checkField(check, getTrivia(directive), annotableDirChild);
 
           // Methods
         } else if (check.methods && annotableDirChild.is(FlexGrammar.FUNCTION_DEF)) {
-          checkMethod(check, directive.getToken().getTrivia(), annotableDirChild);
+          checkMethod(check, getTrivia(directive), annotableDirChild);
         }
       }
     }
+  }
+
+
+  /**
+   * Returns class member trivia.
+   * Handles case when there is metadata tag before method or field.
+   */
+  private List<Trivia> getTrivia(AstNode directive) {
+    // If there is no metatdata right before the method or field declaration
+    if (directive.getToken().hasTrivia()) {
+      return directive.getToken().getTrivia();
+    }
+
+    AstNode current = directive;
+    AstNode previousNode = directive.getPreviousAstNode();
+    while (isMetadata(previousNode)) {
+      current = previousNode;
+      previousNode = previousNode.getPreviousAstNode();
+    }
+    return current.getToken().getTrivia();
+  }
+
+  private boolean isMetadata(AstNode directive) {
+    AstNode statementKind = directive.getFirstChild().getFirstChild();
+    return statementKind != null && statementKind.is(FlexGrammar.METADATA_STATEMENT);
   }
 
   /**
    * Verifies that an ASDoc is present above the field declaration.
    */
   private void checkField(ASDocCheck check, List<Trivia> trivia, AstNode variableDec) {
-    if (!check.hasASDoc(trivia) && !check.hasPrivateTag(trivia)) {
+    if (!check.hasASDoc(trivia) && !check.containsOnOfTags(trivia, check.PRIVATE_TAG, check.INHERIT_TAG)) {
       check.getContext().createLineViolation(check, "Add the missing ASDoc for this field declaration.", variableDec);
     }
   }
@@ -79,7 +113,7 @@ public class ASDocMemberCheck {
    * </ul>
    */
   private void checkMethod(ASDocCheck check, List<Trivia> trivia, AstNode functionDef) {
-    if (check.hasPrivateTag(trivia)) {
+    if (check.containsOnOfTags(trivia, check.PRIVATE_TAG, check.INHERIT_TAG)) {
       // skip all documentation check if has @private tag
       return;
     }
@@ -117,7 +151,7 @@ public class ASDocMemberCheck {
     for (AstNode parameter : Function.getParametersIdentifiers(functionDef)) {
       String paramValue = parameter.getTokenValue();
 
-      if (!methodASDoc.parameters.contains(paramValue)) {
+      if (!methodASDoc.isParameterDocumented(paramValue)) {
         builder.append(paramValue).append(", ");
       }
     }
@@ -143,13 +177,14 @@ public class ASDocMemberCheck {
     for (int i = 0, next = 1; i < lineLength; i++, next++) {
 
       if ("@param".equals(line[i]) && next < lineLength) {
-        methodASDoc.parameters.add(line[next]);
+        methodASDoc.parameters.add(getParamName(line[next]));
 
       } else if ("@return".equals(line[i])) {
         methodASDoc.hasReturn = true;
       }
     }
   }
+
 
   private boolean returnsVoid(AstNode functionDef) {
     AstNode returnType = functionDef
@@ -163,5 +198,11 @@ public class ASDocMemberCheck {
     return returnType.getLastChild().is(FlexKeyword.VOID) ? true : false;
   }
 
+  private String getParamName(String paramDoc) {
+    if (!paramDoc.isEmpty()) {
+      return paramDoc.split(":")[0];
+    }
+    return paramDoc;
+  }
 
 }

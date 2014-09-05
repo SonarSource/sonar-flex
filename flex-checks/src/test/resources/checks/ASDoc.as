@@ -89,3 +89,43 @@ class C {     // OK
     public function f1(p1):Boolean {}   // OK - has private tag
 
 }
+
+/**
+ * ASDoc
+ */
+class C {     // OK
+
+    /**
+     * ASDoc
+     */
+    [Bindable]
+    public var field1;
+
+    [Bindable]
+    /**
+     * ASDoc
+     */
+    public var field1;
+
+    /**
+     * @inheritDoc
+     */
+    public function f1(p1):Boolean {}   // OK - class has inherit tag
+
+    /**
+     * @param p1:int doc
+     * @param p2 doc
+     */
+    public function f1(p1) {}           // OK
+
+    /**
+     * @param P1:int
+     */
+    public function f1(p1) {}           // OK
+
+    /**
+     * @param P1:int
+     */
+    [Bindable]
+    public function f1(p1) {}           // OK
+}

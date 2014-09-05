@@ -38,6 +38,9 @@ import java.util.List;
   priority = Priority.MAJOR)
 public class ASDocCheck extends SquidCheck<LexerlessGrammar> {
 
+  public static final String INHERIT_TAG = "@inheritDoc";
+  public static final String PRIVATE_TAG = "@private";
+
   private static final boolean DEFAULT_CLASSES = true;
   private static final boolean DEFAULT_PROPERTIES = true;
   private static final boolean DEFAULT_METHODS = true;
@@ -103,10 +106,16 @@ public class ASDocCheck extends SquidCheck<LexerlessGrammar> {
     return false;
   }
 
-  public boolean hasPrivateTag(List<Trivia> trivia) {
+  /**
+   * Check if comment contains one of the string given as parameters.
+   */
+  public boolean containsOnOfTags(List<Trivia> trivia, String...tags) {
     for (Trivia comment : trivia) {
-      if (comment.getToken().getValue().contains("@private")) {
-        return true;
+      String value = comment.getToken().getValue();
+      for (String tag : tags) {
+        if (value.contains(tag)) {
+          return true;
+        }
       }
     }
     return false;

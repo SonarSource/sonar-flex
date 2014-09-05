@@ -56,6 +56,11 @@ for (var i = 0; i < 10; i++) {
     }
 }
 
+for (var i = 0; list.length > 1; i++) {   // NOK
+}
+
+for (var i = 0; doSomething() > 1; i++) { // NOK
+}
 
 i = 0;
 for (; i > 0; i++) {
@@ -64,10 +69,6 @@ for (; i > 0; i++) {
 
 for (++i; i > 0; i++) {
     i = 1;                                // NOK
-}
-
-for (a.i++; a.i < 3; a.i++) {
-    a.i = 1;                              // OK - not supported
 }
 
 for (myArray in i) {

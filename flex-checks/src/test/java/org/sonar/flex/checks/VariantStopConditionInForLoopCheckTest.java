@@ -50,7 +50,9 @@ public class VariantStopConditionInForLoopCheckTest {
       .next().atLine(44)
       .next().atLine(53)
       .next().atLine(55)
-      .next().atLine(66)
+      .next().atLine(59)
+      .next().atLine(62)
+      .next().atLine(71)
       .noMore();
   }
 

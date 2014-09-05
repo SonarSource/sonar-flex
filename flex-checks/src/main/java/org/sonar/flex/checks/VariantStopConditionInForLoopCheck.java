@@ -63,13 +63,47 @@ public class VariantStopConditionInForLoopCheck extends SquidCheck<LexerlessGram
   public void visitNode(AstNode astNode) {
     if (astNode.is(FlexGrammar.FOR_STATEMENT)) {
       pendingCounters.addAll(getLoopsCounters(astNode));
-//      checkLoopsCondition(astNode); TODO
+      checkLoopsCondition(astNode);
+
     } else if (astNode.is(FlexGrammar.SUB_STATEMENT) && !pendingCounters.isEmpty()) {
       counters.addAll(pendingCounters);
       pendingCounters.clear();
+
     } else if (!counters.isEmpty() && astNode.is(FlexGrammar.ASSIGNMENT_EXPR, FlexPunctuator.DOUBLE_PLUS, FlexPunctuator.DOUBLE_MINUS)) {
       checkIfModifyingCounter(astNode);
     }
+  }
+
+  private void checkLoopsCondition(AstNode forStatement) {
+    AstNode stopConditionExpr = getStopCondition(forStatement);
+    if (stopConditionExpr == null) {
+      return;
+    }
+
+    for (AstNode assignmentExpr : stopConditionExpr.getChildren(FlexGrammar.ASSIGNMENT_EXPR)) {
+      for (Token t : assignmentExpr.getTokens()) {
+
+        String tokenValue = t.getValue();
+        if (FlexPunctuator.LPARENTHESIS.getValue().equals(tokenValue) || FlexPunctuator.DOT.getValue().equals(tokenValue)) {
+          getContext().createLineViolation(this, "Stop condition should not depend on a method call", assignmentExpr);
+          break;
+        }
+      }
+    }
+  }
+
+  /**
+   * Returns for statement stop condition, null if there is no stop condition.
+   */
+  @Nullable
+  private AstNode getStopCondition(AstNode forStatement) {
+    AstNode semicolonNode = forStatement.getFirstChild(FlexPunctuator.SEMICOLON);
+
+    if (semicolonNode != null) {
+      AstNode stopConditionExpr = semicolonNode.getNextAstNode();
+      return stopConditionExpr.is(FlexGrammar.LIST_EXPRESSION) ? stopConditionExpr : null;
+    }
+    return null;
   }
 
   private void checkIfModifyingCounter(AstNode expression) {

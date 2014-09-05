@@ -85,7 +85,7 @@ public class VariantStopConditionInForLoopCheck extends SquidCheck<LexerlessGram
 
         String tokenValue = t.getValue();
         if (FlexPunctuator.LPARENTHESIS.getValue().equals(tokenValue) || FlexPunctuator.DOT.getValue().equals(tokenValue)) {
-          getContext().createLineViolation(this, "Stop condition should not depend on a method call", assignmentExpr);
+          getContext().createLineViolation(this, "Calculate the stop condition value outside the loop and set it to a variable.", assignmentExpr);
           break;
         }
       }

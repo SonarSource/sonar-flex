@@ -50,7 +50,7 @@ public class VariantStopConditionInForLoopCheckTest {
       .next().atLine(44)
       .next().atLine(53)
       .next().atLine(55)
-      .next().atLine(59)
+      .next().atLine(59).withMessage("Calculate the stop condition value outside the loop and set it to a variable.")
       .next().atLine(62)
       .next().atLine(71)
       .noMore();

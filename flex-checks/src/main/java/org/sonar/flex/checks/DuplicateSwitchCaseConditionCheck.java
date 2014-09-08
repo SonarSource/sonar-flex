@@ -27,6 +27,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
+import org.sonar.flex.checks.utils.Expression;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -60,7 +61,7 @@ public class DuplicateSwitchCaseConditionCheck extends SquidCheck<LexerlessGramm
   }
 
   private void checkCondition(AstNode caseLabel) {
-    String expression = expressionToString(caseLabel.getFirstChild(FlexGrammar.LIST_EXPRESSION));
+    String expression = Expression.exprToString(caseLabel.getFirstChild(FlexGrammar.LIST_EXPRESSION));
     AstNode duplicateCase = casesByCondition.get(expression);
 
     if (duplicateCase != null) {
@@ -69,14 +70,6 @@ public class DuplicateSwitchCaseConditionCheck extends SquidCheck<LexerlessGramm
     } else {
       casesByCondition.put(expression, caseLabel);
     }
-  }
-
-  private String expressionToString(AstNode caseExpression) {
-    StringBuilder builder = new StringBuilder();
-    for (Token t : caseExpression.getTokens()) {
-      builder.append(t.getValue());
-    }
-    return builder.toString();
   }
 
 }

@@ -27,6 +27,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexPunctuator;
+import org.sonar.flex.checks.utils.Expression;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -116,7 +117,7 @@ public class VariantStopConditionInForLoopCheck extends SquidCheck<LexerlessGram
     }
 
     if (varNode != null) {
-      String varName = expressionToString(varNode);
+      String varName = Expression.exprToString(varNode);
       if (counters.contains(varName)) {
         getContext().createLineViolation(this, "Do not update the loop counter \"{0}\" within the loop body.", varNode, varName);
       }
@@ -152,28 +153,19 @@ public class VariantStopConditionInForLoopCheck extends SquidCheck<LexerlessGram
       AstNode exprFirstChild = assignmentExpr.getFirstChild();
 
       if (assignmentExpr.hasDirectChildren(FlexGrammar.ASSIGNMENT_OPERATOR)) {
-        counters.add(expressionToString(exprFirstChild));
+        counters.add(Expression.exprToString(exprFirstChild));
       } else if (exprFirstChild.is(FlexGrammar.UNARY_EXPR)) {
-        counters.add(expressionToString(exprFirstChild.getLastChild()));
+        counters.add(Expression.exprToString(exprFirstChild.getLastChild()));
       } else if (exprFirstChild.is(FlexGrammar.POSTFIX_EXPR)) {
-        counters.add(expressionToString(exprFirstChild.getFirstChild()));
+        counters.add(Expression.exprToString(exprFirstChild.getFirstChild()));
       }
     }
   }
 
   private void getCountersFromVariableDef(Set<String> counters, AstNode initialiserExpr) {
     for (AstNode variableBinding : initialiserExpr.getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST_NO_IN).getChildren(FlexGrammar.VARIABLE_BINDING_NO_IN)) {
-      counters.add(expressionToString(variableBinding.getFirstChild(FlexGrammar.TYPED_IDENTIFIER_NO_IN).getFirstChild(FlexGrammar.IDENTIFIER)));
+      counters.add(Expression.exprToString(variableBinding.getFirstChild(FlexGrammar.TYPED_IDENTIFIER_NO_IN).getFirstChild(FlexGrammar.IDENTIFIER)));
     }
-  }
-
-  private String expressionToString(AstNode expression) {
-    StringBuilder builder = new StringBuilder();
-
-    for (Token t : expression.getTokens()) {
-      builder.append(t.getValue());
-    }
-    return builder.toString();
   }
 
 }

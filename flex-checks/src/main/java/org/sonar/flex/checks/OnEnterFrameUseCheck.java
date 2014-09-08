@@ -24,6 +24,7 @@ import com.sonar.sslr.api.Token;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.checks.utils.Expression;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -50,16 +51,7 @@ public class OnEnterFrameUseCheck extends SquidCheck<LexerlessGrammar> {
   }
 
   private boolean isOnEnterFrame(AstNode postfixExpr) {
-    return expressionToString(postfixExpr).endsWith(".onEnterFrame");
+    return Expression.exprToString(postfixExpr).endsWith(".onEnterFrame");
   }
-
-  private String expressionToString(AstNode expression) {
-    StringBuilder builder = new StringBuilder();
-    for (Token t : expression.getTokens()) {
-      builder.append(t.getValue());
-    }
-    return builder.toString();
-  }
-
 
 }

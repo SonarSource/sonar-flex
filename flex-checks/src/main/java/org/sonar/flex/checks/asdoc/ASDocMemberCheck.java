@@ -123,10 +123,10 @@ public class ASDocMemberCheck {
     } else {
       MethodASDoc methodASDoc = parseASDoc(trivia);
 
-      if (check.method_return) {
+      if (check.methodReturn) {
         checkForReturnASDoc(check, methodASDoc, functionDef);
       }
-      if (check.method_params) {
+      if (check.methodParams) {
         checkForParametersASDoc(check, methodASDoc, functionDef);
       }
     }

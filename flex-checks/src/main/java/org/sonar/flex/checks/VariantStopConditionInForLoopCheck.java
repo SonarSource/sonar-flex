@@ -132,20 +132,20 @@ public class VariantStopConditionInForLoopCheck extends SquidCheck<LexerlessGram
   }
 
   private Set<String> getLoopsCounters(AstNode forStatement) {
-    Set<String> counters = Sets.newHashSet();
+    Set<String> loopCounters = Sets.newHashSet();
     AstNode initialiser = forStatement.getFirstChild(FlexGrammar.FOR_INITIALISER);
 
     if (initialiser != null) {
       AstNode initialiserExpr = initialiser.getFirstChild();
 
       if (initialiserExpr.is(FlexGrammar.VARIABLE_DEF_NO_IN)) {
-        getCountersFromVariableDef(counters, initialiserExpr);
+        getCountersFromVariableDef(loopCounters, initialiserExpr);
 
       } else {
-        getCountersFromListExpression(counters, initialiserExpr);
+        getCountersFromListExpression(loopCounters, initialiserExpr);
       }
     }
-    return counters;
+    return loopCounters;
   }
 
   private void getCountersFromListExpression(Set<String> counters, AstNode initialiserExpr) {

@@ -25,7 +25,6 @@ import com.sonar.sslr.api.AstNodeType;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 
-import java.util.List;
 import java.util.Set;
 
 public final class Modifiers {

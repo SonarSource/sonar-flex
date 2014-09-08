@@ -38,10 +38,8 @@ public class ASDocClassCheck {
     if (check.containsOnOfTags(triviaList, check.PRIVATE_TAG)) {
       return true;
 
-    } else if (check.classes) {
-      if (!check.hasASDoc(triviaList)) {
-        check.getContext().createLineViolation(check, "Add the missing ASDoc for this class.", astNode);
-      }
+    } else if (check.classes && !check.hasASDoc(triviaList)) {
+      check.getContext().createLineViolation(check, "Add the missing ASDoc for this class.", astNode);
     }
 
     return false;

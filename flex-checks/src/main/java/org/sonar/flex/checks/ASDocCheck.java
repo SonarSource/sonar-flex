@@ -69,13 +69,13 @@ public class ASDocCheck extends SquidCheck<LexerlessGrammar> {
     key = "asdoc_method_param",
     type = "BOOLEAN",
     defaultValue = "" + DEFAULT_METHOD_PARAMS)
-  public boolean method_params = DEFAULT_METHOD_PARAMS;
+  public boolean methodParams = DEFAULT_METHOD_PARAMS;
 
   @RuleProperty(
     key = "asdoc_method_return",
     type = "BOOLEAN",
     defaultValue = "" + DEFAULT_METHOD_RETURN)
-  public boolean method_return = DEFAULT_METHOD_RETURN;
+  public boolean methodReturn = DEFAULT_METHOD_RETURN;
 
   private ASDocClassCheck classChecker = new ASDocClassCheck();
   private ASDocMemberCheck memberChecker = new ASDocMemberCheck();

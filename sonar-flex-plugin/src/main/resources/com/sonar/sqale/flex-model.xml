@@ -413,6 +413,71 @@
           <txt>mn</txt>
         </prop>
       </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1784</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>2.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1821</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>10.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1172</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>5.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S138</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>20.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1481</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>5.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
     </chc>
   </chc>
   <chc>
@@ -472,6 +537,32 @@
           <txt>mn</txt>
         </prop>
       </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1951</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>2.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1451</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>5.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
     </chc>
   </chc>
   <chc>
@@ -507,6 +598,32 @@
         <prop>
           <key>remediationFactor</key>
           <val>5.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1952</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>5.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1982</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>20.0</val>
           <txt>mn</txt>
         </prop>
       </chc>
@@ -568,6 +685,19 @@
           <key>remediationFactor</key>
           <val>30.0</val>
           <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1820</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>1</val>
+          <txt>h</txt>
         </prop>
       </chc>
     </chc>
@@ -654,6 +784,19 @@
       <chc>
         <rule-repo>flex</rule-repo>
         <rule-key>S1469</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>5.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1186</rule-key>
         <prop>
           <key>remediationFunction</key>
           <txt>linear</txt>
@@ -837,6 +980,32 @@
         <prop>
           <key>remediationFactor</key>
           <val>20.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S127</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>10.0</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>flex</rule-repo>
+        <rule-key>S1871</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>linear</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>10.0</val>
           <txt>mn</txt>
         </prop>
       </chc>

@@ -34,7 +34,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 import java.util.List;
 
 @Rule(
-  key = "S1830",
+  key = "S1176",
   priority = Priority.MAJOR)
 public class ASDocCheck extends SquidCheck<LexerlessGrammar> {
 

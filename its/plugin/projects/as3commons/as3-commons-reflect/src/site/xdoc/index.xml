@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>Welcome to as3commons-reflect</title>
+        <author email="mp@yoolab.com">Martino Piccinato</author>
+    </properties>
+    <body>
+        <section name="Welcome to as3-commons-reflect">
+            
+            <div id="downloadbox">
+                <h5>Get latest stable</h5>
+                <p>
+                    <a href="https://dev.yoolab.org/maven/content/repositories/releases/org/as3commons/as3commons-reflect/1.0.0/as3commons-reflect-1.0.0.swc">
+                        <img valign="top" src="images/folder-open.gif" border="0" alt="Download latest stable" title="download"/>
+                        Download
+                    </a>
+                    latest stable (1.0)
+                </p>
+                <br/>
+                <h5>Get lastest development snapshot</h5>
+                <p>
+                    <a href="downloads/as3commons-reflect-latest-snapshot-bin.zip">
+                        <img valign="top" src="images/folder-open.gif" border="0" alt="Download latest stable" title="download"/>
+                        Download
+                    </a>
+                    latest snapshot
+                </p>
+            </div>
+
+
+            <p>
+                AS3Commons-reflect is an open-source library providing a reflection API for 
+                ActionScript 3.0. Being a pure actionscript library it can be used for any
+                Flash/Flex/AIR project.
+            </p>
+            
+            <p>
+            	The library provides clean, easy and complete introspection on class variables,
+            	accessors, methods, metadata etc. etc. by parsing the xml returned by 
+            	<code>flash.utils.describeType</code>. Parsing results are cached so that
+            	possibly resource expensive parsing won't occur next time for the same class.
+            </p>
+            
+            <p>
+            	The library is thoroughly tested and is being intensively used for the
+            	<a href="http://www.springactionscript.org/">Spring Actionscript</a> project.
+            </p>
+        </section>
+
+    </body>
+</document>
+

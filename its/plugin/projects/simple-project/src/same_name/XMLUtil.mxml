@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" verticalAlign="middle" horizontalAlign="center">
+<mx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+		private var varNotUsed:String;
+		
+		private function funcNotUsedWithMissingReturnType(){
+			return "MissingReturnType";
+		}
+
+		private function dup(){
+var i:Number=1;
+i = i + 1;
+return i;
+}
+
+		private function dup2(){
+var i:Number=1;
+i = i + 1;
+return i;
+}
+		]]>
+	</mx:Script>
+	<mx:Button label="Alert Display" click="{Alert.show('Source MXML')}"/>
+</mx:Application>

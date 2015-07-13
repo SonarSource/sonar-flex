@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>Projects using as3-commons-logging</title>
+        <author email="mp@yoolab.com">Martino Piccinato</author>
+    </properties>
+    <body>
+ 
+        <section name="Other projects using as3-commons-logging">
+
+            <p>
+                Here is a list of other projects using As3-commons-logging.
+            </p>
+
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="http://www.springactionscript.org/">Spring Actionscript</a>
+                    </td>
+                    <td>
+                        Christophe Herreman
+                    </td>
+                    <td>
+                        An Inversion Of Control framework for Actionscript based application.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="http://www.as3commons.org/as3-commons-reflect/">AS3-Commons-reflect</a>
+                    </td>
+                    <td>
+                        Christophe Herreman
+                    </td>
+                    <td>
+                        Library providing a reflection API for ActionScript 3.0.
+                    </td>
+                </tr>
+            </table>
+			
+			<p>Please report to us if your project is using as3-commons-logging.</p>
+        </section>
+        
+    </body>
+</document>
+

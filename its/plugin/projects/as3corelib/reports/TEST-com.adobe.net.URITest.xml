@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testsuite name="com.adobe.net.URITest" tests="7" failures="0" errors="0" skipped="0" time="0.0">
+  <testcase classname="com.adobe.net::URITest" name="testParsing" time="0.000" status="success"/>
+  <testcase classname="com.adobe.net::URITest" name="testRelativeParsing" time="0.000" status="success"/>
+  <testcase classname="com.adobe.net::URITest" name="testUnknownParsing" time="0.000" status="success"/>
+  <testcase classname="com.adobe.net::URITest" name="testNonHierarchical" time="0.000" status="success"/>
+  <testcase classname="com.adobe.net::URITest" name="testEquivalence" time="0.000" status="success"/>
+  <testcase classname="com.adobe.net::URITest" name="testAbsRelChDir" time="0.000" status="success"/>
+  <testcase classname="com.adobe.net::URITest" name="testEscaping" time="0.000" status="success"/>
+</testsuite>

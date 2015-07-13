@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.adobe</groupId>
+  <artifactId>as3corelib</artifactId>
+  <version>1.0</version>
+  <packaging>pom</packaging>
+
+  <name>AS3 Core Lib</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+    <sonar.surefire.reportsPath>${basedir}/reports</sonar.surefire.reportsPath>
+  </properties>
+
+  <build>
+    <sourceDirectory>src/</sourceDirectory>
+    <testSourceDirectory>tests/src/</testSourceDirectory>
+  </build>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>flexpmd.opensource.adobe</id>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <name>FlexPMD repository on opensource.adobe.com</name>
+      <url>http://opensource.adobe.com/svn/opensource/flexpmd/maven-repository/release/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+</project>

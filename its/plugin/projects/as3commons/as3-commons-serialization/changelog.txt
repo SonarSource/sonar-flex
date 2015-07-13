@@ -1,0 +1,11 @@
+AS3COMMONS SERIALIZATION CHANGELOG
+==================================
+
+Note: dates are in DD.MM.YYYY format
+
+
+Changes in version 0.1 (??.??.2009)
+-----------------------------------
+
+General
+* initial release

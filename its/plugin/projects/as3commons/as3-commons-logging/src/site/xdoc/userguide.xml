@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<properties>
+		<title>Introduction to as3commons-reflect</title>
+		<author email="mp@yoolab.com">Martino Piccinato</author>
+	</properties>
+	<body>
+
+		<section name="Usage">
+
+			<p>
+				The use of as3commons-logging is simple and straightforward, when in
+				need of a logger use
+				the
+				<a href="asdoc/org/as3commons/logging/LoggerFactory.html">LoggerFactory</a>
+				class to get one, e.g.
+				<div class="source">
+					var logger:ILogger = LoggerFactory.getLogger("myLogger");<br />
+					logger.info("Some logging message");<br />
+					...
+				</div>
+			</p>
+
+			<p>
+				If the logger is specific to a class it's a good practice to use the
+				specific method
+				<code>getClassLogger(clazz:Class)</code>
+				:
+				<div class="source">
+					var logger:ILogger = LoggerFactory.getClassLogger(MyClass);<br />
+					logger.info("Some logging message");<br />
+					...
+				</div>
+				returning a logger whose name is the full class name of the passed
+				class.
+			</p>
+
+			<p>
+				The default <code>ILogger</code> returned by <code>LoggerFactory</code>
+				is simply using <code>trace()</code>
+				to log messages. In order to use a different logger a different
+				<a href="asdoc/org/as3commons/logging/ILoggerFactory.html">ILoggerFactory</a>
+				should be set in the <code>LoggerFactory</code> class:
+				<div class="source">
+					... // Some main class method, mx:Application init for example<br />
+					LoggerFactory.loggerFactory = new FlexLoggerFactory(); // Setting flex logger factory as current logger factory
+				</div>
+				once done this every further call to get a logger, anywhere in the code, 
+				it will return the logger created by this logger factory:
+				<div class="source">
+					... // Some other class<br />
+					var logger:ILogger = LoggerFactory.getClassLogger(MyClass);<br />
+					logger.info("Some logging message"); // using the flex logger here!
+				</div>
+			</p>
+
+			<p>
+				The <a href="asdoc/org/as3commons/logging/ILogger.html">ILogger</a> interface provides
+				the following logging levels:
+				<ul>
+					<li>debug</li>
+					<li>info</li>
+					<li>warn</li>
+					<li>error</li>
+					<li>fatal</li>
+				</ul>
+				All <code>ILogger</code> log methods accept variable arguments usually taken to
+				format message string, e.g.
+				<div class="source">
+					var logger:ILogger = LoggerFactory.getClassLogger(MyClass);<br />
+					logger.info("Some logging message from {1}", "myApp");<br />
+					// Default logger will trace:<br />
+					// my.package.MyClass 12:10:34 [INFO] Some logging message from myApp
+				</div>
+			</p>
+
+		</section>
+
+		<section name="Implementing a logger">
+			<p>
+				Adapting a logging framework to be used by as3commons-logging is very easy: just
+				provide an implementation of the two main API interfaces:
+				<a href="asdoc/org/as3commons/logging/ILoggerFactory.html">ILoggerFactory</a>
+				and
+				<a href="asdoc/org/as3commons/logging/ILogger.html">ILogger</a>
+				using the targeted logging framework.
+			</p>
+			<p>
+				Implementing variable arguments replacement in log messages is not compulsory but 
+				considered a good practice in order to provide more transparent logging framework
+				switching.
+			</p>
+		</section>
+
+	</body>
+</document>
+

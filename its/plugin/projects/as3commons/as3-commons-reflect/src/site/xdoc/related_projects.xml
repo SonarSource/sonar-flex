@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>Projects using as3commons-reflect</title>
+        <author email="mp@yoolab.com">Martino Piccinato</author>
+    </properties>
+    <body>
+ 
+        <section name="Other projects using as3commons-reflect">
+
+            <p>
+                Here is a list of other projects using As3commons-reflect.
+            </p>
+
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="http://www.springactionscript.org/">Spring Actionscript</a>
+                    </td>
+                    <td>
+                        Christophe Herreman
+                    </td>
+                    <td>
+                        An Inversion Of Control framework for Actionscript based application.
+                    </td>
+                </tr>
+
+            </table>
+			
+			<p>Please report to us if your project is using as3commons-reflect.</p>
+        </section>
+        
+    </body>
+</document>
+

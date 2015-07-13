@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<properties>
+		<title>Introduction to as3commons-concurrency</title>
+		<author email="bitsofinfo.g@gmail.com">BitsOfInfo</author>
+	</properties>
+	<body>
+
+		<section name="Overview">
+
+			<p>
+				The concurrency module was created to address the ActionScript's lack of
+				support for traditional threads which is a common complaint from developers
+				transitioning from languages such as Java. Flex applications are single threaded
+				and if you are creating a more complex application that has the need to execute
+			 	 tasks in the background, while still maintaining a responsive
+				GUI for the user, then the AS3 Commons Concurrency module might be useful for you.
+			</p>
+
+			<p>
+				Made up of only one class and a lightweight interface, 
+				<a href="asdoc/org/as3commons/concurrency/thread/IRunnable.html">IRunnable</a> and
+				<a href="asdoc/org/as3commons/concurrency/thread/PseudoThread.html">PseudoThread</a>, 
+				the concurrency module in its current state is very lightweight and unobtrusive for the
+				developer to integrate into an existing application. 
+			</p>
+			
+		</section>
+		
+		<section name="PseudoThread & IRunnable">
+
+			<p>
+			   PseudoThread represents a "thread" in ActionScript. The basic concept is that an instance of 
+			   PseudoThread processes an IRunnable until the IRunnable has completed processing. As the developer
+			   you can write your code that does the actual work however you see fit, however in order for your 
+			   code to be processed via a PseudoThread, you must implement the IRunnable interface. By implementing 
+			   the IRunnable interface your class can be processed by a PseudoThread, by having it's <code>process()</code>
+			   method called repeatedly until the work is complete, errors out or takes longer than the timeout specified
+			   by the calling PseudoThread.
+			</p>
+			
+		</section>
+		
+	
+		<section name="Usage">
+
+			<p>
+				Suppose you want to create a background thread that does a specific task. Maybe it checks
+				the status of some web-service or writes a large file to disk. Whatever an IRunnable does
+				is up to you and PseudoThread does not care about the details. Just implement the contract
+				defined by IRunnable and you will be good to go. For our usage example lets 
+				do something really simple: create an IRunnable implementation that simply counts from 0 to 100.
+				Remember, the example below is just a super simple implementation, you can make your IRunnable
+				do anything you want, however just keep in mind you are responsible for managing your own state etc.
+			</p>
+
+			<p>
+				Step one is to create your class and implement the IRunnable interface:
+				<div class="source">
+				<code>
+				<pre>
+				// @see org.as3commons.concurrency.thread.IRunnable 
+				// for complete interface details
+				public class SimpleCounterRunnable implements IRunnable {
+					
+					// the number we are incrementing
+					private var counter:int = 0;
+					
+					// the total we are trying to achive
+					private var totalToReach:int = 100;
+					
+					// constructor, we don't need to do anything here
+					public function SimpleCounterRunnable() {
+						// nothing to do here
+					}
+					
+					/* this is called when the PseudoThread
+					   completes, encounters an error, stops
+					   or reaches its timeout.  */
+					public function cleanup():void {
+						counter = 0;
+					}
+			
+					/* This is called by PseudoThread 
+					   repeatedly N times, until the isComplete() method
+					   below returns true, PseudoThread stops, an 
+					   error occurs, or the thread timeout is reached */
+					public function process():void {
+						// our implemention's "work" is just to 
+						// increment our counter
+						counter++;
+					}
+					
+					/* We are "complete" when our counter = total
+					   If your IRunnable is just a permanent background
+					   job and never has a "finish" point, you can just
+					   return false to this method to ensure your process()
+					   method runs forever. If you take that route, keep in mind that you must
+					   make sure that the PseudoThread you create to process
+					   this IRunnable has no timeout!
+					*/
+					public function isComplete():Boolean {
+						return counter == totalToReach;
+					}
+					
+					/* PseudoThread consults this method
+					   after each call to process(). In order
+					   to dispatch ProgressEvents. The value 
+					   here is set as the bytesTotal propery of
+					   the ProgressEvent that PseudoThread dispatches */
+					public function getTotal():int {
+						return this.totalToReach;
+					}
+					
+					/* PseudoThread consults this method
+					   after each call to process(). The value
+					   returned here is set as the bytesLoaded
+					   value in the ProgressEvent that is dispatched
+					   by PseudoThread. */
+					public function getProgress():int {
+						return this.counter;
+					}
+					
+				}
+				</pre>
+				</code>
+				</div>
+			</p>
+			
+			<p>
+				Step two is to write some Actionscript that creates
+				an PseudoThread and processes your custom IRunnable.
+				<div class="source">
+				<code>
+				<pre>
+				// create your IRunnable instance
+				var myRunnable:SimpleCounterRunnable = new SimpleCounterRunnable();
+				
+				// create a PseudoThread instance to process your IRunnable
+				// and lets configure it to call your process() method every 10 milliseconds
+				// finally the last param is the timeout, this should complete within 30 seconds
+				var thread:PseudoThread = new PseudoThread(myRunnable,"anArbitraryName",10,30000);
+				
+				// Next lets register for the ErrorEvent should the PseudoThread throw one
+				thread.addEventListener(ErrorEvent.ERROR,function(e:ErrorEvent):void {
+					trace("An error occured processing SimpleCounterRunnable ");
+				});
+				
+				// Next lets register for the COMPLETE Event
+				thread.addEventListener(Event.COMPLETE,function(e:Event):void {
+					trace("PseudoThread completed processing SimpleCounterRunnable who's total is now="+
+							myRunnable.getTotal()); 
+				});
+				
+								
+				// Finally lets register for the ProgressEvents from the PseudoThread
+				thread.addEventListener(ProgressEvent.PROGRESS,function(e:ProgressEvent):void {
+					trace("PseudoThread encountered progress of " + e.bytesLoaded+"/"+e.bytesTotal); 
+				});
+				
+				// Now that we are all wired up the most important part is to actually
+				// start the thread
+				thread.start();
+				
+				
+				// Once the thread is started you can also optionally call 
+				// thread.pause() and thread.resume()
+
+				</pre>
+				</code>
+				</div>
+			</p>
+
+		</section>
+
+		<section name="Summary">
+			<p>
+				Someday the Flash Player and Actionscript may introduce true multi-threading. When that
+				day comes, the AS3 Commons Concurrency will likely grow to add additional higher level
+				functionality that expands upon those features. Until then, the concurrency project aims
+				to provide a simple and lightweight framework to get you part way there.
+			</p>
+		</section>
+
+	</body>
+</document>
+

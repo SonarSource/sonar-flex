@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testsuite name="com.adobe.crypto.HMACSHA1Test" tests="7" failures="0" errors="0" skipped="0" time="0.0">
+  <testcase classname="com.adobe.crypto::HMACSHA1Test" name="test3" time="0.000" status="success"/>
+  <testcase classname="com.adobe.crypto::HMACSHA1Test" name="test1" time="0.000" status="success"/>
+  <testcase classname="com.adobe.crypto::HMACSHA1Test" name="test4" time="0.000" status="success"/>
+  <testcase classname="com.adobe.crypto::HMACSHA1Test" name="test2" time="0.000" status="success"/>
+  <testcase classname="com.adobe.crypto::HMACSHA1Test" name="test6" time="0.000" status="success"/>
+  <testcase classname="com.adobe.crypto::HMACSHA1Test" name="test7" time="0.000" status="success"/>
+  <testcase classname="com.adobe.crypto::HMACSHA1Test" name="test5" time="0.000" status="success"/>
+</testsuite>

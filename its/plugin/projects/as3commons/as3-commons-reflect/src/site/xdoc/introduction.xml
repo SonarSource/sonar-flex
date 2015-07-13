@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<properties>
+		<title>Introduction to as3commons-reflect</title>
+		<author email="mp@yoolab.com">Martino Piccinato</author>
+	</properties>
+	<body>
+
+		<section name="Introduction">
+
+			<p>
+				The 2 most important classes in this library are the Type and
+				ClassUtils classes.
+				The <a href="asdoc/org/as3commons/reflect/Type.html">Type</a> class will give you all the information
+				of a class while the
+				<a href="asdoc/org/as3commons/reflect/ClassUtils.html">ClassUtils</a> class contains utility
+				methods for working with class objects.
+			</p>
+
+			<p>
+				Using as3commons-reflect is really easy, after reading this short
+				introduction
+				the only thing you might need is having a look at the
+				<a href="asdoc/index.html">API</a>
+				to navigate through the properties and methods exposed by the
+				library. Here below
+				we give some short instructions on how to use the
+				library.
+			</p>
+
+			<p>
+				Assuming you have a class called Person in the package
+				com.company.domain)
+				you want to use reflection on, you start by
+				getting its "Type" in one of the
+				following methods:
+				<br />
+				<br />
+				By class...
+
+				<div class="source">
+					var type:Type = Type.forClass(Person);
+					</div>
+
+				... by instance
+
+				<div class="source">
+					var person:Person = new Person();
+					<br />
+					var type:Type = Type.forInstance(person);
+				</div>
+
+				... or by class name...
+				<div class="source">
+					var type:Type = Type.forName("com.company.domain.Person");
+					<br />
+					// or var type:Type = Type.forName("com.company.domain::Person");
+				</div>
+
+				Once you have a type instance you can get access to all variables,
+				constants,
+				accessors (getters/setters) and methods defined by that type and the
+				properties
+				of the type:
+				<div class="source">
+					type.accessors<br />
+					type.constants<br />
+					type.fields<br />
+					type.fullName<br />
+					type.isDynamic<br />
+					type.isFinal<br />
+					type.isStatic<br />
+					type.methods<br />
+					type.name<br />
+					type.staticConstants<br />
+					type.staticVariables<br />
+					type.variables<br />
+					method:Method = type.methods[0];<br />
+					retType:Type = method.getReturnType();<br />
+					method.invoke(object, [arg1, arg2]);<br />
+					accessor:Accessor = type.accessors[0];<br />
+					metadata:Metadata = accessor.getMetadata("myMetadata");<br />
+					arg:MetadataArgument = metadata.getArgument("myArg");<br />
+					...
+				</div>
+			</p>
+
+		</section>
+
+	</body>
+</document>
+

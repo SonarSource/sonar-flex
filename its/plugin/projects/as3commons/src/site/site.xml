@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="AS3 Commons">
+
+	<skin>
+		<groupId>org.apache.tapestry</groupId>
+		<artifactId>maven-skin</artifactId>
+		<version>1.2</version>
+	</skin>
+
+	<head>
+		<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+		</script>
+		<script type="text/javascript">
+			_uacct = "UA-8523880-10"; urchinTracker();
+            </script>
+	</head>
+
+	<body>
+
+		<menu name="Project">
+			<item name="Home" href="index.html" />
+			<item name="License" href="license.html" />
+			<item name="Issue Tracking" href="issue-tracking.html" />
+			<item name="Source Repository" href="source-repository.html" />
+			<item name="Team list" href="team-list.html" />
+		</menu>
+
+		<menu name="Modules">
+			<item name="AS3Commons-lang" href="as3-commons-lang/index.html" />
+			<item name="AS3Commons-logging" href="as3-commons-logging/index.html" />
+			<item name="AS3Commons-reflect" href="as3-commons-reflect/index.html" />
+		</menu>
+
+	</body>
+</project>

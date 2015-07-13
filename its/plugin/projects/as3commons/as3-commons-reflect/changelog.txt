@@ -1,0 +1,51 @@
+AS3COMMONS-REFLECT CHANGELOG
+============================
+
+Note: dates are in DD.MM.YYYY format
+
+
+Changes in version 1.1 (12.09.2009)
+-----------------------------------
+
+Package org.as3commons.reflect
+* fixed "isReadable()" in Accessor
+* fixed "isWriteable()" in Accessor
+* added "readable" in Accessor
+* added "writeable" in Accessor
+* metadata of implemented interfaces is now available in Type instance
+* added "isInterface" in Type
+* fixed "isInterface" in ClasstUtils
+* moved ClassUtils to AS3Commons-Lang and as such is now deprecated in AS3Commons-Reflect
+
+
+Changes in version 1.0 (01.06.2009)
+-----------------------------------
+
+General
+* moved to AS3Commons-Reflect project
+
+
+Changes in version 1.0RC3 (01.05.2009)
+--------------------------------------
+
+Package as3reflect
+* introduced Constructor class and added support for it in Type
+* fixed "invoke" method on MethodInvoker to handle proxied methods correctly
+* fixed "hasMetaData" method in MetaDataContainer, always returned true
+* added "isInterface" method in ClassUtils
+* added "isAssignableFrom" method in ClassUtils
+* AbstractMember's constructor now takes "type" and "declaringType" as a string
+
+
+Changes in version 1.0RC2 (20.01.2009)
+--------------------------------------
+
+Package as3reflect
+* IMetaDataContainer.getMetaData() now returns an array of MetaData objects
+
+
+Changes in version 1.0RC1 (11.01.2009)
+--------------------------------------
+
+General
+* initial release

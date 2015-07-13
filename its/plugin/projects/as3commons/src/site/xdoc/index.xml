@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<properties>
+		<title>Welcome to as3commons</title>
+		<author email="mp@yoolab.com">Martino Piccinato</author>
+	</properties>
+	<body>
+		<section name="Welcome to as3-commons">
+			<p>
+				The AS3Commons project is dedicated to one principal goal: creating and
+				maintaining reusable ActionScript? 3.0 components. This is a place
+				for collaboration and sharing, where developers from throughout the
+				community can work together on projects to be shared.
+</p>
+			<p>
+
+				AS3Commons developers will make an effort to ensure that their components have
+				minimal dependencies on other libraries, so that these components
+				can be deployed easily. In addition, AS3Commons components will keep
+				their interfaces as stable as possible, so that users (including
+				other AS3Commons projects) can implement these components without
+				having to worry about changes in the future.
+</p>
+			<p>
+				We welcome participation from all that are interested, at all skill
+				levels. Coding, documentation and testing are all critical parts of
+				the software development process. If you are interested in
+				participating in any of these aspects, please join us!
+</p>
+		</section>
+
+	</body>
+</document>
+

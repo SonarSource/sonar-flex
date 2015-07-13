@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testsuite name="com.adobe.utils.DateUtilTest" tests="20" failures="0" errors="0" skipped="0" time="0.0">
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testGetShortDayIndex" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testGetShortMonthName" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testToW3CDTF" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testGetAMPM" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testToW3CDTFWithMilliseconds" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testParseW3CDTF" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testParseW3CDTFWithMilliseconds" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testW3CDTF" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testRFC822" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testToRFC822" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testGetShortHours" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testParseRFC822" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testCompareDates" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testGetShortYear" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testGetFullDayIndex" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testGetFullMonthIndex" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testGetFullDayName" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testGetShortMonthIndex" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testGetFullMonthName" time="0.000" status="success"/>
+  <testcase classname="com.adobe.utils::DateUtilTest" name="testGetShortDayName" time="0.000" status="success"/>
+</testsuite>

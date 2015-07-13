@@ -1,0 +1,10 @@
+AS3COMMONS-CONCURRENCY CHANGELOG
+============================
+
+Note: dates are in DD.MM.YYYY format
+
+Changes in version 1.0-RC1 (10.19.2009)
+--------------------------------------
+
+General
+* initial release

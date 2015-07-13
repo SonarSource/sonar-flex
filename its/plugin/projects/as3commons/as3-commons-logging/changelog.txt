@@ -1,0 +1,28 @@
+AS3COMMONS LOGGING CHANGELOG
+============================
+
+Note: dates are in DD.MM.YYYY format
+
+
+Changes in version 1.1 (27.07.2009)
+-----------------------------------
+
+Package org.as3commons.logging
+* removed "name" getter from ILogger
+* added LogLevel
+* added LoggerProxy to allow reconfiguration
+
+
+Changes in version 1.0 (30.05.2009)
+-----------------------------------
+
+Package org.as3commons.logging
+* added read-only "name" property to ILogger interface and implementations
+* fixed "LoggerFactory.getClassLogger" to work with Flex Logging API
+
+
+Changes in version 1.0RC1 (04.03.2009)
+--------------------------------------
+
+General
+* initial release

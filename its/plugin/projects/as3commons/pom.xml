@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.as3commons</groupId>
+  <artifactId>as3commons-project</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+
+  <name>AS3Commons Project</name>
+  <description>AS3Commons project</description>
+  <url>http://www.as3commons.org/</url>
+  <inceptionYear>2009</inceptionYear>
+
+  <modules>
+    <module>as3-commons-concurrency</module>
+    <module>as3-commons-lang</module>
+    <module>as3-commons-logging</module>
+    <module>as3-commons-reflect</module>
+    <module>as3-commons-serialization</module>
+  </modules>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <sonar.dynamicAnalysis>false</sonar.dynamicAnalysis>
+  </properties>
+
+  <build>
+    <sourceDirectory>src/main/actionscript</sourceDirectory>
+  </build>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>flexpmd.opensource.adobe</id>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <name>FlexPMD repository on opensource.adobe.com</name>
+      <url>http://opensource.adobe.com/svn/opensource/flexpmd/maven-repository/release/</url>   
+    </pluginRepository>
+  </pluginRepositories>
+
+</project>

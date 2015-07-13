@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testsuite name="same_name.XMLUtilTest" tests="3" failures="0" errors="0" skipped="0" time="0.0">
+  <testcase classname="same_name::XMLUtilTest" name="testgetNextSibling" time="0.000" status="success"/>
+  <testcase classname="same_name::XMLUtilTest" name="testgetPreviousSibling" time="0.000" status="success"/>
+  <testcase classname="same_name::XMLUtilTest" name="testStringsAreEqual" time="0.000" status="success"/>
+</testsuite>

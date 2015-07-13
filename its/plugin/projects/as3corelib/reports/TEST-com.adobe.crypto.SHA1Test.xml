@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testsuite name="com.adobe.crypto.SHA1Test" tests="3" failures="0" errors="0" skipped="0" time="0.0">
+  <testcase classname="com.adobe.crypto::SHA1Test" name="testSHA1" time="0.000" status="success"/>
+  <testcase classname="com.adobe.crypto::SHA1Test" name="testSHA1Base64" time="0.000" status="success"/>
+  <testcase classname="com.adobe.crypto::SHA1Test" name="testSHA1Binary" time="0.000" status="success"/>
+</testsuite>

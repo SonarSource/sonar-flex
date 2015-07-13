@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testsuite name="com.adobe.crypto.MD5Test" tests="7" failures="0" errors="0" skipped="0" time="0.0">
+  <testcase classname="com.adobe.crypto::MD5Test" name="testEmpty" time="0.000" status="success"/>
+  <testcase classname="com.adobe.crypto::MD5Test" name="testMD" time="0.000" status="success"/>
+  <testcase classname="com.adobe.crypto::MD5Test" name="testA" time="0.000" status="success"/>
+  <testcase classname="com.adobe.crypto::MD5Test" name="testAlphaNumeric" time="0.000" status="success"/>
+  <testcase classname="com.adobe.crypto::MD5Test" name="testRepeatingNumeric" time="0.000" status="success"/>
+  <testcase classname="com.adobe.crypto::MD5Test" name="testAlphabet" time="0.000" status="success"/>
+  <testcase classname="com.adobe.crypto::MD5Test" name="testABC" time="0.000" status="success"/>
+</testsuite>

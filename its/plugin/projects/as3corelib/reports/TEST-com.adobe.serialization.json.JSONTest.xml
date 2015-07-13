@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testsuite name="com.adobe.serialization.json.JSONTest" tests="42" failures="0" errors="0" skipped="0" time="0.0">
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeScientificPositiveExponent" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeScientificNegativeExponent" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeScientificExponentError" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeHex" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeNaN" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeObject" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeObjectWithTrailingComma" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeArray" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeArrayWithNewlines" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeArrayWithTrailingComma" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeArrayWithLeadingCommaFails" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeObjectWithLeadingCommaFails" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeComments" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeWithUnexpectedEndOfInput" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testEncodeTrue" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testEncodeFalse" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testEncodeNull" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testEncodeString" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testEncodeArrayEmpty" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testEncodeArray" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testEncodeObjectEmpty" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeTrue" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testEncodeClassInstance" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeFalse" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeNull" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeString" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeWithCharactersLeftInInputString" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeStringWithInvalidUnicodeEscape" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeStringWithControlCharacters" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeZero" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeWhiteSpace" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeZeroWithDigitsAfterIt" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodePositiveInt" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testEncodeObject" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeNegativeInt" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeEmptyStringError" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodePositiveFloat" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeNegativeFloat" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeFloatLeadingZeroError" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeFloatDecimalMissingError" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeSuccessiveComments" time="0.000" status="success"/>
+  <testcase classname="com.adobe.serialization.json::JSONTest" name="testDecodeScientificRegularExponent" time="0.000" status="success"/>
+</testsuite>

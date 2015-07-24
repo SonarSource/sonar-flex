@@ -21,6 +21,8 @@ package com.sonar.it.flex;
 
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.MavenBuild;
+import static junit.framework.Assert.assertNull;
+import static org.fest.assertions.Assertions.assertThat;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -29,9 +31,6 @@ import org.sonar.wsclient.services.Resource;
 import org.sonar.wsclient.services.ResourceQuery;
 
 import java.io.File;
-
-import static junit.framework.Assert.assertNull;
-import static org.fest.assertions.Assertions.assertThat;
 
 public class FlexIntegrationTest {
 
@@ -44,7 +43,7 @@ public class FlexIntegrationTest {
   private static final String FILE_OBJECT_UTILS = keyFor("org/as3commons/lang/ObjectUtils.as");
 
   private static String keyFor(String s) {
-    return "org.as3commons:as3commons-lang:" + (Tests.is_after_sonar_4_2() ? "src/main/actionscript/" : "") + s;
+    return "org.as3commons:as3commons-lang:src/main/actionscript/"  + s;
  }
 
   @BeforeClass
@@ -62,27 +61,20 @@ public class FlexIntegrationTest {
     assertThat(orchestrator.getServer().getWsClient().find(new ResourceQuery(PROJECT_AS3COMMONS)).getName()).isEqualTo("AS3Commons Project");
     assertThat(orchestrator.getServer().getWsClient().find(new ResourceQuery(PROJECT_AS3COMMONS)).getVersion()).isEqualTo("1.0.0");
     assertThat(orchestrator.getServer().getWsClient().find(new ResourceQuery(MODULE_COMMONS_LANG)).getName()).isEqualTo("AS3Commons Lang");
-    if (Tests.is_after_sonar_4_2()) {
-      assertThat(orchestrator.getServer().getWsClient().find(new ResourceQuery(PACKAGE_COMMONS_LANG)).getName()).isEqualTo("src/main/actionscript/org/as3commons/lang");
-    } else {
-      assertThat(orchestrator.getServer().getWsClient().find(new ResourceQuery(PACKAGE_COMMONS_LANG)).getName()).isEqualTo("org/as3commons/lang");
-    }
+    assertThat(orchestrator.getServer().getWsClient().find(new ResourceQuery(PACKAGE_COMMONS_LANG)).getName()).isEqualTo("src/main/actionscript/org/as3commons/lang");
     assertThat(orchestrator.getServer().getWsClient().find(new ResourceQuery(FILE_OBJECT_UTILS)).getName()).isEqualTo("ObjectUtils.as");
   }
 
   @Test
   public void projectsMetrics() {
-    if (Tests.is_after_plugin_1_4()) {
-      assertThat(getProjectMeasure("ncloc").getIntValue()).isEqualTo(3673);
-      assertThat(getProjectMeasure("statements").getIntValue()).isEqualTo(1814);
-    } else {
-      assertThat(getProjectMeasure("ncloc").getIntValue()).isEqualTo(3674);
-      assertThat(getProjectMeasure("statements").getIntValue()).isEqualTo(1833);
-    }
+    assertThat(getProjectMeasure("ncloc").getIntValue()).isEqualTo(3673);
+    assertThat(getProjectMeasure("statements").getIntValue()).isEqualTo(1814);
     assertThat(getProjectMeasure("lines").getIntValue()).isEqualTo(9627);
     assertThat(getProjectMeasure("files").getIntValue()).isEqualTo(69);
     assertThat(getProjectMeasure("classes").getIntValue()).isEqualTo(72);
-    assertThat(getProjectMeasure("packages").getIntValue()).isEqualTo(15);
+    if (!Tests.is_sonarqube_after_sonar_5_2()) {
+      assertThat(getProjectMeasure("packages").getIntValue()).isEqualTo(15);
+    }
     assertThat(getProjectMeasure("functions").getIntValue()).isEqualTo(484);
     assertThat(getProjectMeasure("comment_lines").getIntValue()).isEqualTo(3032);
     assertThat(getProjectMeasure("comment_lines_density").getValue()).isEqualTo(45.2);
@@ -114,7 +106,9 @@ public class FlexIntegrationTest {
     assertThat(getModuleMeasure("files").getIntValue()).isEqualTo(19);
     assertThat(getModuleMeasure("statements").getIntValue()).isEqualTo(895);
     assertThat(getModuleMeasure("classes").getIntValue()).isEqualTo(19);
-    assertThat(getModuleMeasure("packages").getIntValue()).isEqualTo(2);
+    if (!Tests.is_sonarqube_after_sonar_5_2()) {
+      assertThat(getModuleMeasure("packages").getIntValue()).isEqualTo(2);
+    }
     assertThat(getModuleMeasure("functions").getIntValue()).isEqualTo(183);
     assertThat(getModuleMeasure("comment_lines").getIntValue()).isEqualTo(1664);
     assertThat(getModuleMeasure("comment_lines_density").getValue()).isEqualTo(50.7);
@@ -144,7 +138,9 @@ public class FlexIntegrationTest {
     assertThat(getPackageMeasure("files").getIntValue()).isEqualTo(16);
     assertThat(getPackageMeasure("statements").getIntValue()).isEqualTo(795);
     assertThat(getPackageMeasure("classes").getIntValue()).isEqualTo(16);
-    assertThat(getPackageMeasure("packages").getIntValue()).isEqualTo(1);
+    if (!Tests.is_sonarqube_after_sonar_5_2()) {
+      assertThat(getPackageMeasure("packages").getIntValue()).isEqualTo(1);
+    }
     assertThat(getPackageMeasure("functions").getIntValue()).isEqualTo(165);
     assertThat(getPackageMeasure("comment_lines").getIntValue()).isEqualTo(1603);
     assertThat(getPackageMeasure("comment_lines_density").getValue()).isEqualTo(52.7);
@@ -174,7 +170,9 @@ public class FlexIntegrationTest {
     assertThat(getFileMeasure("files").getIntValue()).isEqualTo(1);
     assertThat(getFileMeasure("statements").getIntValue()).isEqualTo(39);
     assertThat(getFileMeasure("classes").getIntValue()).isEqualTo(1);
-    assertNull(getFileMeasure("packages"));
+    if (!Tests.is_sonarqube_after_sonar_5_2()) {
+      assertNull(getFileMeasure("packages"));
+    }
     assertThat(getFileMeasure("functions").getIntValue()).isEqualTo(10);
     assertThat(getFileMeasure("comment_lines").getIntValue()).isEqualTo(62);
     assertThat(getFileMeasure("comment_lines_density").getValue()).isEqualTo(45.3);

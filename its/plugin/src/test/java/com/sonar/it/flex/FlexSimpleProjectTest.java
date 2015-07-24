@@ -21,6 +21,7 @@ package com.sonar.it.flex;
 
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarRunner;
+import static org.fest.assertions.Assertions.assertThat;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -30,8 +31,6 @@ import org.sonar.wsclient.services.Resource;
 import org.sonar.wsclient.services.ResourceQuery;
 
 import java.io.File;
-
-import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * This test class is used to reproduce various issues.
@@ -46,7 +45,7 @@ public class FlexSimpleProjectTest {
   private static Sonar sonar = null;
 
   private static String keyFor(String s) {
-    return PROJECT + ":" + (Tests.is_after_sonar_4_2() ? "src/" : "") + s;
+    return PROJECT + ":src/" + s;
   }
 
   @BeforeClass

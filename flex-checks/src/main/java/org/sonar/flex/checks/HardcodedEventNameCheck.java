@@ -41,14 +41,14 @@ public class HardcodedEventNameCheck extends SquidCheck<LexerlessGrammar> implem
 
   private static final Pattern STRING_PATTERN = Pattern.compile(FlexGrammar.STRING_REGEXP);
 
-  private static enum State {
+  private enum State {
     EXPECTING_ADD_EVENT,
     EXPECTING_BRACE,
     EXPECTING_STRING,
     FOUND_ISSUE
   }
 
-  private static enum Symbol {
+  private enum Symbol {
     OTHER,
     ADD_EVENT,
     BRACE,

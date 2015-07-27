@@ -69,7 +69,7 @@ public class PackageNameCheck extends SquidCheck<LexerlessGrammar> {
     }
   }
 
-  private String concatenate(AstNode astNode) {
+  private static String concatenate(AstNode astNode) {
     StringBuilder sb = new StringBuilder();
     for (Token token : astNode.getTokens()) {
       sb.append(token.getValue());

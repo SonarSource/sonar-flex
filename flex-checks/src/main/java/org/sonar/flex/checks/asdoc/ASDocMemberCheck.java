@@ -100,7 +100,7 @@ public class ASDocMemberCheck {
    * Verifies that an ASDoc is present above the field declaration.
    */
   private void checkField(ASDocCheck check, List<Trivia> trivia, AstNode variableDec) {
-    if (!check.hasASDoc(trivia) && !check.containsOnOfTags(trivia, check.PRIVATE_TAG, check.INHERIT_TAG)) {
+    if (!check.hasASDoc(trivia) && !check.containsOnOfTags(trivia, ASDocCheck.PRIVATE_TAG, ASDocCheck.INHERIT_TAG)) {
       check.getContext().createLineViolation(check, "Add the missing ASDoc for this field declaration.", variableDec);
     }
   }
@@ -113,7 +113,7 @@ public class ASDocMemberCheck {
    * </ul>
    */
   private void checkMethod(ASDocCheck check, List<Trivia> trivia, AstNode functionDef) {
-    if (check.containsOnOfTags(trivia, check.PRIVATE_TAG, check.INHERIT_TAG)) {
+    if (check.containsOnOfTags(trivia, ASDocCheck.PRIVATE_TAG, ASDocCheck.INHERIT_TAG)) {
       // skip all documentation check if has @private tag
       return;
     }
@@ -198,7 +198,7 @@ public class ASDocMemberCheck {
     return returnType.getLastChild().is(FlexKeyword.VOID) ? true : false;
   }
 
-  private String getParamName(String paramDoc) {
+  private static String getParamName(String paramDoc) {
     if (!paramDoc.isEmpty()) {
       return paramDoc.split(":")[0];
     }

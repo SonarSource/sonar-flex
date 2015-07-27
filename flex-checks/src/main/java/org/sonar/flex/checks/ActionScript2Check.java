@@ -41,9 +41,7 @@ public class ActionScript2Check extends SquidCheck<LexerlessGrammar> {
   @Override
   public void init() {
     subscribeTo(
-//        grammar.setVariableStatement,
       FlexGrammar.UNARY_EXPR,
-//        grammar.modifier,
       FlexGrammar.LOGICAL_OR_OPERATOR,
       FlexGrammar.LOGICAL_AND_OPERATOR,
       FlexGrammar.EQUALITY_OPERATOR,
@@ -55,11 +53,6 @@ public class ActionScript2Check extends SquidCheck<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-//    if (astNode.is(grammar.setVariableStatement)) {
-//      getContext().createLineViolation(this, "'set variable statement' not available in ActionScript 3.0", astNode);
-//    } else if (astNode.is(grammar.modifier) && "intrinsic".equals(astNode.getTokenValue())) {
-//      getContext().createLineViolation(this, "'intrinsic' not available in ActionScript 3.0", astNode);
-//    } else
     if (astNode.is(FlexGrammar.UNARY_EXPR) && "not".equals(astNode.getFirstChild().getTokenValue())) {
       getContext().createLineViolation(this, "Operator 'not' not available in ActionScript 3.0", astNode.getFirstChild());
     } else {
@@ -70,7 +63,7 @@ public class ActionScript2Check extends SquidCheck<LexerlessGrammar> {
     }
   }
 
-  private String getValue(AstNode astNode) {
+  private static String getValue(AstNode astNode) {
     StringBuilder sb = new StringBuilder();
     for (AstNode child : astNode.getChildren()) {
       sb.append(child.getTokenValue());

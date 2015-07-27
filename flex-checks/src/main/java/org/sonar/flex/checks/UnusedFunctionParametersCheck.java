@@ -177,7 +177,7 @@ public class UnusedFunctionParametersCheck extends SquidCheck<LexerlessGrammar> 
     return false;
   }
 
-  private boolean isEmpty(AstNode directives) {
+  private static boolean isEmpty(AstNode directives) {
     return directives.getNumberOfChildren() == 0;
   }
 

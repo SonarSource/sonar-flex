@@ -36,21 +36,14 @@ import org.junit.runners.Suite.SuiteClasses;
 })
 public class Tests {
 
-  private static final String PLUGIN_KEY = "flex";
-
   @ClassRule
   public static final Orchestrator ORCHESTRATOR = Orchestrator.builderEnv()
-      .addPlugin(PLUGIN_KEY)
-      .setMainPluginKey(PLUGIN_KEY)
+      .addPlugin(FileLocation.of("../../sonar-flex-plugin/target/sonar-flex-plugin.jar"))
       .restoreProfileAtStartup(FileLocation.ofClasspath("/it-profile_flex.xml"))
       .build();
 
   public static boolean is_sonarqube_after_sonar_5_2() {
     return ORCHESTRATOR.getConfiguration().getSonarVersion().isGreaterThanOrEquals("5.2");
-  }
-
-  public static boolean is_after_plugin_2_1() {
-    return ORCHESTRATOR.getConfiguration().getPluginVersion(PLUGIN_KEY).isGreaterThanOrEquals("2.1");
   }
 
   public static MavenBuild createMavenBuild() {

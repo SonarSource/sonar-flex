@@ -52,6 +52,7 @@ public class CommentedCodeCheck extends SquidCheck<LexerlessGrammar> implements 
 
   private static class FlexRecognizer implements LanguageFootprint {
 
+    @Override
     public Set<Detector> getDetectors() {
       return ImmutableSet.of(
         new EndWithDetector(0.95, '}', ';', '{'),
@@ -63,6 +64,7 @@ public class CommentedCodeCheck extends SquidCheck<LexerlessGrammar> implements 
 
   }
 
+  @Override
   public void visitToken(Token token) {
     for (Trivia trivia : token.getTrivia()) {
       if (trivia.isComment()) {

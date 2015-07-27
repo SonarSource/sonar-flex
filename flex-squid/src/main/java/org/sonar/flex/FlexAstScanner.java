@@ -68,6 +68,7 @@ public final class FlexAstScanner {
   }
 
   private static class PackageSourceCodeBuilderCallback implements SourceCodeBuilderCallback {
+    @Override
     public SourceCode createSourceCode(SourceCode parentSourceCode, AstNode astNode) {
       AstNode packageNameNode = astNode.getFirstChild(FlexGrammar.PACKAGE_NAME);
       final String packageName;

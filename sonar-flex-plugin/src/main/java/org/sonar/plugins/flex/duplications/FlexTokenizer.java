@@ -49,6 +49,7 @@ public class FlexTokenizer implements Tokenizer {
   /**
    * Cuts the given source into a list of tokens.
    */
+  @Override
   public final void tokenize(SourceCode source, Tokens cpdTokens) {
     String fileName = source.getFileName();
     if (fileName.endsWith(".mxml")) {

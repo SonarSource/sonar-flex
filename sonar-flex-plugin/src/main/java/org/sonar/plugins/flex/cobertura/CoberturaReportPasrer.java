@@ -57,6 +57,7 @@ public class CoberturaReportPasrer {
     try {
       StaxParser parser = new StaxParser(new StaxParser.XmlStreamHandler() {
 
+        @Override
         public void stream(SMHierarchicCursor rootCursor) throws XMLStreamException {
           rootCursor.advance();
           collectPackageMeasures(rootCursor.descendantElementCursor("package"), context, project, fileSystem);

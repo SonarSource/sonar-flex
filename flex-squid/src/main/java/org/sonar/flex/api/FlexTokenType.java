@@ -26,14 +26,17 @@ public enum FlexTokenType implements TokenType {
   NUMERIC_LITERAL,
   REGULAR_EXPRESSION_LITERAL;
 
+  @Override
   public String getName() {
     return name();
   }
 
+  @Override
   public String getValue() {
     return name();
   }
 
+  @Override
   public boolean hasToBeSkippedFromAst(AstNode node) {
     return false;
   }

@@ -51,6 +51,7 @@ public class ClassNameCheck extends SquidCheck<LexerlessGrammar> {
     subscribeTo(FlexGrammar.CLASS_DEF);
   }
 
+  @Override
   public void visitFile(@Nullable AstNode astNode) {
     if (pattern == null) {
       pattern = Pattern.compile(format);

@@ -56,6 +56,7 @@ public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> 
     subscribeTo(FlexGrammar.FUNCTION_DEF);
   }
 
+  @Override
   public void visitFile(@Nullable AstNode astNode) {
     if (pattern == null) {
       pattern = Pattern.compile(format);

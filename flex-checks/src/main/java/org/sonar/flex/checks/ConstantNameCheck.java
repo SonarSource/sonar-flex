@@ -53,6 +53,7 @@ public class ConstantNameCheck extends SquidCheck<LexerlessGrammar> {
     subscribeTo(FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
   }
 
+  @Override
   public void visitFile(@Nullable AstNode astNode) {
     if (pattern == null) {
       pattern = Pattern.compile(format);

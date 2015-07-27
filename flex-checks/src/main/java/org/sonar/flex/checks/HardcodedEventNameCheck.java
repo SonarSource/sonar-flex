@@ -71,6 +71,7 @@ public class HardcodedEventNameCheck extends SquidCheck<LexerlessGrammar> implem
 
   private State currentState;
 
+  @Override
   public void visitFile(@Nullable AstNode astNode) {
     currentState = State.EXPECTING_ADD_EVENT;
   }

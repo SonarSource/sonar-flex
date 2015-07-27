@@ -37,6 +37,7 @@ public class FlexPlugin extends SonarPlugin {
   public static final String FILE_SUFFIXES_KEY = "sonar.flex.file.suffixes";
   public static final String COBERTURA_REPORT_PATH = "sonar.flex.cobertura.reportPath";
 
+  @Override
   public List getExtensions() {
     return ImmutableList.of(
         Flex.class,

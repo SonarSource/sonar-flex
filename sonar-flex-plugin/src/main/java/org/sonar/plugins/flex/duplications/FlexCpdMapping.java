@@ -37,10 +37,12 @@ public class FlexCpdMapping extends AbstractCpdMapping {
     this.charset = fs.sourceCharset();
   }
 
+  @Override
   public Language getLanguage() {
     return language;
   }
 
+  @Override
   public Tokenizer getTokenizer() {
     return new FlexTokenizer(charset);
   }

@@ -3,9 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.sonarsource.sonar-plugins</groupId>
+    <groupId>org.sonarsource.parent</groupId>
     <artifactId>parent</artifactId>
-    <version>22</version>
+    <version>23</version>
   </parent>
 
   <groupId>org.sonarsource.sonar-plugins.flex</groupId>
@@ -70,7 +70,6 @@
 
   <properties>
     <license.title>SonarQube Flex Plugin</license.title>
-    <bintray.package>sonar-javascript</bintray.package>
     <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
 
     <sonar.version>3.7</sonar.version>

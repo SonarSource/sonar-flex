@@ -21,15 +21,13 @@ package com.sonar.it.flex;
 
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarRunner;
-import org.junit.Assume;
+import java.io.File;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.sonar.wsclient.services.Measure;
 import org.sonar.wsclient.services.Resource;
 import org.sonar.wsclient.services.ResourceQuery;
-
-import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -45,8 +43,6 @@ public class CoverageTest {
 
   @Before
   public void clean() {
-    Assume.assumeTrue(Tests.is_after_plugin_2_1());
-
     orchestrator.resetData();
   }
 

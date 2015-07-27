@@ -66,6 +66,8 @@
   </dependencies>
 
   <build>
+    <!-- Remove version from final name to ease installation in ITs -->
+    <finalName>sonar-flex-plugin</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

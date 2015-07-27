@@ -35,7 +35,7 @@ public class ASDocClassCheck {
     AstNode attributes = astNode.getPreviousAstNode();
     List<Trivia> triviaList = isAttributes(attributes) ? attributes.getToken().getTrivia() : astNode.getToken().getTrivia();
 
-    if (check.containsOnOfTags(triviaList, check.PRIVATE_TAG)) {
+    if (check.containsOnOfTags(triviaList, ASDocCheck.PRIVATE_TAG)) {
       return true;
 
     } else if (check.classes && !check.hasASDoc(triviaList)) {

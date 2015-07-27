@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.codehaus.sonar-plugins</groupId>
+    <groupId>org.sonarsource.sonar-plugins</groupId>
     <artifactId>parent</artifactId>
-    <version>17</version>
+    <version>22</version>
   </parent>
 
-  <groupId>org.codehaus.sonar-plugins.flex</groupId>
+  <groupId>org.sonarsource.sonar-plugins.flex</groupId>
   <artifactId>flex</artifactId>
   <version>2.2-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -70,7 +70,7 @@
 
   <properties>
     <license.title>SonarQube Flex Plugin</license.title>
-
+    <bintray.package>sonar-javascript</bintray.package>
     <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
 
     <sonar.version>3.7</sonar.version>

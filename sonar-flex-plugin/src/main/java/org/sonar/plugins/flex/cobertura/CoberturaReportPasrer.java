@@ -76,7 +76,7 @@ public class CoberturaReportPasrer {
 
       for (Map.Entry<String, CoverageMeasuresBuilder> entry : builderByFilename.entrySet()) {
 
-        String fileName = entry.getKey().startsWith(File.separator) ? entry.getKey() : File.separator + entry.getKey();
+        String fileName = entry.getKey().startsWith(File.separator) ? entry.getKey() : (File.separator + entry.getKey());
         InputFile inputFile = fileSystem.inputFile(predicates.and(
           predicates.matchesPathPattern("file:**" + fileName.replace(File.separator, "/")),
           predicates.hasType(InputFile.Type.MAIN),

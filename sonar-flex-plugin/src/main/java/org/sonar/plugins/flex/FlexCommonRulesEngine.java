@@ -19,9 +19,9 @@
  */
 package org.sonar.plugins.flex;
 
-import org.sonar.commonrules.api.CommonRulesEngine;
-import org.sonar.commonrules.api.CommonRulesRepository;
 import org.sonar.plugins.flex.core.Flex;
+import org.sonar.squidbridge.commonrules.api.CommonRulesEngine;
+import org.sonar.squidbridge.commonrules.api.CommonRulesRepository;
 
 public class FlexCommonRulesEngine extends CommonRulesEngine {
 

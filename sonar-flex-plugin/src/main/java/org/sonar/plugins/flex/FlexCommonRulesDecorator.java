@@ -19,13 +19,15 @@
  */
 package org.sonar.plugins.flex;
 
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.resources.ProjectFileSystem;
-import org.sonar.commonrules.api.CommonRulesDecorator;
+import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.batch.rule.CheckFactory;
+import org.sonar.api.component.ResourcePerspectives;
 import org.sonar.plugins.flex.core.Flex;
+import org.sonar.squidbridge.commonrules.api.CommonRulesDecorator;
 
 public class FlexCommonRulesDecorator extends CommonRulesDecorator {
-  public FlexCommonRulesDecorator(ProjectFileSystem fs, RulesProfile qProfile) {
-    super(Flex.KEY, fs, qProfile);
+
+  public FlexCommonRulesDecorator(FileSystem fs, CheckFactory checkFactory, ResourcePerspectives perspectives) {
+    super(Flex.KEY, fs, checkFactory, perspectives);
   }
 }

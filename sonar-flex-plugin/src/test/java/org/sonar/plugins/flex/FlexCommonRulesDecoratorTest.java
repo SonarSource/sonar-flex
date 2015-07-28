@@ -19,19 +19,24 @@
  */
 package org.sonar.plugins.flex;
 
-import org.junit.Test;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.resources.ProjectFileSystem;
-import org.sonar.plugins.flex.core.Flex;
-
 import static org.fest.assertions.Assertions.assertThat;
+import org.junit.Test;
 import static org.mockito.Mockito.mock;
+import org.sonar.api.batch.fs.internal.DefaultFileSystem;
+import org.sonar.api.batch.rule.ActiveRules;
+import org.sonar.api.batch.rule.CheckFactory;
+import org.sonar.api.component.ResourcePerspectives;
+import org.sonar.plugins.flex.core.Flex;
 
 public class FlexCommonRulesDecoratorTest {
 
   @Test
   public void test_declaration() throws Exception {
-    FlexCommonRulesDecorator decorator = new FlexCommonRulesDecorator(mock(ProjectFileSystem.class), mock(RulesProfile.class));
+    FlexCommonRulesDecorator decorator = new FlexCommonRulesDecorator(
+      new DefaultFileSystem(),
+      new CheckFactory(mock(ActiveRules.class)),
+      mock(ResourcePerspectives.class));
+
     assertThat(decorator.language()).isEqualTo(Flex.KEY);
   }
 }

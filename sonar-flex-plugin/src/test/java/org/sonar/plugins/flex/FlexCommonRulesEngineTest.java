@@ -19,10 +19,9 @@
  */
 package org.sonar.plugins.flex;
 
-import org.junit.Test;
-import org.sonar.commonrules.api.CommonRulesRepository;
-
 import static org.fest.assertions.Assertions.assertThat;
+import org.junit.Test;
+import org.sonar.squidbridge.commonrules.internal.CommonRulesConstants;
 
 public class FlexCommonRulesEngineTest {
 
@@ -35,8 +34,11 @@ public class FlexCommonRulesEngineTest {
   @Test
   public void enable_common_rules() {
     FlexCommonRulesEngine engine = new FlexCommonRulesEngine();
-    CommonRulesRepository repo = engine.newRepository();
-    assertThat(repo.rules()).hasSize(4);
-    assertThat(repo.rule(CommonRulesRepository.RULE_INSUFFICIENT_COMMENT_DENSITY)).isNotNull();
+
+    assertThat(engine.newRepository().enabledRuleKeys()).containsOnly(
+      CommonRulesConstants.RULE_DUPLICATED_BLOCKS,
+      CommonRulesConstants.RULE_INSUFFICIENT_COMMENT_DENSITY,
+      CommonRulesConstants.RULE_INSUFFICIENT_LINE_COVERAGE,
+      CommonRulesConstants.RULE_INSUFFICIENT_BRANCH_COVERAGE);
   }
 }

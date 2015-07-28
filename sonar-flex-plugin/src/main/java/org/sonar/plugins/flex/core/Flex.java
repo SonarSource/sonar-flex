@@ -23,7 +23,6 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.AbstractLanguage;
-import org.sonar.api.scan.filesystem.FileQuery;
 import org.sonar.plugins.flex.FlexPlugin;
 
 import java.util.List;
@@ -35,7 +34,6 @@ public class Flex extends AbstractLanguage {
 
   public static final String NAME = "Flex";
   public static final String KEY = "flex";
-  public static final FileQuery FILE_QUERY_ON_SOURCES = FileQuery.onSource().onLanguage(Flex.KEY);
 
   public static final String DEFAULT_FILE_SUFFIXES = "as";
 

@@ -21,7 +21,8 @@ package org.sonar.flex.checks;
 
 import com.google.common.io.Files;
 import com.sonar.sslr.api.AstNode;
-import org.sonar.api.utils.SonarException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -32,6 +33,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Collections;
 import java.util.List;
 
 @Rule(
@@ -40,6 +42,7 @@ import java.util.List;
 public class LineLengthCheck extends SquidCheck<LexerlessGrammar> implements CharsetAwareVisitor {
 
   private static final int DEFAULT_MAXIMUM_LINE_LENHGTH = 80;
+  private static final Logger LOG = LoggerFactory.getLogger(LineLengthCheck.class);
   private Charset charset;
 
   @RuleProperty(
@@ -54,12 +57,13 @@ public class LineLengthCheck extends SquidCheck<LexerlessGrammar> implements Cha
 
   @Override
   public void visitFile(@Nullable AstNode astNode) {
-    List<String> lines;
+    List<String> lines = Collections.emptyList();
 
     try {
       lines = Files.readLines(getContext().getFile(), charset);
     } catch (IOException e) {
-      throw new SonarException(e);
+      LOG.error("Unable to execute rule \"LineLength\" for file {} because of error: {}",
+        getContext().getFile().getName(), e);
     }
     for (int i = 0; i < lines.size(); i++) {
       String line = lines.get(i);

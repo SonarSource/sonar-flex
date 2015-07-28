@@ -46,7 +46,7 @@ public class FlexProfileTest {
     RulesProfile profile = definition.createProfile(validation);
 
     assertThat(profile.getLanguage()).isEqualTo(Flex.KEY);
-    assertThat(profile.getName()).isEqualTo(RulesProfile.SONAR_WAY_NAME);
+    assertThat(profile.getName()).isEqualTo(CheckList.SONAR_WAY_PROFILE);
     assertThat(profile.getActiveRulesByRepository(CheckList.REPOSITORY_KEY)).hasSize(60);
     assertThat(validation.hasErrors()).isFalse();
   }

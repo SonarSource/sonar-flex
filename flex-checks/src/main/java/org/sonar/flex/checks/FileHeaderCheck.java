@@ -21,7 +21,8 @@ package org.sonar.flex.checks;
 
 import com.google.common.io.Files;
 import com.sonar.sslr.api.AstNode;
-import org.sonar.api.utils.SonarException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -31,6 +32,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,6 +42,7 @@ import java.util.List;
 public class FileHeaderCheck extends SquidCheck<LexerlessGrammar> implements CharsetAwareVisitor {
 
   private static final String DEFAULT_HEADER_FORMAT = "";
+  private static final Logger LOG = LoggerFactory.getLogger(FileHeaderCheck.class);
 
   @RuleProperty(
     key = "headerFormat",
@@ -62,11 +65,13 @@ public class FileHeaderCheck extends SquidCheck<LexerlessGrammar> implements Cha
 
   @Override
   public void visitFile(AstNode astNode) {
-    List<String> lines;
+    List<String> lines = Collections.emptyList();
+
     try {
       lines = Files.readLines(getContext().getFile(), charset);
     } catch (IOException e) {
-      throw new SonarException(e);
+      LOG.error("Unable to execute rule \"S1451\" for file {} because of error: {}",
+        getContext().getFile().getName(), e);
     }
 
     if (!matches(expectedLines, lines)) {

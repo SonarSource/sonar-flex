@@ -49,7 +49,7 @@ public class FlexPlugin extends SonarPlugin {
         FlexSquidSensor.class,
         CoberturaSensor.class,
 
-        FlexRuleRepository.class,
+        FlexRulesDefinition.class,
         FlexProfile.class,
 
         PropertyDefinition.builder(FILE_SUFFIXES_KEY)

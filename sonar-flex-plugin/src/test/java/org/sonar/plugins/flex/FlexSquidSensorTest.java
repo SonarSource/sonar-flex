@@ -22,24 +22,26 @@ package org.sonar.plugins.flex;
 import org.fest.assertions.Assertions;
 import org.junit.Test;
 import org.mockito.Mockito;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
+import org.sonar.api.batch.rule.ActiveRules;
+import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.component.ResourcePerspectives;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
-import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.scan.filesystem.PathResolver;
 import org.sonar.plugins.flex.core.Flex;
 import org.sonar.test.TestUtils;
 
 import java.io.File;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class FlexSquidSensorTest {
 
@@ -105,7 +107,8 @@ public class FlexSquidSensorTest {
     FileLinesContextFactory fileLinesContextFactory = mock(FileLinesContextFactory.class);
     when(fileLinesContextFactory.createFor(Mockito.any(InputFile.class))).thenReturn(mock(FileLinesContext.class));
 
-    return new FlexSquidSensor(mock(RulesProfile.class), fileLinesContextFactory, fs, mock(ResourcePerspectives.class), new PathResolver());
+    CheckFactory checkFactory = new CheckFactory(mock(ActiveRules.class));
+    return new FlexSquidSensor(checkFactory, fileLinesContextFactory, fs, mock(ResourcePerspectives.class), new PathResolver());
   }
 
   private DefaultInputFile newInputFile(File file) {

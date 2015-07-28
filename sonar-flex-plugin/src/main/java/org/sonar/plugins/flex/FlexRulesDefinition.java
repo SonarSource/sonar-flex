@@ -19,24 +19,23 @@
  */
 package org.sonar.plugins.flex;
 
-import org.junit.Test;
-import org.sonar.api.rules.AnnotationRuleParser;
-import org.sonar.api.rules.Rule;
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.flex.checks.CheckList;
+import org.sonar.plugins.flex.core.Flex;
+import org.sonar.squidbridge.annotations.AnnotationBasedRulesDefinition;
 
-import java.util.List;
+public final class FlexRulesDefinition implements RulesDefinition {
 
-import static org.fest.assertions.Assertions.assertThat;
+  private static final String REPOSITORY_NAME = "SonarQube";
 
-public class FlexRuleRepositoryTest {
+  @Override
+  public void define(Context context) {
+    NewRepository repository = context
+      .createRepository(CheckList.REPOSITORY_KEY, Flex.KEY)
+      .setName(REPOSITORY_NAME);
 
-  @Test
-  public void test() {
-    FlexRuleRepository ruleRepository = new FlexRuleRepository(new AnnotationRuleParser());
-    assertThat(ruleRepository.getKey()).isEqualTo("flex");
-    assertThat(ruleRepository.getName()).isEqualTo("SonarQube");
-    List<Rule> rules = ruleRepository.createRules();
-    assertThat(rules.size()).isEqualTo(CheckList.getChecks().size());
+    AnnotationBasedRulesDefinition.load(repository, Flex.KEY, CheckList.getChecks());
+
+    repository.done();
   }
-
 }

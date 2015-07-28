@@ -20,6 +20,7 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -27,6 +28,8 @@ import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Modifiers;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -34,8 +37,11 @@ import java.util.List;
 
 @Rule(
   key = "S1448",
+  name = "Classes should not have too many methods",
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_CHANGEABILITY)
+@SqaleConstantRemediation("1h")
 public class ClassWithTooManyFunctionsCheck extends SquidCheck<LexerlessGrammar> {
 
 
@@ -44,12 +50,14 @@ public class ClassWithTooManyFunctionsCheck extends SquidCheck<LexerlessGrammar>
 
   @RuleProperty(
     key = "maximumFunctionThreshold",
+    description = "The maximum number of methods",
     defaultValue = "" + DEFAULT_MAX)
   int maximumFunctionThreshold = DEFAULT_MAX;
 
   @RuleProperty(
     key = "countNonpublicMethods",
     type = "BOOLEAN",
+    description = "Whether or not to include non-public methods in the count",
     defaultValue = "" + DEFAULT_INCLUDE_NON_PUBLIC)
   boolean countNonpublicMethods = DEFAULT_INCLUDE_NON_PUBLIC;
 

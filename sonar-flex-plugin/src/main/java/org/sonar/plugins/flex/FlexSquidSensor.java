@@ -29,7 +29,8 @@ import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.checks.AnnotationCheckFactory;
+import org.sonar.api.batch.rule.CheckFactory;
+import org.sonar.api.batch.rule.Checks;
 import org.sonar.api.component.ResourcePerspectives;
 import org.sonar.api.issue.Issuable;
 import org.sonar.api.issue.Issue;
@@ -37,10 +38,8 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.measures.PersistenceMode;
 import org.sonar.api.measures.RangeDistributionBuilder;
-import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rule.RuleKey;
-import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.scan.filesystem.PathResolver;
 import org.sonar.flex.FlexAstScanner;
 import org.sonar.flex.FlexConfiguration;
@@ -55,6 +54,7 @@ import org.sonar.squidbridge.api.SourceClass;
 import org.sonar.squidbridge.api.SourceCode;
 import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.api.SourceFunction;
+import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.squidbridge.indexer.QueryByParent;
 import org.sonar.squidbridge.indexer.QueryByType;
 import org.sonar.sslr.parser.LexerlessGrammar;
@@ -75,7 +75,7 @@ public class FlexSquidSensor implements Sensor {
     }
   };
 
-  private final AnnotationCheckFactory annotationCheckFactory;
+  private final Checks<SquidCheck<LexerlessGrammar>> checks;
   private final FileLinesContextFactory fileLinesContextFactory;
   private final FileSystem fileSystem;
   private final ResourcePerspectives resourcePerspectives;
@@ -85,10 +85,12 @@ public class FlexSquidSensor implements Sensor {
   private SensorContext context;
   private AstScanner<LexerlessGrammar> scanner;
 
-  public FlexSquidSensor(RulesProfile profile, FileLinesContextFactory fileLinesContextFactory,
+  public FlexSquidSensor(CheckFactory checkFactory, FileLinesContextFactory fileLinesContextFactory,
                          FileSystem fileSystem, ResourcePerspectives resourcePerspectives, PathResolver pathResolver) {
     this.pathResolver = pathResolver;
-    this.annotationCheckFactory = AnnotationCheckFactory.create(profile, CheckList.REPOSITORY_KEY, CheckList.getChecks());
+    this.checks = checkFactory
+      .<SquidCheck<LexerlessGrammar>>create(CheckList.REPOSITORY_KEY)
+      .addAnnotatedChecks(CheckList.getChecks());
     this.fileLinesContextFactory = fileLinesContextFactory;
     this.fileSystem = fileSystem;
     this.resourcePerspectives = resourcePerspectives;
@@ -105,9 +107,7 @@ public class FlexSquidSensor implements Sensor {
   @Override
   public void analyse(Project project, SensorContext context) {
     this.context = context;
-
-    Collection<SquidAstVisitor<LexerlessGrammar>> squidChecks = annotationCheckFactory.getChecks();
-    List<SquidAstVisitor<LexerlessGrammar>> visitors = Lists.newArrayList(squidChecks);
+    List<SquidAstVisitor<LexerlessGrammar>> visitors = Lists.<SquidAstVisitor<LexerlessGrammar>>newArrayList(checks.all());
     visitors.add(new FileLinesVisitor(fileLinesContextFactory, fileSystem));
     this.scanner = FlexAstScanner.create(createConfiguration(), visitors.toArray(new SquidAstVisitor[visitors.size()]));
 
@@ -178,12 +178,12 @@ public class FlexSquidSensor implements Sensor {
     if (messages != null) {
 
       for (CheckMessage message : messages) {
-        ActiveRule rule = annotationCheckFactory.getActiveRule(message.getCheck());
+        RuleKey ruleKey = checks.ruleKey((SquidCheck<LexerlessGrammar>) message.getCheck());
         Issuable issuable = resourcePerspectives.as(Issuable.class, inputFile);
 
         if (issuable != null) {
           Issue issue = issuable.newIssueBuilder()
-            .ruleKey(RuleKey.of(rule.getRepositoryKey(), rule.getRuleKey()))
+            .ruleKey(ruleKey)
             .line(message.getLine())
             .message(message.getText(Locale.ENGLISH))
             .build();

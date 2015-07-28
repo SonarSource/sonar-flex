@@ -63,11 +63,8 @@ public class CheckListTest {
           .isNotNull();
     }
 
-    ResourceBundle resourceBundle = ResourceBundle.getBundle("org.sonar.l10n.flex", Locale.ENGLISH);
-
     List<Rule> rules = new AnnotationRuleParser().parse("repositoryKey", checks);
     for (Rule rule : rules) {
-      resourceBundle.getString("rule." + CheckList.REPOSITORY_KEY + "." + rule.getKey() + ".name");
       assertThat(getClass().getResource("/org/sonar/l10n/flex/rules/flex/" + rule.getKey() + ".html"))
           .overridingErrorMessage("No description for " + rule.getKey())
           .isNotNull();
@@ -75,14 +72,6 @@ public class CheckListTest {
       assertThat(rule.getDescription())
           .overridingErrorMessage("Description of " + rule.getKey() + " should be in separate file")
           .isNull();
-
-      for (RuleParam param : rule.getParams()) {
-        resourceBundle.getString("rule." + CheckList.REPOSITORY_KEY + "." + rule.getKey() + ".param." + param.getKey());
-
-        assertThat(param.getDescription())
-            .overridingErrorMessage("Description for param " + param.getKey() + " of " + rule.getKey() + " should be in separate file")
-            .isEmpty();
-      }
     }
   }
 

@@ -21,13 +21,15 @@ package org.sonar.flex.checks;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.squidbridge.annotations.NoSqale;
 import org.sonar.squidbridge.checks.AbstractParseErrorCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "ParsingError",
-  priority = Priority.MAJOR,
-  name = "Flex parser failure")
+  name = "Flex parser failure",
+  priority = Priority.MAJOR)
+@NoSqale
 public class ParsingErrorCheck extends AbstractParseErrorCheck<LexerlessGrammar> {
 
 }

@@ -21,6 +21,7 @@ package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.Trivia;
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -28,6 +29,8 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.asdoc.ASDocClassCheck;
 import org.sonar.flex.checks.asdoc.ASDocMemberCheck;
 import org.sonar.flex.checks.utils.Clazz;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -35,7 +38,10 @@ import java.util.List;
 
 @Rule(
   key = "S1176",
+  name = "Public classes, methods, properties and metadata should be documented with ASDoc",
   priority = Priority.MAJOR)
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
+@SqaleConstantRemediation("30min")
 public class ASDocCheck extends SquidCheck<LexerlessGrammar> {
 
   public static final String INHERIT_TAG = "@inheritDoc";
@@ -50,30 +56,35 @@ public class ASDocCheck extends SquidCheck<LexerlessGrammar> {
   @RuleProperty(
     key = "asdoc_classes",
     type = "BOOLEAN",
+    description = "Public classes should be documented",
     defaultValue = "" + DEFAULT_CLASSES)
   public boolean classes = DEFAULT_CLASSES;
 
   @RuleProperty(
     key = "asdoc_properties",
     type = "BOOLEAN",
+    description = "Public properties should be documented",
     defaultValue = "" + DEFAULT_PROPERTIES)
   public boolean properties = DEFAULT_PROPERTIES;
 
   @RuleProperty(
     key = "asdoc_methods",
     type = "BOOLEAN",
+    description = "Public methods should be documented",
     defaultValue = "" + DEFAULT_METHODS)
   public boolean methods = DEFAULT_METHODS;
 
   @RuleProperty(
     key = "asdoc_method_param",
     type = "BOOLEAN",
+    description = "All parameters of public methods should be documented",
     defaultValue = "" + DEFAULT_METHOD_PARAMS)
   public boolean methodParams = DEFAULT_METHOD_PARAMS;
 
   @RuleProperty(
     key = "asdoc_method_return",
     type = "BOOLEAN",
+    description = "All return type of public methods should be documented",
     defaultValue = "" + DEFAULT_METHOD_RETURN)
   public boolean methodReturn = DEFAULT_METHOD_RETURN;
 

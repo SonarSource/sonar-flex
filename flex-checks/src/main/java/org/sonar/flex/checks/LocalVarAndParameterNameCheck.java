@@ -20,6 +20,7 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -27,6 +28,8 @@ import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Function;
 import org.sonar.flex.checks.utils.Variable;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -36,8 +39,11 @@ import java.util.regex.Pattern;
 
 @Rule(
   key = "S117",
+  name = "Local variable and function parameter names should comply with a naming convention",
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
+@SqaleConstantRemediation("2min")
 public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> {
 
 
@@ -47,6 +53,7 @@ public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> 
 
   @RuleProperty(
     key = "format",
+    description = "Regular expression used to check the names against.",
     defaultValue = DEFAULT)
   String format = DEFAULT;
 

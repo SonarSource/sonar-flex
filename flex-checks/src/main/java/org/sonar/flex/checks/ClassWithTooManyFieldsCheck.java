@@ -20,12 +20,15 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Modifiers;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -33,7 +36,10 @@ import java.util.List;
 
 @Rule(
   key = "S1820",
+  name = "Classes should not have too many fields",
   priority = Priority.MAJOR)
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_CHANGEABILITY)
+@SqaleConstantRemediation("1h")
 public class ClassWithTooManyFieldsCheck extends SquidCheck<LexerlessGrammar> {
 
 
@@ -42,12 +48,14 @@ public class ClassWithTooManyFieldsCheck extends SquidCheck<LexerlessGrammar> {
 
   @RuleProperty(
     key = "maximumFieldThreshold",
+    description = "The maximum number of field",
     defaultValue = "" + DEFAULT_MAX)
   int maximumFieldThreshold = DEFAULT_MAX;
 
   @RuleProperty(
     key = "countNonpublicFields",
     type = "BOOLEAN",
+    description = "Whether or not to include non-public fields in the count",
     defaultValue = "" + DEFAULT_COUNT_NON_PUBLIC)
   boolean countNonpublicFields = DEFAULT_COUNT_NON_PUBLIC;
 

@@ -17,6 +17,10 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>flex-squid</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.codehaus.sonar</groupId>
+      <artifactId>sonar-deprecated</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.hamcrest</groupId>

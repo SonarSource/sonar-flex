@@ -19,99 +19,70 @@
  */
 package org.sonar.plugins.flex.cobertura;
 
-import com.google.common.collect.ImmutableList;
 import org.fest.assertions.Assertions;
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyDouble;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.fs.internal.DefaultFileSystem;
+import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.config.Settings;
 import org.sonar.api.measures.CoreMetrics;
+import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.resources.Project;
-import org.sonar.api.resources.ProjectFileSystem;
-import org.sonar.api.resources.Resource;
-import org.sonar.api.scan.filesystem.FileQuery;
-import org.sonar.api.scan.filesystem.ModuleFileSystem;
-import org.sonar.api.test.IsMeasure;
 import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.core.Flex;
 import org.sonar.test.TestUtils;
 
 import java.io.File;
-import java.util.Collections;
 import java.util.Properties;
-
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyDouble;
-import static org.mockito.Matchers.argThat;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.*;
 
 public class CoberturaSensorTest {
 
   private Project project;
   private SensorContext context;
-  private org.sonar.api.resources.File flexFile;
+  private static final String TEST_DIR = "org/sonar/plugins/flex/cobertura/";
 
   @Before
   public void setUp() throws Exception {
-    flexFile = new org.sonar.api.resources.File("example/File.as");
     context = mock(SensorContext.class);
-    when(context.getResource(any(Resource.class))).thenReturn(flexFile);
-
-    project = mockProject(Flex.KEY);
-
+    project = new Project("key");
   }
 
   @Test
   public void shouldParseReport() throws Exception {
-    File srcDir = TestUtils.getResource("org/sonar/plugins/flex/cobertura");
+    DefaultFileSystem fs = new DefaultFileSystem();
+    File srcFile = TestUtils.getResource(TEST_DIR + "example/File.as");
+    InputFile inputFile = new DefaultInputFile(srcFile.getName())
+      .setLanguage(Flex.KEY)
+      .setType(InputFile.Type.MAIN)
+      .setAbsolutePath(srcFile.getAbsolutePath());
 
-    ModuleFileSystem fs = mock(ModuleFileSystem.class);
-    when(fs.sourceDirs()).thenReturn(ImmutableList.of(srcDir));
+    fs.add(inputFile);
 
-    ProjectFileSystem pfs = mock(ProjectFileSystem.class);
-    when(pfs.getSourceDirs()).thenReturn(ImmutableList.of(srcDir));
+    Sensor sensor = newSensorWithProperty(FlexPlugin.COBERTURA_REPORT_PATH, TestUtils.getResource(TEST_DIR + "coverage.xml").getPath(), fs);
+    sensor.analyse(project, context);
 
-    Project project1 = mock(Project.class);
-    when(project1.getFileSystem()).thenReturn(pfs);
-
-    Sensor sensor = newSensorWithProperty(FlexPlugin.COBERTURA_REPORT_PATH, TestUtils.getResource("org/sonar/plugins/flex/cobertura/coverage.xml").getPath(), fs);
-    sensor.analyse(project1, context);
-
-    verify(context).saveMeasure(
-      eq(flexFile),
-      argThat(new IsMeasure(CoreMetrics.LINES_TO_COVER, 2.0)));
-
-    verify(context).saveMeasure(
-      eq(flexFile),
-      argThat(new IsMeasure(CoreMetrics.UNCOVERED_LINES, 2.0)));
-
-    verify(context).saveMeasure(
-      eq(flexFile),
-      argThat(new IsMeasure(CoreMetrics.COVERAGE_LINE_HITS_DATA, "1=0;7=0")));
-
-    verify(context).saveMeasure(
-      eq(flexFile),
-      argThat(new IsMeasure(CoreMetrics.CONDITIONS_TO_COVER, 2.0)));
-
-    verify(context).saveMeasure(
-      eq(flexFile),
-      argThat(new IsMeasure(CoreMetrics.UNCOVERED_CONDITIONS, 1.0)));
-
-    verify(context).saveMeasure(
-      eq(flexFile),
-      argThat(new IsMeasure(CoreMetrics.CONDITIONS_BY_LINE, "1=2")));
-
-    verify(context).saveMeasure(
-      eq(flexFile),
-      argThat(new IsMeasure(CoreMetrics.COVERED_CONDITIONS_BY_LINE, "1=1")));
+    verify(context).saveMeasure(eq(inputFile), eq(new Measure(CoreMetrics.LINES_TO_COVER, 2.0)));
+    verify(context).saveMeasure(eq(inputFile), eq(new Measure(CoreMetrics.UNCOVERED_LINES, 2.0)));
+    verify(context).saveMeasure(eq(inputFile), eq(new Measure(CoreMetrics.COVERAGE_LINE_HITS_DATA, "1=0;7=0")));
+    verify(context).saveMeasure(eq(inputFile), eq(new Measure(CoreMetrics.CONDITIONS_TO_COVER, 2.0)));
+    verify(context).saveMeasure(eq(inputFile), eq(new Measure(CoreMetrics.UNCOVERED_CONDITIONS, 1.0)));
+    verify(context).saveMeasure(eq(inputFile), eq(new Measure(CoreMetrics.CONDITIONS_BY_LINE, "1=2")));
+    verify(context).saveMeasure(eq(inputFile), eq(new Measure(CoreMetrics.COVERED_CONDITIONS_BY_LINE, "1=1")));
   }
 
   @Test
   public void reportNotFound() {
-    Sensor sensor = newSensorWithProperty(FlexPlugin.COBERTURA_REPORT_PATH, "/fake/path", mock(ModuleFileSystem.class));
+    Sensor sensor = newSensorWithProperty(FlexPlugin.COBERTURA_REPORT_PATH, "/fake/path", new DefaultFileSystem());
     sensor.analyse(project, context);
 
     verify(context, never()).saveMeasure(any(org.sonar.api.resources.File.class), any(Metric.class), anyDouble());
@@ -119,7 +90,7 @@ public class CoberturaSensorTest {
 
   @Test
   public void noReport() {
-    CoberturaSensor sensor = new CoberturaSensor(new Settings(), null);
+    CoberturaSensor sensor = new CoberturaSensor(new Settings(), new DefaultFileSystem());
     sensor.analyse(project, context);
 
     verify(context, never()).saveMeasure(any(org.sonar.api.resources.File.class), any(Metric.class), anyDouble());
@@ -127,37 +98,18 @@ public class CoberturaSensorTest {
 
   @Test
   public void test_should_execute_on_project() {
-    Project project = mock(Project.class);
-    ModuleFileSystem fs = mock(ModuleFileSystem.class);
-    CoberturaSensor sensor = new CoberturaSensor(null, fs);
+    DefaultFileSystem fs = new DefaultFileSystem();
+    CoberturaSensor sensor = new CoberturaSensor(new Settings(), fs);
 
-
-    // Multi-language mode check
-    when(project.getLanguageKey()).thenReturn(null);
-
-    when(fs.files(any(FileQuery.class))).thenReturn(Collections.<File>emptyList());
+    // No Flex file in file system
     Assertions.assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
 
-    when(fs.files(any(FileQuery.class))).thenReturn(Collections.<File>singletonList(mock(File.class)));
-    Assertions.assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
-
-    // Compatibility 3.7
-    when(project.getLanguageKey()).thenReturn("java");
-    Assertions.assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
-
-    when(project.getLanguageKey()).thenReturn(Flex.KEY);
+    // With Flex source file
+    fs.add(new DefaultInputFile("Dummy.as").setLanguage(Flex.KEY).setType(InputFile.Type.MAIN));
     Assertions.assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
   }
 
-  private Project mockProject(String languageKey) {
-    Project prj = mock(Project.class);
-    when(prj.getLanguageKey()).thenReturn(languageKey);
-
-    return prj;
-  }
-
-  private Sensor newSensorWithProperty(String key, String value, ModuleFileSystem fs) {
-
+  private Sensor newSensorWithProperty(String key, String value, DefaultFileSystem fs) {
     Properties props = new Properties();
     if (key != null && value != null) {
       props.put(key, value);

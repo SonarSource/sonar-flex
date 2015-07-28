@@ -21,19 +21,16 @@ package org.sonar.flex;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
+import static org.fest.assertions.Assertions.assertThat;
 import org.junit.Test;
 import org.sonar.flex.api.FlexMetric;
 import org.sonar.squidbridge.AstScanner;
-import org.sonar.squidbridge.api.SourceCode;
 import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.api.SourceProject;
 import org.sonar.squidbridge.indexer.QueryByType;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.io.File;
-import java.util.Set;
-
-import static org.fest.assertions.Assertions.assertThat;
 
 public class FlexAstScannerTest {
 
@@ -87,14 +84,6 @@ public class FlexAstScannerTest {
   public void classes() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/metrics/classes.as"));
     assertThat(file.getInt(FlexMetric.CLASSES)).isEqualTo(2);
-  }
-
-  @Test
-  public void packages() {
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/metrics/packages.as"));
-    Set<SourceCode> set = file.getChildren();
-    assertThat(set.size()).isEqualTo(1);
-    assertThat(set).contains(new FlexSquidPackage("foo.bar.baz"));
   }
 
   @Test

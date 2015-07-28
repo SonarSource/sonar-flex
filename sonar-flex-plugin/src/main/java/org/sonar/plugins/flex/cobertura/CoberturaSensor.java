@@ -19,14 +19,15 @@
  */
 package org.sonar.plugins.flex.cobertura;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.batch.fs.FilePredicate;
+import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Project;
-import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.core.Flex;
 
@@ -36,18 +37,20 @@ public class CoberturaSensor implements Sensor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CoberturaSensor.class);
   private final Settings settings;
-  private final ModuleFileSystem fileSystem;
+  private final FileSystem fileSystem;
+  private final FilePredicate mainFilePredicates;
 
-  public CoberturaSensor(Settings settings, ModuleFileSystem fileSystem) {
+  public CoberturaSensor(Settings settings, FileSystem fileSystem) {
     this.settings = settings;
     this.fileSystem = fileSystem;
+    this.mainFilePredicates = fileSystem.predicates().and(
+      fileSystem.predicates().hasLanguage(Flex.KEY),
+      fileSystem.predicates().hasType(InputFile.Type.MAIN));
   }
 
   @Override
   public boolean shouldExecuteOnProject(Project project) {
-    // compatiblity with 3.7
-    return Flex.KEY.equals(project.getLanguageKey())
-      || (StringUtils.isBlank(project.getLanguageKey()) && !fileSystem.files(Flex.FILE_QUERY_ON_SOURCES).isEmpty());
+    return fileSystem.hasFiles(mainFilePredicates);
   }
 
   @Override
@@ -59,7 +62,7 @@ public class CoberturaSensor implements Sensor {
 
       if (xmlFile.exists()) {
         LOGGER.info("Analyzing Cobertura report: " + reportPath);
-        CoberturaReportPasrer.parseReport(xmlFile, context, project, fileSystem);
+        CoberturaReportPasrer.parseReport(xmlFile, context, fileSystem);
       } else {
         LOGGER.info("Cobertura xml report not found: " + reportPath);
       }

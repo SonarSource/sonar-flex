@@ -26,8 +26,6 @@ import org.sonar.api.resources.Qualifiers;
 import org.sonar.plugins.flex.cobertura.CoberturaSensor;
 import org.sonar.plugins.flex.colorizer.FlexColorizerFormat;
 import org.sonar.plugins.flex.core.Flex;
-import org.sonar.plugins.flex.core.FlexResourceBridge;
-import org.sonar.plugins.flex.core.FlexSourceImporter;
 import org.sonar.plugins.flex.duplications.FlexCpdMapping;
 
 import java.util.List;
@@ -41,8 +39,6 @@ public class FlexPlugin extends SonarPlugin {
   public List getExtensions() {
     return ImmutableList.of(
         Flex.class,
-        FlexSourceImporter.class,
-        FlexResourceBridge.class,
         FlexColorizerFormat.class,
 
         FlexCpdMapping.class,

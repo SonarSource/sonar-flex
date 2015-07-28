@@ -72,9 +72,6 @@ public class FlexIntegrationTest {
     assertThat(getProjectMeasure("lines").getIntValue()).isEqualTo(9627);
     assertThat(getProjectMeasure("files").getIntValue()).isEqualTo(69);
     assertThat(getProjectMeasure("classes").getIntValue()).isEqualTo(72);
-    if (!Tests.is_sonarqube_after_sonar_5_2()) {
-      assertThat(getProjectMeasure("packages").getIntValue()).isEqualTo(15);
-    }
     assertThat(getProjectMeasure("functions").getIntValue()).isEqualTo(484);
     assertThat(getProjectMeasure("comment_lines").getIntValue()).isEqualTo(3032);
     assertThat(getProjectMeasure("comment_lines_density").getValue()).isEqualTo(45.2);
@@ -106,9 +103,6 @@ public class FlexIntegrationTest {
     assertThat(getModuleMeasure("files").getIntValue()).isEqualTo(19);
     assertThat(getModuleMeasure("statements").getIntValue()).isEqualTo(895);
     assertThat(getModuleMeasure("classes").getIntValue()).isEqualTo(19);
-    if (!Tests.is_sonarqube_after_sonar_5_2()) {
-      assertThat(getModuleMeasure("packages").getIntValue()).isEqualTo(2);
-    }
     assertThat(getModuleMeasure("functions").getIntValue()).isEqualTo(183);
     assertThat(getModuleMeasure("comment_lines").getIntValue()).isEqualTo(1664);
     assertThat(getModuleMeasure("comment_lines_density").getValue()).isEqualTo(50.7);
@@ -138,9 +132,6 @@ public class FlexIntegrationTest {
     assertThat(getPackageMeasure("files").getIntValue()).isEqualTo(16);
     assertThat(getPackageMeasure("statements").getIntValue()).isEqualTo(795);
     assertThat(getPackageMeasure("classes").getIntValue()).isEqualTo(16);
-    if (!Tests.is_sonarqube_after_sonar_5_2()) {
-      assertThat(getPackageMeasure("packages").getIntValue()).isEqualTo(1);
-    }
     assertThat(getPackageMeasure("functions").getIntValue()).isEqualTo(165);
     assertThat(getPackageMeasure("comment_lines").getIntValue()).isEqualTo(1603);
     assertThat(getPackageMeasure("comment_lines_density").getValue()).isEqualTo(52.7);
@@ -170,9 +161,6 @@ public class FlexIntegrationTest {
     assertThat(getFileMeasure("files").getIntValue()).isEqualTo(1);
     assertThat(getFileMeasure("statements").getIntValue()).isEqualTo(39);
     assertThat(getFileMeasure("classes").getIntValue()).isEqualTo(1);
-    if (!Tests.is_sonarqube_after_sonar_5_2()) {
-      assertNull(getFileMeasure("packages"));
-    }
     assertThat(getFileMeasure("functions").getIntValue()).isEqualTo(10);
     assertThat(getFileMeasure("comment_lines").getIntValue()).isEqualTo(62);
     assertThat(getFileMeasure("comment_lines_density").getValue()).isEqualTo(45.3);

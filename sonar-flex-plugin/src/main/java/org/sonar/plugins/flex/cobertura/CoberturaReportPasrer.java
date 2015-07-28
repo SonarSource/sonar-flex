@@ -20,28 +20,27 @@
 package org.sonar.plugins.flex.cobertura;
 
 import com.google.common.collect.Maps;
+import static java.util.Locale.ENGLISH;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.staxmate.in.SMHierarchicCursor;
 import org.codehaus.staxmate.in.SMInputCursor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.batch.fs.FilePredicates;
+import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.measures.CoverageMeasuresBuilder;
 import org.sonar.api.measures.Measure;
-import org.sonar.api.resources.Project;
-import org.sonar.api.resources.Resource;
-import org.sonar.api.scan.filesystem.ModuleFileSystem;
+import static org.sonar.api.utils.ParsingUtils.parseNumber;
 import org.sonar.api.utils.StaxParser;
 import org.sonar.api.utils.XmlParserException;
+import org.sonar.plugins.flex.core.Flex;
 
-import javax.annotation.Nullable;
 import javax.xml.stream.XMLStreamException;
 import java.io.File;
 import java.text.ParseException;
 import java.util.Map;
-
-import static java.util.Locale.ENGLISH;
-import static org.sonar.api.utils.ParsingUtils.parseNumber;
 
 public class CoberturaReportPasrer {
 
@@ -53,14 +52,14 @@ public class CoberturaReportPasrer {
   /**
    * Parse a Cobertura xml report and create measures accordingly
    */
-  public static void parseReport(File xmlFile, final SensorContext context, final Project project, final ModuleFileSystem fileSystem) {
+  public static void parseReport(File xmlFile, final SensorContext context, final FileSystem fileSystem) {
     try {
       StaxParser parser = new StaxParser(new StaxParser.XmlStreamHandler() {
 
         @Override
         public void stream(SMHierarchicCursor rootCursor) throws XMLStreamException {
           rootCursor.advance();
-          collectPackageMeasures(rootCursor.descendantElementCursor("package"), context, project, fileSystem);
+          collectPackageMeasures(rootCursor.descendantElementCursor("package"), context, fileSystem);
         }
       });
       parser.parse(xmlFile);
@@ -69,17 +68,23 @@ public class CoberturaReportPasrer {
     }
   }
 
-  private static void collectPackageMeasures(SMInputCursor pack, SensorContext context, Project project, ModuleFileSystem fileSystem) throws XMLStreamException {
+  private static void collectPackageMeasures(SMInputCursor pack, SensorContext context, FileSystem fileSystem) throws XMLStreamException {
     while (pack.getNext() != null) {
       Map<String, CoverageMeasuresBuilder> builderByFilename = Maps.newHashMap();
       collectFileMeasures(pack.descendantElementCursor("class"), builderByFilename);
+      FilePredicates predicates = fileSystem.predicates();
 
       for (Map.Entry<String, CoverageMeasuresBuilder> entry : builderByFilename.entrySet()) {
-        Resource resource = getResourceForFileRelativeName(entry.getKey(), fileSystem, project);
 
-        if (resource != null) {
+        String fileName = entry.getKey().startsWith(File.separator) ? entry.getKey() : File.separator + entry.getKey();
+        InputFile inputFile = fileSystem.inputFile(predicates.and(
+          predicates.matchesPathPattern("file:**" + fileName.replace(File.separator, "/")),
+          predicates.hasType(InputFile.Type.MAIN),
+          predicates.hasLanguage(Flex.KEY)));
+
+        if (inputFile != null) {
           for (Measure measure : entry.getValue().createMeasures()) {
-            context.saveMeasure(resource, measure);
+            context.saveMeasure(inputFile, measure);
           }
           // mxml files are not imported by the plugin because they are not supported
         } else if (!entry.getKey().endsWith(".mxml")){
@@ -87,24 +92,6 @@ public class CoberturaReportPasrer {
         }
       }
     }
-  }
-
-  /**
-   * Return resource from file name relative to source directory.
-   * Cobertura gives relative path from source directory.
-   * <p/>
-   * Example: "example/File.as"
-   */
-  @Nullable
-  private static org.sonar.api.resources.File getResourceForFileRelativeName(String relativeFileName, ModuleFileSystem fileSystem, Project project) {
-    for (File srcDir : fileSystem.sourceDirs()) {
-      File file = new File(srcDir, relativeFileName);
-
-      if (file.exists()) {
-        return org.sonar.api.resources.File.fromIOFile(file, project);
-      }
-    }
-    return null;
   }
 
   private static void collectFileMeasures(SMInputCursor clazz, Map<String, CoverageMeasuresBuilder> builderByFilename) throws XMLStreamException {

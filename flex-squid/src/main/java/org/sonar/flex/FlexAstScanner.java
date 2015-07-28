@@ -67,24 +67,6 @@ public final class FlexAstScanner {
     }
   }
 
-  private static class PackageSourceCodeBuilderCallback implements SourceCodeBuilderCallback {
-    @Override
-    public SourceCode createSourceCode(SourceCode parentSourceCode, AstNode astNode) {
-      AstNode packageNameNode = astNode.getFirstChild(FlexGrammar.PACKAGE_NAME);
-      final String packageName;
-      if (packageNameNode != null) {
-        StringBuilder sb = new StringBuilder();
-        for (AstNode part : packageNameNode.getChildren()) {
-          sb.append(part.getTokenValue());
-        }
-        packageName = sb.toString();
-      } else {
-        packageName = "";
-      }
-      return new FlexSquidPackage(packageName);
-    }
-  }
-
   private FlexAstScanner() {
   }
 
@@ -119,9 +101,6 @@ public final class FlexAstScanner {
 
     /* Files */
     builder.setFilesMetric(FlexMetric.FILES);
-
-    /* Packages */
-    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<LexerlessGrammar>(new PackageSourceCodeBuilderCallback(), FlexGrammar.PACKAGE_DEF));
 
     /* Classes */
     builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<LexerlessGrammar>(new SourceCodeBuilderCallback() {

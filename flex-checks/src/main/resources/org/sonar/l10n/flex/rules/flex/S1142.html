@@ -1,11 +1,11 @@
-<p>
-  Having too many return statements in a function increases the function's essential complexity because the flow of execution is broken each time a return statement is encountered. This makes it harder to read and understand the logic of the function.
-</p>
+<p>Having too many return statements in a function increases the function's essential complexity because the flow of execution is broken each time a return statement is encountered. This makes it harder to read and understand the logic of the function.</p>
 
 <h2>Noncompliant Code Example</h2>
-<p>The following code snippet illustrates this rule with the default threshold of 3:</p>
+
+<p>With the default threshold of 3:</p>
+
 <pre>
-function myFunction():boolean { // Noncompliant
+function myFunction():boolean { // Noncompliant as there are 4 return statements
   if (condition1) {
     return true;
   } else {
@@ -14,18 +14,6 @@ function myFunction():boolean { // Noncompliant
     } else {
       return true;
     }
-  }
-  return false;
-}
-</pre>
-
-<h2>Compliant Solution</h2>
-<pre>
-function myFunction():boolean { // Compliant
-  if (condition1) {
-    return true;
-  } else if (condition2) {
-      return false;
   }
   return false;
 }

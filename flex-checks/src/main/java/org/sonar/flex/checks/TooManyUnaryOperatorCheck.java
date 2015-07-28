@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
 
 @Rule(
   key = "S1454",
-  name = "Multiple \"++\" or \"--\" unary operators should not be used in a single expression",
+  name = "Multiple \"++\" or \"--\" unary operators should not be used in a single arithmetic expression",
   priority = Priority.MINOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MINOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)

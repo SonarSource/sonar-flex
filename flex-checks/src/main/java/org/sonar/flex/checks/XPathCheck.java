@@ -47,7 +47,7 @@ public class XPathCheck extends AbstractXPathCheck<LexerlessGrammar> {
 
   @RuleProperty(
     key = "message",
-    description = "The violation message",
+    description = "The issue message",
     defaultValue = "" + DEFAULT_MESSAGE)
   public String message = DEFAULT_MESSAGE;
 

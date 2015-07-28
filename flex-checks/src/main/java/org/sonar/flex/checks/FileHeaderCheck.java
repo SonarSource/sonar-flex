@@ -53,7 +53,7 @@ public class FileHeaderCheck extends SquidCheck<LexerlessGrammar> implements Cha
   @RuleProperty(
     key = "headerFormat",
     type = "TEXT",
-    description = "Expected copyright and license header (plain text)",
+    description = "Expected copyright and license header",
     defaultValue = DEFAULT_HEADER_FORMAT)
   public String headerFormat = DEFAULT_HEADER_FORMAT;
 

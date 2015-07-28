@@ -27,6 +27,7 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
+import org.sonar.flex.checks.utils.Tags;
 import org.sonar.flex.checks.utils.Variable;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
@@ -40,10 +41,11 @@ import java.util.regex.Pattern;
 @Rule(
   key = "S116",
   name = "Field names should comply with a naming convention",
-  priority = Priority.MAJOR)
+  tags = Tags.CONVENTION,
+  priority = Priority.MINOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
-@SqaleConstantRemediation("5min")
+@SqaleConstantRemediation("2min")
 public class FieldNameCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final String DEFAULT = "^[_a-z][a-zA-Z0-9]*$";

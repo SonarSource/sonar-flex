@@ -1,35 +1,45 @@
-<p>
-  Shadowing fields with a local variable or with a function parameter is a bad practice reducing code readability: It makes it confusing to know whether the field or the variable is and should be accessed.
-</p>
+<p>Shadowing fields with a local variable or with a function parameter is a bad practice that reduces code readability: It makes it confusing to know whether the field or the variable is being used.</p>
 
 <h2>Noncompliant Code Example</h2>
+
 <pre>
 class Foo {
   public var myField:int;
 
-  public function Foo(myField:int) {                   // Compliant - method/constructor parameters are not checked
-    this.myField = myField;
-  }
-
-  public static function build(myField:int):Foo {                   // Compliant - static functions are not checked
-    ...
-  }
-
-  public function setMyField(int myField):void{           // Compliant - setter methods are not checked
-    this.myField = myField;
-  }
-
-  public function set myField(int myField):void{           // Compliant - implicit setter methods are not checked
-    this.myField = myField;
-  }
-
   public function doSomething():String {
-    var myField:int = 0;                          // Noncompliant - should be renamed
+    var myField:int = 0;
     ...
   }
 
-  public function doSomethingElse(myField:int):String {   // Noncompliant - should be renamed
+  public function doSomethingElse(myField:int):String {
     ...
   }
 }
 </pre>
+
+<h2>Exceptions</h2>
+
+<p>Constructors and setters are exceptions; it is common practice to name arguments for the fields the values will be assigned to. Static methods are also ignored.</p>
+
+<pre>
+class Foo {
+  public var myField:int;
+
+  public function Foo(myField:int) {
+    this.myField = myField;
+  }
+
+  public static function build(myField:int):Foo {
+    ...
+  }
+
+  public function setMyField(int myField):void{
+    this.myField = myField;
+  } 
+
+  public function set myField(int myField):void{ 
+    this.myField = myField;
+  } 
+}
+</pre>
+

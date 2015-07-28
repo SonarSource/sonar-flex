@@ -1,25 +1,28 @@
-<p>
-  Most of the time a block of code is empty when a piece of code is really missing. So such empty block must be either filled or removed.
-</p>
-<p>
-  When a block contains a comment, this block is not considered to be empty.
-</p>
+<p>Most of the time a block of code is empty when a piece of code is really missing. So such empty block must be either filled or removed.</p>
 
 <h2>Noncompliant Code Example</h2>
-<p>The following code snippet illustrates this rule:</p>
+
 <pre>
-for (var i:int = 0; i < 42; i++){}  // Noncompliant
-
-for (var i:int= 0; i < 42; i++);    // Compliant
-
-if (myVar == 4)                     // Compliant - contains a comment
-{
-  // Do nothing because of X and Y
-}
+for (var i:int = 0; i &lt; 42; i++){}  // Noncompliant
 
 try {                               // Noncompliant
-}catch (error)                      // Compliant
+} catch (error)
 {
-    // Ignore
+    ...
 }
 </pre>
+
+<h2>Compliant Solution</h2>
+
+<pre>
+for (var i:int = 0; i &lt; 42; i++);
+
+for (var i:int = 0; i &lt; 42; i++) {
+  trace(i);
+}
+</pre>
+
+<h2>Exceptions</h2>
+
+<p>When a block contains a comment, this block is not considered to be empty.</p>
+

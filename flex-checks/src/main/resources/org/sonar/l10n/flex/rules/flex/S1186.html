@@ -8,3 +8,23 @@
     <li>The method is an intentionally-blank override. In this case a nested comment should explain the reason for the blank override.</li>
 </ul>
 
+<h2>Noncompliant Code Example</h2>
+
+<pre>
+public override function doSomething():void {
+}
+
+public function doSomethingElse():void {
+}
+</pre>
+<h2>Compliant Solution</h2>
+
+<pre>
+public override function doSomething():void {
+  throw new IllegalOperationError("doSomething cannot be performed because ...");
+}
+
+public function doSomethingElse():void {
+  //This method is empty because ...
+}
+</pre>

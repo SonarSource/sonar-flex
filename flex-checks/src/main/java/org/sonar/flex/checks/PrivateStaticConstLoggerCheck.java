@@ -30,6 +30,7 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Modifiers;
+import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
@@ -42,13 +43,14 @@ import java.util.regex.Pattern;
 @Rule(
   key = "S1312",
   name = "Loggers should be \"private static const\" and should share a naming convention",
-  priority = Priority.MAJOR)
+  tags = Tags.CONVENTION,
+  priority = Priority.MINOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("5min")
 public class PrivateStaticConstLoggerCheck extends SquidCheck<LexerlessGrammar> {
 
-  private static final String DEFAULT = "^LOG(GER)?$";
+  private static final String DEFAULT = "LOG(?:GER)?";
   private Pattern pattern = null;
 
   @RuleProperty(

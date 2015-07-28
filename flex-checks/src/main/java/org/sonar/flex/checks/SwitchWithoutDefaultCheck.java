@@ -27,6 +27,7 @@ import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.FlexPunctuator;
+import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
@@ -34,11 +35,12 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "SwitchWithoutDefault",
-  name = "The final clause of a switch statement shall be the default-clause",
+  name = "\"switch\" statements should end with a \"default\" clause",
+  tags = {Tags.CWE, Tags.CERT, Tags.MISRA},
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
-@SqaleConstantRemediation("10min")
+@SqaleConstantRemediation("5min")
 public class SwitchWithoutDefaultCheck extends SquidCheck<LexerlessGrammar> {
 
   @Override

@@ -29,14 +29,14 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "CommentRegularExpression",
-  name = "Regular expression on comment",
+  name = "Comments matching a regular expression should be handled",
   priority = Priority.MAJOR)
 @RuleTemplate
 @NoSqale
 public class CommentRegularExpressionCheck extends AbstractCommentRegularExpressionCheck<LexerlessGrammar> {
 
   private static final String DEFAULT_REGULAR_EXPRESSION = "";
-  private static final String DEFAULT_MESSAGE = "The regular expression matches this comment";
+  private static final String DEFAULT_MESSAGE = "The regular expression matches this comment.";
 
   @RuleProperty(
     key = "regularExpression",
@@ -46,7 +46,7 @@ public class CommentRegularExpressionCheck extends AbstractCommentRegularExpress
 
   @RuleProperty(
     key = "message",
-    description = "The violation message",
+    description = "The issue message",
     defaultValue = "" + DEFAULT_MESSAGE)
   public String message = DEFAULT_MESSAGE;
 

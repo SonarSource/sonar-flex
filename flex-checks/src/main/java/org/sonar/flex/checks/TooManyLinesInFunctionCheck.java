@@ -26,6 +26,7 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexPunctuator;
+import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
@@ -34,6 +35,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S138",
   name = "Functions should not have too many lines",
+  tags = Tags.BRAIN_OVERLOAD,
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("20min")
@@ -43,7 +45,7 @@ public class TooManyLinesInFunctionCheck extends SquidCheck<LexerlessGrammar> {
 
   @RuleProperty(
     key = "max",
-    description = "Functions should not have too many lines",
+    description = "Maximum authorized lines in a function",
     defaultValue = "" + DEFAULT)
   int max = DEFAULT;
 

@@ -1,6 +1,8 @@
 <p>
 Usage of statements, operators and keywords specific to ActionScript 2 does not allow to migrate to ActionScript 3.
 This includes "intrinsic" keyword, set variable statement and following list of operators:
+</p>
+
 <ul>
   <li><> (inequality) - use != instead</li>
   <li>add (concatenation (strings)) - use + instead</li>
@@ -14,11 +16,9 @@ This includes "intrinsic" keyword, set variable statement and following list of 
   <li>or (logical or) - use || instead</li>
   <li>not (logical not) - use ! instead</li>
 </ul>
-</p>
 
-<p>
-The following code snippet illustrates this rule:
-</p>
+
+<h2>Noncompliant Code Example</h2>
 
 <pre>
 if (true != false) { // Compliant

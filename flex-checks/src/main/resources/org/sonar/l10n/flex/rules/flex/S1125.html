@@ -1,5 +1,5 @@
 <p>
-  Boolean expressions should not be compared against boolean literals, as their value can be directly used.
+  Remove literal boolean values from conditional expressions to improve readability. Anything that can be tested for equality with a boolean value must itself be a boolean value, and boolean values can be tested atomically.
 </p>
 
 <h2>Noncompliant Code Example</h2>

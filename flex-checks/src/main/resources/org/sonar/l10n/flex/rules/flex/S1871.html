@@ -1,6 +1,4 @@
-<p>
-  Having two cases in the same switch statement with the same implementation is at best duplicate code, and at worst a coding error. If the same logic is truly needed for both cases, then one should fall through to the other.
-</p>
+p>Having two <code>cases</code> in the same <code>switch</code> statement with the same implementation is at best duplicate code, and at worst a coding error. If the same logic is truly needed for both instances, then one should fall through to the other.</p>
 
 <h2>Noncompliant Code Example</h2>
 <pre>
@@ -14,6 +12,8 @@ switch (i) {
   case 3:  // Noncompliant; duplicates case 1's implementation
     doSomething();
     break;
+  default:
+    doTheRest();
 }
 </pre>
 
@@ -27,9 +27,13 @@ switch (i) {
   case 2:
     doSomethingDifferent();
     break;
+  default:
+    doTheRest();
 }
 </pre>
+
 <p>or</p>
+
 <pre>
 switch (i) {
   case 1:
@@ -41,5 +45,7 @@ switch (i) {
   case 3:
     doThirdThing();
     break;
+  default:
+    doTheRest();
 }
 </pre>

@@ -27,6 +27,7 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.api.FlexMetric;
+import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.api.SourceFunction;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
@@ -35,7 +36,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "FunctionComplexity",
-  name = "Avoid too complex function",
+  name = "Functions should not be too complex",
+  tags = Tags.BRAIN_OVERLOAD,
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNIT_TESTABILITY)
@@ -46,7 +48,7 @@ public class FunctionComplexityCheck extends SquidCheck<LexerlessGrammar> {
 
   @RuleProperty(
     key = "maximumFunctionComplexityThreshold",
-    description = "The maximum authorized complexity in function",
+    description = "The maximum authorized complexity.",
     defaultValue = "" + DEFAULT_MAXIMUM_FUNCTION_COMPLEXITY_THRESHOLD)
   private int maximumFunctionComplexityThreshold = DEFAULT_MAXIMUM_FUNCTION_COMPLEXITY_THRESHOLD;
 

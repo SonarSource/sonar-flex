@@ -1,5 +1,15 @@
-<p>
-  The == and != operators do type coercion before comparing values, but === and !== don't. </br >
-  This is bad because it can mask type errors. For example, it evaluates <code>' \t\r\n' == 0</code> as <code>true</code>, and <code>foo == null</code> as <code>true</code>, even if foo, in the last example, is <code>undefined</code>. </br >
-  It is best to always use the side-effect-less === and !== operators instead.
-</p>
+<p>The <code>==</code> and <code>!=</code> operators do type coercion before comparing values. This is bad because it can mask type errors. For example, it evaluates <code>' \t\r\n' == 0</code> as <code>true</code>.</p>
+<p>It is best to always use the side-effect-less <code>===</code> and <code>!==</code> operators instead.</p>
+
+<h2>Noncompliant Code Example</h2>
+
+<pre>
+if (var == 'howdy') {...} // Noncompliant
+</pre>
+
+<h2>Compliant Solution</h2>
+
+<pre>
+if (var === 'howdy') {...}
+</pre>
+

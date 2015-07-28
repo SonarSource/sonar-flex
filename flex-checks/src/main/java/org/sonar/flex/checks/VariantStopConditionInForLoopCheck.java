@@ -29,6 +29,7 @@ import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexPunctuator;
 import org.sonar.flex.checks.utils.Expression;
+import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
@@ -40,6 +41,7 @@ import java.util.Set;
 @Rule(
   key = "S127",
   name = "\"for\" loop stop conditions should be invariant",
+  tags = {Tags.MISRA, Tags.PITFALL},
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)

@@ -20,13 +20,14 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
-import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.api.server.rule.RulesDefinition.SubCharacteristics;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.api.FlexMetric;
+import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.api.SourceClass;
@@ -36,10 +37,11 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "ClassComplexity",
-  name = "Avoid too complex class",
+  name = "Classes should not be too complex",
+  tags = Tags.BRAIN_OVERLOAD,
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNIT_TESTABILITY)
+@SqaleSubCharacteristic(SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("1h")
 public class ClassComplexityCheck extends SquidCheck<LexerlessGrammar> {
 
@@ -47,7 +49,7 @@ public class ClassComplexityCheck extends SquidCheck<LexerlessGrammar> {
 
   @RuleProperty(
     key = "maximumClassComplexityThreshold",
-    description = "The maximum authorized complexity in class",
+    description = "Maximum complexity allowed.",
     defaultValue = "" + DEFAULT_MAXIMUM_CLASS_COMPLEXITY_THRESHOLD)
   private int maximumClassComplexityThreshold = DEFAULT_MAXIMUM_CLASS_COMPLEXITY_THRESHOLD;
 

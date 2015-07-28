@@ -24,6 +24,7 @@ import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
@@ -31,7 +32,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "FunctionSinglePointOfExit",
-  name = "Functions shall have a single point of exit at the end of the function",
+  name = "A function should have a single point of exit at the end of the function",
+  tags = {Tags.CONFUSING, Tags.MISRA},
   priority = Priority.MINOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("20min")

@@ -28,6 +28,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.api.CharsetAwareVisitor;
+import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
@@ -42,6 +43,7 @@ import java.util.List;
 @Rule(
   key = "LineLength",
   name = "Lines should not be too long",
+  tags = Tags.CONVENTION,
   priority = Priority.MINOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("1min")
@@ -53,7 +55,7 @@ public class LineLengthCheck extends SquidCheck<LexerlessGrammar> implements Cha
 
   @RuleProperty(
     key = "maximumLineLength",
-    description = "The maximum authorized line length",
+    description = "The maximum authorized line length.",
     defaultValue = "" + DEFAULT_MAXIMUM_LINE_LENHGTH)
   public int maximumLineLength = DEFAULT_MAXIMUM_LINE_LENHGTH;
 

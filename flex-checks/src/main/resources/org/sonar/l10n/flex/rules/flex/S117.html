@@ -3,26 +3,20 @@
 </p>
 
 <h2>Noncompliant Code Example</h2>
+<p>With the default regular expression <code>^[_a-z][a-zA-Z0-9]*$</code>:</p>
 <pre>
-public class MyClass
+public function doSomething(my_param:int):void
 {
-
-  public function doSomething(PARAM:int):void  // Noncompliant
-  {
-    var LOCAL:int;                             // Noncompliant
-  }
+  var LOCAL:int;
+  ...
 }
 </pre>
-
 <h2>Compliant Solution</h2>
-<pre>
-public class MyClass
-{
 
-  public function doSomething(param:int):void
-  {
-    var local:int;
-  }
+<pre>
+public function doSomething(myParam):void
+{
+  var local;
+  ...
 }
 </pre>
-

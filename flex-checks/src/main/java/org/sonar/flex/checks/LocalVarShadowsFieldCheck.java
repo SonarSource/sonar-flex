@@ -30,6 +30,7 @@ import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Function;
 import org.sonar.flex.checks.utils.Modifiers;
+import org.sonar.flex.checks.utils.Tags;
 import org.sonar.flex.checks.utils.Variable;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
@@ -44,10 +45,11 @@ import java.util.Map;
 @Rule(
   key = "S1117",
   name = "Local variables should not shadow class fields",
+  tags = Tags.PITFALL,
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.DATA_RELIABILITY)
-@SqaleConstantRemediation("2min")
+@SqaleConstantRemediation("5min")
 public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
 
 

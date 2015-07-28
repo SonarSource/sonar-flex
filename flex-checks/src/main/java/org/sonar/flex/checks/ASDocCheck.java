@@ -29,6 +29,7 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.asdoc.ASDocClassCheck;
 import org.sonar.flex.checks.asdoc.ASDocMemberCheck;
 import org.sonar.flex.checks.utils.Clazz;
+import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
@@ -39,9 +40,10 @@ import java.util.List;
 @Rule(
   key = "S1176",
   name = "Public classes, methods, properties and metadata should be documented with ASDoc",
+  tags = Tags.CONVENTION,
   priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
-@SqaleConstantRemediation("30min")
+@SqaleConstantRemediation("10min")
 public class ASDocCheck extends SquidCheck<LexerlessGrammar> {
 
   public static final String INHERIT_TAG = "@inheritDoc";

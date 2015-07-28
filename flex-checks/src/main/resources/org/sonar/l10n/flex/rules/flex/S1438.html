@@ -1,25 +1,17 @@
-<p>
-  In Flex, the semicolon is optional as a statement separator, but omitting semicolons can be confusing.
-</p>
+<p>In Flex, the semicolon is optional as a statement separator, but omitting semicolons can be confusing.</p>
 
 <h2>Noncompliant Code Example</h2>
-<p>Here is an example of such confusing code :</p>
+
 <pre>
 function fun() {
-  return
-       5
+  return   // Noncompliant
+       5   // Noncompliant
 }
-print(fun());
+print(fun());  // prints "undefined", not "5"
 </pre>
-<p>Will print "undefined", because interpreted as:</p>
-<pre>
-function fun() {
-  return;
-  5;
-}
-print(fun());
-</pre>
+
 <h2>Compliant Solution</h2>
+
 <pre>
 function fun() {
   return 5;

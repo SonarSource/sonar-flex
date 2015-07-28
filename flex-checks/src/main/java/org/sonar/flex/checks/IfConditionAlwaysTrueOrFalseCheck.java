@@ -33,11 +33,11 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S1145",
-  name = "If statement conditions should not always evaluate to \"true\" or to \"false\"",
+  name = "Useless \"if(true) {...}\" and \"if(false){...}\" blocks should be removed",
   priority = Priority.MAJOR)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
-@SqaleConstantRemediation("5min")
+@SqaleConstantRemediation("2min")
 public class IfConditionAlwaysTrueOrFalseCheck extends SquidCheck<LexerlessGrammar> {
 
 

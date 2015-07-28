@@ -21,7 +21,7 @@ package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
-import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.api.server.rule.RulesDefinition.SubCharacteristics;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -29,6 +29,7 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Modifiers;
+import org.sonar.flex.checks.utils.Tags;
 import org.sonar.flex.checks.utils.Variable;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
@@ -39,10 +40,11 @@ import java.util.Set;
 
 @Rule(
   key = "S1444",
-  name = "\"public static\" fields should always be constant",
-  priority = Priority.MAJOR)
+  name = "\"public static\" fields should be constant",
+  tags = {Tags.CWE, Tags.CERT, Tags.SECURITY},
+  priority = Priority.CRITICAL)
 @BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.DATA_RELIABILITY)
+@SqaleSubCharacteristic(SubCharacteristics.SECURITY_FEATURES)
 @SqaleConstantRemediation("20min")
 public class PublicStaticFieldCheck extends SquidCheck<LexerlessGrammar> {
 

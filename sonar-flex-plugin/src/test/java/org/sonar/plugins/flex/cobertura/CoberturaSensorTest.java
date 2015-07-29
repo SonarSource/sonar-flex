@@ -60,7 +60,8 @@ public class CoberturaSensorTest {
   @Test
   public void shouldParseReport() throws Exception {
     DefaultFileSystem fs = new DefaultFileSystem();
-    File srcFile = TestUtils.getResource(TEST_DIR + "example/File.as");
+    fs.setBaseDir(TestUtils.getResource(TEST_DIR));
+    File srcFile = TestUtils.getResource(TEST_DIR + "src/example/File.as");
     InputFile inputFile = new DefaultInputFile(srcFile.getName())
       .setLanguage(Flex.KEY)
       .setType(InputFile.Type.MAIN)

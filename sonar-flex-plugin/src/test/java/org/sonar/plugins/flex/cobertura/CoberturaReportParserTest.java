@@ -30,7 +30,7 @@ public class CoberturaReportParserTest {
 
   @Test(expected = XmlParserException.class)
   public void invalidXmlFile() throws Exception {
-    CoberturaReportPasrer.parseReport(
+    CoberturaReportParser.parseReport(
       TestUtils.getResource("org/sonar/plugins/flex/cobertura/coverage-invalid.xml"),
       mock(SensorContext.class),
       new DefaultFileSystem());

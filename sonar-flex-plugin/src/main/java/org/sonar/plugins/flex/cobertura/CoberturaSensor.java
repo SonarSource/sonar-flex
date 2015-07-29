@@ -62,7 +62,7 @@ public class CoberturaSensor implements Sensor {
 
       if (xmlFile.exists()) {
         LOGGER.info("Analyzing Cobertura report: " + reportPath);
-        CoberturaReportPasrer.parseReport(xmlFile, context, fileSystem);
+        CoberturaReportParser.parseReport(xmlFile, context, fileSystem);
       } else {
         LOGGER.info("Cobertura xml report not found: " + reportPath);
       }

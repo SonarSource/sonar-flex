@@ -42,11 +42,11 @@ import java.io.File;
 import java.text.ParseException;
 import java.util.Map;
 
-public class CoberturaReportPasrer {
+public class CoberturaReportParser {
 
-  private static final Logger LOG = LoggerFactory.getLogger(CoberturaReportPasrer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(CoberturaReportParser.class);
 
-  private CoberturaReportPasrer() {
+  private CoberturaReportParser() {
   }
 
   /**

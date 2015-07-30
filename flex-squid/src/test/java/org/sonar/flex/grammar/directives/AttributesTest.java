@@ -31,7 +31,8 @@ public class AttributesTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.ATTRIBUTES))
-      .matches("public static");
+      .matches("public static")
+      .notMatches("public static function");
   }
 
 }

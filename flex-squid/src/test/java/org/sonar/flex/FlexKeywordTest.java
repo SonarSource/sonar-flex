@@ -58,7 +58,6 @@ public class FlexKeywordTest {
       .matches("interface")
       .matches("internal")
       .matches("is")
-      .matches("native")
       .matches("new")
       .matches("null")
       .matches("package")
@@ -79,7 +78,7 @@ public class FlexKeywordTest {
       .matches("while")
       .matches("with");
 
-    assertThat(FlexKeyword.keywords()).hasSize(43);
-    assertThat(FlexKeyword.values()).hasSize(43 + /* syntactic: */ 11);
+    assertThat(FlexKeyword.keywords()).hasSize(42);
+    assertThat(FlexKeyword.values()).hasSize(42 + /* syntactic: */ 12);
   }
 }

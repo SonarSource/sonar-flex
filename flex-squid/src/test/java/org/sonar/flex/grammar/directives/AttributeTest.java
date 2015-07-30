@@ -32,6 +32,13 @@ public class AttributeTest {
   public void test() {
     Assertions.assertThat(g.rule(FlexGrammar.ATTRIBUTE))
       .matches("public")
+      .matches("private")
+      .matches("internal")
+      .matches("protected")
+      .matches("override")
+      .matches("final")
+      .matches("dynamic")
+      .matches("native")
       .matches("static")
       .matches("attribute")
       .matches("attribute.attribute")

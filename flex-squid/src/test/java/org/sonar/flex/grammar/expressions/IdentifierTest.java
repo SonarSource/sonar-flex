@@ -35,11 +35,14 @@ public class IdentifierTest {
 
       .matches("dynamic")
       .matches("each")
+      .matches("final")
       .matches("get")
       .matches("include")
       .matches("namespace")
+      .matches("override")
       .matches("set")
       .matches("static")
+      .matches("native")
 
       .notMatches("for")
       .matches("for27")

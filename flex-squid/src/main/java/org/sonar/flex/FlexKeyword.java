@@ -53,7 +53,6 @@ public enum FlexKeyword implements GrammarRuleKey {
   INTERFACE,
   INTERNAL,
   IS,
-  NATIVE,
   NEW,
   NULL,
   PACKAGE,
@@ -81,6 +80,9 @@ public enum FlexKeyword implements GrammarRuleKey {
   INCLUDE(true),
   DYNAMIC(true),
   FINAL(true),
+  // "native" strangely appears in both the "keywords" and "syntactic keywords" lists of the language spec
+  // It seems that "native" is accepted as a valid identifier by the compiler and should be considered as a "syntactic keyword"
+  NATIVE(true),
   OVERRIDE(true),
   STATIC(true),
   XML(true);

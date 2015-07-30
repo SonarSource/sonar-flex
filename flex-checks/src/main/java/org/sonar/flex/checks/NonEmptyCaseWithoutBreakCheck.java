@@ -22,11 +22,11 @@ package org.sonar.flex.checks;
 import com.google.common.collect.Iterables;
 import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
@@ -37,7 +37,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   name = "Switch cases should end with an unconditional \"break\" statement",
   tags = {Tags.CWE, Tags.MISRA, Tags.CERT, Tags.PITFALL},
   priority = Priority.CRITICAL)
-@BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.CRITICAL)
+@ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
 @SqaleConstantRemediation("10min")
 public class NonEmptyCaseWithoutBreakCheck extends SquidCheck<LexerlessGrammar> {

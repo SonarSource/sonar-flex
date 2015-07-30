@@ -22,11 +22,11 @@ package org.sonar.flex.checks;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.AbstractOneStatementPerLineCheck;
@@ -37,7 +37,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   name = "Statements should be on separate lines",
   tags = Tags.CONVENTION,
   priority = Priority.MINOR)
-@BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MINOR)
+@ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("1min")
 public class OneStatementPerLineCheck extends AbstractOneStatementPerLineCheck<LexerlessGrammar> {

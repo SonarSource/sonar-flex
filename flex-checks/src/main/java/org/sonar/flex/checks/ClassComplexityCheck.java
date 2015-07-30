@@ -21,13 +21,13 @@ package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
 import org.sonar.api.server.rule.RulesDefinition.SubCharacteristics;
-import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.api.FlexMetric;
 import org.sonar.flex.checks.utils.Tags;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.api.SourceClass;
@@ -40,9 +40,9 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   name = "Classes should not be too complex",
   tags = Tags.BRAIN_OVERLOAD,
   priority = Priority.MAJOR)
-@BelongsToProfile(title = CheckList.SONAR_WAY_PROFILE, priority = Priority.MAJOR)
 @SqaleSubCharacteristic(SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("1h")
+@ActivatedByDefault
 public class ClassComplexityCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final int DEFAULT_MAXIMUM_CLASS_COMPLEXITY_THRESHOLD = 80;
@@ -64,10 +64,10 @@ public class ClassComplexityCheck extends SquidCheck<LexerlessGrammar> {
     int complexity = ChecksHelper.getRecursiveMeasureInt(sourceClass, FlexMetric.COMPLEXITY);
     if (complexity > maximumClassComplexityThreshold) {
       getContext().createLineViolation(this,
-        "Class has a complexity of {0,number,integer} which is greater than {1,number,integer} authorized.",
-        node,
-        complexity,
-        maximumClassComplexityThreshold);
+          "Class has a complexity of {0,number,integer} which is greater than {1,number,integer} authorized.",
+          node,
+          complexity,
+          maximumClassComplexityThreshold);
     }
   }
 

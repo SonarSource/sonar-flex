@@ -19,10 +19,9 @@
  */
 package org.sonar.flex.checks;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.io.Files;
 import com.sonar.sslr.api.AstNode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -33,11 +32,14 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Rule(
   key = "S1451",
@@ -48,7 +50,6 @@ import java.util.List;
 public class FileHeaderCheck extends SquidCheck<LexerlessGrammar> implements CharsetAwareVisitor {
 
   private static final String DEFAULT_HEADER_FORMAT = "";
-  private static final Logger LOG = LoggerFactory.getLogger(FileHeaderCheck.class);
 
   @RuleProperty(
     key = "headerFormat",
@@ -57,8 +58,16 @@ public class FileHeaderCheck extends SquidCheck<LexerlessGrammar> implements Cha
     defaultValue = DEFAULT_HEADER_FORMAT)
   public String headerFormat = DEFAULT_HEADER_FORMAT;
 
+  @RuleProperty(
+    key = "isRegularExpression",
+    description = "Whether the headerFormat is a regular expression",
+    defaultValue = "false")
+  public boolean isRegularExpression = false;
+
   private Charset charset;
   private String[] expectedLines;
+
+  private Pattern regularExpression = null;
 
   @Override
   public void setCharset(Charset charset) {
@@ -67,23 +76,48 @@ public class FileHeaderCheck extends SquidCheck<LexerlessGrammar> implements Cha
 
   @Override
   public void init() {
-    expectedLines = headerFormat.split("(?:\r)?\n|\r");
+    if (isRegularExpression) {
+      regularExpression = Pattern.compile(headerFormat);
+    } else {
+      expectedLines = headerFormat.split("(?:\r)?\n|\r");
+    }
   }
 
   @Override
   public void visitFile(AstNode astNode) {
+    File file = getContext().getFile();
+    boolean hasHeader = isRegularExpression ? matchesRegularExpression(file) : matchesPlainTextHeader(file);
+    if (!hasHeader) {
+      getContext().createFileViolation(this, "Add or update the header of this file.");
+    }
+  }
+
+  @VisibleForTesting
+  protected boolean matchesRegularExpression(File file) {
+    String content;
+    try {
+      content = Files.toString(file, charset);
+    } catch (IOException e) {
+      throw new IllegalStateException(exceptionMessage(file), e);
+    }
+    Matcher matcher = regularExpression.matcher(content);
+    if (matcher.find()) {
+      return matcher.start() == 0;
+    }
+    return false;
+  }
+
+  @VisibleForTesting
+  protected boolean matchesPlainTextHeader(File file) {
     List<String> lines = Collections.emptyList();
 
     try {
-      lines = Files.readLines(getContext().getFile(), charset);
+      lines = Files.readLines(file, charset);
     } catch (IOException e) {
-      LOG.error("Unable to execute rule \"S1451\" for file {} because of error: {}",
-        getContext().getFile().getName(), e);
+      throw new IllegalStateException(exceptionMessage(file), e);
     }
 
-    if (!matches(expectedLines, lines)) {
-      getContext().createFileViolation(this, "Add or update the header of this file.");
-    }
+    return matches(expectedLines, lines);
   }
 
   private static boolean matches(String[] expectedLines, List<String> lines) {
@@ -105,6 +139,10 @@ public class FileHeaderCheck extends SquidCheck<LexerlessGrammar> implements Cha
     }
 
     return result;
+  }
+
+  private static String exceptionMessage(File file) {
+    return String.format("Unable to execute rule \"S1451\" for file %s", file.getName());
   }
 
 }

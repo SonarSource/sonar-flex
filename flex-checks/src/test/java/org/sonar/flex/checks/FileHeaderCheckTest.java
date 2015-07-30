@@ -19,6 +19,7 @@
  */
 package org.sonar.flex.checks;
 
+import com.google.common.base.Charsets;
 import org.junit.Test;
 import org.sonar.flex.FlexAstScanner;
 import org.sonar.squidbridge.api.SourceFile;
@@ -102,6 +103,47 @@ public class FileHeaderCheckTest {
     file = FlexAstScanner.scanSingleFile(FILE3, check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
       .noMore();
+  }
+
+  @Test
+  public void regular_expression() throws Exception {
+    String headerFormat = "// copyright 20[0-9][0-9]";
+    assertHasIssue(createCheck(headerFormat, false), FILE1);
+    assertHasIssue(createCheck(headerFormat, false), FILE3);
+    assertNoIssue(createCheck(headerFormat, true), FILE1);
+    assertHasIssue(createCheck(headerFormat, true), FILE3);
+    assertHasIssue(createCheck("copyright", true), FILE1);
+  }
+
+  private FileHeaderCheck createCheck(String format, boolean isRegularExpression) {
+    FileHeaderCheck check = new FileHeaderCheck();
+    check.headerFormat = format;
+    check.isRegularExpression = isRegularExpression;
+    return check;
+  }
+
+  private void assertHasIssue(FileHeaderCheck check, File file) {
+    SourceFile sourceFile = FlexAstScanner.scanSingleFile(file, check);
+    CheckMessagesVerifier.verify(sourceFile.getCheckMessages()).next().atLine(null);
+  }
+
+  private void assertNoIssue(FileHeaderCheck check, File file) {
+    SourceFile sourceFile = FlexAstScanner.scanSingleFile(file, check);
+    CheckMessagesVerifier.verify(sourceFile.getCheckMessages()).noMore();
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void ioexception_with_plaintext() throws Exception {
+    FileHeaderCheck check = new FileHeaderCheck();
+    check.setCharset(Charsets.UTF_8);
+    check.matchesPlainTextHeader(new File("unknown"));
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void ioexception_with_regexp() throws Exception {
+    FileHeaderCheck check = new FileHeaderCheck();
+    check.setCharset(Charsets.UTF_8);
+    check.matchesRegularExpression(new File("unknown"));
   }
 
 }

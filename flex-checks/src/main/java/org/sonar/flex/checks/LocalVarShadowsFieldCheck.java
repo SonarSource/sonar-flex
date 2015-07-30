@@ -114,14 +114,14 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
       && !Function.isConstructor(node, classStack.peek().getClassName());
   }
 
-  private boolean isStatic(AstNode functionDef) {
+  private static boolean isStatic(AstNode functionDef) {
     return Modifiers.getModifiers(functionDef.getParent().getPreviousAstNode()).contains(FlexKeyword.STATIC);
   }
 
-  private boolean isAccessor(AstNode functionDef) {
+  private static boolean isAccessor(AstNode functionDef) {
     String functionName = Function.getName(functionDef);
     return Function.isAccessor(functionDef)
-      || functionName.length() > 2 && "set".equals(functionName.substring(0, 3));
+      || (functionName.length() > 2 && "set".equals(functionName.substring(0, 3)));
   }
 
   private void checkVariableNames(AstNode varDeclStatement) {

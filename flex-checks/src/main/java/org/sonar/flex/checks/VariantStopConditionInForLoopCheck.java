@@ -103,7 +103,7 @@ public class VariantStopConditionInForLoopCheck extends SquidCheck<LexerlessGram
    * Returns for statement stop condition, null if there is no stop condition.
    */
   @Nullable
-  private AstNode getStopCondition(AstNode forStatement) {
+  private static AstNode getStopCondition(AstNode forStatement) {
     AstNode semicolonNode = forStatement.getFirstChild(FlexPunctuator.SEMICOLON);
 
     if (semicolonNode != null) {
@@ -137,7 +137,7 @@ public class VariantStopConditionInForLoopCheck extends SquidCheck<LexerlessGram
     }
   }
 
-  private Set<String> getLoopsCounters(AstNode forStatement) {
+  private static Set<String> getLoopsCounters(AstNode forStatement) {
     Set<String> loopCounters = Sets.newHashSet();
     AstNode initialiser = forStatement.getFirstChild(FlexGrammar.FOR_INITIALISER);
 
@@ -154,7 +154,7 @@ public class VariantStopConditionInForLoopCheck extends SquidCheck<LexerlessGram
     return loopCounters;
   }
 
-  private void getCountersFromListExpression(Set<String> counters, AstNode initialiserExpr) {
+  private static void getCountersFromListExpression(Set<String> counters, AstNode initialiserExpr) {
     for (AstNode assignmentExpr : initialiserExpr.getChildren(FlexGrammar.ASSIGNMENT_EXPR_NO_IN)) {
       AstNode exprFirstChild = assignmentExpr.getFirstChild();
 
@@ -168,7 +168,7 @@ public class VariantStopConditionInForLoopCheck extends SquidCheck<LexerlessGram
     }
   }
 
-  private void getCountersFromVariableDef(Set<String> counters, AstNode initialiserExpr) {
+  private static void getCountersFromVariableDef(Set<String> counters, AstNode initialiserExpr) {
     for (AstNode variableBinding : initialiserExpr.getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST_NO_IN).getChildren(FlexGrammar.VARIABLE_BINDING_NO_IN)) {
       counters.add(Expression.exprToString(variableBinding.getFirstChild(FlexGrammar.TYPED_IDENTIFIER_NO_IN).getFirstChild(FlexGrammar.IDENTIFIER)));
     }

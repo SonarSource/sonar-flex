@@ -42,7 +42,7 @@ import javax.annotation.Nullable;
 @SqaleConstantRemediation("10min")
 public class StarUseForDomainCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
 
-  private static enum State {
+  private enum State {
     EXPECTING_SECURITY,
     EXPECTING_DOT,
     EXPECTING_ALLOW_DOMAIN,
@@ -51,7 +51,7 @@ public class StarUseForDomainCheck extends SquidCheck<LexerlessGrammar> implemen
     FOUND_ISSUE
   }
 
-  private static enum Symbol {
+  private enum Symbol {
     OTHER,
     SECURITY,
     DOT,

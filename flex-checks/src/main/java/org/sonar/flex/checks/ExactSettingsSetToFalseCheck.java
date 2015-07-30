@@ -43,7 +43,7 @@ import javax.annotation.Nullable;
 @SqaleConstantRemediation("10min")
 public class ExactSettingsSetToFalseCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
 
-  private static enum State {
+  private enum State {
     EXPECTING_SECURITY,
     EXPECTING_DOT,
     EXPECTING_EXACT_SETTINGS,
@@ -52,7 +52,7 @@ public class ExactSettingsSetToFalseCheck extends SquidCheck<LexerlessGrammar> i
     FOUND_ISSUE
   }
 
-  private static enum Symbol {
+  private enum Symbol {
     OTHER,
     SECURITY,
     DOT,

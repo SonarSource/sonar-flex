@@ -50,12 +50,12 @@ public class OnEnterFrameUseCheck extends SquidCheck<LexerlessGrammar> {
     }
   }
 
-  private boolean isFunctionExpr(AstNode assignementExpr) {
+  private static boolean isFunctionExpr(AstNode assignementExpr) {
     AstNode assignmentExprChild = assignementExpr.getFirstChild();
     return assignmentExprChild.is(FlexGrammar.POSTFIX_EXPR) && assignmentExprChild.getFirstChild().getFirstChild().is(FlexGrammar.FUNCTION_EXPR);
   }
 
-  private boolean isOnEnterFrame(AstNode postfixExpr) {
+  private static boolean isOnEnterFrame(AstNode postfixExpr) {
     return Expression.exprToString(postfixExpr).endsWith(".onEnterFrame");
   }
 

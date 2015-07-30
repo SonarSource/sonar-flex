@@ -45,7 +45,7 @@ public class ASDocClassCheck {
     return false;
   }
 
-  private boolean isAttributes(AstNode classDefPreviousNode) {
+  private static boolean isAttributes(AstNode classDefPreviousNode) {
     return classDefPreviousNode != null && classDefPreviousNode.is(FlexGrammar.ATTRIBUTES);
   }
 

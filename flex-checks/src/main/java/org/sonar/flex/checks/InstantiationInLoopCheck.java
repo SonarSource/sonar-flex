@@ -76,11 +76,11 @@ public class InstantiationInLoopCheck extends SquidCheck<LexerlessGrammar> {
     }
   }
 
-  private boolean isNestedNewExpression(AstNode newExpression) {
+  private static boolean isNestedNewExpression(AstNode newExpression) {
     return newExpression.getParent().is(FlexGrammar.FULL_NEW_SUB_EXPR, FlexGrammar.SHORT_NEW_SUB_EXPR);
   }
 
-  private Object getClassName(AstNode astNode) {
+  private static Object getClassName(AstNode astNode) {
     if (astNode.is(FlexGrammar.OBJECT_INITIALISER)) {
       return "Object";
     }

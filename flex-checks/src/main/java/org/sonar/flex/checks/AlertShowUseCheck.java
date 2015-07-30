@@ -42,14 +42,14 @@ import javax.annotation.Nullable;
 @SqaleConstantRemediation("10min")
 public class AlertShowUseCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
 
-  private static enum State {
+  private enum State {
     EXPECTING_ALERT,
     EXPECTING_DOT,
     EXPECTING_SHOW,
     FOUND_ISSUE
   }
 
-  private static enum Symbol {
+  private enum Symbol {
     OTHER,
     ALERT,
     DOT,

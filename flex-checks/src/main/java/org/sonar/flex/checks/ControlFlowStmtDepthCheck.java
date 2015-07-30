@@ -92,7 +92,7 @@ public class ControlFlowStmtDepthCheck extends SquidCheck<LexerlessGrammar> {
     }
   }
 
-  private boolean isElseIf(AstNode astNode) {
+  private static boolean isElseIf(AstNode astNode) {
     return astNode.getParent().getParent().getPreviousSibling() != null
       && astNode.getParent().getParent().getPreviousSibling().is(FlexKeyword.ELSE);
   }

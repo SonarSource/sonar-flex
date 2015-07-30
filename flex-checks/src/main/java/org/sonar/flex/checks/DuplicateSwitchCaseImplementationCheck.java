@@ -70,7 +70,7 @@ public class DuplicateSwitchCaseImplementationCheck extends SquidCheck<Lexerless
     }
   }
 
-  private List<Token> getCaseImplementationTokens(AstNode caseElement) {
+  private static List<Token> getCaseImplementationTokens(AstNode caseElement) {
     List<Token> tokens = Lists.newArrayList();
 
     for (AstNode directive : caseElement.getChildren(FlexGrammar.DIRECTIVE)) {
@@ -85,7 +85,7 @@ public class DuplicateSwitchCaseImplementationCheck extends SquidCheck<Lexerless
    * @return duplicated case condition if there is, null otherwise.
    */
   @Nullable
-  private AstNode getDuplicatedCase(Map<AstNode, List<Token>> cases, List<Token> tokens) {
+  private static AstNode getDuplicatedCase(Map<AstNode, List<Token>> cases, List<Token> tokens) {
     for (Map.Entry<AstNode, List<Token>> entry : cases.entrySet()) {
 
       if (areTokenValuesIdentical(entry.getValue(), tokens)) {
@@ -95,7 +95,7 @@ public class DuplicateSwitchCaseImplementationCheck extends SquidCheck<Lexerless
     return null;
   }
 
-  private boolean areTokenValuesIdentical(List<Token> implementation1, List<Token> implementation2) {
+  private static boolean areTokenValuesIdentical(List<Token> implementation1, List<Token> implementation2) {
     int nbToken = implementation1.size();
 
     if (implementation2.size() != nbToken) {

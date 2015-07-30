@@ -87,7 +87,7 @@ public class ClassWithTooManyFunctionsCheck extends SquidCheck<LexerlessGrammar>
     return nbMethods;
   }
 
-  private int getNumberOfNonPublicMethods(List<AstNode> methods) {
+  private static int getNumberOfNonPublicMethods(List<AstNode> methods) {
     int nbNonPublicMethod = 0;
 
     for (AstNode method : methods) {

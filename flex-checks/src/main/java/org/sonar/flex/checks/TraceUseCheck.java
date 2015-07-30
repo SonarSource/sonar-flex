@@ -51,7 +51,7 @@ public class TraceUseCheck extends SquidCheck<LexerlessGrammar> {
     }
   }
 
-  private boolean isFunctionCall(AstNode postfixExpr) {
+  private static boolean isFunctionCall(AstNode postfixExpr) {
     return postfixExpr.getFirstChild().is(FlexGrammar.PRIMARY_EXPR) && postfixExpr.getLastChild().is(FlexGrammar.ARGUMENTS);
   }
 

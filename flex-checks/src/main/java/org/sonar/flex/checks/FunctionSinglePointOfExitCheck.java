@@ -60,7 +60,7 @@ public class FunctionSinglePointOfExitCheck extends SquidCheck<LexerlessGrammar>
     }
   }
 
-  private boolean hasReturnAtEnd(AstNode functionDefinitionNode) {
+  private static boolean hasReturnAtEnd(AstNode functionDefinitionNode) {
     AstNode lastDirectiveNode = functionDefinitionNode
       .getFirstChild(FlexGrammar.FUNCTION_COMMON)
       .getFirstChild(FlexGrammar.BLOCK)

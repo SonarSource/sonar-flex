@@ -76,7 +76,7 @@ public class ASDocMemberCheck {
    * Returns class member trivia.
    * Handles case when there is metadata tag before method or field.
    */
-  private List<Trivia> getTrivia(AstNode directive) {
+  private static List<Trivia> getTrivia(AstNode directive) {
     // If there is no metatdata right before the method or field declaration
     if (directive.getToken().hasTrivia()) {
       return directive.getToken().getTrivia();
@@ -91,7 +91,7 @@ public class ASDocMemberCheck {
     return current.getToken().getTrivia();
   }
 
-  private boolean isMetadata(AstNode directive) {
+  private static boolean isMetadata(AstNode directive) {
     AstNode statementKind = directive.getFirstChild().getFirstChild();
     return statementKind != null && statementKind.is(FlexGrammar.METADATA_STATEMENT);
   }
@@ -99,7 +99,7 @@ public class ASDocMemberCheck {
   /**
    * Verifies that an ASDoc is present above the field declaration.
    */
-  private void checkField(ASDocCheck check, List<Trivia> trivia, AstNode variableDec) {
+  private static void checkField(ASDocCheck check, List<Trivia> trivia, AstNode variableDec) {
     if (!check.hasASDoc(trivia) && !check.containsOnOfTags(trivia, ASDocCheck.PRIVATE_TAG, ASDocCheck.INHERIT_TAG)) {
       check.getContext().createLineViolation(check, "Add the missing ASDoc for this field declaration.", variableDec);
     }
@@ -186,7 +186,7 @@ public class ASDocMemberCheck {
   }
 
 
-  private boolean returnsVoid(AstNode functionDef) {
+  private static boolean returnsVoid(AstNode functionDef) {
     AstNode returnType = functionDef
       .getFirstChild(FlexGrammar.FUNCTION_COMMON)
       .getFirstChild(FlexGrammar.FUNCTION_SIGNATURE)

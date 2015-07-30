@@ -164,7 +164,7 @@ public class UnusedFunctionParametersCheck extends SquidCheck<LexerlessGrammar> 
       || containsOnlyThrowStmt(directives) || isInClassImplementingInterface();
   }
 
-  private Boolean implementsAnInterface(AstNode classDef) {
+  private static Boolean implementsAnInterface(AstNode classDef) {
     AstNode inheritenceNode = classDef.getFirstChild(FlexGrammar.INHERITENCE);
     return inheritenceNode != null && inheritenceNode.getFirstChild().is(FlexKeyword.IMPLEMENTS);
   }
@@ -173,7 +173,7 @@ public class UnusedFunctionParametersCheck extends SquidCheck<LexerlessGrammar> 
     return !classes.isEmpty() && classes.peek();
   }
 
-  private boolean containsOnlyThrowStmt(AstNode directives) {
+  private static boolean containsOnlyThrowStmt(AstNode directives) {
     List<AstNode> directiveList = directives.getChildren();
 
     if (directiveList.size() == 1) {
@@ -197,11 +197,11 @@ public class UnusedFunctionParametersCheck extends SquidCheck<LexerlessGrammar> 
     return functionDef.is(FlexGrammar.FUNCTION_DEF) && Function.isOverriding(functionDef);
   }
 
-  private boolean isNotAbstract(AstNode functionDef) {
+  private static boolean isNotAbstract(AstNode functionDef) {
     return functionDef.getFirstChild(FlexGrammar.FUNCTION_COMMON).getLastChild().is(FlexGrammar.BLOCK);
   }
 
-  private String getPrimaryExpressionStringValue(AstNode postfixExpr) {
+  private static String getPrimaryExpressionStringValue(AstNode postfixExpr) {
     StringBuilder builder = new StringBuilder();
     for (Token t : postfixExpr.getTokens()) {
       builder.append(t.getValue());

@@ -44,7 +44,7 @@ public class StarUseForLocalConnectionCheck extends SquidCheck<LexerlessGrammar>
 
   private Token previousToken = null;
 
-  private static enum State {
+  private enum State {
     EXPECTING_DOT,
     EXPECTING_ALLOW_DOMAIN,
     EXPECTING_LCURLY,
@@ -52,7 +52,7 @@ public class StarUseForLocalConnectionCheck extends SquidCheck<LexerlessGrammar>
     FOUND_ISSUE
   }
 
-  private static enum Symbol {
+  private enum Symbol {
     OTHER,
     DOT,
     ALLOW_DOMAIN,

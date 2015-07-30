@@ -162,7 +162,7 @@ public class UnusedFunctionParametersCheck extends SquidCheck<LexerlessGrammar> 
       .getFirstChild(FlexGrammar.BLOCK)
       .getFirstChild(FlexGrammar.DIRECTIVES);
 
-    return isOverriding(functionDec) || isEmpty(directives)
+    return isExcludedFunctionDeclaration(functionDec) || isEmpty(directives)
       || containsOnlyThrowStmt(directives) || isInClassImplementingInterface();
   }
 
@@ -195,8 +195,26 @@ public class UnusedFunctionParametersCheck extends SquidCheck<LexerlessGrammar> 
     }
   }
 
-  private boolean isOverriding(AstNode functionDef) {
-    return functionDef.is(FlexGrammar.FUNCTION_DEF) && Function.isOverriding(functionDef);
+  private static boolean isExcludedFunctionDeclaration(AstNode functionDec) {
+    return functionDec.is(FlexGrammar.FUNCTION_DEF) && (Function.isOverriding(functionDec) || isEventHandler(functionDec));
+  }
+
+  private static boolean isEventHandler(AstNode functionDec) {
+    String functionName = functionDec.getFirstChild(FlexGrammar.FUNCTION_NAME).getTokenValue();
+    if (functionName.toLowerCase().contains("handler")) {
+      AstNode parameters = functionDec
+        .getFirstChild(FlexGrammar.FUNCTION_COMMON)
+        .getFirstChild(FlexGrammar.FUNCTION_SIGNATURE)
+        .getFirstChild(FlexGrammar.PARAMETERS);
+      if (parameters != null) {
+        AstNode firstParameterType = parameters
+          .getFirstChild(FlexGrammar.PARAMETER)
+          .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
+          .getFirstChild(FlexGrammar.TYPE_EXPR);
+        return firstParameterType.getLastToken().getValue().endsWith("Event");
+      }
+    }
+    return false;
   }
 
   private static boolean isNotAbstract(AstNode functionDef) {

@@ -33,7 +33,7 @@ import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.rule.Checks;
 import org.sonar.api.component.ResourcePerspectives;
 import org.sonar.api.issue.Issuable;
-import org.sonar.api.issue.Issue;
+import org.sonar.api.issue.Issuable.IssueBuilder;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.measures.PersistenceMode;
@@ -182,13 +182,16 @@ public class FlexSquidSensor implements Sensor {
         Issuable issuable = resourcePerspectives.as(Issuable.class, inputFile);
 
         if (issuable != null) {
-          Issue issue = issuable.newIssueBuilder()
-            .ruleKey(ruleKey)
-            .line(message.getLine())
-            .message(message.getText(Locale.ENGLISH))
-            .build();
+          IssueBuilder issueBuilder = issuable.newIssueBuilder()
+              .ruleKey(ruleKey)
+              .line(message.getLine())
+              .message(message.getText(Locale.ENGLISH));
 
-          issuable.addIssue(issue);
+          if (message.getCost() != null) {
+            issueBuilder.effortToFix(message.getCost());
+          }
+
+          issuable.addIssue(issueBuilder.build());
         }
       }
     }

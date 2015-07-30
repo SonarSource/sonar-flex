@@ -26,24 +26,23 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.api.FlexMetric;
+import org.sonar.flex.checks.utils.FlexCheck;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleLinearWithOffsetRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.api.SourceClass;
 import org.sonar.squidbridge.checks.ChecksHelper;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "ClassComplexity",
   name = "Classes should not be too complex",
   tags = Tags.BRAIN_OVERLOAD,
   priority = Priority.MAJOR)
-@SqaleSubCharacteristic(SubCharacteristics.UNDERSTANDABILITY)
-@SqaleConstantRemediation("1h")
 @ActivatedByDefault
-public class ClassComplexityCheck extends SquidCheck<LexerlessGrammar> {
+@SqaleSubCharacteristic(SubCharacteristics.UNDERSTANDABILITY)
+@SqaleLinearWithOffsetRemediation(coeff = "1min", offset = "10min", effortToFixDescription = "per complexity point over the threshold")
+public class ClassComplexityCheck extends FlexCheck {
 
   private static final int DEFAULT_MAXIMUM_CLASS_COMPLEXITY_THRESHOLD = 80;
 
@@ -63,11 +62,8 @@ public class ClassComplexityCheck extends SquidCheck<LexerlessGrammar> {
     SourceClass sourceClass = (SourceClass) getContext().peekSourceCode();
     int complexity = ChecksHelper.getRecursiveMeasureInt(sourceClass, FlexMetric.COMPLEXITY);
     if (complexity > maximumClassComplexityThreshold) {
-      getContext().createLineViolation(this,
-          "Class has a complexity of {0,number,integer} which is greater than {1,number,integer} authorized.",
-          node,
-          complexity,
-          maximumClassComplexityThreshold);
+      String message = String.format("Class has a complexity of %s which is greater than %s authorized.", complexity, maximumClassComplexityThreshold);
+      createIssueWithCost(message, node, complexity - maximumClassComplexityThreshold);
     }
   }
 

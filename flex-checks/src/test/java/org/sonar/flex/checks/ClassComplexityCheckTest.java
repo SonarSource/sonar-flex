@@ -31,11 +31,11 @@ public class ClassComplexityCheckTest {
   @Test
   public void test() {
     ClassComplexityCheck check = new ClassComplexityCheck();
-    check.setMaximumClassComplexityThreshold(2);
+    check.setMaximumClassComplexityThreshold(1);
 
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ClassComplexity.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-      .next().atLine(1).withMessage("Class has a complexity of 3 which is greater than 2 authorized.")
+      .next().atLine(1).withMessage("Class has a complexity of 3 which is greater than 1 authorized.").withCost(2.)
       .noMore();
   }
 

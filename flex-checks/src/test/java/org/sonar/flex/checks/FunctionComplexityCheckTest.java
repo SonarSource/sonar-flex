@@ -31,11 +31,11 @@ public class FunctionComplexityCheckTest {
   @Test
   public void test() {
     FunctionComplexityCheck check = new FunctionComplexityCheck();
-    check.setMaximumFunctionComplexityThreshold(2);
+    check.setMaximumFunctionComplexityThreshold(1);
 
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/FunctionComplexity.as"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-        .next().atLine(1).withMessage("Function has a complexity of 3 which is greater than 2 authorized.")
+        .next().atLine(1).withMessage("Function has a complexity of 3 which is greater than 1 authorized.").withCost(2.)
         .noMore();
   }
 

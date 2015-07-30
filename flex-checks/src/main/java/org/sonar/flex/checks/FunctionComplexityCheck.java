@@ -26,13 +26,12 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.api.FlexMetric;
+import org.sonar.flex.checks.utils.FlexCheck;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleLinearWithOffsetRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.api.SourceFunction;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "FunctionComplexity",
@@ -41,8 +40,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   priority = Priority.MAJOR)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNIT_TESTABILITY)
-@SqaleConstantRemediation("30min")
-public class FunctionComplexityCheck extends SquidCheck<LexerlessGrammar> {
+@SqaleLinearWithOffsetRemediation(coeff = "1min", offset = "10min", effortToFixDescription = "per complexity point over the threshold")
+public class FunctionComplexityCheck extends FlexCheck {
 
   private static final int DEFAULT_MAXIMUM_FUNCTION_COMPLEXITY_THRESHOLD = 10;
 
@@ -60,10 +59,10 @@ public class FunctionComplexityCheck extends SquidCheck<LexerlessGrammar> {
   @Override
   public void leaveNode(AstNode node) {
     SourceFunction function = (SourceFunction) getContext().peekSourceCode();
-    if (function.getInt(FlexMetric.COMPLEXITY) > maximumFunctionComplexityThreshold) {
-      getContext().createLineViolation(this,
-          "Function has a complexity of {0,number,integer} which is greater than {1,number,integer} authorized.", node,
-          function.getInt(FlexMetric.COMPLEXITY), maximumFunctionComplexityThreshold);
+    int functionComplexity = function.getInt(FlexMetric.COMPLEXITY);
+    if (functionComplexity > maximumFunctionComplexityThreshold) {
+      String message = String.format("Function has a complexity of %s which is greater than %s authorized.", functionComplexity, maximumFunctionComplexityThreshold);
+      createIssueWithCost(message, node, functionComplexity - maximumFunctionComplexityThreshold);
     }
   }
 

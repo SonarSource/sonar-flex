@@ -32,10 +32,14 @@ public class PostfixExpressionTest {
   public void postfixExpression() {
     Assertions.assertThat(g.rule(FlexGrammar.POSTFIX_EXPR))
       .matches("new a()")
-      .matches("super().f")
       .matches("new a")
 
       .matches("super().f.c.a")
+      .matches("super.field")
+      .matches("super().field")
+      .matches("super()")
+      .matches("super")
+
       .matches("a ().a")
 
       .matches("a++")

@@ -549,7 +549,7 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     b.rule(POSTFIX_EXPR).is(b.firstOf(
       FULL_NEW_EXPR,
-      b.sequence(SUPER_EXPR, PROPERTY_OPERATOR),
+      b.sequence(SUPER_EXPR, b.optional(PROPERTY_OPERATOR)),
       PRIMARY_EXPR,
       SHORT_NEW_EXPR),
       b.zeroOrMore(b.firstOf(

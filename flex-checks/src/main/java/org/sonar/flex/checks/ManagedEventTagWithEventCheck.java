@@ -63,11 +63,10 @@ public class ManagedEventTagWithEventCheck extends SquidCheck<LexerlessGrammar> 
     searchEventInPreviousTag(astNode);
     searchEventInNextTag(astNode);
 
-    for (String eventName : isDeclaredInEventTag.keySet()) {
-
-      if (!isDeclaredInEventTag.get(eventName)) {
+    for (Map.Entry<String, Boolean> entry: isDeclaredInEventTag.entrySet()) {
+      if (!entry.getValue()) {
         getContext().createLineViolation(this, "The managed event {0} is either misspelled or is missing a companion Event metadata tag",
-          astNode, eventName);
+          astNode, entry.getKey());
       }
     }
 

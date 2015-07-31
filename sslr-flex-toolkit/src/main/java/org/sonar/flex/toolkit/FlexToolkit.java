@@ -21,7 +21,12 @@ package org.sonar.flex.toolkit;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
-import org.sonar.colorizer.*;
+import org.sonar.colorizer.CDocTokenizer;
+import org.sonar.colorizer.CppDocTokenizer;
+import org.sonar.colorizer.JavadocTokenizer;
+import org.sonar.colorizer.KeywordsTokenizer;
+import org.sonar.colorizer.StringTokenizer;
+import org.sonar.colorizer.Tokenizer;
 import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexKeyword;
 import org.sonar.flex.parser.FlexParser;

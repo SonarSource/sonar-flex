@@ -52,9 +52,9 @@ public class IfConditionAlwaysTrueOrFalseCheck extends SquidCheck<LexerlessGramm
     if (conditionalExpr.getChildren().size() == 1) {
 
       AstNode condition = conditionalExpr.getFirstChild().getFirstChild();
-      if (condition.is(FlexGrammar.POSTFIX_EXPR)
+      if ((condition.is(FlexGrammar.POSTFIX_EXPR)
         && condition.getFirstChild().is(FlexGrammar.PRIMARY_EXPR)
-        && condition.getFirstChild().getFirstChild().is(FlexKeyword.TRUE)
+        && condition.getFirstChild().getFirstChild().is(FlexKeyword.TRUE))
         || condition.getFirstChild().getFirstChild().is(FlexKeyword.FALSE)) {
 
         getContext().createLineViolation(this, "Remove this if statement.", astNode);

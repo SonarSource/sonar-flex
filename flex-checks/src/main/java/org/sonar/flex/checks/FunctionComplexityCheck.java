@@ -40,7 +40,7 @@ import org.sonar.squidbridge.api.SourceFunction;
   priority = Priority.MAJOR)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNIT_TESTABILITY)
-@SqaleLinearWithOffsetRemediation(coeff = "1min", offset = "10min", effortToFixDescription = "per complexity point over the threshold")
+@SqaleLinearWithOffsetRemediation(coeff = "1min", offset = "10min", effortToFixDescription = "per complexity point above the threshold")
 public class FunctionComplexityCheck extends FlexCheck {
 
   private static final int DEFAULT_MAXIMUM_FUNCTION_COMPLEXITY_THRESHOLD = 10;
@@ -62,7 +62,7 @@ public class FunctionComplexityCheck extends FlexCheck {
     int functionComplexity = function.getInt(FlexMetric.COMPLEXITY);
     if (functionComplexity > maximumFunctionComplexityThreshold) {
       String message = String.format("Function has a complexity of %s which is greater than %s authorized.", functionComplexity, maximumFunctionComplexityThreshold);
-      createIssueWithCost(message, node, functionComplexity - maximumFunctionComplexityThreshold);
+      createIssueWithCost(message, node, (double)functionComplexity - maximumFunctionComplexityThreshold);
     }
   }
 

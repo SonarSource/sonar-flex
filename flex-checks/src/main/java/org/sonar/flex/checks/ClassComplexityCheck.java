@@ -63,7 +63,7 @@ public class ClassComplexityCheck extends FlexCheck {
     int complexity = ChecksHelper.getRecursiveMeasureInt(sourceClass, FlexMetric.COMPLEXITY);
     if (complexity > maximumClassComplexityThreshold) {
       String message = String.format("Class has a complexity of %s which is greater than %s authorized.", complexity, maximumClassComplexityThreshold);
-      createIssueWithCost(message, node, complexity - maximumClassComplexityThreshold);
+      createIssueWithCost(message, node, (double)complexity - maximumClassComplexityThreshold);
     }
   }
 

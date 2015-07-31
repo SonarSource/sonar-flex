@@ -201,7 +201,7 @@ public class UnusedFunctionParametersCheck extends SquidCheck<LexerlessGrammar> 
 
   private static boolean isEventHandler(AstNode functionDec) {
     String functionName = functionDec.getFirstChild(FlexGrammar.FUNCTION_NAME).getTokenValue();
-    if (functionName.toLowerCase().contains("handler")) {
+    if (functionName.toLowerCase().contains("handle") || startsWithOnPreposition(functionName)) {
       AstNode parameters = functionDec
         .getFirstChild(FlexGrammar.FUNCTION_COMMON)
         .getFirstChild(FlexGrammar.FUNCTION_SIGNATURE)
@@ -215,6 +215,10 @@ public class UnusedFunctionParametersCheck extends SquidCheck<LexerlessGrammar> 
       }
     }
     return false;
+  }
+
+  private static boolean startsWithOnPreposition(String name) {
+    return name.startsWith("on") && (name.length() == 2 || name.substring(2, 3).matches("[A-Z]"));
   }
 
   private static boolean isNotAbstract(AstNode functionDef) {

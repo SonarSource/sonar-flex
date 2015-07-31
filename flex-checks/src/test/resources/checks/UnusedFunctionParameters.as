@@ -58,9 +58,18 @@ class C implements I {
 
 }
 
-function aHandler(e:MouseEvent)  { return; } // OK
-function bHandler(e:x.ClickEvent){ return; } // OK
+
+
 function cHandler(e:String)      { return; } // NOK
 function cHandler(e:*)           { return; } // NOK
 function something(e:MouseEvent) { return; } // NOK
+
+function aHandler(e:MouseEvent)  { return; } // OK
+function bHandler(e:x.ClickEvent){ return; } // OK
 function dHandler()              { return; } // OK
+function handleSomething(e:MouseEvent){ return; } // OK
+function onSomething(e:MouseEvent){ return; } // OK
+function onSomething()              { return; } // OK
+
+function onlySomething(e:MouseEvent) { return; } // NOK
+function on(e:MouseEvent) { return; } // OK

@@ -35,7 +35,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -77,7 +76,11 @@ public class FileHeaderCheck extends SquidCheck<LexerlessGrammar> implements Cha
   @Override
   public void init() {
     if (isRegularExpression) {
-      regularExpression = Pattern.compile(headerFormat);
+      if (headerFormat.endsWith("\n") || headerFormat.endsWith("\r")) {
+        regularExpression = Pattern.compile(headerFormat);
+      } else {
+        regularExpression = Pattern.compile(headerFormat + "(\r|\r\n|\n)");
+      }
     } else {
       expectedLines = headerFormat.split("(?:\r)?\n|\r");
     }
@@ -109,7 +112,7 @@ public class FileHeaderCheck extends SquidCheck<LexerlessGrammar> implements Cha
 
   @VisibleForTesting
   protected boolean matchesPlainTextHeader(File file) {
-    List<String> lines = Collections.emptyList();
+    List<String> lines;
 
     try {
       lines = Files.readLines(file, charset);

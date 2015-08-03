@@ -113,6 +113,16 @@ public class FileHeaderCheckTest {
     assertNoIssue(createCheck(headerFormat, true), FILE1);
     assertHasIssue(createCheck(headerFormat, true), FILE3);
     assertHasIssue(createCheck("copyright", true), FILE1);
+    assertHasIssue(createCheck("// copyright", false), FILE1);
+    assertHasIssue(createCheck("// copyright", true), FILE1);
+    assertNoIssue(createCheck("// copyright 2005", true), FILE1);
+    assertNoIssue(createCheck("// copyright 2005", false), FILE1);
+
+    File FILE1_WIN = new File("src/test/resources/checks/headercheck/file1_win.as");
+    assertHasIssue(createCheck("// copyright", false), FILE1_WIN);
+    assertHasIssue(createCheck("// copyright", true), FILE1_WIN);
+    assertNoIssue(createCheck("// copyright 2005", true), FILE1_WIN);
+    assertNoIssue(createCheck("// copyright 2005", false), FILE1_WIN);
   }
 
   private FileHeaderCheck createCheck(String format, boolean isRegularExpression) {

@@ -23,11 +23,6 @@ import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.MavenBuild;
 import com.sonar.orchestrator.build.SonarRunner;
 import com.sonar.orchestrator.locator.FileLocation;
-import com.sonar.orchestrator.version.Version;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
 import org.junit.ClassRule;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -41,27 +36,14 @@ import org.junit.runners.Suite.SuiteClasses;
 })
 public class Tests {
 
+  private static final String PLUGIN_KEY = "flex";
+
   @ClassRule
   public static final Orchestrator ORCHESTRATOR = Orchestrator.builderEnv()
-    .addPlugin(FileLocation.of("../../sonar-flex-plugin/target/sonar-flex-plugin-" + artifactVersion() + ".jar"))
+    .addPlugin(PLUGIN_KEY)
+    .setMainPluginKey(PLUGIN_KEY)
     .restoreProfileAtStartup(FileLocation.ofClasspath("/it-profile_flex.xml"))
     .build();
-
-  private static Version artifactVersion;
-
-  private static Version artifactVersion() {
-    if (artifactVersion == null) {
-      try (FileInputStream fis = new FileInputStream(new File("../../sonar-flex-plugin/target/maven-archiver/pom.properties"))) {
-        Properties props = new Properties();
-        props.load(fis);
-        artifactVersion = Version.create(props.getProperty("version"));
-        return artifactVersion;
-      } catch (IOException e) {
-        throw new IllegalStateException(e);
-      }
-    }
-    return artifactVersion;
-  }
 
   public static boolean is_sonarqube_after_sonar_5_2() {
     return ORCHESTRATOR.getConfiguration().getSonarVersion().isGreaterThanOrEquals("5.2");

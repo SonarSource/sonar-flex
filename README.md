@@ -3,4 +3,4 @@ Sonar Flex
 
 ### Build status
 
-[![Build Status](https://api.travis-ci.org/SonarCommunity/sonar-flex.svg)](https://travis-ci.org/SonarCommunity/sonar-flex)
+[![Build Status](https://travis-ci.org/SonarCommunity/sonar-flex.svg?branch=master)](https://travis-ci.org/SonarCommunity/sonar-flex)

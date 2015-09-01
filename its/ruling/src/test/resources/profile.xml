@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<profile>
+  <name>rules</name>
+  <language>flex</language>
+  <rules>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>NonEmptyCaseWithoutBreak</key>
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S134</key> <!-- Nested control flow statement -->
+      <priority>INFO</priority>
+      <parameters>
+        <parameter>
+          <key>maximumNestingLevel</key>
+          <value>3</value>
+        </parameter>
+      </parameters>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>ClassComplexity</key>
+      <priority>INFO</priority>
+      <parameters>
+        <parameter>
+          <key>maximumClassComplexityThreshold</key>
+          <value>80</value>
+        </parameter>
+      </parameters>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>FunctionComplexity</key>
+      <priority>INFO</priority>
+      <parameters>
+        <parameter>
+          <key>maximumFunctionComplexityThreshold</key>
+          <value>10</value>
+        </parameter>
+      </parameters>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>OneStatementPerLine</key>
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>ActionScript2</key>
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>ParsingError</key>
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>FunctionSinglePointOfExit</key>
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>LineLength</key>
+      <priority>INFO</priority>
+      <parameters>
+        <parameter>
+          <key>maximumLineLength</key>
+          <value>80</value>
+        </parameter>
+      </parameters>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>CommentedCode</key>
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>SwitchWithoutDefault</key>
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>WithStatement</key>
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S107</key> <!-- function with too many parameters -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S115</key> <!-- constant name -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S116</key> <!-- field name -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1435</key> <!-- star type -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1301</key> <!-- not enough case for switch -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1116</key> <!-- empty statement -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1142</key> <!-- return statement in method-->
+      <priority>INFO</priority>
+      <parameters>
+        <parameter>
+          <key>max</key>
+          <value>3</value>
+        </parameter>
+      </parameters>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1066</key> <!-- collapsible if statement -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1440</key> <!-- comparison operator -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S101</key> <!-- class name -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S120</key> <!-- package name -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1151</key> <!-- lines in switch case -->
+      <priority>INFO</priority>
+      <parameters>
+        <parameter>
+          <key>max</key>
+          <value>5</value>
+        </parameter>
+      </parameters>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1455</key> <!-- package definition in class defintion -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1314</key> <!-- octal value -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1448</key> <!-- number of function in class -->
+      <priority>INFO</priority>
+      <parameters>
+        <parameter>
+          <key>maximumFunctionThreshold</key>
+          <value>20</value>
+        </parameter>
+      </parameters>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1145</key> <!-- If always true or false -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S117</key> <!-- local var and function parameter name -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1125</key> <!-- boolean equality comparison -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1444</key> <!-- public static should be const -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1446</key> <!-- dynamic class -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1439</key> <!-- label placement -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1445</key> <!-- constructor with void result type -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1447</key> <!-- not lightweight constructor -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S108</key> <!-- not lightweight constructor -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1442</key> <!-- Alert.show -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1185</key> <!-- Function calls super -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1462</key> <!-- hardcoded event name -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1170</key> <!-- public const but not static-->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1463</key> <!-- Event Metadata should be typed-->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1469</key> <!-- array element type-->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1468</key> <!-- star use for domain -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+    <repositoryKey>flex</repositoryKey>
+    <key>S1470</key> <!-- override clone when extending Event -->
+    <priority>INFO</priority>
+  </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1465</key> <!-- star use for local connection -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1466</key> <!-- Security.exactSettings set to false -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1313</key> <!-- log should be private static const -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S100</key> <!-- function name -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1438</key> <!-- semicolon -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1434</key> <!-- object type use-->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1464</key> <!-- Managed Event tag with Event -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1467</key> <!-- Dispatch Event call in constructor -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1144</key> <!-- unused private method -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1117</key> <!-- local variable shadows field -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1068</key> <!-- unused private field -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1481</key> <!-- unused local variable -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1454</key> <!-- too many unary operator -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S138</key> <!-- too many lines in function -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1951</key> <!-- trace use -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1784</key> <!-- method visibility -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1821</key> <!-- nested switch -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1186</key> <!-- empty method -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1820</key> <!-- class with too many fields -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1172</key> <!-- unused function parameters -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1451</key> <!-- file header -->
+      <priority>INFO</priority>
+      <parameters>
+        <parameter>
+          <key>headerFormat</key>
+          <value>
+            <![CDATA[/*
+ * Copyright 2007-2012 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */]]>
+          </value>
+        </parameter>
+      </parameters>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1950</key> <!-- duplicate case condition -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1952</key> <!-- instantiation in loop -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1176</key> <!-- ASDoc -->
+      <priority>INFO</priority>
+      <parameters>
+        <parameter>
+          <key>asdoc_properties</key>
+          <value>false</value>
+        </parameter>
+        <parameter>
+          <key>asdoc_methods</key>
+          <value>false</value>
+        </parameter>
+        <parameter>
+          <key>asdoc_method_param</key>
+          <value>false</value>
+        </parameter>
+        <parameter>
+          <key>asdoc_method_return</key>
+          <value>false</value>
+        </parameter>
+      </parameters>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1982</key> <!-- onEnterFrame event handler use -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S127</key> <!-- variant stop condition in for loop -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S1871</key> <!-- identical switch cases -->
+      <priority>INFO</priority>
+    </rule>
+  </rules>
+</profile>

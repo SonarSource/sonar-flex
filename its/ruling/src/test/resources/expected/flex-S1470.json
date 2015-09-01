@@ -1,0 +1,11 @@
+{
+'project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/fx/events/CollectionEvent.as':[
+97,
+],
+'project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as':[
+681,
+],
+'project:spring-actionscript/spring-actionscript-core/src/test/actionscript/integration/testtypes/DummyEvent.as':[
+25,
+],
+}

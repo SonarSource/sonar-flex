@@ -73,3 +73,14 @@ function onSomething()              { return; } // OK
 
 function onlySomething(e:MouseEvent) { return; } // NOK
 function on(e:MouseEvent) { return; } // OK
+
+function restSomething1(...args) { return; } // NOK
+function onRestSomething1(...args) { return; } // NOK
+
+function restSomething2(...args) { return args; } // OK
+function onRestSomething2(...args) { return args; } // OK
+
+function restSomething3(e:MouseEvent, ...args) { return; } // NOK
+function onRestSomething3(e:MouseEvent, ...args) { return; } // OK
+
+function onSomethingWithoutType(e) { return; } // NOK

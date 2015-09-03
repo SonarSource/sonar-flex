@@ -36,12 +36,9 @@ import org.junit.runners.Suite.SuiteClasses;
 })
 public class Tests {
 
-  private static final String PLUGIN_KEY = "flex";
-
   @ClassRule
   public static final Orchestrator ORCHESTRATOR = Orchestrator.builderEnv()
-    .addPlugin(PLUGIN_KEY)
-    .setMainPluginKey(PLUGIN_KEY)
+    .addPlugin(FileLocation.of("../../sonar-flex-plugin/target/sonar-flex-plugin.jar"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/it-profile_flex.xml"))
     .build();
 

@@ -9,26 +9,19 @@ import com.google.common.io.Files;
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarRunner;
 import com.sonar.orchestrator.locator.FileLocation;
-import com.sonar.orchestrator.locator.MavenLocation;
+import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.sonar.wsclient.issue.Issue;
-import org.sonar.wsclient.issue.IssueQuery;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
-
-import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class FlexRulingTest {
-  private static final String PLUGIN_KEY = "flex";
 
   @ClassRule
   public static Orchestrator ORCHESTRATOR = Orchestrator.builderEnv()
-    .addPlugin(PLUGIN_KEY)
-    .setMainPluginKey(PLUGIN_KEY)
+    .addPlugin(FileLocation.of("../../sonar-flex-plugin/target/sonar-flex-plugin.jar"))
     .setOrchestratorProperty("litsVersion", "0.5")
     .addPlugin("lits")
     .restoreProfileAtStartup(FileLocation.of("src/test/resources/profile.xml"))

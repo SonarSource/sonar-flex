@@ -43,6 +43,8 @@ public class UnusedFunctionParametersCheckTest {
       .next().atLine(64).withMessage("Remove the unused function parameter \"e\".")
       .next().atLine(65).withMessage("Remove the unused function parameter \"e\".")
       .next().atLine(74).withMessage("Remove the unused function parameter \"e\".")
+      .next().atLine(77).withMessage("Remove the unused function parameter \"args\".")
+      .next().atLine(78).withMessage("Remove the unused function parameter \"args\".")
       .noMore();
   }
 

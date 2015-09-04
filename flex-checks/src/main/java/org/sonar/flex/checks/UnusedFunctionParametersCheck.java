@@ -207,11 +207,17 @@ public class UnusedFunctionParametersCheck extends SquidCheck<LexerlessGrammar> 
         .getFirstChild(FlexGrammar.FUNCTION_SIGNATURE)
         .getFirstChild(FlexGrammar.PARAMETERS);
       if (parameters != null) {
-        AstNode firstParameterType = parameters
-          .getFirstChild(FlexGrammar.PARAMETER)
-          .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
-          .getFirstChild(FlexGrammar.TYPE_EXPR);
-        return firstParameterType.getLastToken().getValue().endsWith("Event");
+        AstNode firstParameter = parameters.getFirstChild(FlexGrammar.PARAMETER);
+        if (firstParameter != null) {
+          if (firstParameter.getFirstChild(FlexGrammar.TYPED_IDENTIFIER) != null) {
+            AstNode firstParameterType = firstParameter
+              .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
+              .getFirstChild(FlexGrammar.TYPE_EXPR);
+            if (firstParameterType != null) {
+              return firstParameterType.getLastToken().getValue().endsWith("Event");
+            }
+          }
+        }
       }
     }
     return false;

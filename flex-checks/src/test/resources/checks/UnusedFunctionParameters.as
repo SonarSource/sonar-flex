@@ -73,3 +73,6 @@ function onSomething()              { return; } // OK
 
 function onlySomething(e:MouseEvent) { return; } // NOK
 function on(e:MouseEvent) { return; } // OK
+
+function restSomething(...args) { return; } // NOK
+function onRestSomething(...args) { return; } // NOK

@@ -54,20 +54,19 @@ public class ComplexityVisitor extends SquidAstVisitor<LexerlessGrammar> {
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (astNode.is(FlexGrammar.FUNCTION_DEF) && isAccessor(astNode)) {
-      return;
-    } else if (astNode.is(FlexGrammar.RETURN_STATEMENT) && isLastReturnStatement(astNode)) {
+    if (isAccessor(astNode) || isLastReturnStatement(astNode)) {
       return;
     }
     getContext().peekSourceCode().add(FlexMetric.COMPLEXITY, 1);
   }
 
   public boolean isAccessor(AstNode astNode) {
-    return astNode.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild(FlexKeyword.GET, FlexKeyword.SET) != null;
+    return astNode.is(FlexGrammar.FUNCTION_DEF)
+      && astNode.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild(FlexKeyword.GET, FlexKeyword.SET) != null;
   }
 
   public boolean isLastReturnStatement(AstNode astNode) {
-    if (astNode.getNextAstNode().is(FlexPunctuator.RCURLYBRACE)) {
+    if (astNode.is(FlexGrammar.RETURN_STATEMENT) && astNode.getNextAstNode().is(FlexPunctuator.RCURLYBRACE)) {
       AstNode parentNode = astNode.getNextAstNode().getParent().getParent();
       return parentNode != null && parentNode.is(FlexGrammar.FUNCTION_COMMON);
     }

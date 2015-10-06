@@ -201,22 +201,21 @@ public class UnusedFunctionParametersCheck extends SquidCheck<LexerlessGrammar> 
 
   private static boolean isEventHandler(AstNode functionDec) {
     String functionName = functionDec.getFirstChild(FlexGrammar.FUNCTION_NAME).getTokenValue();
+
     if (functionName.toLowerCase().contains("handle") || startsWithOnPreposition(functionName)) {
       AstNode parameters = functionDec
         .getFirstChild(FlexGrammar.FUNCTION_COMMON)
         .getFirstChild(FlexGrammar.FUNCTION_SIGNATURE)
         .getFirstChild(FlexGrammar.PARAMETERS);
+
       if (parameters != null) {
         AstNode firstParameter = parameters.getFirstChild(FlexGrammar.PARAMETER);
-        if (firstParameter != null) {
-          if (firstParameter.getFirstChild(FlexGrammar.TYPED_IDENTIFIER) != null) {
-            AstNode firstParameterType = firstParameter
-              .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
-              .getFirstChild(FlexGrammar.TYPE_EXPR);
-            if (firstParameterType != null) {
-              return firstParameterType.getLastToken().getValue().endsWith("Event");
-            }
-          }
+
+        if (firstParameter != null && firstParameter.getFirstChild(FlexGrammar.TYPED_IDENTIFIER) != null) {
+          AstNode firstParameterType = firstParameter
+            .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
+            .getFirstChild(FlexGrammar.TYPE_EXPR);
+          return firstParameterType != null && firstParameterType.getLastToken().getValue().endsWith("Event");
         }
       }
     }

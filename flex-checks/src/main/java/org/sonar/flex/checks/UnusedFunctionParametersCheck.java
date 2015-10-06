@@ -47,8 +47,8 @@ import java.util.Map;
 @Rule(
   key = "S1172",
   name = "Unused function parameters should be removed",
-  tags = {Tags.MISRA, Tags.UNUSED},
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = {Tags.MISRA, Tags.UNUSED})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("5min")

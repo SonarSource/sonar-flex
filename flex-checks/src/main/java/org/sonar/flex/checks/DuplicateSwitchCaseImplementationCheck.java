@@ -39,9 +39,9 @@ import java.util.Map;
 
 @Rule(
   key = "S1871",
-  tags = {Tags.DESIGN, Tags.SUSPICIOUS},
   name = "Two branches in the same conditional structure should not have exactly the same implementation",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = {Tags.DESIGN, Tags.SUSPICIOUS})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
 @SqaleConstantRemediation("10min")
 public class DuplicateSwitchCaseImplementationCheck extends SquidCheck<LexerlessGrammar> {

@@ -34,8 +34,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S1951",
   name = "The \"trace\" function should not be used",
-  tags = {Tags.CWE, Tags.SECURITY},
-  priority = Priority.CRITICAL)
+  priority = Priority.CRITICAL,
+  tags = {Tags.CWE, Tags.SECURITY})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SECURITY_FEATURES)
 @SqaleConstantRemediation("2min")

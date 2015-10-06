@@ -37,8 +37,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S1446",
   name = "Dynamic classes should not be used",
-  tags = Tags.PITFALL,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.PITFALL)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_CHANGEABILITY)
 @SqaleConstantRemediation("30min")

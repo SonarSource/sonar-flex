@@ -36,8 +36,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S1445",
   name = "Constructors should not have a \"void\" return type",
-  tags = Tags.CONFUSING,
-  priority = Priority.MINOR)
+  priority = Priority.MINOR,
+  tags = Tags.CONFUSING)
 @ActivatedByDefault
 @SqaleSubCharacteristic(SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("5min")

@@ -35,8 +35,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S1066",
   name = "Collapsible \"if\" statements should be merged",
-  tags = Tags.CLUMSY,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.CLUMSY)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("5min")

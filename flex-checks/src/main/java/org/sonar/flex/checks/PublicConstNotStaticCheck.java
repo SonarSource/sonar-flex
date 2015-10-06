@@ -40,9 +40,9 @@ import java.util.Set;
 
 @Rule(
   key = "S1170",
-  tags = Tags.CONVENTION,
   name = "Public constants and fields initialized at declaration should be \"const static\" rather than merely \"const\"",
-  priority = Priority.MINOR)
+  priority = Priority.MINOR,
+  tags = Tags.CONVENTION)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.MEMORY_EFFICIENCY)
 @SqaleConstantRemediation("2min")

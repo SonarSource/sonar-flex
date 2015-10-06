@@ -36,8 +36,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "NonEmptyCaseWithoutBreak",
   name = "Switch cases should end with an unconditional \"break\" statement",
-  tags = {Tags.CWE, Tags.MISRA, Tags.CERT, Tags.PITFALL},
-  priority = Priority.CRITICAL)
+  priority = Priority.CRITICAL,
+  tags = {Tags.CWE, Tags.MISRA, Tags.CERT, Tags.PITFALL})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
 @SqaleConstantRemediation("10min")

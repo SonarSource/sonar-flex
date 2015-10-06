@@ -41,8 +41,8 @@ import java.util.Set;
 @Rule(
   key = "S1444",
   name = "\"public static\" fields should be constant",
-  tags = {Tags.CWE, Tags.CERT, Tags.SECURITY},
-  priority = Priority.CRITICAL)
+  priority = Priority.CRITICAL,
+  tags = {Tags.CWE, Tags.CERT, Tags.SECURITY})
 @ActivatedByDefault
 @SqaleSubCharacteristic(SubCharacteristics.SECURITY_FEATURES)
 @SqaleConstantRemediation("20min")

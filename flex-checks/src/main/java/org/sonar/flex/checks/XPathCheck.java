@@ -40,9 +40,9 @@ public class XPathCheck extends AbstractXPathCheck<LexerlessGrammar> {
 
   @RuleProperty(
     key = "xpathQuery",
-    type = "TEXT",
     description = "The XPath query",
-    defaultValue = "" + DEFAULT_XPATH_QUERY)
+    defaultValue = "" + DEFAULT_XPATH_QUERY,
+    type = "TEXT")
   public String xpathQuery = DEFAULT_XPATH_QUERY;
 
   @RuleProperty(

@@ -36,8 +36,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "SwitchWithoutDefault",
   name = "\"switch\" statements should end with a \"default\" clause",
-  tags = {Tags.CWE, Tags.CERT, Tags.MISRA},
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = {Tags.CWE, Tags.CERT, Tags.MISRA})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
 @SqaleConstantRemediation("5min")

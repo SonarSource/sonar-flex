@@ -36,8 +36,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S1438",
   name = "Statements should end with semicolons",
-  tags = Tags.CONVENTION,
-  priority = Priority.MINOR)
+  priority = Priority.MINOR,
+  tags = Tags.CONVENTION)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
 @SqaleConstantRemediation("1min")

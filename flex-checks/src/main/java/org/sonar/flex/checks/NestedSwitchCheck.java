@@ -35,8 +35,8 @@ import javax.annotation.Nullable;
 @Rule(
   key = "S1821",
   name = "\"switch\" statements should not be nested",
-  tags = Tags.PITFALL,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.PITFALL)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("10min")
 public class NestedSwitchCheck extends SquidCheck<LexerlessGrammar> {

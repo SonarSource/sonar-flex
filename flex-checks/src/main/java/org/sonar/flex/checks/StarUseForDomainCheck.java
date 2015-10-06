@@ -37,8 +37,8 @@ import javax.annotation.Nullable;
 @Rule(
   key = "S1468",
   name = "Security.allowDomain(...) should only be used in a tightly focused manner",
-  tags = Tags.SECURITY,
-  priority = Priority.CRITICAL)
+  priority = Priority.CRITICAL,
+  tags = Tags.SECURITY)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SECURITY_FEATURES)
 @SqaleConstantRemediation("10min")

@@ -41,8 +41,8 @@ import java.util.Set;
 @Rule(
   key = "S127",
   name = "\"for\" loop stop conditions should be invariant",
-  tags = {Tags.MISRA, Tags.PITFALL},
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = {Tags.MISRA, Tags.PITFALL})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
 @SqaleConstantRemediation("10min")

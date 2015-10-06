@@ -37,8 +37,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S1469",
   name = "The element type of an array field should be specified",
-  tags = Tags.PITFALL,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.PITFALL)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("5min")

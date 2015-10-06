@@ -43,8 +43,8 @@ import java.util.List;
 @Rule(
   key = "LineLength",
   name = "Lines should not be too long",
-  tags = Tags.CONVENTION,
-  priority = Priority.MINOR)
+  priority = Priority.MINOR,
+  tags = Tags.CONVENTION)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("1min")
 public class LineLengthCheck extends SquidCheck<LexerlessGrammar> implements CharsetAwareVisitor {

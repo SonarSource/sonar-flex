@@ -37,8 +37,8 @@ import javax.annotation.Nullable;
 @Rule(
   key = "S1465",
   name = "LocalConnection should be configured to narrowly specify the domains with which local connections to other Flex application are allowed",
-  tags = Tags.SECURITY,
-  priority = Priority.CRITICAL)
+  priority = Priority.CRITICAL,
+  tags = Tags.SECURITY)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SECURITY_FEATURES)
 @SqaleConstantRemediation("10min")

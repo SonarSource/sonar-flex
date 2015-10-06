@@ -36,8 +36,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S1447",
   name = "Constructor bodies should be as lightweight as possible",
-  tags = Tags.PERFORMANCE,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.PERFORMANCE)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.CPU_EFFICIENCY)
 @SqaleConstantRemediation("5min")

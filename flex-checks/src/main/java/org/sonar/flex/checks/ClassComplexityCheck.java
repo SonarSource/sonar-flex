@@ -37,8 +37,8 @@ import org.sonar.squidbridge.checks.ChecksHelper;
 @Rule(
   key = "ClassComplexity",
   name = "Classes should not be too complex",
-  tags = Tags.BRAIN_OVERLOAD,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.BRAIN_OVERLOAD)
 @ActivatedByDefault
 @SqaleSubCharacteristic(SubCharacteristics.UNDERSTANDABILITY)
 @SqaleLinearWithOffsetRemediation(coeff = "1min", offset = "10min", effortToFixDescription = "per complexity point over the threshold")

@@ -37,8 +37,8 @@ import javax.annotation.Nullable;
 @Rule(
   key = "S1442",
   name = "\"Alert.show(...)\" should not be used",
-  tags = {Tags.CWE, Tags.SECURITY, Tags.USER_EXPERIENCE},
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = {Tags.CWE, Tags.SECURITY, Tags.USER_EXPERIENCE})
 @ActivatedByDefault
 @SqaleSubCharacteristic(SubCharacteristics.SECURITY_FEATURES)
 @SqaleConstantRemediation("10min")

@@ -39,8 +39,8 @@ import java.util.Deque;
 @Rule(
   key = "S1142",
   name = "Functions should not contain too many return statements",
-  tags = Tags.BRAIN_OVERLOAD,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.BRAIN_OVERLOAD)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("20min")

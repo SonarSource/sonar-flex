@@ -35,8 +35,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S1435",
   name = "The special \"star\" type should not be used",
-  tags = Tags.UNPREDICTABLE,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.UNPREDICTABLE)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_CHANGEABILITY)
 @SqaleConstantRemediation("10min")

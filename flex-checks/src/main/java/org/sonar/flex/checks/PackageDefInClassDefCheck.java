@@ -34,8 +34,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S1455",
   name = "Package definition should be separate from Class definition",
-  tags = Tags.OBSOLETE,
-  priority = Priority.MINOR)
+  priority = Priority.MINOR,
+  tags = Tags.OBSOLETE)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.COMPILER_RELATED_PORTABILITY)
 @SqaleConstantRemediation("5min")

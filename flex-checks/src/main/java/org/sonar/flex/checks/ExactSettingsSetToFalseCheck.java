@@ -38,8 +38,8 @@ import javax.annotation.Nullable;
 @Rule(
   key = "S1466",
   name = "The flash.system.Security.exactSettings property should never be set to false",
-  tags = Tags.SECURITY,
-  priority = Priority.CRITICAL)
+  priority = Priority.CRITICAL,
+  tags = Tags.SECURITY)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SECURITY_FEATURES)
 @SqaleConstantRemediation("10min")

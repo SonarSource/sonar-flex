@@ -37,8 +37,8 @@ import java.util.Set;
 @Rule(
   key = "ActionScript2",
   name = "Statements, operators and keywords specific to ActionScript 2 should not be used",
-  tags = Tags.OBSOLETE,
-  priority = Priority.BLOCKER)
+  priority = Priority.BLOCKER,
+  tags = Tags.OBSOLETE)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LANGUAGE_RELATED_PORTABILITY)
 @SqaleConstantRemediation("2min")

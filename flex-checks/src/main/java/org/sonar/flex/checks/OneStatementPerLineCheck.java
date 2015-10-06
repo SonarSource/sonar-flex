@@ -35,8 +35,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "OneStatementPerLine",
   name = "Statements should be on separate lines",
-  tags = Tags.CONVENTION,
-  priority = Priority.MINOR)
+  priority = Priority.MINOR,
+  tags = Tags.CONVENTION)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("1min")

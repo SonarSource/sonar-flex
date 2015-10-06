@@ -40,8 +40,8 @@ import java.util.List;
 @Rule(
   key = "S1176",
   name = "Public classes, methods, properties and metadata should be documented with ASDoc",
-  tags = Tags.CONVENTION,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.CONVENTION)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("10min")
 public class ASDocCheck extends SquidCheck<LexerlessGrammar> {
@@ -57,37 +57,37 @@ public class ASDocCheck extends SquidCheck<LexerlessGrammar> {
 
   @RuleProperty(
     key = "asdoc_classes",
-    type = "BOOLEAN",
     description = "Public classes should be documented",
-    defaultValue = "" + DEFAULT_CLASSES)
+    defaultValue = "" + DEFAULT_CLASSES,
+    type = "BOOLEAN")
   public boolean classes = DEFAULT_CLASSES;
 
   @RuleProperty(
     key = "asdoc_properties",
-    type = "BOOLEAN",
     description = "Public properties should be documented",
-    defaultValue = "" + DEFAULT_PROPERTIES)
+    defaultValue = "" + DEFAULT_PROPERTIES,
+    type = "BOOLEAN")
   public boolean properties = DEFAULT_PROPERTIES;
 
   @RuleProperty(
     key = "asdoc_methods",
-    type = "BOOLEAN",
     description = "Public methods should be documented",
-    defaultValue = "" + DEFAULT_METHODS)
+    defaultValue = "" + DEFAULT_METHODS,
+    type = "BOOLEAN")
   public boolean methods = DEFAULT_METHODS;
 
   @RuleProperty(
     key = "asdoc_method_param",
-    type = "BOOLEAN",
     description = "All parameters of public methods should be documented",
-    defaultValue = "" + DEFAULT_METHOD_PARAMS)
+    defaultValue = "" + DEFAULT_METHOD_PARAMS,
+    type = "BOOLEAN")
   public boolean methodParams = DEFAULT_METHOD_PARAMS;
 
   @RuleProperty(
     key = "asdoc_method_return",
-    type = "BOOLEAN",
     description = "All return type of public methods should be documented",
-    defaultValue = "" + DEFAULT_METHOD_RETURN)
+    defaultValue = "" + DEFAULT_METHOD_RETURN,
+    type = "BOOLEAN")
   public boolean methodReturn = DEFAULT_METHOD_RETURN;
 
   private ASDocClassCheck classChecker = new ASDocClassCheck();

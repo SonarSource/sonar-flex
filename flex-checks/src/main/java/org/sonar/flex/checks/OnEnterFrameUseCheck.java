@@ -34,8 +34,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S1982",
   name = "\"MovieClip.onEnterFrame\" event handler should not be used",
-  tags = Tags.PERFORMANCE,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.PERFORMANCE)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.CPU_EFFICIENCY)
 @SqaleConstantRemediation("20min")
 public class OnEnterFrameUseCheck extends SquidCheck<LexerlessGrammar> {

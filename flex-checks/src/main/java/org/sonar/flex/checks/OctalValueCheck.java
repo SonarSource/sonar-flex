@@ -34,8 +34,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S1314",
   name = "Octal values should not be used",
-  tags = {Tags.CERT, Tags.MISRA, Tags.PITFALL},
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = {Tags.CERT, Tags.MISRA, Tags.PITFALL})
 @ActivatedByDefault
 @SqaleSubCharacteristic(SubCharacteristics.DATA_RELIABILITY)
 @SqaleConstantRemediation("5min")

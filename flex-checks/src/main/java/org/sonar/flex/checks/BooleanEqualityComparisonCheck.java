@@ -35,8 +35,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S1125",
   name = "Literal boolean values should not be used in condition expressions",
-  tags = Tags.CLUMSY,
-  priority = Priority.MINOR)
+  priority = Priority.MINOR,
+  tags = Tags.CLUMSY)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("2min")

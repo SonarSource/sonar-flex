@@ -35,8 +35,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S138",
   name = "Functions should not have too many lines",
-  tags = Tags.BRAIN_OVERLOAD,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.BRAIN_OVERLOAD)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("20min")
 public class TooManyLinesInFunctionCheck extends SquidCheck<LexerlessGrammar> {

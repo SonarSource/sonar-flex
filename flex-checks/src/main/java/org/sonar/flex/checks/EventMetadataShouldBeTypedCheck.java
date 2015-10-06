@@ -37,9 +37,8 @@ import java.util.Map;
 @Rule(
   key = "S1463",
   name = "Event types should be defined in metadata tags",
-  tags = Tags.DESIGN,
-
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.DESIGN)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("5min")

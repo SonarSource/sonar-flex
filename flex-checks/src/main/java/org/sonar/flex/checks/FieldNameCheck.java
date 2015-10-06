@@ -41,8 +41,8 @@ import java.util.regex.Pattern;
 @Rule(
   key = "S116",
   name = "Field names should comply with a naming convention",
-  tags = Tags.CONVENTION,
-  priority = Priority.MINOR)
+  priority = Priority.MINOR,
+  tags = Tags.CONVENTION)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("2min")

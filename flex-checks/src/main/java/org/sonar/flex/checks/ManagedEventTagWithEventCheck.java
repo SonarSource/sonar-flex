@@ -39,8 +39,8 @@ import java.util.Map;
 @Rule(
   key = "S1464",
   name = "Each ManagedEvents metadata tag should have a companion Event metadata tag",
-  tags = Tags.BUG,
-  priority = Priority.BLOCKER)
+  priority = Priority.BLOCKER,
+  tags = Tags.BUG)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("5min")

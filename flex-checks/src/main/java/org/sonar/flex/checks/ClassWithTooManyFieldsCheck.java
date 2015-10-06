@@ -38,8 +38,8 @@ import java.util.List;
 @Rule(
   key = "S1820",
   name = "Classes should not have too many fields",
-  tags = Tags.BRAIN_OVERLOAD,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.BRAIN_OVERLOAD)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_CHANGEABILITY)
 @SqaleConstantRemediation("1h")
 public class ClassWithTooManyFieldsCheck extends SquidCheck<LexerlessGrammar> {
@@ -56,9 +56,9 @@ public class ClassWithTooManyFieldsCheck extends SquidCheck<LexerlessGrammar> {
 
   @RuleProperty(
     key = "countNonpublicFields",
-    type = "BOOLEAN",
     description = "Whether or not to include non-public fields in the count",
-    defaultValue = "" + DEFAULT_COUNT_NON_PUBLIC)
+    defaultValue = "" + DEFAULT_COUNT_NON_PUBLIC,
+  type = "BOOLEAN")
   boolean countNonpublicFields = DEFAULT_COUNT_NON_PUBLIC;
 
   @Override

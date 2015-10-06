@@ -33,8 +33,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "FunctionSinglePointOfExit",
   name = "A function should have a single point of exit at the end of the function",
-  tags = {Tags.CONFUSING, Tags.MISRA},
-  priority = Priority.MINOR)
+  priority = Priority.MINOR,
+  tags = {Tags.CONFUSING, Tags.MISRA})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("20min")
 public class FunctionSinglePointOfExitCheck extends SquidCheck<LexerlessGrammar> {

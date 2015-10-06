@@ -34,8 +34,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "WithStatement",
   name = "\"with\" statements should not be used",
-  tags = Tags.BUG,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.BUG)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("5min")

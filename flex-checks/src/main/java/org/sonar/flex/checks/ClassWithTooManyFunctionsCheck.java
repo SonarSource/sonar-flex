@@ -39,8 +39,8 @@ import java.util.List;
 @Rule(
   key = "S1448",
   name = "Classes should not have too many methods",
-  tags = Tags.BRAIN_OVERLOAD,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.BRAIN_OVERLOAD)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_CHANGEABILITY)
 @SqaleConstantRemediation("1h")
@@ -58,9 +58,9 @@ public class ClassWithTooManyFunctionsCheck extends SquidCheck<LexerlessGrammar>
 
   @RuleProperty(
     key = "countNonpublicMethods",
-    type = "BOOLEAN",
     description = "Whether or not to include non-public methods in the count",
-    defaultValue = "" + DEFAULT_INCLUDE_NON_PUBLIC)
+    defaultValue = "" + DEFAULT_INCLUDE_NON_PUBLIC,
+    type = "BOOLEAN")
   boolean countNonpublicMethods = DEFAULT_INCLUDE_NON_PUBLIC;
 
   @Override

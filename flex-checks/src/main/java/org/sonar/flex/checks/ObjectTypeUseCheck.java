@@ -34,8 +34,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S1434",
   name = "Variables of the \"Object\" type should not be used",
-  tags = Tags.SUSPICIOUS,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.SUSPICIOUS)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.DATA_RELIABILITY)
 @SqaleConstantRemediation("20min")

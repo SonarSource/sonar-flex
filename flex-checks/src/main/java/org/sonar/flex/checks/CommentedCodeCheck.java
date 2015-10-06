@@ -45,9 +45,9 @@ import java.util.regex.Pattern;
 
 @Rule(
   key = "CommentedCode",
-  tags = {Tags.MISRA, Tags.UNUSED},
   name = "Sections of code should not be \"commented out\"",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = {Tags.MISRA, Tags.UNUSED})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("5min")

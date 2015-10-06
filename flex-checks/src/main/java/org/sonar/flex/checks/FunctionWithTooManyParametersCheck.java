@@ -35,8 +35,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S107",
   name = "Functions should not have too many parameters",
-  tags = {Tags.BRAIN_OVERLOAD},
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = {Tags.BRAIN_OVERLOAD})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNIT_TESTABILITY)
 @SqaleConstantRemediation("20min")

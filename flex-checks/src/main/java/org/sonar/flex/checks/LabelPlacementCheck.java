@@ -34,8 +34,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "S1439",
   name = "Only \"while\", \"do\" and \"for\" statements should be labelled",
-  tags = Tags.PITFALL,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.PITFALL)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_RELIABILITY)
 @SqaleConstantRemediation("20min")

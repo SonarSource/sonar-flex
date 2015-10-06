@@ -40,9 +40,8 @@ import java.util.Deque;
 @Rule(
   key = "S1467",
   name = "Constructors should not dispatch events",
-  tags = Tags.BUG,
-
-  priority = Priority.BLOCKER)
+  priority = Priority.BLOCKER,
+  tags = Tags.BUG)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
 @SqaleConstantRemediation("10min")

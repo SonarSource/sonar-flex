@@ -44,8 +44,8 @@ import java.util.Map;
 @Rule(
   key = "S1144",
   name = "Unused private function should be removed",
-  tags = Tags.UNUSED,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.UNUSED)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("5min")

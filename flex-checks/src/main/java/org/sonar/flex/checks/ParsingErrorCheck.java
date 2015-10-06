@@ -31,8 +31,8 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 @Rule(
   key = "ParsingError",
   name = "Flex parser failure",
-  tags = Tags.SUSPICIOUS,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.SUSPICIOUS)
 @SqaleSubCharacteristic(SubCharacteristics.INSTRUCTION_RELIABILITY)
 @SqaleConstantRemediation("30min")
 public class ParsingErrorCheck extends AbstractParseErrorCheck<LexerlessGrammar> {

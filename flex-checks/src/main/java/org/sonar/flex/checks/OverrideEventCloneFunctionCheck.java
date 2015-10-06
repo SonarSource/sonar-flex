@@ -38,8 +38,8 @@ import java.util.List;
 @Rule(
   key = "S1470",
   name = "Any class extending the Event class should override Event.clone()",
-  tags = Tags.BUG,
-  priority = Priority.CRITICAL)
+  priority = Priority.CRITICAL,
+  tags = Tags.BUG)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("5min")

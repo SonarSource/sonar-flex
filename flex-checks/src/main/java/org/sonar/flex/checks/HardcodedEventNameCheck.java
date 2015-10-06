@@ -39,8 +39,8 @@ import java.util.regex.Pattern;
 @Rule(
   key = "S1462",
   name = "Event names should not be hardcoded in event listeners",
-  tags = Tags.DESIGN,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.DESIGN)
 @ActivatedByDefault
 @SqaleSubCharacteristic(SubCharacteristics.ARCHITECTURE_CHANGEABILITY)
 @SqaleConstantRemediation("5min")

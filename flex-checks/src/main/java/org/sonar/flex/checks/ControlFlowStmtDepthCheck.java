@@ -41,8 +41,8 @@ import javax.annotation.Nullable;
 @Rule(
   key = "S134",
   name = "Control flow statements \"if\", \"for\", \"while\" and \"switch\" should not be nested too deeply",
-  tags = Tags.BRAIN_OVERLOAD,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.BRAIN_OVERLOAD)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LOGIC_CHANGEABILITY)
 @SqaleConstantRemediation("10min")

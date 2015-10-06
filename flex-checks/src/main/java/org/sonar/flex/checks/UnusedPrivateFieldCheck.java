@@ -44,8 +44,8 @@ import java.util.Map;
 @Rule(
   key = "S1068",
   name = "Unused private fields should be removed",
-  tags = Tags.UNUSED,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.UNUSED)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("5min")

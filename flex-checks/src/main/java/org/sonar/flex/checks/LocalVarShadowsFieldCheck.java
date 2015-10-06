@@ -45,8 +45,8 @@ import java.util.Map;
 @Rule(
   key = "S1117",
   name = "Local variables should not shadow class fields",
-  tags = Tags.PITFALL,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.PITFALL)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.DATA_RELIABILITY)
 @SqaleConstantRemediation("5min")

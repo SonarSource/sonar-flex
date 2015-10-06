@@ -39,8 +39,8 @@ import java.util.List;
 @Rule(
   key = "S1952",
   name = "Objects should not be instantiated inside a loop",
-  tags = Tags.PERFORMANCE,
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  tags = Tags.PERFORMANCE)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.CPU_EFFICIENCY)
 @SqaleConstantRemediation("5min")

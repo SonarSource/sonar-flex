@@ -9,13 +9,14 @@ import com.google.common.io.Files;
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarRunner;
 import com.sonar.orchestrator.locator.FileLocation;
-import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
 import org.junit.ClassRule;
 import org.junit.Test;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
+
+import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class FlexRulingTest {
 
@@ -32,6 +33,8 @@ public class FlexRulingTest {
     assertTrue(
       "SonarQube 5.1 is the minimum version to generate the issues report, change your orchestrator.properties",
       ORCHESTRATOR.getConfiguration().getSonarVersion().isGreaterThanOrEquals("5.1"));
+      ORCHESTRATOR.getServer().provisionProject("project", "project");
+      ORCHESTRATOR.getServer().associateProjectToQualityProfile("project", "flex", "rules");
     File litsDifferencesFile = FileLocation.of("target/differences").getFile();
 
     SonarRunner build = SonarRunner.create(FileLocation.of("../sources/src").getFile())
@@ -41,13 +44,13 @@ public class FlexRulingTest {
       .setSourceDirs(".")
       .setLanguage("flex")
       .setSourceEncoding("UTF-8")
-      .setProfile("rules")
       .setProperty("sonar.analysis.mode", "preview")
       .setProperty("sonar.issuesReport.html.enable", "true")
       .setProperty("dump.old", FileLocation.of("src/test/resources/expected").getFile().getAbsolutePath())
       .setProperty("dump.new", FileLocation.of("target/actual").getFile().getAbsolutePath())
       .setProperty("lits.differences", litsDifferencesFile.getAbsolutePath())
       .setProperty("sonar.cpd.skip", "true")
+      .setDebugLogs(true)
       .setEnvironmentVariable("SONAR_RUNNER_OPTS", "-Xmx1000m");
     ORCHESTRATOR.executeBuild(build);
 

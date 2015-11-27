@@ -54,9 +54,9 @@
   </modules>
 
   <scm>
-    <connection>scm:git:git@github.com:SonarCommunity/sonar-flex.git</connection>
-    <developerConnection>scm:git:git@github.com:SonarCommunity/sonar-flex.git</developerConnection>
-    <url>https://github.com/SonarCommunity/sonar-flex</url>
+    <connection>scm:git:git@github.com:SonarSource/sonar-flex.git</connection>
+    <developerConnection>scm:git:git@github.com:SonarSource/sonar-flex.git</developerConnection>
+    <url>https://github.com/SonarSource/sonar-flex</url>
     <tag>HEAD</tag>
   </scm>
   <issueManagement>
@@ -65,7 +65,7 @@
   </issueManagement>
   <ciManagement>
     <system>Travis</system>
-    <url>https://travis-ci.org/SonarCommunity/sonar-flex</url>
+    <url>https://travis-ci.org/SonarSource/sonar-flex</url>
   </ciManagement>
 
   <properties>

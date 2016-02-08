@@ -21,8 +21,7 @@ package com.sonar.it.flex;
 
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.MavenBuild;
-import static junit.framework.Assert.assertNull;
-import static org.fest.assertions.Assertions.assertThat;
+import java.io.File;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -30,7 +29,8 @@ import org.sonar.wsclient.services.Measure;
 import org.sonar.wsclient.services.Resource;
 import org.sonar.wsclient.services.ResourceQuery;
 
-import java.io.File;
+import static junit.framework.Assert.assertNull;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class FlexIntegrationTest {
 
@@ -82,8 +82,14 @@ public class FlexIntegrationTest {
     assertThat(getProjectMeasure("duplicated_files").getIntValue()).isEqualTo(0);
 
     assertThat(getProjectMeasure("complexity").getIntValue()).isEqualTo(1084);
-    assertThat(getProjectMeasure("function_complexity").getValue()).isEqualTo(2.2);
-    assertThat(getProjectMeasure("class_complexity").getValue()).isEqualTo(15.1);
+
+    if (!orchestrator.getDistribution().version().isGreaterThanOrEquals("5.4")) {
+      // Since SonarQube 5.4, complexity per function and complexity per class doesn't rely anymore on complexity but on complexity_in_functions and complexity_in_classes
+      // (https://jira.sonarsource.com/browse/SONAR-7169)
+      assertThat(getProjectMeasure("function_complexity").getValue()).isEqualTo(2.2);
+      assertThat(getProjectMeasure("class_complexity").getValue()).isEqualTo(15.1);
+    }
+
     assertThat(getProjectMeasure("file_complexity").getValue()).isEqualTo(15.7);
     assertThat(getProjectMeasure("function_complexity_distribution").getData()).isEqualTo("1=187;2=100;4=47;6=28;8=10;10=2;12=10");
     // SONARPLUGINS-1708 class_complexity_distribution replaced by file_complexity_distribution
@@ -113,8 +119,14 @@ public class FlexIntegrationTest {
     assertThat(getModuleMeasure("duplicated_files").getIntValue()).isEqualTo(0);
 
     assertThat(getModuleMeasure("complexity").getIntValue()).isEqualTo(639);
-    assertThat(getModuleMeasure("function_complexity").getValue()).isEqualTo(3.5);
-    assertThat(getModuleMeasure("class_complexity").getValue()).isEqualTo(33.6);
+
+    if (!orchestrator.getDistribution().version().isGreaterThanOrEquals("5.4")) {
+      // Since SonarQube 5.4, complexity per function and complexity per class doesn't rely anymore on complexity but on complexity_in_functions and complexity_in_classes
+      // (https://jira.sonarsource.com/browse/SONAR-7169)
+      assertThat(getModuleMeasure("function_complexity").getValue()).isEqualTo(3.5);
+      assertThat(getModuleMeasure("class_complexity").getValue()).isEqualTo(33.6);
+    }
+
     assertThat(getModuleMeasure("file_complexity").getValue()).isEqualTo(33.6);
     assertThat(getModuleMeasure("function_complexity_distribution").getData()).isEqualTo("1=65;2=49;4=32;6=18;8=6;10=1;12=8");
     // SONARPLUGINS-1708 class_complexity_distribution replaced by file_complexity_distribution
@@ -142,7 +154,13 @@ public class FlexIntegrationTest {
     assertThat(getPackageMeasure("duplicated_files").getIntValue()).isEqualTo(0);
 
     assertThat(getPackageMeasure("complexity").getIntValue()).isEqualTo(576);
-    assertThat(getPackageMeasure("function_complexity").getValue()).isEqualTo(3.5);
+
+    if (!orchestrator.getDistribution().version().isGreaterThanOrEquals("5.4")) {
+      // Since SonarQube 5.4, complexity per function and complexity per class doesn't rely anymore on complexity but on complexity_in_functions and complexity_in_classes
+      // (https://jira.sonarsource.com/browse/SONAR-7169)
+      assertThat(getPackageMeasure("function_complexity").getValue()).isEqualTo(3.5);
+    }
+
     assertThat(getPackageMeasure("class_complexity").getValue()).isEqualTo(36.0);
     assertThat(getPackageMeasure("file_complexity").getValue()).isEqualTo(36.0);
     assertThat(getPackageMeasure("function_complexity_distribution").getData()).isEqualTo("1=58;2=45;4=30;6=15;8=6;10=1;12=7");
@@ -171,8 +189,14 @@ public class FlexIntegrationTest {
     assertNull(getFileMeasure("duplicated_lines_density"));
 
     assertThat(getFileMeasure("complexity").getIntValue()).isEqualTo(20);
-    assertThat(getFileMeasure("function_complexity").getValue()).isEqualTo(2.0);
-    assertThat(getFileMeasure("class_complexity").getValue()).isEqualTo(20.0);
+
+    if (!orchestrator.getDistribution().version().isGreaterThanOrEquals("5.4")) {
+      // Since SonarQube 5.4, complexity per function and complexity per class doesn't rely anymore on complexity but on complexity_in_functions and complexity_in_classes
+      // (https://jira.sonarsource.com/browse/SONAR-7169)
+      assertThat(getFileMeasure("function_complexity").getValue()).isEqualTo(2.0);
+      assertThat(getFileMeasure("class_complexity").getValue()).isEqualTo(20.0);
+    }
+
     assertThat(getFileMeasure("file_complexity").getValue()).isEqualTo(20.0);
     assertNull(getFileMeasure("function_complexity_distribution"));
     assertNull(getFileMeasure("class_complexity_distribution"));

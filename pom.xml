@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.sonarsource.parent</groupId>
     <artifactId>parent</artifactId>
-    <version>23</version>
+    <version>31</version>
   </parent>
 
   <groupId>org.sonarsource.flex</groupId>
@@ -51,6 +51,7 @@
     <module>flex-checks</module>
     <module>sonar-flex-plugin</module>
     <module>sslr-flex-toolkit</module>
+    <module>its</module>
   </modules>
 
   <scm>
@@ -74,6 +75,10 @@
 
     <sonar.version>4.5.2</sonar.version>
     <sslr.version>1.20</sslr.version>
+    <logback.version>1.0.13</logback.version>
+
+    <gitRepositoryName>sonar-flex</gitRepositoryName>   
+
   </properties>
 
   <dependencyManagement>
@@ -154,7 +159,7 @@
       <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
-        <version>0.9.15</version>
+        <version>${logback.version}</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>

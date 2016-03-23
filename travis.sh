@@ -14,6 +14,7 @@ case "$TEST" in
 
 ci)
   regular_mvn_build_deploy_analyze
+  ;;
 
 *)
   echo "Unexpected TEST mode: $TEST"

@@ -21,7 +21,7 @@ package com.sonar.it.flex;
 
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarRunner;
-import static org.fest.assertions.Assertions.assertThat;
+import java.io.File;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -30,7 +30,7 @@ import org.sonar.wsclient.services.Measure;
 import org.sonar.wsclient.services.Resource;
 import org.sonar.wsclient.services.ResourceQuery;
 
-import java.io.File;
+import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * This test class is used to reproduce various issues.
@@ -82,12 +82,11 @@ public class FlexSimpleProjectTest {
   @Test
   public void should_be_compatible_with_DevCockpit() {
     String fileKey = keyFor("DevCockpit.as");
-    // TODO probably bug in Sonar: order might depend on JVM
     assertThat(getFileMeasure(fileKey, "ncloc_data").getData())
       .contains("1=1")
-      .contains("2=0");
+      .doesNotContain("2=1");
     assertThat(getFileMeasure(fileKey, "comment_lines_data").getData())
-      .contains("1=0")
+      .doesNotContain("1=1")
       .contains("2=1");
   }
 

@@ -12,7 +12,7 @@
   <packaging>sonar-plugin</packaging>
 
   <name>Flex :: Sonar Plugin</name>
-  <description>Enables analysis of ActionScript projects.</description>
+  <description>Enables scanning of Flex source files</description>
   <url>http://redirect.sonarsource.com/plugins/flex.html</url>
 
   <properties>

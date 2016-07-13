@@ -206,10 +206,13 @@ public class FlexSquidSensor implements Sensor {
         NewIssue newIssue = context.newIssue()
           .forRule(ruleKey)
           .gap(message.getCost());
+        Integer line = message.getLine();
         NewIssueLocation location = newIssue.newLocation()
           .on(inputFile)
-          .message(message.getText(Locale.ENGLISH))
-          .at(inputFile.selectLine(message.getLine()));
+          .message(message.getText(Locale.ENGLISH));
+        if (line != null) {
+          location.at(inputFile.selectLine(line));
+        }
         newIssue.at(location);
         newIssue.save();
       }

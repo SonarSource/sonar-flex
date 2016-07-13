@@ -14,4 +14,6 @@ cache:
 notifications:
   email: false
   webhooks:
-    - secure: "1u0hicbRywUTYGzKPq7awMK0taYj76nnul0UWTsfor/qEyE1ozHiMUj5u/0sXjK81q/uDotaX2S2M/s8cxV3LXzdUiPWOiXE1h+r7o/Sjm7NoOrsLSyHtFpquWcgJHRQTLay4hAwPH5yUAjuyw5gan+LeUet9ljdQ3TtuZDOS3w="
+    urls:
+      - secure: "1u0hicbRywUTYGzKPq7awMK0taYj76nnul0UWTsfor/qEyE1ozHiMUj5u/0sXjK81q/uDotaX2S2M/s8cxV3LXzdUiPWOiXE1h+r7o/Sjm7NoOrsLSyHtFpquWcgJHRQTLay4hAwPH5yUAjuyw5gan+LeUet9ljdQ3TtuZDOS3w="
+    on_start: always

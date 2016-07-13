@@ -21,7 +21,7 @@ package org.sonar.flex.it;
 
 import com.google.common.io.Files;
 import com.sonar.orchestrator.Orchestrator;
-import com.sonar.orchestrator.build.SonarRunner;
+import com.sonar.orchestrator.build.SonarScanner;
 import com.sonar.orchestrator.locator.FileLocation;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -51,7 +51,7 @@ public class FlexRulingTest {
       ORCHESTRATOR.getServer().associateProjectToQualityProfile("project", "flex", "rules");
     File litsDifferencesFile = FileLocation.of("target/differences").getFile();
 
-    SonarRunner build = SonarRunner.create(FileLocation.of("../sources/src").getFile())
+    SonarScanner build = SonarScanner.create(FileLocation.of("../sources/src").getFile())
       .setProjectKey("project")
       .setProjectName("project")
       .setProjectVersion("1")

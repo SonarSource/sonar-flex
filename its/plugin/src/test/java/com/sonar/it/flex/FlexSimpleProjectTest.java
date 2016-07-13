@@ -20,8 +20,7 @@
 package com.sonar.it.flex;
 
 import com.sonar.orchestrator.Orchestrator;
-import com.sonar.orchestrator.build.SonarRunner;
-import java.io.File;
+import com.sonar.orchestrator.build.SonarScanner;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -29,6 +28,8 @@ import org.sonar.wsclient.Sonar;
 import org.sonar.wsclient.services.Measure;
 import org.sonar.wsclient.services.Resource;
 import org.sonar.wsclient.services.ResourceQuery;
+
+import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -53,7 +54,7 @@ public class FlexSimpleProjectTest {
     orchestrator.resetData();
     sonar = orchestrator.getServer().getWsClient();
 
-    SonarRunner runner = Tests.createSonarRunner()
+    SonarScanner runner = Tests.createSonarScanner()
       .setProjectDir(new File("projects/simple-project"))
       .setProperty("sonar.profile", "it-profile");
     orchestrator.executeBuild(runner);

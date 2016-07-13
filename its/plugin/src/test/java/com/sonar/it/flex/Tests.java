@@ -21,12 +21,13 @@ package com.sonar.it.flex;
 
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.MavenBuild;
-import com.sonar.orchestrator.build.SonarRunner;
+import com.sonar.orchestrator.build.SonarScanner;
 import com.sonar.orchestrator.locator.FileLocation;
 import org.junit.ClassRule;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
+
 import java.io.File;
 
 @RunWith(Suite.class)
@@ -43,16 +44,12 @@ public class Tests {
     .restoreProfileAtStartup(FileLocation.ofClasspath("/it-profile_flex.xml"))
     .build();
 
-  public static boolean is_sonarqube_after_sonar_5_2() {
-    return ORCHESTRATOR.getConfiguration().getSonarVersion().isGreaterThanOrEquals("5.2");
-  }
-
   public static MavenBuild createMavenBuild() {
     return MavenBuild.create();
   }
 
-  public static SonarRunner createSonarRunner() {
-    return SonarRunner.create();
+  public static SonarScanner createSonarScanner() {
+    return SonarScanner.create();
   }
 
 }

@@ -51,7 +51,7 @@ import java.util.Map;
 @SqaleConstantRemediation("5min")
 public class UnusedFunctionParametersCheck extends SquidCheck<LexerlessGrammar> {
 
-  private Deque<Boolean> classes = new ArrayDeque<Boolean>();
+  private Deque<Boolean> classes = new ArrayDeque<>();
 
   private static class Scope {
     private final Scope outerScope;

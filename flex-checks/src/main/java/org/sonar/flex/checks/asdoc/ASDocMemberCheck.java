@@ -135,7 +135,7 @@ public class ASDocMemberCheck {
   /**
    * Report an issue if the method as a non-void return type and "@return" tag is not present in the ASDoc
    */
-  private void checkForReturnASDoc(ASDocCheck check, MethodASDoc methodASDoc, AstNode functionDef) {
+  private static void checkForReturnASDoc(ASDocCheck check, MethodASDoc methodASDoc, AstNode functionDef) {
     if (!returnsVoid(functionDef) && !methodASDoc.hasReturn) {
       check.getContext().createLineViolation(check, "Add the missing \"@return\" ASDoc for the return value of this method.", functionDef);
     }
@@ -145,7 +145,7 @@ public class ASDocMemberCheck {
    * Verifies that for every method's parameter a "@param" tag followed by the parameter's name
    * is present in the ASDoc.
    */
-  private void checkForParametersASDoc(ASDocCheck check, MethodASDoc methodASDoc, AstNode functionDef) {
+  private static void checkForParametersASDoc(ASDocCheck check, MethodASDoc methodASDoc, AstNode functionDef) {
     StringBuilder builder = new StringBuilder();
 
     for (AstNode parameter : Function.getParametersIdentifiers(functionDef)) {
@@ -172,7 +172,7 @@ public class ASDocMemberCheck {
     return methodASDoc;
   }
 
-  private void parseLine(String[] line, MethodASDoc methodASDoc) {
+  private static void parseLine(String[] line, MethodASDoc methodASDoc) {
     int lineLength = line.length;
     for (int i = 0, next = 1; i < lineLength; i++, next++) {
 

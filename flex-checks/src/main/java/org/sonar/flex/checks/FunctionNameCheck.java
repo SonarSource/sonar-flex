@@ -49,7 +49,7 @@ public class FunctionNameCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final String DEFAULT = "^[a-z][a-zA-Z0-9]*$";
   private Pattern pattern = null;
-  private Deque<String> classes = new ArrayDeque<String>();
+  private Deque<String> classes = new ArrayDeque<>();
 
   @RuleProperty(
     key = "format",

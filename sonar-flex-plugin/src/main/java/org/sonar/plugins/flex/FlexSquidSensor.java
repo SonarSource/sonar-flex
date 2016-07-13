@@ -68,12 +68,7 @@ public class FlexSquidSensor implements Sensor {
   private static final Number[] FUNCTIONS_DISTRIB_BOTTOM_LIMITS = {1, 2, 4, 6, 8, 10, 12};
   private static final Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
 
-  private static final Predicate<java.io.File> MXML_FILTER = new Predicate<java.io.File>() {
-    @Override
-    public boolean apply(java.io.File file) {
-      return file != null && file.getAbsolutePath().endsWith(".mxml");
-    }
-  };
+  private static final Predicate<java.io.File> MXML_FILTER = file -> file != null && file.getAbsolutePath().endsWith(".mxml");
 
   private final Checks<SquidCheck<LexerlessGrammar>> checks;
   private final FileLinesContextFactory fileLinesContextFactory;

@@ -92,7 +92,7 @@ public class UnusedPrivateFunctionCheck extends SquidCheck<LexerlessGrammar> {
     }
   }
 
-  private Deque<ClassState> classStack = new ArrayDeque<ClassState>();
+  private Deque<ClassState> classStack = new ArrayDeque<>();
   private boolean inClass;
 
   @Override

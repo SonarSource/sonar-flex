@@ -21,6 +21,7 @@ package org.sonar.flex.api;
 
 import java.nio.charset.Charset;
 
+@FunctionalInterface
 public interface CharsetAwareVisitor {
 
   void setCharset(Charset charset);

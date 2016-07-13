@@ -44,7 +44,7 @@ import java.util.Deque;
 public class TooManyReturnCheck extends SquidCheck<LexerlessGrammar> {
 
   private static final int DEFAULT = 3;
-  private final Deque<Integer> returnStatementCounter = new ArrayDeque<Integer>();
+  private final Deque<Integer> returnStatementCounter = new ArrayDeque<>();
 
   @RuleProperty(
     key = "max",

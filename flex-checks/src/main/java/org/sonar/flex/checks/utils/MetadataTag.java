@@ -72,7 +72,7 @@ public final class MetadataTag {
     Preconditions.checkArgument(metadata.is(FlexGrammar.METADATA_STATEMENT));
     if (isNotEmpty(metadata) && hasProperty(metadata)) {
 
-      Map<String, String> properties = new HashMap<String, String>();
+      Map<String, String> properties = new HashMap<>();
       AstNode listExpr = metadata
         .getFirstChild(FlexGrammar.ASSIGNMENT_EXPR)
         .getFirstChild(FlexGrammar.POSTFIX_EXPR)

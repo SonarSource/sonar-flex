@@ -43,7 +43,7 @@ import java.util.Map;
 @SqaleConstantRemediation("5min")
 public class ManagedEventTagWithEventCheck extends SquidCheck<LexerlessGrammar> {
 
-  private Map<String, Boolean> isDeclaredInEventTag = new HashMap<String, Boolean>();
+  private Map<String, Boolean> isDeclaredInEventTag = new HashMap<>();
 
   @Override
   public void init() {

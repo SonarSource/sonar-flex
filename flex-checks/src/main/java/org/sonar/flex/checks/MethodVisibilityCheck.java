@@ -80,7 +80,7 @@ public class MethodVisibilityCheck extends SquidCheck<LexerlessGrammar> {
     return false;
   }
 
-  private boolean isVisibility(AstNodeType modifier) {
+  private static boolean isVisibility(AstNodeType modifier) {
     return modifier.equals(FlexKeyword.PUBLIC) || modifier.equals(FlexKeyword.INTERNAL)
       || modifier.equals(FlexKeyword.PROTECTED) || modifier.equals(FlexKeyword.PRIVATE);
   }

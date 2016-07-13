@@ -78,7 +78,7 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
     }
   }
 
-  private Deque<ClassState> classStack = new ArrayDeque<ClassState>();
+  private Deque<ClassState> classStack = new ArrayDeque<>();
   private int functionNestedLevel;
   private static final String MESSAGE = "Rename \"{0}\" which hides the field declared at line {1}.";
 

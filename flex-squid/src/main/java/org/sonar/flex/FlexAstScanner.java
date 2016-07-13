@@ -88,7 +88,7 @@ public final class FlexAstScanner {
   }
 
   public static AstScanner<LexerlessGrammar> create(FlexConfiguration conf, SquidAstVisitor<LexerlessGrammar>... visitors) {
-    final SquidAstVisitorContextImpl<LexerlessGrammar> context = new SquidAstVisitorContextImpl<LexerlessGrammar>(new SourceProject("Flex Project"));
+    final SquidAstVisitorContextImpl<LexerlessGrammar> context = new SquidAstVisitorContextImpl<>(new SourceProject("Flex Project"));
     final Parser<LexerlessGrammar> parser = FlexParser.create(conf);
 
     AstScanner.Builder<LexerlessGrammar> builder = new ProgressAstScanner.Builder(context).setBaseParser(parser);
@@ -103,8 +103,9 @@ public final class FlexAstScanner {
     builder.setFilesMetric(FlexMetric.FILES);
 
     /* Classes */
-    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<LexerlessGrammar>(new SourceCodeBuilderCallback() {
+    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<>(new SourceCodeBuilderCallback() {
       private int seq = 0;
+
       @Override
       public SourceCode createSourceCode(SourceCode parentSourceCode, AstNode astNode) {
         seq++;
@@ -120,7 +121,7 @@ public final class FlexAstScanner {
         .build());
 
     /* Functions */
-    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<LexerlessGrammar>(new SourceCodeBuilderCallback() {
+    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<>(new SourceCodeBuilderCallback() {
       private int seq = 0;
 
       @Override
@@ -138,8 +139,8 @@ public final class FlexAstScanner {
         .build());
 
     /* Metrics */
-    builder.withSquidAstVisitor(new LinesVisitor<LexerlessGrammar>(FlexMetric.LINES));
-    builder.withSquidAstVisitor(new LinesOfCodeVisitor<LexerlessGrammar>(FlexMetric.LINES_OF_CODE));
+    builder.withSquidAstVisitor(new LinesVisitor<>(FlexMetric.LINES));
+    builder.withSquidAstVisitor(new LinesOfCodeVisitor<>(FlexMetric.LINES_OF_CODE));
     builder.withSquidAstVisitor(CommentsVisitor.<LexerlessGrammar> builder().withCommentMetric(FlexMetric.COMMENT_LINES)
         .withNoSonar(true)
         .withIgnoreHeaderComment(conf.getIgnoreHeaderComments())

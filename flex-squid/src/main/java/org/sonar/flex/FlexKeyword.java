@@ -89,11 +89,11 @@ public enum FlexKeyword implements GrammarRuleKey {
 
   private final boolean syntactic;
 
-  private FlexKeyword() {
+  FlexKeyword() {
     this(false);
   }
 
-  private FlexKeyword(boolean syntactic) {
+  FlexKeyword(boolean syntactic) {
     this.syntactic = syntactic;
   }
 

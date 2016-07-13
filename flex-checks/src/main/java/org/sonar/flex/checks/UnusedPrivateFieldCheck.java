@@ -88,7 +88,7 @@ public class UnusedPrivateFieldCheck extends SquidCheck<LexerlessGrammar> {
   }
 
 
-  private Deque<ClassState> classStack = new ArrayDeque<ClassState>();
+  private Deque<ClassState> classStack = new ArrayDeque<>();
 
   @Override
   public void init() {

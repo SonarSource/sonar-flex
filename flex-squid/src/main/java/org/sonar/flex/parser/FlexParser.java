@@ -31,7 +31,7 @@ public final class FlexParser {
   }
 
   public static Parser<LexerlessGrammar> create(FlexConfiguration conf) {
-    return new ParserAdapter<LexerlessGrammar>(conf.getCharset(), FlexGrammar.createGrammar());
+    return new ParserAdapter<>(conf.getCharset(), FlexGrammar.createGrammar());
   }
 
 }

@@ -81,7 +81,7 @@ public enum FlexKeyword implements TokenType {
 
   private final String value;
 
-  private FlexKeyword(String value) {
+  FlexKeyword(String value) {
     this.value = value;
   }
 

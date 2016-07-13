@@ -45,7 +45,7 @@ import java.util.Deque;
 public class ConstructorCallsDispatchEventCheck extends SquidCheck<LexerlessGrammar> {
 
   boolean isInClass;
-  private Deque<ClassState> classStack = new ArrayDeque<ClassState>();
+  private Deque<ClassState> classStack = new ArrayDeque<>();
 
   private static class ClassState {
     String className;

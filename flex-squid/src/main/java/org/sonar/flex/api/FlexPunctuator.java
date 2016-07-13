@@ -81,7 +81,7 @@ public enum FlexPunctuator implements TokenType {
 
   private final String value;
 
-  private FlexPunctuator(String value) {
+  FlexPunctuator(String value) {
     this.value = value;
   }
 

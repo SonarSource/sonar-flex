@@ -20,9 +20,7 @@
 package org.sonar.plugins.flex.cobertura;
 
 import com.google.common.collect.Maps;
-import static java.util.Locale.ENGLISH;
 import org.apache.commons.lang.StringUtils;
-import org.codehaus.staxmate.in.SMHierarchicCursor;
 import org.codehaus.staxmate.in.SMInputCursor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +30,6 @@ import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.measures.CoverageMeasuresBuilder;
 import org.sonar.api.measures.Measure;
-import static org.sonar.api.utils.ParsingUtils.parseNumber;
 import org.sonar.api.utils.StaxParser;
 import org.sonar.api.utils.XmlParserException;
 import org.sonar.plugins.flex.core.Flex;
@@ -41,6 +38,9 @@ import javax.xml.stream.XMLStreamException;
 import java.io.File;
 import java.text.ParseException;
 import java.util.Map;
+
+import static java.util.Locale.ENGLISH;
+import static org.sonar.api.utils.ParsingUtils.parseNumber;
 
 public class CoberturaReportParser {
 
@@ -54,13 +54,9 @@ public class CoberturaReportParser {
    */
   public static void parseReport(File xmlFile, final SensorContext context, final FileSystem fileSystem) {
     try {
-      StaxParser parser = new StaxParser(new StaxParser.XmlStreamHandler() {
-
-        @Override
-        public void stream(SMHierarchicCursor rootCursor) throws XMLStreamException {
-          rootCursor.advance();
-          collectPackageMeasures(rootCursor.descendantElementCursor("package"), context, fileSystem);
-        }
+      StaxParser parser = new StaxParser(rootCursor -> {
+        rootCursor.advance();
+        collectPackageMeasures(rootCursor.descendantElementCursor("package"), context, fileSystem);
       });
       parser.parse(xmlFile);
     } catch (XMLStreamException e) {

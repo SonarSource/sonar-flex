@@ -19,28 +19,26 @@
  */
 package org.sonar.plugins.flex.cobertura;
 
-import com.google.common.collect.Maps;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.staxmate.in.SMInputCursor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.measures.CoverageMeasuresBuilder;
-import org.sonar.api.measures.Measure;
+import org.sonar.api.batch.sensor.SensorContext;
+import org.sonar.api.batch.sensor.coverage.CoverageType;
+import org.sonar.api.batch.sensor.coverage.NewCoverage;
+import org.sonar.api.utils.ParsingUtils;
 import org.sonar.api.utils.StaxParser;
-import org.sonar.api.utils.XmlParserException;
 import org.sonar.plugins.flex.core.Flex;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.File;
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
-
-import static java.util.Locale.ENGLISH;
-import static org.sonar.api.utils.ParsingUtils.parseNumber;
 
 public class CoberturaReportParser {
 
@@ -52,75 +50,79 @@ public class CoberturaReportParser {
   /**
    * Parse a Cobertura xml report and create measures accordingly
    */
-  public static void parseReport(File xmlFile, final SensorContext context, final FileSystem fileSystem) {
+  public static void parseReport(File xmlFile, final SensorContext context) {
     try {
       StaxParser parser = new StaxParser(rootCursor -> {
         rootCursor.advance();
-        collectPackageMeasures(rootCursor.descendantElementCursor("package"), context, fileSystem);
+        collectPackageMeasures(rootCursor.descendantElementCursor("package"), context);
       });
       parser.parse(xmlFile);
     } catch (XMLStreamException e) {
-      throw new XmlParserException(e);
+      throw new IllegalStateException(e);
     }
   }
 
-  private static void collectPackageMeasures(SMInputCursor pack, SensorContext context, FileSystem fileSystem) throws XMLStreamException {
+  private static void collectPackageMeasures(SMInputCursor pack, SensorContext context) throws XMLStreamException {
     while (pack.getNext() != null) {
-      Map<String, CoverageMeasuresBuilder> builderByFilename = Maps.newHashMap();
-      collectFileMeasures(pack.descendantElementCursor("class"), builderByFilename);
-      FilePredicates predicates = fileSystem.predicates();
+      Map<String, InputFile> inputFileByFilename = new HashMap<>();
+      collectFileMeasures(context, pack.descendantElementCursor("class"), inputFileByFilename);
+    }
+  }
 
-      for (Map.Entry<String, CoverageMeasuresBuilder> entry : builderByFilename.entrySet()) {
+  private static void collectFileMeasures(SensorContext context, SMInputCursor clazz, Map<String, InputFile> inputFileByFilename) throws XMLStreamException {
+    FileSystem fileSystem = context.fileSystem();
+    FilePredicates predicates = fileSystem.predicates();
+    while (clazz.getNext() != null) {
+      String fileName = clazz.getAttrValue("filename");
 
-        String fileName = entry.getKey().startsWith(File.separator) ? entry.getKey() : (File.separator + entry.getKey());
-        InputFile inputFile = fileSystem.inputFile(predicates.and(
-          predicates.matchesPathPattern("file:**" + fileName.replace(File.separator, "/")),
+      InputFile inputFile;
+      // mxml files are not supported by the plugin
+      if (inputFileByFilename.containsKey(fileName)) {
+        inputFile = inputFileByFilename.get(fileName);
+      } else {
+        String key = fileName.startsWith(File.separator) ? fileName : (File.separator + fileName);
+        inputFile = fileSystem.inputFile(predicates.and(
+          predicates.matchesPathPattern("file:**" + key.replace(File.separator, "/")),
           predicates.hasType(InputFile.Type.MAIN),
           predicates.hasLanguage(Flex.KEY)));
-
-        if (inputFile != null) {
-          for (Measure measure : entry.getValue().createMeasures()) {
-            context.saveMeasure(inputFile, measure);
-          }
-          // mxml files are not imported by the plugin because they are not supported
-        } else if (!entry.getKey().endsWith(".mxml")){
-          LOG.warn("Cannot save coverage result for file: {}, because resource not found.", entry.getKey());
+        inputFileByFilename.put(fileName, inputFile);
+        if (inputFile == null && !fileName.endsWith(".mxml")) {
+          LOG.warn("Cannot save coverage result for file: {}, because resource not found.", fileName);
+        }
+      }
+      if (inputFile != null) {
+        collectFileData(
+          clazz,
+          context.newCoverage()
+            .onFile(inputFile)
+            .ofType(CoverageType.UNIT)
+        );
+      } else {
+        SMInputCursor line = clazz.childElementCursor("lines").advance().childElementCursor("line");
+        while (line.getNext() != null) {
+          // advance
         }
       }
     }
   }
 
-  private static void collectFileMeasures(SMInputCursor clazz, Map<String, CoverageMeasuresBuilder> builderByFilename) throws XMLStreamException {
-    while (clazz.getNext() != null) {
-      String fileName = clazz.getAttrValue("filename");
-
-      // mxml files are not supported by the plugin
-      CoverageMeasuresBuilder builder = builderByFilename.get(fileName);
-
-      if (builder == null) {
-        builder = CoverageMeasuresBuilder.create();
-        builderByFilename.put(fileName, builder);
-      }
-      collectFileData(clazz, builder);
-    }
-  }
-
-  private static void collectFileData(SMInputCursor clazz, CoverageMeasuresBuilder builder) throws XMLStreamException {
+  private static void collectFileData(SMInputCursor clazz, NewCoverage newCoverage) throws XMLStreamException {
     SMInputCursor line = clazz.childElementCursor("lines").advance().childElementCursor("line");
     while (line.getNext() != null) {
       int lineId = Integer.parseInt(line.getAttrValue("number"));
       try {
-        builder.setHits(lineId, (int) parseNumber(line.getAttrValue("hits"), ENGLISH));
+        newCoverage.lineHits(lineId, (int) ParsingUtils.parseNumber(line.getAttrValue("hits"), Locale.ENGLISH));
       } catch (ParseException e) {
-        throw new XmlParserException(e);
+        throw new IllegalStateException(e);
       }
 
       String isBranch = line.getAttrValue("branch");
       String text = line.getAttrValue("condition-coverage");
       if (StringUtils.equals(isBranch, "true") && StringUtils.isNotBlank(text)) {
         String[] conditions = StringUtils.split(StringUtils.substringBetween(text, "(", ")"), "/");
-        builder.setConditions(lineId, Integer.parseInt(conditions[1]), Integer.parseInt(conditions[0]));
+        newCoverage.conditions(lineId, Integer.parseInt(conditions[1]), Integer.parseInt(conditions[0]));
       }
     }
+    newCoverage.save();
   }
 }

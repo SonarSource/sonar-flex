@@ -21,13 +21,11 @@ package org.sonar.plugins.flex.cobertura;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonar.api.batch.Sensor;
-import org.sonar.api.batch.SensorContext;
-import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.config.Settings;
-import org.sonar.api.resources.Project;
+import org.sonar.api.batch.sensor.Sensor;
+import org.sonar.api.batch.sensor.SensorContext;
+import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.core.Flex;
 
@@ -36,33 +34,25 @@ import java.io.File;
 public class CoberturaSensor implements Sensor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CoberturaSensor.class);
-  private final Settings settings;
-  private final FileSystem fileSystem;
-  private final FilePredicate mainFilePredicates;
 
-  public CoberturaSensor(Settings settings, FileSystem fileSystem) {
-    this.settings = settings;
-    this.fileSystem = fileSystem;
-    this.mainFilePredicates = fileSystem.predicates().and(
-      fileSystem.predicates().hasLanguage(Flex.KEY),
-      fileSystem.predicates().hasType(InputFile.Type.MAIN));
+  @Override
+  public void describe(SensorDescriptor descriptor) {
+    descriptor
+      .name("Flex Cobertura")
+      .onlyOnFileType(InputFile.Type.MAIN)
+      .onlyOnLanguage(Flex.KEY);
   }
 
   @Override
-  public boolean shouldExecuteOnProject(Project project) {
-    return fileSystem.hasFiles(mainFilePredicates);
-  }
-
-  @Override
-  public void analyse(Project project, SensorContext context) {
-    String reportPath = settings.getString(FlexPlugin.COBERTURA_REPORT_PATH);
+  public void execute(SensorContext context) {
+    String reportPath = context.settings().getString(FlexPlugin.COBERTURA_REPORT_PATH);
 
     if (reportPath != null) {
-      File xmlFile = getIOFile(reportPath);
+      File xmlFile = getIOFile(context.fileSystem(), reportPath);
 
       if (xmlFile.exists()) {
         LOGGER.info("Analyzing Cobertura report: " + reportPath);
-        CoberturaReportParser.parseReport(xmlFile, context, fileSystem);
+        CoberturaReportParser.parseReport(xmlFile, context);
       } else {
         LOGGER.info("Cobertura xml report not found: " + reportPath);
       }
@@ -75,7 +65,7 @@ public class CoberturaSensor implements Sensor {
    * Returns a java.io.File for the given path.
    * If path is not absolute, returns a File with module base directory as parent path.
    */
-  private File getIOFile(String path) {
+  private File getIOFile(FileSystem fileSystem, String path) {
     File file = new File(path);
     if (!file.isAbsolute()) {
       file = new File(fileSystem.baseDir(), path);

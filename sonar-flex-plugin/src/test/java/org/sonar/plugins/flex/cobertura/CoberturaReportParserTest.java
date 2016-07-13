@@ -20,22 +20,18 @@
 package org.sonar.plugins.flex.cobertura;
 
 import org.junit.Test;
-import org.sonar.api.batch.SensorContext;
-import org.sonar.api.batch.fs.internal.DefaultFileSystem;
-import org.sonar.api.utils.XmlParserException;
+import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.test.TestUtils;
 
 import java.io.File;
 
-import static org.mockito.Mockito.mock;
-
 public class CoberturaReportParserTest {
 
-  @Test(expected = XmlParserException.class)
+  @Test(expected = IllegalStateException.class)
   public void invalidXmlFile() throws Exception {
     CoberturaReportParser.parseReport(
       TestUtils.getResource("org/sonar/plugins/flex/cobertura/coverage-invalid.xml"),
-      mock(SensorContext.class),
-      new DefaultFileSystem(new File(".")));
+      SensorContextTester.create(new File("."))
+    );
   }
 }

@@ -19,94 +19,90 @@
  */
 package org.sonar.plugins.flex;
 
-import org.fest.assertions.Assertions;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
+import org.sonar.api.batch.fs.internal.FileMetadata;
 import org.sonar.api.batch.rule.ActiveRules;
 import org.sonar.api.batch.rule.CheckFactory;
-import org.sonar.api.component.ResourcePerspectives;
+import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
-import org.sonar.api.resources.Project;
-import org.sonar.api.scan.filesystem.PathResolver;
 import org.sonar.plugins.flex.core.Flex;
-import org.sonar.test.TestUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
+import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class FlexSquidSensorTest {
 
-  private static final String TEST_DIR = "org/sonar/plugins/flex/squid/";
+  private static final File TEST_DIR = new File("src/test/resources/org/sonar/plugins/flex/");
 
-  @Test
-  public void test_should_execute_on_project() {
-    DefaultFileSystem fs = new DefaultFileSystem(new File("."));
-    FlexSquidSensor sensor = newSquidSensor(fs);
+  private FlexSquidSensor sensor;
+  private SensorContextTester tester;
 
-    // No Flex file in file system
-    Assertions.assertThat(sensor.shouldExecuteOnProject(new Project("key"))).isFalse();
-
-    // With Flex source file
-    fs.add(new DefaultInputFile("key", "Dummy.as").setLanguage(Flex.KEY).setType(InputFile.Type.MAIN));
-    Assertions.assertThat(sensor.shouldExecuteOnProject(new Project("key"))).isTrue();
-  }
-
-  @Test
-  public void should_analyse() {
-    DefaultFileSystem fs = new DefaultFileSystem(TestUtils.getResource("org/sonar/plugins/flex/duplications/"));
-    fs.add(newInputFile("SmallFile.as"));
-
-    SensorContext context = mock(SensorContext.class);
-
-    newSquidSensor(fs).analyse(new Project("key"), context);
-
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.COMPLEXITY_IN_CLASSES), Mockito.eq(1.0));
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.NCLOC), Mockito.eq(9.0));
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.COMMENT_LINES), Mockito.eq(1.0));
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.STATEMENTS), Mockito.eq(2.0));
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.FUNCTIONS), Mockito.eq(2.0));
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.CLASSES), Mockito.eq(1.0));
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.COMPLEXITY), Mockito.eq(2.0));
-  }
-
-  @Test
-  public void should_analyse2() {
-    DefaultFileSystem fs = new DefaultFileSystem(TestUtils.getResource(TEST_DIR));
-    fs.add(newInputFile("TimeFormatter.as"));
-
-    SensorContext context = mock(SensorContext.class);
-
-    newSquidSensor(fs).analyse(new Project("key"), context);
-
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.COMPLEXITY_IN_CLASSES), Mockito.eq(0.0));
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.NCLOC), Mockito.eq(0.0));
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.COMMENT_LINES), Mockito.eq(59.0));
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.FUNCTIONS), Mockito.eq(0.0));
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.CLASSES), Mockito.eq(0.0));
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.STATEMENTS), Mockito.eq(0.0));
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.COMPLEXITY), Mockito.eq(0.0));
-  }
-
-  private FlexSquidSensor newSquidSensor(DefaultFileSystem fs) {
+  @Before
+  public void setUp() throws Exception {
+    CheckFactory checkFactory = new CheckFactory(mock(ActiveRules.class));
     FileLinesContextFactory fileLinesContextFactory = mock(FileLinesContextFactory.class);
     when(fileLinesContextFactory.createFor(Mockito.any(InputFile.class))).thenReturn(mock(FileLinesContext.class));
-
-    CheckFactory checkFactory = new CheckFactory(mock(ActiveRules.class));
-    return new FlexSquidSensor(checkFactory, fileLinesContextFactory, fs, mock(ResourcePerspectives.class), new PathResolver());
+    sensor = new FlexSquidSensor(checkFactory, fileLinesContextFactory);
+    tester = SensorContextTester.create(TEST_DIR);
   }
 
-  private DefaultInputFile newInputFile(String path) {
-    return new DefaultInputFile("key", path)
+  @Test
+  public void analyse() throws FileNotFoundException {
+    DefaultFileSystem fs = new DefaultFileSystem(new File(TEST_DIR, "duplications"));
+    tester.setFileSystem(fs);
+    DefaultInputFile inputFile = new DefaultInputFile("key", "SmallFile.as")
+      .setType(InputFile.Type.MAIN)
       .setLanguage(Flex.KEY)
-      .setType(InputFile.Type.MAIN);
+      .initMetadata(new FileMetadata().readMetadata(new FileReader(new File(TEST_DIR, "duplications/SmallFile.as"))));
+    fs.add(inputFile);
+
+    sensor.execute(tester);
+
+    String componentKey = inputFile.key();
+    assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY_IN_CLASSES).value()).isEqualTo(1);
+    assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(9);
+    assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(1);
+    assertThat(tester.measure(componentKey, CoreMetrics.STATEMENTS).value()).isEqualTo(2);
+    assertThat(tester.measure(componentKey, CoreMetrics.FUNCTIONS).value()).isEqualTo(2);
+    assertThat(tester.measure(componentKey, CoreMetrics.CLASSES).value()).isEqualTo(1);
+    assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY).value()).isEqualTo(2);
+    assertThat(tester.measure(componentKey, CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION).value()).isEqualTo("0=1;5=0;10=0;20=0;30=0;60=0;90=0");
+    assertThat(tester.measure(componentKey, CoreMetrics.FUNCTION_COMPLEXITY_DISTRIBUTION).value()).isEqualTo("1=2;2=0;4=0;6=0;8=0;10=0;12=0");
+  }
+
+  @Test
+  public void analyse2() throws FileNotFoundException {
+    DefaultFileSystem fs = new DefaultFileSystem(new File(TEST_DIR, "squid"));
+    tester.setFileSystem(fs);
+    DefaultInputFile inputFile = new DefaultInputFile("key", "TimeFormatter.as")
+      .setType(InputFile.Type.MAIN)
+      .setLanguage(Flex.KEY)
+      .initMetadata(new FileMetadata().readMetadata(new FileReader(new File(TEST_DIR, "squid/TimeFormatter.as"))));
+    fs.add(inputFile);
+
+    sensor.execute(tester);
+
+    String componentKey = inputFile.key();
+    assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY_IN_CLASSES).value()).isEqualTo(0);
+    assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(0);
+    assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(59);
+    assertThat(tester.measure(componentKey, CoreMetrics.STATEMENTS).value()).isEqualTo(0);
+    assertThat(tester.measure(componentKey, CoreMetrics.FUNCTIONS).value()).isEqualTo(0);
+    assertThat(tester.measure(componentKey, CoreMetrics.CLASSES).value()).isEqualTo(0);
+    assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY).value()).isEqualTo(0);
+    assertThat(tester.measure(componentKey, CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION).value()).isEqualTo("0=1;5=0;10=0;20=0;30=0;60=0;90=0");
+    assertThat(tester.measure(componentKey, CoreMetrics.FUNCTION_COMPLEXITY_DISTRIBUTION).value()).isEqualTo("1=0;2=0;4=0;6=0;8=0;10=0;12=0");
   }
 }

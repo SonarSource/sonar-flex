@@ -21,16 +21,20 @@ package org.sonar.flex.checks;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
-import org.sonar.api.rules.AnnotationRuleParser;
-import org.sonar.api.rules.Rule;
-import org.sonar.api.rules.RuleParam;
+import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Fail.fail;
 
 public class CheckListTest {
 
@@ -53,7 +57,7 @@ public class CheckListTest {
    * Enforces that each check has test, name and description.
    */
   @Test
-  public void test() {
+  public void test() throws IOException {
     List<Class> checks = CheckList.getChecks();
 
     for (Class cls : checks) {
@@ -63,16 +67,29 @@ public class CheckListTest {
           .isNotNull();
     }
 
-    List<Rule> rules = new AnnotationRuleParser().parse("repositoryKey", checks);
-    for (Rule rule : rules) {
-      assertThat(getClass().getResource("/org/sonar/l10n/flex/rules/flex/" + rule.getKey() + ".html"))
-          .overridingErrorMessage("No description for " + rule.getKey())
+    RulesDefinition.NewRepository repository = new RulesDefinition.Context().createRepository("key", "lang");
+    new RulesDefinitionAnnotationLoader().load(repository, checks.toArray(new Class[checks.size()]));
+    Iterable<RulesDefinition.NewRule> rules = repository.rules();
+    assertThat(rules).isNotEmpty();
+    Set<String> ruleKeys = new HashSet<>();
+    for (RulesDefinition.NewRule rule : rules) {
+      assertThat(getClass().getResource("/org/sonar/l10n/flex/rules/flex/" + rule.key() + ".html"))
+          .overridingErrorMessage("No description for " + rule.key())
           .isNotNull();
 
-      assertThat(rule.getDescription())
-          .overridingErrorMessage("Description of " + rule.getKey() + " should be in separate file")
-          .isNull();
+      try {
+        rule.setMarkdownDescription("-42");
+      } catch (IllegalStateException e) {
+        // it means that the html description was already set in Rule annotation
+        fail("Description of " + rule.key() + " should be in separate file");
+      }
+      ruleKeys.add(rule.key());
     }
+    Set<String> nonLinkedFiles = Files.list(Paths.get("src/main/resources/org/sonar/l10n/flex/rules/flex"))
+      .map(path -> path.getFileName().toString().replace(".html", ""))
+      .filter(s -> !ruleKeys.contains(s))
+      .collect(Collectors.toSet());
+    assertThat(nonLinkedFiles).as("Unexpected html description files found").isEmpty();
   }
 
 }

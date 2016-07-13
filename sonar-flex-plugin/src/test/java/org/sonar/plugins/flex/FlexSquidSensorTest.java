@@ -49,30 +49,27 @@ public class FlexSquidSensorTest {
 
   @Test
   public void test_should_execute_on_project() {
-    DefaultFileSystem fs = new DefaultFileSystem();
+    DefaultFileSystem fs = new DefaultFileSystem(new File("."));
     FlexSquidSensor sensor = newSquidSensor(fs);
 
     // No Flex file in file system
     Assertions.assertThat(sensor.shouldExecuteOnProject(new Project("key"))).isFalse();
 
     // With Flex source file
-    fs.add(new DefaultInputFile("Dummy.as").setLanguage(Flex.KEY).setType(InputFile.Type.MAIN));
+    fs.add(new DefaultInputFile("key", "Dummy.as").setLanguage(Flex.KEY).setType(InputFile.Type.MAIN));
     Assertions.assertThat(sensor.shouldExecuteOnProject(new Project("key"))).isTrue();
   }
 
   @Test
   public void should_analyse() {
-    DefaultFileSystem fs = new DefaultFileSystem();
-    fs.setBaseDir(TestUtils.getResource("org/sonar/plugins/flex/duplications/"));
-    fs.add(newInputFile(TestUtils.getResource("org/sonar/plugins/flex/duplications/SmallFile.as")));
+    DefaultFileSystem fs = new DefaultFileSystem(TestUtils.getResource("org/sonar/plugins/flex/duplications/"));
+    fs.add(newInputFile("SmallFile.as"));
 
     SensorContext context = mock(SensorContext.class);
 
     newSquidSensor(fs).analyse(new Project("key"), context);
 
     verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.COMPLEXITY_IN_CLASSES), Mockito.eq(1.0));
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.FILES), Mockito.eq(1.0));
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.LINES), Mockito.eq(13.0));
     verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.NCLOC), Mockito.eq(9.0));
     verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.COMMENT_LINES), Mockito.eq(1.0));
     verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.STATEMENTS), Mockito.eq(2.0));
@@ -83,18 +80,14 @@ public class FlexSquidSensorTest {
 
   @Test
   public void should_analyse2() {
-    DefaultFileSystem fs = new DefaultFileSystem();
-    fs.setBaseDir(TestUtils.getResource(TEST_DIR));
-    fs.add(newInputFile(TestUtils.getResource(TEST_DIR + "TimeFormatter.as")));
+    DefaultFileSystem fs = new DefaultFileSystem(TestUtils.getResource(TEST_DIR));
+    fs.add(newInputFile("TimeFormatter.as"));
 
     SensorContext context = mock(SensorContext.class);
 
     newSquidSensor(fs).analyse(new Project("key"), context);
 
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.FILES), Mockito.eq(1.0));
-    // TODO Godin: why 103 ? I expected 102 - see SSLRSQBR-10
     verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.COMPLEXITY_IN_CLASSES), Mockito.eq(0.0));
-    verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.LINES), Mockito.eq(103.0));
     verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.NCLOC), Mockito.eq(0.0));
     verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.COMMENT_LINES), Mockito.eq(59.0));
     verify(context).saveMeasure(Mockito.any(InputFile.class), Mockito.eq(CoreMetrics.FUNCTIONS), Mockito.eq(0.0));
@@ -111,10 +104,9 @@ public class FlexSquidSensorTest {
     return new FlexSquidSensor(checkFactory, fileLinesContextFactory, fs, mock(ResourcePerspectives.class), new PathResolver());
   }
 
-  private DefaultInputFile newInputFile(File file) {
-    return new DefaultInputFile(file.getName())
+  private DefaultInputFile newInputFile(String path) {
+    return new DefaultInputFile("key", path)
       .setLanguage(Flex.KEY)
-      .setType(InputFile.Type.MAIN)
-      .setAbsolutePath(file.getAbsolutePath());
+      .setType(InputFile.Type.MAIN);
   }
 }

@@ -20,7 +20,6 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
@@ -28,7 +27,6 @@ import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -38,7 +36,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   priority = Priority.MAJOR,
   tags = Tags.CLUMSY)
 @ActivatedByDefault
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("5min")
 public class CollapsibleIfStatementCheck extends SquidCheck<LexerlessGrammar> {
 

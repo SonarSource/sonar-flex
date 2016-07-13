@@ -21,7 +21,6 @@ package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.Trivia;
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -31,7 +30,6 @@ import org.sonar.flex.checks.asdoc.ASDocMemberCheck;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -42,7 +40,6 @@ import java.util.List;
   name = "Public classes, methods, properties and metadata should be documented with ASDoc",
   priority = Priority.MAJOR,
   tags = Tags.CONVENTION)
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("10min")
 public class ASDocCheck extends SquidCheck<LexerlessGrammar> {
 

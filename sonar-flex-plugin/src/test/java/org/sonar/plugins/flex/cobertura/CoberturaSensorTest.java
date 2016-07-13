@@ -22,12 +22,6 @@ package org.sonar.plugins.flex.cobertura;
 import org.fest.assertions.Assertions;
 import org.junit.Before;
 import org.junit.Test;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyDouble;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.InputFile;
@@ -45,6 +39,11 @@ import org.sonar.test.TestUtils;
 import java.io.File;
 import java.util.Properties;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyDouble;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.*;
+
 public class CoberturaSensorTest {
 
   private Project project;
@@ -59,13 +58,10 @@ public class CoberturaSensorTest {
 
   @Test
   public void shouldParseReport() throws Exception {
-    DefaultFileSystem fs = new DefaultFileSystem();
-    fs.setBaseDir(TestUtils.getResource(TEST_DIR));
-    File srcFile = TestUtils.getResource(TEST_DIR + "src/example/File.as");
-    InputFile inputFile = new DefaultInputFile(srcFile.getName())
+    DefaultFileSystem fs = new DefaultFileSystem(TestUtils.getResource(TEST_DIR));
+    DefaultInputFile inputFile = new DefaultInputFile("key", "src/example/File.as")
       .setLanguage(Flex.KEY)
-      .setType(InputFile.Type.MAIN)
-      .setAbsolutePath(srcFile.getAbsolutePath());
+      .setType(InputFile.Type.MAIN);
 
     fs.add(inputFile);
 
@@ -83,7 +79,7 @@ public class CoberturaSensorTest {
 
   @Test
   public void reportNotFound() {
-    Sensor sensor = newSensorWithProperty(FlexPlugin.COBERTURA_REPORT_PATH, "/fake/path", new DefaultFileSystem());
+    Sensor sensor = newSensorWithProperty(FlexPlugin.COBERTURA_REPORT_PATH, "/fake/path", new DefaultFileSystem(new File(".")));
     sensor.analyse(project, context);
 
     verify(context, never()).saveMeasure(any(org.sonar.api.resources.File.class), any(Metric.class), anyDouble());
@@ -91,7 +87,7 @@ public class CoberturaSensorTest {
 
   @Test
   public void noReport() {
-    CoberturaSensor sensor = new CoberturaSensor(new Settings(), new DefaultFileSystem());
+    CoberturaSensor sensor = new CoberturaSensor(new Settings(), new DefaultFileSystem(new File(".")));
     sensor.analyse(project, context);
 
     verify(context, never()).saveMeasure(any(org.sonar.api.resources.File.class), any(Metric.class), anyDouble());
@@ -99,14 +95,14 @@ public class CoberturaSensorTest {
 
   @Test
   public void test_should_execute_on_project() {
-    DefaultFileSystem fs = new DefaultFileSystem();
+    DefaultFileSystem fs = new DefaultFileSystem(new File("."));
     CoberturaSensor sensor = new CoberturaSensor(new Settings(), fs);
 
     // No Flex file in file system
     Assertions.assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
 
     // With Flex source file
-    fs.add(new DefaultInputFile("Dummy.as").setLanguage(Flex.KEY).setType(InputFile.Type.MAIN));
+    fs.add(new DefaultInputFile("key", "Dummy.as").setLanguage(Flex.KEY).setType(InputFile.Type.MAIN));
     Assertions.assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
   }
 

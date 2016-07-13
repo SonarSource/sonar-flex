@@ -19,12 +19,10 @@
  */
 package org.sonar.flex.checks;
 
-import org.sonar.api.server.rule.RulesDefinition.SubCharacteristics;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.AbstractParseErrorCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -33,7 +31,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   name = "Flex parser failure",
   priority = Priority.MAJOR,
   tags = Tags.SUSPICIOUS)
-@SqaleSubCharacteristic(SubCharacteristics.INSTRUCTION_RELIABILITY)
 @SqaleConstantRemediation("30min")
 public class ParsingErrorCheck extends AbstractParseErrorCheck<LexerlessGrammar> {
 

@@ -20,13 +20,11 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -35,7 +33,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   name = "A function should have a single point of exit at the end of the function",
   priority = Priority.MINOR,
   tags = {Tags.CONFUSING, Tags.MISRA})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("20min")
 public class FunctionSinglePointOfExitCheck extends SquidCheck<LexerlessGrammar> {
 

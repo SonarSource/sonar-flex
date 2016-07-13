@@ -19,18 +19,21 @@
  */
 package org.sonar.plugins.flex.duplications;
 
-import static org.fest.assertions.Assertions.assertThat;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.plugins.flex.core.Flex;
+
+import java.io.File;
+
+import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 public class FlexCpdMappingTest {
 
   @Test
   public void test() {
     Flex language = mock(Flex.class);
-    FlexCpdMapping mapping = new FlexCpdMapping(language, new DefaultFileSystem());
+    FlexCpdMapping mapping = new FlexCpdMapping(language, new DefaultFileSystem(new File(".")));
     assertThat(mapping.getLanguage()).isSameAs(language);
     assertThat(mapping.getTokenizer()).isInstanceOf(FlexTokenizer.class);
   }

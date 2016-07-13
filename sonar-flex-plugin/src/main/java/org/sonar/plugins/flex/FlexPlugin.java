@@ -19,8 +19,7 @@
  */
 package org.sonar.plugins.flex;
 
-import com.google.common.collect.ImmutableList;
-import org.sonar.api.SonarPlugin;
+import org.sonar.api.Plugin;
 import org.sonar.api.config.PropertyDefinition;
 import org.sonar.api.resources.Qualifiers;
 import org.sonar.plugins.flex.cobertura.CoberturaSensor;
@@ -28,42 +27,36 @@ import org.sonar.plugins.flex.colorizer.FlexColorizerFormat;
 import org.sonar.plugins.flex.core.Flex;
 import org.sonar.plugins.flex.duplications.FlexCpdMapping;
 
-import java.util.List;
-
-public class FlexPlugin extends SonarPlugin {
+public class FlexPlugin implements Plugin {
 
   public static final String FILE_SUFFIXES_KEY = "sonar.flex.file.suffixes";
   public static final String COBERTURA_REPORT_PATH = "sonar.flex.cobertura.reportPath";
 
   @Override
-  public List getExtensions() {
-    return ImmutableList.of(
-        Flex.class,
-        FlexColorizerFormat.class,
+  public void define(Context context) {
+    context.addExtensions(
+      Flex.class,
+      FlexColorizerFormat.class,
+      FlexCpdMapping.class,
 
-        FlexCpdMapping.class,
+      FlexSquidSensor.class,
+      CoberturaSensor.class,
 
-        FlexCommonRulesEngine.class,
-        FlexCommonRulesDecorator.class,
+      FlexRulesDefinition.class,
+      FlexProfile.class,
 
-        FlexSquidSensor.class,
-        CoberturaSensor.class,
+      PropertyDefinition.builder(FILE_SUFFIXES_KEY)
+        .defaultValue(Flex.DEFAULT_FILE_SUFFIXES)
+        .name("File suffixes")
+        .description("Comma-separated list of suffixes for files to analyze. To not filter, leave the list empty.")
+        .onQualifiers(Qualifiers.MODULE, Qualifiers.PROJECT)
+        .build(),
 
-        FlexRulesDefinition.class,
-        FlexProfile.class,
-
-        PropertyDefinition.builder(FILE_SUFFIXES_KEY)
-          .defaultValue(Flex.DEFAULT_FILE_SUFFIXES)
-          .name("File suffixes")
-          .description("Comma-separated list of suffixes for files to analyze. To not filter, leave the list empty.")
-          .onQualifiers(Qualifiers.MODULE, Qualifiers.PROJECT)
-          .build(),
-
-        PropertyDefinition.builder(COBERTURA_REPORT_PATH)
-          .name("Cobertura xml report path")
-          .description("Path to the Cobertura coverage report file. The path may be either absolute or relative to the project base directory.")
-          .onQualifiers(Qualifiers.MODULE, Qualifiers.PROJECT)
-          .build());
+      PropertyDefinition.builder(COBERTURA_REPORT_PATH)
+        .name("Cobertura xml report path")
+        .description("Path to the Cobertura coverage report file. The path may be either absolute or relative to the project base directory.")
+        .onQualifiers(Qualifiers.MODULE, Qualifiers.PROJECT)
+        .build()
+    );
   }
-
 }

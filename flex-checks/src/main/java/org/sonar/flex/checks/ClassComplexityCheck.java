@@ -20,7 +20,6 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
-import org.sonar.api.server.rule.RulesDefinition.SubCharacteristics;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -30,7 +29,6 @@ import org.sonar.flex.checks.utils.FlexCheck;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleLinearWithOffsetRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.api.SourceClass;
 import org.sonar.squidbridge.checks.ChecksHelper;
 
@@ -40,7 +38,6 @@ import org.sonar.squidbridge.checks.ChecksHelper;
   priority = Priority.MAJOR,
   tags = Tags.BRAIN_OVERLOAD)
 @ActivatedByDefault
-@SqaleSubCharacteristic(SubCharacteristics.UNDERSTANDABILITY)
 @SqaleLinearWithOffsetRemediation(coeff = "1min", offset = "10min", effortToFixDescription = "per complexity point over the threshold")
 public class ClassComplexityCheck extends FlexCheck {
 

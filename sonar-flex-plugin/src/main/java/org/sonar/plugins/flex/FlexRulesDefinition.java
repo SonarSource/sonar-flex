@@ -34,7 +34,7 @@ public final class FlexRulesDefinition implements RulesDefinition {
       .createRepository(CheckList.REPOSITORY_KEY, Flex.KEY)
       .setName(REPOSITORY_NAME);
 
-    AnnotationBasedRulesDefinition.load(repository, Flex.KEY, CheckList.getChecks());
+    new AnnotationBasedRulesDefinition(repository, Flex.KEY).addRuleClasses(false, CheckList.getChecks());
 
     repository.done();
   }

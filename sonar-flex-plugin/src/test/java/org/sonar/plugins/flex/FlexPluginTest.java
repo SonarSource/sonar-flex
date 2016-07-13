@@ -19,25 +19,19 @@
  */
 package org.sonar.plugins.flex;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.sonar.api.Plugin;
+import org.sonar.api.utils.Version;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-/**
- * @author Evgeny Mandrikov
- */
 public class FlexPluginTest {
-  private FlexPlugin plugin;
-
-  @Before
-  public void setUp() throws Exception {
-    plugin = new FlexPlugin();
-  }
 
   @Test
   public void testGetExtensions() throws Exception {
-    assertThat(plugin.getExtensions().size()).isGreaterThan(0);
+    Plugin.Context context = new Plugin.Context(Version.create(5, 6));
+    new FlexPlugin().define(context);
+    assertThat(context.getExtensions()).isNotEmpty();
   }
 
 }

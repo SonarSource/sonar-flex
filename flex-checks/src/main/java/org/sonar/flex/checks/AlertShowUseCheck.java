@@ -22,13 +22,11 @@ package org.sonar.flex.checks;
 import com.sonar.sslr.api.AstAndTokenVisitor;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.Token;
-import org.sonar.api.server.rule.RulesDefinition.SubCharacteristics;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -40,7 +38,6 @@ import javax.annotation.Nullable;
   priority = Priority.MAJOR,
   tags = {Tags.CWE, Tags.SECURITY, Tags.USER_EXPERIENCE})
 @ActivatedByDefault
-@SqaleSubCharacteristic(SubCharacteristics.SECURITY_FEATURES)
 @SqaleConstantRemediation("10min")
 public class AlertShowUseCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
 

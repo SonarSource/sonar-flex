@@ -20,11 +20,14 @@
 package org.sonar.plugins.flex.cobertura;
 
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.utils.XmlParserException;
 import org.sonar.test.TestUtils;
+
+import java.io.File;
+
+import static org.mockito.Mockito.mock;
 
 public class CoberturaReportParserTest {
 
@@ -33,6 +36,6 @@ public class CoberturaReportParserTest {
     CoberturaReportParser.parseReport(
       TestUtils.getResource("org/sonar/plugins/flex/cobertura/coverage-invalid.xml"),
       mock(SensorContext.class),
-      new DefaultFileSystem());
+      new DefaultFileSystem(new File(".")));
   }
 }

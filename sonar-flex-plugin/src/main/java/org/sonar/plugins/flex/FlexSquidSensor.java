@@ -19,11 +19,7 @@
  */
 package org.sonar.plugins.flex;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
@@ -42,6 +38,7 @@ import org.sonar.flex.FlexAstScanner;
 import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.api.FlexMetric;
 import org.sonar.flex.checks.CheckList;
+import org.sonar.flex.lexer.FlexLexer;
 import org.sonar.flex.metrics.FileLinesVisitor;
 import org.sonar.plugins.flex.core.Flex;
 import org.sonar.squidbridge.AstScanner;
@@ -56,7 +53,7 @@ import org.sonar.squidbridge.indexer.QueryByParent;
 import org.sonar.squidbridge.indexer.QueryByType;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -65,8 +62,6 @@ public class FlexSquidSensor implements Sensor {
 
   private static final Number[] FUNCTIONS_DISTRIB_BOTTOM_LIMITS = {1, 2, 4, 6, 8, 10, 12};
   private static final Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
-
-  private static final Predicate<java.io.File> MXML_FILTER = file -> file != null && file.getAbsolutePath().endsWith(".mxml");
 
   private final Checks<SquidCheck<LexerlessGrammar>> checks;
   private final FileLinesContextFactory fileLinesContextFactory;
@@ -92,23 +87,22 @@ public class FlexSquidSensor implements Sensor {
   public void execute(SensorContext context) {
     FileSystem fileSystem = context.fileSystem();
     FilePredicates predicates = fileSystem.predicates();
-    List<SquidAstVisitor<LexerlessGrammar>> visitors = Lists.<SquidAstVisitor<LexerlessGrammar>>newArrayList(checks.all());
+    List<SquidAstVisitor<LexerlessGrammar>> visitors = new ArrayList<>(checks.all());
     visitors.add(new FileLinesVisitor(fileLinesContextFactory, fileSystem));
-    this.scanner = FlexAstScanner.create(createConfiguration(fileSystem.encoding()), visitors.toArray(new SquidAstVisitor[visitors.size()]));
+    FlexConfiguration configuration = new FlexConfiguration(fileSystem.encoding());
+    visitors.add(new FlexTokensVisitor(context, FlexLexer.create(configuration)));
+    scanner = FlexAstScanner.create(configuration, visitors);
 
     Iterable<java.io.File> files = fileSystem.files(
       predicates.and(
         predicates.hasType(InputFile.Type.MAIN),
-        predicates.hasLanguage(Flex.KEY)
+        predicates.hasLanguage(Flex.KEY),
+        inputFile -> !inputFile.absolutePath().endsWith("mxml")
       ));
-    scanner.scanFiles(ImmutableList.copyOf(Iterables.filter(files, Predicates.not(MXML_FILTER))));
+    scanner.scanFiles(ImmutableList.copyOf(files));
 
     Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(new QueryByType(SourceFile.class));
     save(context, squidSourceFiles);
-  }
-
-  private FlexConfiguration createConfiguration(Charset encoding) {
-    return new FlexConfiguration(encoding);
   }
 
   private void save(SensorContext context, Collection<SourceCode> squidSourceFiles) {
@@ -126,7 +120,7 @@ public class FlexSquidSensor implements Sensor {
     }
   }
 
-  private void saveMeasures(SensorContext context, InputFile inputFile, SourceFile squidFile) {
+  private static void saveMeasures(SensorContext context, InputFile inputFile, SourceFile squidFile) {
     context.<Integer>newMeasure()
       .on(inputFile)
       .forMetric(CoreMetrics.NCLOC)
@@ -186,7 +180,7 @@ public class FlexSquidSensor implements Sensor {
       .save();
   }
 
-  private void saveFilesComplexityDistribution(SensorContext context, InputFile inputFile, SourceFile squidFile) {
+  private static void saveFilesComplexityDistribution(SensorContext context, InputFile inputFile, SourceFile squidFile) {
     String distribution = new RangeDistributionBuilder(FILES_DISTRIB_BOTTOM_LIMITS)
       .add(squidFile.getDouble(FlexMetric.COMPLEXITY))
       .build();

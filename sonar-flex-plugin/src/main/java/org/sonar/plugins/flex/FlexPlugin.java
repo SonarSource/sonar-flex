@@ -23,9 +23,7 @@ import org.sonar.api.Plugin;
 import org.sonar.api.config.PropertyDefinition;
 import org.sonar.api.resources.Qualifiers;
 import org.sonar.plugins.flex.cobertura.CoberturaSensor;
-import org.sonar.plugins.flex.colorizer.FlexColorizerFormat;
 import org.sonar.plugins.flex.core.Flex;
-import org.sonar.plugins.flex.duplications.FlexCpdMapping;
 
 public class FlexPlugin implements Plugin {
 
@@ -36,8 +34,6 @@ public class FlexPlugin implements Plugin {
   public void define(Context context) {
     context.addExtensions(
       Flex.class,
-      FlexColorizerFormat.class,
-      FlexCpdMapping.class,
 
       FlexSquidSensor.class,
       CoberturaSensor.class,

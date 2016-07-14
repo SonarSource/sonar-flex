@@ -161,7 +161,7 @@ public class ASDocMemberCheck {
     }
   }
 
-  private MethodASDoc parseASDoc(List<Trivia> trivia) {
+  private static MethodASDoc parseASDoc(List<Trivia> trivia) {
     MethodASDoc methodASDoc = new MethodASDoc();
 
     for (Trivia comment : trivia) {

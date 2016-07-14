@@ -68,7 +68,7 @@ public class MethodVisibilityCheck extends SquidCheck<LexerlessGrammar> {
     }
   }
 
-  private boolean hasVisibility(AstNode functionDef) {
+  private static boolean hasVisibility(AstNode functionDef) {
     Set<AstNodeType> modifiers = Modifiers.getModifiers(functionDef.getPreviousAstNode());
 
     for (AstNodeType modifier : modifiers) {

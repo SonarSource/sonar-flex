@@ -65,7 +65,7 @@ public class CoberturaSensor implements Sensor {
    * Returns a java.io.File for the given path.
    * If path is not absolute, returns a File with module base directory as parent path.
    */
-  private File getIOFile(FileSystem fileSystem, String path) {
+  private static File getIOFile(FileSystem fileSystem, String path) {
     File file = new File(path);
     if (!file.isAbsolute()) {
       file = new File(fileSystem.baseDir(), path);

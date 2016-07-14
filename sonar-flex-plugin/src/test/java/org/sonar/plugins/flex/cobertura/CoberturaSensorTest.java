@@ -19,6 +19,8 @@
  */
 package org.sonar.plugins.flex.cobertura;
 
+import java.io.File;
+import java.io.FileReader;
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.batch.fs.InputFile;
@@ -29,9 +31,6 @@ import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.core.Flex;
-
-import java.io.File;
-import java.io.FileReader;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -61,7 +60,19 @@ public class CoberturaSensorTest {
     sensor.execute(tester);
 
     String componentKey = "key:src/example/File.as";
-    assertThat(tester.coveredConditions(componentKey, CoverageType.UNIT, 1)).isEqualTo(1);
+    Integer[] expectedConditions = {2, null, null, null, null, null, null, null, null, null};
+    Integer[] expectedCoveredConditions = {1, null, null, null, null, null, null, null, null, null};
+    Integer[] expectedHits = {0, null, null, null, null, null, 0, null, null, null};
+    for (int line = 1; line <= expectedConditions.length; line++) {
+      assertThat(tester.coveredConditions(componentKey, CoverageType.UNIT, line)).as("line " + line).isEqualTo(expectedCoveredConditions[line - 1]);
+      assertThat(tester.conditions(componentKey, CoverageType.UNIT, line)).as("line " + line).isEqualTo(expectedConditions[line - 1]);
+      assertThat(tester.lineHits(componentKey, CoverageType.UNIT, line)).as("line " + line).isEqualTo(expectedHits[line - 1]);
+
+      assertThat(tester.coveredConditions(componentKey, CoverageType.IT, line)).isNull();
+      assertThat(tester.lineHits(componentKey, CoverageType.IT, line)).isNull();
+      assertThat(tester.coveredConditions(componentKey, CoverageType.OVERALL, line)).isNull();
+      assertThat(tester.lineHits(componentKey, CoverageType.OVERALL, line)).isNull();
+    }
   }
 
   @Test

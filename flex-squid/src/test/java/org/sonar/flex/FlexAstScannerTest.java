@@ -21,7 +21,6 @@ package org.sonar.flex;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
-import static org.fest.assertions.Assertions.assertThat;
 import org.junit.Test;
 import org.sonar.flex.api.FlexMetric;
 import org.sonar.squidbridge.AstScanner;
@@ -31,18 +30,21 @@ import org.sonar.squidbridge.indexer.QueryByType;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.io.File;
+import java.util.Collections;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 public class FlexAstScannerTest {
 
   @Test
   public void parse_error() {
-    AstScanner<LexerlessGrammar> scanner = FlexAstScanner.create(new FlexConfiguration(Charsets.UTF_8));
+    AstScanner<LexerlessGrammar> scanner = FlexAstScanner.create(new FlexConfiguration(Charsets.UTF_8), Collections.emptyList());
     scanner.scanFile(new File("src/test/resources/metrics/parse_error.as"));
   }
 
   @Test
   public void files() {
-    AstScanner<LexerlessGrammar> scanner = FlexAstScanner.create(new FlexConfiguration(Charsets.UTF_8));
+    AstScanner<LexerlessGrammar> scanner = FlexAstScanner.create(new FlexConfiguration(Charsets.UTF_8), Collections.emptyList());
     scanner.scanFiles(ImmutableList.of(new File("src/test/resources/metrics/lines.as"), new File("src/test/resources/metrics/lines_of_code.as")));
     SourceProject project = (SourceProject) scanner.getIndex().search(new QueryByType(SourceProject.class)).iterator().next();
     assertThat(project.getInt(FlexMetric.FILES)).isEqualTo(2);

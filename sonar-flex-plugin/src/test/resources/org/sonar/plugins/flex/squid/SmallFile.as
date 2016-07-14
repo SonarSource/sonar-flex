@@ -9,4 +9,6 @@ public class Foo {
 }
 
 function oustsie_class() {
+  if (booleanVariable == true) {
+  }
 }

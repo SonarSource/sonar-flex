@@ -46,7 +46,9 @@ import org.sonar.squidbridge.metrics.LinesVisitor;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 public final class FlexAstScanner {
 
@@ -78,7 +80,7 @@ public final class FlexAstScanner {
       throw new IllegalArgumentException("File '" + file + "' not found.");
     }
 
-    AstScanner<LexerlessGrammar> scanner = create(new FlexConfiguration(Charsets.UTF_8), visitors);
+    AstScanner<LexerlessGrammar> scanner = create(new FlexConfiguration(Charsets.UTF_8), Arrays.asList(visitors));
     scanner.scanFile(file);
     Collection<SourceCode> sources = scanner.getIndex().search(new QueryByType(SourceFile.class));
     if (sources.size() != 1) {
@@ -87,7 +89,7 @@ public final class FlexAstScanner {
     return (SourceFile) sources.iterator().next();
   }
 
-  public static AstScanner<LexerlessGrammar> create(FlexConfiguration conf, SquidAstVisitor<LexerlessGrammar>... visitors) {
+  public static AstScanner<LexerlessGrammar> create(FlexConfiguration conf, List<SquidAstVisitor<LexerlessGrammar>> visitors) {
     final SquidAstVisitorContextImpl<LexerlessGrammar> context = new SquidAstVisitorContextImpl<>(new SourceProject("Flex Project"));
     final Parser<LexerlessGrammar> parser = FlexParser.create(conf);
 

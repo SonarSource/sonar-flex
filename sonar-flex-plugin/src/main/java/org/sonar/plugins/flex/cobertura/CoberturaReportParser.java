@@ -64,14 +64,14 @@ public class CoberturaReportParser {
 
   private static void collectPackageMeasures(SMInputCursor pack, SensorContext context) throws XMLStreamException {
     while (pack.getNext() != null) {
-      Map<String, InputFile> inputFileByFilename = new HashMap<>();
-      collectFileMeasures(context, pack.descendantElementCursor("class"), inputFileByFilename);
+      collectFileMeasures(context, pack.descendantElementCursor("class"));
     }
   }
 
-  private static void collectFileMeasures(SensorContext context, SMInputCursor clazz, Map<String, InputFile> inputFileByFilename) throws XMLStreamException {
+  private static void collectFileMeasures(SensorContext context, SMInputCursor clazz) throws XMLStreamException {
     FileSystem fileSystem = context.fileSystem();
     FilePredicates predicates = fileSystem.predicates();
+    Map<String, InputFile> inputFileByFilename = new HashMap<>();
     while (clazz.getNext() != null) {
       String fileName = clazz.getAttrValue("filename");
 

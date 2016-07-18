@@ -20,9 +20,9 @@
 package org.sonar.flex;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.sslr.grammar.GrammarRuleKey;
-
 import java.util.List;
+import java.util.Locale;
+import org.sonar.sslr.grammar.GrammarRuleKey;
 
 public enum FlexKeyword implements GrammarRuleKey {
 
@@ -118,7 +118,7 @@ public enum FlexKeyword implements GrammarRuleKey {
   }
 
   public String getValue() {
-    return toString().toLowerCase();
+    return toString().toLowerCase(Locale.ENGLISH);
   }
 
 }

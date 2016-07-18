@@ -73,14 +73,14 @@ public class FlexTokensVisitor extends SquidAstVisitor<LexerlessGrammar> {
     while (iterator.hasNext()) {
       Token token = iterator.next();
       TokenType tokenType = token.getType();
-      if (tokenType == FlexKeyword.IMPORT) {
+      if (tokenType.equals(FlexKeyword.IMPORT)) {
         importDirective = true;
       } else if (importDirective) {
         // We do nothing as we want to ignore "import" directives
-        if (tokenType == FlexPunctuator.SEMI) {
+        if (tokenType.equals(FlexPunctuator.SEMI)) {
           importDirective = false;
         }
-      } else if (tokenType != GenericTokenType.EOF) {
+      } else if (!tokenType.equals(GenericTokenType.EOF)) {
         TokenLocation tokenLocation = new TokenLocation(token);
         cpdTokens.addToken(tokenLocation.startLine(), tokenLocation.startCharacter(), tokenLocation.endLine(), tokenLocation.endCharacter(), getTokenImage(token));
       }
@@ -101,9 +101,9 @@ public class FlexTokensVisitor extends SquidAstVisitor<LexerlessGrammar> {
   }
 
   private static String getTokenImage(Token token) {
-    if (token.getType() == GenericTokenType.LITERAL) {
+    if (token.getType().equals(GenericTokenType.LITERAL)) {
       return NORMALIZED_CHARACTER_LITERAL;
-    } else if (token.getType() == FlexTokenType.NUMERIC_LITERAL) {
+    } else if (token.getType().equals(FlexTokenType.NUMERIC_LITERAL)) {
       return NORMALIZED_NUMERIC_LITERAL;
     }
     return token.getValue();

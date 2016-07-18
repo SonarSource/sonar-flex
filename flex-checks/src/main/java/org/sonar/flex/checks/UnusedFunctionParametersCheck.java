@@ -23,6 +23,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.Token;
+import java.util.Locale;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -199,7 +200,7 @@ public class UnusedFunctionParametersCheck extends SquidCheck<LexerlessGrammar> 
   private static boolean isEventHandler(AstNode functionDec) {
     String functionName = functionDec.getFirstChild(FlexGrammar.FUNCTION_NAME).getTokenValue();
 
-    if (functionName.toLowerCase().contains("handle") || startsWithOnPreposition(functionName)) {
+    if (functionName.toLowerCase(Locale.ENGLISH).contains("handle") || startsWithOnPreposition(functionName)) {
       AstNode parameters = functionDec
         .getFirstChild(FlexGrammar.FUNCTION_COMMON)
         .getFirstChild(FlexGrammar.FUNCTION_SIGNATURE)

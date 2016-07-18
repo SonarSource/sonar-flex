@@ -89,13 +89,17 @@ public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> 
           .getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE)
           .getFirstChild(FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
 
-        for (AstNode identifier : Variable.getDeclaredIdentifiers(variableDeclStatement)) {
-          String varName = identifier.getTokenValue();
+        checkVariableDeclStatement(variableDeclStatement);
+      }
+    }
+  }
 
-          if (!pattern.matcher(varName).matches()) {
-            getContext().createLineViolation(this, MESSAGE, identifier, varName, format);
-          }
-        }
+  private void checkVariableDeclStatement(AstNode variableDeclStatement) {
+    for (AstNode identifier : Variable.getDeclaredIdentifiers(variableDeclStatement)) {
+      String varName = identifier.getTokenValue();
+
+      if (!pattern.matcher(varName).matches()) {
+        getContext().createLineViolation(this, MESSAGE, identifier, varName, format);
       }
     }
   }

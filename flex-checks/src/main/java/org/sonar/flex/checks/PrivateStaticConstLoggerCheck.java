@@ -78,17 +78,21 @@ public class PrivateStaticConstLoggerCheck extends SquidCheck<LexerlessGrammar> 
           .getFirstChild(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)
           .getFirstChild(FlexGrammar.VARIABLE_DEF);
 
-        for (AstNode variableBindingNode : variableDef.getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST).getChildren(FlexGrammar.VARIABLE_BINDING)) {
-          if (isILogger(variableBindingNode)) {
-            AstNode identifierNode = variableBindingNode
-              .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
-              .getFirstChild(FlexGrammar.IDENTIFIER);
-            Set<AstNodeType> modifiers = Modifiers.getModifiers(directive.getFirstChild(FlexGrammar.ATTRIBUTES));
-            boolean isPrivateStaticConst = modifiers.contains(FlexKeyword.PRIVATE) && modifiers.contains(FlexKeyword.STATIC) && isConst(variableDef);
+        visitVariableDefinition(directive, variableDef);
+      }
+    }
+  }
 
-            reportIssue(isPrivateStaticConst, pattern.matcher(identifierNode.getTokenValue()).matches(), variableBindingNode);
-          }
-        }
+  private void visitVariableDefinition(AstNode directive, AstNode variableDef) {
+    for (AstNode variableBindingNode : variableDef.getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST).getChildren(FlexGrammar.VARIABLE_BINDING)) {
+      if (isILogger(variableBindingNode)) {
+        AstNode identifierNode = variableBindingNode
+          .getFirstChild(FlexGrammar.TYPED_IDENTIFIER)
+          .getFirstChild(FlexGrammar.IDENTIFIER);
+        Set<AstNodeType> modifiers = Modifiers.getModifiers(directive.getFirstChild(FlexGrammar.ATTRIBUTES));
+        boolean isPrivateStaticConst = modifiers.contains(FlexKeyword.PRIVATE) && modifiers.contains(FlexKeyword.STATIC) && isConst(variableDef);
+
+        reportIssue(isPrivateStaticConst, pattern.matcher(identifierNode.getTokenValue()).matches(), variableBindingNode);
       }
     }
   }

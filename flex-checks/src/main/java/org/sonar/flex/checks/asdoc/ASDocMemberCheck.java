@@ -52,7 +52,7 @@ public class ASDocMemberCheck {
     checkMember(check, classDirectives);
   }
 
-  private void checkMember(ASDocCheck check, List<AstNode> classDirectives) {
+  private static void checkMember(ASDocCheck check, List<AstNode> classDirectives) {
     for (AstNode directive : classDirectives) {
       AstNode annotableDirective = directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE);
 
@@ -112,7 +112,7 @@ public class ASDocMemberCheck {
    * <li> presence of @param tag in ASDoc
    * </ul>
    */
-  private void checkMethod(ASDocCheck check, List<Trivia> trivia, AstNode functionDef) {
+  private static void checkMethod(ASDocCheck check, List<Trivia> trivia, AstNode functionDef) {
     if (check.containsOnOfTags(trivia, ASDocCheck.PRIVATE_TAG, ASDocCheck.INHERIT_TAG)) {
       // skip all documentation check if has @private tag
       return;

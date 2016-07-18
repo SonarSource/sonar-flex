@@ -57,15 +57,19 @@ public class ArrayFieldElementTypeCheck extends SquidCheck<LexerlessGrammar> {
           .getFirstChild(FlexGrammar.VARIABLE_DEF)
           .getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST);
 
-        for (AstNode varBinding : varBindingList.getChildren(FlexGrammar.VARIABLE_BINDING)) {
-
-          if (!hasInitialisation(varBinding) && isArray(varBinding) && !hasArrayTypeTag(directive)) {
-            getContext().createLineViolation(this, "Define the element type for this ''{0}'' array", varBinding,
-              varBinding.getFirstChild(FlexGrammar.TYPED_IDENTIFIER).getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue());
-          }
-        }
+        checkVarBindingList(varBindingList, directive);
       }
 
+    }
+  }
+
+  private void checkVarBindingList(AstNode varBindingList, AstNode directive) {
+    for (AstNode varBinding : varBindingList.getChildren(FlexGrammar.VARIABLE_BINDING)) {
+
+      if (!hasInitialisation(varBinding) && isArray(varBinding) && !hasArrayTypeTag(directive)) {
+        getContext().createLineViolation(this, "Define the element type for this ''{0}'' array", varBinding,
+          varBinding.getFirstChild(FlexGrammar.TYPED_IDENTIFIER).getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue());
+      }
     }
   }
 

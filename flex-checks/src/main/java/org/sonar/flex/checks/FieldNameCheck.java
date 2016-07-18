@@ -76,11 +76,15 @@ public class FieldNameCheck extends SquidCheck<LexerlessGrammar> {
           .getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE)
           .getFirstChild(FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
 
-        for (AstNode identifier : Variable.getDeclaredIdentifiers(variableDeclStatement)) {
-          if (!pattern.matcher(identifier.getTokenValue()).matches()) {
-            getContext().createLineViolation(this, "Rename this field name to match the regular expression {0}", identifier, format);
-          }
-        }
+        visitVariableDeclStatement(variableDeclStatement);
+      }
+    }
+  }
+
+  private void visitVariableDeclStatement(AstNode variableDeclStatement) {
+    for (AstNode identifier : Variable.getDeclaredIdentifiers(variableDeclStatement)) {
+      if (!pattern.matcher(identifier.getTokenValue()).matches()) {
+        getContext().createLineViolation(this, "Rename this field name to match the regular expression {0}", identifier, format);
       }
     }
   }

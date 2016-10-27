@@ -80,8 +80,10 @@
     <fest.version>1.4</fest.version>
     <orchestrator.version>3.12</orchestrator.version>
 
-    <gitRepositoryName>sonar-flex</gitRepositoryName>   
+    <gitRepositoryName>sonar-flex</gitRepositoryName>
 
+    <!-- Release: enable publication to Bintray -->
+    <artifactsToPublish>${project.groupId}:sonar-flex-plugin:jar</artifactsToPublish>
   </properties>
 
   <dependencyManagement>

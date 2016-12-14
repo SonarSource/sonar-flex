@@ -1,14 +1,4 @@
-Sonar Flex
+SonarFlex [![Build Status](https://travis-ci.org/SonarSource/sonar-flex.svg?branch=master)](https://travis-ci.org/SonarSource/sonar-flex)
 ==========
 
-### Build status
-
-[![Build Status](https://travis-ci.org/SonarSource/sonar-flex.svg?branch=master)](https://travis-ci.org/SonarSource/sonar-flex)
-
-This is the Sonar Flex plugin
-
-Project homepage:
-http://docs.sonarqube.org/display/PLUG/flex+Plugin
-
-Issue tracking:
-https://jira.sonarsource.com/browse/sonarflex/
+SonarFlex is a code analyzer for Flex projects. Information about the SonarFlex features is available [here](https://www.sonarsource.com/why-us/products/languages/flex.html).

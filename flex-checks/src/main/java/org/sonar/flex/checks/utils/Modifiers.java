@@ -22,6 +22,7 @@ package org.sonar.flex.checks.utils;
 import com.google.common.collect.Sets;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
+import javax.annotation.Nullable;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 
@@ -32,7 +33,7 @@ public final class Modifiers {
   private Modifiers() {
   }
 
-  public static Set<AstNodeType> getModifiers(AstNode attributes) {
+  public static Set<AstNodeType> getModifiers(@Nullable AstNode attributes) {
     Set<AstNodeType> modifiersSet = Sets.newHashSet();
 
     if (attributes != null && attributes.is(FlexGrammar.ATTRIBUTES)) {

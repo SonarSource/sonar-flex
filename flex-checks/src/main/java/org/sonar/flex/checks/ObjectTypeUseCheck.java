@@ -20,6 +20,7 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
@@ -61,7 +62,7 @@ public class ObjectTypeUseCheck extends SquidCheck<LexerlessGrammar> {
     return typeExpr != null && OBJECT_TYPE.equals(typeExpr.getTokenValue());
   }
 
-  private static boolean isInitialisedAsObject(AstNode varInitialisation) {
+  private static boolean isInitialisedAsObject(@Nullable AstNode varInitialisation) {
     if (varInitialisation != null) {
       AstNode assignmentExpr = varInitialisation.getFirstChild(FlexGrammar.VARIABLE_INITIALISER).getFirstChild(FlexGrammar.ASSIGNMENT_EXPR);
 

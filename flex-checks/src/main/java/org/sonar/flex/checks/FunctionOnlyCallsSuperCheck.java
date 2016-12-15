@@ -23,6 +23,7 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.Token;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexGrammar;
@@ -113,7 +114,7 @@ public class FunctionOnlyCallsSuperCheck extends SquidCheck<LexerlessGrammar> {
     return parametersNames;
   }
 
-  private static boolean isOverridingParentFunction(AstNode attributesNode) {
+  private static boolean isOverridingParentFunction(@Nullable AstNode attributesNode) {
     if (attributesNode != null && attributesNode.is(FlexGrammar.ATTRIBUTES)) {
 
       for (AstNode attribute : attributesNode.getChildren()) {

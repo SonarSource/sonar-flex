@@ -21,6 +21,7 @@ package org.sonar.flex.checks.asdoc;
 
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.Trivia;
+import javax.annotation.Nullable;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.ASDocCheck;
 
@@ -45,7 +46,7 @@ public class ASDocClassCheck {
     return false;
   }
 
-  private static boolean isAttributes(AstNode classDefPreviousNode) {
+  private static boolean isAttributes(@Nullable AstNode classDefPreviousNode) {
     return classDefPreviousNode != null && classDefPreviousNode.is(FlexGrammar.ATTRIBUTES);
   }
 

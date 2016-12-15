@@ -22,6 +22,7 @@ package org.sonar.flex.checks.utils;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
+import javax.annotation.Nullable;
 import org.sonar.flex.FlexGrammar;
 
 import java.util.List;
@@ -81,7 +82,7 @@ public final class Clazz {
     return annotableDir == null ? null : annotableDir.getFirstChild(FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
   }
 
-  private static AstNode getFunctionDefinition(AstNode annotableDir) {
+  private static AstNode getFunctionDefinition(@Nullable AstNode annotableDir) {
     return annotableDir != null
       && annotableDir.is(FlexGrammar.ANNOTABLE_DIRECTIVE)
       && annotableDir.getFirstChild().is(FlexGrammar.FUNCTION_DEF) ? annotableDir.getFirstChild() : null;

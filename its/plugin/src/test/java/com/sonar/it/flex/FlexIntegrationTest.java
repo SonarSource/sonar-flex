@@ -25,10 +25,11 @@ import java.io.File;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.sonar.wsclient.services.Measure;
-import org.sonar.wsclient.services.Resource;
-import org.sonar.wsclient.services.ResourceQuery;
+import org.sonarqube.ws.WsMeasures.Measure;
 
+import static com.sonar.it.flex.Tests.getComponent;
+import static com.sonar.it.flex.Tests.getMeasure;
+import static com.sonar.it.flex.Tests.getMeasureAsDouble;
 import static junit.framework.Assert.assertNull;
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -43,8 +44,8 @@ public class FlexIntegrationTest {
   private static final String FILE_OBJECT_UTILS = keyFor("org/as3commons/lang/ObjectUtils.as");
 
   private static String keyFor(String s) {
-    return "org.as3commons:as3commons-lang:src/main/actionscript/"  + s;
- }
+    return "org.as3commons:as3commons-lang:src/main/actionscript/" + s;
+  }
 
   @BeforeClass
   public static void init() {
@@ -58,174 +59,185 @@ public class FlexIntegrationTest {
 
   @Test
   public void commonsCollectionsIsAnalyzed() {
-    assertThat(orchestrator.getServer().getWsClient().find(new ResourceQuery(PROJECT_AS3COMMONS)).getName()).isEqualTo("AS3Commons Project");
-    assertThat(orchestrator.getServer().getWsClient().find(new ResourceQuery(PROJECT_AS3COMMONS)).getVersion()).isEqualTo("1.0.0");
-    assertThat(orchestrator.getServer().getWsClient().find(new ResourceQuery(MODULE_COMMONS_LANG)).getName()).isEqualTo("AS3Commons Lang");
-    assertThat(orchestrator.getServer().getWsClient().find(new ResourceQuery(PACKAGE_COMMONS_LANG)).getName()).isEqualTo("src/main/actionscript/org/as3commons/lang");
-    assertThat(orchestrator.getServer().getWsClient().find(new ResourceQuery(FILE_OBJECT_UTILS)).getName()).isEqualTo("ObjectUtils.as");
+    assertThat(getComponent(PROJECT_AS3COMMONS).getName()).isEqualTo("AS3Commons Project");
+    assertThat(getComponent(MODULE_COMMONS_LANG).getName()).isEqualTo("AS3Commons Lang");
+    assertThat(getComponent(PACKAGE_COMMONS_LANG).getName()).isEqualTo("src/main/actionscript/org/as3commons/lang");
+    assertThat(getComponent(FILE_OBJECT_UTILS).getName()).isEqualTo("ObjectUtils.as");
   }
 
   @Test
   public void projectsMetrics() {
-    assertThat(getProjectMeasure("ncloc").getIntValue()).isEqualTo(3673);
-    assertThat(getProjectMeasure("statements").getIntValue()).isEqualTo(1814);
-    assertThat(getProjectMeasure("lines").getIntValue()).isEqualTo(9627);
-    assertThat(getProjectMeasure("files").getIntValue()).isEqualTo(69);
-    assertThat(getProjectMeasure("classes").getIntValue()).isEqualTo(72);
-    assertThat(getProjectMeasure("functions").getIntValue()).isEqualTo(484);
-    assertThat(getProjectMeasure("comment_lines").getIntValue()).isEqualTo(3032);
-    assertThat(getProjectMeasure("comment_lines_density").getValue()).isEqualTo(45.2);
+    assertThat(getProjectMeasureAsDouble("ncloc")).isEqualTo(3673d);
+    assertThat(getProjectMeasureAsDouble("statements")).isEqualTo(1814d);
+    assertThat(getProjectMeasureAsDouble("lines")).isEqualTo(9627d);
+    assertThat(getProjectMeasureAsDouble("files")).isEqualTo(69d);
+    assertThat(getProjectMeasureAsDouble("classes")).isEqualTo(72d);
+    assertThat(getProjectMeasureAsDouble("functions")).isEqualTo(484d);
+    assertThat(getProjectMeasureAsDouble("comment_lines")).isEqualTo(3032d);
+    assertThat(getProjectMeasureAsDouble("comment_lines_density")).isEqualTo(45.2);
 
-    assertThat(getProjectMeasure("duplicated_lines").getIntValue()).isEqualTo(0);
-    assertThat(getProjectMeasure("duplicated_blocks").getIntValue()).isEqualTo(0);
-    assertThat(getProjectMeasure("duplicated_lines_density").getValue()).isEqualTo(0.0);
-    assertThat(getProjectMeasure("duplicated_files").getIntValue()).isEqualTo(0);
+    assertThat(getProjectMeasureAsDouble("duplicated_lines")).isZero();
+    assertThat(getProjectMeasureAsDouble("duplicated_blocks")).isZero();
+    assertThat(getProjectMeasureAsDouble("duplicated_lines_density")).isZero();
+    assertThat(getProjectMeasureAsDouble("duplicated_files")).isZero();
 
-    assertThat(getProjectMeasure("complexity").getIntValue()).isEqualTo(1084);
+    assertThat(getProjectMeasureAsDouble("complexity")).isEqualTo(1084);
 
     if (!orchestrator.getDistribution().version().isGreaterThanOrEquals("5.4")) {
-      // Since SonarQube 5.4, complexity per function and complexity per class doesn't rely anymore on complexity but on complexity_in_functions and complexity_in_classes
+      // Since SonarQube 5.4, complexity per function and complexity per class doesn't rely anymore on complexity but on
+      // complexity_in_functions and complexity_in_classes
       // (https://jira.sonarsource.com/browse/SONAR-7169)
-      assertThat(getProjectMeasure("function_complexity").getValue()).isEqualTo(2.2);
-      assertThat(getProjectMeasure("class_complexity").getValue()).isEqualTo(15.1);
+      assertThat(getProjectMeasureAsDouble("function_complexity")).isEqualTo(2.2);
+      assertThat(getProjectMeasureAsDouble("class_complexity")).isEqualTo(15.1);
     }
 
-    assertThat(getProjectMeasure("file_complexity").getValue()).isEqualTo(15.7);
-    assertThat(getProjectMeasure("function_complexity_distribution").getData()).isEqualTo("1=187;2=100;4=47;6=28;8=10;10=2;12=10");
+    assertThat(getProjectMeasureAsDouble("file_complexity")).isEqualTo(15.7);
+    assertThat(getProjectMeasure("function_complexity_distribution").getValue()).isEqualTo("1=187;2=100;4=47;6=28;8=10;10=2;12=10");
     // SONARPLUGINS-1708 class_complexity_distribution replaced by file_complexity_distribution
-    assertThat(getProjectMeasure("class_complexity_distribution")).isNull();
-    assertThat(getProjectMeasure("file_complexity_distribution").getData()).isEqualTo("0=31;5=16;10=9;20=6;30=5;60=1;90=1");
+    assertThat(getProjectMeasureAsDouble("class_complexity_distribution")).isNull();
+    assertThat(getProjectMeasure("file_complexity_distribution").getValue()).isEqualTo("0=31;5=16;10=9;20=6;30=5;60=1;90=1");
 
     // SONARPLUGINS-670: Different number of violations reported on different OSs
     // 216 on Linux, 217 on Windows
     // TODO we should be sure that numbers are stable, whereas this is not the case, because profile may change
-    // assertThat(getProjectMeasure("violations").getIntValue(), anyOf(is(217), is(216)));
+    // assertThat(getProjectMeasure("violations"), anyOf(is(217), is(216)));
   }
 
   @Test
   public void moduleMetrics() {
-    assertThat(getModuleMeasure("ncloc").getIntValue()).isEqualTo(1620);
-    assertThat(getModuleMeasure("lines").getIntValue()).isEqualTo(4503);
-    assertThat(getModuleMeasure("files").getIntValue()).isEqualTo(19);
-    assertThat(getModuleMeasure("statements").getIntValue()).isEqualTo(895);
-    assertThat(getModuleMeasure("classes").getIntValue()).isEqualTo(19);
-    assertThat(getModuleMeasure("functions").getIntValue()).isEqualTo(183);
-    assertThat(getModuleMeasure("comment_lines").getIntValue()).isEqualTo(1664);
-    assertThat(getModuleMeasure("comment_lines_density").getValue()).isEqualTo(50.7);
+    assertThat(getModuleMeasureAsDouble("ncloc")).isEqualTo(1620d);
+    assertThat(getModuleMeasureAsDouble("lines")).isEqualTo(4503d);
+    assertThat(getModuleMeasureAsDouble("files")).isEqualTo(19d);
+    assertThat(getModuleMeasureAsDouble("statements")).isEqualTo(895d);
+    assertThat(getModuleMeasureAsDouble("classes")).isEqualTo(19d);
+    assertThat(getModuleMeasureAsDouble("functions")).isEqualTo(183d);
+    assertThat(getModuleMeasureAsDouble("comment_lines")).isEqualTo(1664d);
+    assertThat(getModuleMeasureAsDouble("comment_lines_density")).isEqualTo(50.7);
 
-    assertThat(getModuleMeasure("duplicated_lines").getIntValue()).isEqualTo(0);
-    assertThat(getModuleMeasure("duplicated_blocks").getIntValue()).isEqualTo(0);
-    assertThat(getModuleMeasure("duplicated_lines_density").getValue()).isEqualTo(0.0);
-    assertThat(getModuleMeasure("duplicated_files").getIntValue()).isEqualTo(0);
+    assertThat(getModuleMeasureAsDouble("duplicated_lines")).isZero();
+    assertThat(getModuleMeasureAsDouble("duplicated_blocks")).isZero();
+    assertThat(getModuleMeasureAsDouble("duplicated_lines_density")).isZero();
+    assertThat(getModuleMeasureAsDouble("duplicated_files")).isZero();
 
-    assertThat(getModuleMeasure("complexity").getIntValue()).isEqualTo(639);
+    assertThat(getModuleMeasureAsDouble("complexity")).isEqualTo(639d);
 
     if (!orchestrator.getDistribution().version().isGreaterThanOrEquals("5.4")) {
-      // Since SonarQube 5.4, complexity per function and complexity per class doesn't rely anymore on complexity but on complexity_in_functions and complexity_in_classes
+      // Since SonarQube 5.4, complexity per function and complexity per class doesn't rely anymore on complexity but on
+      // complexity_in_functions and complexity_in_classes
       // (https://jira.sonarsource.com/browse/SONAR-7169)
-      assertThat(getModuleMeasure("function_complexity").getValue()).isEqualTo(3.5);
-      assertThat(getModuleMeasure("class_complexity").getValue()).isEqualTo(33.6);
+      assertThat(getModuleMeasureAsDouble("function_complexity")).isEqualTo(3.5);
+      assertThat(getModuleMeasureAsDouble("class_complexity")).isEqualTo(33.6);
     }
 
-    assertThat(getModuleMeasure("file_complexity").getValue()).isEqualTo(33.6);
-    assertThat(getModuleMeasure("function_complexity_distribution").getData()).isEqualTo("1=65;2=49;4=32;6=18;8=6;10=1;12=8");
+    assertThat(getModuleMeasureAsDouble("file_complexity")).isEqualTo(33.6);
+    assertThat(getModuleMeasure("function_complexity_distribution").getValue()).isEqualTo("1=65;2=49;4=32;6=18;8=6;10=1;12=8");
     // SONARPLUGINS-1708 class_complexity_distribution replaced by file_complexity_distribution
-    assertNull(getModuleMeasure("class_complexity_distribution"));
-    assertThat(getModuleMeasure("file_complexity_distribution").getData()).isEqualTo("0=7;5=4;10=2;20=1;30=3;60=1;90=1");
+    assertNull(getModuleMeasureAsDouble("class_complexity_distribution"));
+    assertThat(getModuleMeasure("file_complexity_distribution").getValue()).isEqualTo("0=7;5=4;10=2;20=1;30=3;60=1;90=1");
 
     // TODO we should be sure that numbers are stable, whereas this is not the case, because profile may change
-    // assertThat(getModuleMeasure("violations").getIntValue()).isEqualTo(114);
+    // assertThat(getModuleMeasure("violations")).isEqualTo(114);
   }
 
   @Test
   public void packagesMetrics() {
-    assertThat(getPackageMeasure("ncloc").getIntValue()).isEqualTo(1439);
-    assertThat(getPackageMeasure("lines").getIntValue()).isEqualTo(4142);
-    assertThat(getPackageMeasure("files").getIntValue()).isEqualTo(16);
-    assertThat(getPackageMeasure("statements").getIntValue()).isEqualTo(795);
-    assertThat(getPackageMeasure("classes").getIntValue()).isEqualTo(16);
-    assertThat(getPackageMeasure("functions").getIntValue()).isEqualTo(165);
-    assertThat(getPackageMeasure("comment_lines").getIntValue()).isEqualTo(1603);
-    assertThat(getPackageMeasure("comment_lines_density").getValue()).isEqualTo(52.7);
+    assertThat(getPackageMeasureAsDouble("ncloc")).isEqualTo(1439d);
+    assertThat(getPackageMeasureAsDouble("lines")).isEqualTo(4142d);
+    assertThat(getPackageMeasureAsDouble("files")).isEqualTo(16d);
+    assertThat(getPackageMeasureAsDouble("statements")).isEqualTo(795d);
+    assertThat(getPackageMeasureAsDouble("classes")).isEqualTo(16d);
+    assertThat(getPackageMeasureAsDouble("functions")).isEqualTo(165d);
+    assertThat(getPackageMeasureAsDouble("comment_lines")).isEqualTo(1603d);
+    assertThat(getPackageMeasureAsDouble("comment_lines_density")).isEqualTo(52.7);
 
-    assertThat(getPackageMeasure("duplicated_lines").getIntValue()).isEqualTo(0);
-    assertThat(getPackageMeasure("duplicated_blocks").getIntValue()).isEqualTo(0);
-    assertThat(getPackageMeasure("duplicated_lines_density").getValue()).isEqualTo(0.0);
-    assertThat(getPackageMeasure("duplicated_files").getIntValue()).isEqualTo(0);
+    assertThat(getPackageMeasureAsDouble("duplicated_lines")).isZero();
+    assertThat(getPackageMeasureAsDouble("duplicated_blocks")).isZero();
+    assertThat(getPackageMeasureAsDouble("duplicated_lines_density")).isZero();
+    assertThat(getPackageMeasureAsDouble("duplicated_files")).isZero();
 
-    assertThat(getPackageMeasure("complexity").getIntValue()).isEqualTo(576);
+    assertThat(getPackageMeasureAsDouble("complexity")).isEqualTo(576);
 
     if (!orchestrator.getDistribution().version().isGreaterThanOrEquals("5.4")) {
-      // Since SonarQube 5.4, complexity per function and complexity per class doesn't rely anymore on complexity but on complexity_in_functions and complexity_in_classes
+      // Since SonarQube 5.4, complexity per function and complexity per class doesn't rely anymore on complexity but on
+      // complexity_in_functions and complexity_in_classes
       // (https://jira.sonarsource.com/browse/SONAR-7169)
-      assertThat(getPackageMeasure("function_complexity").getValue()).isEqualTo(3.5);
+      assertThat(getPackageMeasureAsDouble("function_complexity")).isEqualTo(3.5);
     }
 
-    assertThat(getPackageMeasure("class_complexity").getValue()).isEqualTo(36.0);
-    assertThat(getPackageMeasure("file_complexity").getValue()).isEqualTo(36.0);
-    assertThat(getPackageMeasure("function_complexity_distribution").getData()).isEqualTo("1=58;2=45;4=30;6=15;8=6;10=1;12=7");
+    assertThat(getPackageMeasureAsDouble("class_complexity")).isEqualTo(36.0);
+    assertThat(getPackageMeasureAsDouble("file_complexity")).isEqualTo(36.0);
+    assertThat(getPackageMeasure("function_complexity_distribution").getValue()).isEqualTo("1=58;2=45;4=30;6=15;8=6;10=1;12=7");
     // SONARPLUGINS-1708 class_complexity_distribution replaced by file_complexity_distribution
-    assertNull(getPackageMeasure("class_complexity_distribution"));
-    assertThat(getPackageMeasure("file_complexity_distribution").getData()).isEqualTo("0=6;5=4;10=1;20=1;30=2;60=1;90=1");
+    assertNull(getPackageMeasureAsDouble("class_complexity_distribution"));
+    assertThat(getPackageMeasure("file_complexity_distribution").getValue()).isEqualTo("0=6;5=4;10=1;20=1;30=2;60=1;90=1");
 
     // TODO we should be sure that numbers are stable, whereas this is not the case, because profile may change
-    // assertThat(getPackageMeasure("violations").getIntValue()).isEqualTo(93);
+    // assertThat(getPackageMeasure("violations")).isEqualTo(93);
   }
 
   @Test
   public void filesMetrics() {
-    assertThat(getFileMeasure("ncloc").getIntValue()).isEqualTo(75);
-    assertThat(getFileMeasure("lines").getIntValue()).isEqualTo(194);
-    assertThat(getFileMeasure("files").getIntValue()).isEqualTo(1);
-    assertThat(getFileMeasure("statements").getIntValue()).isEqualTo(39);
-    assertThat(getFileMeasure("classes").getIntValue()).isEqualTo(1);
-    assertThat(getFileMeasure("functions").getIntValue()).isEqualTo(10);
-    assertThat(getFileMeasure("comment_lines").getIntValue()).isEqualTo(62);
-    assertThat(getFileMeasure("comment_lines_density").getValue()).isEqualTo(45.3);
+    assertThat(getFileMeasureAsDouble("ncloc")).isEqualTo(75d);
+    assertThat(getFileMeasureAsDouble("lines")).isEqualTo(194d);
+    assertThat(getFileMeasureAsDouble("files")).isEqualTo(1d);
+    assertThat(getFileMeasureAsDouble("statements")).isEqualTo(39d);
+    assertThat(getFileMeasureAsDouble("classes")).isEqualTo(1d);
+    assertThat(getFileMeasureAsDouble("functions")).isEqualTo(10d);
+    assertThat(getFileMeasureAsDouble("comment_lines")).isEqualTo(62d);
+    assertThat(getFileMeasureAsDouble("comment_lines_density")).isEqualTo(45.3);
 
-    assertNull(getFileMeasure("duplicated_lines"));
-    assertNull(getFileMeasure("duplicated_blocks"));
-    assertNull(getFileMeasure("duplicated_files"));
-    assertNull(getFileMeasure("duplicated_lines_density"));
+    assertThat(getFileMeasureAsDouble("duplicated_lines")).isZero();
+    assertThat(getFileMeasureAsDouble("duplicated_blocks")).isZero();
+    assertThat(getFileMeasureAsDouble("duplicated_files")).isZero();
+    assertThat(getFileMeasureAsDouble("duplicated_lines_density")).isZero();
 
-    assertThat(getFileMeasure("complexity").getIntValue()).isEqualTo(20);
+    assertThat(getFileMeasureAsDouble("complexity")).isEqualTo(20d);
 
     if (!orchestrator.getDistribution().version().isGreaterThanOrEquals("5.4")) {
-      // Since SonarQube 5.4, complexity per function and complexity per class doesn't rely anymore on complexity but on complexity_in_functions and complexity_in_classes
+      // Since SonarQube 5.4, complexity per function and complexity per class doesn't rely anymore on complexity but on
+      // complexity_in_functions and complexity_in_classes
       // (https://jira.sonarsource.com/browse/SONAR-7169)
-      assertThat(getFileMeasure("function_complexity").getValue()).isEqualTo(2.0);
-      assertThat(getFileMeasure("class_complexity").getValue()).isEqualTo(20.0);
+      assertThat(getFileMeasureAsDouble("function_complexity")).isEqualTo(2.0);
+      assertThat(getFileMeasureAsDouble("class_complexity")).isEqualTo(20.0);
     }
 
-    assertThat(getFileMeasure("file_complexity").getValue()).isEqualTo(20.0);
-    assertNull(getFileMeasure("function_complexity_distribution"));
-    assertNull(getFileMeasure("class_complexity_distribution"));
-    assertNull(getFileMeasure("file_complexity_distribution"));
+    assertThat(getFileMeasureAsDouble("file_complexity")).isEqualTo(20.0);
+    assertNull(getFileMeasureAsDouble("function_complexity_distribution"));
+    assertNull(getFileMeasureAsDouble("class_complexity_distribution"));
+    assertNull(getFileMeasureAsDouble("file_complexity_distribution"));
 
     // TODO we should be sure that numbers are stable, whereas this is not the case, because profile may change
-    // assertThat(getFileMeasure("violations").getIntValue()).isEqualTo(24);
+    // assertThat(getFileMeasure("violations")).isEqualTo(24);
   }
 
   /* Helper methods */
 
   private Measure getProjectMeasure(String metricKey) {
-    Resource resource = orchestrator.getServer().getWsClient().find(ResourceQuery.createForMetrics(PROJECT_AS3COMMONS, metricKey));
-    return resource != null ? resource.getMeasure(metricKey) : null;
+    return getMeasure(PROJECT_AS3COMMONS, metricKey);
+  }
+
+  private Double getProjectMeasureAsDouble(String metricKey) {
+    return getMeasureAsDouble(PROJECT_AS3COMMONS, metricKey);
   }
 
   private Measure getModuleMeasure(String metricKey) {
-    Resource resource = orchestrator.getServer().getWsClient().find(ResourceQuery.createForMetrics(MODULE_COMMONS_LANG, metricKey));
-    return resource != null ? resource.getMeasure(metricKey) : null;
+    return getMeasure(MODULE_COMMONS_LANG, metricKey);
+  }
+
+  private Double getModuleMeasureAsDouble(String metricKey) {
+    return getMeasureAsDouble(MODULE_COMMONS_LANG, metricKey);
   }
 
   private Measure getPackageMeasure(String metricKey) {
-    Resource resource = orchestrator.getServer().getWsClient().find(ResourceQuery.createForMetrics(PACKAGE_COMMONS_LANG, metricKey));
-    return resource != null ? resource.getMeasure(metricKey) : null;
+    return getMeasure(PACKAGE_COMMONS_LANG, metricKey);
   }
 
-  private Measure getFileMeasure(String metricKey) {
-    Resource resource = orchestrator.getServer().getWsClient().find(ResourceQuery.createForMetrics(FILE_OBJECT_UTILS, metricKey));
-    return resource != null ? resource.getMeasure(metricKey) : null;
+  private Double getPackageMeasureAsDouble(String metricKey) {
+    return getMeasureAsDouble(PACKAGE_COMMONS_LANG, metricKey);
+  }
+
+  private Double getFileMeasureAsDouble(String metricKey) {
+    return getMeasureAsDouble(FILE_OBJECT_UTILS, metricKey);
   }
 
 }

@@ -21,15 +21,12 @@ package com.sonar.it.flex;
 
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
+import java.io.File;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.sonar.wsclient.services.Measure;
-import org.sonar.wsclient.services.Resource;
-import org.sonar.wsclient.services.ResourceQuery;
 
-import java.io.File;
-
+import static com.sonar.it.flex.Tests.getMeasureAsInteger;
 import static org.fest.assertions.Assertions.assertThat;
 
 public class CoverageTest {
@@ -58,10 +55,10 @@ public class CoverageTest {
       .setProperty(REPORT_PROPERTY_KEY, REPORT_PATH);
     orchestrator.executeBuild(build);
 
-    assertThat(getProjectMeasure("lines_to_cover").getValue()).isEqualTo(2);
-    assertThat(getProjectMeasure("uncovered_lines").getValue()).isEqualTo(2);
-    assertThat(getProjectMeasure("conditions_to_cover")).isNull();
-    assertThat(getProjectMeasure("uncovered_conditions")).isNull();
+    assertThat(getProjectMeasureAsInteger("lines_to_cover")).isEqualTo(2);
+    assertThat(getProjectMeasureAsInteger("uncovered_lines")).isEqualTo(2);
+    assertThat(getProjectMeasureAsInteger("conditions_to_cover")).isNull();
+    assertThat(getProjectMeasureAsInteger("uncovered_conditions")).isNull();
   }
 
   @Test
@@ -75,15 +72,14 @@ public class CoverageTest {
       .setProperty(REPORT_PROPERTY_KEY, new File("projects/coverage/" + REPORT_PATH).getAbsolutePath());
     orchestrator.executeBuild(build);
 
-    assertThat(getProjectMeasure("lines_to_cover").getValue()).isEqualTo(2);
-    assertThat(getProjectMeasure("uncovered_lines").getValue()).isEqualTo(2);
-    assertThat(getProjectMeasure("conditions_to_cover")).isNull();
-    assertThat(getProjectMeasure("uncovered_conditions")).isNull();
+    assertThat(getProjectMeasureAsInteger("lines_to_cover")).isEqualTo(2);
+    assertThat(getProjectMeasureAsInteger("uncovered_lines")).isEqualTo(2);
+    assertThat(getProjectMeasureAsInteger("conditions_to_cover")).isNull();
+    assertThat(getProjectMeasureAsInteger("uncovered_conditions")).isNull();
   }
 
-  private Measure getProjectMeasure(String metricKey) {
-    Resource resource = orchestrator.getServer().getWsClient().find(ResourceQuery.createForMetrics("project", metricKey));
-    return resource == null ? null : resource.getMeasure(metricKey);
+  private Integer getProjectMeasureAsInteger(String metricKey) {
+    return getMeasureAsInteger("project", metricKey);
   }
 
 }

@@ -21,16 +21,14 @@ package com.sonar.it.flex;
 
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
+import java.io.File;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.sonar.wsclient.Sonar;
-import org.sonar.wsclient.services.Measure;
-import org.sonar.wsclient.services.Resource;
-import org.sonar.wsclient.services.ResourceQuery;
 
-import java.io.File;
-
+import static com.sonar.it.flex.Tests.getComponent;
+import static com.sonar.it.flex.Tests.getMeasure;
+import static com.sonar.it.flex.Tests.getMeasureAsInteger;
 import static org.fest.assertions.Assertions.assertThat;
 
 /**
@@ -43,8 +41,6 @@ public class FlexSimpleProjectTest {
   @ClassRule
   public static Orchestrator orchestrator = Tests.ORCHESTRATOR;
 
-  private static Sonar sonar = null;
-
   private static String keyFor(String s) {
     return PROJECT + ":src/" + s;
   }
@@ -52,8 +48,6 @@ public class FlexSimpleProjectTest {
   @BeforeClass
   public static void init() {
     orchestrator.resetData();
-    sonar = orchestrator.getServer().getWsClient();
-
     SonarScanner runner = Tests.createSonarScanner()
       .setProjectDir(new File("projects/simple-project"))
       .setProperty("sonar.profile", "it-profile");
@@ -62,8 +56,7 @@ public class FlexSimpleProjectTest {
 
   @Test
   public void projectIsAnalyzed() {
-    assertThat(sonar.find(new ResourceQuery(PROJECT)).getName()).isEqualTo("Flex IT :: Simple Project");
-    assertThat(sonar.find(new ResourceQuery(PROJECT)).getVersion()).isEqualTo("1.0");
+    assertThat(getComponent(PROJECT).getName()).isEqualTo("Flex IT :: Simple Project");
   }
 
   /**
@@ -72,7 +65,7 @@ public class FlexSimpleProjectTest {
    */
   @Test
   public void projectTestMetrics() {
-    assertThat(getFileMeasure(keyFor("same_name/XMLUtil.as"), "ncloc").getIntValue()).isEqualTo(49);
+    assertThat(getMeasureAsInteger(keyFor("same_name/XMLUtil.as"), "ncloc")).isEqualTo(49);
     // TODO mxml support has been broken
     // assertThat(getFileMeasure(PROJECT + ":same_name/XMLUtil.mxml", "ncloc").getIntValue(), is(12));
   }
@@ -83,19 +76,12 @@ public class FlexSimpleProjectTest {
   @Test
   public void should_be_compatible_with_DevCockpit() {
     String fileKey = keyFor("DevCockpit.as");
-    assertThat(getFileMeasure(fileKey, "ncloc_data").getData())
+    assertThat(getMeasure(fileKey, "ncloc_data").getValue())
       .contains("1=1")
       .doesNotContain("2=1");
-    assertThat(getFileMeasure(fileKey, "comment_lines_data").getData())
+    assertThat(getMeasure(fileKey, "comment_lines_data").getValue())
       .doesNotContain("1=1")
       .contains("2=1");
-  }
-
-  /* Helper methods */
-
-  private Measure getFileMeasure(String fileKey, String metricKey) {
-    Resource resource = sonar.find(ResourceQuery.createForMetrics(fileKey, metricKey));
-    return resource != null ? resource.getMeasure(metricKey) : null;
   }
 
 }

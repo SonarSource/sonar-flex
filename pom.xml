@@ -78,7 +78,7 @@
     <logback.version>1.0.13</logback.version>
     <junit.version>4.12</junit.version>
     <fest.version>1.4</fest.version>
-    <orchestrator.version>3.13</orchestrator.version>
+    <orchestrator.version>3.14.0.887</orchestrator.version>
 
     <gitRepositoryName>sonar-flex</gitRepositoryName>
 

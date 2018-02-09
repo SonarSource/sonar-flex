@@ -23,7 +23,7 @@ import org.junit.Test;
 import org.sonar.api.Plugin;
 import org.sonar.api.utils.Version;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class FlexPluginTest {
 

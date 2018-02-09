@@ -31,7 +31,7 @@ import static com.sonar.it.flex.Tests.getComponent;
 import static com.sonar.it.flex.Tests.getMeasure;
 import static com.sonar.it.flex.Tests.getMeasureAsDouble;
 import static junit.framework.Assert.assertNull;
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class FlexIntegrationTest {
 

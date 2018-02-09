@@ -55,7 +55,7 @@
         <groupId>org.sonatype.plugins</groupId>
         <artifactId>jarjar-maven-plugin</artifactId>
         <!-- TODO should be in parent -->
-        <version>1.5</version>
+        <version>1.9</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -65,10 +65,11 @@
             <configuration>
               <includes>
                 <include>${project.groupId}:flex-squid</include>
-                <include>org.codehaus.sonar.sslr:sslr-core</include>
-                <include>org.codehaus.sonar.sslr:sslr-xpath</include>
+                <include>org.sonarsource.sslr:sslr-core</include>
+                <include>org.sonarsource.sslr:sslr-xpath</include>
                 <include>jaxen:jaxen</include>
-                <include>org.codehaus.sonar.sslr:sslr-toolkit</include>
+                <include>org.sonarsource.sslr:sslr-toolkit</include>
+                <include>org.sonarsource.sslr-squid-bridge:sslr-squid-bridge</include>
                 <include>org.codehaus.sonar:sonar-colorizer</include>
                 <include>org.codehaus.sonar:sonar-squid</include>
                 <include>org.codehaus.sonar:sonar-channel</include>

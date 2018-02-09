@@ -20,14 +20,17 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S1439",
@@ -36,17 +39,17 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = Tags.PITFALL)
 @ActivatedByDefault
 @SqaleConstantRemediation("20min")
-public class LabelPlacementCheck extends SquidCheck<LexerlessGrammar> {
+public class LabelPlacementCheck extends FlexCheck {
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.LABELED_STATEMENT);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.LABELED_STATEMENT);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
     if (!isIterationStatement(astNode.getFirstChild(FlexGrammar.SUB_STATEMENT))) {
-      getContext().createLineViolation(this, "Remove this ''{0}'' label.", astNode, astNode.getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue());
+      addIssue(MessageFormat.format("Remove this ''{0}'' label.", astNode.getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue()), astNode);
     }
 
   }

@@ -19,9 +19,11 @@
  */
 package org.sonar.flex.checks;
 
+import com.google.common.io.Files;
 import com.sonar.sslr.api.RecognitionException;
 import com.sonar.sslr.impl.Parser;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -39,11 +41,17 @@ public class FlexCheckTester {
 
   public static Collection<CheckMessage> checkMessages(File file, FlexCheck check) {
     Parser<LexerlessGrammar> parser = FlexParser.create(new FlexConfiguration(UTF_8));
+    String fileContent;
+    try {
+      fileContent = Files.toString(file, UTF_8);
+    } catch (IOException e) {
+      throw new IllegalStateException("Cannot read " + file, e);
+    }
     FlexVisitorContext context;
     try {
-      context = new FlexVisitorContext(file, parser.parse(file));
+      context = new FlexVisitorContext(fileContent, parser.parse(file));
     } catch (RecognitionException e) {
-      context = new FlexVisitorContext(file, e);
+      context = new FlexVisitorContext(fileContent, e);
     }
 
     List<CheckMessage> messages = new ArrayList<>();

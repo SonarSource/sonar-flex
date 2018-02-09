@@ -17,22 +17,23 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.flex.checks;
+package org.sonar.flex;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.squidbridge.CommentAnalyser;
 
-import java.io.File;
-
-import static org.hamcrest.Matchers.containsString;
-
-public class ParsingErrorCheckTest {
-
-  @Test
-  public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ParsingError.as"), new ParsingErrorCheck()))
-        .next().atLine(1).withMessageThat(containsString("Parse error at line 1 column 8"))
-        .noMore();
+public class FlexCommentAnalyser extends CommentAnalyser {
+  @Override
+  public boolean isBlank(String line) {
+    for (int i = 0; i < line.length(); i++) {
+      if (Character.isLetterOrDigit(line.charAt(i))) {
+        return false;
+      }
+    }
+    return true;
   }
 
+  @Override
+  public String getContents(String comment) {
+    return comment.startsWith("//") ? comment.substring(2) : comment.substring(2, comment.length() - 2);
+  }
 }

@@ -20,15 +20,17 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.util.Collections;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S1125",
@@ -37,17 +39,17 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = Tags.CLUMSY)
 @ActivatedByDefault
 @SqaleConstantRemediation("2min")
-public class BooleanEqualityComparisonCheck extends SquidCheck<LexerlessGrammar> {
+public class BooleanEqualityComparisonCheck extends FlexCheck {
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.EQUALITY_EXPR);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.EQUALITY_EXPR);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
     if (hasBooleanLiteralOperand(astNode.getFirstChild(FlexGrammar.EQUALITY_OPERATOR).getNextAstNode())) {
-      getContext().createLineViolation(this, "Remove the unnecessary boolean comparison to simplify this expression.", astNode);
+      addIssue("Remove the unnecessary boolean comparison to simplify this expression.", astNode);
     }
   }
 

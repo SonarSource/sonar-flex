@@ -19,31 +19,25 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.io.Files;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
-import org.sonar.flex.api.CharsetAwareVisitor;
+import org.sonar.flex.FlexCheck;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.Iterator;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Rule(
   key = "S1451",
   name = "Copyright and license headers should be defined",
   priority = Priority.BLOCKER)
 @SqaleConstantRemediation("5min")
-public class FileHeaderCheck extends SquidCheck<LexerlessGrammar> implements CharsetAwareVisitor {
+public class FileHeaderCheck extends FlexCheck {
 
   private static final String DEFAULT_HEADER_FORMAT = "";
 
@@ -60,46 +54,41 @@ public class FileHeaderCheck extends SquidCheck<LexerlessGrammar> implements Cha
     defaultValue = "false")
   public boolean isRegularExpression = false;
 
-  private Charset charset;
-  private String[] expectedLines;
+  private Predicate<String> headerMatcher;
 
-  private Pattern regularExpression = null;
-
-  @Override
-  public void setCharset(Charset charset) {
-    this.charset = charset;
+  public Predicate<String> headerMatcher() {
+    if (headerMatcher == null) {
+      if (isRegularExpression) {
+        String regexp = headerFormat;
+        if (!headerFormat.endsWith("\n") && !headerFormat.endsWith("\r")) {
+          regexp += "(\r|\r\n|\n)";
+        }
+        Pattern pattern = Pattern.compile(regexp);
+        headerMatcher = s -> matchesRegularExpression(pattern, s);
+      } else {
+        String[] expectedLines = headerFormat.split("(?:\r)?\n|\r");
+        headerMatcher = s -> matchesPlainTextHeader(expectedLines, s);
+      }
+    }
+    return headerMatcher;
   }
 
   @Override
-  public void init() {
-    if (isRegularExpression) {
-      if (headerFormat.endsWith("\n") || headerFormat.endsWith("\r")) {
-        regularExpression = Pattern.compile(headerFormat);
-      } else {
-        regularExpression = Pattern.compile(headerFormat + "(\r|\r\n|\n)");
-      }
-    } else {
-      expectedLines = headerFormat.split("(?:\r)?\n|\r");
-    }
+  public List<AstNodeType> subscribedTo() {
+    return Collections.emptyList();
   }
 
   @Override
   public void visitFile(AstNode astNode) {
-    File file = getContext().getFile();
-    boolean hasHeader = isRegularExpression ? matchesRegularExpression(file) : matchesPlainTextHeader(file);
+    String fileContent = getContext().fileContent();
+    boolean hasHeader = headerMatcher().test(fileContent);
     if (!hasHeader) {
-      getContext().createFileViolation(this, "Add or update the header of this file.");
+      addFileIssue("Add or update the header of this file.");
     }
   }
 
-  @VisibleForTesting
-  protected boolean matchesRegularExpression(File file) {
-    String content;
-    try {
-      content = Files.toString(file, charset);
-    } catch (IOException e) {
-      throw new IllegalStateException(exceptionMessage(file), e);
-    }
+
+  private static boolean matchesRegularExpression(Pattern regularExpression, String content) {
     Matcher matcher = regularExpression.matcher(content);
     if (matcher.find()) {
       return matcher.start() == 0;
@@ -107,28 +96,15 @@ public class FileHeaderCheck extends SquidCheck<LexerlessGrammar> implements Cha
     return false;
   }
 
-  @VisibleForTesting
-  protected boolean matchesPlainTextHeader(File file) {
-    List<String> lines;
+  private static boolean matchesPlainTextHeader(String[] expectedLines, String content) {
+    String[] lines = content.split("\\r?\\n");
 
-    try {
-      lines = Files.readLines(file, charset);
-    } catch (IOException e) {
-      throw new IllegalStateException(exceptionMessage(file), e);
-    }
-
-    return matches(expectedLines, lines);
-  }
-
-  private static boolean matches(String[] expectedLines, List<String> lines) {
     boolean result;
-
-    if (expectedLines.length <= lines.size()) {
+    if (expectedLines.length <= lines.length) {
       result = true;
 
-      Iterator<String> it = lines.iterator();
       for (int i = 0; i < expectedLines.length; i++) {
-        String line = it.next();
+        String line = lines[i];
         if (!line.equals(expectedLines[i])) {
           result = false;
           break;
@@ -139,10 +115,6 @@ public class FileHeaderCheck extends SquidCheck<LexerlessGrammar> implements Cha
     }
 
     return result;
-  }
-
-  private static String exceptionMessage(File file) {
-    return String.format("Unable to execute rule \"S1451\" for file %s", file.getName());
   }
 
 }

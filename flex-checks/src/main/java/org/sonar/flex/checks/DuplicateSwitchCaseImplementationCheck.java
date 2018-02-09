@@ -22,18 +22,19 @@ package org.sonar.flex.checks;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Map;
 
 @Rule(
   key = "S1871",
@@ -41,11 +42,11 @@ import java.util.Map;
   priority = Priority.MAJOR,
   tags = {Tags.DESIGN, Tags.SUSPICIOUS})
 @SqaleConstantRemediation("10min")
-public class DuplicateSwitchCaseImplementationCheck extends SquidCheck<LexerlessGrammar> {
+public class DuplicateSwitchCaseImplementationCheck extends FlexCheck {
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.SWITCH_STATEMENT);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.SWITCH_STATEMENT);
   }
 
   @Override
@@ -60,8 +61,10 @@ public class DuplicateSwitchCaseImplementationCheck extends SquidCheck<Lexerless
         AstNode duplicatedCase = getDuplicatedCase(cases, tokens);
 
         if (duplicatedCase != null) {
-          getContext().createLineViolation(this, "Either merge this case with the identical one on line \"{0}\" or change one of the implementations.",
-            caseElement, duplicatedCase.getTokenLine());
+          String message = MessageFormat.format(
+            "Either merge this case with the identical one on line \"{0}\" or change one of the implementations.",
+            duplicatedCase.getTokenLine());
+          addIssue(message, caseElement);
         } else {
           cases.put(caseLabel, tokens);
         }

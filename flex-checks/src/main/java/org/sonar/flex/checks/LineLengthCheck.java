@@ -19,24 +19,18 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.io.Files;
 import com.sonar.sslr.api.AstNode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
-import org.sonar.flex.api.CharsetAwareVisitor;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.Collections;
-import java.util.List;
 
 @Rule(
   key = "LineLength",
@@ -44,11 +38,9 @@ import java.util.List;
   priority = Priority.MINOR,
   tags = Tags.CONVENTION)
 @SqaleConstantRemediation("1min")
-public class LineLengthCheck extends SquidCheck<LexerlessGrammar> implements CharsetAwareVisitor {
+public class LineLengthCheck extends FlexCheck {
 
   private static final int DEFAULT_MAXIMUM_LINE_LENHGTH = 80;
-  private static final Logger LOG = LoggerFactory.getLogger(LineLengthCheck.class);
-  private Charset charset;
 
   @RuleProperty(
     key = "maximumLineLength",
@@ -57,24 +49,21 @@ public class LineLengthCheck extends SquidCheck<LexerlessGrammar> implements Cha
   public int maximumLineLength = DEFAULT_MAXIMUM_LINE_LENHGTH;
 
   @Override
-  public void setCharset(Charset charset) {
-    this.charset = charset;
+  public List<AstNodeType> subscribedTo() {
+    return Collections.emptyList();
   }
 
   @Override
   public void visitFile(@Nullable AstNode astNode) {
-    List<String> lines = Collections.emptyList();
+    String fileContent = getContext().fileContent();
+    String[] lines = fileContent.split("\\r?\\n");
 
-    try {
-      lines = Files.readLines(getContext().getFile(), charset);
-    } catch (IOException e) {
-      LOG.error("Unable to execute rule \"LineLength\" for file {} because of error: {}",
-        getContext().getFile().getName(), e);
-    }
-    for (int i = 0; i < lines.size(); i++) {
-      String line = lines.get(i);
+    for (int i = 0; i < lines.length; i++) {
+      String line = lines[i];
       if (line.length() > maximumLineLength) {
-        getContext().createLineViolation(this, "Split this {0} characters long line (which is greater than {1} authorized).", i + 1, line.length(), maximumLineLength);
+        addIssueAtLine(
+          MessageFormat.format("Split this {0} characters long line (which is greater than {1} authorized).", line.length(), maximumLineLength),
+          i + 1);
       }
     }
   }

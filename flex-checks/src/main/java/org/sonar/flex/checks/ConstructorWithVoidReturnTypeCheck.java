@@ -20,16 +20,19 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S1445",
@@ -38,11 +41,11 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = Tags.CONFUSING)
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class ConstructorWithVoidReturnTypeCheck extends SquidCheck<LexerlessGrammar> {
+public class ConstructorWithVoidReturnTypeCheck extends FlexCheck {
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.CLASS_DEF);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.CLASS_DEF);
   }
 
   @Override
@@ -50,8 +53,8 @@ public class ConstructorWithVoidReturnTypeCheck extends SquidCheck<LexerlessGram
     AstNode constructorDef = Clazz.getConstructor(astNode);
 
     if (constructorDef != null && hasVoidReturnType(constructorDef)) {
-      getContext().createLineViolation(this, "Remove the \"void\" return type from this \"{0}\" constructor", constructorDef,
-        astNode.getFirstChild(FlexGrammar.CLASS_NAME).getFirstChild(FlexGrammar.CLASS_IDENTIFIERS).getLastChild().getTokenValue());
+      String className = astNode.getFirstChild(FlexGrammar.CLASS_NAME).getFirstChild(FlexGrammar.CLASS_IDENTIFIERS).getLastChild().getTokenValue();
+      addIssue(MessageFormat.format("Remove the \"void\" return type from this \"{0}\" constructor", className), constructorDef);
     }
   }
 

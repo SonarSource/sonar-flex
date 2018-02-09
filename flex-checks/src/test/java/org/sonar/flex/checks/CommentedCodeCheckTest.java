@@ -20,8 +20,6 @@
 package org.sonar.flex.checks;
 
 import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
@@ -32,8 +30,7 @@ public class CommentedCodeCheckTest {
   public void test() {
     CommentedCodeCheck check = new CommentedCodeCheck();
 
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/CommentedCode.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/CommentedCode.as"), check))
         .next().atLine(4).withMessage("Sections of code should not be \"commented out\".")
         .next().atLine(11)
         .noMore();

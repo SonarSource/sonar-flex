@@ -20,14 +20,16 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.util.Collections;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S1951",
@@ -36,17 +38,17 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = {Tags.CWE, Tags.SECURITY})
 @ActivatedByDefault
 @SqaleConstantRemediation("2min")
-public class TraceUseCheck extends SquidCheck<LexerlessGrammar> {
+public class TraceUseCheck extends FlexCheck {
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.POSTFIX_EXPR);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.POSTFIX_EXPR);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
     if (isFunctionCall(astNode) && "trace".equals(astNode.getFirstChild().getTokenValue())) {
-      getContext().createLineViolation(this, "Remove this use of the \"trace\" function.", astNode);
+      addIssue("Remove this use of the \"trace\" function.", astNode);
     }
   }
 

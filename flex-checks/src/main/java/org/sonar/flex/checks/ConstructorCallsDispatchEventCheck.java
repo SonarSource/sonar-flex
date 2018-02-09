@@ -20,20 +20,22 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.List;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Function;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 @Rule(
   key = "S1467",
@@ -42,7 +44,7 @@ import java.util.Deque;
   tags = Tags.BUG)
 @ActivatedByDefault
 @SqaleConstantRemediation("10min")
-public class ConstructorCallsDispatchEventCheck extends SquidCheck<LexerlessGrammar> {
+public class ConstructorCallsDispatchEventCheck extends FlexCheck {
 
   boolean isInClass;
   private Deque<ClassState> classStack = new ArrayDeque<>();
@@ -57,8 +59,8 @@ public class ConstructorCallsDispatchEventCheck extends SquidCheck<LexerlessGram
   }
 
   @Override
-  public void init() {
-    subscribeTo(
+  public List<AstNodeType> subscribedTo() {
+    return Arrays.asList(
       FlexGrammar.CLASS_DEF,
       FlexGrammar.FUNCTION_DEF,
       FlexGrammar.PRIMARY_EXPR);
@@ -78,7 +80,7 @@ public class ConstructorCallsDispatchEventCheck extends SquidCheck<LexerlessGram
     } else if (isConstructor(astNode)) {
       classStack.peek().isInConstructor = true;
     } else if (isCallToDispatchEventInConstructor(astNode)) {
-      getContext().createLineViolation(this, "Remove this event dispatch from the \"{0}\" constructor", astNode, classStack.peek().className);
+      addIssue(MessageFormat.format("Remove this event dispatch from the \"{0}\" constructor", classStack.peek().className), astNode);
     }
   }
 

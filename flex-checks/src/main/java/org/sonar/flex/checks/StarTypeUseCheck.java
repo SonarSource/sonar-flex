@@ -20,15 +20,17 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.util.Collections;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexPunctuator;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S1435",
@@ -37,18 +39,18 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = Tags.UNPREDICTABLE)
 @ActivatedByDefault
 @SqaleConstantRemediation("10min")
-public class StarTypeUseCheck extends SquidCheck<LexerlessGrammar> {
+public class StarTypeUseCheck extends FlexCheck {
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.VARIABLE_BINDING);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.VARIABLE_BINDING);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
     AstNode typeExprNode = astNode.getFirstChild(FlexGrammar.TYPED_IDENTIFIER).getFirstChild(FlexGrammar.TYPE_EXPR);
     if (typeExprNode != null && typeExprNode.getFirstChild(FlexPunctuator.STAR) != null) {
-      getContext().createLineViolation(this, "Remove usage of this \"star\" type", typeExprNode);
+      addIssue("Remove usage of this \"star\" type", typeExprNode);
     }
   }
 

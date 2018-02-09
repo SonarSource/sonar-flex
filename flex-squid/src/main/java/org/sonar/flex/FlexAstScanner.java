@@ -27,7 +27,6 @@ import org.sonar.flex.api.FlexMetric;
 import org.sonar.flex.metrics.ComplexityVisitor;
 import org.sonar.flex.parser.FlexParser;
 import org.sonar.squidbridge.AstScanner;
-import org.sonar.squidbridge.CommentAnalyser;
 import org.sonar.squidbridge.ProgressAstScanner;
 import org.sonar.squidbridge.SourceCodeBuilderCallback;
 import org.sonar.squidbridge.SourceCodeBuilderVisitor;
@@ -51,23 +50,6 @@ import java.util.Collection;
 import java.util.List;
 
 public final class FlexAstScanner {
-
-  private static class FlexCommentAnalyser extends CommentAnalyser {
-    @Override
-    public boolean isBlank(String line) {
-      for (int i = 0; i < line.length(); i++) {
-        if (Character.isLetterOrDigit(line.charAt(i))) {
-          return false;
-        }
-      }
-      return true;
-    }
-
-    @Override
-    public String getContents(String comment) {
-      return comment.startsWith("//") ? comment.substring(2) : comment.substring(2, comment.length() - 2);
-    }
-  }
 
   private FlexAstScanner() {
   }

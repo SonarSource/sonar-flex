@@ -21,8 +21,17 @@ package org.sonar.flex.checks;
 
 import com.google.common.collect.Maps;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
@@ -32,13 +41,6 @@ import org.sonar.flex.checks.utils.Tags;
 import org.sonar.flex.checks.utils.Variable;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Map;
 
 @Rule(
   key = "S1117",
@@ -47,7 +49,7 @@ import java.util.Map;
   tags = Tags.PITFALL)
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
+public class LocalVarShadowsFieldCheck extends FlexCheck {
 
 
   private static class ClassState {
@@ -83,8 +85,8 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
   private static final String MESSAGE = "Rename \"{0}\" which hides the field declared at line {1}.";
 
   @Override
-  public void init() {
-    subscribeTo(
+  public List<AstNodeType> subscribedTo() {
+    return Arrays.asList(
       FlexGrammar.CLASS_DEF,
       FlexGrammar.FUNCTION_DEF,
       FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
@@ -129,7 +131,7 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
       AstNode field = classStack.peek().getFieldNamed(varName);
 
       if (field != null) {
-        getContext().createLineViolation(this, MESSAGE, identifier, varName, field.getToken().getLine());
+        addIssue(MessageFormat.format(MESSAGE, varName, field.getToken().getLine()), identifier);
       }
     }
   }
@@ -140,7 +142,7 @@ public class LocalVarShadowsFieldCheck extends SquidCheck<LexerlessGrammar> {
       AstNode field = classStack.peek().getFieldNamed(paramName);
 
       if (field != null) {
-        getContext().createLineViolation(this, MESSAGE, paramIdentifier, paramName, field.getToken().getLine());
+        addIssue(MessageFormat.format(MESSAGE, paramName, field.getToken().getLine()), paramIdentifier);
       }
     }
   }

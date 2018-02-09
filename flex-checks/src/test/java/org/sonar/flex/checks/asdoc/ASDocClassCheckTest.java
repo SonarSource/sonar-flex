@@ -20,9 +20,8 @@
 package org.sonar.flex.checks.asdoc;
 
 import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
 import org.sonar.flex.checks.ASDocCheckTest;
-import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.flex.checks.FlexCheckTester;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class ASDocClassCheckTest extends ASDocCheckTest {
@@ -31,8 +30,7 @@ public class ASDocClassCheckTest extends ASDocCheckTest {
   public void custom_only_classes_property_on() throws IllegalAccessException {
     activeOnly("classes");
 
-    SourceFile file = FlexAstScanner.scanSingleFile(TEST_FILE, check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(TEST_FILE, check))
       // class A
       .next().atLine(1).withMessage("Add the missing ASDoc for this class.")
 

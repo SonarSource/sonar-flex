@@ -20,19 +20,21 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.sslr.grammar.GrammarRuleKey;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 @Rule(
   key = "S1952",
@@ -41,7 +43,7 @@ import java.util.List;
   tags = Tags.PERFORMANCE)
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class InstantiationInLoopCheck extends SquidCheck<LexerlessGrammar> {
+public class InstantiationInLoopCheck extends FlexCheck {
 
 
   private static final GrammarRuleKey[] ITERATION_NODES = {
@@ -52,12 +54,14 @@ public class InstantiationInLoopCheck extends SquidCheck<LexerlessGrammar> {
   private int loopLevel = 0;
 
   @Override
-  public void init() {
-    subscribeTo(
+  public List<AstNodeType> subscribedTo() {
+    List<AstNodeType> types = new ArrayList<>();
+    Collections.addAll(types,
       FlexGrammar.FULL_NEW_EXPR,
       FlexGrammar.SHORT_NEW_EXPR,
       FlexGrammar.OBJECT_INITIALISER);
-    subscribeTo(ITERATION_NODES);
+    Collections.addAll(types, ITERATION_NODES);
+    return types;
   }
 
   @Override
@@ -71,7 +75,7 @@ public class InstantiationInLoopCheck extends SquidCheck<LexerlessGrammar> {
       loopLevel++;
 
     } else if (loopLevel > 0 && !isNestedNewExpression(astNode)) {
-      getContext().createLineViolation(this, "Move the instantiation of this \"{0}\" outside the loop.", astNode, getClassName(astNode));
+      addIssue(MessageFormat.format("Move the instantiation of this \"{0}\" outside the loop.", getClassName(astNode)), astNode);
     }
   }
 

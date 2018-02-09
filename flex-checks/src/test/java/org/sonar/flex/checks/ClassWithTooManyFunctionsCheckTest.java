@@ -19,12 +19,9 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class ClassWithTooManyFunctionsCheckTest {
 
@@ -32,8 +29,7 @@ public class ClassWithTooManyFunctionsCheckTest {
 
   @Test
   public void defaults() {
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check))
       .next().atLine(6).withMessage("Class \"foo\" has 21 methods, which is greater than 20 authorized. Split it into smaller classes.")
       .noMore();
   }
@@ -42,8 +38,7 @@ public class ClassWithTooManyFunctionsCheckTest {
   public void custom_maximum_function_threshold() {
     check.maximumFunctionThreshold = 1;
 
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check))
       .next().atLine(1)
       .next().atLine(6)
       .noMore();
@@ -53,8 +48,7 @@ public class ClassWithTooManyFunctionsCheckTest {
   public void custom_count_non_publicMethods() {
     check.countNonpublicMethods = false;
 
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check))
       .noMore();
   }
 
@@ -63,8 +57,7 @@ public class ClassWithTooManyFunctionsCheckTest {
     check.maximumFunctionThreshold = 1;
     check.countNonpublicMethods = false;
 
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check))
       .next().atLine(6)
       .noMore();
   }

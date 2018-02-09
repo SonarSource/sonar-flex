@@ -20,8 +20,6 @@
 package org.sonar.flex.checks;
 
 import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
@@ -32,8 +30,7 @@ public class TooManyReturnCheckTest {
 
   @Test
   public void defaults() {
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/TooManyReturn.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/TooManyReturn.as"), check))
       .next().atLine(1).withMessage("Reduce the number of returns of this function 4, down to the maximum allowed " +  + check.max + ".")
       .noMore();
   }
@@ -42,8 +39,7 @@ public class TooManyReturnCheckTest {
   public void custom() {
     check.max = 2;
 
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/TooManyReturn.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/TooManyReturn.as"), check))
       .next().atLine(1).withMessage("Reduce the number of returns of this function 4, down to the maximum allowed " +  + check.max + ".")
       .next().atLine(14)
       .next().atLine(23)

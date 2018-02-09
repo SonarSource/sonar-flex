@@ -20,8 +20,6 @@
 package org.sonar.flex.checks;
 
 import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
@@ -31,8 +29,7 @@ public class LabelPlacementCheckTest {
   private LabelPlacementCheck check = new LabelPlacementCheck();
   @Test
   public void test() {
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/LabelPlacement.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/LabelPlacement.as"), check))
       .next().atLine(1).withMessage("Remove this 'myLabel' label.")
       .noMore();
   }

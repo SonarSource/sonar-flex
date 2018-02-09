@@ -19,18 +19,18 @@
  */
 package org.sonar.flex.checks;
 
-import com.sonar.sslr.api.AstAndTokenVisitor;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
+import java.util.Collections;
+import java.util.List;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
 
 @Rule(
   key = "S1468",
@@ -39,7 +39,7 @@ import javax.annotation.Nullable;
   tags = Tags.SECURITY)
 @ActivatedByDefault
 @SqaleConstantRemediation("10min")
-public class StarUseForDomainCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
+public class StarUseForDomainCheck extends FlexCheck {
 
   private enum State {
     EXPECTING_SECURITY,
@@ -78,6 +78,11 @@ public class StarUseForDomainCheck extends SquidCheck<LexerlessGrammar> implemen
   private State currentState;
 
   @Override
+  public List<AstNodeType> subscribedTo() {
+    return Collections.emptyList();
+  }
+
+  @Override
   public void visitFile(@Nullable AstNode node) {
     currentState = State.EXPECTING_SECURITY;
   }
@@ -87,7 +92,7 @@ public class StarUseForDomainCheck extends SquidCheck<LexerlessGrammar> implemen
     currentState = TRANSITIONS[currentState.ordinal()][getSymbol(token.getOriginalValue()).ordinal()];
 
     if (currentState == State.FOUND_ISSUE) {
-      getContext().createLineViolation(this, "Specifically define the origin domain of SWF files that are allowed to communicate with this one", token);
+      addIssue("Specifically define the origin domain of SWF files that are allowed to communicate with this one", token);
       currentState = State.EXPECTING_SECURITY;
     }
   }

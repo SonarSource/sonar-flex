@@ -19,14 +19,11 @@
  */
 package org.sonar.flex.checks;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
 import java.lang.reflect.Field;
+import org.apache.commons.lang.ArrayUtils;
+import org.junit.Test;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class ASDocCheckTest {
 
@@ -35,8 +32,7 @@ public class ASDocCheckTest {
 
   @Test
   public void test_default() {
-    SourceFile file = FlexAstScanner.scanSingleFile(TEST_FILE, check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(TEST_FILE, check))
       // class A
       .next().atLine(1).withMessage("Add the missing ASDoc for this class.")
       .next().atLine(7).withMessage("Add the missing ASDoc for this field declaration.")
@@ -57,8 +53,7 @@ public class ASDocCheckTest {
   public void test_all_off() throws IllegalAccessException {
     deactivateAll();
 
-    SourceFile file = FlexAstScanner.scanSingleFile(TEST_FILE, check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(TEST_FILE, check))
       .noMore();
   }
 

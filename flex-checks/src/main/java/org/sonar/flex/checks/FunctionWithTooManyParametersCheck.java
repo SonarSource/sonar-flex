@@ -20,15 +20,18 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S107",
@@ -37,7 +40,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = {Tags.BRAIN_OVERLOAD})
 @ActivatedByDefault
 @SqaleConstantRemediation("20min")
-public class FunctionWithTooManyParametersCheck extends SquidCheck<LexerlessGrammar> {
+public class FunctionWithTooManyParametersCheck extends FlexCheck {
 
   private static final int DEFAULT = 7;
   @RuleProperty(
@@ -47,16 +50,17 @@ public class FunctionWithTooManyParametersCheck extends SquidCheck<LexerlessGram
   int max = DEFAULT;
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.PARAMETERS);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.PARAMETERS);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
     int nbParameters = astNode.getChildren(FlexGrammar.PARAMETER, FlexGrammar.REST_PARAMETERS).size();
     if (nbParameters > max) {
-      getContext().createLineViolation(this, "This function has {0,number,integer} parameters, which is greater than the {1,number,integer} authorized.",
-        astNode, nbParameters, max);
+      addIssue(
+        MessageFormat.format("This function has {0,number,integer} parameters, which is greater than the {1,number,integer} authorized.", nbParameters, max),
+        astNode);
     }
   }
 

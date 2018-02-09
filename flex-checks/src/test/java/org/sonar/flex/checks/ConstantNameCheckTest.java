@@ -20,8 +20,6 @@
 package org.sonar.flex.checks;
 
 import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
@@ -32,8 +30,7 @@ public class ConstantNameCheckTest {
 
   @Test
   public void defaults(){
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ConstantName.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ConstantName.as"), check))
       .next().atLine(3).withMessage("Rename this constant 'p1' to match the regular expression " + check.format)
       .next().atLine(3).withMessage("Rename this constant 'p2' to match the regular expression " + check.format)
       .noMore();
@@ -43,8 +40,7 @@ public class ConstantNameCheckTest {
   public void custom() {
     check.format = "[A-Z]+[0-9]+";
 
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ConstantName.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ConstantName.as"), check))
       .next().atLine(2)
       .next().atLine(3)
       .next().atLine(3)

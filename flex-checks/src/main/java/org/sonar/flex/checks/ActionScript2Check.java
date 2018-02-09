@@ -21,16 +21,17 @@ package org.sonar.flex.checks;
 
 import com.google.common.collect.ImmutableSet;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.Set;
 
 @Rule(
   key = "ActionScript2",
@@ -39,13 +40,13 @@ import java.util.Set;
   tags = Tags.OBSOLETE)
 @ActivatedByDefault
 @SqaleConstantRemediation("2min")
-public class ActionScript2Check extends SquidCheck<LexerlessGrammar> {
+public class ActionScript2Check extends FlexCheck {
 
   private final Set<String> deprecatedOperators = ImmutableSet.of("or", "and", "ne", "eq", "ge", "gt", "le", "lt", "add", "<>");
 
   @Override
-  public void init() {
-    subscribeTo(
+  public List<AstNodeType> subscribedTo() {
+    return Arrays.asList(
       FlexGrammar.UNARY_EXPR,
       FlexGrammar.LOGICAL_OR_OPERATOR,
       FlexGrammar.LOGICAL_AND_OPERATOR,
@@ -59,11 +60,11 @@ public class ActionScript2Check extends SquidCheck<LexerlessGrammar> {
   @Override
   public void visitNode(AstNode astNode) {
     if (astNode.is(FlexGrammar.UNARY_EXPR) && "not".equals(astNode.getFirstChild().getTokenValue())) {
-      getContext().createLineViolation(this, "Operator 'not' not available in ActionScript 3.0", astNode.getFirstChild());
+      addIssue("Operator 'not' not available in ActionScript 3.0", astNode.getFirstChild());
     } else {
       String operator = getValue(astNode);
       if (deprecatedOperators.contains(operator)) {
-        getContext().createLineViolation(this, "Operator '" + operator + "' not available in ActionScript 3.0", astNode);
+        addIssue("Operator '" + operator + "' not available in ActionScript 3.0", astNode);
       }
     }
   }

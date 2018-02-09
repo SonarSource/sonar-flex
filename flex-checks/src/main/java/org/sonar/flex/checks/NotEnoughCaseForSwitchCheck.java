@@ -20,14 +20,16 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.util.Collections;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S1301",
@@ -36,13 +38,13 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = Tags.MISRA)
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class NotEnoughCaseForSwitchCheck extends SquidCheck<LexerlessGrammar> {
+public class NotEnoughCaseForSwitchCheck extends FlexCheck {
 
   private static final int MINIMUM_CASE = 3;
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.SWITCH_STATEMENT);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.SWITCH_STATEMENT);
   }
 
   @Override
@@ -53,7 +55,7 @@ public class NotEnoughCaseForSwitchCheck extends SquidCheck<LexerlessGrammar> {
     }
 
     if (nbCase < MINIMUM_CASE) {
-      getContext().createLineViolation(this, "Replace this \"switch\" statement with \"if\" statements to increase readability.", astNode);
+      addIssue("Replace this \"switch\" statement with \"if\" statements to increase readability.", astNode);
     }
   }
 

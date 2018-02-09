@@ -20,19 +20,20 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Modifiers;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.List;
 
 @Rule(
   key = "S1448",
@@ -41,7 +42,7 @@ import java.util.List;
   tags = Tags.BRAIN_OVERLOAD)
 @ActivatedByDefault
 @SqaleConstantRemediation("1h")
-public class ClassWithTooManyFunctionsCheck extends SquidCheck<LexerlessGrammar> {
+public class ClassWithTooManyFunctionsCheck extends FlexCheck {
 
 
   private static final int DEFAULT_MAX = 20;
@@ -61,8 +62,8 @@ public class ClassWithTooManyFunctionsCheck extends SquidCheck<LexerlessGrammar>
   boolean countNonpublicMethods = DEFAULT_INCLUDE_NON_PUBLIC;
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.CLASS_DEF);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.CLASS_DEF);
   }
 
   @Override
@@ -70,8 +71,10 @@ public class ClassWithTooManyFunctionsCheck extends SquidCheck<LexerlessGrammar>
     int nbMethods = getNumberOfMethods(astNode);
 
     if (nbMethods > maximumFunctionThreshold) {
-      getContext().createLineViolation(this, "Class \"{0}\" has {1} methods, which is greater than {2} authorized. Split it into smaller classes.",
-        astNode, Clazz.getName(astNode), nbMethods, maximumFunctionThreshold);
+      String message = MessageFormat.format(
+        "Class \"{0}\" has {1} methods, which is greater than {2} authorized. Split it into smaller classes.",
+        Clazz.getName(astNode), nbMethods, maximumFunctionThreshold);
+      addIssue(message, astNode);
     }
   }
 

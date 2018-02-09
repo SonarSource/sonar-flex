@@ -22,14 +22,15 @@ package org.sonar.flex.checks;
 import com.google.common.collect.Iterables;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
+import java.util.Collections;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "NonEmptyCaseWithoutBreak",
@@ -38,13 +39,13 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = {Tags.CWE, Tags.MISRA, Tags.CERT, Tags.PITFALL})
 @ActivatedByDefault
 @SqaleConstantRemediation("10min")
-public class NonEmptyCaseWithoutBreakCheck extends SquidCheck<LexerlessGrammar> {
+public class NonEmptyCaseWithoutBreakCheck extends FlexCheck {
 
   private static final AstNodeType[] JUMP_NODES = {FlexGrammar.BREAK_STATEMENT, FlexGrammar.RETURN_STATEMENT, FlexGrammar.THROW_STATEMENT, FlexGrammar.CONTINUE_STATEMENT};
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.CASE_ELEMENT);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.CASE_ELEMENT);
   }
 
   @Override
@@ -72,7 +73,7 @@ public class NonEmptyCaseWithoutBreakCheck extends SquidCheck<LexerlessGrammar> 
     }
     if (directive.getFirstChild().is(FlexGrammar.STATEMENT)
       && directive.getFirstChild().getFirstChild().isNot(JUMP_NODES)) {
-      getContext().createLineViolation(this, "Last statement in this switch-clause should be an unconditional break.",
+      addIssue("Last statement in this switch-clause should be an unconditional break.",
         Iterables.getLast(astNode.getChildren(FlexGrammar.CASE_LABEL)));
     }
   }

@@ -20,26 +20,27 @@
 package org.sonar.flex.checks;
 
 import com.google.common.collect.ImmutableSet;
-import com.sonar.sslr.api.AstAndTokenVisitor;
+import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.Trivia;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.regex.Pattern;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
+import org.sonar.flex.FlexCommentAnalyser;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
 import org.sonar.squidbridge.recognizer.CodeRecognizer;
 import org.sonar.squidbridge.recognizer.ContainsDetector;
 import org.sonar.squidbridge.recognizer.Detector;
 import org.sonar.squidbridge.recognizer.EndWithDetector;
 import org.sonar.squidbridge.recognizer.KeywordsDetector;
 import org.sonar.squidbridge.recognizer.LanguageFootprint;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.Set;
-import java.util.regex.Pattern;
 
 @Rule(
   key = "CommentedCode",
@@ -48,10 +49,11 @@ import java.util.regex.Pattern;
   tags = {Tags.MISRA, Tags.UNUSED})
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class CommentedCodeCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
+public class CommentedCodeCheck extends FlexCheck {
 
   private static final double THRESHOLD = 0.9;
 
+  private final FlexCommentAnalyser commentAnalyser = new FlexCommentAnalyser();
   private final CodeRecognizer codeRecognizer = new CodeRecognizer(THRESHOLD, new FlexRecognizer());
   private final Pattern regexpToDivideStringByLine = Pattern.compile("(\r?\n)|(\r)");
 
@@ -70,12 +72,17 @@ public class CommentedCodeCheck extends SquidCheck<LexerlessGrammar> implements 
   }
 
   @Override
+  public List<AstNodeType> subscribedTo() {
+    return Collections.emptyList();
+  }
+
+  @Override
   public void visitToken(Token token) {
     for (Trivia trivia : token.getTrivia()) {
-      String[] lines = regexpToDivideStringByLine.split(getContext().getCommentAnalyser().getContents(trivia.getToken().getOriginalValue()));
+      String[] lines = regexpToDivideStringByLine.split(commentAnalyser.getContents(trivia.getToken().getOriginalValue()));
       for (int lineOffset = 0; lineOffset < lines.length; lineOffset++) {
         if (codeRecognizer.isLineOfCode(lines[lineOffset])) {
-          getContext().createLineViolation(this, "Sections of code should not be \"commented out\".", trivia.getToken().getLine() + lineOffset);
+          addIssueAtLine("Sections of code should not be \"commented out\".", trivia.getToken().getLine() + lineOffset);
           break;
         }
       }

@@ -40,7 +40,7 @@ public class ASDocClassCheck {
       return true;
 
     } else if (check.classes && !check.hasASDoc(triviaList)) {
-      check.getContext().createLineViolation(check, "Add the missing ASDoc for this class.", astNode);
+      check.addIssue("Add the missing ASDoc for this class.", astNode);
     }
 
     return false;

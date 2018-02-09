@@ -17,20 +17,45 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.flex.checks;
+package org.sonar.flex;
 
-import java.io.File;
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import javax.annotation.CheckForNull;
 
-public class EqEqEqCheckTest {
+public class Issue {
 
-  private EqEqEqCheck check = new EqEqEqCheck();
+  private final Integer line;
+  private final String message;
+  private final Double cost;
 
-  @Test public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/EqEqEq.as"), check))
-      .next().atLine(4).withMessage("Replace == with ===")
-      .next().atLine(5)
-      .noMore();
+  private Issue(Integer line, String message, Double cost) {
+    this.line = line;
+    this.message = message;
+    this.cost = cost;
+  }
+
+  public static Issue fileIssue(String message) {
+    return new Issue(null, message, null);
+  }
+
+  public static Issue lineIssue(int line, String message) {
+    return new Issue(line, message, null);
+  }
+
+  public static Issue lineIssue(int line, String message, double cost) {
+    return new Issue(line, message, cost);
+  }
+
+  @CheckForNull
+  public Integer line() {
+    return line;
+  }
+
+  public String message() {
+    return message;
+  }
+
+  @CheckForNull
+  public Double cost() {
+    return cost;
   }
 }

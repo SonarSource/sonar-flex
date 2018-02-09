@@ -32,7 +32,7 @@ import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.core.Flex;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CoberturaSensorTest {
 

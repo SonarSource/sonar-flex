@@ -29,7 +29,7 @@ import org.junit.Test;
 import static com.sonar.it.flex.Tests.getComponent;
 import static com.sonar.it.flex.Tests.getMeasure;
 import static com.sonar.it.flex.Tests.getMeasureAsInteger;
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * This test class is used to reproduce various issues.

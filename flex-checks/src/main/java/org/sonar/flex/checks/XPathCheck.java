@@ -19,13 +19,20 @@
  */
 package org.sonar.flex.checks;
 
+import com.google.common.base.Strings;
+import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import com.sonar.sslr.xpath.api.AstNodeXPathQuery;
+import java.util.Collections;
+import java.util.List;
+import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.flex.FlexCheck;
 import org.sonar.squidbridge.annotations.NoSqale;
 import org.sonar.squidbridge.annotations.RuleTemplate;
-import org.sonar.squidbridge.checks.AbstractXPathCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "XPath",
@@ -33,7 +40,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   priority = Priority.MAJOR)
 @RuleTemplate
 @NoSqale
-public class XPathCheck extends AbstractXPathCheck<LexerlessGrammar> {
+public class XPathCheck extends FlexCheck {
 
   private static final String DEFAULT_XPATH_QUERY = "";
   private static final String DEFAULT_MESSAGE = "The XPath expression matches this piece of code";
@@ -51,14 +58,37 @@ public class XPathCheck extends AbstractXPathCheck<LexerlessGrammar> {
     defaultValue = "" + DEFAULT_MESSAGE)
   public String message = DEFAULT_MESSAGE;
 
+  private AstNodeXPathQuery<Object> query = null;
+
   @Override
-  public String getXPathQuery() {
-    return xpathQuery;
+  public List<AstNodeType> subscribedTo() {
+    return Collections.emptyList();
+  }
+
+  @CheckForNull
+  public AstNodeXPathQuery<Object> query() {
+    if (query == null && !Strings.isNullOrEmpty(xpathQuery)) {
+      try {
+        query = AstNodeXPathQuery.create(xpathQuery);
+      } catch (RuntimeException e) {
+        throw new IllegalStateException("Unable to initialize the XPath engine, perhaps because of an invalid query: " + xpathQuery, e);
+      }
+    }
+    return query;
   }
 
   @Override
-  public String getMessage() {
-    return message;
+  public void visitFile(@Nullable AstNode fileNode) {
+    AstNodeXPathQuery<Object> xpath = query();
+    if (xpath != null && fileNode != null) {
+      for (Object object : xpath.selectNodes(fileNode)) {
+        if (object instanceof AstNode) {
+          AstNode astNode = (AstNode) object;
+          addIssueAtLine(message, astNode.getTokenLine());
+        } else if (object instanceof Boolean && (Boolean) object) {
+          addFileIssue(message);
+        }
+      }
+    }
   }
-
 }

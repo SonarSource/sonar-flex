@@ -19,25 +19,40 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class XPathCheckTest {
 
   @Test
-  public void check() {
+  public void line_issue() {
     XPathCheck check = new XPathCheck();
     check.xpathQuery = "//IDENTIFIER[string-length(@tokenValue) >= 10]";
     check.message = "Avoid identifiers which are too long!";
 
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/Xpath.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/Xpath.as"), check))
         .next().atLine(2).withMessage("Avoid identifiers which are too long!")
         .noMore();
   }
 
+  @Test
+  public void file_issue() {
+    XPathCheck check = new XPathCheck();
+    check.xpathQuery = "count(//IDENTIFIER) > 0";
+    check.message = "message!";
+
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/Xpath.as"), check))
+      .next().atLine(null).withMessage("message!")
+      .noMore();
+  }
+
+  @Test
+  public void parsing_issue() {
+    XPathCheck check = new XPathCheck();
+    check.xpathQuery = "//IDENTIFIER[string-length(@tokenValue) >= 10]";
+    check.message = "message!";
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ParsingError.as"), check))
+      .noMore();
+  }
 }

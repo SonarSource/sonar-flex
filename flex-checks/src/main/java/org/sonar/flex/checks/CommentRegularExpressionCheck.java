@@ -19,13 +19,21 @@
  */
 package org.sonar.flex.checks;
 
+import com.google.common.base.Strings;
+import com.sonar.sslr.api.AstNodeType;
+import com.sonar.sslr.api.Token;
+import com.sonar.sslr.api.Trivia;
+import java.util.Collections;
+import java.util.List;
+import java.util.regex.Pattern;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.flex.FlexCheck;
 import org.sonar.squidbridge.annotations.NoSqale;
 import org.sonar.squidbridge.annotations.RuleTemplate;
-import org.sonar.squidbridge.checks.AbstractCommentRegularExpressionCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 @Rule(
   key = "CommentRegularExpression",
@@ -33,7 +41,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   priority = Priority.MAJOR)
 @RuleTemplate
 @NoSqale
-public class CommentRegularExpressionCheck extends AbstractCommentRegularExpressionCheck<LexerlessGrammar> {
+public class CommentRegularExpressionCheck extends FlexCheck {
 
   private static final String DEFAULT_REGULAR_EXPRESSION = "";
   private static final String DEFAULT_MESSAGE = "The regular expression matches this comment.";
@@ -50,14 +58,36 @@ public class CommentRegularExpressionCheck extends AbstractCommentRegularExpress
     defaultValue = "" + DEFAULT_MESSAGE)
   public String message = DEFAULT_MESSAGE;
 
+  private Pattern pattern = null;
+
   @Override
-  public String getRegularExpression() {
-    return regularExpression;
+  public List<AstNodeType> subscribedTo() {
+    return Collections.emptyList();
+  }
+
+  public Pattern pattern() {
+    if (pattern == null) {
+      checkNotNull(regularExpression, "getRegularExpression() should not return null");
+      if (!Strings.isNullOrEmpty(regularExpression)) {
+        try {
+          pattern = Pattern.compile(regularExpression, Pattern.DOTALL);
+        } catch (RuntimeException e) {
+          throw new IllegalStateException("Unable to compile regular expression: " + regularExpression, e);
+        }
+      }
+    }
+    return pattern;
   }
 
   @Override
-  public String getMessage() {
-    return message;
+  public void visitToken(Token token) {
+    Pattern regexp = pattern();
+    if (regexp != null) {
+      for (Trivia trivia : token.getTrivia()) {
+        if (trivia.isComment() && regexp.matcher(trivia.getToken().getOriginalValue()).matches()) {
+          addIssue(message, trivia.getToken());
+        }
+      }
+    }
   }
-
 }

@@ -22,9 +22,12 @@ package org.sonar.flex;
 import com.google.common.base.Charsets;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.impl.Parser;
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import org.sonar.flex.api.CharsetAwareVisitor;
 import org.sonar.flex.api.FlexMetric;
-import org.sonar.flex.metrics.ComplexityVisitor;
 import org.sonar.flex.parser.FlexParser;
 import org.sonar.squidbridge.AstScanner;
 import org.sonar.squidbridge.ProgressAstScanner;
@@ -43,11 +46,6 @@ import org.sonar.squidbridge.metrics.CounterVisitor;
 import org.sonar.squidbridge.metrics.LinesOfCodeVisitor;
 import org.sonar.squidbridge.metrics.LinesVisitor;
 import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 public final class FlexAstScanner {
 
@@ -148,8 +146,6 @@ public final class FlexAstScanner {
           FlexGrammar.TRY_STATEMENT,
            FlexGrammar.EMPTY_STATEMENT)
         .build());
-
-    builder.withSquidAstVisitor(new ComplexityVisitor());
 
     /* External visitors (typically Check ones) */
     for (SquidAstVisitor<LexerlessGrammar> visitor : visitors) {

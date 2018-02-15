@@ -19,12 +19,9 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class ClassComplexityCheckTest {
 
@@ -33,8 +30,7 @@ public class ClassComplexityCheckTest {
     ClassComplexityCheck check = new ClassComplexityCheck();
     check.setMaximumClassComplexityThreshold(1);
 
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ClassComplexity.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ClassComplexity.as"), check))
       .next().atLine(1).withMessage("Class has a complexity of 3 which is greater than 1 authorized.").withCost(2.)
       .noMore();
   }

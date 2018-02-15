@@ -71,7 +71,7 @@ public abstract class FlexVisitor {
     leaveFile(tree);
   }
 
-  private void scanNode(AstNode node) {
+  public void scanNode(AstNode node) {
     boolean isSubscribedType = subscribedKinds().contains(node.getType());
 
     if (isSubscribedType) {

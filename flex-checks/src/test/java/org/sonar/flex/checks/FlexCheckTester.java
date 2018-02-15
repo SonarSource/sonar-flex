@@ -61,6 +61,10 @@ public class FlexCheckTester {
       if (line != null) {
         checkMessage.setLine(line);
       }
+      Double cost = issue.cost();
+      if (cost != null) {
+        checkMessage.setCost(cost);
+      }
       messages.add(checkMessage);
     }
     return messages;

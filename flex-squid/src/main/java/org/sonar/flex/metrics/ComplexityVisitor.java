@@ -20,18 +20,25 @@
 package org.sonar.flex.metrics;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.util.Arrays;
+import java.util.List;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.FlexPunctuator;
-import org.sonar.flex.api.FlexMetric;
-import org.sonar.squidbridge.SquidAstVisitor;
-import org.sonar.sslr.parser.LexerlessGrammar;
+import org.sonar.flex.FlexVisitor;
 
-public class ComplexityVisitor extends SquidAstVisitor<LexerlessGrammar> {
+public class ComplexityVisitor extends FlexVisitor {
+
+  private int complexity;
+
+  public int getComplexity() {
+    return complexity;
+  }
 
   @Override
-  public void init() {
-    subscribeTo(
+  public List<AstNodeType> subscribedTo() {
+    return Arrays.asList(
       // Entry points
       FlexGrammar.FUNCTION_DEF,
       FlexGrammar.FUNCTION_EXPR,
@@ -53,11 +60,16 @@ public class ComplexityVisitor extends SquidAstVisitor<LexerlessGrammar> {
   }
 
   @Override
+  public void visitFile(AstNode node) {
+    complexity = 0;
+  }
+
+  @Override
   public void visitNode(AstNode astNode) {
     if (isAccessor(astNode) || isLastReturnStatement(astNode)) {
       return;
     }
-    getContext().peekSourceCode().add(FlexMetric.COMPLEXITY, 1);
+    complexity++;
   }
 
   public boolean isAccessor(AstNode astNode) {
@@ -73,4 +85,46 @@ public class ComplexityVisitor extends SquidAstVisitor<LexerlessGrammar> {
     return false;
   }
 
+  public static int complexity(AstNode root) {
+    ComplexityVisitor visitor = new ComplexityVisitor();
+    visitor.scanNode(root);
+    return visitor.complexity;
+  }
+
+  public static int functionComplexity(AstNode functionDef) {
+    ComplexityVisitor visitor = new FunctionComplexityVisitor(functionDef);
+    visitor.scanNode(functionDef);
+    return visitor.complexity;
+  }
+
+  private static class FunctionComplexityVisitor extends ComplexityVisitor {
+
+    private final AstNode functionDef;
+    private int nestingLevel = 0;
+
+    public FunctionComplexityVisitor(AstNode functionDef) {
+      this.functionDef = functionDef;
+    }
+
+    @Override
+    public void visitNode(AstNode astNode) {
+      if (isNestedFunction(astNode)) {
+        nestingLevel++;
+      }
+      if (nestingLevel == 0) {
+        super.visitNode(astNode);
+      }
+    }
+
+    @Override
+    public void leaveNode(AstNode node) {
+      if (isNestedFunction(node)) {
+        nestingLevel--;
+      }
+    }
+
+    private boolean isNestedFunction(AstNode astNode) {
+      return astNode.is(FlexGrammar.FUNCTION_DEF, FlexGrammar.FUNCTION_EXPR) && astNode != functionDef;
+    }
+  }
 }

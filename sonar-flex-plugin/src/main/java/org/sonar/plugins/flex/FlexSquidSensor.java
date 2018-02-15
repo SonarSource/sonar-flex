@@ -21,6 +21,7 @@ package org.sonar.plugins.flex;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.io.Files;
+import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.RecognitionException;
 import com.sonar.sslr.impl.Parser;
 import java.io.File;
@@ -50,23 +51,22 @@ import org.sonar.api.rule.RuleKey;
 import org.sonar.flex.FlexAstScanner;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexConfiguration;
+import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexVisitorContext;
 import org.sonar.flex.Issue;
 import org.sonar.flex.api.FlexMetric;
 import org.sonar.flex.checks.CheckList;
 import org.sonar.flex.lexer.FlexLexer;
+import org.sonar.flex.metrics.ComplexityVisitor;
 import org.sonar.flex.metrics.FileLinesVisitor;
 import org.sonar.flex.parser.FlexParser;
 import org.sonar.plugins.flex.core.Flex;
 import org.sonar.squidbridge.AstScanner;
 import org.sonar.squidbridge.SquidAstVisitor;
 import org.sonar.squidbridge.api.CheckMessage;
-import org.sonar.squidbridge.api.SourceClass;
 import org.sonar.squidbridge.api.SourceCode;
 import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.api.SourceFunction;
 import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.squidbridge.indexer.QueryByParent;
 import org.sonar.squidbridge.indexer.QueryByType;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -146,6 +146,7 @@ public class FlexSquidSensor implements Sensor {
       for (FlexCheck check : getChecks()) {
         saveIssues(context, check, check.scanFileForIssues(visitorContext), inputFile);
       }
+      saveComplexityMetrics(context, inputFile, visitorContext);
     }
   }
 
@@ -175,10 +176,7 @@ public class FlexSquidSensor implements Sensor {
 
       InputFile inputFile = fileSystem.inputFile(fileSystem.predicates().hasPath(squidFile.getKey()));
 
-      saveClassComplexity(context, inputFile, squidFile);
       saveMeasures(context, inputFile, squidFile);
-      saveFunctionsComplexityDistribution(context, inputFile, squidFile);
-      saveFilesComplexityDistribution(context, inputFile, squidFile);
       saveViolations(context, inputFile, squidFile);
     }
   }
@@ -209,18 +207,25 @@ public class FlexSquidSensor implements Sensor {
       .forMetric(CoreMetrics.STATEMENTS)
       .withValue(squidFile.getInt(FlexMetric.STATEMENTS))
       .save();
+  }
+
+  private void saveComplexityMetrics(SensorContext context, InputFile inputFile, FlexVisitorContext visitorContext) {
+    AstNode root = visitorContext.rootTree();
+    int fileComplexity = ComplexityVisitor.complexity(root);
     context.<Integer>newMeasure()
       .on(inputFile)
       .forMetric(CoreMetrics.COMPLEXITY)
-      .withValue(squidFile.getInt(FlexMetric.COMPLEXITY))
+      .withValue(fileComplexity)
       .save();
+    saveClassComplexity(context, inputFile, root);
+    saveFunctionsComplexityDistribution(context, inputFile, root);
+    saveFilesComplexityDistribution(context, inputFile, fileComplexity);
   }
 
-  private void saveClassComplexity(SensorContext context, InputFile inputFile, SourceFile squidFile) {
-    Collection<SourceCode> classes = scanner.getIndex().search(new QueryByParent(squidFile), new QueryByType(SourceClass.class));
+  private void saveClassComplexity(SensorContext context, InputFile inputFile, AstNode rootNode) {
     int complexityInClasses = 0;
-    for (SourceCode squidClass : classes) {
-      int classComplexity = squidClass.getInt(FlexMetric.COMPLEXITY);
+    for (AstNode classDef : rootNode.getDescendants(FlexGrammar.CLASS_DEF, FlexGrammar.INTERFACE_DEF)) {
+      int classComplexity = ComplexityVisitor.complexity(classDef);
       complexityInClasses += classComplexity;
     }
     context.<Integer>newMeasure()
@@ -230,11 +235,10 @@ public class FlexSquidSensor implements Sensor {
       .save();
   }
 
-  private void saveFunctionsComplexityDistribution(SensorContext context, InputFile inputFile, SourceFile squidFile) {
-    Collection<SourceCode> squidFunctionsInFile = scanner.getIndex().search(new QueryByParent(squidFile), new QueryByType(SourceFunction.class));
+  private void saveFunctionsComplexityDistribution(SensorContext context, InputFile inputFile, AstNode rootNode) {
     RangeDistributionBuilder complexityDistribution = new RangeDistributionBuilder(FUNCTIONS_DISTRIB_BOTTOM_LIMITS);
-    for (SourceCode squidFunction : squidFunctionsInFile) {
-      complexityDistribution.add(squidFunction.getDouble(FlexMetric.COMPLEXITY));
+    for (AstNode functionDef : rootNode.getDescendants(FlexGrammar.FUNCTION_DEF, FlexGrammar.FUNCTION_EXPR)) {
+      complexityDistribution.add(ComplexityVisitor.complexity(functionDef));
     }
     context.<String>newMeasure()
       .on(inputFile)
@@ -243,9 +247,9 @@ public class FlexSquidSensor implements Sensor {
       .save();
   }
 
-  private static void saveFilesComplexityDistribution(SensorContext context, InputFile inputFile, SourceFile squidFile) {
+  private static void saveFilesComplexityDistribution(SensorContext context, InputFile inputFile, int fileComplexity) {
     String distribution = new RangeDistributionBuilder(FILES_DISTRIB_BOTTOM_LIMITS)
-      .add(squidFile.getDouble(FlexMetric.COMPLEXITY))
+      .add(fileComplexity)
       .build();
     context.<String>newMeasure()
       .on(inputFile)

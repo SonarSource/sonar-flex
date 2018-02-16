@@ -21,29 +21,29 @@ package org.sonar.plugins.flex;
 
 import com.google.common.collect.Sets;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.GenericTokenType;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.TokenType;
 import com.sonar.sslr.api.Trivia;
 import com.sonar.sslr.impl.Lexer;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import javax.annotation.Nullable;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.cpd.NewCpdTokens;
 import org.sonar.api.batch.sensor.highlighting.NewHighlighting;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
+import org.sonar.flex.FlexVisitor;
 import org.sonar.flex.api.FlexKeyword;
 import org.sonar.flex.api.FlexPunctuator;
 import org.sonar.flex.api.FlexTokenType;
-import org.sonar.squidbridge.SquidAstVisitor;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
-import javax.annotation.Nullable;
-import java.io.File;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Set;
-
-public class FlexTokensVisitor extends SquidAstVisitor<LexerlessGrammar> {
+public class FlexTokensVisitor extends FlexVisitor {
 
   private static final String NORMALIZED_CHARACTER_LITERAL = "$CHARS";
   private static final String NORMALIZED_NUMERIC_LITERAL = "$NUMBER";
@@ -51,23 +51,28 @@ public class FlexTokensVisitor extends SquidAstVisitor<LexerlessGrammar> {
 
   private final SensorContext context;
   private final Lexer lexer;
+  private final InputFile inputFile;
 
-  public FlexTokensVisitor(SensorContext context, Lexer lexer) {
+  public FlexTokensVisitor(SensorContext context, Lexer lexer, InputFile inputFile) {
     this.context = context;
     this.lexer = lexer;
+    this.inputFile = inputFile;
+  }
+
+  @Override
+  public List<AstNodeType> subscribedTo() {
+    return Collections.emptyList();
   }
 
   @Override
   public void visitFile(@Nullable AstNode astNode) {
     NewHighlighting highlighting = context.newHighlighting();
-    File file = getContext().getFile();
-    InputFile inputFile = context.fileSystem().inputFile(context.fileSystem().predicates().is(file));
     highlighting.onFile(inputFile);
 
     NewCpdTokens cpdTokens = context.newCpdTokens();
     cpdTokens.onFile(inputFile);
 
-    Iterator<Token> iterator = lexer.lex(file).iterator();
+    Iterator<Token> iterator = lexer.lex(getContext().fileContent()).iterator();
     // we currently use this hack to remove "import" directives
     boolean importDirective = false;
     while (iterator.hasNext()) {

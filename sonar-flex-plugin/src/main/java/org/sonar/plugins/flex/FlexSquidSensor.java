@@ -104,7 +104,6 @@ public class FlexSquidSensor implements Sensor {
     FilePredicates predicates = fileSystem.predicates();
     List visitors = new ArrayList<>(getLegacyCheckVisitors());
     FlexConfiguration configuration = new FlexConfiguration(fileSystem.encoding());
-    visitors.add(new FlexTokensVisitor(context, FlexLexer.create(configuration)));
     scanner = FlexAstScanner.create(configuration, visitors);
 
     FilePredicate filePredicate = predicates.and(
@@ -147,6 +146,7 @@ public class FlexSquidSensor implements Sensor {
         saveIssues(context, check, check.scanFileForIssues(visitorContext), inputFile);
       }
       saveMeasures(context, inputFile, visitorContext);
+      new FlexTokensVisitor(context, FlexLexer.create(configuration), inputFile).scanFile(visitorContext);
     }
   }
 

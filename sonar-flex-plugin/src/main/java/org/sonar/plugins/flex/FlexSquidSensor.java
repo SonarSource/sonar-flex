@@ -136,6 +136,7 @@ public class FlexSquidSensor implements Sensor {
       FlexVisitorContext visitorContext;
       try {
         visitorContext = new FlexVisitorContext(fileContent, parser.parse(file));
+        saveMeasures(context, inputFile, visitorContext);
       } catch (RecognitionException e) {
         visitorContext = new FlexVisitorContext(fileContent, e);
         LOG.error("Unable to parse file: {}", file);
@@ -145,7 +146,7 @@ public class FlexSquidSensor implements Sensor {
       for (FlexCheck check : getChecks()) {
         saveIssues(context, check, check.scanFileForIssues(visitorContext), inputFile);
       }
-      saveMeasures(context, inputFile, visitorContext);
+
       new FlexTokensVisitor(context, FlexLexer.create(configuration), inputFile).scanFile(visitorContext);
     }
   }

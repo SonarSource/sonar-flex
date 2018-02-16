@@ -20,6 +20,7 @@
 package org.sonar.flex.metrics;
 
 import com.sonar.sslr.api.AstNode;
+import java.util.Objects;
 import java.util.Set;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexVisitorContext;
@@ -33,6 +34,7 @@ public class FileMetrics {
 
   public FileMetrics(FlexVisitorContext context) {
     AstNode rootTree = context.rootTree();
+    Objects.requireNonNull(rootTree, "Cannot compute metrics without a root tree");
     numberOfStatements = rootTree.getDescendants(
       FlexGrammar.DEFAULT_XML_NAMESPACE_DIRECTIVE,
       FlexGrammar.VARIABLE_DECLARATION_STATEMENT,

@@ -71,16 +71,8 @@ public class FlexSquidSensorTest {
   public void analyse() throws FileNotFoundException {
     DefaultFileSystem fs = new DefaultFileSystem(TEST_DIR);
     tester.setFileSystem(fs);
-    DefaultInputFile inputFile = new DefaultInputFile("key", "SmallFile.as")
-      .setType(InputFile.Type.MAIN)
-      .setLanguage(Flex.KEY)
-      .initMetadata(new FileMetadata().readMetadata(new FileReader(new File(TEST_DIR, "SmallFile.as"))));
-    fs.add(inputFile);
-    inputFile = new DefaultInputFile("key", "bom.as")
-      .setType(InputFile.Type.MAIN)
-      .setLanguage(Flex.KEY)
-      .initMetadata(new FileMetadata().readMetadata(new FileReader(new File(TEST_DIR, "bom.as"))));
-    fs.add(inputFile);
+    fs.add(inputFile("SmallFile.as"));
+    fs.add(inputFile("bom.as"));
 
     sensor.execute(tester);
 
@@ -112,14 +104,18 @@ public class FlexSquidSensorTest {
     assertThat(tester.highlightingTypeAt(componentKey, 2, 0)).containsOnly(TypeOfText.COMMENT);
   }
 
+  private DefaultInputFile inputFile(String fileName) throws FileNotFoundException {
+    return new DefaultInputFile("key", fileName)
+        .setType(InputFile.Type.MAIN)
+        .setLanguage(Flex.KEY)
+        .initMetadata(new FileMetadata().readMetadata(new FileReader(new File(TEST_DIR, fileName))));
+  }
+
   @Test
   public void analyse2() throws FileNotFoundException {
     DefaultFileSystem fs = new DefaultFileSystem(TEST_DIR);
     tester.setFileSystem(fs);
-    DefaultInputFile inputFile = new DefaultInputFile("key", "TimeFormatter.as")
-      .setType(InputFile.Type.MAIN)
-      .setLanguage(Flex.KEY)
-      .initMetadata(new FileMetadata().readMetadata(new FileReader(new File(TEST_DIR, "TimeFormatter.as"))));
+    DefaultInputFile inputFile = inputFile("TimeFormatter.as");
     fs.add(inputFile);
 
     sensor.execute(tester);
@@ -138,6 +134,16 @@ public class FlexSquidSensorTest {
     assertThat(tester.cpdTokens(componentKey)).hasSize(0);
 
     assertThat(tester.allIssues()).hasSize(0);
+  }
+
+  @Test
+  public void parse_error() throws FileNotFoundException {
+    DefaultFileSystem fs = new DefaultFileSystem(TEST_DIR);
+    tester.setFileSystem(fs);
+    DefaultInputFile inputFile = inputFile("parse_error.as");
+    fs.add(inputFile);
+    sensor.execute(tester);
+    assertThat(tester.measure(inputFile.key(), CoreMetrics.NCLOC)).isNull();
   }
 
   @Test

@@ -59,12 +59,6 @@ public class FlexAstScannerTest {
   }
 
   @Test
-  public void lines() {
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/metrics/lines.as"));
-    assertThat(file.getInt(FlexMetric.LINES)).isEqualTo(16);
-  }
-
-  @Test
   public void lines_of_code() {
     SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/metrics/lines_of_code.as"));
     assertThat(file.getInt(FlexMetric.LINES_OF_CODE)).isEqualTo(4);

@@ -19,20 +19,13 @@
  */
 package org.sonar.flex;
 
-import com.google.common.io.Files;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
-import com.sonar.sslr.impl.Parser;
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Test;
-import org.sonar.flex.parser.FlexParser;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
@@ -87,15 +80,6 @@ public class FlexCheckTest {
   }
 
   private FlexVisitorContext context() {
-    File file = new File("src/test/resources/org/sonar/flex/flexcheck.as");
-    String fileContent;
-    try {
-      fileContent = Files.toString(file, StandardCharsets.UTF_8);
-    } catch (IOException e) {
-      throw new IllegalStateException("Cannot read " + file, e);
-    }
-    Parser<LexerlessGrammar> parser = FlexParser.create(new FlexConfiguration(UTF_8));
-    AstNode root = parser.parse(fileContent);
-    return new FlexVisitorContext(fileContent, root);
+    return TestVisitorContext.create(new File("src/test/resources/org/sonar/flex/flexcheck.as"));
   }
 }

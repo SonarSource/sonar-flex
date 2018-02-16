@@ -19,18 +19,13 @@
  */
 package org.sonar.plugins.flex;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.io.Files;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.RecognitionException;
 import com.sonar.sslr.impl.Parser;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.fs.FilePredicate;
@@ -50,7 +45,6 @@ import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.rule.RuleKey;
-import org.sonar.flex.FlexAstScanner;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.FlexGrammar;
@@ -62,13 +56,6 @@ import org.sonar.flex.metrics.ComplexityVisitor;
 import org.sonar.flex.metrics.FileMetrics;
 import org.sonar.flex.parser.FlexParser;
 import org.sonar.plugins.flex.core.Flex;
-import org.sonar.squidbridge.AstScanner;
-import org.sonar.squidbridge.SquidAstVisitor;
-import org.sonar.squidbridge.api.CheckMessage;
-import org.sonar.squidbridge.api.SourceCode;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.squidbridge.indexer.QueryByType;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 public class FlexSquidSensor implements Sensor {
@@ -78,14 +65,12 @@ public class FlexSquidSensor implements Sensor {
   private static final Number[] FUNCTIONS_DISTRIB_BOTTOM_LIMITS = {1, 2, 4, 6, 8, 10, 12};
   private static final Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
 
-  private final Checks<Object> checks;
+  private final Checks<FlexCheck> checks;
   private final FileLinesContextFactory fileLinesContextFactory;
-
-  private AstScanner<LexerlessGrammar> scanner;
 
   public FlexSquidSensor(CheckFactory checkFactory, FileLinesContextFactory fileLinesContextFactory) {
     this.checks = checkFactory
-      .create(CheckList.REPOSITORY_KEY)
+      .<FlexCheck>create(CheckList.REPOSITORY_KEY)
       .addAnnotatedChecks((Iterable) CheckList.getChecks());
     this.fileLinesContextFactory = fileLinesContextFactory;
   }
@@ -102,26 +87,15 @@ public class FlexSquidSensor implements Sensor {
   public void execute(SensorContext context) {
     FileSystem fileSystem = context.fileSystem();
     FilePredicates predicates = fileSystem.predicates();
-    List visitors = new ArrayList<>(getLegacyCheckVisitors());
     FlexConfiguration configuration = new FlexConfiguration(fileSystem.encoding());
-    scanner = FlexAstScanner.create(configuration, visitors);
 
     FilePredicate filePredicate = predicates.and(
       predicates.hasType(InputFile.Type.MAIN),
       predicates.hasLanguage(Flex.KEY),
       inputFile -> !inputFile.absolutePath().endsWith("mxml")
     );
-    runLegacyScanner(context, fileSystem.files(filePredicate));
-    runFlexChecks(context, fileSystem.inputFiles(filePredicate), configuration);
-  }
+    Iterable<InputFile> inputFiles = fileSystem.inputFiles(filePredicate);
 
-  private void runLegacyScanner(SensorContext context, Iterable<File> files) {
-    scanner.scanFiles(ImmutableList.copyOf(files));
-    Collection<SourceCode> squidSourceFiles = scanner.getIndex().search(new QueryByType(SourceFile.class));
-    save(context, squidSourceFiles);
-  }
-
-  private void runFlexChecks(SensorContext context, Iterable<InputFile> inputFiles, FlexConfiguration configuration) {
     for (InputFile inputFile : inputFiles) {
       File file = inputFile.file();
 
@@ -143,7 +117,7 @@ public class FlexSquidSensor implements Sensor {
         LOG.error(e.getMessage());
       }
 
-      for (FlexCheck check : getChecks()) {
+      for (FlexCheck check : checks.all()) {
         saveIssues(context, check, check.scanFileForIssues(visitorContext), inputFile);
       }
 
@@ -167,17 +141,6 @@ public class FlexSquidSensor implements Sensor {
         issue.gap(cost);
       }
       issue.at(location).forRule(ruleKey).save();
-    }
-  }
-
-  private void save(SensorContext context, Collection<SourceCode> squidSourceFiles) {
-    FileSystem fileSystem = context.fileSystem();
-    for (SourceCode squidSourceFile : squidSourceFiles) {
-      SourceFile squidFile = (SourceFile) squidSourceFile;
-
-      InputFile inputFile = fileSystem.inputFile(fileSystem.predicates().hasPath(squidFile.getKey()));
-
-      saveViolations(context, inputFile, squidFile);
     }
   }
 
@@ -240,43 +203,6 @@ public class FlexSquidSensor implements Sensor {
       .forMetric(metric)
       .withValue(value)
       .save();
-  }
-
-  private void saveViolations(SensorContext context, InputFile inputFile, SourceFile squidFile) {
-    Collection<CheckMessage> messages = squidFile.getCheckMessages();
-    if (messages != null) {
-
-      for (CheckMessage message : messages) {
-        RuleKey ruleKey = checks.ruleKey((SquidCheck<LexerlessGrammar>) message.getCheck());
-        NewIssue newIssue = context.newIssue()
-          .forRule(ruleKey)
-          .gap(message.getCost());
-        Integer line = message.getLine();
-        NewIssueLocation location = newIssue.newLocation()
-          .on(inputFile)
-          .message(message.getText(Locale.ENGLISH));
-        if (line != null) {
-          location.at(inputFile.selectLine(line));
-        }
-        newIssue.at(location);
-        newIssue.save();
-      }
-    }
-  }
-
-  @SuppressWarnings("unchecked")
-  private List<SquidAstVisitor<LexerlessGrammar>> getLegacyCheckVisitors() {
-    return checks.all().stream()
-      .filter(check -> check instanceof SquidAstVisitor)
-      .map(check -> (SquidAstVisitor<LexerlessGrammar>) check)
-      .collect(Collectors.toList());
-  }
-
-  private List<FlexCheck> getChecks() {
-    return checks.all().stream()
-      .filter(check -> check instanceof FlexCheck)
-      .map(FlexCheck.class::cast)
-      .collect(Collectors.toList());
   }
 
 }

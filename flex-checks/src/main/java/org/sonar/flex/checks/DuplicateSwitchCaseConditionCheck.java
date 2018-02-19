@@ -26,21 +26,13 @@ import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Expression;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1950",
-  name = "Cases in a \"switch\" should not have the same condition",
-  priority = Priority.CRITICAL)
-@ActivatedByDefault
-@SqaleConstantRemediation("15min")
+@Rule(key = "S1950")
 public class DuplicateSwitchCaseConditionCheck extends FlexCheck {
 
   private Map<String, AstNode> casesByCondition = Maps.newHashMap();

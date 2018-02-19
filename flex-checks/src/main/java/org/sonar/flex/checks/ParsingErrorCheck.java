@@ -25,18 +25,10 @@ import com.sonar.sslr.api.RecognitionException;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "ParsingError",
-  name = "Flex parser failure",
-  priority = Priority.MAJOR,
-  tags = Tags.SUSPICIOUS)
-@SqaleConstantRemediation("30min")
+@Rule(key = "ParsingError")
 public class ParsingErrorCheck extends FlexCheck {
 
   @Override

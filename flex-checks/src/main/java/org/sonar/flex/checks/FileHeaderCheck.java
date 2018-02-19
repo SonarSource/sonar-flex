@@ -26,17 +26,11 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexCheck;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1451",
-  name = "Copyright and license headers should be defined",
-  priority = Priority.BLOCKER)
-@SqaleConstantRemediation("5min")
+@Rule(key = "S1451")
 public class FileHeaderCheck extends FlexCheck {
 
   private static final String DEFAULT_HEADER_FORMAT = "";

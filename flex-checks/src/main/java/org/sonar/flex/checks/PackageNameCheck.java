@@ -27,22 +27,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S120",
-  name = "Package names should comply with a naming convention",
-  priority = Priority.MINOR,
-  tags = Tags.CONVENTION)
-@ActivatedByDefault
-@SqaleConstantRemediation("10min")
+@Rule(key = "S120")
 public class PackageNameCheck extends FlexCheck {
 
   private static final String DEFAULT = "^[a-z]+(\\.[a-z][a-z0-9]*)*$";

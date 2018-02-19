@@ -24,24 +24,14 @@ import com.sonar.sslr.api.AstNodeType;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Modifiers;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1446",
-  name = "Dynamic classes should not be used",
-  priority = Priority.MAJOR,
-  tags = Tags.PITFALL)
-@ActivatedByDefault
-@SqaleConstantRemediation("30min")
+@Rule(key = "S1446")
 public class DynamicClassCheck extends FlexCheck {
 
   @Override

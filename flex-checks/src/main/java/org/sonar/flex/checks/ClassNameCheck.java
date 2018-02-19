@@ -26,23 +26,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S101",
-  name = "Class names should comply with a naming convention",
-  priority = Priority.MINOR,
-  tags = Tags.CONVENTION)
-@ActivatedByDefault
-@SqaleConstantRemediation("5min")
+@Rule(key = "S101")
 public class ClassNameCheck extends FlexCheck {
 
   private static final String DEFAULT = "^[A-Z][a-zA-Z0-9]*$";

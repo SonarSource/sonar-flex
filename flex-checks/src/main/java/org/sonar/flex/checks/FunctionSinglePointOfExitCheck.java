@@ -23,19 +23,11 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.util.Arrays;
 import java.util.List;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "FunctionSinglePointOfExit",
-  name = "A function should have a single point of exit at the end of the function",
-  priority = Priority.MINOR,
-  tags = {Tags.CONFUSING, Tags.MISRA})
-@SqaleConstantRemediation("20min")
+@Rule(key = "FunctionSinglePointOfExit")
 public class FunctionSinglePointOfExitCheck extends FlexCheck {
 
   private int returnStatements;

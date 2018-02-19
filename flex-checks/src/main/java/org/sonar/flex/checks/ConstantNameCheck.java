@@ -25,25 +25,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
-import org.sonar.flex.checks.utils.Tags;
 import org.sonar.flex.checks.utils.Variable;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 
-@Rule(
-  key = "S115",
-  name = "Constant names should comply with a naming convention",
-  priority = Priority.MINOR,
-  tags = Tags.CONVENTION)
-@ActivatedByDefault
-@SqaleConstantRemediation("2min")
+@Rule(key = "S115")
 public class ConstantNameCheck extends FlexCheck {
 
   private static final String DEFAULT = "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$";

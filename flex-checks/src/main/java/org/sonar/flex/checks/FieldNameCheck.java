@@ -26,25 +26,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
-import org.sonar.flex.checks.utils.Tags;
 import org.sonar.flex.checks.utils.Variable;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 
-@Rule(
-  key = "S116",
-  name = "Field names should comply with a naming convention",
-  priority = Priority.MINOR,
-  tags = Tags.CONVENTION)
-@ActivatedByDefault
-@SqaleConstantRemediation("2min")
+@Rule(key = "S116")
 public class FieldNameCheck extends FlexCheck {
 
   private static final String DEFAULT = "^[_a-z][a-zA-Z0-9]*$";

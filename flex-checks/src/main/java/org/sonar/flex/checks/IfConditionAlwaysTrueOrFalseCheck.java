@@ -23,20 +23,12 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.util.Collections;
 import java.util.List;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1145",
-  name = "Useless \"if(true) {...}\" and \"if(false){...}\" blocks should be removed",
-  priority = Priority.MAJOR)
-@ActivatedByDefault
-@SqaleConstantRemediation("2min")
+@Rule(key = "S1145")
 public class IfConditionAlwaysTrueOrFalseCheck extends FlexCheck {
 
 

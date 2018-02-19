@@ -27,22 +27,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.checks.utils.Tags;
 import org.sonar.flex.checks.utils.Variable;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1481",
-  name = "Unused local variables should be removed",
-  priority = Priority.MAJOR,
-  tags = Tags.UNUSED)
-@ActivatedByDefault
-@SqaleConstantRemediation("5min")
+@Rule(key = "S1481")
 public class UnusedLocalVariableCheck extends FlexCheck {
 
   private static class LocalVariable {

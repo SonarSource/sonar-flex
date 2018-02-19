@@ -24,7 +24,6 @@ import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Trivia;
 import java.util.Collections;
 import java.util.List;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexCheck;
@@ -32,15 +31,8 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.asdoc.ASDocClassCheck;
 import org.sonar.flex.checks.asdoc.ASDocMemberCheck;
 import org.sonar.flex.checks.utils.Clazz;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1176",
-  name = "Public classes, methods, properties and metadata should be documented with ASDoc",
-  priority = Priority.MAJOR,
-  tags = Tags.CONVENTION)
-@SqaleConstantRemediation("10min")
+@Rule(key = "S1176")
 public class ASDocCheck extends FlexCheck {
 
   public static final String INHERIT_TAG = "@inheritDoc";

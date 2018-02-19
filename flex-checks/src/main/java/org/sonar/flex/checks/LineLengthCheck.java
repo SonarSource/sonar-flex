@@ -25,19 +25,11 @@ import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexCheck;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "LineLength",
-  name = "Lines should not be too long",
-  priority = Priority.MINOR,
-  tags = Tags.CONVENTION)
-@SqaleConstantRemediation("1min")
+@Rule(key = "LineLength")
 public class LineLengthCheck extends FlexCheck {
 
   private static final int DEFAULT_MAXIMUM_LINE_LENHGTH = 80;

@@ -27,23 +27,13 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.List;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Function;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1467",
-  name = "Constructors should not dispatch events",
-  priority = Priority.BLOCKER,
-  tags = Tags.BUG)
-@ActivatedByDefault
-@SqaleConstantRemediation("10min")
+@Rule(key = "S1467")
 public class ConstructorCallsDispatchEventCheck extends FlexCheck {
 
   boolean isInClass;

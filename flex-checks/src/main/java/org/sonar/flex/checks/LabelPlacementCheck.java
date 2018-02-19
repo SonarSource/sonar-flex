@@ -24,21 +24,11 @@ import com.sonar.sslr.api.AstNodeType;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1439",
-  name = "Only \"while\", \"do\" and \"for\" statements should be labelled",
-  priority = Priority.MAJOR,
-  tags = Tags.PITFALL)
-@ActivatedByDefault
-@SqaleConstantRemediation("20min")
+@Rule(key = "S1439")
 public class LabelPlacementCheck extends FlexCheck {
 
   @Override

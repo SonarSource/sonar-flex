@@ -25,21 +25,11 @@ import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1434",
-  name = "Variables of the \"Object\" type should not be used",
-  priority = Priority.MAJOR,
-  tags = Tags.SUSPICIOUS)
-@ActivatedByDefault
-@SqaleConstantRemediation("20min")
+@Rule(key = "S1434")
 public class ObjectTypeUseCheck extends FlexCheck {
 
   private static final String OBJECT_TYPE = "Object";

@@ -23,22 +23,12 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.util.Collections;
 import java.util.List;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexPunctuator;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1435",
-  name = "The special \"star\" type should not be used",
-  priority = Priority.MAJOR,
-  tags = Tags.UNPREDICTABLE)
-@ActivatedByDefault
-@SqaleConstantRemediation("10min")
+@Rule(key = "S1435")
 public class StarTypeUseCheck extends FlexCheck {
 
   @Override

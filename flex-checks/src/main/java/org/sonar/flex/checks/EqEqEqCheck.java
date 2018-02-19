@@ -23,21 +23,11 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.util.Arrays;
 import java.util.List;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexPunctuator;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1440",
-  name = "\"===\" and \"!==\" should be used instead of \"==\" and \"!=\"",
-  priority = Priority.MAJOR,
-  tags = Tags.SUSPICIOUS)
-@ActivatedByDefault
-@SqaleConstantRemediation("5min")
+@Rule(key = "S1440")
 public class EqEqEqCheck extends FlexCheck {
 
   @Override

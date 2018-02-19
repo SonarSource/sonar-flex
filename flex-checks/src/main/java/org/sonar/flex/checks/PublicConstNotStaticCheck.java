@@ -25,25 +25,15 @@ import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Modifiers;
-import org.sonar.flex.checks.utils.Tags;
 import org.sonar.flex.checks.utils.Variable;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1170",
-  name = "Public constants and fields initialized at declaration should be \"const static\" rather than merely \"const\"",
-  priority = Priority.MINOR,
-  tags = Tags.CONVENTION)
-@ActivatedByDefault
-@SqaleConstantRemediation("2min")
+@Rule(key = "S1170")
 public class PublicConstNotStaticCheck extends FlexCheck {
 
   @Override

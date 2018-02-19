@@ -25,21 +25,11 @@ import com.sonar.sslr.api.Token;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexKeyword;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1466",
-  name = "The flash.system.Security.exactSettings property should never be set to false",
-  priority = Priority.CRITICAL,
-  tags = Tags.SECURITY)
-@ActivatedByDefault
-@SqaleConstantRemediation("10min")
+@Rule(key = "S1466")
 public class ExactSettingsSetToFalseCheck extends FlexCheck {
 
   private enum State {

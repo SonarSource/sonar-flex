@@ -24,21 +24,13 @@ import com.sonar.sslr.api.AstNodeType;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexPunctuator;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S138",
-  name = "Functions should not have too many lines",
-  priority = Priority.MAJOR,
-  tags = Tags.BRAIN_OVERLOAD)
-@SqaleConstantRemediation("20min")
+@Rule(key = "S138")
 public class TooManyLinesInFunctionCheck extends FlexCheck {
 
   private static final int DEFAULT = 100;

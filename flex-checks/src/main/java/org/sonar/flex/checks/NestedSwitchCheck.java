@@ -24,19 +24,11 @@ import com.sonar.sslr.api.AstNodeType;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1821",
-  name = "\"switch\" statements should not be nested",
-  priority = Priority.MAJOR,
-  tags = Tags.PITFALL)
-@SqaleConstantRemediation("10min")
+@Rule(key = "S1821")
 public class NestedSwitchCheck extends FlexCheck {
 
   private int switchLevel = 0;

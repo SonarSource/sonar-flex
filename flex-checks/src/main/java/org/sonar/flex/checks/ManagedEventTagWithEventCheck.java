@@ -26,22 +26,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.MetadataTag;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1464",
-  name = "Each ManagedEvents metadata tag should have a companion Event metadata tag",
-  priority = Priority.BLOCKER,
-  tags = Tags.BUG)
-@ActivatedByDefault
-@SqaleConstantRemediation("5min")
+@Rule(key = "S1464")
 public class ManagedEventTagWithEventCheck extends FlexCheck {
 
   private Map<String, Boolean> isDeclaredInEventTag = new HashMap<>();

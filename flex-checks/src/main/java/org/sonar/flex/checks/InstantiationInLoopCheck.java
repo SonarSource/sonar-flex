@@ -27,22 +27,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.sslr.grammar.GrammarRuleKey;
 
-@Rule(
-  key = "S1952",
-  name = "Objects should not be instantiated inside a loop",
-  priority = Priority.MAJOR,
-  tags = Tags.PERFORMANCE)
-@ActivatedByDefault
-@SqaleConstantRemediation("5min")
+@Rule(key = "S1952")
 public class InstantiationInLoopCheck extends FlexCheck {
 
 

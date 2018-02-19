@@ -34,8 +34,6 @@ import org.sonar.flex.FlexVisitor;
 
 public class FileLinesVisitor extends FlexVisitor {
 
-  private static final FlexCommentAnalyser COMMENT_ANALYSER = new FlexCommentAnalyser();
-
   private Set<Integer> linesOfCode;
   private Set<Integer> linesOfComments;
   private Set<Integer> noSonarLines;
@@ -66,13 +64,13 @@ public class FileLinesVisitor extends FlexVisitor {
   }
 
   private void visitComment(Trivia trivia) {
-    String[] commentLines = COMMENT_ANALYSER.getContents(trivia.getToken().getOriginalValue()).split("(\r)?\n|\r", -1);
+    String[] commentLines = FlexCommentAnalyser.getContents(trivia.getToken().getOriginalValue()).split("(\r)?\n|\r", -1);
     int line = trivia.getToken().getLine();
     for (String commentLine : commentLines) {
       if (commentLine.contains("NOSONAR")) {
         linesOfComments.remove(line);
         noSonarLines.add(line);
-      } else if (!COMMENT_ANALYSER.isBlank(commentLine) && !noSonarLines.contains(line)) {
+      } else if (!FlexCommentAnalyser.isBlank(commentLine) && !noSonarLines.contains(line)) {
         linesOfComments.add(line);
       }
       line++;

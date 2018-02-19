@@ -53,7 +53,6 @@ public class CommentedCodeCheck extends FlexCheck {
 
   private static final double THRESHOLD = 0.9;
 
-  private final FlexCommentAnalyser commentAnalyser = new FlexCommentAnalyser();
   private final CodeRecognizer codeRecognizer = new CodeRecognizer(THRESHOLD, new FlexRecognizer());
   private final Pattern regexpToDivideStringByLine = Pattern.compile("(\r?\n)|(\r)");
 
@@ -79,7 +78,7 @@ public class CommentedCodeCheck extends FlexCheck {
   @Override
   public void visitToken(Token token) {
     for (Trivia trivia : token.getTrivia()) {
-      String[] lines = regexpToDivideStringByLine.split(commentAnalyser.getContents(trivia.getToken().getOriginalValue()));
+      String[] lines = regexpToDivideStringByLine.split(FlexCommentAnalyser.getContents(trivia.getToken().getOriginalValue()));
       for (int lineOffset = 0; lineOffset < lines.length; lineOffset++) {
         if (codeRecognizer.isLineOfCode(lines[lineOffset])) {
           addIssueAtLine("Sections of code should not be \"commented out\".", trivia.getToken().getLine() + lineOffset);

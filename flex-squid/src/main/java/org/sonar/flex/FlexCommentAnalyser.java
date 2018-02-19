@@ -19,11 +19,13 @@
  */
 package org.sonar.flex;
 
-import org.sonar.squidbridge.CommentAnalyser;
+public class FlexCommentAnalyser{
 
-public class FlexCommentAnalyser extends CommentAnalyser {
-  @Override
-  public boolean isBlank(String line) {
+  private FlexCommentAnalyser() {
+    // This class should not be instantiated.
+  }
+
+  public static boolean isBlank(String line) {
     for (int i = 0; i < line.length(); i++) {
       if (Character.isLetterOrDigit(line.charAt(i))) {
         return false;
@@ -32,8 +34,7 @@ public class FlexCommentAnalyser extends CommentAnalyser {
     return true;
   }
 
-  @Override
-  public String getContents(String comment) {
+  public static String getContents(String comment) {
     return comment.startsWith("//") ? comment.substring(2) : comment.substring(2, comment.length() - 2);
   }
 }

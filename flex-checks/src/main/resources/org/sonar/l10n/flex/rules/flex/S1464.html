@@ -1,17 +1,15 @@
-<p>
-  The "ManagedEvents" metadata tag allows you to flag an event as being managed. By definition this "ManageEvents" metadata tag should be used in pair with an "Event" metadata tag.
-</p>
-
+<p>The "ManagedEvents" metadata tag allows you to flag an event as being managed. By definition this "ManagedEvents" metadata tag should be used in
+pair with an "Event" metadata tag. </p>
 <h2>Noncompliant Code Example</h2>
 <pre>
 [Event(name="message", type="my.package.MyEvemt")]
 [ManagedEvents("mes")]       //This "mes" event is not defined with the "Event" metadata tag
 public class MyClass {...}
 </pre>
-
 <h2>Compliant Solution</h2>
 <pre>
 [Event(name="message", type="my.package.MyEvemt")]
 [ManagedEvents("message")]
 public class MyClass {...}
 </pre>
+

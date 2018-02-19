@@ -1,17 +1,16 @@
-<p>The <code>trace()</code> function outputs debug statements, which can be read by anyone with a debug version of the Flash player. Because sensitive information could easily be exposed in this manner, <code>trace()</code> should never appear in production code.</p>
+<p>The <code>trace()</code> function outputs debug statements, which can be read by anyone with a debug version of the Flash player. Because sensitive
+information could easily be exposed in this manner, <code>trace()</code> should never appear in production code.</p>
 <h2>Noncompliant Code Example</h2>
-
 <pre>
     var val:Number = doCalculation();
     trace("Calculation result: " + val);  // Noncompliant
 </pre>
 <h2>Compliant Solution</h2>
-
 <pre>
     var val:Number = doCalculation();
 </pre>
 <h2>See</h2>
-
 <ul>
-  <li> <a href="http://cwe.mitre.org/data/definitions/489.html">MITRE, CWE-489</a> - Leftover Debug Code
-  </li></ul>
+  <li> <a href="http://cwe.mitre.org/data/definitions/489.html">MITRE, CWE-489</a> - Leftover Debug Code </li>
+</ul>
+

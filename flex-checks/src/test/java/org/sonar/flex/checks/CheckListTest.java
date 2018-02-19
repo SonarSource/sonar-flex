@@ -86,6 +86,7 @@ public class CheckListTest {
       ruleKeys.add(rule.key());
     }
     Set<String> nonLinkedFiles = Files.list(Paths.get("src/main/resources/org/sonar/l10n/flex/rules/flex"))
+      .filter(path -> path.endsWith(".html"))
       .map(path -> path.getFileName().toString().replace(".html", ""))
       .filter(s -> !ruleKeys.contains(s))
       .collect(Collectors.toSet());

@@ -1,0 +1,19 @@
+{
+  "title": "\"Alert.show(...)\" should not be used",
+  "type": "VULNERABILITY",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "cwe",
+    "user-experience"
+  ],
+  "standards": [
+    "CWE"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1442",
+  "sqKey": "S1442"
+}

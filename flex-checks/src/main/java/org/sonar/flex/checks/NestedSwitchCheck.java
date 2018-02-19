@@ -20,15 +20,16 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.util.Collections;
+import java.util.List;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
 
 @Rule(
   key = "S1821",
@@ -36,13 +37,13 @@ import javax.annotation.Nullable;
   priority = Priority.MAJOR,
   tags = Tags.PITFALL)
 @SqaleConstantRemediation("10min")
-public class NestedSwitchCheck extends SquidCheck<LexerlessGrammar> {
+public class NestedSwitchCheck extends FlexCheck {
 
   private int switchLevel = 0;
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.SWITCH_STATEMENT);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.SWITCH_STATEMENT);
   }
 
   @Override
@@ -55,7 +56,7 @@ public class NestedSwitchCheck extends SquidCheck<LexerlessGrammar> {
     switchLevel++;
 
     if (switchLevel > 1) {
-      getContext().createLineViolation(this, "Move this \"switch\" to a function or refactor the code to eliminate it.", astNode);
+      addIssue("Move this \"switch\" to a function or refactor the code to eliminate it.", astNode);
     }
   }
 

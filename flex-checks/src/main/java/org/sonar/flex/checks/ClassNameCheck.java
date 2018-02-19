@@ -20,19 +20,21 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
+import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
-import java.util.regex.Pattern;
 
 @Rule(
   key = "S101",
@@ -41,7 +43,7 @@ import java.util.regex.Pattern;
   tags = Tags.CONVENTION)
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class ClassNameCheck extends SquidCheck<LexerlessGrammar> {
+public class ClassNameCheck extends FlexCheck {
 
   private static final String DEFAULT = "^[A-Z][a-zA-Z0-9]*$";
   private Pattern pattern = null;
@@ -53,8 +55,8 @@ public class ClassNameCheck extends SquidCheck<LexerlessGrammar> {
   String format = DEFAULT;
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.CLASS_DEF);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.CLASS_DEF);
   }
 
   @Override
@@ -69,7 +71,7 @@ public class ClassNameCheck extends SquidCheck<LexerlessGrammar> {
     String classIdentifier = Clazz.getName(astNode);
 
     if (!pattern.matcher(classIdentifier).matches()) {
-      getContext().createLineViolation(this, "Rename this class name to match the regular expression {0}", astNode, format);
+      addIssue(MessageFormat.format("Rename this class name to match the regular expression {0}", format), astNode);
     }
   }
 }

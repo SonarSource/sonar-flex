@@ -17,47 +17,45 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.flex.api;
+package org.sonar.flex;
 
+import javax.annotation.CheckForNull;
 
-import org.sonar.squidbridge.measures.CalculatedMetricFormula;
-import org.sonar.squidbridge.measures.MetricDef;
+public class Issue {
 
-public enum FlexMetric implements MetricDef {
+  private final Integer line;
+  private final String message;
+  private final Double cost;
 
-  LINES_OF_CODE,
-  LINES,
-  FILES,
-  COMMENT_BLANK_LINES,
-  COMMENT_LINES,
-  CLASSES,
-  FUNCTIONS,
-  STATEMENTS,
-  COMPLEXITY;
-
-  @Override
-  public String getName() {
-    return name();
+  private Issue(Integer line, String message, Double cost) {
+    this.line = line;
+    this.message = message;
+    this.cost = cost;
   }
 
-  @Override
-  public boolean isCalculatedMetric() {
-    return false;
+  public static Issue fileIssue(String message) {
+    return new Issue(null, message, null);
   }
 
-  @Override
-  public boolean aggregateIfThereIsAlreadyAValue() {
-    return true;
+  public static Issue lineIssue(int line, String message) {
+    return new Issue(line, message, null);
   }
 
-  @Override
-  public boolean isThereAggregationFormula() {
-    return true;
+  public static Issue lineIssue(int line, String message, double cost) {
+    return new Issue(line, message, cost);
   }
 
-  @Override
-  public CalculatedMetricFormula getCalculatedMetricFormula() {
-    return null;
+  @CheckForNull
+  public Integer line() {
+    return line;
   }
 
+  public String message() {
+    return message;
+  }
+
+  @CheckForNull
+  public Double cost() {
+    return cost;
+  }
 }

@@ -20,8 +20,6 @@
 package org.sonar.flex.checks;
 
 import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
@@ -31,8 +29,7 @@ public class EmptyNestedBlockCheckTest {
 
   @Test
   public void test() throws Exception {
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/EmptyNestedBlock.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/EmptyNestedBlock.as"), check))
       .next().atLine(1)
       .next().atLine(11)
       .noMore();

@@ -21,9 +21,16 @@ package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
@@ -31,12 +38,6 @@ import org.sonar.flex.checks.utils.Modifiers;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
-import java.util.Set;
-import java.util.regex.Pattern;
 
 @Rule(
   key = "S1312",
@@ -45,7 +46,7 @@ import java.util.regex.Pattern;
   tags = Tags.CONVENTION)
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class PrivateStaticConstLoggerCheck extends SquidCheck<LexerlessGrammar> {
+public class PrivateStaticConstLoggerCheck extends FlexCheck {
 
   private static final String DEFAULT = "LOG(?:GER)?";
   private Pattern pattern = null;
@@ -57,8 +58,8 @@ public class PrivateStaticConstLoggerCheck extends SquidCheck<LexerlessGrammar> 
   String format = DEFAULT;
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.CLASS_DEF);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.CLASS_DEF);
   }
 
   @Override
@@ -101,11 +102,11 @@ public class PrivateStaticConstLoggerCheck extends SquidCheck<LexerlessGrammar> 
     String identifier = identifierNode.getTokenValue();
 
     if (!isPrivateStaticConst && !matchesFormat) {
-      getContext().createLineViolation(this, "Make the logger \"{0}\" private static const and rename it to comply with the format \"{1}\".", identifierNode, identifier, format);
+      addIssue(MessageFormat.format("Make the logger \"{0}\" private static const and rename it to comply with the format \"{1}\".", identifier, format), identifierNode);
     } else if (!isPrivateStaticConst) {
-      getContext().createLineViolation(this, "Make the logger \"{0}\" private static const.", identifierNode, identifier);
+      addIssue(MessageFormat.format("Make the logger \"{0}\" private static const.", identifier), identifierNode);
     } else if (!matchesFormat) {
-      getContext().createLineViolation(this, "Rename the \"{0}\" logger to comply with the format \"{1}\".", identifierNode, identifier, format);
+      addIssue(MessageFormat.format("Rename the \"{0}\" logger to comply with the format \"{1}\".", identifier, format), identifierNode);
     }
   }
 

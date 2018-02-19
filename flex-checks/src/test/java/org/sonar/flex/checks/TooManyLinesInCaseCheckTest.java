@@ -20,8 +20,6 @@
 package org.sonar.flex.checks;
 
 import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
@@ -32,8 +30,7 @@ public class TooManyLinesInCaseCheckTest {
 
   @Test
   public void defaults(){
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/TooManyLinesInCase.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/TooManyLinesInCase.as"), check))
       .next().atLine(8).withMessage("Reduce this switch case number of lines from 6 to at most " + check.max + ", for example by extracting code into methods.")
       .noMore();
   }
@@ -41,8 +38,7 @@ public class TooManyLinesInCaseCheckTest {
   @Test
   public void custom() {
     check.max = 4;
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/TooManyLinesInCase.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/TooManyLinesInCase.as"), check))
       .next().atLine(2)
       .next().atLine(8)
       .noMore();

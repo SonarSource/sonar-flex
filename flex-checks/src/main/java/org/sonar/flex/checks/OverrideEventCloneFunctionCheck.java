@@ -20,18 +20,19 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Function;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.List;
 
 @Rule(
   key = "S1470",
@@ -40,13 +41,13 @@ import java.util.List;
   tags = Tags.BUG)
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class OverrideEventCloneFunctionCheck extends SquidCheck<LexerlessGrammar> {
+public class OverrideEventCloneFunctionCheck extends FlexCheck {
 
   private static final String EVENT_TYPE_NAME = "Event";
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.CLASS_DEF);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.CLASS_DEF);
   }
 
   @Override
@@ -65,8 +66,8 @@ public class OverrideEventCloneFunctionCheck extends SquidCheck<LexerlessGrammar
       }
     }
 
-    getContext().createLineViolation(this, "Make this class \"{0}\" override \"Event.clone()\" function.", astNode,
-      astNode.getFirstChild(FlexGrammar.CLASS_NAME).getFirstChild(FlexGrammar.CLASS_IDENTIFIERS).getLastChild().getTokenValue());
+    String className = astNode.getFirstChild(FlexGrammar.CLASS_NAME).getFirstChild(FlexGrammar.CLASS_IDENTIFIERS).getLastChild().getTokenValue();
+    addIssue(MessageFormat.format("Make this class \"{0}\" override \"Event.clone()\" function.", className), astNode);
   }
 
   private static boolean isCloneFunction(AstNode directive) {

@@ -20,20 +20,22 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
+import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.flex.checks.utils.Variable;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
-import java.util.regex.Pattern;
 
 
 @Rule(
@@ -43,7 +45,7 @@ import java.util.regex.Pattern;
   tags = Tags.CONVENTION)
 @ActivatedByDefault
 @SqaleConstantRemediation("2min")
-public class FieldNameCheck extends SquidCheck<LexerlessGrammar> {
+public class FieldNameCheck extends FlexCheck {
 
   private static final String DEFAULT = "^[_a-z][a-zA-Z0-9]*$";
   private Pattern pattern = null;
@@ -56,8 +58,8 @@ public class FieldNameCheck extends SquidCheck<LexerlessGrammar> {
 
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.CLASS_DEF);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.CLASS_DEF);
   }
 
   @Override
@@ -84,7 +86,7 @@ public class FieldNameCheck extends SquidCheck<LexerlessGrammar> {
   private void visitVariableDeclStatement(AstNode variableDeclStatement) {
     for (AstNode identifier : Variable.getDeclaredIdentifiers(variableDeclStatement)) {
       if (!pattern.matcher(identifier.getTokenValue()).matches()) {
-        getContext().createLineViolation(this, "Rename this field name to match the regular expression {0}", identifier, format);
+        addIssue(MessageFormat.format("Rename this field name to match the regular expression {0}", format), identifier);
       }
     }
   }

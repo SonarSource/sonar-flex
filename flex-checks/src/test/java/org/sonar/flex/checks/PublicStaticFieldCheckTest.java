@@ -20,8 +20,6 @@
 package org.sonar.flex.checks;
 
 import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
@@ -32,8 +30,7 @@ public class PublicStaticFieldCheckTest {
 
   @Test
   public void test() {
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/PublicStaticField.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/PublicStaticField.as"), check))
       .next().atLine(2).withMessage("Make this \"public static\" field const")
       .noMore();
   }

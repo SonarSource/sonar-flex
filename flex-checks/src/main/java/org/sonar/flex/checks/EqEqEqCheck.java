@@ -20,14 +20,16 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.util.Arrays;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexPunctuator;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S1440",
@@ -36,19 +38,19 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = Tags.SUSPICIOUS)
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class EqEqEqCheck extends SquidCheck<LexerlessGrammar> {
+public class EqEqEqCheck extends FlexCheck {
 
   @Override
-  public void init() {
-    subscribeTo(FlexPunctuator.EQUAL2, FlexPunctuator.NOTEQUAL1);
+  public List<AstNodeType> subscribedTo() {
+    return Arrays.asList(FlexPunctuator.EQUAL2, FlexPunctuator.NOTEQUAL1);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
     if (astNode.is(FlexPunctuator.EQUAL2)) {
-      getContext().createLineViolation(this, "Replace == with ===", astNode);
+      addIssue("Replace == with ===", astNode);
     } else {
-      getContext().createLineViolation(this, "Replace != with !==", astNode);
+      addIssue("Replace != with !==", astNode);
     }
   }
 

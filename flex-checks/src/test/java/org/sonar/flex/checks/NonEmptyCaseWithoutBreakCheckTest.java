@@ -20,8 +20,6 @@
 package org.sonar.flex.checks;
 
 import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
@@ -32,8 +30,7 @@ public class NonEmptyCaseWithoutBreakCheckTest {
   public void test() {
     NonEmptyCaseWithoutBreakCheck check = new NonEmptyCaseWithoutBreakCheck();
 
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/NonEmptyCaseWithoutBreak.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/NonEmptyCaseWithoutBreak.as"), check))
         .next().atLine(27).withMessage("Last statement in this switch-clause should be an unconditional break.")
         .next().atLine(29)
         .next().atLine(33)

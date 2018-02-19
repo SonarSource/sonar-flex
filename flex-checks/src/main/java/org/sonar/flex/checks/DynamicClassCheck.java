@@ -20,8 +20,13 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
@@ -29,8 +34,6 @@ import org.sonar.flex.checks.utils.Modifiers;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S1446",
@@ -39,18 +42,18 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = Tags.PITFALL)
 @ActivatedByDefault
 @SqaleConstantRemediation("30min")
-public class DynamicClassCheck extends SquidCheck<LexerlessGrammar> {
+public class DynamicClassCheck extends FlexCheck {
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.CLASS_DEF);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.CLASS_DEF);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
 
     if (astNode.getPreviousAstNode() != null && Modifiers.getModifiers(astNode.getPreviousAstNode()).contains(FlexKeyword.DYNAMIC)) {
-      getContext().createLineViolation(this, "Make this \"{0}\" class non-dynamic", astNode, Clazz.getName(astNode));
+      addIssue(MessageFormat.format("Make this \"{0}\" class non-dynamic", Clazz.getName(astNode)), astNode);
     }
   }
 }

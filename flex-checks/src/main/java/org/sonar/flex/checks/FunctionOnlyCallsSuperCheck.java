@@ -22,20 +22,21 @@ package org.sonar.flex.checks;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
 import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Function;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.List;
 
 @Rule(
   key = "S1185",
@@ -44,11 +45,11 @@ import java.util.List;
   priority = Priority.MINOR)
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class FunctionOnlyCallsSuperCheck extends SquidCheck<LexerlessGrammar> {
+public class FunctionOnlyCallsSuperCheck extends FlexCheck {
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.FUNCTION_DEF);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.FUNCTION_DEF);
   }
 
   @Override
@@ -64,7 +65,7 @@ public class FunctionOnlyCallsSuperCheck extends SquidCheck<LexerlessGrammar> {
 
       if (isUselessCallToSuper(singleDirectiveNode.getFirstChild(FlexGrammar.STATEMENT), methodName, parameters)
         && !hasMetadataTag(astNode.getParent().getParent().getPreviousAstNode())) {
-        getContext().createLineViolation(this, "Remove this method \"{0}\" to simply inherit it.", astNode, methodName);
+        addIssue(MessageFormat.format("Remove this method \"{0}\" to simply inherit it.", methodName), astNode);
       }
     }
   }

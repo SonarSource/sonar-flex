@@ -19,12 +19,9 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class CommentRegularExpressionCheckTest {
 
@@ -35,8 +32,7 @@ public class CommentRegularExpressionCheckTest {
     check.regularExpression = "(?i).*TODO.*";
     check.message = "Avoid TODO";
 
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/CommentRegularExpression.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/CommentRegularExpression.as"), check))
         .next().atLine(2).withMessage("Avoid TODO")
         .noMore();
   }

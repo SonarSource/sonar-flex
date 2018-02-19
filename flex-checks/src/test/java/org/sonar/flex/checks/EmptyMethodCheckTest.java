@@ -20,8 +20,6 @@
 package org.sonar.flex.checks;
 
 import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
@@ -32,8 +30,7 @@ public class EmptyMethodCheckTest {
 
   @Test
   public void defaults() {
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/EmptyMethod.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/EmptyMethod.as"), check))
       .next().atLine(2).withMessage("Add a nested comment explaining why this method is empty, throw an NotSupportedException or complete the implementation.")
       .next().atLine(4)
       .noMore();

@@ -19,13 +19,11 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.base.Charsets;
+import java.io.File;
 import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
-import java.io.File;
+import static org.sonar.flex.checks.FlexCheckTester.checkMessages;
 
 public class FileHeaderCheckTest {
   private static final File FILE1 = new File("src/test/resources/checks/headercheck/file1.as");
@@ -37,71 +35,60 @@ public class FileHeaderCheckTest {
     FileHeaderCheck check = new FileHeaderCheck();
     check.headerFormat = "// copyright 2005";
 
-    SourceFile file = FlexAstScanner.scanSingleFile(FILE1, check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
-      .noMore();
+    CheckMessagesVerifier.verify(checkMessages(FILE1, check)).noMore();
 
     check = new FileHeaderCheck();
     check.headerFormat = "// copyright 20\\d\\d";
 
-    file = FlexAstScanner.scanSingleFile(FILE1, check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(checkMessages(FILE1, check))
       .next().atLine(null);
 
     check = new FileHeaderCheck();
     check.headerFormat = "// copyright 2005";
 
-    file = FlexAstScanner.scanSingleFile(FILE2, check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(checkMessages(FILE2, check))
       .next().atLine(null).withMessage("Add or update the header of this file.");
 
     check = new FileHeaderCheck();
     check.headerFormat = "// copyright 2012";
 
-    file = FlexAstScanner.scanSingleFile(FILE2, check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(checkMessages(FILE2, check))
       .noMore();
 
     check = new FileHeaderCheck();
     check.headerFormat = "// copyright 2012\n// foo";
 
-    file = FlexAstScanner.scanSingleFile(FILE2, check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(checkMessages(FILE2, check))
       .noMore();
 
     check = new FileHeaderCheck();
     check.headerFormat = "// copyright 2012\r\n// foo";
 
-    file = FlexAstScanner.scanSingleFile(FILE2, check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(checkMessages(FILE2, check))
       .noMore();
 
     check = new FileHeaderCheck();
     check.headerFormat = "// copyright 2012\r// foo";
 
-    file = FlexAstScanner.scanSingleFile(FILE2, check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(checkMessages(FILE2, check))
       .noMore();
 
     check = new FileHeaderCheck();
     check.headerFormat = "// copyright 2012\r\r// foo";
 
-    file = FlexAstScanner.scanSingleFile(FILE2, check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(checkMessages(FILE2, check))
       .next().atLine(null);
 
     check = new FileHeaderCheck();
     check.headerFormat = "// copyright 2012\n// foo\n\n\n\n\n\n\n\n\n\ngfoo";
 
-    file = FlexAstScanner.scanSingleFile(FILE2, check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(checkMessages(FILE2, check))
       .next().atLine(null);
 
     check = new FileHeaderCheck();
     check.headerFormat = "/*foo http://www.example.org*/";
 
-    file = FlexAstScanner.scanSingleFile(FILE3, check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(checkMessages(FILE3, check))
       .noMore();
   }
 
@@ -133,27 +120,11 @@ public class FileHeaderCheckTest {
   }
 
   private void assertHasIssue(FileHeaderCheck check, File file) {
-    SourceFile sourceFile = FlexAstScanner.scanSingleFile(file, check);
-    CheckMessagesVerifier.verify(sourceFile.getCheckMessages()).next().atLine(null);
+    CheckMessagesVerifier.verify(checkMessages(file, check)).next().atLine(null);
   }
 
   private void assertNoIssue(FileHeaderCheck check, File file) {
-    SourceFile sourceFile = FlexAstScanner.scanSingleFile(file, check);
-    CheckMessagesVerifier.verify(sourceFile.getCheckMessages()).noMore();
-  }
-
-  @Test(expected = IllegalStateException.class)
-  public void ioexception_with_plaintext() throws Exception {
-    FileHeaderCheck check = new FileHeaderCheck();
-    check.setCharset(Charsets.UTF_8);
-    check.matchesPlainTextHeader(new File("unknown"));
-  }
-
-  @Test(expected = IllegalStateException.class)
-  public void ioexception_with_regexp() throws Exception {
-    FileHeaderCheck check = new FileHeaderCheck();
-    check.setCharset(Charsets.UTF_8);
-    check.matchesRegularExpression(new File("unknown"));
+    CheckMessagesVerifier.verify(checkMessages(file, check)).noMore();
   }
 
 }

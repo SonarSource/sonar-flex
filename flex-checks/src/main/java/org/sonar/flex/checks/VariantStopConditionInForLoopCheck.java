@@ -21,20 +21,22 @@ package org.sonar.flex.checks;
 
 import com.google.common.collect.Sets;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
+import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexPunctuator;
 import org.sonar.flex.checks.utils.Expression;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
-import java.util.Set;
 
 @Rule(
   key = "S127",
@@ -43,14 +45,14 @@ import java.util.Set;
   tags = {Tags.MISRA, Tags.PITFALL})
 @ActivatedByDefault
 @SqaleConstantRemediation("10min")
-public class VariantStopConditionInForLoopCheck extends SquidCheck<LexerlessGrammar> {
+public class VariantStopConditionInForLoopCheck extends FlexCheck {
 
   Set<String> counters = Sets.newHashSet();
   Set<String> pendingCounters = Sets.newHashSet();
 
   @Override
-  public void init() {
-    subscribeTo(
+  public List<AstNodeType> subscribedTo() {
+    return Arrays.asList(
       FlexGrammar.FOR_STATEMENT,
       FlexGrammar.SUB_STATEMENT,
 
@@ -91,7 +93,7 @@ public class VariantStopConditionInForLoopCheck extends SquidCheck<LexerlessGram
 
         String tokenValue = t.getValue();
         if (FlexPunctuator.LPARENTHESIS.getValue().equals(tokenValue) || FlexPunctuator.DOT.getValue().equals(tokenValue)) {
-          getContext().createLineViolation(this, "Calculate the stop condition value outside the loop and set it to a variable.", assignmentExpr);
+          addIssue("Calculate the stop condition value outside the loop and set it to a variable.", assignmentExpr);
           break;
         }
       }
@@ -124,7 +126,7 @@ public class VariantStopConditionInForLoopCheck extends SquidCheck<LexerlessGram
     if (varNode != null) {
       String varName = Expression.exprToString(varNode);
       if (counters.contains(varName)) {
-        getContext().createLineViolation(this, "Do not update the loop counter \"{0}\" within the loop body.", varNode, varName);
+        addIssue(MessageFormat.format("Do not update the loop counter \"{0}\" within the loop body.", varName), varNode);
       }
     }
   }

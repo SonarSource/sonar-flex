@@ -19,16 +19,20 @@
  */
 package org.sonar.flex.checks;
 
+import com.google.common.collect.Maps;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.AbstractOneStatementPerLineCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "OneStatementPerLine",
@@ -37,19 +41,39 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = Tags.CONVENTION)
 @ActivatedByDefault
 @SqaleConstantRemediation("1min")
-public class OneStatementPerLineCheck extends AbstractOneStatementPerLineCheck<LexerlessGrammar> {
+public class OneStatementPerLineCheck extends FlexCheck {
+
+  private final Map<Integer, Integer> statementsPerLine = Maps.newHashMap();
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.STATEMENT, FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
+  public List<AstNodeType> subscribedTo() {
+    return Arrays.asList(FlexGrammar.STATEMENT, FlexGrammar.VARIABLE_DECLARATION_STATEMENT);
   }
 
   @Override
-  public AstNodeType getStatementRule() {
-    return null;
+  public void visitFile(AstNode astNode) {
+    statementsPerLine.clear();
   }
 
   @Override
+  public void visitNode(AstNode statementNode) {
+    if (!isExcluded(statementNode)) {
+      int line = statementNode.getTokenLine();
+      statementsPerLine.compute(line, (k, v) -> v == null ? 1 : (v + 1));
+    }
+  }
+
+  @Override
+  public void leaveFile(AstNode astNode) {
+    for (Map.Entry<Integer, Integer> statementsAtLine : statementsPerLine.entrySet()) {
+      if (statementsAtLine.getValue() > 1) {
+        addIssueAtLine(
+          MessageFormat.format("At most one statement is allowed per line, but {0} statements were found on this line.", statementsAtLine.getValue()),
+          statementsAtLine.getKey());
+      }
+    }
+  }
+
   public boolean isExcluded(AstNode astNode) {
     AstNode statementNode = astNode.getFirstChild();
     return statementNode.is(FlexGrammar.BLOCK)

@@ -19,12 +19,9 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class ClassWithTooManyFieldsCheckTest {
 
@@ -32,8 +29,7 @@ public class ClassWithTooManyFieldsCheckTest {
 
   @Test
   public void testDefault() {
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ClassWithTooManyFields.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ClassWithTooManyFields.as"), check))
       .noMore();
   }
 
@@ -41,8 +37,7 @@ public class ClassWithTooManyFieldsCheckTest {
   public void custom_maximum_field_threshold() {
     check.maximumFieldThreshold = 5;
 
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ClassWithTooManyFields.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ClassWithTooManyFields.as"), check))
       .next().atLine(1).withMessage("Refactor this class so it has no more than " + check.maximumFieldThreshold + " fields, rather than the 6 it currently has.")
       .noMore();
   }
@@ -52,8 +47,7 @@ public class ClassWithTooManyFieldsCheckTest {
     check.maximumFieldThreshold = 2;
     check.countNonpublicFields = false;
 
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ClassWithTooManyFields.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ClassWithTooManyFields.as"), check))
       .next().atLine(1).withMessage("Refactor this class so it has no more than " + check.maximumFieldThreshold + " public fields, rather than the 3 it currently has.")
       .noMore();
   }

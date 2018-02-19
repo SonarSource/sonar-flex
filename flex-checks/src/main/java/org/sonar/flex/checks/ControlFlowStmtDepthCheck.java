@@ -20,18 +20,20 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.List;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
 
 /**
  * Note that implementation differs from AbstractNestedIfCheck - see SONARPLUGINS-1855 and SONARPLUGINS-2178
@@ -43,7 +45,7 @@ import javax.annotation.Nullable;
   tags = Tags.BRAIN_OVERLOAD)
 @ActivatedByDefault
 @SqaleConstantRemediation("10min")
-public class ControlFlowStmtDepthCheck extends SquidCheck<LexerlessGrammar> {
+public class ControlFlowStmtDepthCheck extends FlexCheck {
 
   private int nestingLevel;
 
@@ -60,8 +62,8 @@ public class ControlFlowStmtDepthCheck extends SquidCheck<LexerlessGrammar> {
   }
 
   @Override
-  public void init() {
-    subscribeTo(
+  public List<AstNodeType> subscribedTo() {
+    return Arrays.asList(
       FlexGrammar.IF_STATEMENT,
       FlexGrammar.DO_STATEMENT,
       FlexGrammar.WHILE_STATEMENT,
@@ -79,7 +81,7 @@ public class ControlFlowStmtDepthCheck extends SquidCheck<LexerlessGrammar> {
     if (!isElseIf(astNode)) {
       nestingLevel++;
       if (nestingLevel == getMax() + 1) {
-        getContext().createLineViolation(this, "Refactor this code to not nest more than {0} if/for/while/switch statements.", astNode, getMax());
+        addIssue(MessageFormat.format("Refactor this code to not nest more than {0} if/for/while/switch statements.", getMax()), astNode);
       }
     }
   }

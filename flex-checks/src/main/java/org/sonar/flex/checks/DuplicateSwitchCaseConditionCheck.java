@@ -21,17 +21,19 @@ package org.sonar.flex.checks;
 
 import com.google.common.collect.Maps;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Expression;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.Map;
 
 @Rule(
   key = "S1950",
@@ -39,13 +41,13 @@ import java.util.Map;
   priority = Priority.CRITICAL)
 @ActivatedByDefault
 @SqaleConstantRemediation("15min")
-public class DuplicateSwitchCaseConditionCheck extends SquidCheck<LexerlessGrammar> {
+public class DuplicateSwitchCaseConditionCheck extends FlexCheck {
 
   private Map<String, AstNode> casesByCondition = Maps.newHashMap();
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.SWITCH_STATEMENT);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.SWITCH_STATEMENT);
   }
 
   @Override
@@ -67,8 +69,7 @@ public class DuplicateSwitchCaseConditionCheck extends SquidCheck<LexerlessGramm
     AstNode duplicateCase = casesByCondition.get(expression);
 
     if (duplicateCase != null) {
-      getContext().createLineViolation(this, "This case duplicates the case on line {0} with condition \"{1}\".", caseLabel,
-        duplicateCase.getTokenLine(), expression);
+      addIssue(MessageFormat.format("This case duplicates the case on line {0} with condition \"{1}\".", duplicateCase.getTokenLine(), expression), caseLabel);
     } else {
       casesByCondition.put(expression, caseLabel);
     }

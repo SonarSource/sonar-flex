@@ -21,18 +21,20 @@ package org.sonar.flex.checks;
 
 import com.google.common.collect.Maps;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.flex.checks.utils.Variable;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
-import java.util.Map;
 
 @Rule(
   key = "S1481",
@@ -41,7 +43,7 @@ import java.util.Map;
   tags = Tags.UNUSED)
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class UnusedLocalVariableCheck extends SquidCheck<LexerlessGrammar> {
+public class UnusedLocalVariableCheck extends FlexCheck {
 
   private static class LocalVariable {
     final AstNode declaration;
@@ -88,8 +90,8 @@ public class UnusedLocalVariableCheck extends SquidCheck<LexerlessGrammar> {
   private Scope currentScope;
 
   @Override
-  public void init() {
-    subscribeTo(
+  public List<AstNodeType> subscribedTo() {
+    return Arrays.asList(
       FlexGrammar.FUNCTION_DEF,
       FlexGrammar.VARIABLE_DECLARATION_STATEMENT,
       FlexGrammar.QUALIFIED_IDENTIFIER);
@@ -125,7 +127,7 @@ public class UnusedLocalVariableCheck extends SquidCheck<LexerlessGrammar> {
   private void reportUnusedVariable() {
     for (Map.Entry<String, LocalVariable> entry : currentScope.variables.entrySet()) {
       if (entry.getValue().usages == 0) {
-        getContext().createLineViolation(this, "Remove this unused ''{0}'' local variable.", entry.getValue().declaration, entry.getKey());
+        addIssue(MessageFormat.format("Remove this unused ''{0}'' local variable.", entry.getKey()), entry.getValue().declaration);
       }
     }
   }

@@ -19,68 +19,73 @@
  */
 package org.sonar.flex.metrics;
 
-import com.google.common.collect.Sets;
-import com.sonar.sslr.api.AstAndTokenVisitor;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.GenericTokenType;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.Trivia;
-import org.sonar.api.batch.fs.FileSystem;
-import org.sonar.api.measures.CoreMetrics;
-import org.sonar.api.measures.FileLinesContext;
-import org.sonar.api.measures.FileLinesContextFactory;
-import org.sonar.flex.api.FlexMetric;
-import org.sonar.squidbridge.SquidAstVisitor;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nullable;
+import org.sonar.flex.FlexCommentAnalyser;
+import org.sonar.flex.FlexVisitor;
 
-/**
- * Visitor that computes {@link CoreMetrics#NCLOC_DATA_KEY} and {@link CoreMetrics#COMMENT_LINES_DATA_KEY} metrics used by the DevCockpit.
- */
-public class FileLinesVisitor extends SquidAstVisitor<LexerlessGrammar> implements AstAndTokenVisitor {
+public class FileLinesVisitor extends FlexVisitor {
 
-  private final FileLinesContextFactory fileLinesContextFactory;
-  private final FileSystem fileSystem;
+  private Set<Integer> linesOfCode;
+  private Set<Integer> linesOfComments;
+  private Set<Integer> noSonarLines;
 
-  private final Set<Integer> linesOfCode = Sets.newHashSet();
-  private final Set<Integer> linesOfComments = Sets.newHashSet();
+  @Override
+  public List<AstNodeType> subscribedTo() {
+    return Collections.emptyList();
+  }
 
-  public FileLinesVisitor(FileLinesContextFactory fileLinesContextFactory, FileSystem fileSystem) {
-    this.fileLinesContextFactory = fileLinesContextFactory;
-    this.fileSystem = fileSystem;
+  @Override
+  public void visitFile(@Nullable AstNode astNode) {
+    linesOfCode = new HashSet<>();
+    linesOfComments = new HashSet<>();
+    noSonarLines = new HashSet<>();
   }
 
   @Override
   public void visitToken(Token token) {
-    if (token.getType().equals(GenericTokenType.EOF)) {
-      return;
+    if (!token.getType().equals(GenericTokenType.EOF)) {
+      linesOfCode.add(token.getLine());
     }
 
-    linesOfCode.add(token.getLine());
-    List<Trivia> trivias = token.getTrivia();
-    for (Trivia trivia : trivias) {
+    for (Trivia trivia : token.getTrivia()) {
       if (trivia.isComment()) {
-        linesOfComments.add(trivia.getToken().getLine());
+        visitComment(trivia);
       }
     }
   }
 
-  @Override
-  public void leaveFile(AstNode astNode) {
-    FileLinesContext fileLinesContext = fileLinesContextFactory.createFor(
-      fileSystem.inputFile(fileSystem.predicates().hasAbsolutePath(getContext().getFile().getAbsolutePath())));
-
-    int fileLength = getContext().peekSourceCode().getInt(FlexMetric.LINES);
-    for (int line = 1; line <= fileLength; line++) {
-      fileLinesContext.setIntValue(CoreMetrics.NCLOC_DATA_KEY, line, linesOfCode.contains(line) ? 1 : 0);
-      fileLinesContext.setIntValue(CoreMetrics.COMMENT_LINES_DATA_KEY, line, linesOfComments.contains(line) ? 1 : 0);
+  private void visitComment(Trivia trivia) {
+    String[] commentLines = FlexCommentAnalyser.getContents(trivia.getToken().getOriginalValue()).split("(\r)?\n|\r", -1);
+    int line = trivia.getToken().getLine();
+    for (String commentLine : commentLines) {
+      if (commentLine.contains("NOSONAR")) {
+        linesOfComments.remove(line);
+        noSonarLines.add(line);
+      } else if (!FlexCommentAnalyser.isBlank(commentLine) && !noSonarLines.contains(line)) {
+        linesOfComments.add(line);
+      }
+      line++;
     }
-    fileLinesContext.save();
-
-    linesOfCode.clear();
-    linesOfComments.clear();
   }
 
+  public Set<Integer> linesOfCode() {
+    return linesOfCode;
+  }
+
+  public Set<Integer> linesOfComments() {
+    return linesOfComments;
+  }
+
+  public Set<Integer> noSonarLines() {
+    return noSonarLines;
+  }
 }

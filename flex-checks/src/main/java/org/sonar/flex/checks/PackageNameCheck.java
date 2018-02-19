@@ -20,19 +20,21 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
+import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
-import java.util.regex.Pattern;
 
 @Rule(
   key = "S120",
@@ -41,7 +43,7 @@ import java.util.regex.Pattern;
   tags = Tags.CONVENTION)
 @ActivatedByDefault
 @SqaleConstantRemediation("10min")
-public class PackageNameCheck extends SquidCheck<LexerlessGrammar> {
+public class PackageNameCheck extends FlexCheck {
 
   private static final String DEFAULT = "^[a-z]+(\\.[a-z][a-z0-9]*)*$";
   private Pattern pattern = null;
@@ -53,8 +55,8 @@ public class PackageNameCheck extends SquidCheck<LexerlessGrammar> {
   String format = DEFAULT;
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.PACKAGE_DEF);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.PACKAGE_DEF);
   }
 
   @Override
@@ -70,7 +72,7 @@ public class PackageNameCheck extends SquidCheck<LexerlessGrammar> {
     if (nameNode != null) {
       String packageIdentifier = concatenate(nameNode);
       if (!pattern.matcher(packageIdentifier).matches()) {
-        getContext().createLineViolation(this, "Rename this package name to match the regular expression {0}", astNode, format);
+        addIssue(MessageFormat.format("Rename this package name to match the regular expression {0}", format), astNode);
       }
     }
   }

@@ -20,19 +20,21 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.List;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 @Rule(
   key = "S1142",
@@ -41,7 +43,7 @@ import java.util.Deque;
   tags = Tags.BRAIN_OVERLOAD)
 @ActivatedByDefault
 @SqaleConstantRemediation("20min")
-public class TooManyReturnCheck extends SquidCheck<LexerlessGrammar> {
+public class TooManyReturnCheck extends FlexCheck {
 
   private static final int DEFAULT = 3;
   private final Deque<Integer> returnStatementCounter = new ArrayDeque<>();
@@ -54,8 +56,8 @@ public class TooManyReturnCheck extends SquidCheck<LexerlessGrammar> {
 
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.FUNCTION_COMMON, FlexGrammar.RETURN_STATEMENT);
+  public List<AstNodeType> subscribedTo() {
+    return Arrays.asList(FlexGrammar.FUNCTION_COMMON, FlexGrammar.RETURN_STATEMENT);
   }
 
   @Override
@@ -77,8 +79,12 @@ public class TooManyReturnCheck extends SquidCheck<LexerlessGrammar> {
   public void leaveNode(AstNode astNode) {
     if (astNode.is(FlexGrammar.FUNCTION_COMMON)) {
       if (getReturnStatementCounter() > max) {
-        getContext().createLineViolation(this, "Reduce the number of returns of this function {0,number,integer}, down to the maximum allowed {1,number,integer}.",
-          astNode, getReturnStatementCounter(), max);
+        addIssue(
+          MessageFormat.format(
+            "Reduce the number of returns of this function {0,number,integer}, down to the maximum allowed {1,number,integer}.",
+            getReturnStatementCounter(),
+            max),
+          astNode);
       }
       returnStatementCounter.pop();
     }

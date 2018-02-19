@@ -20,17 +20,19 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.MetadataTag;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.Map;
 
 @Rule(
   key = "S1463",
@@ -39,11 +41,11 @@ import java.util.Map;
   tags = Tags.DESIGN)
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class EventMetadataShouldBeTypedCheck extends SquidCheck<LexerlessGrammar> {
+public class EventMetadataShouldBeTypedCheck extends FlexCheck {
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.METADATA_STATEMENT);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.METADATA_STATEMENT);
   }
 
   @Override
@@ -52,7 +54,7 @@ public class EventMetadataShouldBeTypedCheck extends SquidCheck<LexerlessGrammar
       Map<String, String> properties = MetadataTag.getTagPropertiesMap(astNode);
 
       if (properties != null && !properties.containsKey("type")) {
-        getContext().createLineViolation(this, "The {0} event type is missing in this metadata tag", astNode, properties.get("name"));
+        addIssue(MessageFormat.format("The {0} event type is missing in this metadata tag", properties.get("name")), astNode);
       }
     }
 

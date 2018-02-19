@@ -20,21 +20,22 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
+import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Function;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.flex.checks.utils.Variable;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.regex.Pattern;
 
 @Rule(
   key = "S117",
@@ -43,7 +44,7 @@ import java.util.regex.Pattern;
   tags = Tags.CONVENTION)
 @ActivatedByDefault
 @SqaleConstantRemediation("2min")
-public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> {
+public class LocalVarAndParameterNameCheck extends FlexCheck {
 
 
   private static final String DEFAULT = "^[_a-z][a-zA-Z0-9]*$";
@@ -58,8 +59,8 @@ public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> 
 
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.FUNCTION_DEF);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.FUNCTION_DEF);
   }
 
   @Override
@@ -99,7 +100,7 @@ public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> 
       String varName = identifier.getTokenValue();
 
       if (!pattern.matcher(varName).matches()) {
-        getContext().createLineViolation(this, MESSAGE, identifier, varName, format);
+        addIssue(MessageFormat.format(MESSAGE, varName, format), identifier);
       }
     }
   }
@@ -109,7 +110,7 @@ public class LocalVarAndParameterNameCheck extends SquidCheck<LexerlessGrammar> 
       String paramName = paramIdentifier.getTokenValue();
 
       if (!pattern.matcher(paramName).matches()) {
-        getContext().createLineViolation(this, MESSAGE, paramIdentifier, paramName, format);
+        addIssue(MessageFormat.format(MESSAGE, paramName, format), paramIdentifier);
       }
     }
   }

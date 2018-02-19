@@ -19,20 +19,21 @@
  */
 package org.sonar.flex.checks;
 
-import com.sonar.sslr.api.AstAndTokenVisitor;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
+import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
-import java.util.regex.Pattern;
 
 @Rule(
   key = "S1462",
@@ -41,7 +42,7 @@ import java.util.regex.Pattern;
   tags = Tags.DESIGN)
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class HardcodedEventNameCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
+public class HardcodedEventNameCheck extends FlexCheck {
 
   private static final Pattern STRING_PATTERN = Pattern.compile(FlexGrammar.STRING_REGEXP);
 
@@ -76,6 +77,11 @@ public class HardcodedEventNameCheck extends SquidCheck<LexerlessGrammar> implem
   private State currentState;
 
   @Override
+  public List<AstNodeType> subscribedTo() {
+    return Collections.emptyList();
+  }
+
+  @Override
   public void visitFile(@Nullable AstNode astNode) {
     currentState = State.EXPECTING_ADD_EVENT;
   }
@@ -85,7 +91,7 @@ public class HardcodedEventNameCheck extends SquidCheck<LexerlessGrammar> implem
     currentState = TRANSITIONS[currentState.ordinal()][getSymbol(token.getValue()).ordinal()];
 
     if (currentState == State.FOUND_ISSUE) {
-      getContext().createLineViolation(this, "The event name {0} should be defined in a constant variable.", token, token.getValue());
+      addIssue(MessageFormat.format("The event name {0} should be defined in a constant variable.", token.getValue()), token);
       currentState = State.EXPECTING_ADD_EVENT;
     }
   }

@@ -20,17 +20,18 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.util.Collections;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.api.FlexMetric;
-import org.sonar.flex.checks.utils.FlexCheck;
 import org.sonar.flex.checks.utils.Tags;
+import org.sonar.flex.metrics.ComplexityVisitor;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleLinearWithOffsetRemediation;
-import org.sonar.squidbridge.api.SourceClass;
-import org.sonar.squidbridge.checks.ChecksHelper;
 
 @Rule(
   key = "ClassComplexity",
@@ -50,17 +51,16 @@ public class ClassComplexityCheck extends FlexCheck {
   private int maximumClassComplexityThreshold = DEFAULT_MAXIMUM_CLASS_COMPLEXITY_THRESHOLD;
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.CLASS_DEF);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.CLASS_DEF);
   }
 
   @Override
-  public void leaveNode(AstNode node) {
-    SourceClass sourceClass = (SourceClass) getContext().peekSourceCode();
-    int complexity = ChecksHelper.getRecursiveMeasureInt(sourceClass, FlexMetric.COMPLEXITY);
+  public void visitNode(AstNode node) {
+    int complexity = ComplexityVisitor.complexity(node);
     if (complexity > maximumClassComplexityThreshold) {
       String message = String.format("Class has a complexity of %s which is greater than %s authorized.", complexity, maximumClassComplexityThreshold);
-      createIssueWithCost(message, node, (double)complexity - maximumClassComplexityThreshold);
+      addIssueWithCost(message, node, (double)complexity - maximumClassComplexityThreshold);
     }
   }
 

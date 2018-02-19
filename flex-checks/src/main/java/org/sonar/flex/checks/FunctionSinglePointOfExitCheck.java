@@ -20,13 +20,15 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.util.Arrays;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "FunctionSinglePointOfExit",
@@ -34,13 +36,13 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   priority = Priority.MINOR,
   tags = {Tags.CONFUSING, Tags.MISRA})
 @SqaleConstantRemediation("20min")
-public class FunctionSinglePointOfExitCheck extends SquidCheck<LexerlessGrammar> {
+public class FunctionSinglePointOfExitCheck extends FlexCheck {
 
   private int returnStatements;
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.FUNCTION_DEF, FlexGrammar.RETURN_STATEMENT);
+  public List<AstNodeType> subscribedTo() {
+    return Arrays.asList(FlexGrammar.FUNCTION_DEF, FlexGrammar.RETURN_STATEMENT);
   }
 
   @Override
@@ -55,7 +57,7 @@ public class FunctionSinglePointOfExitCheck extends SquidCheck<LexerlessGrammar>
   @Override
   public void leaveNode(AstNode node) {
     if (node.is(FlexGrammar.FUNCTION_DEF) && (returnStatements != 0) && (returnStatements > 1 || !hasReturnAtEnd(node))) {
-      getContext().createLineViolation(this, "A function shall have a single point of exit at the end of the function.", node);
+      addIssue("A function shall have a single point of exit at the end of the function.", node);
     }
   }
 

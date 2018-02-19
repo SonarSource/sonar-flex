@@ -20,14 +20,16 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.util.Collections;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S1314",
@@ -36,15 +38,15 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = {Tags.CERT, Tags.MISRA, Tags.PITFALL})
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class OctalValueCheck extends SquidCheck<LexerlessGrammar> {
+public class OctalValueCheck extends FlexCheck {
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.OCTAL);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.OCTAL);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    getContext().createLineViolation(this, "Use decimal rather than octal values.", astNode);
+    addIssue("Use decimal rather than octal values.", astNode);
   }
 }

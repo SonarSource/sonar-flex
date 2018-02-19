@@ -20,18 +20,19 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Modifiers;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.List;
 
 @Rule(
   key = "S1820",
@@ -39,7 +40,7 @@ import java.util.List;
   priority = Priority.MAJOR,
   tags = Tags.BRAIN_OVERLOAD)
 @SqaleConstantRemediation("1h")
-public class ClassWithTooManyFieldsCheck extends SquidCheck<LexerlessGrammar> {
+public class ClassWithTooManyFieldsCheck extends FlexCheck {
 
 
   public static final int DEFAULT_MAX = 20;
@@ -59,8 +60,8 @@ public class ClassWithTooManyFieldsCheck extends SquidCheck<LexerlessGrammar> {
   boolean countNonpublicFields = DEFAULT_COUNT_NON_PUBLIC;
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.CLASS_DEF);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.CLASS_DEF);
   }
 
   @Override
@@ -69,8 +70,8 @@ public class ClassWithTooManyFieldsCheck extends SquidCheck<LexerlessGrammar> {
 
     if (nbFields > maximumFieldThreshold) {
       String msg = countNonpublicFields ? String.valueOf(maximumFieldThreshold) : (maximumFieldThreshold + " public");
-      getContext().createLineViolation(this, "Refactor this class so it has no more than {0} fields, rather than the {1} it currently has.", astNode,
-        msg, nbFields);
+      String message = MessageFormat.format("Refactor this class so it has no more than {0} fields, rather than the {1} it currently has.", msg, nbFields);
+      addIssue(message, astNode);
     }
   }
 

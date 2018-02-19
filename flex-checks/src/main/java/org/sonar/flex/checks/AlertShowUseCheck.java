@@ -19,18 +19,18 @@
  */
 package org.sonar.flex.checks;
 
-import com.sonar.sslr.api.AstAndTokenVisitor;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
+import java.util.Collections;
+import java.util.List;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
 
 @Rule(
   key = "S1442",
@@ -39,7 +39,7 @@ import javax.annotation.Nullable;
   tags = {Tags.CWE, Tags.SECURITY, Tags.USER_EXPERIENCE})
 @ActivatedByDefault
 @SqaleConstantRemediation("10min")
-public class AlertShowUseCheck extends SquidCheck<LexerlessGrammar> implements AstAndTokenVisitor {
+public class AlertShowUseCheck extends FlexCheck {
 
   private enum State {
     EXPECTING_ALERT,
@@ -72,6 +72,11 @@ public class AlertShowUseCheck extends SquidCheck<LexerlessGrammar> implements A
   private State currentState;
 
   @Override
+  public List<AstNodeType> subscribedTo() {
+    return Collections.emptyList();
+  }
+
+  @Override
   public void visitFile(@Nullable AstNode node) {
     currentState = State.EXPECTING_ALERT;
   }
@@ -81,7 +86,7 @@ public class AlertShowUseCheck extends SquidCheck<LexerlessGrammar> implements A
     currentState = TRANSITIONS[currentState.ordinal()][getSymbol(token.getOriginalValue()).ordinal()];
 
     if (currentState == State.FOUND_ISSUE) {
-      getContext().createLineViolation(this, "Remove this usage of Alert.show().", token);
+      addIssue("Remove this usage of Alert.show().", token);
       currentState = State.EXPECTING_ALERT;
     }
   }

@@ -22,6 +22,7 @@ package org.sonar.flex.checks.asdoc;
 import com.google.common.collect.Sets;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.Trivia;
+import java.text.MessageFormat;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
@@ -101,7 +102,7 @@ public class ASDocMemberCheck {
    */
   private static void checkField(ASDocCheck check, List<Trivia> trivia, AstNode variableDec) {
     if (!check.hasASDoc(trivia) && !check.containsOnOfTags(trivia, ASDocCheck.PRIVATE_TAG, ASDocCheck.INHERIT_TAG)) {
-      check.getContext().createLineViolation(check, "Add the missing ASDoc for this field declaration.", variableDec);
+      check.addIssue("Add the missing ASDoc for this field declaration.", variableDec);
     }
   }
 
@@ -119,7 +120,7 @@ public class ASDocMemberCheck {
     }
     // General missing ASDoc for the method
     if (!check.hasASDoc(trivia)) {
-      check.getContext().createLineViolation(check, "Add the missing ASDoc for this method.", functionDef);
+      check.addIssue("Add the missing ASDoc for this method.", functionDef);
     } else {
       MethodASDoc methodASDoc = parseASDoc(trivia);
 
@@ -137,7 +138,7 @@ public class ASDocMemberCheck {
    */
   private static void checkForReturnASDoc(ASDocCheck check, MethodASDoc methodASDoc, AstNode functionDef) {
     if (!returnsVoid(functionDef) && !methodASDoc.hasReturn) {
-      check.getContext().createLineViolation(check, "Add the missing \"@return\" ASDoc for the return value of this method.", functionDef);
+      check.addIssue("Add the missing \"@return\" ASDoc for the return value of this method.", functionDef);
     }
   }
 
@@ -157,7 +158,8 @@ public class ASDocMemberCheck {
     }
 
     if (builder.length() > 0) {
-      check.getContext().createLineViolation(check, "Add the missing \"@param\" ASDoc for: {0}.", functionDef, StringUtils.chop(builder.toString().trim()));
+      String message = MessageFormat.format("Add the missing \"@param\" ASDoc for: {0}.", StringUtils.chop(builder.toString().trim()));
+      check.addIssue(message, functionDef);
     }
   }
 

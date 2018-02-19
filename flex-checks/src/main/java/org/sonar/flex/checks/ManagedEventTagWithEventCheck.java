@@ -20,19 +20,20 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.MetadataTag;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Rule(
   key = "S1464",
@@ -41,13 +42,13 @@ import java.util.Map;
   tags = Tags.BUG)
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class ManagedEventTagWithEventCheck extends SquidCheck<LexerlessGrammar> {
+public class ManagedEventTagWithEventCheck extends FlexCheck {
 
   private Map<String, Boolean> isDeclaredInEventTag = new HashMap<>();
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.METADATA_STATEMENT);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.METADATA_STATEMENT);
   }
 
   @Override
@@ -62,8 +63,7 @@ public class ManagedEventTagWithEventCheck extends SquidCheck<LexerlessGrammar> 
 
     for (Map.Entry<String, Boolean> entry: isDeclaredInEventTag.entrySet()) {
       if (!entry.getValue()) {
-        getContext().createLineViolation(this, "The managed event {0} is either misspelled or is missing a companion Event metadata tag",
-          astNode, entry.getKey());
+        addIssue(MessageFormat.format("The managed event {0} is either misspelled or is missing a companion Event metadata tag", entry.getKey()), astNode);
       }
     }
 

@@ -20,8 +20,13 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.MetadataTag;
@@ -29,8 +34,6 @@ import org.sonar.flex.checks.utils.Tags;
 import org.sonar.flex.checks.utils.Variable;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S1469",
@@ -39,11 +42,11 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = Tags.PITFALL)
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class ArrayFieldElementTypeCheck extends SquidCheck<LexerlessGrammar> {
+public class ArrayFieldElementTypeCheck extends FlexCheck {
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.CLASS_DEF);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.CLASS_DEF);
   }
 
   @Override
@@ -67,8 +70,10 @@ public class ArrayFieldElementTypeCheck extends SquidCheck<LexerlessGrammar> {
     for (AstNode varBinding : varBindingList.getChildren(FlexGrammar.VARIABLE_BINDING)) {
 
       if (!hasInitialisation(varBinding) && isArray(varBinding) && !hasArrayTypeTag(directive)) {
-        getContext().createLineViolation(this, "Define the element type for this ''{0}'' array", varBinding,
+        String message = MessageFormat.format(
+          "Define the element type for this ''{0}'' array",
           varBinding.getFirstChild(FlexGrammar.TYPED_IDENTIFIER).getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue());
+        addIssue(message, varBinding);
       }
     }
   }

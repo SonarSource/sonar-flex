@@ -21,8 +21,17 @@ package org.sonar.flex.checks;
 
 import com.google.common.collect.Maps;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
@@ -31,13 +40,6 @@ import org.sonar.flex.checks.utils.Tags;
 import org.sonar.flex.checks.utils.Variable;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Map;
 
 @Rule(
   key = "S1068",
@@ -46,7 +48,7 @@ import java.util.Map;
   tags = Tags.UNUSED)
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class UnusedPrivateFieldCheck extends SquidCheck<LexerlessGrammar> {
+public class UnusedPrivateFieldCheck extends FlexCheck {
 
   private static class PrivateField {
     final AstNode declaration;
@@ -91,8 +93,8 @@ public class UnusedPrivateFieldCheck extends SquidCheck<LexerlessGrammar> {
   private Deque<ClassState> classStack = new ArrayDeque<>();
 
   @Override
-  public void init() {
-    subscribeTo(
+  public List<AstNodeType> subscribedTo() {
+    return Arrays.asList(
       FlexGrammar.CLASS_DEF,
       FlexGrammar.QUALIFIED_IDENTIFIER);
   }
@@ -121,7 +123,7 @@ public class UnusedPrivateFieldCheck extends SquidCheck<LexerlessGrammar> {
   private void reportUnusedPrivateField() {
     for (Map.Entry<String, PrivateField> entry : classStack.pop().privateFields.entrySet()) {
       if (entry.getValue().usages == 0) {
-        getContext().createLineViolation(this, "Remove this unused ''{0}'' private field", entry.getValue().declaration, entry.getKey());
+        addIssue(MessageFormat.format("Remove this unused ''{0}'' private field", entry.getKey()), entry.getValue().declaration);
       }
     }
   }

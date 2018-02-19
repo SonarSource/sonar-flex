@@ -20,15 +20,18 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
 import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S1434",
@@ -37,13 +40,13 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = Tags.SUSPICIOUS)
 @ActivatedByDefault
 @SqaleConstantRemediation("20min")
-public class ObjectTypeUseCheck extends SquidCheck<LexerlessGrammar> {
+public class ObjectTypeUseCheck extends FlexCheck {
 
   private static final String OBJECT_TYPE = "Object";
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.VARIABLE_DEF);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.VARIABLE_DEF);
   }
 
   @Override
@@ -51,8 +54,8 @@ public class ObjectTypeUseCheck extends SquidCheck<LexerlessGrammar> {
     for (AstNode varBinding : astNode.getFirstChild(FlexGrammar.VARIABLE_BINDING_LIST).getChildren(FlexGrammar.VARIABLE_BINDING)) {
       if (isDeclareAsObject(varBinding) || isInitialisedAsObject(varBinding.getFirstChild(FlexGrammar.VARIABLE_INITIALISATION))) {
 
-        getContext().createLineViolation(this, "Clearly define the type of this ''{0}'' variable", astNode,
-          varBinding.getFirstChild(FlexGrammar.TYPED_IDENTIFIER).getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue());
+        String variableName = varBinding.getFirstChild(FlexGrammar.TYPED_IDENTIFIER).getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue();
+        addIssue(MessageFormat.format("Clearly define the type of this ''{0}'' variable", variableName), astNode);
       }
     }
   }

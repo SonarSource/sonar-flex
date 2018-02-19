@@ -20,14 +20,16 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.util.Collections;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S1116",
@@ -36,15 +38,15 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   tags = {Tags.CERT, Tags.MISRA, Tags.UNUSED})
 @ActivatedByDefault
 @SqaleConstantRemediation("2min")
-public class EmptyStatementCheck extends SquidCheck<LexerlessGrammar> {
+public class EmptyStatementCheck extends FlexCheck {
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.EMPTY_STATEMENT);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.EMPTY_STATEMENT);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    getContext().createLineViolation(this, "Remove this empty statement.", astNode);
+    addIssue("Remove this empty statement.", astNode);
   }
 }

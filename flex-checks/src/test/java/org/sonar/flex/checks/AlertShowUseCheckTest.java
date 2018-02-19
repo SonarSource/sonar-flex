@@ -19,12 +19,9 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class AlertShowUseCheckTest {
 
@@ -32,8 +29,7 @@ public class AlertShowUseCheckTest {
 
   @Test
   public void test() {
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/AlertShowUse.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/AlertShowUse.as"), check))
       .next().atLine(3)
       .noMore();
   }

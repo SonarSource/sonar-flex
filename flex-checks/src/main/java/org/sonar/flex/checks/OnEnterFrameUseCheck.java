@@ -20,14 +20,16 @@
 package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.util.Collections;
+import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Expression;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "S1982",
@@ -35,17 +37,17 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   priority = Priority.MAJOR,
   tags = Tags.PERFORMANCE)
 @SqaleConstantRemediation("20min")
-public class OnEnterFrameUseCheck extends SquidCheck<LexerlessGrammar> {
+public class OnEnterFrameUseCheck extends FlexCheck {
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.ASSIGNMENT_EXPR);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.ASSIGNMENT_EXPR);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
     if (astNode.getNumberOfChildren() > 1 && isOnEnterFrame(astNode.getFirstChild()) && isFunctionExpr(astNode.getLastChild())) {
-      getContext().createLineViolation(this, "Refactor this code to remove the use of \"onEnterFrame\" event handler.", astNode);
+      addIssue("Refactor this code to remove the use of \"onEnterFrame\" event handler.", astNode);
     }
   }
 

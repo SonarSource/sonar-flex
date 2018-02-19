@@ -20,8 +20,6 @@
 package org.sonar.flex.checks;
 
 import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
@@ -32,8 +30,7 @@ public class DuplicateSwitchCaseConditionCheckTest {
 
   @Test
   public void test() {
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/DuplicateSwitchCaseCondition.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/DuplicateSwitchCaseCondition.as"), check))
       .next().atLine(7).withMessage("This case duplicates the case on line 2 with condition \"1\".")
       .next().atLine(16).withMessage("This case duplicates the case on line 13 with condition \"1\".")
       .noMore();

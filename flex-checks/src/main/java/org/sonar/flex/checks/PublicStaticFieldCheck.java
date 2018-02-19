@@ -21,8 +21,12 @@ package org.sonar.flex.checks;
 
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
@@ -31,10 +35,6 @@ import org.sonar.flex.checks.utils.Tags;
 import org.sonar.flex.checks.utils.Variable;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import java.util.Set;
 
 @Rule(
   key = "S1444",
@@ -43,11 +43,11 @@ import java.util.Set;
   tags = {Tags.CWE, Tags.CERT, Tags.SECURITY})
 @ActivatedByDefault
 @SqaleConstantRemediation("20min")
-public class PublicStaticFieldCheck extends SquidCheck<LexerlessGrammar> {
+public class PublicStaticFieldCheck extends FlexCheck {
 
   @Override
-  public void init() {
-    subscribeTo(FlexGrammar.CLASS_DEF);
+  public List<AstNodeType> subscribedTo() {
+    return Collections.singletonList(FlexGrammar.CLASS_DEF);
   }
 
   @Override
@@ -58,7 +58,7 @@ public class PublicStaticFieldCheck extends SquidCheck<LexerlessGrammar> {
         Set<AstNodeType> varModifiers = Modifiers.getModifiers(directive.getFirstChild(FlexGrammar.ATTRIBUTES));
 
         if (varModifiers.contains(FlexKeyword.PUBLIC) && varModifiers.contains(FlexKeyword.STATIC)) {
-          getContext().createLineViolation(this, "Make this \"public static\" field const", directive);
+          addIssue("Make this \"public static\" field const", directive);
         }
       }
     }

@@ -21,8 +21,16 @@ package org.sonar.flex.checks;
 
 import com.google.common.collect.Maps;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
@@ -31,13 +39,6 @@ import org.sonar.flex.checks.utils.Modifiers;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.SquidCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
-
-import javax.annotation.Nullable;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Map;
 
 @Rule(
   key = "S1144",
@@ -46,7 +47,7 @@ import java.util.Map;
   tags = Tags.UNUSED)
 @ActivatedByDefault
 @SqaleConstantRemediation("5min")
-public class UnusedPrivateFunctionCheck extends SquidCheck<LexerlessGrammar> {
+public class UnusedPrivateFunctionCheck extends FlexCheck {
 
   static class PrivateFunction {
     final AstNode declaration;
@@ -96,8 +97,8 @@ public class UnusedPrivateFunctionCheck extends SquidCheck<LexerlessGrammar> {
   private boolean inClass;
 
   @Override
-  public void init() {
-    subscribeTo(
+  public List<AstNodeType> subscribedTo() {
+    return Arrays.asList(
       FlexGrammar.CLASS_DEF,
       FlexGrammar.FUNCTION_DEF,
       FlexGrammar.QUALIFIED_IDENTIFIER);
@@ -131,7 +132,7 @@ public class UnusedPrivateFunctionCheck extends SquidCheck<LexerlessGrammar> {
   private void reportUnusedPrivateFunction() {
     for (Map.Entry<String, PrivateFunction> entry : classStack.peek().functions.entrySet()) {
       if (entry.getValue().usages == 0) {
-        getContext().createLineViolation(this, "Remove the declaration of the unused '" + entry.getKey() + "' function.", entry.getValue().declaration);
+        addIssue("Remove the declaration of the unused '" + entry.getKey() + "' function.", entry.getValue().declaration);
       }
     }
   }

@@ -19,12 +19,9 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.flex.FlexAstScanner;
-import org.sonar.squidbridge.api.SourceFile;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class ActionScript2CheckTest {
 
@@ -32,8 +29,7 @@ public class ActionScript2CheckTest {
 
   @Test
   public void test() {
-    SourceFile file = FlexAstScanner.scanSingleFile(new File("src/test/resources/checks/ActionScript2.as"), check);
-    CheckMessagesVerifier.verify(file.getCheckMessages())
+    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ActionScript2.as"), check))
 //      .next().atLine(1).withMessage("'intrinsic' not available in ActionScript 3.0")
       .next().atLine(2).withMessage("Operator '<>' not available in ActionScript 3.0")
 //      .next().atLine(4).withMessage("Operator 'not' not available in ActionScript 3.0")

@@ -19,12 +19,17 @@
  */
 package org.sonar.flex.checks;
 
+import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.AstNodeType;
+import com.sonar.sslr.api.RecognitionException;
+import java.util.Collections;
+import java.util.List;
+import javax.annotation.Nullable;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.flex.FlexCheck;
 import org.sonar.flex.checks.utils.Tags;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.checks.AbstractParseErrorCheck;
-import org.sonar.sslr.parser.LexerlessGrammar;
 
 @Rule(
   key = "ParsingError",
@@ -32,6 +37,20 @@ import org.sonar.sslr.parser.LexerlessGrammar;
   priority = Priority.MAJOR,
   tags = Tags.SUSPICIOUS)
 @SqaleConstantRemediation("30min")
-public class ParsingErrorCheck extends AbstractParseErrorCheck<LexerlessGrammar> {
+public class ParsingErrorCheck extends FlexCheck {
+
+  @Override
+  public List<AstNodeType> subscribedTo() {
+    return Collections.emptyList();
+  }
+
+  @Override
+  public void visitFile(@Nullable AstNode astNode) {
+    RecognitionException parsingException = getContext().parsingException();
+    if (parsingException != null) {
+      addIssueAtLine(parsingException.getMessage(), parsingException.getLine());
+    }
+
+  }
 
 }

@@ -1,32 +1,27 @@
-<p>
-Usage of statements, operators and keywords specific to ActionScript 2 does not allow to migrate to ActionScript 3.
-This includes "intrinsic" keyword, set variable statement and following list of operators:
-</p>
-
+<p>Usage of statements, operators and keywords specific to ActionScript 2 does not allow to migrate to ActionScript 3. This includes "intrinsic"
+keyword, set variable statement and following list of operators:</p>
 <ul>
-  <li><> (inequality) - use != instead</li>
-  <li>add (concatenation (strings)) - use + instead</li>
-  <li>eq (equality (strings)) - use == instead</li>
-  <li>ne (not equal (strings)) - use != instead</li>
-  <li>lt (less than (strings)) - use < instead</li>
-  <li>le (less than or equal to (strings)) - use <= instead</li>
-  <li>gt (greater than (strings)) - use > instead</li>
-  <li>ge (greater than or equal to (strings)) - use >= instead</li>
-  <li>and (logical and) - use && instead</li>
-  <li>or (logical or) - use || instead</li>
-  <li>not (logical not) - use ! instead</li>
+  <li> <code>&lt;&gt;</code> (inequality) - use <code>!=</code> instead </li>
+  <li> <code>add</code> (concatenation (strings)) - use <code>+</code> instead </li>
+  <li> <code>eq</code> (equality (strings)) - use <code>==</code> instead </li>
+  <li> <code>ne</code> (not equal (strings)) - use <code>!=</code> instead </li>
+  <li> <code>lt</code> (less than (strings)) - use <code>&lt;</code> instead </li>
+  <li> <code>le</code> (less than or equal to (strings)) - use <code>&lt;=</code> instead </li>
+  <li> <code>gt</code> (greater than (strings)) - use <code>&gt;</code> instead </li>
+  <li> <code>ge</code> (greater than or equal to (strings)) - use <code>&gt;=</code> instead </li>
+  <li> <code>and</code> (logical and) - use <code>&amp;&amp;</code> instead </li>
+  <li> <code>or</code> (logical or) - use <code>||</code> instead </li>
+  <li> <code>not</code> (logical not) - use <code>!</code> instead </li>
 </ul>
-
-
 <h2>Noncompliant Code Example</h2>
-
 <pre>
 if (true != false) { // Compliant
 }
 
-if (true <> false) { // Noncompliant
+if (true &lt;&gt; false) { // Noncompliant
 }
 
 set("varName", value); // Noncompliant
 varName = value; // Compliant
 </pre>
+

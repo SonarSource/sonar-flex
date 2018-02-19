@@ -1,7 +1,5 @@
-<p>
-  Using plain string event names in even listeners is an anti-pattern; if the event is renamed, the application can start behaving unexpectedly. A constant variable should be used instead.
-</p>
-
+<p>Using plain string event names in even listeners is an anti-pattern; if the event is renamed, the application can start behaving unexpectedly. A
+constant variable should be used instead.</p>
 <h2>Noncompliant Code Example</h2>
 <pre>
 import flash.display.Sprite;
@@ -12,7 +10,7 @@ class ChildSprite extends Sprite
     public function ChildSprite()
     {
         ...
-        addEventListener("CustomEvent", clickHandler);
+        addEventListener("CustomEvent", clickHandler);   // Noncompliant
     }
 }
 
@@ -22,7 +20,6 @@ function clickHandler(event:CustomEvent):void
     trace("the this keyword refers to: " + this);
 }
 </pre>
-
 <h2>Compliant Solution</h2>
 <pre>
 import flash.display.Sprite;
@@ -45,3 +42,4 @@ function clickHandler(event:CustomEvent):void
     trace("the this keyword refers to: " + this);
 }
 </pre>
+

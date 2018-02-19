@@ -1,0 +1,16 @@
+{
+  "title": "Local variables should not shadow class fields",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "cert",
+    "pitfall"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1117",
+  "sqKey": "S1117"
+}

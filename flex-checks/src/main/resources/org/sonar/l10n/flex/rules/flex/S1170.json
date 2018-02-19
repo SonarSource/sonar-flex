@@ -1,0 +1,15 @@
+{
+  "title": "Public constants and fields initialized at declaration should be \"const static\" rather than merely \"const\"",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "convention"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1170",
+  "sqKey": "S1170"
+}

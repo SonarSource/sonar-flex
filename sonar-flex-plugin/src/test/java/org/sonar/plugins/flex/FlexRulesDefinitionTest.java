@@ -21,6 +21,7 @@ package org.sonar.plugins.flex;
 
 import org.junit.Test;
 import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.api.server.rule.RulesDefinition.Rule;
 import org.sonar.flex.checks.CheckList;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,14 +39,18 @@ public class FlexRulesDefinitionTest {
     assertThat(repository.language()).isEqualTo("flex");
     assertThat(repository.rules()).hasSize(CheckList.getChecks().size());
 
-    RulesDefinition.Rule functionComplexityRule = repository.rule("FunctionComplexity");
+    Rule functionComplexityRule = repository.rule("FunctionComplexity");
     assertThat(functionComplexityRule).isNotNull();
     assertThat(functionComplexityRule.name()).isEqualTo("Functions should not be too complex");
 
-    for (RulesDefinition.Rule rule : repository.rules()) {
+    for (Rule rule : repository.rules()) {
       for (RulesDefinition.Param param : rule.params()) {
         assertThat(param.description()).as("description for " + param.key() + " of " + rule.key()).isNotEmpty();
       }
     }
+
+    assertThat(repository.rules().stream().filter(Rule::template))
+      .extracting(Rule::key)
+      .containsOnly("XPath", "CommentRegularExpression");
   }
 }

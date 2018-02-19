@@ -59,12 +59,7 @@ public class OneStatementPerLineCheck extends FlexCheck {
   public void visitNode(AstNode statementNode) {
     if (!isExcluded(statementNode)) {
       int line = statementNode.getTokenLine();
-
-      if (!statementsPerLine.containsKey(line)) {
-        statementsPerLine.put(line, 0);
-      }
-
-      statementsPerLine.put(line, statementsPerLine.get(line) + 1);
+      statementsPerLine.compute(line, (k, v) -> v == null ? 1 : (v + 1));
     }
   }
 

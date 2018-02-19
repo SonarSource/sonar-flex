@@ -19,14 +19,19 @@
  */
 package org.sonar.plugins.flex;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.flex.checks.CheckList;
 import org.sonar.plugins.flex.core.Flex;
-import org.sonar.squidbridge.annotations.AnnotationBasedRulesDefinition;
+import org.sonarsource.analyzer.commons.RuleMetadataLoader;
 
 public final class FlexRulesDefinition implements RulesDefinition {
 
   private static final String REPOSITORY_NAME = "SonarQube";
+  private static final String RESOURCE_BASE_PATH = "org/sonar/l10n/flex/rules/flex";
+  private static final Set<String> TEMPLATE_RULE_KEYS = new HashSet<>(Arrays.asList("XPath", "CommentRegularExpression"));
 
   @Override
   public void define(Context context) {
@@ -34,7 +39,11 @@ public final class FlexRulesDefinition implements RulesDefinition {
       .createRepository(CheckList.REPOSITORY_KEY, Flex.KEY)
       .setName(REPOSITORY_NAME);
 
-    new AnnotationBasedRulesDefinition(repository, Flex.KEY).addRuleClasses(false, CheckList.getChecks());
+    // FIXME: with SonarQube 6.7, should use the sonar way profile location as extra parameter
+    RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader(RESOURCE_BASE_PATH);
+    ruleMetadataLoader.addRulesByAnnotatedClass(repository, CheckList.getChecks());
+
+    TEMPLATE_RULE_KEYS.forEach(key -> repository.rule(key).setTemplate(true));
 
     repository.done();
   }

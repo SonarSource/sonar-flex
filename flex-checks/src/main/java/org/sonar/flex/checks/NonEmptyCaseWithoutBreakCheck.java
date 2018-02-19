@@ -24,21 +24,11 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.util.Collections;
 import java.util.List;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "NonEmptyCaseWithoutBreak",
-  name = "Switch cases should end with an unconditional \"break\" statement",
-  priority = Priority.CRITICAL,
-  tags = {Tags.CWE, Tags.MISRA, Tags.CERT, Tags.PITFALL})
-@ActivatedByDefault
-@SqaleConstantRemediation("10min")
+@Rule(key = "NonEmptyCaseWithoutBreak")
 public class NonEmptyCaseWithoutBreakCheck extends FlexCheck {
 
   private static final AstNodeType[] JUMP_NODES = {FlexGrammar.BREAK_STATEMENT, FlexGrammar.RETURN_STATEMENT, FlexGrammar.THROW_STATEMENT, FlexGrammar.CONTINUE_STATEMENT};

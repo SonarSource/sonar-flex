@@ -27,19 +27,11 @@ import java.util.Collections;
 import java.util.List;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexCheck;
-import org.sonar.squidbridge.annotations.NoSqale;
-import org.sonar.squidbridge.annotations.RuleTemplate;
 
-@Rule(
-  key = "XPath",
-  name = "XPath rule",
-  priority = Priority.MAJOR)
-@RuleTemplate
-@NoSqale
+@Rule(key = "XPath")
 public class XPathCheck extends FlexCheck {
 
   private static final String DEFAULT_XPATH_QUERY = "";

@@ -25,20 +25,10 @@ import com.sonar.sslr.api.Token;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1468",
-  name = "Security.allowDomain(...) should only be used in a tightly focused manner",
-  priority = Priority.CRITICAL,
-  tags = Tags.SECURITY)
-@ActivatedByDefault
-@SqaleConstantRemediation("10min")
+@Rule(key = "S1468")
 public class StarUseForDomainCheck extends FlexCheck {
 
   private enum State {

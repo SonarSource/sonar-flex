@@ -25,20 +25,10 @@ import com.sonar.sslr.api.Token;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1465",
-  name = "LocalConnection should be configured to narrowly specify the domains with which local connections to other Flex application are allowed",
-  priority = Priority.CRITICAL,
-  tags = Tags.SECURITY)
-@ActivatedByDefault
-@SqaleConstantRemediation("10min")
+@Rule(key = "S1465")
 public class StarUseForLocalConnectionCheck extends FlexCheck {
 
   private Token previousToken = null;

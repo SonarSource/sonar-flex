@@ -24,23 +24,13 @@ import com.sonar.sslr.api.AstNodeType;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Function;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1470",
-  name = "Any class extending the Event class should override Event.clone()",
-  priority = Priority.CRITICAL,
-  tags = Tags.BUG)
-@ActivatedByDefault
-@SqaleConstantRemediation("5min")
+@Rule(key = "S1470")
 public class OverrideEventCloneFunctionCheck extends FlexCheck {
 
   private static final String EVENT_TYPE_NAME = "Event";

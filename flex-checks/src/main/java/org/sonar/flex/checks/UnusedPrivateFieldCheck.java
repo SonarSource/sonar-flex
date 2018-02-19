@@ -29,25 +29,15 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Modifiers;
-import org.sonar.flex.checks.utils.Tags;
 import org.sonar.flex.checks.utils.Variable;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1068",
-  name = "Unused private fields should be removed",
-  priority = Priority.MAJOR,
-  tags = Tags.UNUSED)
-@ActivatedByDefault
-@SqaleConstantRemediation("5min")
+@Rule(key = "S1068")
 public class UnusedPrivateFieldCheck extends FlexCheck {
 
   private static class PrivateField {

@@ -24,24 +24,14 @@ import com.sonar.sslr.api.AstNodeType;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Modifiers;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1448",
-  name = "Classes should not have too many methods",
-  priority = Priority.MAJOR,
-  tags = Tags.BRAIN_OVERLOAD)
-@ActivatedByDefault
-@SqaleConstantRemediation("1h")
+@Rule(key = "S1448")
 public class ClassWithTooManyFunctionsCheck extends FlexCheck {
 
 

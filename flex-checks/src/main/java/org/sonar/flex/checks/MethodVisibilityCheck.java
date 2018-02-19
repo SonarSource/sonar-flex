@@ -25,22 +25,14 @@ import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Function;
 import org.sonar.flex.checks.utils.Modifiers;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1784",
-  name = "Method visibility should be explicitly declared",
-  priority = Priority.MINOR,
-  tags = Tags.CONVENTION)
-@SqaleConstantRemediation("2min")
+@Rule(key = "S1784")
 public class MethodVisibilityCheck extends FlexCheck {
 
   @Override

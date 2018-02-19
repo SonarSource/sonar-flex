@@ -26,21 +26,13 @@ import com.sonar.sslr.api.Trivia;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexCheck;
-import org.sonar.squidbridge.annotations.NoSqale;
-import org.sonar.squidbridge.annotations.RuleTemplate;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-@Rule(
-  key = "CommentRegularExpression",
-  name = "Comments matching a regular expression should be handled",
-  priority = Priority.MAJOR)
-@RuleTemplate
-@NoSqale
+@Rule(key = "CommentRegularExpression")
 public class CommentRegularExpressionCheck extends FlexCheck {
 
   private static final String DEFAULT_REGULAR_EXPRESSION = "";

@@ -24,25 +24,15 @@ import com.sonar.sslr.api.AstNodeType;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Modifiers;
-import org.sonar.flex.checks.utils.Tags;
 import org.sonar.flex.checks.utils.Variable;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1444",
-  name = "\"public static\" fields should be constant",
-  priority = Priority.CRITICAL,
-  tags = {Tags.CWE, Tags.CERT, Tags.SECURITY})
-@ActivatedByDefault
-@SqaleConstantRemediation("20min")
+@Rule(key = "S1444")
 public class PublicStaticFieldCheck extends FlexCheck {
 
   @Override

@@ -23,22 +23,12 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.util.Collections;
 import java.util.List;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1125",
-  name = "Literal boolean values should not be used in condition expressions",
-  priority = Priority.MINOR,
-  tags = Tags.CLUMSY)
-@ActivatedByDefault
-@SqaleConstantRemediation("2min")
+@Rule(key = "S1125")
 public class BooleanEqualityComparisonCheck extends FlexCheck {
 
   @Override

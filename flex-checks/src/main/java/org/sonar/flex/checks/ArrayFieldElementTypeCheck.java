@@ -24,24 +24,14 @@ import com.sonar.sslr.api.AstNodeType;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.MetadataTag;
-import org.sonar.flex.checks.utils.Tags;
 import org.sonar.flex.checks.utils.Variable;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1469",
-  name = "The element type of an array field should be specified",
-  priority = Priority.MAJOR,
-  tags = Tags.PITFALL)
-@ActivatedByDefault
-@SqaleConstantRemediation("5min")
+@Rule(key = "S1469")
 public class ArrayFieldElementTypeCheck extends FlexCheck {
 
   @Override

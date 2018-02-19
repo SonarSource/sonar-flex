@@ -25,20 +25,10 @@ import com.sonar.sslr.api.Token;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1442",
-  name = "\"Alert.show(...)\" should not be used",
-  priority = Priority.MAJOR,
-  tags = {Tags.CWE, Tags.SECURITY, Tags.USER_EXPERIENCE})
-@ActivatedByDefault
-@SqaleConstantRemediation("10min")
+@Rule(key = "S1442")
 public class AlertShowUseCheck extends FlexCheck {
 
   private enum State {

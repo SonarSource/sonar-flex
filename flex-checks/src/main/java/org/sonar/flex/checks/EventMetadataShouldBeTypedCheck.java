@@ -25,22 +25,12 @@ import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.MetadataTag;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1463",
-  name = "Event types should be defined in metadata tags",
-  priority = Priority.MAJOR,
-  tags = Tags.DESIGN)
-@ActivatedByDefault
-@SqaleConstantRemediation("5min")
+@Rule(key = "S1463")
 public class EventMetadataShouldBeTypedCheck extends FlexCheck {
 
   @Override

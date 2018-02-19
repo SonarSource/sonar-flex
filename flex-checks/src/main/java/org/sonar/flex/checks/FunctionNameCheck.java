@@ -28,24 +28,14 @@ import java.util.Deque;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Function;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S100",
-  name = "Function names should comply with a naming convention",
-  tags = Tags.CONVENTION,
-  priority = Priority.MINOR)
-@ActivatedByDefault
-@SqaleConstantRemediation("5min")
+@Rule(key = "S100")
 public class FunctionNameCheck extends FlexCheck {
 
 

@@ -23,20 +23,12 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.util.Collections;
 import java.util.List;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Expression;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1982",
-  name = "\"MovieClip.onEnterFrame\" event handler should not be used",
-  priority = Priority.MAJOR,
-  tags = Tags.PERFORMANCE)
-@SqaleConstantRemediation("20min")
+@Rule(key = "S1982")
 public class OnEnterFrameUseCheck extends FlexCheck {
 
   @Override

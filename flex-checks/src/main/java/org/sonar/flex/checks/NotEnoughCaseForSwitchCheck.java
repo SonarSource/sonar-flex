@@ -23,21 +23,11 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.util.Collections;
 import java.util.List;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1301",
-  name = "\"switch\" statements should have at least 3 \"case\" clauses",
-  priority = Priority.MINOR,
-  tags = Tags.MISRA)
-@ActivatedByDefault
-@SqaleConstantRemediation("5min")
+@Rule(key = "S1301")
 public class NotEnoughCaseForSwitchCheck extends FlexCheck {
 
   private static final int MINIMUM_CASE = 3;

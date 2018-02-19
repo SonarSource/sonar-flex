@@ -29,19 +29,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1871",
-  name = "Two branches in the same conditional structure should not have exactly the same implementation",
-  priority = Priority.MAJOR,
-  tags = {Tags.DESIGN, Tags.SUSPICIOUS})
-@SqaleConstantRemediation("10min")
+@Rule(key = "S1871")
 public class DuplicateSwitchCaseImplementationCheck extends FlexCheck {
 
   @Override

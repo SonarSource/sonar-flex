@@ -28,23 +28,13 @@ import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Function;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1185",
-  name = "Overriding methods should do more than simply call the same method in the super class",
-  tags = Tags.CLUMSY,
-  priority = Priority.MINOR)
-@ActivatedByDefault
-@SqaleConstantRemediation("5min")
+@Rule(key = "S1185")
 public class FunctionOnlyCallsSuperCheck extends FlexCheck {
 
   @Override

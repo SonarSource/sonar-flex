@@ -25,21 +25,11 @@ import com.sonar.sslr.api.AstNodeType;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "ActionScript2",
-  name = "Statements, operators and keywords specific to ActionScript 2 should not be used",
-  priority = Priority.BLOCKER,
-  tags = Tags.OBSOLETE)
-@ActivatedByDefault
-@SqaleConstantRemediation("2min")
+@Rule(key = "ActionScript2")
 public class ActionScript2Check extends FlexCheck {
 
   private final Set<String> deprecatedOperators = ImmutableSet.of("or", "and", "ne", "eq", "ge", "gt", "le", "lt", "add", "<>");

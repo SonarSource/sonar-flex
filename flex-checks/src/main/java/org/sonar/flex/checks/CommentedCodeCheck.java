@@ -27,14 +27,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexCommentAnalyser;
 import org.sonar.flex.FlexKeyword;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.recognizer.CodeRecognizer;
 import org.sonar.squidbridge.recognizer.ContainsDetector;
 import org.sonar.squidbridge.recognizer.Detector;
@@ -42,13 +38,7 @@ import org.sonar.squidbridge.recognizer.EndWithDetector;
 import org.sonar.squidbridge.recognizer.KeywordsDetector;
 import org.sonar.squidbridge.recognizer.LanguageFootprint;
 
-@Rule(
-  key = "CommentedCode",
-  name = "Sections of code should not be \"commented out\"",
-  priority = Priority.MAJOR,
-  tags = {Tags.MISRA, Tags.UNUSED})
-@ActivatedByDefault
-@SqaleConstantRemediation("5min")
+@Rule(key = "CommentedCode")
 public class CommentedCodeCheck extends FlexCheck {
 
   private static final double THRESHOLD = 0.9;

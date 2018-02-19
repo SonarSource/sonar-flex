@@ -24,23 +24,13 @@ import com.sonar.sslr.api.AstNodeType;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.checks.utils.Clazz;
 import org.sonar.flex.checks.utils.Function;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "S1447",
-  name = "Constructor bodies should be as lightweight as possible",
-  priority = Priority.MAJOR,
-  tags = Tags.PERFORMANCE)
-@ActivatedByDefault
-@SqaleConstantRemediation("5min")
+@Rule(key = "S1447")
 public class ConstructorNotLightweightCheck extends FlexCheck {
 
   @Override

@@ -26,21 +26,11 @@ import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.checks.utils.Tags;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "OneStatementPerLine",
-  name = "Statements should be on separate lines",
-  priority = Priority.MINOR,
-  tags = Tags.CONVENTION)
-@ActivatedByDefault
-@SqaleConstantRemediation("1min")
+@Rule(key = "OneStatementPerLine")
 public class OneStatementPerLineCheck extends FlexCheck {
 
   private final Map<Integer, Integer> statementsPerLine = Maps.newHashMap();

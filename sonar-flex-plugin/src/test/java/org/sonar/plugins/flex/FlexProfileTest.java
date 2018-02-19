@@ -19,10 +19,12 @@
  */
 package org.sonar.plugins.flex;
 
+import java.util.List;
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
@@ -46,7 +48,9 @@ public class FlexProfileTest {
 
     assertThat(profile.getLanguage()).isEqualTo(Flex.KEY);
     assertThat(profile.getName()).isEqualTo(CheckList.SONAR_WAY_PROFILE);
-    assertThat(profile.getActiveRulesByRepository(CheckList.REPOSITORY_KEY)).hasSize(60);
+    List<ActiveRule> activeRules = profile.getActiveRulesByRepository(CheckList.REPOSITORY_KEY);
+    assertThat(activeRules.size()).isGreaterThan(40);
+    assertThat(activeRules).extracting(ActiveRule::getRuleKey).contains("S1871");
     assertThat(validation.hasErrors()).isFalse();
   }
 

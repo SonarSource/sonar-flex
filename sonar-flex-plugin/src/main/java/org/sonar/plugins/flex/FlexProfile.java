@@ -25,7 +25,7 @@ import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.flex.checks.CheckList;
 import org.sonar.plugins.flex.core.Flex;
-import org.sonar.squidbridge.annotations.AnnotationBasedProfileBuilder;
+import org.sonarsource.analyzer.commons.ProfileDefinitionReader;
 
 public class FlexProfile extends ProfileDefinition {
 
@@ -37,12 +37,11 @@ public class FlexProfile extends ProfileDefinition {
 
   @Override
   public RulesProfile createProfile(ValidationMessages validation) {
-    AnnotationBasedProfileBuilder annotationBasedProfileBuilder = new AnnotationBasedProfileBuilder(ruleFinder);
-    return annotationBasedProfileBuilder.build(
-        CheckList.REPOSITORY_KEY,
-        CheckList.SONAR_WAY_PROFILE,
-        Flex.KEY,
-        CheckList.getChecks(),
-        validation);
+    RulesProfile profile = RulesProfile.create(CheckList.SONAR_WAY_PROFILE, Flex.KEY);
+
+    ProfileDefinitionReader definitionReader = new ProfileDefinitionReader(ruleFinder);
+    definitionReader.activateRules(profile, CheckList.REPOSITORY_KEY, "org/sonar/l10n/flex/rules/flex/Sonar_way_profile.json");
+
+    return profile;
   }
 }

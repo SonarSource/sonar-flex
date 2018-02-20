@@ -1,5 +1,5 @@
 {
-  "title": "Loggers should be \"private static final\" and should share a naming convention",
+  "title": "Loggers should be \"private static const\" and should share naming convention",
   "type": "CODE_SMELL",
   "status": "ready",
   "remediation": {

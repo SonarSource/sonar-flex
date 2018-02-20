@@ -4,7 +4,7 @@
   logger. </li>
   <li> <code>static</code>: not dependent on an instance of a class (an object). When logging something, contextual information can of course be
   provided in the messages but the logger should be created at class level to prevent creating a logger along with each object. </li>
-  <li> <code>final</code>: created once and only once per class. </li>
+  <li> <code>const</code>: created once and only once per class. </li>
 </ul>
 <h2>Noncompliant Code Example</h2>
 <p>With the default regular expression <code>LOG(?:GER)?</code>:</p>

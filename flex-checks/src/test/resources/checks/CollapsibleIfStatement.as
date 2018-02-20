@@ -8,7 +8,7 @@ class A {
   }
 
   if (false) { // Compliant
-    if (false) { // Non-Compliant
+    if (false) { // Noncompliant
     }
   }
 
@@ -38,12 +38,12 @@ class A {
 
   if (false) { // Compliant
   } else if (false) { // Compliant
-    if (false) { // Non-Compliant
+    if (false) { // Noncompliant
     }
   }
 
   if (false) // Compliant
-    if (true) { // Non-Compliant
+    if (true) { // Noncompliant
     }
 
   if (false) { // Compliant

@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class SwitchWithoutDefaultCheckTest {
 
@@ -30,10 +28,7 @@ public class SwitchWithoutDefaultCheckTest {
   public void test() {
     SwitchWithoutDefaultCheck check = new SwitchWithoutDefaultCheck();
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/SwitchWithoutDefault.as"), check))
-        .next().atLine(11).withMessage("Avoid switch statement without a \"default\" clause.")
-        .next().atLine(16).withMessage("\"default\" clause should be the last one.")
-        .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/SwitchWithoutDefault.as"), check);
   }
 
 }

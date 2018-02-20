@@ -5,7 +5,7 @@ switch (myVariable) {
     trace("");
     break;
   case 1:
-  default:                    // NOK
+  default:                    // Noncompliant {{Reduce this switch case number of lines from 6 to at most 5, for example by extracting code into methods.}}
     trace("");
     trace("");
     trace("");

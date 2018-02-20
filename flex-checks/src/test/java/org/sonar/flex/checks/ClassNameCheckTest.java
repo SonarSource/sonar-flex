@@ -21,7 +21,6 @@ package org.sonar.flex.checks;
 
 import java.io.File;
 import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class ClassNameCheckTest {
 
@@ -29,16 +28,14 @@ public class ClassNameCheckTest {
 
   @Test
   public void defaults() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ClassName.as"), check))
-      .next().atLine(4);
+    FlexVerifier.verify(new File("src/test/resources/checks/ClassName.as"), check);
   }
 
   @Test
   public void custom() {
     check.format = "^[a-z][a-zA-Z]*$";
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ClassName.as"), check))
-      .next().atLine(1);
+    FlexVerifier.verify(new File("src/test/resources/checks/ClassName2.as"), check);
   }
 
 }

@@ -19,20 +19,14 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
-
-import static org.hamcrest.Matchers.containsString;
+import org.junit.Test;
 
 public class ParsingErrorCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ParsingError.as"), new ParsingErrorCheck()))
-        .next().atLine(1).withMessageThat(containsString("Parse error at line 1 column 8"))
-        .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ParsingError.as"), new ParsingErrorCheck());
   }
 
 }

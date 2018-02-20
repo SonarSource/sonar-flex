@@ -137,6 +137,12 @@
         <version>${analyzerCommons.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.sonarsource.analyzer-commons</groupId>
+        <artifactId>sonar-analyzer-test-commons</artifactId>
+        <version>${analyzerCommons.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
         <groupId>org.sonarsource.sslr-squid-bridge</groupId>
         <artifactId>sslr-squid-bridge</artifactId>
         <version>2.6.1</version>

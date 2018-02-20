@@ -21,7 +21,6 @@ package org.sonar.flex.checks;
 
 import java.io.File;
 import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class BooleanEqualityComparisonCheckTest {
 
@@ -29,8 +28,6 @@ public class BooleanEqualityComparisonCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/BooleanEqualityComparison.as"), check))
-      .next().atLine(1)
-      .next().atLine(3);
+    FlexVerifier.verify(new File("src/test/resources/checks/BooleanEqualityComparison.as"), check);
   }
 }

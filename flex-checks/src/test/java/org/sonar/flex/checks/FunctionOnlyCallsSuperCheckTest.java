@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class FunctionOnlyCallsSuperCheckTest {
 
@@ -30,11 +28,6 @@ public class FunctionOnlyCallsSuperCheckTest {
 
   @Test
   public void test() throws Exception {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/FunctionOnlyCallsSuper.as"), check))
-      .next().atLine(11).withMessage("Remove this method \"f\" to simply inherit it.")
-      .next().atLine(15)
-      .next().atLine(27)
-      .next().atLine(31)
-      .next().atLine(44);
+    FlexVerifier.verify(new File("src/test/resources/checks/FunctionOnlyCallsSuper.as"), check);
   }
 }

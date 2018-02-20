@@ -21,7 +21,6 @@ package org.sonar.flex.checks;
 
 import java.io.File;
 import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class AlertShowUseCheckTest {
 
@@ -29,8 +28,6 @@ public class AlertShowUseCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/AlertShowUse.as"), check))
-      .next().atLine(3)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/AlertShowUse.as"), check);
   }
 }

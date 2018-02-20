@@ -1,4 +1,4 @@
-movieClip.onEnterFrame = function() {  // NOK
+movieClip.onEnterFrame = function() {  // Noncompliant {{Refactor this code to remove the use of "onEnterFrame" event handler.}}
 };
 
 movieClip.onEnterFrame = null;         // OK

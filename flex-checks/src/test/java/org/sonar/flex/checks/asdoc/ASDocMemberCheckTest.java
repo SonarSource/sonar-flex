@@ -19,51 +19,25 @@
  */
 package org.sonar.flex.checks.asdoc;
 
+import java.io.File;
 import org.junit.Test;
 import org.sonar.flex.checks.ASDocCheckTest;
-import org.sonar.flex.checks.FlexCheckTester;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.flex.checks.FlexVerifier;
 
 public class ASDocMemberCheckTest extends ASDocCheckTest {
-
-  @Test
-  public void custom_only_classes_property_on() throws IllegalAccessException {
-    activeOnly("classes");
-
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(TEST_FILE, check))
-      // class A
-      .next().atLine(1).withMessage("Add the missing ASDoc for this class.")
-
-      // class B
-      .next().atLine(30).withMessage("Add the missing ASDoc for this class.")
-
-      .noMore();
-  }
 
   @Test
   public void custom_only_properties_property_on() throws IllegalAccessException {
     activeOnly("properties");
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(TEST_FILE, check))
-      // class A
-      .next().atLine(7).withMessage("Add the missing ASDoc for this field declaration.")
-
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ASDoc-properties.as"), check);
   }
 
   @Test
   public void custom_only_methods() throws IllegalAccessException {
     activeOnly("methods");
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(TEST_FILE, check))
-      // class A
-      .next().atLine(19).withMessage("Add the missing ASDoc for this method.")
-
-      // class B
-      .next().atLine(33).withMessage("Add the missing ASDoc for this method.")
-      .next().atLine(43).withMessage("Add the missing ASDoc for this method.")
-
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ASDoc-methods.as"), check);
   }
 
 }

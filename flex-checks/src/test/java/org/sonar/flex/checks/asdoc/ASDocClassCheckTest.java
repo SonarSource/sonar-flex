@@ -19,10 +19,10 @@
  */
 package org.sonar.flex.checks.asdoc;
 
+import java.io.File;
 import org.junit.Test;
 import org.sonar.flex.checks.ASDocCheckTest;
-import org.sonar.flex.checks.FlexCheckTester;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
+import org.sonar.flex.checks.FlexVerifier;
 
 public class ASDocClassCheckTest extends ASDocCheckTest {
 
@@ -30,14 +30,7 @@ public class ASDocClassCheckTest extends ASDocCheckTest {
   public void custom_only_classes_property_on() throws IllegalAccessException {
     activeOnly("classes");
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(TEST_FILE, check))
-      // class A
-      .next().atLine(1).withMessage("Add the missing ASDoc for this class.")
-
-      // class B
-      .next().atLine(30).withMessage("Add the missing ASDoc for this class.")
-
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ASDoc-classes.as"), check);
   }
 
 }

@@ -3,7 +3,7 @@ class bar {       // OK
   private function b(){}
 }
 
-class foo {       // NOK
+class foo {       // Noncompliant {{Class "foo" has 21 methods, which is greater than 20 authorized. Split it into smaller classes.}}
   public function a(){}
   public function b(){}
   public function c(){}

@@ -2,7 +2,7 @@ function sayHello() {
   if (true) { // level 1
     if (true) { // level 2
       if (true) { // level 3
-        if (true) { // level 4
+        if (true) { // Noncompliant {{Refactor this code to not nest more than 3 if/for/while/switch statements.}}
         }
       }
     }
@@ -16,7 +16,7 @@ function sayHello() {
 
       if (true) {                 // level 3
 
-        switch (i) {              // level 4
+        switch (i) {              // Noncompliant
           case 1:
             break;
           case 2:

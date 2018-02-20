@@ -1,4 +1,4 @@
-class Ok {
+class Ok { // Noncompliant {{Class has a complexity of 3 which is greater than 1 authorized.}} [[effortToFix=2]]
   function ko() // +1
   {
     switch (foo)

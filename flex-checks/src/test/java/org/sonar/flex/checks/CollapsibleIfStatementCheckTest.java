@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class CollapsibleIfStatementCheckTest {
 
@@ -30,11 +28,7 @@ public class CollapsibleIfStatementCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/CollapsibleIfStatement.as"), check))
-      .next().atLine(11)
-      .next().atLine(41)
-      .next().atLine(46)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/CollapsibleIfStatement.as"), check);
   }
 
 }

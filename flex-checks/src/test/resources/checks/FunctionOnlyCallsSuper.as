@@ -8,11 +8,11 @@ class A {
     return 0;
   }
 
-  private override function f():void { // NOK
+  private override function f():void { // Noncompliant {{Remove this method "f" to simply inherit it.}}
     super.f();
   }
 
-  private override function f():void { // NOK
+  private override function f():void { // Noncompliant
     return super.f();
   }
 
@@ -24,11 +24,11 @@ class A {
     super.f();
   }
 
-  private override function f(a:int):int { // NOK
+  private override function f(a:int):int { // Noncompliant
     super.f(a);
   }
 
-  private override function f(a:int):int { // NOK
+  private override function f(a:int):int { // Noncompliant
     return super.f(a);
   }
 
@@ -37,11 +37,11 @@ class A {
     return a;
   }
 
-  private override function f(a:int, b:int):void { // NOK
+  private override function f(a:int, b:int):void {
     super.f(b, a);
   }
 
-  private override function f(... a:int):void { // NOK
+  private override function f(... a:int):void { // Noncompliant
     super.f(a);
   }
 

@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class StarTypeUseCheckTest {
 
@@ -30,9 +28,6 @@ public class StarTypeUseCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/StarTypeUse.as"), check))
-      .next().atLine(5).withMessage("Remove usage of this \"star\" type")
-      .next().atLine(6)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/StarTypeUse.as"), check);
   }
 }

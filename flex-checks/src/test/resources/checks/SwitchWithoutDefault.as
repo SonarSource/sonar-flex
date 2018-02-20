@@ -8,15 +8,15 @@ function foo() {
       break;
   }
 
-  switch (param) { // NOK
+  switch (param) { // Noncompliant {{Avoid switch statement without a "default" clause.}}
     case 1:
       break;
   }
 
-  switch (param) {
+  switch (param) { // Noncompliant {{"default" clause should be the last one.}}
     case 0:
       break;
-    default: // NOK
+    default:
       break;
     case 1:
       break;

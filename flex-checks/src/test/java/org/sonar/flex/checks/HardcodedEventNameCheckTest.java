@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class HardcodedEventNameCheckTest {
 
@@ -30,9 +28,6 @@ public class HardcodedEventNameCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/HardcodedEventName.as"), check))
-      .next().atLine(4).withMessage("The event name \"Event\" should be defined in a constant variable.")
-      .next().atLine(5)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/HardcodedEventName.as"), check);
   }
 }

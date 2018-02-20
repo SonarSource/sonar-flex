@@ -1,6 +1,6 @@
 public class Foo
 {
-  public function Foo() : void {  // NOK
+  public function Foo() : void {  // Noncompliant {{Remove the "void" return type from this "Foo" constructor}}
   }
 
   public function f() : void {
@@ -18,7 +18,7 @@ public class Foo
   public function foo() : void {
   }
 
-  public function Foo() : void {  // NOK
+  public function Foo() : void {  // Noncompliant
   }
 }
 

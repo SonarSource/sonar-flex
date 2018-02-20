@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class ConstructorCallsDispatchEventCheckTest {
 
@@ -30,11 +28,7 @@ public class ConstructorCallsDispatchEventCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ConstructorCallsDispatchEvent.as"), check))
-      .next().atLine(9)
-      .next().atLine(14).withMessage("Remove this event dispatch from the \"A\" constructor")
-      .next().atLine(21)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ConstructorCallsDispatchEvent.as"), check);
   }
 
 }

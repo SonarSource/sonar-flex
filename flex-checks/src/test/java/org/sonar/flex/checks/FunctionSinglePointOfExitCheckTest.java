@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class FunctionSinglePointOfExitCheckTest {
 
@@ -30,10 +28,7 @@ public class FunctionSinglePointOfExitCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/FunctionSinglePointOfExit.as"), check))
-        .next().atLine(10).withMessage("A function shall have a single point of exit at the end of the function.")
-        .next().atLine(16)
-        .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/FunctionSinglePointOfExit.as"), check);
   }
 
 }

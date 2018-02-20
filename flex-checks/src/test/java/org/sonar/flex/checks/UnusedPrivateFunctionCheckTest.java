@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class UnusedPrivateFunctionCheckTest {
 
@@ -30,12 +28,6 @@ public class UnusedPrivateFunctionCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/UnusedPrivateFunction.as"), check))
-      .next().atLine(3)
-      .next().atLine(4)
-      .next().atLine(17)
-      .next().atLine(20)
-      .next().atLine(42)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/UnusedPrivateFunction.as"), check);
   }
 }

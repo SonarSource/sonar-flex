@@ -21,7 +21,6 @@ package org.sonar.flex.checks;
 
 import java.io.File;
 import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class ObjectTypeUseCheckTest {
 
@@ -29,12 +28,6 @@ public class ObjectTypeUseCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ObjectTypeUse.as"), check))
-      .next().atLine(1)
-      .next().atLine(2)
-      .next().atLine(3)
-      .next().atLine(4)
-      .next().atLine(5)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ObjectTypeUse.as"), check);
   }
 }

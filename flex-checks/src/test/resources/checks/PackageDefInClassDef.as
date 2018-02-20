@@ -3,5 +3,5 @@ package P {  // Compliant
   }
 }
 
-class P.A {  // Noncompliant
+class P.A {  // Noncompliant {{Make the Package definition nest the Class definition}}
 }

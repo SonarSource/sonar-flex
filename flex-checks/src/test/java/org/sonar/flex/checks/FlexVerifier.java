@@ -22,24 +22,59 @@ package org.sonar.flex.checks;
 import com.google.common.io.Files;
 import com.sonar.sslr.api.RecognitionException;
 import com.sonar.sslr.impl.Parser;
+import com.sonarsource.checks.verifier.CommentParser;
+import com.sonarsource.checks.verifier.SingleFileVerifier;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.FlexVisitorContext;
 import org.sonar.flex.Issue;
 import org.sonar.flex.parser.FlexParser;
-import org.sonar.squidbridge.api.CheckMessage;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-public class FlexCheckTester {
+public class FlexVerifier {
 
-  public static Collection<CheckMessage> checkMessages(File file, FlexCheck check) {
+  public static void verify(File file, FlexCheck check) {
+    createVerifier(file, check, true).assertOneOrMoreIssues();
+  }
+
+  public static void verifyNoIssue(File file, FlexCheck check) {
+    createVerifier(file, check, true).assertNoIssues();
+  }
+
+  public static void verifyNoIssueIgnoringExpected(File file, FlexCheck check) {
+    createVerifier(file, check, false).assertNoIssues();
+  }
+
+  private static SingleFileVerifier createVerifier(File file, FlexCheck check, boolean addCommentsAsExpectedIssues) {
+    SingleFileVerifier verifier = SingleFileVerifier.create(file.toPath(), UTF_8);
+
+    FlexVisitorContext context = createContext(file);
+
+    for (Issue issue : check.scanFileForIssues(context)) {
+      SingleFileVerifier.IssueBuilder issueBuilder = verifier.reportIssue(issue.message());
+      Integer line = issue.line();
+      SingleFileVerifier.Issue verifierIssue;
+      if (line != null) {
+        verifierIssue = issueBuilder.onLine(line);
+      } else {
+        verifierIssue = issueBuilder.onFile();
+      }
+      verifierIssue.withGap(issue.cost());
+    }
+
+    if (addCommentsAsExpectedIssues) {
+      CommentParser commentParser = CommentParser.create().addSingleLineCommentSyntax("//");
+      commentParser.parseInto(file.toPath(), verifier);
+    }
+
+    return verifier;
+  }
+
+  public static FlexVisitorContext createContext(File file) {
     Parser<LexerlessGrammar> parser = FlexParser.create(new FlexConfiguration(UTF_8));
     String fileContent;
     try {
@@ -53,21 +88,7 @@ public class FlexCheckTester {
     } catch (RecognitionException e) {
       context = new FlexVisitorContext(fileContent, e);
     }
-
-    List<CheckMessage> messages = new ArrayList<>();
-    for (Issue issue : check.scanFileForIssues(context)) {
-      CheckMessage checkMessage = new CheckMessage(check, issue.message());
-      Integer line = issue.line();
-      if (line != null) {
-        checkMessage.setLine(line);
-      }
-      Double cost = issue.cost();
-      if (cost != null) {
-        checkMessage.setCost(cost);
-      }
-      messages.add(checkMessage);
-    }
-    return messages;
+    return context;
   }
 
 }

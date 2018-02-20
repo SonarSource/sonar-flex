@@ -2,7 +2,7 @@ class A {
 }
 
 class B {
-    function f1() {}            // NOK
+    function f1() {}            // Noncompliant {{Explicitly declare the visibility of this method "f1".}}
 
     public function f2() {}     // OK
 

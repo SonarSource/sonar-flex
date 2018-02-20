@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class WithStatementCheckTest {
 
@@ -30,9 +28,7 @@ public class WithStatementCheckTest {
   public void test() {
     WithStatementCheck check = new WithStatementCheck();
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/WithStatement.as"), check))
-        .next().atLine(2).withMessage("Usage of \"with\" statement should be avoided. Instead, prefer explicitly specify variable scopes to make code clearer.")
-        .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/WithStatement.as"), check);
   }
 
 }

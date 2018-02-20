@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class EmptyMethodCheckTest {
 
@@ -30,10 +28,7 @@ public class EmptyMethodCheckTest {
 
   @Test
   public void defaults() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/EmptyMethod.as"), check))
-      .next().atLine(2).withMessage("Add a nested comment explaining why this method is empty, throw an NotSupportedException or complete the implementation.")
-      .next().atLine(4)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/EmptyMethod.as"), check);
   }
 
 }

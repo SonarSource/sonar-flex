@@ -1,3 +1,4 @@
+// Noncompliant@+4
 function sayHello() {
   /*
   this line is fine, but the following is not
@@ -7,7 +8,7 @@ function sayHello() {
   if (something) {
   */
 
-  // the following line is not ok
+  // Noncompliant@+1
   // if (something) {
 
   // good

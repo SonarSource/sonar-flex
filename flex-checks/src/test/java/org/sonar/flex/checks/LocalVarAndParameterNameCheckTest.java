@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class LocalVarAndParameterNameCheckTest {
 
@@ -30,10 +28,6 @@ public class LocalVarAndParameterNameCheckTest {
 
   @Test
   public void defaults(){
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/LocalVarAndParameterName.as"), check))
-      .next().atLine(1)
-      .next().atLine(1)
-      .next().atLine(3)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/LocalVarAndParameterName.as"), check);
   }
 }

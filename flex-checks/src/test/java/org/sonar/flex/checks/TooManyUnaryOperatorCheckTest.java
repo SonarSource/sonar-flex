@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class TooManyUnaryOperatorCheckTest {
 
@@ -30,9 +28,6 @@ public class TooManyUnaryOperatorCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/TooManyUnaryOperator.as"), check))
-      .next().atLine(2).withMessage("Split this expression into multiple expressions so that each one contains no more than a single \"++\" or \"--\" unary operator")
-      .next().atLine(4)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/TooManyUnaryOperator.as"), check);
   }
 }

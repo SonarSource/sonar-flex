@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class NestedSwitchCheckTest {
 
@@ -30,9 +28,7 @@ public class NestedSwitchCheckTest {
 
   @Test
   public void defaultFormat() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/NestedSwitch.as"), check))
-      .next().atLine(4).withMessage("Move this \"switch\" to a function or refactor the code to eliminate it.")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/NestedSwitch.as"), check);
   }
 
 }

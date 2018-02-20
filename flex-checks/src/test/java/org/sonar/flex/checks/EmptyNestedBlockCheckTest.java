@@ -19,19 +19,14 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class EmptyNestedBlockCheckTest {
   private EmptyNestedBlockCheck check = new EmptyNestedBlockCheck();
 
   @Test
   public void test() throws Exception {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/EmptyNestedBlock.as"), check))
-      .next().atLine(1)
-      .next().atLine(11)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/EmptyNestedBlock.as"), check);
   }
 }

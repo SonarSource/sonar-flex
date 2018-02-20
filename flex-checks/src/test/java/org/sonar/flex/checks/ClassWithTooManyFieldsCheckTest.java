@@ -21,7 +21,6 @@ package org.sonar.flex.checks;
 
 import java.io.File;
 import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class ClassWithTooManyFieldsCheckTest {
 
@@ -29,17 +28,13 @@ public class ClassWithTooManyFieldsCheckTest {
 
   @Test
   public void testDefault() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ClassWithTooManyFields.as"), check))
-      .noMore();
+    FlexVerifier.verifyNoIssue(new File("src/test/resources/checks/ClassWithTooManyFields.as"), check);
   }
 
   @Test
   public void custom_maximum_field_threshold() {
     check.maximumFieldThreshold = 5;
-
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ClassWithTooManyFields.as"), check))
-      .next().atLine(1).withMessage("Refactor this class so it has no more than " + check.maximumFieldThreshold + " fields, rather than the 6 it currently has.")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ClassWithTooManyFields-5.as"), check);
   }
 
   @Test
@@ -47,9 +42,7 @@ public class ClassWithTooManyFieldsCheckTest {
     check.maximumFieldThreshold = 2;
     check.countNonpublicFields = false;
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ClassWithTooManyFields.as"), check))
-      .next().atLine(1).withMessage("Refactor this class so it has no more than " + check.maximumFieldThreshold + " public fields, rather than the 3 it currently has.")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ClassWithTooManyFields-2.as"), check);
   }
 
 }

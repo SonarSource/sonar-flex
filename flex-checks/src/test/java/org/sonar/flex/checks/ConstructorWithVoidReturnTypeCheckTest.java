@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class ConstructorWithVoidReturnTypeCheckTest {
 
@@ -30,9 +28,6 @@ public class ConstructorWithVoidReturnTypeCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ConstructorWithVoidReturnType.as"), check))
-      .next().atLine(3).withMessage("Remove the \"void\" return type from this \"Foo\" constructor")
-      .next().atLine(21)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ConstructorWithVoidReturnType.as"), check);
   }
 }

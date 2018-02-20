@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class FunctionWithTooManyParametersCheckTest {
 
@@ -30,19 +28,13 @@ public class FunctionWithTooManyParametersCheckTest {
 
   @Test
   public void defaults() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/FunctionWithTooManyParameters.as"), check))
-      .next().atLine(4).withMessage("This function has 8 parameters, which is greater than the 7 authorized.")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/FunctionWithTooManyParameters.as"), check);
   }
 
   @Test
   public void custom() {
     check.max = 4;
-
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/FunctionWithTooManyParameters.as"), check))
-      .next().atLine(1).withMessage("This function has 7 parameters, which is greater than the 4 authorized.")
-      .next().atLine(4).withMessage("This function has 8 parameters, which is greater than the 4 authorized.")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/FunctionWithTooManyParameters-custom.as"), check);
   }
 
 }

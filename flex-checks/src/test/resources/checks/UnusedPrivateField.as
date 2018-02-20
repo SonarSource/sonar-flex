@@ -1,5 +1,5 @@
 public class A {
-  private var foo;                      // NOK
+  private var foo;                      // Noncompliant {{Remove this unused 'foo' private field}}
   public var bar;                       // OK
 
   public function compute(a:int):int{
@@ -8,7 +8,7 @@ public class A {
 
   private class Inner {
       private var foo;                  // OK
-      private var bar;                  // NOK
+      private var bar;                  // Noncompliant
 
     private function get Foo() {
       return this.foo;

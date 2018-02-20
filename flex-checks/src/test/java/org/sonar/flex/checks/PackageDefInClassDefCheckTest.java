@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class PackageDefInClassDefCheckTest {
 
@@ -30,8 +28,6 @@ public class PackageDefInClassDefCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/PackageDefInClassDef.as"), check))
-      .next().atLine(6).withMessage("Make the Package definition nest the Class definition")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/PackageDefInClassDef.as"), check);
   }
 }

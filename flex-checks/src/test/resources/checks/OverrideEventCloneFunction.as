@@ -1,4 +1,4 @@
-public class MyEvent extends Event {         // NOK
+public class MyEvent extends Event {         // Noncompliant {{Make this class "MyEvent" override "Event.clone()" function.}}
 
   public function clone():void {}
   public function doSomething():boolean {}

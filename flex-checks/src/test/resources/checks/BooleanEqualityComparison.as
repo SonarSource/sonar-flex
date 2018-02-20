@@ -1,6 +1,6 @@
-if (booleanVariable == true) {  // NOK
+if (booleanVariable == true) {  // Noncompliant
 }
-if (booleanVariable != true) {  // NOK
+if (booleanVariable != true) {  // Noncompliant
 }
 
 if (booleanVariable != x) {     // OK

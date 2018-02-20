@@ -1,10 +1,10 @@
 function doSomething():void {
-  ;                                            // NOK
+  ;                                            // Noncompliant {{Remove this empty statement.}}
 }
 
 function doSomethingElse():void {
-  trace("Hello, world!");;                    // NOK
-  for (var int:i = 0; i < 3; trace(i), i++);  // NOK
+  trace("Hello, world!");;                    // Noncompliant
+  for (var int:i = 0; i < 3; trace(i), i++);  // Noncompliant
 }
 
 interface Greetings {

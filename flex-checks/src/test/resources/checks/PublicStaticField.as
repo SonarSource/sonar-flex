@@ -1,5 +1,5 @@
 public class Greeter {
-  public static var foo:Foo = new Foo();   // NOK
+  public static var foo:Foo = new Foo();   // Noncompliant {{Make this "public static" field const}}
 }
 
 public class Greeter {

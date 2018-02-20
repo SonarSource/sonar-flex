@@ -23,7 +23,6 @@ import java.io.File;
 import java.lang.reflect.Field;
 import org.apache.commons.lang.ArrayUtils;
 import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class ASDocCheckTest {
 
@@ -32,29 +31,14 @@ public class ASDocCheckTest {
 
   @Test
   public void test_default() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(TEST_FILE, check))
-      // class A
-      .next().atLine(1).withMessage("Add the missing ASDoc for this class.")
-      .next().atLine(7).withMessage("Add the missing ASDoc for this field declaration.")
-      .next().atLine(12).withMessage("Add the missing \"@return\" ASDoc for the return value of this method.")
-      .next().atLine(17).withMessage("Add the missing \"@param\" ASDoc for: param1.")
-      .next().atLine(19).withMessage("Add the missing ASDoc for this method.")
-
-      // class B
-      .next().atLine(30).withMessage("Add the missing ASDoc for this class.")
-      .next().atLine(33).withMessage("Add the missing ASDoc for this method.")
-      .next().atLine(38).withMessage("Add the missing \"@param\" ASDoc for: p1, p2.")
-      .next().atLine(43).withMessage("Add the missing ASDoc for this method.")
-
-      .noMore();
+    FlexVerifier.verify(TEST_FILE, check);
   }
 
   @Test
   public void test_all_off() throws IllegalAccessException {
     deactivateAll();
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(TEST_FILE, check))
-      .noMore();
+    FlexVerifier.verifyNoIssueIgnoringExpected(TEST_FILE, check);
   }
 
   protected void activeOnly(String... fieldNames) throws IllegalAccessException {

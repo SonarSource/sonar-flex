@@ -1,8 +1,8 @@
 class A {
 
   public function foo() {
-    addEventListener("Event", handler);       // NOK
-    this.addEventListener("Event", handler);  // NOK
+    addEventListener("Event", handler);       // Noncompliant {{The event name "Event" should be defined in a constant variable.}}
+    this.addEventListener("Event", handler);  // Noncompliant
   }
 }
 

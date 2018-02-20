@@ -1,5 +1,5 @@
 function f() {
-  var a;              // NOK
+  var a;              // Noncompliant {{Remove this unused 'a' local variable.}}
   return;
 }
 
@@ -8,7 +8,7 @@ function f() {
 
   function inner() {
     doSomething(b);
-    var c;            // NOK
+    var c;            // Noncompliant
   }
 
   doSomething(a);

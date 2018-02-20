@@ -4,6 +4,6 @@
 
 [Inspectable(defaultValue="false")]               // OK
 
-[Event(name="click")]                             // NOK
+[Event(name="click")]                             // Noncompliant {{The "click" event type is missing in this metadata tag}}
 
 

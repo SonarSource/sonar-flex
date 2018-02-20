@@ -1,10 +1,10 @@
 [Event(name="message")]
-[ManagedEvents("mes")]                   // NOK
+[ManagedEvents("mes")]                   // Noncompliant {{The managed event "mes" is either misspelled or is missing a companion Event metadata tag}}
 public class MyClass {
 }
 
 [Event(name="message")]
-[ManagedEvents("message, click")]      // NOK
+[ManagedEvents("message, click")]      // Noncompliant {{The managed event "click" is either misspelled or is missing a companion Event metadata tag}}
 public class MyClass {
 }
 

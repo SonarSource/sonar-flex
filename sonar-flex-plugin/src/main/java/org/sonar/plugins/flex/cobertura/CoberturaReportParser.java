@@ -19,10 +19,14 @@
  */
 package org.sonar.plugins.flex.cobertura;
 
+import java.io.File;
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import javax.xml.stream.XMLStreamException;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.staxmate.in.SMInputCursor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
@@ -31,18 +35,13 @@ import org.sonar.api.batch.sensor.coverage.CoverageType;
 import org.sonar.api.batch.sensor.coverage.NewCoverage;
 import org.sonar.api.utils.ParsingUtils;
 import org.sonar.api.utils.StaxParser;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 import org.sonar.plugins.flex.core.Flex;
-
-import javax.xml.stream.XMLStreamException;
-import java.io.File;
-import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
 
 public class CoberturaReportParser {
 
-  private static final Logger LOG = LoggerFactory.getLogger(CoberturaReportParser.class);
+  private static final Logger LOG = Loggers.get(CoberturaReportParser.class);
 
   private CoberturaReportParser() {
   }

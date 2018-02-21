@@ -19,7 +19,12 @@
  */
 package org.sonar.plugins.flex;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Collections;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.sonar.api.batch.fs.InputFile;
@@ -38,12 +43,9 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.rule.RuleKey;
+import org.sonar.api.utils.log.LogTester;
+import org.sonar.api.utils.log.LoggerLevel;
 import org.sonar.plugins.flex.core.Flex;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -56,6 +58,9 @@ public class FlexSquidSensorTest {
   private FlexSquidSensor sensor;
   private SensorContextTester tester;
 
+  @Rule
+  public LogTester logTester = new LogTester();
+
   @Before
   public void setUp() throws Exception {
     NewActiveRule ar = new ActiveRulesBuilder().create(RuleKey.of("flex", "S1125")).setSeverity("BLOCKER");
@@ -65,6 +70,7 @@ public class FlexSquidSensorTest {
     when(fileLinesContextFactory.createFor(Mockito.any(InputFile.class))).thenReturn(mock(FileLinesContext.class));
     sensor = new FlexSquidSensor(checkFactory, fileLinesContextFactory);
     tester = SensorContextTester.create(TEST_DIR);
+    logTester.clear();
   }
 
   @Test
@@ -144,6 +150,7 @@ public class FlexSquidSensorTest {
     fs.add(inputFile);
     sensor.execute(tester);
     assertThat(tester.measure(inputFile.key(), CoreMetrics.NCLOC)).isNull();
+    assertThat(logTester.logs(LoggerLevel.ERROR).stream().filter(log -> log.startsWith("Unable to parse file: ") && log.endsWith("parse_error.as"))).isNotEmpty();
   }
 
   @Test

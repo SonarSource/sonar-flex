@@ -29,8 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
@@ -48,6 +46,8 @@ import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.rule.RuleKey;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.FlexGrammar;
@@ -64,7 +64,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 public class FlexSquidSensor implements Sensor {
 
-  private static final Logger LOG = LoggerFactory.getLogger(FlexSquidSensor.class);
+  private static final Logger LOG = Loggers.get(FlexSquidSensor.class);
 
   private static final Number[] FUNCTIONS_DISTRIB_BOTTOM_LIMITS = {1, 2, 4, 6, 8, 10, 12};
   private static final Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};

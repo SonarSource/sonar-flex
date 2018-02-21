@@ -29,6 +29,7 @@ import org.sonar.api.batch.fs.internal.FileMetadata;
 import org.sonar.api.batch.sensor.coverage.CoverageType;
 import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
+import org.sonar.api.utils.log.LogTester;
 import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.core.Flex;
 
@@ -41,10 +42,14 @@ public class CoberturaSensorTest {
   private CoberturaSensor sensor;
   private SensorContextTester tester;
 
+  @org.junit.Rule
+  public LogTester logTester = new LogTester();
+
   @Before
   public void setUp() throws Exception {
     sensor = new CoberturaSensor();
     tester = SensorContextTester.create(new File(TEST_DIR));
+    logTester.clear();
   }
 
   @Test
@@ -73,17 +78,23 @@ public class CoberturaSensorTest {
       assertThat(tester.coveredConditions(componentKey, CoverageType.OVERALL, line)).isNull();
       assertThat(tester.lineHits(componentKey, CoverageType.OVERALL, line)).isNull();
     }
+
+    assertThat(logTester.logs()).containsOnly("Analyzing Cobertura report: coverage.xml");
   }
 
   @Test
   public void reportNotFound() {
     tester.settings().setProperty(FlexPlugin.COBERTURA_REPORT_PATH, "/fake/path");
     sensor.execute(tester);
+
+    assertThat(logTester.logs()).containsOnly("Cobertura xml report not found: /fake/path");
   }
 
   @Test
   public void noReport() {
     sensor.execute(tester);
+
+    assertThat(logTester.logs()).containsOnly("No Cobertura report provided (see 'sonar.flex.cobertura.reportPath' property)");
   }
 
   @Test

@@ -19,11 +19,10 @@
  */
 package org.sonar.plugins.flex.cobertura;
 
+import java.io.File;
 import org.junit.Test;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.test.TestUtils;
-
-import java.io.File;
 
 public class CoberturaReportParserTest {
 
@@ -33,5 +32,12 @@ public class CoberturaReportParserTest {
       TestUtils.getResource("org/sonar/plugins/flex/cobertura/coverage-invalid.xml"),
       SensorContextTester.create(new File("."))
     );
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void nonExistingFile() throws Exception {
+    CoberturaReportParser.parseReport(
+      new File("fakeFile.xml"),
+      SensorContextTester.create(new File(".")));
   }
 }

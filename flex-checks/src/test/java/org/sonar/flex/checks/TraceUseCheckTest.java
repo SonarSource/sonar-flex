@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class TraceUseCheckTest {
 
@@ -30,9 +28,7 @@ public class TraceUseCheckTest {
   public void test() {
     TraceUseCheck check = new TraceUseCheck();
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/TraceUse.as"), check))
-      .next().atLine(1).withMessage("Remove this use of the \"trace\" function.")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/TraceUse.as"), check);
   }
 
 }

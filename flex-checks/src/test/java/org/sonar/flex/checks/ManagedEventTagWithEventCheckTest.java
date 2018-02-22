@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class ManagedEventTagWithEventCheckTest {
 
@@ -30,9 +28,6 @@ public class ManagedEventTagWithEventCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ManagedEventTagWithEvent.as"), check))
-      .next().atLine(2).withMessage("The managed event \"mes\" is either misspelled or is missing a companion Event metadata tag")
-      .next().atLine(7).withMessage("The managed event \"click\" is either misspelled or is missing a companion Event metadata tag")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ManagedEventTagWithEvent.as"), check);
   }
 }

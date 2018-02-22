@@ -1,16 +1,16 @@
-function f() {         // NOK
-    function f() {     // NOK
+function f() {         // Noncompliant {{This function has 6 lines, which is greater than the 3 lines authorized. Split it into smaller functions.}}
+    function f() {     // Noncompliant {{This function has 4 lines, which is greater than the 3 lines authorized. Split it into smaller functions.}}
         // comment
         return 1;
     }
 }
 
-var f = function () {  // NOK
+var f = function () {  // Noncompliant
     // comment
     return 1;
 }
 
-function f() {         // NOK
+function f() {         // Noncompliant
     // comment
     return 1;
     function f() {     // OK

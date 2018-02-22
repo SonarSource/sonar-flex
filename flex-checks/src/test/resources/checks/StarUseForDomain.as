@@ -1,5 +1,5 @@
 function f() {
-  Security.allowDomain("*");                 // NOK
+  Security.allowDomain("*");                 // Noncompliant
 
-  Security.allowDomain("www.myDomain.com");  // NOK
+  Security.allowDomain("www.myDomain.com");
 }

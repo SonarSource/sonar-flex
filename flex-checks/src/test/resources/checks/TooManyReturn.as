@@ -1,4 +1,4 @@
-function myFuncion():boolean {         // NOK
+function myFuncion():boolean {         // Noncompliant
   if (condition1) {
     return true;
   } else {

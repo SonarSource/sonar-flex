@@ -1,11 +1,11 @@
 function sayHello() {
-  var foo = "foo";var bar = "bar"; // NOK
+  var foo = "foo";var bar = "bar"; // Noncompliant {{At most one statement is allowed per line, but 2 statements were found on this line.}}
 
-  alert("Hello World!"); alert("Hello World!"); // NOK
+  alert("Hello World!"); alert("Hello World!"); // Noncompliant
 
   if (a) {} // OK
 
-  if (a) {} if (b) {} // NOK
+  if (a) {} if (b) {} // Noncompliant
 
   while (condition); // OK
 

@@ -1,6 +1,6 @@
-public function doSomething(PARAM:int, ...REST_PARAM):void  // NOK
+public function doSomething(PARAM:int, ...REST_PARAM):void  // Noncompliant 2
 {
-  var LOCAL:int;                             // NOK
+  var LOCAL:int;                             // Noncompliant
 }
 
 

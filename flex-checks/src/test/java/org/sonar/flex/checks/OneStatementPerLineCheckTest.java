@@ -21,7 +21,6 @@ package org.sonar.flex.checks;
 
 import java.io.File;
 import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class OneStatementPerLineCheckTest {
 
@@ -29,11 +28,7 @@ public class OneStatementPerLineCheckTest {
   public void test() {
     OneStatementPerLineCheck check = new OneStatementPerLineCheck();
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/OneStatementPerLine.as"), check))
-      .next().atLine(2).withMessage("At most one statement is allowed per line, but 2 statements were found on this line.")
-      .next().atLine(4)
-      .next().atLine(8)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/OneStatementPerLine.as"), check);
   }
 
 }

@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class InstantiationInLoopCheckTest {
 
@@ -30,12 +28,6 @@ public class InstantiationInLoopCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/InstantiationInLoop.as"), check))
-      .next().atLine(2).withMessage("Move the instantiation of this \"MyObject\" outside the loop.")
-      .next().atLine(6)
-      .next().atLine(10).withMessage("Move the instantiation of this \"Object\" outside the loop.")
-      .next().atLine(14).withMessage("Move the instantiation of this \"super.MyObject\" outside the loop.")
-      .next().atLine(18).withMessage("Move the instantiation of this \"Vector\" outside the loop.")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/InstantiationInLoop.as"), check);
   }
 }

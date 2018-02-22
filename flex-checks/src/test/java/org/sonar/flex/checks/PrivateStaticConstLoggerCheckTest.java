@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class PrivateStaticConstLoggerCheckTest {
 
@@ -30,14 +28,6 @@ public class PrivateStaticConstLoggerCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/PrivateStaticConstLogger.as"), check))
-      .next().atLine(3).withMessage("Make the logger \"logger\" private static const and rename it to comply with the format \"" + check.format + "\".")
-      .next().atLine(4).withMessage("Make the logger \"LOGGER\" private static const.")
-      .next().atLine(5).withMessage("Rename the \"fancyLog\" logger to comply with the format \"" + check.format + "\".")
-      .next().atLine(8)
-      .next().atLine(9)
-      .next().atLine(10)
-      .next().atLine(11)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/PrivateStaticConstLogger.as"), check);
   }
 }

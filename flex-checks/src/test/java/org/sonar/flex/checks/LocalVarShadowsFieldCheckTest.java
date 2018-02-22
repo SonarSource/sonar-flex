@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class LocalVarShadowsFieldCheckTest {
 
@@ -30,10 +28,6 @@ public class LocalVarShadowsFieldCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/LocalVarShadowsField.as"), check))
-      .next().atLine(18).withMessage("Rename \"field\" which hides the field declared at line 2.")
-      .next().atLine(21)
-      .next().atLine(25)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/LocalVarShadowsField.as"), check);
   }
 }

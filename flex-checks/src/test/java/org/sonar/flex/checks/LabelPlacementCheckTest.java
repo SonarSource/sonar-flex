@@ -19,18 +19,14 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class LabelPlacementCheckTest {
 
   private LabelPlacementCheck check = new LabelPlacementCheck();
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/LabelPlacement.as"), check))
-      .next().atLine(1).withMessage("Remove this 'myLabel' label.")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/LabelPlacement.as"), check);
   }
 }

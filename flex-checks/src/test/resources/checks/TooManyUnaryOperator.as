@@ -1,7 +1,7 @@
 function f() {
-  var j:int = foo++ - --bar;  // NOK
+  var j:int = foo++ - --bar;  // Noncompliant {{Split this expression into multiple expressions so that each one contains no more than a single "++" or "--" unary operator}}
 
-  --b + a++;                  // NOK
+  --b + a++;                  // Noncompliant
 
   --b;                        // OK
 

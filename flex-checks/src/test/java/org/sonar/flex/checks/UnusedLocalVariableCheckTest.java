@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class UnusedLocalVariableCheckTest {
 
@@ -30,9 +28,6 @@ public class UnusedLocalVariableCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/UnusedLocalVariable.as"), check))
-      .next().atLine(2).withMessage("Remove this unused 'a' local variable.")
-      .next().atLine(11)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/UnusedLocalVariable.as"), check);
   }
 }

@@ -21,9 +21,6 @@ package org.sonar.flex.checks;
 
 import java.io.File;
 import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
-import static org.sonar.flex.checks.FlexCheckTester.checkMessages;
 
 public class FileHeaderCheckTest {
   private static final File FILE1 = new File("src/test/resources/checks/headercheck/file1.as");
@@ -31,65 +28,17 @@ public class FileHeaderCheckTest {
   private static final File FILE3 = new File("src/test/resources/checks/headercheck/file3.as");
 
   @Test
-  public void test() {
-    FileHeaderCheck check = new FileHeaderCheck();
-    check.headerFormat = "// copyright 2005";
-
-    CheckMessagesVerifier.verify(checkMessages(FILE1, check)).noMore();
-
-    check = new FileHeaderCheck();
-    check.headerFormat = "// copyright 20\\d\\d";
-
-    CheckMessagesVerifier.verify(checkMessages(FILE1, check))
-      .next().atLine(null);
-
-    check = new FileHeaderCheck();
-    check.headerFormat = "// copyright 2005";
-
-    CheckMessagesVerifier.verify(checkMessages(FILE2, check))
-      .next().atLine(null).withMessage("Add or update the header of this file.");
-
-    check = new FileHeaderCheck();
-    check.headerFormat = "// copyright 2012";
-
-    CheckMessagesVerifier.verify(checkMessages(FILE2, check))
-      .noMore();
-
-    check = new FileHeaderCheck();
-    check.headerFormat = "// copyright 2012\n// foo";
-
-    CheckMessagesVerifier.verify(checkMessages(FILE2, check))
-      .noMore();
-
-    check = new FileHeaderCheck();
-    check.headerFormat = "// copyright 2012\r\n// foo";
-
-    CheckMessagesVerifier.verify(checkMessages(FILE2, check))
-      .noMore();
-
-    check = new FileHeaderCheck();
-    check.headerFormat = "// copyright 2012\r// foo";
-
-    CheckMessagesVerifier.verify(checkMessages(FILE2, check))
-      .noMore();
-
-    check = new FileHeaderCheck();
-    check.headerFormat = "// copyright 2012\r\r// foo";
-
-    CheckMessagesVerifier.verify(checkMessages(FILE2, check))
-      .next().atLine(null);
-
-    check = new FileHeaderCheck();
-    check.headerFormat = "// copyright 2012\n// foo\n\n\n\n\n\n\n\n\n\ngfoo";
-
-    CheckMessagesVerifier.verify(checkMessages(FILE2, check))
-      .next().atLine(null);
-
-    check = new FileHeaderCheck();
-    check.headerFormat = "/*foo http://www.example.org*/";
-
-    CheckMessagesVerifier.verify(checkMessages(FILE3, check))
-      .noMore();
+  public void plain_text_header() {
+    assertNoIssue(createCheck("// copyright 2005", false), FILE1);
+    assertHasIssue(createCheck("// copyright 20\\d\\d", false), FILE1);
+    assertHasIssue(createCheck("// copyright 2005", false), FILE2);
+    assertNoIssue(createCheck("// copyright 2012", false), FILE2);
+    assertNoIssue(createCheck("// copyright 2012\n// foo", false), FILE2);
+    assertNoIssue(createCheck("// copyright 2012\r\n// foo", false), FILE2);
+    assertNoIssue(createCheck("// copyright 2012\r// foo", false), FILE2);
+    assertHasIssue(createCheck("// copyright 2012\r\r// foo", false), FILE2);
+    assertHasIssue(createCheck("// copyright 2012\n// foo\n\n\n\n\n\n\n\n\n\ngfoo", false), FILE2);
+    assertNoIssue(createCheck("/*foo http://www.example.org*/", false), FILE3);
   }
 
   @Test
@@ -120,11 +69,11 @@ public class FileHeaderCheckTest {
   }
 
   private void assertHasIssue(FileHeaderCheck check, File file) {
-    CheckMessagesVerifier.verify(checkMessages(file, check)).next().atLine(null);
+    FlexVerifier.verifySingleIssueOnFile(file, check, "Add or update the header of this file.");
   }
 
   private void assertNoIssue(FileHeaderCheck check, File file) {
-    CheckMessagesVerifier.verify(checkMessages(file, check)).noMore();
+    FlexVerifier.verifyNoIssue(file, check);
   }
 
 }

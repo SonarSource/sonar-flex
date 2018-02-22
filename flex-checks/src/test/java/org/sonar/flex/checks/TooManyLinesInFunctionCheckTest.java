@@ -19,28 +19,20 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class TooManyLinesInFunctionCheckTest {
   private TooManyLinesInFunctionCheck check = new TooManyLinesInFunctionCheck();
 
   @Test
   public void testDefault() throws Exception {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/TooManyLinesInFunction.as"), check))
-      .noMore();
+    FlexVerifier.verifyNoIssueIgnoringExpected(new File("src/test/resources/checks/TooManyLinesInFunction.as"), check);
   }
 
   @Test
   public void custom() {
     check.max = 3;
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/TooManyLinesInFunction.as"), check))
-      .next().atLine(1).withMessage("This function has 6 lines, which is greater than the " + check.max + " lines authorized. Split it into smaller functions.")
-      .next().atLine(2).withMessage("This function has 4 lines, which is greater than the " + check.max + " lines authorized. Split it into smaller functions.")
-      .next().atLine(8)
-      .next().atLine(13)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/TooManyLinesInFunction.as"), check);
   }
 }

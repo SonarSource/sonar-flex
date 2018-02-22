@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class FieldNameCheckTest {
 
@@ -30,19 +28,13 @@ public class FieldNameCheckTest {
 
   @Test
   public void defaults(){
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/FieldName.as"), check))
-      .next().atLine(4).withMessage("Rename this field name to match the regular expression " + check.format)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/FieldName.as"), check);
   }
 
   @Test
   public void custom() {
     check.format = "[a-z][a-zA-Z]+";
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/FieldName.as"), check))
-      .next().atLine(3)
-      .next().atLine(3)
-      .next().atLine(4)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/FieldName-custom.as"), check);
   }
 }

@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class ControlFlowStmtDepthCheckTest {
 
@@ -30,22 +28,14 @@ public class ControlFlowStmtDepthCheckTest {
 
   @Test
   public void testDefault() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/NestedIfDepth.as"), check))
-      .next().atLine(5).withMessage("Refactor this code to not nest more than 3 if/for/while/switch statements.")
-      .next().atLine(19)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/NestedIfDepth.as"), check);
   }
 
   @Test
   public void testCustomDepth() {
     check.max = 1;
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/NestedIfDepth.as"), check))
-      .next().atLine(3).withMessage("Refactor this code to not nest more than 1 if/for/while/switch statements.")
-      .next().atLine(15)
-      .next().atLine(31)
-      .next().atLine(34)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/NestedIfDepth-1.as"), check);
   }
 
 }

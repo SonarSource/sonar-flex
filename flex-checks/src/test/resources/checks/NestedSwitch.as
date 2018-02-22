@@ -1,7 +1,7 @@
 switch (x) {         // OK
 
     case 1:
-       switch (y) {  // NOK
+       switch (y) {  // Noncompliant {{Move this "switch" to a function or refactor the code to eliminate it.}}
            case 1:
            default:
        }

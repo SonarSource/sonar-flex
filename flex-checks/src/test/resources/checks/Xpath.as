@@ -1,4 +1,4 @@
 function sayHello() {
-  var looooooooooong;
+  var looooooooooong; // Noncompliant {{Avoid identifiers which are too long!}}
   alert("Hello World!");
 }

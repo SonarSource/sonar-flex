@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class UnusedFunctionParametersCheckTest {
 
@@ -30,21 +28,7 @@ public class UnusedFunctionParametersCheckTest {
   public void test() {
     UnusedFunctionParametersCheck check = new UnusedFunctionParametersCheck();
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/UnusedFunctionParameters.as"), check))
-      .next().atLine(1).withMessage("Remove the unused function parameter \"b\".")
-      .next().atLine(5).withMessage("Remove the unused function parameters \"b, c\".")
-      .next().atLine(11)
-      .next().atLine(16).withMessage("Remove the unused function parameter \"b\".")
-      .next().atLine(17).withMessage("Remove the unused function parameter \"c\".")
-      .next().atLine(63).withMessage("Remove the unused function parameter \"e\".")
-      .next().atLine(64).withMessage("Remove the unused function parameter \"e\".")
-      .next().atLine(65).withMessage("Remove the unused function parameter \"e\".")
-      .next().atLine(74).withMessage("Remove the unused function parameter \"e\".")
-      .next().atLine(77).withMessage("Remove the unused function parameter \"args\".")
-      .next().atLine(78).withMessage("Remove the unused function parameter \"args\".")
-      .next().atLine(83).withMessage("Remove the unused function parameters \"e, args\".")
-      .next().atLine(86).withMessage("Remove the unused function parameter \"e\".")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/UnusedFunctionParameters.as"), check);
   }
 
 }

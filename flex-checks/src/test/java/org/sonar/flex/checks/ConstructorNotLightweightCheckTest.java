@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class ConstructorNotLightweightCheckTest {
 
@@ -30,8 +28,6 @@ public class ConstructorNotLightweightCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ConstructorNotLightweight.as"), check))
-      .next().atLine(5).withMessage("Extract the content of this \"Foo\" constructor into a dedicated function")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ConstructorNotLightweight.as"), check);
   }
 }

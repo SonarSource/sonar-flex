@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class SemicolonCheckTest {
 
@@ -30,12 +28,6 @@ public class SemicolonCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/Semicolon.as"), check))
-      .next().atLine(3).withMessage("Add a semicolon at the end of this statement")
-      .next().atLine(4)
-      .next().atLine(19)
-      .next().atLine(25)
-      .next().atLine(28)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/Semicolon.as"), check);
   }
 }

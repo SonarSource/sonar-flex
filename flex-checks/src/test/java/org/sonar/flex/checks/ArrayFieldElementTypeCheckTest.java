@@ -21,7 +21,6 @@ package org.sonar.flex.checks;
 
 import java.io.File;
 import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class ArrayFieldElementTypeCheckTest {
 
@@ -29,8 +28,6 @@ public class ArrayFieldElementTypeCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ArrayFieldElementType.as"), check))
-      .next().atLine(13).withMessage("Define the element type for this 'newNumberProperty' array")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ArrayFieldElementType.as"), check);
   }
 }

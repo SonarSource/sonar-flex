@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class StarUseForLocalConnectionCheckTest {
 
@@ -30,9 +28,7 @@ public class StarUseForLocalConnectionCheckTest {
 
   @Test
   public void test() {
-  CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/StarUseForLocalConnection.as"), check))
-    .next().atLine(2).withMessage("Replace this wildcard character '*' with a well defined domain")
-    .next().atLine(3);
+  FlexVerifier.verify(new File("src/test/resources/checks/StarUseForLocalConnection.as"), check);
   }
 
 }

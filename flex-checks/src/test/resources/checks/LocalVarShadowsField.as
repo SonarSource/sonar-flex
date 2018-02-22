@@ -15,14 +15,14 @@ class A {
 
   public function f1(param) {       // OK
     var foo;                        // OK
-    var field:int = 0;              // NOK
+    var field:int = 0;              // Noncompliant {{Rename "field" which hides the field declared at line 2.}}
   }
 
-  public function f2(field) {}      // NOK
+  public function f2(field) {}      // Noncompliant
 
   public function f3() {
     public function nestedFunction() {
-      var field;                    // NOK
+      var field;                    // Noncompliant
     }
   }
 

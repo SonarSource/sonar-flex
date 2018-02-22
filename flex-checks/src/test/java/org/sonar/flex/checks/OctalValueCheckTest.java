@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class OctalValueCheckTest {
 
@@ -30,8 +28,6 @@ public class OctalValueCheckTest {
 
   @Test
   public void test(){
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/OctalValue.as"), check))
-      .next().atLine(2).withMessage("Use decimal rather than octal values.")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/OctalValue.as"), check);
   }
 }

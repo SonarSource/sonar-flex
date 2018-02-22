@@ -1,4 +1,4 @@
-function ko() // +1
+function ko() // Noncompliant {{Function has a complexity of 3 which is greater than 1 authorized.}} [[effortToFix=2]]
 {
   switch (foo)
   {

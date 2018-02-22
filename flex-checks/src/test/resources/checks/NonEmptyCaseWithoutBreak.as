@@ -24,13 +24,13 @@ function foo() {
 
   switch (param) {
     case 0:
-    case 1: // NOK
+    case 1: // Noncompliant {{Last statement in this switch-clause should be an unconditional break.}}
       doSomething();
-    case 2: // NOK
+    case 2: // Noncompliant
       if (true) {
         break;
       }
-    case 3: // NOK
+    case 3: // Noncompliant
       break;
       doSomething();
     default: // OK

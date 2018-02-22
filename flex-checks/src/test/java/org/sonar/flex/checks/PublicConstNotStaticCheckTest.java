@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 
 public class PublicConstNotStaticCheckTest {
@@ -31,8 +29,6 @@ public class PublicConstNotStaticCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/PublicConstNotStatic.as"), check))
-      .next().atLine(2).withMessage("Make this const field \"foo\" static too")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/PublicConstNotStatic.as"), check);
   }
 }

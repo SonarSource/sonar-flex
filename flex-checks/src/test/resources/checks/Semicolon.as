@@ -1,7 +1,7 @@
 [Test]
 function f() {
-  return                   // NOK
-  5                        // NOK
+  return                   // Noncompliant {{Add a semicolon at the end of this statement}}
+  5                        // Noncompliant
 }
 
 if (condition) {           // OK
@@ -14,15 +14,15 @@ label: while (condition) { // OK
   break label; // OK
 }
 
-var f = function(x:int) {  // NOK
+var f = function(x:int) {
   return x%2;
-}
+} // Noncompliant
 
 function sayHello() {
-  var a = {                // NOK
+  var a = {
     'i': 1,
     'j': 2
-  }
+  } // Noncompliant
 }
 
-{ doSomething() }
+{ doSomething() } // Noncompliant

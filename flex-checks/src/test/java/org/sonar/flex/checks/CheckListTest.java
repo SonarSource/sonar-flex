@@ -54,7 +54,7 @@ public class CheckListTest {
   }
 
   /**
-   * Enforces that each check has test, name and description.
+   * Enforces that each check has plain_text_header, name and description.
    */
   @Test
   public void test() throws IOException {
@@ -63,7 +63,7 @@ public class CheckListTest {
     for (Class cls : checks) {
       String testName = '/' + cls.getName().replace('.', '/') + "Test.class";
       assertThat(getClass().getResource(testName))
-          .overridingErrorMessage("No test for " + cls.getSimpleName())
+          .overridingErrorMessage("No plain_text_header for " + cls.getSimpleName())
           .isNotNull();
     }
 

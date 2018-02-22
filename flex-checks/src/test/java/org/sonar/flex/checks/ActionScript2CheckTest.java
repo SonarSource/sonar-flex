@@ -21,7 +21,6 @@ package org.sonar.flex.checks;
 
 import java.io.File;
 import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class ActionScript2CheckTest {
 
@@ -29,15 +28,7 @@ public class ActionScript2CheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ActionScript2.as"), check))
-//      .next().atLine(1).withMessage("'intrinsic' not available in ActionScript 3.0")
-      .next().atLine(2).withMessage("Operator '<>' not available in ActionScript 3.0")
-//      .next().atLine(4).withMessage("Operator 'not' not available in ActionScript 3.0")
-      .next().atLine(6).withMessage("Operator 'or' not available in ActionScript 3.0")
-      .next().atLine(8).withMessage("Operator 'and' not available in ActionScript 3.0")
-      .next().atLine(10).withMessage("Operator 'lt' not available in ActionScript 3.0")
-//      .next().atLine(12).withMessage("'set variable statement' not available in ActionScript 3.0")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ActionScript2.as"), check);
   }
 
 }

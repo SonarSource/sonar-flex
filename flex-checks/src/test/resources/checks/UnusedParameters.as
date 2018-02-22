@@ -6,9 +6,9 @@ function f1(a, b):void      // OK
   }
 }
 
-function f1(a, b, c):void  // NOK
+function f1(a, b, c):void  // Noncompliant
 {
-  function f(d, e) {       // NOK
+  function f(d, e) {       // Noncompliant
     compute(b);
     compute(d.getAttr());
 
@@ -18,7 +18,7 @@ function f1(a, b, c):void  // NOK
 }
 
 class A {
-  public function f(a, b) { // NOK
+  public function f(a, b) { // Noncompliant
     compute(a);
   }
 }

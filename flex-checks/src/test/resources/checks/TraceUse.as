@@ -1,4 +1,4 @@
-trace("");                              // NOK
+trace("");                              // Noncompliant {{Remove this use of the "trace" function.}}
 
 obj.trace("");                         // OK
 new trace();                            // OK

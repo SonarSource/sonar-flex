@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class ConstantNameCheckTest {
 
@@ -30,20 +28,13 @@ public class ConstantNameCheckTest {
 
   @Test
   public void defaults(){
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ConstantName.as"), check))
-      .next().atLine(3).withMessage("Rename this constant 'p1' to match the regular expression " + check.format)
-      .next().atLine(3).withMessage("Rename this constant 'p2' to match the regular expression " + check.format)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ConstantName.as"), check);
   }
 
   @Test
   public void custom() {
     check.format = "[A-Z]+[0-9]+";
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ConstantName.as"), check))
-      .next().atLine(2)
-      .next().atLine(3)
-      .next().atLine(3)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ConstantName-custom.as"), check);
   }
 }

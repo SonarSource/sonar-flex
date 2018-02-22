@@ -1,7 +1,7 @@
 public class A
 {
-  private function unused1() {}      // NOK
-  private function unused2() {}      // NOK
+  private function unused1() {}      // Noncompliant
+  private function unused2() {}      // Noncompliant
 }
 
 public class B
@@ -14,10 +14,10 @@ public class B
   }
 
   private function used1():B {}      // OK
-  private function unused2() {}      // NOK
+  private function unused2() {}      // Noncompliant
 
   class Inner {
-    private function unsedInner1(){}  // NOK
+    private function unsedInner1(){}  // Noncompliant
   }
 }
 
@@ -39,7 +39,7 @@ public class Utils {
 }
 
 public class D {
-  private function D() {
-    trace("bla");                    // NOK
+  private function D() { // Noncompliant
+    trace("bla");
   }
 }

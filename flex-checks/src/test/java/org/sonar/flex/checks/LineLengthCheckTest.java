@@ -19,21 +19,17 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class LineLengthCheckTest {
 
   @Test
   public void test() {
     LineLengthCheck check = new LineLengthCheck();
-    check.maximumLineLength = 30;
+    check.maximumLineLength = 100;
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/LineLength.as"), check))
-        .next().atLine(2).withMessage("Split this 44 characters long line (which is greater than 30 authorized).")
-        .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/LineLength.as"), check);
   }
 
 }

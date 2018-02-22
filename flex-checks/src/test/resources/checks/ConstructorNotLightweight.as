@@ -2,7 +2,7 @@ public class Foo {
 
   var a:boolean;
 
-  public function Foo() {                     // NOK
+  public function Foo() { // Noncompliant {{Extract the content of this "Foo" constructor into a dedicated function}}
     for (var i = 0; i < 7; i++) {
       if (i < 2 && a) {
         doSomething();

@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class DuplicateSwitchCaseImplementationCheckTest {
 
@@ -30,10 +28,6 @@ public class DuplicateSwitchCaseImplementationCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/DuplicateSwitchCaseImplementation.as"), check))
-      .next().atLine(8).withMessage("Either merge this case with the identical one on line \"5\" or change one of the implementations.")
-      .next().atLine(24).withMessage("Either merge this case with the identical one on line \"18\" or change one of the implementations.")
-      .next().atLine(36).withMessage("Either merge this case with the identical one on line \"30\" or change one of the implementations.")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/DuplicateSwitchCaseImplementation.as"), check);
   }
 }

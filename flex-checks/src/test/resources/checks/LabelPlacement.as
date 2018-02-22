@@ -1,4 +1,4 @@
-myLabel:if (a == b) {               // NOK
+myLabel:if (a == b) {               // Noncompliant {{Remove this 'myLabel' label.}}
   if (b == c) {
     trace(c);
     break myLabel;

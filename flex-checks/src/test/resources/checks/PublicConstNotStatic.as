@@ -1,5 +1,5 @@
 public class A {
-  public const foo:Foo = new Foo();         // NOK
+  public const foo:Foo = new Foo();         // Noncompliant {{Make this const field "foo" static too}}
 }
 
 public class B {

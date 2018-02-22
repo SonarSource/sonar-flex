@@ -1,22 +1,22 @@
-public static class A {  // NOK - no doc above
+public static class A {  // Noncompliant {{Add the missing ASDoc for this class.}}
 
   /**
    * ASDoc
    */
   public var field1:String;   // OK
-  public var fields2:String;  // NOK
+  public var fields2:String;  // Noncompliant {{Add the missing ASDoc for this field declaration.}}
 
   /**
    * @param param1 my doc
    */
-  public function method1(param1:String):Boolean {}  // NOK - no doc for return type
+  public function method1(param1:String):Boolean {}  // Noncompliant {{Add the missing "@return" ASDoc for the return value of this method.}}
 
   /**
    * @param
    */
-  public function method2(param1:String):void {}     // NOK - no doc for param1
+  public function method2(param1:String):void {}     // Noncompliant {{Add the missing "@param" ASDoc for: param1.}}
 
-  public function method3(param1:String) {}          // NOK - no doc at all
+  public function method3(param1:String) {}          // Noncompliant {{Add the missing ASDoc for this method.}}
 
   /**
    * my doc
@@ -27,20 +27,20 @@ public static class A {  // NOK - no doc above
 }
 
 
-class B {                      // NOK - no doc above
+class B {                      // Noncompliant {{Add the missing ASDoc for this class.}}
 
   // comment
-  function f1(p1, p2) {}       // NOK - but 1 issue only because no ASDoc at all
+  function f1(p1, p2) {}       // Noncompliant {{Add the missing ASDoc for this method.}}
 
   /**
    * ASDoc
    */
-  function f2(p1, p2) {}       // NOK - no doc for parameters p1, p2
+  function f2(p1, p2) {}       // Noncompliant {{Add the missing "@param" ASDoc for: p1, p2.}}
 
   /*
    * Not ASDoc
    */
-  function f3() {              // NOK - not ASDoc
+  function f3() {              // Noncompliant {{Add the missing ASDoc for this method.}}
 
   }
 

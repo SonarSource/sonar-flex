@@ -1,4 +1,4 @@
-switch (variable) { // NOK
+switch (variable) { // Noncompliant {{Replace this "switch" statement with "if" statements to increase readability.}}
   case 1:
     doSomething();
     break;

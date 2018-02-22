@@ -3,5 +3,5 @@ package { // OK
 package org.example { // OK
 }
 
-package org.Example { // NOK
+package org.Example { // Noncompliant
 }

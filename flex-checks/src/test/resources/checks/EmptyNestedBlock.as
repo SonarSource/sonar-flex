@@ -1,4 +1,4 @@
-for (var i:int = 0; i < 42; i++){}  // NOK
+for (var i:int = 0; i < 42; i++){}  // Noncompliant
 
 for (var i:int = 0; i < 42; i++);   // OK
 
@@ -7,7 +7,7 @@ if (myVar == 4)                     // OK
   // Do nothing because of X and Y
 }
 
-try                                 // NOK
+try                                 // Noncompliant@+1
 {
 }catch (error)                      // OK
 {

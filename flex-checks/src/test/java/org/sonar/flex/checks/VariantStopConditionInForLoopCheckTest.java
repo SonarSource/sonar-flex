@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class VariantStopConditionInForLoopCheckTest {
 
@@ -30,27 +28,7 @@ public class VariantStopConditionInForLoopCheckTest {
 
   @Test
   public void defaults() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/VariantStopConditionInForLoop.as"), check))
-      .next().atLine(3).withMessage("Do not update the loop counter \"a\" within the loop body.")
-      .next().atLine(7)
-      .next().atLine(8)
-      .next().atLine(13)
-      .next().atLine(16)
-      .next().atLine(17)
-      .next().atLine(19)
-      .next().atLine(26)
-      .next().atLine(27)
-      .next().atLine(37)
-      .next().atLine(38)
-      .next().atLine(39)
-      .next().atLine(40)
-      .next().atLine(44)
-      .next().atLine(53)
-      .next().atLine(55)
-      .next().atLine(59).withMessage("Calculate the stop condition value outside the loop and set it to a variable.")
-      .next().atLine(62)
-      .next().atLine(71)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/VariantStopConditionInForLoop.as"), check);
   }
 
 }

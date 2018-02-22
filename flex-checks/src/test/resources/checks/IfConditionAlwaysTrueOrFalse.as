@@ -1,11 +1,11 @@
-if (a === b) {        // NOK
+if (a === b) {
   doSomething();
 }
 
-if (true) {
-  doSomething();      // NOK
+if (true) {     // Noncompliant {{Remove this if statement.}}
+  doSomething();
 }
 
-if (false) {
-  doSomethingElse();  // NOK
+if (false) {    // Noncompliant
+  doSomethingElse();
 }

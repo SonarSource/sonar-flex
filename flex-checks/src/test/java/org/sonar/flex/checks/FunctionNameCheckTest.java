@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class FunctionNameCheckTest {
 
@@ -30,18 +28,12 @@ public class FunctionNameCheckTest {
 
   @Test
   public void defaultFormat() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/FunctionName.as"), check))
-      .next().atLine(1).withMessage("Rename this \"DoSomething\" function to match the regular expression " + check.format)
-      .next().atLine(16)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/FunctionName.as"), check);;
   }
 
   @Test
   public void custom() {
     check.format = "^[A-Z][a-zA-Z0-9]*$";
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/FunctionName.as"), check))
-      .next().atLine(4).withMessage("Rename this \"doSomething\" function to match the regular expression " + check.format)
-      .next().atLine(16)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/FunctionName-custom.as"), check);
   }
 }

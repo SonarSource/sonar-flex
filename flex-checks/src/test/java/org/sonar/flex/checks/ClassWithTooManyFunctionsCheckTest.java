@@ -21,7 +21,6 @@ package org.sonar.flex.checks;
 
 import java.io.File;
 import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 public class ClassWithTooManyFunctionsCheckTest {
 
@@ -29,27 +28,21 @@ public class ClassWithTooManyFunctionsCheckTest {
 
   @Test
   public void defaults() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check))
-      .next().atLine(6).withMessage("Class \"foo\" has 21 methods, which is greater than 20 authorized. Split it into smaller classes.")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check);
   }
 
   @Test
   public void custom_maximum_function_threshold() {
     check.maximumFunctionThreshold = 1;
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check))
-      .next().atLine(1)
-      .next().atLine(6)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ClassWithTooManyFunctions-1.as"), check);
   }
 
   @Test
   public void custom_count_non_publicMethods() {
     check.countNonpublicMethods = false;
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check))
-      .noMore();
+    FlexVerifier.verifyNoIssueIgnoringExpected(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check);
   }
 
   @Test
@@ -57,8 +50,6 @@ public class ClassWithTooManyFunctionsCheckTest {
     check.maximumFunctionThreshold = 1;
     check.countNonpublicMethods = false;
 
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/ClassWithTooManyFunctions.as"), check))
-      .next().atLine(6)
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/ClassWithTooManyFunctions-1-public.as"), check);
   }
 }

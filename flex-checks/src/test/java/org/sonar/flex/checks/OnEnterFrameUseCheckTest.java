@@ -19,10 +19,8 @@
  */
 package org.sonar.flex.checks;
 
-import org.junit.Test;
-import org.sonar.squidbridge.checks.CheckMessagesVerifier;
-
 import java.io.File;
+import org.junit.Test;
 
 public class OnEnterFrameUseCheckTest {
 
@@ -30,9 +28,7 @@ public class OnEnterFrameUseCheckTest {
 
   @Test
   public void test() {
-    CheckMessagesVerifier.verify(FlexCheckTester.checkMessages(new File("src/test/resources/checks/OnEnterFrameUse.as"), check))
-      .next().atLine(1).withMessage("Refactor this code to remove the use of \"onEnterFrame\" event handler.")
-      .noMore();
+    FlexVerifier.verify(new File("src/test/resources/checks/OnEnterFrameUse.as"), check);
   }
 
 }

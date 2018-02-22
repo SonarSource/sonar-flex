@@ -20,11 +20,7 @@
 package org.sonar.flex.checks;
 
 import java.io.File;
-import java.util.List;
 import org.junit.Test;
-import org.sonar.flex.Issue;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class FileHeaderCheckTest {
   private static final File FILE1 = new File("src/test/resources/checks/headercheck/file1.as");
@@ -73,17 +69,11 @@ public class FileHeaderCheckTest {
   }
 
   private void assertHasIssue(FileHeaderCheck check, File file) {
-    List<Issue> issues = issues(check, file);
-    assertThat(issues).hasSize(1);
-    assertThat(issues.get(0).line()).isNull();
+    FlexVerifier.verifySingleIssueOnFile(file, check, "Add or update the header of this file.");
   }
 
   private void assertNoIssue(FileHeaderCheck check, File file) {
-    assertThat(issues(check, file)).isEmpty();
-  }
-
-  private List<Issue> issues(FileHeaderCheck check, File file) {
-    return check.scanFileForIssues(FlexVerifier.createContext(file));
+    FlexVerifier.verifyNoIssue(file, check);
   }
 
 }

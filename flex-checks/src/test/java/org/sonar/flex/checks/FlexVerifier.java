@@ -26,6 +26,7 @@ import com.sonarsource.checks.verifier.CommentParser;
 import com.sonarsource.checks.verifier.SingleFileVerifier;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.FlexVisitorContext;
@@ -34,6 +35,7 @@ import org.sonar.flex.parser.FlexParser;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class FlexVerifier {
 
@@ -47,6 +49,13 @@ public class FlexVerifier {
 
   public static void verifyNoIssueIgnoringExpected(File file, FlexCheck check) {
     createVerifier(file, check, false).assertNoIssues();
+  }
+
+  public static void verifySingleIssueOnFile(File file, FlexCheck check, String expectedIssueMessage) {
+    List<Issue> issues = check.scanFileForIssues(createContext(file));
+    assertThat(issues).hasSize(1);
+    assertThat(issues.get(0).line()).isNull();
+    assertThat(issues.get(0).message()).isEqualTo(expectedIssueMessage);
   }
 
   private static SingleFileVerifier createVerifier(File file, FlexCheck check, boolean addCommentsAsExpectedIssues) {
@@ -74,7 +83,7 @@ public class FlexVerifier {
     return verifier;
   }
 
-  public static FlexVisitorContext createContext(File file) {
+  private static FlexVisitorContext createContext(File file) {
     Parser<LexerlessGrammar> parser = FlexParser.create(new FlexConfiguration(UTF_8));
     String fileContent;
     try {

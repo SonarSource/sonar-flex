@@ -25,6 +25,7 @@ import com.sonar.sslr.api.RecognitionException;
 import com.sonar.sslr.impl.Parser;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -49,7 +50,6 @@ import org.sonar.api.rule.RuleKey;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.sonar.flex.FlexCheck;
-import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexVisitorContext;
 import org.sonar.flex.Issue;
@@ -91,7 +91,6 @@ public class FlexSquidSensor implements Sensor {
   public void execute(SensorContext context) {
     FileSystem fileSystem = context.fileSystem();
     FilePredicates predicates = fileSystem.predicates();
-    FlexConfiguration configuration = new FlexConfiguration(fileSystem.encoding());
 
     FilePredicate filePredicate = predicates.and(
       predicates.hasType(InputFile.Type.MAIN),
@@ -106,25 +105,26 @@ public class FlexSquidSensor implements Sensor {
     List<File> files = inputFiles.stream().map(InputFile::file).collect(Collectors.toList());
     progressReport.start(files);
 
+    Charset charset = fileSystem.encoding();
     for (InputFile inputFile : inputFiles) {
-      analyseFile(context, configuration, inputFile);
+      analyseFile(context, charset, inputFile);
       progressReport.nextFile();
     }
 
     progressReport.stop();
   }
 
-  private void analyseFile(SensorContext context, FlexConfiguration configuration, InputFile inputFile) {
+  private void analyseFile(SensorContext context, Charset charset, InputFile inputFile) {
     File file = inputFile.file();
 
     String fileContent;
     try {
-      fileContent = Files.toString(file, context.fileSystem().encoding());
+      fileContent = Files.toString(file, charset);
     } catch (IOException e) {
       throw new IllegalStateException("Cannot read " + file, e);
     }
 
-    Parser<LexerlessGrammar> parser = FlexParser.create(configuration);
+    Parser<LexerlessGrammar> parser = FlexParser.create(charset);
     FlexVisitorContext visitorContext;
     try {
       visitorContext = new FlexVisitorContext(fileContent, parser.parse(file));
@@ -139,7 +139,7 @@ public class FlexSquidSensor implements Sensor {
       saveIssues(context, check, check.scanFileForIssues(visitorContext), inputFile);
     }
 
-    new FlexTokensVisitor(context, FlexLexer.create(configuration), inputFile).scanFile(visitorContext);
+    new FlexTokensVisitor(context, FlexLexer.create(charset), inputFile).scanFile(visitorContext);
   }
 
   private void saveIssues(SensorContext context, FlexCheck check, List<Issue> issues, InputFile inputFile) {

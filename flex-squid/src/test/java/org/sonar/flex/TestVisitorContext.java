@@ -38,7 +38,7 @@ public class TestVisitorContext {
     } catch (IOException e) {
       throw new IllegalStateException("Cannot read " + file, e);
     }
-    Parser<LexerlessGrammar> parser = FlexParser.create(new FlexConfiguration(UTF_8));
+    Parser<LexerlessGrammar> parser = FlexParser.create(UTF_8);
     AstNode root = parser.parse(fileContent);
     return new FlexVisitorContext(fileContent, root);
   }

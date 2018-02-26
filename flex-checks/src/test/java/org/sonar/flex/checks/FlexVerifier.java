@@ -28,7 +28,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import org.sonar.flex.FlexCheck;
-import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.FlexVisitorContext;
 import org.sonar.flex.Issue;
 import org.sonar.flex.parser.FlexParser;
@@ -84,7 +83,7 @@ public class FlexVerifier {
   }
 
   private static FlexVisitorContext createContext(File file) {
-    Parser<LexerlessGrammar> parser = FlexParser.create(new FlexConfiguration(UTF_8));
+    Parser<LexerlessGrammar> parser = FlexParser.create(UTF_8);
     String fileContent;
     try {
       fileContent = Files.toString(file, UTF_8);

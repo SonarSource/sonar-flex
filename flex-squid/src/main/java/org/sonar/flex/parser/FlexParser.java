@@ -20,7 +20,7 @@
 package org.sonar.flex.parser;
 
 import com.sonar.sslr.impl.Parser;
-import org.sonar.flex.FlexConfiguration;
+import java.nio.charset.Charset;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.parser.ParserAdapter;
@@ -30,8 +30,8 @@ public final class FlexParser {
   private FlexParser() {
   }
 
-  public static Parser<LexerlessGrammar> create(FlexConfiguration conf) {
-    return new ParserAdapter<>(conf.getCharset(), FlexGrammar.createGrammar());
+  public static Parser<LexerlessGrammar> create(Charset charset) {
+    return new ParserAdapter<>(charset, FlexGrammar.createGrammar());
   }
 
 }

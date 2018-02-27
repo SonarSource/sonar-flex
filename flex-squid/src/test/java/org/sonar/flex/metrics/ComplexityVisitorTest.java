@@ -22,7 +22,6 @@ package org.sonar.flex.metrics;
 import com.sonar.sslr.impl.Parser;
 import java.nio.charset.StandardCharsets;
 import org.junit.Test;
-import org.sonar.flex.FlexConfiguration;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 import org.sonar.sslr.parser.LexerlessGrammar;
@@ -31,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComplexityVisitorTest {
 
-  private Parser<LexerlessGrammar> parser = FlexParser.create(new FlexConfiguration(StandardCharsets.UTF_8));
+  private Parser<LexerlessGrammar> parser = FlexParser.create(StandardCharsets.UTF_8);
 
   @Test
   public void simple_statement() {

@@ -25,7 +25,7 @@ import com.sonar.sslr.impl.channel.BlackHoleChannel;
 import com.sonar.sslr.impl.channel.IdentifierAndKeywordChannel;
 import com.sonar.sslr.impl.channel.PunctuatorChannel;
 import com.sonar.sslr.impl.channel.UnknownCharacterChannel;
-import org.sonar.flex.FlexConfiguration;
+import java.nio.charset.Charset;
 import org.sonar.flex.api.FlexKeyword;
 import org.sonar.flex.api.FlexPunctuator;
 import org.sonar.flex.api.FlexTokenType;
@@ -42,9 +42,9 @@ public final class FlexLexer {
   private FlexLexer() {
   }
 
-  public static Lexer create(FlexConfiguration conf) {
+  public static Lexer create(Charset charset) {
     return Lexer.builder()
-      .withCharset(conf.getCharset())
+      .withCharset(charset)
 
       .withFailIfNoChannelToConsumeOneCharacter(true)
 

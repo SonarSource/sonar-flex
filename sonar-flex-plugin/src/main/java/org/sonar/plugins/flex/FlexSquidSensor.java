@@ -19,11 +19,9 @@
  */
 package org.sonar.plugins.flex;
 
-import com.google.common.io.Files;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.RecognitionException;
 import com.sonar.sslr.impl.Parser;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -41,7 +39,6 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.batch.sensor.issue.NewIssueLocation;
-import org.sonar.api.ce.measure.RangeDistributionBuilder;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
@@ -50,7 +47,6 @@ import org.sonar.api.rule.RuleKey;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.sonar.flex.FlexCheck;
-import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexVisitorContext;
 import org.sonar.flex.Issue;
 import org.sonar.flex.checks.CheckList;
@@ -65,9 +61,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 public class FlexSquidSensor implements Sensor {
 
   private static final Logger LOG = Loggers.get(FlexSquidSensor.class);
-
-  private static final Number[] FUNCTIONS_DISTRIB_BOTTOM_LIMITS = {1, 2, 4, 6, 8, 10, 12};
-  private static final Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
 
   private final Checks<FlexCheck> checks;
   private final FileLinesContextFactory fileLinesContextFactory;
@@ -95,14 +88,13 @@ public class FlexSquidSensor implements Sensor {
     FilePredicate filePredicate = predicates.and(
       predicates.hasType(InputFile.Type.MAIN),
       predicates.hasLanguage(Flex.KEY),
-      inputFile -> !inputFile.absolutePath().endsWith("mxml")
-    );
+      inputFile -> !inputFile.uri().getPath().endsWith("mxml"));
 
     List<InputFile> inputFiles = new ArrayList<>();
     fileSystem.inputFiles(filePredicate).forEach(inputFiles::add);
 
     ProgressReport progressReport = new ProgressReport("Report about progress of SonarFlex analyzer", TimeUnit.SECONDS.toMillis(10));
-    List<String> filenames = inputFiles.stream().map(InputFile::file).map(File::getPath).collect(Collectors.toList());
+    List<String> filenames = inputFiles.stream().map(InputFile::toString).collect(Collectors.toList());
     progressReport.start(filenames);
 
     Charset charset = fileSystem.encoding();
@@ -115,23 +107,21 @@ public class FlexSquidSensor implements Sensor {
   }
 
   private void analyseFile(SensorContext context, Charset charset, InputFile inputFile) {
-    File file = inputFile.file();
-
     String fileContent;
     try {
-      fileContent = Files.toString(file, charset);
+      fileContent = inputFile.contents();
     } catch (IOException e) {
-      throw new IllegalStateException("Cannot read " + file, e);
+      throw new IllegalStateException("Cannot read " + inputFile, e);
     }
 
     Parser<LexerlessGrammar> parser = FlexParser.create(charset);
     FlexVisitorContext visitorContext;
     try {
-      visitorContext = new FlexVisitorContext(fileContent, parser.parse(file));
+      visitorContext = new FlexVisitorContext(fileContent, parser.parse(fileContent));
       saveMeasures(context, inputFile, visitorContext);
     } catch (RecognitionException e) {
       visitorContext = new FlexVisitorContext(fileContent, e);
-      LOG.error("Unable to parse file: {}", file);
+      LOG.error("Unable to parse file: {}", inputFile);
       LOG.error(e.getMessage());
     }
 
@@ -177,41 +167,6 @@ public class FlexSquidSensor implements Sensor {
     AstNode root = visitorContext.rootTree();
     int fileComplexity = ComplexityVisitor.complexity(root);
     saveMeasure(context, inputFile, CoreMetrics.COMPLEXITY, fileComplexity);
-    saveClassComplexity(context, inputFile, root);
-    saveFunctionsComplexityDistribution(context, inputFile, root);
-    saveFilesComplexityDistribution(context, inputFile, fileComplexity);
-  }
-
-  private static void saveClassComplexity(SensorContext context, InputFile inputFile, AstNode rootNode) {
-    int complexityInClasses = 0;
-    for (AstNode classDef : rootNode.getDescendants(FlexGrammar.CLASS_DEF, FlexGrammar.INTERFACE_DEF)) {
-      int classComplexity = ComplexityVisitor.complexity(classDef);
-      complexityInClasses += classComplexity;
-    }
-    saveMeasure(context, inputFile, CoreMetrics.COMPLEXITY_IN_CLASSES, complexityInClasses);
-  }
-
-  private static void saveFunctionsComplexityDistribution(SensorContext context, InputFile inputFile, AstNode rootNode) {
-    RangeDistributionBuilder complexityDistribution = new RangeDistributionBuilder(FUNCTIONS_DISTRIB_BOTTOM_LIMITS);
-    for (AstNode functionDef : rootNode.getDescendants(FlexGrammar.FUNCTION_DEF, FlexGrammar.FUNCTION_EXPR)) {
-      complexityDistribution.add(ComplexityVisitor.complexity(functionDef));
-    }
-    context.<String>newMeasure()
-      .on(inputFile)
-      .forMetric(CoreMetrics.FUNCTION_COMPLEXITY_DISTRIBUTION)
-      .withValue(complexityDistribution.build())
-      .save();
-  }
-
-  private static void saveFilesComplexityDistribution(SensorContext context, InputFile inputFile, int fileComplexity) {
-    String distribution = new RangeDistributionBuilder(FILES_DISTRIB_BOTTOM_LIMITS)
-      .add(fileComplexity)
-      .build();
-    context.<String>newMeasure()
-      .on(inputFile)
-      .forMetric(CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION)
-      .withValue(distribution)
-      .save();
   }
 
   private static void saveMeasure(SensorContext context, InputFile inputFile, Metric<Integer> metric, int value) {

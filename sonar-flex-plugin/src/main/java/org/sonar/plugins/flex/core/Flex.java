@@ -20,12 +20,11 @@
 package org.sonar.plugins.flex.core;
 
 import com.google.common.collect.Lists;
+import java.util.List;
 import org.apache.commons.lang.StringUtils;
-import org.sonar.api.config.Settings;
+import org.sonar.api.config.Configuration;
 import org.sonar.api.resources.AbstractLanguage;
 import org.sonar.plugins.flex.FlexPlugin;
-
-import java.util.List;
 
 /**
  * Class that actually represents ActionScript, the language of Flex.
@@ -37,16 +36,16 @@ public class Flex extends AbstractLanguage {
 
   public static final String DEFAULT_FILE_SUFFIXES = "as";
 
-  private final Settings settings;
+  private final Configuration config;
 
   /**
    * Creates the {@link Flex} language.
    * <br/>
    * <b>Do not call, this constructor is called by Pico container.</b>
    */
-  public Flex(Settings settings) {
+  public Flex(Configuration config) {
     super(KEY, NAME);
-    this.settings = settings;
+    this.config = config;
   }
 
   /**
@@ -54,7 +53,7 @@ public class Flex extends AbstractLanguage {
    */
   @Override
   public String[] getFileSuffixes() {
-    String[] suffixes = filterEmptyStrings(settings.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY));
+    String[] suffixes = filterEmptyStrings(config.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY));
     if (suffixes.length == 0) {
       suffixes = StringUtils.split(DEFAULT_FILE_SUFFIXES, ",");
     }

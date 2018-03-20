@@ -38,7 +38,6 @@ import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
-import org.sonar.api.batch.sensor.coverage.CoverageType;
 import org.sonar.api.batch.sensor.coverage.NewCoverage;
 import org.sonar.api.utils.ParsingUtils;
 import org.sonar.api.utils.log.Logger;
@@ -95,9 +94,7 @@ public class CoberturaReportParser {
         collectFileData(
           clazz,
           context.newCoverage()
-            .onFile(inputFile)
-            .ofType(CoverageType.UNIT)
-        );
+            .onFile(inputFile));
       } else {
         SMInputCursor line = clazz.childElementCursor("lines").advance().childElementCursor("line");
         while (line.getNext() != null) {
@@ -111,7 +108,7 @@ public class CoberturaReportParser {
   private static InputFile findInputFile(FileSystem fileSystem, FilePredicates predicates, String fileName) {
     String key = fileName.startsWith(File.separator) ? fileName : (File.separator + fileName);
     return fileSystem.inputFile(predicates.and(
-      predicates.matchesPathPattern("file:**" + key.replace(File.separator, "/")),
+      predicates.matchesPathPattern("**" + key.replace(File.separator, "/")),
       predicates.hasType(InputFile.Type.MAIN),
       predicates.hasLanguage(Flex.KEY)));
   }

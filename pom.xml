@@ -73,10 +73,10 @@
     <license.title>SonarQube Flex Plugin</license.title>
     <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
 
-    <sonar.version>5.6</sonar.version>
+    <sonar.version>6.7</sonar.version>
     <sslr.version>1.22</sslr.version>
     <version.sslr-squid-bridge>2.7.0.377</version.sslr-squid-bridge>
-    <analyzerCommons.version>1.5.0.178</analyzerCommons.version>
+    <analyzerCommons.version>1.6.0.219</analyzerCommons.version>
     <logback.version>1.0.13</logback.version>
     <junit.version>4.12</junit.version>
     <fest.version>1.4</fest.version>

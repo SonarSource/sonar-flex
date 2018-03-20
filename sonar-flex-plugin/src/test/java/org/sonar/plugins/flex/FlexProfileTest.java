@@ -21,47 +21,33 @@ package org.sonar.plugins.flex;
 
 import java.util.List;
 import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.rules.ActiveRule;
-import org.sonar.api.rules.Rule;
-import org.sonar.api.rules.RuleFinder;
-import org.sonar.api.utils.ValidationMessages;
 import org.sonar.flex.checks.CheckList;
 import org.sonar.plugins.flex.core.Flex;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.sonar.api.server.profile.BuiltInQualityProfilesDefinition.BuiltInActiveRule;
+import static org.sonar.api.server.profile.BuiltInQualityProfilesDefinition.BuiltInQualityProfile;
+import static org.sonar.api.server.profile.BuiltInQualityProfilesDefinition.Context;
 
 public class FlexProfileTest {
 
   @Test
   public void should_create_sonar_way_profile() {
-    ValidationMessages validation = ValidationMessages.create();
+    Context context = new Context();
 
-    RuleFinder ruleFinder = ruleFinder();
-    FlexProfile definition = new FlexProfile(ruleFinder);
-    RulesProfile profile = definition.createProfile(validation);
+    FlexProfile definition = new FlexProfile();
+    definition.define(context);
 
-    assertThat(profile.getLanguage()).isEqualTo(Flex.KEY);
-    assertThat(profile.getName()).isEqualTo(CheckList.SONAR_WAY_PROFILE);
-    List<ActiveRule> activeRules = profile.getActiveRulesByRepository(CheckList.REPOSITORY_KEY);
+    BuiltInQualityProfile profile = context.profile(Flex.KEY, CheckList.SONAR_WAY_PROFILE);
+
+    assertThat(profile).isNotNull();
+
+    List<BuiltInActiveRule> activeRules = profile.rules();
     assertThat(activeRules.size()).isGreaterThan(40);
-    assertThat(activeRules).extracting(ActiveRule::getRuleKey).contains("S1871");
-    assertThat(validation.hasErrors()).isFalse();
+    assertThat(activeRules).extracting(BuiltInActiveRule::ruleKey)
+      .contains("S1871")
+      .contains("S101")
+      .doesNotContain("S1469")
+      .doesNotContain("S1176");
   }
-
-  static RuleFinder ruleFinder() {
-    return when(mock(RuleFinder.class).findByKey(anyString(), anyString())).thenAnswer(new Answer<Rule>() {
-      @Override
-      public Rule answer(InvocationOnMock invocation) {
-        Object[] arguments = invocation.getArguments();
-        return Rule.create((String) arguments[0], (String) arguments[1], (String) arguments[1]);
-      }
-    }).getMock();
-  }
-
 }

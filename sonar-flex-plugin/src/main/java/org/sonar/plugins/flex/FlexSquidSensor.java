@@ -102,8 +102,8 @@ public class FlexSquidSensor implements Sensor {
     fileSystem.inputFiles(filePredicate).forEach(inputFiles::add);
 
     ProgressReport progressReport = new ProgressReport("Report about progress of SonarFlex analyzer", TimeUnit.SECONDS.toMillis(10));
-    List<File> files = inputFiles.stream().map(InputFile::file).collect(Collectors.toList());
-    progressReport.start(files);
+    List<String> filenames = inputFiles.stream().map(InputFile::file).map(File::getPath).collect(Collectors.toList());
+    progressReport.start(filenames);
 
     Charset charset = fileSystem.encoding();
     for (InputFile inputFile : inputFiles) {

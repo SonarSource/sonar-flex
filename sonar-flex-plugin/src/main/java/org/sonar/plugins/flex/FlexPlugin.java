@@ -47,6 +47,7 @@ public class FlexPlugin implements Plugin {
         .description("Comma-separated list of suffixes for files to analyze. To not filter, leave the list empty.")
         .onQualifiers(Qualifiers.MODULE, Qualifiers.PROJECT)
         .category(Flex.NAME)
+        .multiValues(true)
         .build(),
 
       PropertyDefinition.builder(COBERTURA_REPORT_PATH)
@@ -54,7 +55,6 @@ public class FlexPlugin implements Plugin {
         .description("Path to the Cobertura coverage report file. The path may be either absolute or relative to the project base directory.")
         .onQualifiers(Qualifiers.MODULE, Qualifiers.PROJECT)
         .category(Flex.NAME)
-        .build()
-    );
+        .build());
   }
 }

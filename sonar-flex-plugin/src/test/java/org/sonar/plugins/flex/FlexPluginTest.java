@@ -21,6 +21,9 @@ package org.sonar.plugins.flex;
 
 import org.junit.Test;
 import org.sonar.api.Plugin;
+import org.sonar.api.SonarQubeSide;
+import org.sonar.api.SonarRuntime;
+import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.utils.Version;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,7 +32,8 @@ public class FlexPluginTest {
 
   @Test
   public void testGetExtensions() throws Exception {
-    Plugin.Context context = new Plugin.Context(Version.create(5, 6));
+    SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarQube(Version.create(6, 7), SonarQubeSide.SERVER);
+    Plugin.Context context = new Plugin.Context(sonarRuntime);
     new FlexPlugin().define(context);
     assertThat(context.getExtensions()).isNotEmpty();
   }

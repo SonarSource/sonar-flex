@@ -20,13 +20,14 @@
 package org.sonar.plugins.flex.cobertura;
 
 import java.io.File;
-import java.io.FileReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
-import org.sonar.api.batch.fs.internal.FileMetadata;
-import org.sonar.api.batch.sensor.coverage.CoverageType;
+import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.api.utils.log.LogTester;
@@ -54,10 +55,12 @@ public class CoberturaSensorTest {
 
   @Test
   public void shouldParseReport() throws Exception {
-    DefaultInputFile inputFile = new DefaultInputFile("key", "src/example/File.as")
+    String content = new String(Files.readAllBytes(Paths.get(TEST_DIR, "src/example/File.as")), StandardCharsets.UTF_8);
+    DefaultInputFile inputFile = TestInputFileBuilder.create("key", "src/example/File.as")
       .setLanguage(Flex.KEY)
       .setType(InputFile.Type.MAIN)
-      .initMetadata(new FileMetadata().readMetadata(new FileReader(TEST_DIR + "src/example/File.as")));
+      .initMetadata(content)
+      .build();
 
     tester.fileSystem().add(inputFile);
 
@@ -69,14 +72,9 @@ public class CoberturaSensorTest {
     Integer[] expectedCoveredConditions = {1, null, null, null, null, null, null, null, null, null};
     Integer[] expectedHits = {0, null, null, null, null, null, 0, null, null, null};
     for (int line = 1; line <= expectedConditions.length; line++) {
-      assertThat(tester.coveredConditions(componentKey, CoverageType.UNIT, line)).as("line " + line).isEqualTo(expectedCoveredConditions[line - 1]);
-      assertThat(tester.conditions(componentKey, CoverageType.UNIT, line)).as("line " + line).isEqualTo(expectedConditions[line - 1]);
-      assertThat(tester.lineHits(componentKey, CoverageType.UNIT, line)).as("line " + line).isEqualTo(expectedHits[line - 1]);
-
-      assertThat(tester.coveredConditions(componentKey, CoverageType.IT, line)).isNull();
-      assertThat(tester.lineHits(componentKey, CoverageType.IT, line)).isNull();
-      assertThat(tester.coveredConditions(componentKey, CoverageType.OVERALL, line)).isNull();
-      assertThat(tester.lineHits(componentKey, CoverageType.OVERALL, line)).isNull();
+      assertThat(tester.coveredConditions(componentKey, line)).as("line " + line).isEqualTo(expectedCoveredConditions[line - 1]);
+      assertThat(tester.conditions(componentKey, line)).as("line " + line).isEqualTo(expectedConditions[line - 1]);
+      assertThat(tester.lineHits(componentKey, line)).as("line " + line).isEqualTo(expectedHits[line - 1]);
     }
 
     assertThat(logTester.logs()).containsOnly("Analyzing Cobertura report: coverage.xml");

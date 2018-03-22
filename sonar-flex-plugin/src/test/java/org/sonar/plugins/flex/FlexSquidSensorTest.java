@@ -20,8 +20,10 @@
 package org.sonar.plugins.flex;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Collections;
 import org.junit.Before;
 import org.junit.Rule;
@@ -30,7 +32,7 @@ import org.mockito.Mockito;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
-import org.sonar.api.batch.fs.internal.FileMetadata;
+import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.api.batch.rule.ActiveRules;
 import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.rule.internal.ActiveRulesBuilder;
@@ -67,15 +69,17 @@ public class FlexSquidSensorTest {
     ActiveRules activeRules = new DefaultActiveRules(Collections.singletonList(ar));
     CheckFactory checkFactory = new CheckFactory(activeRules);
     FileLinesContextFactory fileLinesContextFactory = mock(FileLinesContextFactory.class);
-    when(fileLinesContextFactory.createFor(Mockito.any(InputFile.class))).thenReturn(mock(FileLinesContext.class));
+    FileLinesContext fileLinesContext = mock(FileLinesContext.class);
+    when(fileLinesContextFactory.createFor(Mockito.any(InputFile.class))).thenReturn(fileLinesContext);
     sensor = new FlexSquidSensor(checkFactory, fileLinesContextFactory);
     tester = SensorContextTester.create(TEST_DIR);
     logTester.clear();
   }
 
   @Test
-  public void analyse() throws FileNotFoundException {
+  public void analyse() throws IOException {
     DefaultFileSystem fs = new DefaultFileSystem(TEST_DIR);
+    fs.setEncoding(StandardCharsets.UTF_8);
     tester.setFileSystem(fs);
     fs.add(inputFile("SmallFile.as"));
     fs.add(inputFile("bom.as"));
@@ -110,16 +114,23 @@ public class FlexSquidSensorTest {
     assertThat(tester.highlightingTypeAt(componentKey, 2, 0)).containsOnly(TypeOfText.COMMENT);
   }
 
-  private DefaultInputFile inputFile(String fileName) throws FileNotFoundException {
-    return new DefaultInputFile("key", fileName)
-        .setType(InputFile.Type.MAIN)
-        .setLanguage(Flex.KEY)
-        .initMetadata(new FileMetadata().readMetadata(new FileReader(new File(TEST_DIR, fileName))));
+  private DefaultInputFile inputFile(String fileName) throws IOException {
+    File file = new File(TEST_DIR, fileName);
+    String content = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
+
+    return TestInputFileBuilder.create("key", fileName)
+      .setModuleBaseDir(Paths.get(TEST_DIR.getAbsolutePath()))
+      .setType(InputFile.Type.MAIN)
+      .setLanguage(Flex.KEY)
+      .setCharset(StandardCharsets.UTF_8)
+      .initMetadata(content)
+      .build();
   }
 
   @Test
-  public void analyse2() throws FileNotFoundException {
+  public void analyse2() throws IOException {
     DefaultFileSystem fs = new DefaultFileSystem(TEST_DIR);
+    fs.setEncoding(StandardCharsets.UTF_8);
     tester.setFileSystem(fs);
     DefaultInputFile inputFile = inputFile("TimeFormatter.as");
     fs.add(inputFile);
@@ -143,8 +154,9 @@ public class FlexSquidSensorTest {
   }
 
   @Test
-  public void parse_error() throws FileNotFoundException {
+  public void parse_error() throws IOException {
     DefaultFileSystem fs = new DefaultFileSystem(TEST_DIR);
+    fs.setEncoding(StandardCharsets.UTF_8);
     tester.setFileSystem(fs);
     DefaultInputFile inputFile = inputFile("parse_error.as");
     fs.add(inputFile);

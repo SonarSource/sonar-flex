@@ -19,11 +19,9 @@
  */
 package org.sonar.plugins.flex;
 
-import com.google.common.io.Files;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.RecognitionException;
 import com.sonar.sslr.impl.Parser;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -95,14 +93,13 @@ public class FlexSquidSensor implements Sensor {
     FilePredicate filePredicate = predicates.and(
       predicates.hasType(InputFile.Type.MAIN),
       predicates.hasLanguage(Flex.KEY),
-      inputFile -> !inputFile.absolutePath().endsWith("mxml")
-    );
+      inputFile -> !inputFile.uri().getPath().endsWith("mxml"));
 
     List<InputFile> inputFiles = new ArrayList<>();
     fileSystem.inputFiles(filePredicate).forEach(inputFiles::add);
 
     ProgressReport progressReport = new ProgressReport("Report about progress of SonarFlex analyzer", TimeUnit.SECONDS.toMillis(10));
-    List<String> filenames = inputFiles.stream().map(InputFile::file).map(File::getPath).collect(Collectors.toList());
+    List<String> filenames = inputFiles.stream().map(InputFile::toString).collect(Collectors.toList());
     progressReport.start(filenames);
 
     Charset charset = fileSystem.encoding();
@@ -115,23 +112,21 @@ public class FlexSquidSensor implements Sensor {
   }
 
   private void analyseFile(SensorContext context, Charset charset, InputFile inputFile) {
-    File file = inputFile.file();
-
     String fileContent;
     try {
-      fileContent = Files.toString(file, charset);
+      fileContent = inputFile.contents();
     } catch (IOException e) {
-      throw new IllegalStateException("Cannot read " + file, e);
+      throw new IllegalStateException("Cannot read " + inputFile, e);
     }
 
     Parser<LexerlessGrammar> parser = FlexParser.create(charset);
     FlexVisitorContext visitorContext;
     try {
-      visitorContext = new FlexVisitorContext(fileContent, parser.parse(file));
+      visitorContext = new FlexVisitorContext(fileContent, parser.parse(fileContent));
       saveMeasures(context, inputFile, visitorContext);
     } catch (RecognitionException e) {
       visitorContext = new FlexVisitorContext(fileContent, e);
-      LOG.error("Unable to parse file: {}", file);
+      LOG.error("Unable to parse file: {}", inputFile);
       LOG.error(e.getMessage());
     }
 

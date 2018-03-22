@@ -20,6 +20,7 @@
 package org.sonar.plugins.flex.cobertura;
 
 import java.io.File;
+import java.util.Optional;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.Sensor;
@@ -44,9 +45,10 @@ public class CoberturaSensor implements Sensor {
 
   @Override
   public void execute(SensorContext context) {
-    String reportPath = context.settings().getString(FlexPlugin.COBERTURA_REPORT_PATH);
+    Optional<String> reportPathOptional = context.config().get(FlexPlugin.COBERTURA_REPORT_PATH);
 
-    if (reportPath != null) {
+    if (reportPathOptional.isPresent()) {
+      String reportPath = reportPathOptional.get();
       File xmlFile = getIOFile(context.fileSystem(), reportPath);
 
       if (xmlFile.exists()) {

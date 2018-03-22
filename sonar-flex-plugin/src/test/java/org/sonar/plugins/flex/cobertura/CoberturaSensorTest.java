@@ -20,15 +20,13 @@
 package org.sonar.plugins.flex.cobertura;
 
 import java.io.File;
-import java.io.FileReader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
-import org.sonar.api.batch.fs.internal.FileMetadata;
 import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
@@ -57,7 +55,7 @@ public class CoberturaSensorTest {
 
   @Test
   public void shouldParseReport() throws Exception {
-    String content = new String(Files.readAllBytes(Paths.get(TEST_DIR, "src/example/File.as")), Charset.defaultCharset());
+    String content = new String(Files.readAllBytes(Paths.get(TEST_DIR, "src/example/File.as")), StandardCharsets.UTF_8);
     DefaultInputFile inputFile = TestInputFileBuilder.create("key", "src/example/File.as")
       .setLanguage(Flex.KEY)
       .setType(InputFile.Type.MAIN)

@@ -21,7 +21,7 @@ package org.sonar.plugins.flex;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -79,7 +79,7 @@ public class FlexSquidSensorTest {
   @Test
   public void analyse() throws IOException {
     DefaultFileSystem fs = new DefaultFileSystem(TEST_DIR);
-    fs.setEncoding(Charset.defaultCharset());
+    fs.setEncoding(StandardCharsets.UTF_8);
     tester.setFileSystem(fs);
     fs.add(inputFile("SmallFile.as"));
     fs.add(inputFile("bom.as"));
@@ -87,12 +87,15 @@ public class FlexSquidSensorTest {
     sensor.execute(tester);
 
     String componentKey = "key:SmallFile.as";
+    assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY_IN_CLASSES).value()).isEqualTo(1);
     assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(11);
     assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(1);
     assertThat(tester.measure(componentKey, CoreMetrics.STATEMENTS).value()).isEqualTo(3);
     assertThat(tester.measure(componentKey, CoreMetrics.FUNCTIONS).value()).isEqualTo(2);
     assertThat(tester.measure(componentKey, CoreMetrics.CLASSES).value()).isEqualTo(1);
     assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY).value()).isEqualTo(3);
+    assertThat(tester.measure(componentKey, CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION).value()).isEqualTo("0=1;5=0;10=0;20=0;30=0;60=0;90=0");
+    assertThat(tester.measure(componentKey, CoreMetrics.FUNCTION_COMPLEXITY_DISTRIBUTION).value()).isEqualTo("1=1;2=1;4=0;6=0;8=0;10=0;12=0");
 
     assertThat(tester.cpdTokens(componentKey)).hasSize(10);
 
@@ -113,13 +116,13 @@ public class FlexSquidSensorTest {
 
   private DefaultInputFile inputFile(String fileName) throws IOException {
     File file = new File(TEST_DIR, fileName);
-    String content = new String(Files.readAllBytes(file.toPath()), Charset.defaultCharset());
+    String content = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
 
     return TestInputFileBuilder.create("key", fileName)
       .setModuleBaseDir(Paths.get(TEST_DIR.getAbsolutePath()))
       .setType(InputFile.Type.MAIN)
       .setLanguage(Flex.KEY)
-      .setCharset(Charset.defaultCharset())
+      .setCharset(StandardCharsets.UTF_8)
       .initMetadata(content)
       .build();
   }
@@ -127,7 +130,7 @@ public class FlexSquidSensorTest {
   @Test
   public void analyse2() throws IOException {
     DefaultFileSystem fs = new DefaultFileSystem(TEST_DIR);
-    fs.setEncoding(Charset.defaultCharset());
+    fs.setEncoding(StandardCharsets.UTF_8);
     tester.setFileSystem(fs);
     DefaultInputFile inputFile = inputFile("TimeFormatter.as");
     fs.add(inputFile);
@@ -135,12 +138,15 @@ public class FlexSquidSensorTest {
     sensor.execute(tester);
 
     String componentKey = inputFile.key();
+    assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY_IN_CLASSES).value()).isEqualTo(0);
     assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(0);
     assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(59);
     assertThat(tester.measure(componentKey, CoreMetrics.STATEMENTS).value()).isEqualTo(0);
     assertThat(tester.measure(componentKey, CoreMetrics.FUNCTIONS).value()).isEqualTo(0);
     assertThat(tester.measure(componentKey, CoreMetrics.CLASSES).value()).isEqualTo(0);
     assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY).value()).isEqualTo(0);
+    assertThat(tester.measure(componentKey, CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION).value()).isEqualTo("0=1;5=0;10=0;20=0;30=0;60=0;90=0");
+    assertThat(tester.measure(componentKey, CoreMetrics.FUNCTION_COMPLEXITY_DISTRIBUTION).value()).isEqualTo("1=0;2=0;4=0;6=0;8=0;10=0;12=0");
 
     assertThat(tester.cpdTokens(componentKey)).hasSize(0);
 
@@ -150,7 +156,7 @@ public class FlexSquidSensorTest {
   @Test
   public void parse_error() throws IOException {
     DefaultFileSystem fs = new DefaultFileSystem(TEST_DIR);
-    fs.setEncoding(Charset.defaultCharset());
+    fs.setEncoding(StandardCharsets.UTF_8);
     tester.setFileSystem(fs);
     DefaultInputFile inputFile = inputFile("parse_error.as");
     fs.add(inputFile);

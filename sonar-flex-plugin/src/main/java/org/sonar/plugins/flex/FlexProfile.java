@@ -26,10 +26,12 @@ import org.sonarsource.analyzer.commons.BuiltInQualityProfileJsonLoader;
 
 public class FlexProfile implements BuiltInQualityProfilesDefinition {
 
+  public static final String SONAR_WAY_PROFILE_PATH = "org/sonar/l10n/flex/rules/flex/Sonar_way_profile.json";
+
   @Override
   public void define(Context context) {
     NewBuiltInQualityProfile profile = context.createBuiltInQualityProfile(CheckList.SONAR_WAY_PROFILE, Flex.KEY);
-    BuiltInQualityProfileJsonLoader.load(profile, CheckList.REPOSITORY_KEY, "org/sonar/l10n/flex/rules/flex/Sonar_way_profile.json");
+    BuiltInQualityProfileJsonLoader.load(profile, CheckList.REPOSITORY_KEY, SONAR_WAY_PROFILE_PATH);
     profile.done();
   }
 }

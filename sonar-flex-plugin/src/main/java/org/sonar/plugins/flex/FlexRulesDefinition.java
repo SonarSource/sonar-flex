@@ -39,8 +39,7 @@ public final class FlexRulesDefinition implements RulesDefinition {
       .createRepository(CheckList.REPOSITORY_KEY, Flex.KEY)
       .setName(REPOSITORY_NAME);
 
-    // FIXME: with SonarQube 6.7, should use the sonar way profile location as extra parameter
-    RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader(RESOURCE_BASE_PATH);
+    RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader(RESOURCE_BASE_PATH, FlexProfile.SONAR_WAY_PROFILE_PATH);
     ruleMetadataLoader.addRulesByAnnotatedClass(repository, CheckList.getChecks());
 
     TEMPLATE_RULE_KEYS.forEach(key -> repository.rule(key).setTemplate(true));

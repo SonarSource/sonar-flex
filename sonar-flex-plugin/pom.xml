@@ -15,6 +15,13 @@
   <description>Code Analyzer for Flex / ActionScript</description>
   <url>http://redirect.sonarsource.com/plugins/flex.html</url>
 
+  <scm>
+    <connection>scm:git:git@github.com:SonarSource/sonar-flex.git</connection>
+    <developerConnection>scm:git:git@github.com:SonarSource/sonar-flex.git</developerConnection>
+    <url>https://github.com/SonarSource/sonar-flex</url>
+    <tag>HEAD</tag>
+  </scm>
+
   <properties>
     <sonar.pluginClass>org.sonar.plugins.flex.FlexPlugin</sonar.pluginClass>
     <sonar.pluginName>SonarFlex</sonar.pluginName>

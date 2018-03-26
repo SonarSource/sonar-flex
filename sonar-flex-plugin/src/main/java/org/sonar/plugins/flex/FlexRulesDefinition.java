@@ -29,7 +29,7 @@ import org.sonarsource.analyzer.commons.RuleMetadataLoader;
 
 public final class FlexRulesDefinition implements RulesDefinition {
 
-  private static final String REPOSITORY_NAME = "SonarQube";
+  private static final String REPOSITORY_NAME = "SonarAnalyzer";
   private static final String RESOURCE_BASE_PATH = "org/sonar/l10n/flex/rules/flex";
   private static final Set<String> TEMPLATE_RULE_KEYS = new HashSet<>(Arrays.asList("XPath", "CommentRegularExpression"));
 

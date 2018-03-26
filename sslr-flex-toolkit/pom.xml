@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.sonarsource.flex</groupId>
     <artifactId>flex</artifactId>
-    <version>2.4-SNAPSHOT</version>
+    <version>2.5-SNAPSHOT</version>
   </parent>
 
   <artifactId>sslr-flex-toolkit</artifactId>

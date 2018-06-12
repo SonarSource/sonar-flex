@@ -30,7 +30,6 @@ import org.junit.ClassRule;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-import org.sonarqube.ws.WsComponents;
 import org.sonarqube.ws.WsComponents.Component;
 import org.sonarqube.ws.client.HttpConnector;
 import org.sonarqube.ws.client.WsClient;
@@ -52,6 +51,7 @@ public class Tests {
 
   @ClassRule
   public static final Orchestrator ORCHESTRATOR = Orchestrator.builderEnv()
+    .setSonarVersion(System.getProperty("sonar.runtimeVersion"))
     .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-flex-plugin/target"), "sonar-flex-plugin-*.jar"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/it-profile_flex.xml"))
     .build();

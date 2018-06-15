@@ -19,36 +19,31 @@
  */
 package org.sonar.flex.it;
 
-import com.google.common.io.Files;
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
 import com.sonar.orchestrator.locator.FileLocation;
+import com.sonar.orchestrator.locator.MavenLocation;
+import java.io.File;
+import java.nio.file.Files;
 import org.junit.ClassRule;
 import org.junit.Test;
 
-import java.io.File;
-import java.nio.charset.StandardCharsets;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class FlexRulingTest {
 
   @ClassRule
   public static Orchestrator ORCHESTRATOR = Orchestrator.builderEnv()
+    .setSonarVersion(System.getProperty("sonar.runtimeVersion"))
     .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-flex-plugin/target"), "sonar-flex-plugin-*.jar"))
-    .setOrchestratorProperty("litsVersion", "0.6")
-    .addPlugin("lits")
+    .addPlugin(MavenLocation.of("org.sonarsource.sonar-lits-plugin","sonar-lits-plugin", "0.6"))
     .restoreProfileAtStartup(FileLocation.of("src/test/resources/profile.xml"))
     .build();
 
   @Test
   public void test() throws Exception {
-    assertTrue(
-      "SonarQube 5.1 is the minimum version to generate the issues report, change your orchestrator.properties",
-      ORCHESTRATOR.getConfiguration().getSonarVersion().isGreaterThanOrEquals("5.1"));
-      ORCHESTRATOR.getServer().provisionProject("project", "project");
-      ORCHESTRATOR.getServer().associateProjectToQualityProfile("project", "flex", "rules");
+    ORCHESTRATOR.getServer().provisionProject("project", "project");
+    ORCHESTRATOR.getServer().associateProjectToQualityProfile("project", "flex", "rules");
     File litsDifferencesFile = FileLocation.of("target/differences").getFile();
 
     SonarScanner build = SonarScanner.create(FileLocation.of("../sources/src").getFile())
@@ -68,7 +63,7 @@ public class FlexRulingTest {
       .setEnvironmentVariable("SONAR_RUNNER_OPTS", "-Xmx1000m");
     ORCHESTRATOR.executeBuild(build);
 
-    assertThat(Files.toString(litsDifferencesFile, StandardCharsets.UTF_8)).isEmpty();
+    assertThat(Files.readAllBytes(litsDifferencesFile.toPath())).isEmpty();
   }
 
 }

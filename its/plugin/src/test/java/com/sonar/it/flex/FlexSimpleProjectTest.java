@@ -79,9 +79,6 @@ public class FlexSimpleProjectTest {
     assertThat(getMeasure(fileKey, "ncloc_data").getValue())
       .contains("1=1")
       .doesNotContain("2=1");
-    assertThat(getMeasure(fileKey, "comment_lines_data").getValue())
-      .doesNotContain("1=1")
-      .contains("2=1");
   }
 
 }

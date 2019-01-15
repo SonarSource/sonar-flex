@@ -22,6 +22,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <sonar.dynamicAnalysis>false</sonar.dynamicAnalysis>
+    <sonar.exclusions>**/*.xml</sonar.exclusions>
   </properties>
 
   <build>

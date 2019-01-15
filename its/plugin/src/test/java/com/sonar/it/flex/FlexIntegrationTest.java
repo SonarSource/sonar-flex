@@ -22,6 +22,7 @@ package com.sonar.it.flex;
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.MavenBuild;
 import java.io.File;
+import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -40,11 +41,15 @@ public class FlexIntegrationTest {
 
   private static final String PROJECT_AS3COMMONS = "org.as3commons:as3commons-project";
   private static final String MODULE_COMMONS_LANG = "org.as3commons:as3commons-lang";
-  private static final String PACKAGE_COMMONS_LANG = keyFor("org/as3commons/lang");
-  private static final String FILE_OBJECT_UTILS = keyFor("org/as3commons/lang/ObjectUtils.as");
+  private final String packageCommonsLang = keyFor("org/as3commons/lang");
+  private final String fileObjectUtils = keyFor("org/as3commons/lang/ObjectUtils.as");
 
-  private static String keyFor(String s) {
-    return "org.as3commons:as3commons-lang:src/main/actionscript/" + s;
+  private String keyFor(String s) {
+    if (isAtLeastSq76()) {
+      return "org.as3commons:as3commons-project:as3-commons-lang/src/main/actionscript/" + s;
+    } else {
+      return "org.as3commons:as3commons-lang:src/main/actionscript/" + s;
+    }
   }
 
   @BeforeClass
@@ -60,9 +65,13 @@ public class FlexIntegrationTest {
   @Test
   public void commonsCollectionsIsAnalyzed() {
     assertThat(getComponent(PROJECT_AS3COMMONS).getName()).isEqualTo("AS3Commons Project");
-    assertThat(getComponent(MODULE_COMMONS_LANG).getName()).isEqualTo("AS3Commons Lang");
-    assertThat(getComponent(PACKAGE_COMMONS_LANG).getName()).isEqualTo("src/main/actionscript/org/as3commons/lang");
-    assertThat(getComponent(FILE_OBJECT_UTILS).getName()).isEqualTo("ObjectUtils.as");
+    if (isAtLeastSq76()) {
+      assertThat(getComponent(packageCommonsLang).getName()).isEqualTo("as3-commons-lang/src/main/actionscript/org/as3commons/lang");
+    } else {
+      assertThat(getComponent(MODULE_COMMONS_LANG).getName()).isEqualTo("AS3Commons Lang");
+      assertThat(getComponent(packageCommonsLang).getName()).isEqualTo("src/main/actionscript/org/as3commons/lang");
+    }
+    assertThat(getComponent(fileObjectUtils).getName()).isEqualTo("ObjectUtils.as");
   }
 
   @Test
@@ -97,6 +106,7 @@ public class FlexIntegrationTest {
 
   @Test
   public void moduleMetrics() {
+    Assume.assumeFalse(isAtLeastSq76());
     assertThat(getModuleMeasureAsDouble("ncloc")).isEqualTo(1620d);
     assertThat(getModuleMeasureAsDouble("lines")).isEqualTo(4503d);
     assertThat(getModuleMeasureAsDouble("files")).isEqualTo(19d);
@@ -125,28 +135,31 @@ public class FlexIntegrationTest {
 
   @Test
   public void packagesMetrics() {
-    assertThat(getPackageMeasureAsDouble("ncloc")).isEqualTo(1439d);
-    assertThat(getPackageMeasureAsDouble("lines")).isEqualTo(4142d);
-    assertThat(getPackageMeasureAsDouble("files")).isEqualTo(16d);
-    assertThat(getPackageMeasureAsDouble("statements")).isEqualTo(795d);
-    assertThat(getPackageMeasureAsDouble("classes")).isEqualTo(16d);
-    assertThat(getPackageMeasureAsDouble("functions")).isEqualTo(165d);
-    assertThat(getPackageMeasureAsDouble("comment_lines")).isEqualTo(1603d);
-    assertThat(getPackageMeasureAsDouble("comment_lines_density")).isEqualTo(52.7);
+    if (isAtLeastSq76()) {
+      // SQ 7.6 considers that org/as3commons/lang/builder should be counted inside org/as3commons/lang
+      assertThat(getPackageMeasureAsDouble("ncloc")).isEqualTo(1620d);
+      assertThat(getPackageMeasureAsDouble("lines")).isEqualTo(4503d);
+      assertThat(getPackageMeasureAsDouble("files")).isEqualTo(19d);
+      assertThat(getPackageMeasureAsDouble("statements")).isEqualTo(895d);
+      assertThat(getPackageMeasureAsDouble("classes")).isEqualTo(19d);
+      assertThat(getPackageMeasureAsDouble("functions")).isEqualTo(183d);
+      assertThat(getPackageMeasureAsDouble("comment_lines")).isEqualTo(1664d);
+      assertThat(getPackageMeasureAsDouble("comment_lines_density")).isEqualTo(50.7);
+    } else {
+      assertThat(getPackageMeasureAsDouble("ncloc")).isEqualTo(1439d);
+      assertThat(getPackageMeasureAsDouble("lines")).isEqualTo(4142d);
+      assertThat(getPackageMeasureAsDouble("files")).isEqualTo(16d);
+      assertThat(getPackageMeasureAsDouble("statements")).isEqualTo(795d);
+      assertThat(getPackageMeasureAsDouble("classes")).isEqualTo(16d);
+      assertThat(getPackageMeasureAsDouble("functions")).isEqualTo(165d);
+      assertThat(getPackageMeasureAsDouble("comment_lines")).isEqualTo(1603d);
+      assertThat(getPackageMeasureAsDouble("comment_lines_density")).isEqualTo(52.7);
+    }
 
     assertThat(getPackageMeasureAsDouble("duplicated_lines")).isZero();
     assertThat(getPackageMeasureAsDouble("duplicated_blocks")).isZero();
     assertThat(getPackageMeasureAsDouble("duplicated_lines_density")).isZero();
     assertThat(getPackageMeasureAsDouble("duplicated_files")).isZero();
-
-    assertThat(getPackageMeasureAsDouble("complexity")).isEqualTo(576);
-
-    assertThat(getPackageMeasureAsDouble("class_complexity")).isEqualTo(36.0);
-    assertThat(getPackageMeasureAsDouble("file_complexity")).isEqualTo(36.0);
-    assertThat(getPackageMeasure("function_complexity_distribution").getValue()).isEqualTo("1=58;2=45;4=30;6=15;8=6;10=1;12=7");
-    // SONARPLUGINS-1708 class_complexity_distribution replaced by file_complexity_distribution
-    assertNull(getPackageMeasureAsDouble("class_complexity_distribution"));
-    assertThat(getPackageMeasure("file_complexity_distribution").getValue()).isEqualTo("0=6;5=4;10=1;20=1;30=2;60=1;90=1");
 
     // TODO we should be sure that numbers are stable, whereas this is not the case, because profile may change
     // assertThat(getPackageMeasure("violations")).isEqualTo(93);
@@ -197,16 +210,15 @@ public class FlexIntegrationTest {
     return getMeasureAsDouble(MODULE_COMMONS_LANG, metricKey);
   }
 
-  private Measure getPackageMeasure(String metricKey) {
-    return getMeasure(PACKAGE_COMMONS_LANG, metricKey);
-  }
-
   private Double getPackageMeasureAsDouble(String metricKey) {
-    return getMeasureAsDouble(PACKAGE_COMMONS_LANG, metricKey);
+    return getMeasureAsDouble(packageCommonsLang, metricKey);
   }
 
   private Double getFileMeasureAsDouble(String metricKey) {
-    return getMeasureAsDouble(FILE_OBJECT_UTILS, metricKey);
+    return getMeasureAsDouble(fileObjectUtils, metricKey);
   }
 
+  private static boolean isAtLeastSq76() {
+    return orchestrator.getServer().version().isGreaterThanOrEquals(7, 6);
+  }
 }

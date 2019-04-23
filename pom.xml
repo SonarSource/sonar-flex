@@ -86,6 +86,9 @@
 
     <!-- Release: enable publication to Bintray -->
     <artifactsToPublish>${project.groupId}:sonar-flex-plugin:jar</artifactsToPublish>
+
+    <!-- FIXME fix javadoc warnings -->
+    <doclint>none</doclint>
   </properties>
 
   <dependencyManagement>

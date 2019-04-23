@@ -4,7 +4,6 @@ sudo: false
 jdk:
   - openjdk11
 
-install: true
 script: ./travis.sh
 
 cache:

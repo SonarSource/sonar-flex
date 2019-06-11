@@ -152,6 +152,7 @@ public class CoberturaReportParser {
       xmlFactory.setProperty(XMLInputFactory.IS_VALIDATING, false);
       xmlFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
       xmlFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, false);
+      xmlFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
       inf = new SMInputFactory(xmlFactory);
     }
 

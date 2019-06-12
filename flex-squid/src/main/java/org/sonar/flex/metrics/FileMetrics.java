@@ -20,6 +20,8 @@
 package org.sonar.flex.metrics;
 
 import com.sonar.sslr.api.AstNode;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import org.sonar.flex.FlexGrammar;
@@ -31,11 +33,12 @@ public class FileMetrics {
   private final int numberOfClasses;
   private final int numberOfFunctions;
   private final FileLinesVisitor fileLinesVisitor = new FileLinesVisitor();
+  private final String executableLines;
 
   public FileMetrics(FlexVisitorContext context) {
     AstNode rootTree = context.rootTree();
     Objects.requireNonNull(rootTree, "Cannot compute metrics without a root tree");
-    numberOfStatements = rootTree.getDescendants(
+    List<AstNode> descendants = rootTree.getDescendants(
       FlexGrammar.DEFAULT_XML_NAMESPACE_DIRECTIVE,
       FlexGrammar.VARIABLE_DECLARATION_STATEMENT,
       FlexGrammar.EXPRESSION_STATEMENT,
@@ -50,7 +53,19 @@ public class FileMetrics {
       FlexGrammar.RETURN_STATEMENT,
       FlexGrammar.THROW_STATEMENT,
       FlexGrammar.TRY_STATEMENT,
-      FlexGrammar.EMPTY_STATEMENT).size();
+      FlexGrammar.EMPTY_STATEMENT);
+
+    Set<Integer> alreadyMarked = new HashSet<>();
+    StringBuilder sb = new StringBuilder();
+    for (AstNode descendant : descendants) {
+      int line = descendant.getTokenLine();
+      if (alreadyMarked.add(line)) {
+        sb.append(line).append("=1;");
+      }
+    }
+    executableLines = sb.toString();
+
+    numberOfStatements = descendants.size();
     numberOfClasses = rootTree.getDescendants(FlexGrammar.CLASS_DEF, FlexGrammar.INTERFACE_DEF).size();
     numberOfFunctions = rootTree.getDescendants(FlexGrammar.FUNCTION_DEF, FlexGrammar.FUNCTION_EXPR).size();
     fileLinesVisitor.scanFile(context);
@@ -80,4 +95,7 @@ public class FileMetrics {
     return numberOfStatements;
   }
 
+  public String executableLines() {
+    return executableLines;
+  }
 }

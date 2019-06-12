@@ -44,6 +44,11 @@ public class FileMetricsTest {
   }
 
   @Test
+  public void executable_lines() {
+    assertThat(metrics("statements.as").executableLines()).isEqualTo("2=1;4=1;5=1;7=1;9=1;13=1;15=1;18=1;20=1;23=1;27=1;31=1;35=1;41=1;46=1;48=1;");
+  }
+
+  @Test
   public void functions() {
     assertThat(metrics("functions.as").numberOfFunctions()).isEqualTo(3);
   }

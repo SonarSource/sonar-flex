@@ -163,6 +163,7 @@ public class FlexSquidSensor implements Sensor {
     saveMeasure(context, inputFile, CoreMetrics.CLASSES, metrics.numberOfClasses());
     saveMeasure(context, inputFile, CoreMetrics.FUNCTIONS, metrics.numberOfFunctions());
     saveMeasure(context, inputFile, CoreMetrics.STATEMENTS, metrics.numberOfStatements());
+    context.<String>newMeasure().on(inputFile).forMetric(CoreMetrics.EXECUTABLE_LINES_DATA).withValue(metrics.executableLines()).save();
 
     FileLinesContext fileLinesContext = fileLinesContextFactory.createFor(inputFile);
     metrics.linesOfCode().forEach(line -> fileLinesContext.setIntValue(CoreMetrics.NCLOC_DATA_KEY, line, 1));

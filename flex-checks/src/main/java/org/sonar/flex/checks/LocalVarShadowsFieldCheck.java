@@ -94,7 +94,6 @@ public class LocalVarShadowsFieldCheck extends FlexCheck {
       classStack.push(new ClassState(node));
     } else if (isClassFunctionNotConstructor(node) && !isAccessor(node) && !isStatic(node)) {
       functionNestedLevel++;
-      checkParameters(node);
     } else if (!classStack.isEmpty() && functionNestedLevel > 0 && node.is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)) {
       checkVariableNames(node);
     }
@@ -122,17 +121,6 @@ public class LocalVarShadowsFieldCheck extends FlexCheck {
 
       if (field != null) {
         addIssue(MessageFormat.format(MESSAGE, varName, field.getToken().getLine()), identifier);
-      }
-    }
-  }
-
-  private void checkParameters(AstNode functionDef) {
-    for (AstNode paramIdentifier : Function.getParametersIdentifiers(functionDef)) {
-      String paramName = paramIdentifier.getTokenValue();
-      AstNode field = classStack.peek().getFieldNamed(paramName);
-
-      if (field != null) {
-        addIssue(MessageFormat.format(MESSAGE, paramName, field.getToken().getLine()), paramIdentifier);
       }
     }
   }

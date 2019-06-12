@@ -106,6 +106,7 @@ public final class CheckList {
       OnEnterFrameUseCheck.class,
       VariantStopConditionInForLoopCheck.class,
       DuplicateSwitchCaseImplementationCheck.class,
+      DefaultCasePositionCheck.class,
       ParsingErrorCheck.class);
   }
 

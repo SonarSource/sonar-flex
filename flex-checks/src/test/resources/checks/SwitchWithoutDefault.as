@@ -13,7 +13,7 @@ function foo() {
       break;
   }
 
-  switch (param) { // Noncompliant {{"default" clause should be the last one.}}
+  switch (param) {
     case 0:
       break;
     default:

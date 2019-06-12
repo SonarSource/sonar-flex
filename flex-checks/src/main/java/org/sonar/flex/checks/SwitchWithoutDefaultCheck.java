@@ -27,7 +27,6 @@ import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
-import org.sonar.flex.FlexPunctuator;
 
 @Rule(key = "SwitchWithoutDefault")
 public class SwitchWithoutDefaultCheck extends FlexCheck {
@@ -51,8 +50,6 @@ public class SwitchWithoutDefaultCheck extends FlexCheck {
 
     if (defaultCaseElement == null) {
       addIssue("Avoid switch statement without a \"default\" clause.", astNode);
-    } else if (defaultCaseElement.getNextSibling().isNot(FlexPunctuator.RCURLYBRACE)) {
-      addIssue("\"default\" clause should be the last one.", astNode);
     }
   }
 

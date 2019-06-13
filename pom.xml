@@ -84,8 +84,7 @@
 
     <gitRepositoryName>sonar-flex</gitRepositoryName>
 
-    <!-- Release: enable publication to Bintray -->
-    <artifactsToPublish>${project.groupId}:sonar-flex-plugin:jar</artifactsToPublish>
+    <artifactsToPublish>${project.groupId}:sonar-flex-plugin:jar,${project.groupId}:sslr-flex-toolkit:jar</artifactsToPublish>
 
     <!-- FIXME fix javadoc warnings -->
     <doclint>none</doclint>

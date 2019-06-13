@@ -30,6 +30,7 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.metrics.ComplexityVisitor;
 
 @Rule(key = "ClassComplexity")
+@Deprecated
 public class ClassComplexityCheck extends FlexCheck {
 
   private static final int DEFAULT_MAXIMUM_CLASS_COMPLEXITY_THRESHOLD = 80;

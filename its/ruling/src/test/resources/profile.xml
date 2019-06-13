@@ -440,5 +440,10 @@
       <key>S1871</key> <!-- identical switch cases -->
       <priority>INFO</priority>
     </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
+      <key>S4524</key> <!-- DefaultCasePositionCheck -->
+      <priority>INFO</priority>
+    </rule>
   </rules>
 </profile>

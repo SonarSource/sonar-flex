@@ -183,6 +183,8 @@ public class FlexIntegrationTest {
     assertNull(getFileMeasureAsDouble("function_complexity_distribution"));
     assertNull(getFileMeasureAsDouble("file_complexity_distribution"));
 
+    assertThat(getMeasure(fileObjectUtils, "executable_lines_data").getValue()).isEqualTo("43=1;47=1;49=1;52=1;59=1;61=1;62=1;64=1;74=1;76=1;77=1;79=1;86=1;88=1;89=1;91=1;98=1;99=1;100=1;101=1;125=1;126=1;134=1;135=1;136=1;139=1;140=1;141=1;144=1;145=1;146=1;148=1;151=1;161=1;162=1;176=1;177=1;184=1;191=1;");
+
     // TODO we should be sure that numbers are stable, whereas this is not the case, because profile may change
     // assertThat(getFileMeasure("violations")).isEqualTo(24);
   }

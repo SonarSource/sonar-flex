@@ -18,7 +18,7 @@ class A {
     var field:int = 0;              // Noncompliant {{Rename "field" which hides the field declared at line 2.}}
   }
 
-  public function f2(field) {}      // Noncompliant
+  public function f2(field) {}      // OK, should not check parameters
 
   public function f3() {
     public function nestedFunction() {

@@ -38,7 +38,7 @@ public class FileMetrics {
   public FileMetrics(FlexVisitorContext context) {
     AstNode rootTree = context.rootTree();
     Objects.requireNonNull(rootTree, "Cannot compute metrics without a root tree");
-    List<AstNode> descendants = rootTree.getDescendants(
+    List<AstNode> statements = rootTree.getDescendants(
       FlexGrammar.DEFAULT_XML_NAMESPACE_DIRECTIVE,
       FlexGrammar.VARIABLE_DECLARATION_STATEMENT,
       FlexGrammar.EXPRESSION_STATEMENT,
@@ -57,7 +57,7 @@ public class FileMetrics {
 
     Set<Integer> alreadyMarked = new HashSet<>();
     StringBuilder sb = new StringBuilder();
-    for (AstNode descendant : descendants) {
+    for (AstNode descendant : statements) {
       int line = descendant.getTokenLine();
       if (alreadyMarked.add(line)) {
         sb.append(line).append("=1;");
@@ -65,7 +65,7 @@ public class FileMetrics {
     }
     executableLines = sb.toString();
 
-    numberOfStatements = descendants.size();
+    numberOfStatements = statements.size();
     numberOfClasses = rootTree.getDescendants(FlexGrammar.CLASS_DEF, FlexGrammar.INTERFACE_DEF).size();
     numberOfFunctions = rootTree.getDescendants(FlexGrammar.FUNCTION_DEF, FlexGrammar.FUNCTION_EXPR).size();
     fileLinesVisitor.scanFile(context);

@@ -40,12 +40,12 @@ public class FileMetricsTest {
 
   @Test
   public void statements() {
-    assertThat(metrics("statements.as").numberOfStatements()).isEqualTo(16);
+    assertThat(metrics("statements.as").numberOfStatements()).isEqualTo(18);
   }
 
   @Test
   public void executable_lines() {
-    assertThat(metrics("statements.as").executableLines()).isEqualTo("2=1;4=1;5=1;7=1;9=1;13=1;15=1;18=1;20=1;23=1;27=1;31=1;35=1;41=1;46=1;48=1;");
+    assertThat(metrics("statements.as").executableLines()).isEqualTo("2=1;4=1;5=1;7=1;9=1;13=1;15=1;18=1;20=1;23=1;27=1;31=1;35=1;41=1;46=1;48=1;50=1;");
   }
 
   @Test

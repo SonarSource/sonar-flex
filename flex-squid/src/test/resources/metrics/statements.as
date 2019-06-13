@@ -45,5 +45,7 @@ function foo() {
 
   set("variableName", value); // +1 set-variable statement
 
+  a = a + 1; a = a + 1; // +2 expression statement
+
   return; // +1 return statement
 }

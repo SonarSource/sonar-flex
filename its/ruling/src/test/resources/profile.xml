@@ -442,6 +442,11 @@
     </rule>
     <rule>
       <repositoryKey>flex</repositoryKey>
+      <key>S3923</key> <!-- all branches identical -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
       <key>S4524</key> <!-- DefaultCasePositionCheck -->
       <priority>INFO</priority>
     </rule>

@@ -167,7 +167,6 @@ public class FlexSquidSensor implements Sensor {
 
     FileLinesContext fileLinesContext = fileLinesContextFactory.createFor(inputFile);
     metrics.linesOfCode().forEach(line -> fileLinesContext.setIntValue(CoreMetrics.NCLOC_DATA_KEY, line, 1));
-    metrics.commentLines().forEach(line -> fileLinesContext.setIntValue(CoreMetrics.COMMENT_LINES_DATA_KEY, line, 1));
     fileLinesContext.save();
 
     AstNode root = visitorContext.rootTree();

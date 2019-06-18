@@ -107,6 +107,7 @@ public final class CheckList {
       VariantStopConditionInForLoopCheck.class,
       DuplicateSwitchCaseImplementationCheck.class,
       DefaultCasePositionCheck.class,
+      AllBranchesIdenticalCheck.class,
       ParsingErrorCheck.class);
   }
 

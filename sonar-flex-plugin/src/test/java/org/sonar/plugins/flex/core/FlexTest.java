@@ -21,7 +21,6 @@ package org.sonar.plugins.flex.core;
 
 import org.junit.Test;
 import org.sonar.api.config.Configuration;
-import org.sonar.api.config.Settings;
 import org.sonar.api.config.internal.ConfigurationBridge;
 import org.sonar.api.config.internal.MapSettings;
 import org.sonar.plugins.flex.FlexPlugin;
@@ -32,7 +31,7 @@ public class FlexTest {
 
   @Test
   public void testGetFileSuffixes() {
-    Settings settings = new MapSettings();
+    MapSettings settings = new MapSettings();
     Configuration config = new ConfigurationBridge(settings);
     Flex flex = new Flex(config);
 

@@ -93,8 +93,6 @@ public class FlexIntegrationTest {
     assertThat(getProjectMeasureAsDouble("complexity")).isEqualTo(1084);
 
     assertThat(getProjectMeasureAsDouble("file_complexity")).isEqualTo(15.7);
-    assertThat(getProjectMeasure("function_complexity_distribution").getValue()).isEqualTo("1=187;2=100;4=47;6=28;8=10;10=2;12=10");
-    assertThat(getProjectMeasure("file_complexity_distribution").getValue()).isEqualTo("0=31;5=16;10=9;20=6;30=5;60=1;90=1");
 
     // SONARPLUGINS-670: Different number of violations reported on different OSs
     // 216 on Linux, 217 on Windows
@@ -122,8 +120,6 @@ public class FlexIntegrationTest {
     assertThat(getModuleMeasureAsDouble("complexity")).isEqualTo(639d);
 
     assertThat(getModuleMeasureAsDouble("file_complexity")).isEqualTo(33.6);
-    assertThat(getModuleMeasure("function_complexity_distribution").getValue()).isEqualTo("1=65;2=49;4=32;6=18;8=6;10=1;12=8");
-    assertThat(getModuleMeasure("file_complexity_distribution").getValue()).isEqualTo("0=7;5=4;10=2;20=1;30=3;60=1;90=1");
 
     // TODO we should be sure that numbers are stable, whereas this is not the case, because profile may change
     // assertThat(getModuleMeasure("violations")).isEqualTo(114);

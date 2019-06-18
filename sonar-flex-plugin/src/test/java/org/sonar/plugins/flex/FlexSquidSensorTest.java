@@ -87,15 +87,12 @@ public class FlexSquidSensorTest {
     sensor.execute(tester);
 
     String componentKey = "key:SmallFile.as";
-    assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY_IN_CLASSES).value()).isEqualTo(1);
     assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(11);
     assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(1);
     assertThat(tester.measure(componentKey, CoreMetrics.STATEMENTS).value()).isEqualTo(3);
     assertThat(tester.measure(componentKey, CoreMetrics.FUNCTIONS).value()).isEqualTo(2);
     assertThat(tester.measure(componentKey, CoreMetrics.CLASSES).value()).isEqualTo(1);
     assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY).value()).isEqualTo(3);
-    assertThat(tester.measure(componentKey, CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION).value()).isEqualTo("0=1;5=0;10=0;20=0;30=0;60=0;90=0");
-    assertThat(tester.measure(componentKey, CoreMetrics.FUNCTION_COMPLEXITY_DISTRIBUTION).value()).isEqualTo("1=1;2=1;4=0;6=0;8=0;10=0;12=0");
     assertThat(tester.measure(componentKey, CoreMetrics.EXECUTABLE_LINES_DATA).value()).isEqualTo("6=1;7=1;12=1;");
 
     assertThat(tester.cpdTokens(componentKey)).hasSize(10);
@@ -139,15 +136,12 @@ public class FlexSquidSensorTest {
     sensor.execute(tester);
 
     String componentKey = inputFile.key();
-    assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY_IN_CLASSES).value()).isEqualTo(0);
     assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(0);
     assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(59);
     assertThat(tester.measure(componentKey, CoreMetrics.STATEMENTS).value()).isEqualTo(0);
     assertThat(tester.measure(componentKey, CoreMetrics.FUNCTIONS).value()).isEqualTo(0);
     assertThat(tester.measure(componentKey, CoreMetrics.CLASSES).value()).isEqualTo(0);
     assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY).value()).isEqualTo(0);
-    assertThat(tester.measure(componentKey, CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION).value()).isEqualTo("0=1;5=0;10=0;20=0;30=0;60=0;90=0");
-    assertThat(tester.measure(componentKey, CoreMetrics.FUNCTION_COMPLEXITY_DISTRIBUTION).value()).isEqualTo("1=0;2=0;4=0;6=0;8=0;10=0;12=0");
 
     assertThat(tester.cpdTokens(componentKey)).hasSize(0);
 

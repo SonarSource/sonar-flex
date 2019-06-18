@@ -102,9 +102,8 @@ public class FlexSquidSensor implements Sensor {
     List<String> filenames = inputFiles.stream().map(InputFile::toString).collect(Collectors.toList());
     progressReport.start(filenames);
 
-    Charset charset = fileSystem.encoding();
     for (InputFile inputFile : inputFiles) {
-      analyseFile(context, charset, inputFile);
+      analyseFile(context, inputFile.charset(), inputFile);
       progressReport.nextFile();
     }
 

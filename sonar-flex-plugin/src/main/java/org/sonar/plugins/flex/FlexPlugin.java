@@ -28,7 +28,7 @@ import org.sonar.plugins.flex.core.Flex;
 public class FlexPlugin implements Plugin {
 
   public static final String FILE_SUFFIXES_KEY = "sonar.flex.file.suffixes";
-  public static final String COBERTURA_REPORT_PATH = "sonar.flex.cobertura.reportPath";
+  public static final String COBERTURA_REPORT_PATHS = "sonar.flex.cobertura.reportPaths";
 
   @Override
   public void define(Context context) {
@@ -50,11 +50,13 @@ public class FlexPlugin implements Plugin {
         .multiValues(true)
         .build(),
 
-      PropertyDefinition.builder(COBERTURA_REPORT_PATH)
-        .name("Cobertura xml report path")
-        .description("Path to the Cobertura coverage report file. The path may be either absolute or relative to the project base directory.")
+      PropertyDefinition.builder(COBERTURA_REPORT_PATHS)
+        .deprecatedKey("sonar.flex.cobertura.reportPath")
+        .name("Cobertura xml report paths")
+        .description("Comma separated list of paths to the Cobertura coverage report file. The paths may be either absolute or relative to the project base directory.")
         .onQualifiers(Qualifiers.MODULE, Qualifiers.PROJECT)
         .category(Flex.NAME)
+        .multiValues(true)
         .build());
   }
 }

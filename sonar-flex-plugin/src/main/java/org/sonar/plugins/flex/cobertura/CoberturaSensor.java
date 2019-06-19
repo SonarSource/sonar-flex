@@ -45,20 +45,21 @@ public class CoberturaSensor implements Sensor {
 
   @Override
   public void execute(SensorContext context) {
-    Optional<String> reportPathOptional = context.config().get(FlexPlugin.COBERTURA_REPORT_PATH);
+    String[] reportPaths = context.config().getStringArray(FlexPlugin.COBERTURA_REPORT_PATHS);
 
-    if (reportPathOptional.isPresent()) {
-      String reportPath = reportPathOptional.get();
-      File xmlFile = getIOFile(context.fileSystem(), reportPath);
+    if (reportPaths.length > 0) {
+      for(String reportPath: reportPaths) {
+        File xmlFile = getIOFile(context.fileSystem(), reportPath);
 
-      if (xmlFile.exists()) {
-        LOGGER.info("Analyzing Cobertura report: {}", reportPath);
-        CoberturaReportParser.parseReport(xmlFile, context);
-      } else {
-        LOGGER.info("Cobertura xml report not found: {}", reportPath);
+        if (xmlFile.exists()) {
+          LOGGER.info("Analyzing Cobertura report: {}", reportPath);
+          CoberturaReportParser.parseReport(xmlFile, context);
+        } else {
+          LOGGER.info("Cobertura xml report not found: {}", reportPath);
+        }
       }
     } else {
-      LOGGER.info("No Cobertura report provided (see '{}' property)", FlexPlugin.COBERTURA_REPORT_PATH);
+      LOGGER.info("No Cobertura report provided (see '{}' property)", FlexPlugin.COBERTURA_REPORT_PATHS);
     }
   }
 

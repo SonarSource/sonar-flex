@@ -64,7 +64,7 @@ public class CoberturaSensorTest {
 
     tester.fileSystem().add(inputFile);
 
-    tester.settings().setProperty(FlexPlugin.COBERTURA_REPORT_PATH, "coverage.xml");
+    tester.settings().setProperty(FlexPlugin.COBERTURA_REPORT_PATHS, "coverage.xml");
     sensor.execute(tester);
 
     String componentKey = "key:src/example/File.as";
@@ -82,7 +82,7 @@ public class CoberturaSensorTest {
 
   @Test
   public void reportNotFound() {
-    tester.settings().setProperty(FlexPlugin.COBERTURA_REPORT_PATH, "/fake/path");
+    tester.settings().setProperty(FlexPlugin.COBERTURA_REPORT_PATHS, "/fake/path");
     sensor.execute(tester);
 
     assertThat(logTester.logs()).containsOnly("Cobertura xml report not found: /fake/path");
@@ -92,7 +92,7 @@ public class CoberturaSensorTest {
   public void noReport() {
     sensor.execute(tester);
 
-    assertThat(logTester.logs()).containsOnly("No Cobertura report provided (see 'sonar.flex.cobertura.reportPath' property)");
+    assertThat(logTester.logs()).containsOnly("No Cobertura report provided (see 'sonar.flex.cobertura.reportPaths' property)");
   }
 
   @Test

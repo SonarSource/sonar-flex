@@ -5,6 +5,7 @@
   ],
   "latest-update": "2018-02-19T09:50:10.468Z",
   "options": {
-    "no-language-in-filenames": true
+    "no-language-in-filenames": true,
+    "preserve-filenames": true
   }
 }

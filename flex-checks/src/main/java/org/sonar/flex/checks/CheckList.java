@@ -105,7 +105,7 @@ public final class CheckList {
       ASDocCheck.class,
       OnEnterFrameUseCheck.class,
       VariantStopConditionInForLoopCheck.class,
-      DuplicateSwitchCaseImplementationCheck.class,
+      DuplicateBranchImplementationCheck.class,
       DefaultCasePositionCheck.class,
       AllBranchesIdenticalCheck.class,
       ParsingErrorCheck.class);

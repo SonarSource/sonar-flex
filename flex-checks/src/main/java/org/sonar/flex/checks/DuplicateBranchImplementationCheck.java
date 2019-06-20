@@ -19,15 +19,29 @@
  */
 package org.sonar.flex.checks;
 
-import java.io.File;
-import org.junit.Test;
+import com.sonar.sslr.api.AstNode;
+import java.text.MessageFormat;
+import org.sonar.check.Rule;
 
-public class DuplicateSwitchCaseImplementationCheckTest {
+@Rule(key = "S1871")
+public class DuplicateBranchImplementationCheck extends ConditionalStructureCheckBase {
+  AstNode prevBranch1 = null;
 
-  private DuplicateSwitchCaseImplementationCheck check = new DuplicateSwitchCaseImplementationCheck();
-
-  @Test
-  public void test() {
-    FlexVerifier.verify(new File("src/test/resources/checks/DuplicateSwitchCaseImplementation.as"), check);
+  @Override
+  public void visitConditionalStructure(ConditionalStructure cond) {
+    prevBranch1 = null;
+    cond.forEachBranchDuplication(
+      (branch1, branch2) -> {
+        if (branch1 == prevBranch1) {
+          return;
+        }
+        prevBranch1 = branch1;
+        String message = MessageFormat.format(
+          "Either merge this case with the identical one on line \"{0}\" or change one of the implementations.",
+          branch2.getTokenLine());
+        addIssue(message, branch1);
+      }
+    );
   }
+
 }

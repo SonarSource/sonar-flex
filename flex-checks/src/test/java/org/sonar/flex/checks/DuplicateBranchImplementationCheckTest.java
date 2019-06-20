@@ -19,16 +19,15 @@
  */
 package org.sonar.flex.checks;
 
-import org.sonar.check.Rule;
+import java.io.File;
+import org.junit.Test;
 
-@Rule(key = "S3923")
-public class AllBranchesIdenticalCheck extends ConditionalStructureCheckBase {
+public class DuplicateBranchImplementationCheckTest {
 
-  @Override
-  public void visitConditionalStructure(ConditionalStructure cond) {
-    if (cond.allBranchesArePresent && cond.areAllEquivalentBranches()) {
-      addIssue("Remove this conditional structure or edit its code blocks so that they're not all the same.", cond.getNode().getToken());
-    }
+  private DuplicateBranchImplementationCheck check = new DuplicateBranchImplementationCheck();
+
+  @Test
+  public void test() {
+    FlexVerifier.verify(new File("src/test/resources/checks/DuplicateBranchImplementation.as"), check);
   }
-
 }

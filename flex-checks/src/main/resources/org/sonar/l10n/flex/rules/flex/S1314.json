@@ -7,11 +7,10 @@
     "constantCost": "5min"
   },
   "tags": [
-    "misra",
-    "cert",
     "pitfall"
   ],
   "defaultSeverity": "Blocker",
   "ruleSpecification": "RSPEC-1314",
-  "sqKey": "S1314"
+  "sqKey": "S1314",
+  "scope": "All"
 }

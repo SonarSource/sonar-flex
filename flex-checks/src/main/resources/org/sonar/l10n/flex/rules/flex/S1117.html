@@ -1,7 +1,6 @@
-<p>Shadowing fields with a local variable or with a function parameter is a bad practice that reduces code readability: It makes it confusing to know whether the field or the variable is being used.</p>
-
+<p>Overriding or shadowing a variable declared in an outer scope can strongly impact the readability, and therefore the maintainability, of a piece of
+code. Further, it could lead maintainers to introduce bugs because they think they're using one variable but are really using another.</p>
 <h2>Noncompliant Code Example</h2>
-
 <pre>
 class Foo {
   public var myField:int;
@@ -10,36 +9,13 @@ class Foo {
     var myField:int = 0;
     ...
   }
-
-  public function doSomethingElse(myField:int):String {
-    ...
-  }
 }
 </pre>
-
-<h2>Exceptions</h2>
-
-<p>Constructors and setters are exceptions; it is common practice to name arguments for the fields the values will be assigned to. Static methods are also ignored.</p>
-
-<pre>
-class Foo {
-  public var myField:int;
-
-  public function Foo(myField:int) {
-    this.myField = myField;
-  }
-
-  public static function build(myField:int):Foo {
-    ...
-  }
-
-  public function setMyField(int myField):void{
-    this.myField = myField;
-  } 
-
-  public function set myField(int myField):void{ 
-    this.myField = myField;
-  } 
-}
-</pre>
+<h2>See</h2>
+<ul>
+  <li> <a href="https://wiki.sei.cmu.edu/confluence/display/c/DCL01-C.+Do+not+reuse+variable+names+in+subscopes">CERT, DCL01-C.</a> - Do not reuse
+  variable names in subscopes </li>
+  <li> <a href="https://wiki.sei.cmu.edu/confluence/display/java/DCL51-J.+Do+not+shadow+or+obscure+identifiers+in+subscopes">CERT, DCL51-J.</a> - Do
+  not shadow or obscure identifiers in subscopes </li>
+</ul>
 

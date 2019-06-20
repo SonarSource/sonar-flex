@@ -7,11 +7,10 @@
     "constantCost": "2min"
   },
   "tags": [
-    "misra",
-    "cert",
     "unused"
   ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1116",
-  "sqKey": "S1116"
+  "sqKey": "S1116",
+  "scope": "All"
 }

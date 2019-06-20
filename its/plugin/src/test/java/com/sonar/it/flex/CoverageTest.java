@@ -35,7 +35,8 @@ public class CoverageTest {
   public static Orchestrator orchestrator = Tests.ORCHESTRATOR;
 
   private static final String REPORT_PATH = "reports/coverage/coverage.xml";
-  private static final String REPORT_PROPERTY_KEY = "sonar.flex.cobertura.reportPath";
+  private static final String REPORT_PATH2 = "reports/coverage/coverage2.xml";
+  private static final String REPORT_PROPERTY_KEY = "sonar.flex.cobertura.reportPaths";
   private static final String SRC_DIR = "src/main/flex";
   private static final File PROJECT_DIR = new File("projects/coverage");
 
@@ -56,7 +57,24 @@ public class CoverageTest {
     orchestrator.executeBuild(build);
 
     assertThat(getProjectMeasureAsInteger("lines_to_cover")).isEqualTo(2);
-    assertThat(getProjectMeasureAsInteger("uncovered_lines")).isEqualTo(2);
+    assertThat(getProjectMeasureAsInteger("uncovered_lines")).isEqualTo(1);
+    assertThat(getProjectMeasureAsInteger("conditions_to_cover")).isNull();
+    assertThat(getProjectMeasureAsInteger("uncovered_conditions")).isNull();
+  }
+
+  @Test
+  public void report_paths_can_have_multiple_values() throws Exception {
+    SonarScanner build = Tests.createSonarScanner()
+      .setProjectDir(PROJECT_DIR)
+      .setProjectKey("project")
+      .setProjectName("project")
+      .setProjectVersion("1.0")
+      .setSourceDirs(SRC_DIR)
+      .setProperty(REPORT_PROPERTY_KEY, REPORT_PATH + "," + REPORT_PATH2);
+    orchestrator.executeBuild(build);
+
+    assertThat(getProjectMeasureAsInteger("lines_to_cover")).isEqualTo(2);
+    assertThat(getProjectMeasureAsInteger("uncovered_lines")).isEqualTo(0);
     assertThat(getProjectMeasureAsInteger("conditions_to_cover")).isNull();
     assertThat(getProjectMeasureAsInteger("uncovered_conditions")).isNull();
   }
@@ -73,7 +91,7 @@ public class CoverageTest {
     orchestrator.executeBuild(build);
 
     assertThat(getProjectMeasureAsInteger("lines_to_cover")).isEqualTo(2);
-    assertThat(getProjectMeasureAsInteger("uncovered_lines")).isEqualTo(2);
+    assertThat(getProjectMeasureAsInteger("uncovered_lines")).isEqualTo(1);
     assertThat(getProjectMeasureAsInteger("conditions_to_cover")).isNull();
     assertThat(getProjectMeasureAsInteger("uncovered_conditions")).isNull();
   }

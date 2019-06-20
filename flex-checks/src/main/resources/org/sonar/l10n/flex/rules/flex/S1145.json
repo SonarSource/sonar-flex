@@ -7,13 +7,20 @@
     "constantCost": "2min"
   },
   "tags": [
-    "cwe",
-    "misra"
+    "cwe"
   ],
   "standards": [
     "CWE"
   ],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-1145",
-  "sqKey": "S1145"
+  "sqKey": "S1145",
+  "scope": "All",
+  "securityStandards": {
+    "CWE": [
+      489,
+      570,
+      571
+    ]
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "title": "\"switch\" statements should end with \"default\" clauses",
+  "title": "\"switch\" statements should have \"default\" clauses",
   "type": "CODE_SMELL",
   "status": "ready",
   "remediation": {
@@ -7,14 +7,18 @@
     "constantCost": "5min"
   },
   "tags": [
-    "cwe",
-    "misra",
-    "cert"
+    "cwe"
   ],
   "standards": [
     "CWE"
   ],
   "defaultSeverity": "Critical",
   "ruleSpecification": "RSPEC-131",
-  "sqKey": "S131"
+  "sqKey": "S131",
+  "scope": "All",
+  "securityStandards": {
+    "CWE": [
+      478
+    ]
+  }
 }

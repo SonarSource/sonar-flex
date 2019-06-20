@@ -7,12 +7,23 @@
     "constantCost": "2min"
   },
   "tags": [
-    "cwe"
+    "cwe",
+    "owasp-a3"
   ],
   "standards": [
-    "CWE"
+    "CWE",
+    "OWASP Top 10"
   ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1951",
-  "sqKey": "S1951"
+  "sqKey": "S1951",
+  "scope": "Main",
+  "securityStandards": {
+    "CWE": [
+      489
+    ],
+    "OWASP": [
+      "A3"
+    ]
+  }
 }

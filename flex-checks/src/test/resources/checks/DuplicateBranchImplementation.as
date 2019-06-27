@@ -146,3 +146,24 @@ if(i==1) {
 else {                    // Compliant by exception : oneliner
     doSomething(1);
 }
+
+// no crash in empty block 
+if(i==1) {
+} else if(i==2) {         // Compliant by exception : oneliner
+    doSomething(1);
+}
+else {                    // Compliant by exception : oneliner
+    doSomething(1);
+}
+
+// all empty blocks exception of the exception
+if(i==1) {
+} else if(i==2) {         // Noncompliant {{Either merge this case with the identical one on line "160" or change one of the implementations.}}
+}
+
+// all empty blocks in exception
+if(i==1) {
+} else if(i==2) {         // Compliant by exception : oneliner
+}
+else {                    // Compliant by exception : oneliner
+}

@@ -100,7 +100,7 @@ class ConditionalStructure {
     AstNode child;
     AstNode grandchild;
     if ((child = node.getFirstChild(FlexGrammar.STATEMENT)) != null && (grandchild = child.getFirstChild(FlexGrammar.BLOCK)) != null) {
-      return isOnelinerDirectives(grandchild.getChildren(FlexGrammar.DIRECTIVES));
+      return isOnelinerDirectives(grandchild.getFirstChild(FlexGrammar.DIRECTIVES).getChildren(FlexGrammar.DIRECTIVE));
     }
     return isOnelinerNonBlock(node);
   }

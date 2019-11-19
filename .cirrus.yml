@@ -36,7 +36,7 @@ build_task:
     #allow deployment of pull request artifacts to repox
     DEPLOY_PULL_REQUEST: true
   maven_cache:
-    folder: $CIRRUS_WORKING_DIR/.m2/repository
+    folder: ${CIRRUS_WORKING_DIR}/.m2/repository 
   build_script:
     - source cirrus-env BUILD
     - regular_mvn_build_deploy_analyze
@@ -55,7 +55,7 @@ plugin_qa_task:
       - SQ_VERSION: LATEST_RELEASE[7.9]
       - SQ_VERSION: DOGFOOD
   maven_cache:
-    folder: $CIRRUS_WORKING_DIR/.m2/repository
+    folder: ${CIRRUS_WORKING_DIR}/.m2/repository 
   qa_script:
     - source cirrus-env QA
     - source set_maven_build_version $BUILD_NUMBER
@@ -72,7 +72,7 @@ ruling_task:
     cpu: 4
     memory: 8G
   maven_cache:
-    folder: $CIRRUS_WORKING_DIR/.m2/repository
+    folder: ${CIRRUS_WORKING_DIR}/.m2/repository 
   submodules_script:
     - git submodule update --init
   ruling_script:
@@ -98,6 +98,6 @@ promote_task:
     #artifacts that will have downloadable links in burgr
     ARTIFACTS: org.sonarsource.flex:sonar-flex-plugin:jar
   maven_cache:
-    folder: $CIRRUS_WORKING_DIR/.m2/repository
+    folder: ${CIRRUS_WORKING_DIR}/.m2/repository 
   script: cirrus_promote_maven
   cleanup_before_cache_script: cleanup_maven_repository

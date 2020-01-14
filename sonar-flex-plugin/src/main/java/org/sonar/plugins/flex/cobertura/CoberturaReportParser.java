@@ -86,8 +86,11 @@ public class CoberturaReportParser {
       } else {
         inputFile = findInputFile(fileSystem, predicates, fileName);
         inputFileByFilename.put(fileName, inputFile);
-        if (inputFile == null && !fileName.endsWith(".mxml")) {
+        if (inputFile == null) {
           LOG.warn("Cannot save coverage result for file: {}, because resource not found.", fileName);
+        }
+        if (fileName.endsWith(".mxml")) {
+          LOG.warn("Cannot save coverage result for file: {}, because mxml files are not supported by the plugin", fileName);
         }
       }
       if (inputFile != null) {

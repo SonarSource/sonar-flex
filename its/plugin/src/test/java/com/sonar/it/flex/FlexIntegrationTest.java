@@ -26,7 +26,7 @@ import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.sonarqube.ws.WsMeasures.Measure;
+import org.sonarqube.ws.Measures;
 
 import static com.sonar.it.flex.Tests.getComponent;
 import static com.sonar.it.flex.Tests.getMeasure;
@@ -187,7 +187,7 @@ public class FlexIntegrationTest {
 
   /* Helper methods */
 
-  private Measure getProjectMeasure(String metricKey) {
+  private Measures.Measure getProjectMeasure(String metricKey) {
     return getMeasure(PROJECT_AS3COMMONS, metricKey);
   }
 
@@ -195,7 +195,7 @@ public class FlexIntegrationTest {
     return getMeasureAsDouble(PROJECT_AS3COMMONS, metricKey);
   }
 
-  private Measure getModuleMeasure(String metricKey) {
+  private Measures.Measure getModuleMeasure(String metricKey) {
     return getMeasure(MODULE_COMMONS_LANG, metricKey);
   }
 

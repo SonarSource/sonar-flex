@@ -24,3 +24,15 @@ public class MyClass {
 [Effect(name="blur", event="message")]
 public class MyClass {
 }
+
+[Event(name="click")]
+[Event(name="message")]
+[ManagedEvents(names="click, message")]        // OK
+public class MyClass {
+}
+
+[Event(name="click")]
+[Event(name="message")]
+[ManagedEvents(names="click, mes")]            // Noncompliant {{The managed event "mes" is either misspelled or is missing a companion Event metadata tag}}
+public class MyClass {
+}

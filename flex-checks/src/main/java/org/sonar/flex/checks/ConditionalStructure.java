@@ -59,6 +59,9 @@ class ConditionalStructure {
   }
 
   boolean areAllEquivalentBranches() {
+    if (branches.isEmpty()) {
+      return true;
+    }
     BranchAndContent first = branches.get(0);
     return branches.stream().skip(1).allMatch(next -> SyntacticEquivalence.areEquivalent(first.content, next.content));
   }
@@ -70,7 +73,7 @@ class ConditionalStructure {
 
   void forEachBranchDuplication(DuplicatedBranchCallback callback) {
     boolean allEquivalentBranches = areAllEquivalentBranches();
-    if(allBranchesArePresent && allEquivalentBranches) {
+    if (allBranchesArePresent && allEquivalentBranches) {
       return;
     }
 

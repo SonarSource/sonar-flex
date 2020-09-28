@@ -19,11 +19,15 @@
  */
 package org.sonar.plugins.flex.cobertura;
 
-import java.io.File;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
+
+import java.io.File;
+
+import static org.hamcrest.CoreMatchers.endsWith;
+import static org.hamcrest.CoreMatchers.startsWith;
 
 public class CoberturaReportParserTest {
 
@@ -33,8 +37,8 @@ public class CoberturaReportParserTest {
   @Test
   public void invalidXmlFile() throws Exception {
     thrown.expect(IllegalStateException.class);
-    thrown.expectMessage("com.ctc.wstx.exc.WstxEOFException: Unexpected EOF; was expecting a close tag for element <coverage>\n" +
-      " at [row,col {unknown-source}]: [5,0]");
+    thrown.expectMessage(startsWith("com.ctc.wstx.exc.WstxEOFException: Unexpected EOF; was expecting a close tag for element <coverage>"));
+    thrown.expectMessage(endsWith(" at [row,col {unknown-source}]: [5,0]"));
 
     CoberturaReportParser.parseReport(
       new File("src/test/resources/org/sonar/plugins/flex/cobertura/coverage-invalid.xml"),
@@ -42,9 +46,9 @@ public class CoberturaReportParserTest {
   }
 
   @Test
-  public void nonExistingFile() throws Exception {
+  public void nonExistingFile() {
     thrown.expect(IllegalStateException.class);
-    thrown.expectMessage("javax.xml.stream.XMLStreamException: java.io.FileNotFoundException: fakeFile.xml (No such file or directory)");
+    thrown.expectMessage("javax.xml.stream.XMLStreamException: java.io.FileNotFoundException: fakeFile.xml");
 
     CoberturaReportParser.parseReport(
       new File("fakeFile.xml"),

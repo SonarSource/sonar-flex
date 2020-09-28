@@ -1,6 +1,8 @@
 gcp_credentials: ENCRYPTED[!17c59813193e86cc337bce848b358412b90f50bc5fe1b8b39d363cdf14a41ebe76cfba0482e7f81d076994b9f6dbfb4c!]
  
 env:
+  # Use bash (instead of sh on linux or cmd.exe on windows)
+  CIRRUS_SHELL: bash
   CIRRUS_CLONE_DEPTH: 20
   ARTIFACTORY_URL: ENCRYPTED[!2f8fa307d3289faa0aa6791f18b961627ae44f1ef46b136e1a1e63b0b4c86454dbb25520d49b339e2d50a1e1e5f95c88!]
   ARTIFACTORY_PRIVATE_USERNAME: private-reader
@@ -41,6 +43,19 @@ build_task:
     - source cirrus-env BUILD
     - regular_mvn_build_deploy_analyze
   cleanup_before_cache_script: cleanup_maven_repository
+
+win_task:
+  gce_instance:
+    image_project: language-team
+    image_family: lt-base-windows
+    platform: windows
+    zone: us-central1-a
+    preemptible: false
+    disk: 128
+    type: n1-standard-4
+  build_script:
+    - source cirrus-env CI
+    - mvn.cmd clean verify
 
 plugin_qa_task:
   depends_on:

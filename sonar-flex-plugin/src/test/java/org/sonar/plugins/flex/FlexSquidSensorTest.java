@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collections;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,7 +35,6 @@ import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.api.batch.rule.ActiveRules;
 import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.rule.internal.ActiveRulesBuilder;
-import org.sonar.api.batch.rule.internal.DefaultActiveRules;
 import org.sonar.api.batch.rule.internal.NewActiveRule;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
 import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
@@ -65,8 +63,9 @@ public class FlexSquidSensorTest {
 
   @Before
   public void setUp() throws Exception {
-    NewActiveRule ar = new ActiveRulesBuilder().create(RuleKey.of("flex", "S1125")).setSeverity("BLOCKER");
-    ActiveRules activeRules = new DefaultActiveRules(Collections.singletonList(ar));
+    ActiveRulesBuilder activeRulesBuilder = new ActiveRulesBuilder();
+    activeRulesBuilder.addRule(new NewActiveRule.Builder().setRuleKey(RuleKey.of("flex", "S1125")).setSeverity("BLOCKER").build());
+    ActiveRules activeRules = activeRulesBuilder.build();
     CheckFactory checkFactory = new CheckFactory(activeRules);
     FileLinesContextFactory fileLinesContextFactory = mock(FileLinesContextFactory.class);
     FileLinesContext fileLinesContext = mock(FileLinesContext.class);

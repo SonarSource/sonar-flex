@@ -1,6 +1,6 @@
 {
   "title": "\"public static\" fields should be constant",
-  "type": "VULNERABILITY",
+  "type": "CODE_SMELL",
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
@@ -8,9 +8,6 @@
   },
   "tags": [
     "cwe"
-  ],
-  "standards": [
-    "CWE"
   ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1444",

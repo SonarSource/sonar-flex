@@ -28,8 +28,8 @@ import javax.annotation.Nullable;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 
-@Rule(key = "S1442")
-public class AlertShowUseCheck extends FlexCheck {
+@Rule(key = "S4507")
+public class DebugFeaturesCheck extends FlexCheck {
 
   private enum State {
     EXPECTING_ALERT,

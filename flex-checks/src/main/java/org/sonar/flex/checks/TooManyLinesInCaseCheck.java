@@ -29,6 +29,7 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
+import org.sonar.flex.metrics.FileLinesVisitor;
 
 @Rule(key = "S1151")
 public class TooManyLinesInCaseCheck extends FlexCheck {
@@ -49,8 +50,15 @@ public class TooManyLinesInCaseCheck extends FlexCheck {
 
   @Override
   public void visitNode(AstNode astNode) {
+    FileLinesVisitor linesVisitor = new FileLinesVisitor();
+    linesVisitor.scanNode(astNode);
+
+    // Lines which contain case labels are not taken into account in LoC
+    AstNode firstLabelNode = Iterables.getFirst(astNode.getChildren(FlexGrammar.CASE_LABEL), null);
     AstNode lastLabelNode = Iterables.getLast(astNode.getChildren(FlexGrammar.CASE_LABEL));
-    int lines = Math.max(astNode.getNextAstNode().getTokenLine() - lastLabelNode.getTokenLine(), 1);
+    int caseLabelLines = lastLabelNode.getTokenLine() - firstLabelNode.getTokenLine();
+
+    int lines = linesVisitor.linesOfCode().size() - caseLabelLines;
     if (lines > max) {
       addIssue(
         MessageFormat.format("Reduce this switch case number of lines from {0} to at most {1}, for example by extracting code into methods.", lines, max),

@@ -19,7 +19,6 @@
  */
 package org.sonar.flex.metrics;
 
-import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.GenericTokenType;
 import com.sonar.sslr.api.Token;
@@ -28,26 +27,18 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.annotation.Nullable;
 import org.sonar.flex.FlexCommentAnalyser;
 import org.sonar.flex.FlexVisitor;
 
 public class FileLinesVisitor extends FlexVisitor {
 
-  private Set<Integer> linesOfCode;
-  private Set<Integer> linesOfComments;
-  private Set<Integer> noSonarLines;
+  private Set<Integer> linesOfCode = new HashSet<>();
+  private Set<Integer> linesOfComments = new HashSet<>();
+  private Set<Integer> noSonarLines = new HashSet<>();
 
   @Override
   public List<AstNodeType> subscribedTo() {
     return Collections.emptyList();
-  }
-
-  @Override
-  public void visitFile(@Nullable AstNode astNode) {
-    linesOfCode = new HashSet<>();
-    linesOfComments = new HashSet<>();
-    noSonarLines = new HashSet<>();
   }
 
   @Override

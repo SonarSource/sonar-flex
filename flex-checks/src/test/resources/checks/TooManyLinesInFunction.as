@@ -1,12 +1,15 @@
-function f() {         // Noncompliant {{This function has 6 lines, which is greater than the 3 lines authorized. Split it into smaller functions.}}
-    function f() {     // Noncompliant {{This function has 4 lines, which is greater than the 3 lines authorized. Split it into smaller functions.}}
+function f() {         // Noncompliant {{This function has 6 lines of code, which is greater than the 3 lines authorized. Split it into smaller functions.}}
+    function f() {     // Noncompliant {{This function has 4 lines of code, which is greater than the 3 lines authorized. Split it into smaller functions.}}
         // comment
-        return 1;
+        var i = 1;
+        return i;
     }
 }
 
-var f = function () {  // Noncompliant
-    // comment
+var f = function () {  // OK
+    // vertical spaces do not count
+
+
     return 1;
 }
 

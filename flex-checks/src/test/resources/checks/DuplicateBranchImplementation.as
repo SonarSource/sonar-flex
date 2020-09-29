@@ -167,3 +167,7 @@ if(i==1) {
 }
 else {                    // Compliant by exception : oneliner
 }
+
+// no crash in empty switch statement
+switch(i)
+{}

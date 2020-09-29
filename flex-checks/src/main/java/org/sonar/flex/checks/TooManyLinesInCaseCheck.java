@@ -61,7 +61,7 @@ public class TooManyLinesInCaseCheck extends FlexCheck {
     int lines = linesVisitor.linesOfCode().size() - caseLabelLines;
     if (lines > max) {
       addIssue(
-        MessageFormat.format("Reduce this switch case number of lines from {0} to at most {1}, for example by extracting code into methods.", lines, max),
+        MessageFormat.format("Reduce this switch case number of lines of code from {0} to at most {1}, for example by extracting code into methods.", lines, max),
         lastLabelNode);
     }
   }

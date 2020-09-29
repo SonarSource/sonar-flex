@@ -17,7 +17,7 @@ switch (myVariable) {
     // comment
     break;
   case 3:
-  default:                    // Noncompliant {{Reduce this switch case number of lines from 6 to at most 5, for example by extracting code into methods.}}
+  default:                    // Noncompliant {{Reduce this switch case number of lines of code from 6 to at most 5, for example by extracting code into methods.}}
     trace("");
     trace("");
     trace("");

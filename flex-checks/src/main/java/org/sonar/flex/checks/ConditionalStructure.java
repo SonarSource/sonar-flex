@@ -60,7 +60,7 @@ class ConditionalStructure {
 
   boolean areAllEquivalentBranches() {
     if (branches.isEmpty()) {
-      return true;
+      return false;
     }
     BranchAndContent first = branches.get(0);
     return branches.stream().skip(1).allMatch(next -> SyntacticEquivalence.areEquivalent(first.content, next.content));

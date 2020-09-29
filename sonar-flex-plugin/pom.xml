@@ -12,7 +12,7 @@
   <packaging>sonar-plugin</packaging>
 
   <name>SonarSource Flex analyzer :: SonarQube Plugin</name>
-  <description>Code Analyzer for Flex / ActionScript</description>
+  <description>Code Quality and Security for Flex / ActionScript</description>
   <url>http://redirect.sonarsource.com/plugins/flex.html</url>
 
   <scm>

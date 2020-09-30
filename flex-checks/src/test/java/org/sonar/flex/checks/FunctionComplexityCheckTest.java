@@ -27,7 +27,8 @@ public class FunctionComplexityCheckTest {
   @Test
   public void test() {
     FunctionComplexityCheck check = new FunctionComplexityCheck();
-    check.setMaximumFunctionComplexityThreshold(1);
+    // Function complexity can't be less than 1
+    check.setMaximumFunctionComplexityThreshold(0);
 
     FlexVerifier.verify(new File("src/test/resources/checks/FunctionComplexity.as"), check);
   }

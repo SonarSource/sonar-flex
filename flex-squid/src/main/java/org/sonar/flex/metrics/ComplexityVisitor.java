@@ -49,9 +49,6 @@ public class ComplexityVisitor extends FlexVisitor {
       FlexGrammar.WHILE_STATEMENT,
       FlexGrammar.DO_STATEMENT,
       FlexKeyword.CASE,
-      FlexGrammar.CATCH_CLAUSE,
-      FlexGrammar.RETURN_STATEMENT,
-      FlexGrammar.THROW_STATEMENT,
 
       // Expressions
       FlexPunctuator.QUERY,
@@ -66,23 +63,7 @@ public class ComplexityVisitor extends FlexVisitor {
 
   @Override
   public void visitNode(AstNode astNode) {
-    if (isAccessor(astNode) || isLastReturnStatement(astNode)) {
-      return;
-    }
     complexity++;
-  }
-
-  public boolean isAccessor(AstNode astNode) {
-    return astNode.is(FlexGrammar.FUNCTION_DEF)
-      && astNode.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild(FlexKeyword.GET, FlexKeyword.SET) != null;
-  }
-
-  public boolean isLastReturnStatement(AstNode astNode) {
-    if (astNode.is(FlexGrammar.RETURN_STATEMENT) && astNode.getNextAstNode().is(FlexPunctuator.RCURLYBRACE)) {
-      AstNode parentNode = astNode.getNextAstNode().getParent().getParent();
-      return parentNode != null && parentNode.is(FlexGrammar.FUNCTION_COMMON);
-    }
-    return false;
   }
 
   public static int complexity(AstNode root) {

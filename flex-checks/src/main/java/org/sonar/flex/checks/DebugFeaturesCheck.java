@@ -27,6 +27,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
+import org.sonar.flex.FlexGrammar;
 
 @Rule(key = "S4507")
 public class DebugFeaturesCheck extends FlexCheck {
@@ -63,12 +64,19 @@ public class DebugFeaturesCheck extends FlexCheck {
 
   @Override
   public List<AstNodeType> subscribedTo() {
-    return Collections.emptyList();
+    return Collections.singletonList(FlexGrammar.POSTFIX_EXPR);
   }
 
   @Override
   public void visitFile(@Nullable AstNode node) {
     currentState = State.EXPECTING_ALERT;
+  }
+
+  @Override
+  public void visitNode(AstNode astNode) {
+    if (isFunctionCall(astNode) && "trace".equals(astNode.getFirstChild().getTokenValue())) {
+      addIssue("Remove this use of the \"trace\" function.", astNode);
+    }
   }
 
   @Override
@@ -79,6 +87,10 @@ public class DebugFeaturesCheck extends FlexCheck {
       addIssue("Remove this usage of Alert.show().", token);
       currentState = State.EXPECTING_ALERT;
     }
+  }
+
+  private static boolean isFunctionCall(AstNode postfixExpr) {
+    return postfixExpr.getFirstChild().is(FlexGrammar.PRIMARY_EXPR) && postfixExpr.getLastChild().is(FlexGrammar.ARGUMENTS);
   }
 
   private static Symbol getSymbol(String value) {

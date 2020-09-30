@@ -46,6 +46,8 @@ public final class MetadataTag {
   }
 
   // [Metadata("property, in, one, string")] --> [property, in, one, string]
+  // or
+  // [Metadata(tag="property, in, one, string")] --> [property, in, one, string]
   public static List<String> getSinglePropertyAsList(AstNode metadata) {
     Preconditions.checkArgument(metadata.is(FlexGrammar.METADATA_STATEMENT));
     List<String> propertyList = Lists.newArrayList();
@@ -58,8 +60,12 @@ public final class MetadataTag {
         .getFirstChild(FlexGrammar.LIST_EXPRESSION);
 
       if (properties.getNumberOfChildren() == 1) {
-        String singleProperty = properties.getFirstChild(FlexGrammar.ASSIGNMENT_EXPR).getTokenValue();
-
+        AstNode assignmentExpr = properties.getFirstChild(FlexGrammar.ASSIGNMENT_EXPR);
+        if (assignmentExpr.getNumberOfChildren() > 1) {
+          // Case where assignment expr contains an assignment operation
+          assignmentExpr = assignmentExpr.getFirstChild(FlexGrammar.ASSIGNMENT_EXPR);
+        }
+        String singleProperty = assignmentExpr.getTokenValue();
         for (String property : singleProperty.substring(1, singleProperty.length() - 1).split(",")) {
           propertyList.add(property.trim());
         }

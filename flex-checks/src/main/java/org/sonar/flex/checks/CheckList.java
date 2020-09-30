@@ -72,6 +72,7 @@ public final class CheckList {
       ConstructorNotLightweightCheck.class,
       EmptyNestedBlockCheck.class,
       AlertShowUseCheck.class,
+      DebugFeaturesCheck.class,
       FunctionOnlyCallsSuperCheck.class,
       HardcodedEventNameCheck.class,
       PublicConstNotStaticCheck.class,

@@ -22,12 +22,12 @@ package org.sonar.flex.checks;
 import java.io.File;
 import org.junit.Test;
 
-public class DebugFeaturesCheckTest {
+public class AlertShowUseCheckTest {
 
-  private DebugFeaturesCheck check = new DebugFeaturesCheck();
+  private AlertShowUseCheck check = new AlertShowUseCheck();
 
   @Test
   public void test() {
-    FlexVerifier.verify(new File("src/test/resources/checks/DebugFeatures.as"), check);
+    FlexVerifier.verify(new File("src/test/resources/checks/AlertShowUse.as"), check);
   }
 }

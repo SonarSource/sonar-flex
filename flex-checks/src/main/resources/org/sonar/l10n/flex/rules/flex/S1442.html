@@ -1,0 +1,16 @@
+<p><code>Alert.show(...)</code> can be useful for debugging during development, but in production mode this kind of pop-up could expose sensitive
+information to attackers, and should never be displayed. </p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if(unexpectedCondition)
+{
+  Alert.show("Unexpected Condition");
+}
+</pre>
+<h2>See</h2>
+<ul>
+  <li> <a href="https://www.owasp.org/index.php/Top_10-2017_A3-Sensitive_Data_Exposure">OWASP Top 10 2017 Category A3</a> - Sensitive Data Exposure
+  </li>
+  <li> <a href="http://cwe.mitre.org/data/definitions/489.html">MITRE, CWE-489</a> - Leftover Debug Code </li>
+</ul>
+

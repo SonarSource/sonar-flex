@@ -1,26 +1,27 @@
 {
-  "title": "Delivering code in production with debug features activated is security-sensitive",
-  "type": "SECURITY_HOTSPOT",
+  "title": "\"Alert.show(...)\" should not be used",
+  "type": "VULNERABILITY",
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
-    "constantCost": "1min"
+    "constantCost": "10min"
   },
   "tags": [
     "cwe",
-    "error-handling",
-    "debug",
     "user-experience",
     "owasp-a3"
   ],
+  "standards": [
+    "CWE",
+    "OWASP Top 10"
+  ],
   "defaultSeverity": "Minor",
-  "ruleSpecification": "RSPEC-4507",
-  "sqKey": "S4507",
+  "ruleSpecification": "RSPEC-1442",
+  "sqKey": "S1442",
   "scope": "Main",
   "securityStandards": {
     "CWE": [
-      489,
-      215
+      489
     ],
     "OWASP": [
       "A3"

@@ -28,7 +28,7 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
-import org.sonar.flex.FlexPunctuator;
+import org.sonar.flex.metrics.FileLinesVisitor;
 
 @Rule(key = "S138")
 public class TooManyLinesInFunctionCheck extends FlexCheck {
@@ -50,25 +50,13 @@ public class TooManyLinesInFunctionCheck extends FlexCheck {
 
   @Override
   public void visitNode(AstNode astNode) {
-    int nbLines = getNumberOfLine(astNode);
-
+    FileLinesVisitor linesVisitor = new FileLinesVisitor();
+    linesVisitor.scanNode(astNode);
+    int nbLines = linesVisitor.linesOfCode().size();
     if (nbLines > max) {
       addIssue(
-        MessageFormat.format("This function has {0} lines, which is greater than the {1} lines authorized. Split it into smaller functions.", nbLines, max),
+        MessageFormat.format("This function has {0} lines of code, which is greater than the {1} lines authorized. Split it into smaller functions.", nbLines, max),
         astNode);
     }
-  }
-
-  public static int getNumberOfLine(AstNode functionNode) {
-    AstNode blockNode = functionNode.getFirstChild(FlexGrammar.FUNCTION_COMMON).getFirstChild(FlexGrammar.BLOCK);
-
-    // Is not an abstract method
-    if (blockNode != null) {
-      int firstLine = blockNode.getFirstChild(FlexPunctuator.LCURLYBRACE).getTokenLine();
-      int lastLine = blockNode.getFirstChild(FlexPunctuator.RCURLYBRACE).getTokenLine();
-      return lastLine - firstLine + 1;
-    }
-
-    return 0;
   }
 }

@@ -34,9 +34,9 @@ import org.sonar.flex.FlexVisitor;
 
 public class FileLinesVisitor extends FlexVisitor {
 
-  private Set<Integer> linesOfCode;
-  private Set<Integer> linesOfComments;
-  private Set<Integer> noSonarLines;
+  private final Set<Integer> linesOfCode = new HashSet<>();
+  private final Set<Integer> linesOfComments = new HashSet<>();
+  private final Set<Integer> noSonarLines = new HashSet<>();
 
   @Override
   public List<AstNodeType> subscribedTo() {
@@ -45,9 +45,9 @@ public class FileLinesVisitor extends FlexVisitor {
 
   @Override
   public void visitFile(@Nullable AstNode astNode) {
-    linesOfCode = new HashSet<>();
-    linesOfComments = new HashSet<>();
-    noSonarLines = new HashSet<>();
+    linesOfCode.clear();
+    linesOfComments.clear();
+    noSonarLines.clear();
   }
 
   @Override

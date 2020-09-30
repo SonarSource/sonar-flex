@@ -24,10 +24,8 @@ import org.junit.Test;
 
 public class DebugFeaturesCheckTest {
 
-  private DebugFeaturesCheck check = new DebugFeaturesCheck();
-
   @Test
   public void test() {
-    FlexVerifier.verify(new File("src/test/resources/checks/DebugFeatures.as"), check);
+    FlexVerifier.verify(new File("src/test/resources/checks/DebugFeatures.as"), new DebugFeaturesCheck());
   }
 }

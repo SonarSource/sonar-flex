@@ -447,6 +447,11 @@
     </rule>
     <rule>
       <repositoryKey>flex</repositoryKey>
+      <key>S4507</key> <!-- DebugFeaturesCheck -->
+      <priority>INFO</priority>
+    </rule>
+    <rule>
+      <repositoryKey>flex</repositoryKey>
       <key>S4524</key> <!-- DefaultCasePositionCheck -->
       <priority>INFO</priority>
     </rule>

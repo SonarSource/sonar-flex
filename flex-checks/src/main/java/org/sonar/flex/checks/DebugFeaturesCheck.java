@@ -75,7 +75,7 @@ public class DebugFeaturesCheck extends FlexCheck {
   @Override
   public void visitNode(AstNode astNode) {
     if (isFunctionCall(astNode) && "trace".equals(astNode.getFirstChild().getTokenValue())) {
-      addIssue("Remove this use of the \"trace\" function.", astNode);
+      addIssue("Make sure this debug feature \"trace()\" is deactivated before delivering the code in production.", astNode);
     }
   }
 
@@ -84,7 +84,7 @@ public class DebugFeaturesCheck extends FlexCheck {
     currentState = TRANSITIONS[currentState.ordinal()][getSymbol(token.getOriginalValue()).ordinal()];
 
     if (currentState == State.FOUND_ISSUE) {
-      addIssue("Remove this usage of Alert.show().", token);
+      addIssue("Make sure this debug feature \"Alert.show()\" is deactivated before delivering the code in production.", token);
       currentState = State.EXPECTING_ALERT;
     }
   }

@@ -41,7 +41,7 @@ public class FlexRulesDefinitionTest {
 
     Rule functionComplexityRule = repository.rule("FunctionComplexity");
     assertThat(functionComplexityRule).isNotNull();
-    assertThat(functionComplexityRule.name()).isEqualTo("Functions should not be too complex");
+    assertThat(functionComplexityRule.name()).isEqualTo("Cyclomatic Complexity of functions should not be too high");
 
     for (Rule rule : repository.rules()) {
       for (RulesDefinition.Param param : rule.params()) {

@@ -47,9 +47,7 @@ public class FunctionComplexityCheck extends FlexCheck {
 
   @Override
   public void visitNode(AstNode node) {
-    // By definition      : complexity = number of conditional branches + 1
-    // or, in other words : complexity = sum('if', 'for', '&&', '||', ternary operator, 'while', 'for', 'case') + 1
-    int functionComplexity = ComplexityVisitor.functionComplexity(node) + 1;
+    int functionComplexity = ComplexityVisitor.functionComplexity(node);
     if (functionComplexity > maximumFunctionComplexityThreshold) {
       String message = String.format("Function has a complexity of %s which is greater than %s authorized.", functionComplexity, maximumFunctionComplexityThreshold);
       addIssueWithCost(message, node, (double)functionComplexity - maximumFunctionComplexityThreshold);

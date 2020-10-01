@@ -1,18 +1,9 @@
 {
-'project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/AS3FragmentParser.as':[
-12,
-],
-'project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTASMethod.as':[
-60,
-],
 'project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTUtils.as':[
 44,
 ],
 'project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/DocumentationUtils.as':[
 43,
-],
-'project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ExpressionBuilder.as':[
-9,
 ],
 'project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as':[
 8,
@@ -35,9 +26,6 @@
 'project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/regexsimple/RegexSimpleLexer.as':[
 10,
 ],
-'project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/parser/antlr/as3/TestAS3Parser_CompilationUnit.as':[
-28,
-],
 'project:as3-commons/as3-commons-async/src/main/actionscript/org/as3commons/async/task/impl/Task.as':[
 47,
 ],
@@ -59,9 +47,6 @@
 'project:as3-commons/as3-commons-bytecode/src/test/actionscript/org/as3commons/bytecode/abc/enum/OpcodeTest.as':[
 32,
 ],
-'project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/SortedList.as':[
-76,
-],
 'project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/Treap.as':[
 89,
 ],
@@ -80,6 +65,9 @@
 'project:as3-commons/as3-commons-lang/src/main/actionscript/org/as3commons/lang/StringUtils.as':[
 26,
 ],
+'project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Type.as':[
+56,
+],
 'project:as3-commons/as3-commons-stageprocessing/src/main/actionscript/org/as3commons/stageprocessing/impl/FlashStageObjectProcessorRegistry.as':[
 38,
 ],
@@ -91,9 +79,6 @@
 ],
 'project:as3-commons/as3-commons-ui/src/test/actionscript/org/as3commons/ui/lifecycle/lifecycle/tests/LifeCycleAdapterTest.as':[
 24,
-],
-'project:as3-commons/as3-commons-zip/src/main/actionscript/org/as3commons/zip/Zip.as':[
-109,
 ],
 'project:as3-commons/as3-commons-zip/src/main/actionscript/org/as3commons/zip/ZipFile.as':[
 27,
@@ -115,5 +100,8 @@
 ],
 'project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/objectdefinition/impl/DefaultObjectDefinitionRegistry.as':[
 41,
+],
+'project:spring-actionscript/spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/component/MXMLObjectDefinition.as':[
+55,
 ],
 }

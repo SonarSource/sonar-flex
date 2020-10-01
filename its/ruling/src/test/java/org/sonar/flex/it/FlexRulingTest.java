@@ -21,6 +21,7 @@ package org.sonar.flex.it;
 
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
+import com.sonar.orchestrator.config.Configuration;
 import com.sonar.orchestrator.locator.FileLocation;
 import com.sonar.orchestrator.locator.MavenLocation;
 import java.io.File;
@@ -34,7 +35,7 @@ public class FlexRulingTest {
 
   @ClassRule
   public static Orchestrator ORCHESTRATOR = Orchestrator.builderEnv()
-    .setSonarVersion(System.getProperty("sonar.runtimeVersion"))
+    .setSonarVersion(Configuration.createEnv().getString("sonar.runtimeVersion"))
     .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-flex-plugin/target"), "sonar-flex-plugin-*.jar"))
     .addPlugin(MavenLocation.of("org.sonarsource.sonar-lits-plugin","sonar-lits-plugin", "0.8.0.1209"))
     .restoreProfileAtStartup(FileLocation.of("src/test/resources/profile.xml"))

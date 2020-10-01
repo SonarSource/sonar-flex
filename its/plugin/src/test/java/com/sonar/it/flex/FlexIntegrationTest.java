@@ -90,9 +90,9 @@ public class FlexIntegrationTest {
     assertThat(getProjectMeasureAsDouble("duplicated_lines_density")).isZero();
     assertThat(getProjectMeasureAsDouble("duplicated_files")).isZero();
 
-    assertThat(getProjectMeasureAsDouble("complexity")).isEqualTo(1084);
+    assertThat(getProjectMeasureAsDouble("complexity")).isEqualTo(1018);
 
-    assertThat(getProjectMeasureAsDouble("file_complexity")).isEqualTo(15.7);
+    assertThat(getProjectMeasureAsDouble("file_complexity")).isEqualTo(14.8);
 
     // SONARPLUGINS-670: Different number of violations reported on different OSs
     // 216 on Linux, 217 on Windows
@@ -173,9 +173,9 @@ public class FlexIntegrationTest {
     assertThat(getFileMeasureAsDouble("duplicated_files")).isZero();
     assertThat(getFileMeasureAsDouble("duplicated_lines_density")).isZero();
 
-    assertThat(getFileMeasureAsDouble("complexity")).isEqualTo(20d);
+    assertThat(getFileMeasureAsDouble("complexity")).isEqualTo(18d);
 
-    assertThat(getFileMeasureAsDouble("file_complexity")).isEqualTo(20.0);
+    assertThat(getFileMeasureAsDouble("file_complexity")).isEqualTo(18);
     assertNull(getFileMeasureAsDouble("function_complexity_distribution"));
     assertNull(getFileMeasureAsDouble("file_complexity_distribution"));
 

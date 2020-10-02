@@ -54,8 +54,6 @@ public class FlexIntegrationTest {
 
   @BeforeClass
   public static void init() {
-    orchestrator.resetData();
-
     MavenBuild build = Tests.createMavenBuild()
       .setPom(new File("projects/as3commons/pom.xml"))
       .setCleanSonarGoals();

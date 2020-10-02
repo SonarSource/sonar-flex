@@ -22,7 +22,6 @@ package com.sonar.it.flex;
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
 import java.io.File;
-import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
 
@@ -39,11 +38,6 @@ public class CoverageTest {
   private static final String REPORT_PROPERTY_KEY = "sonar.flex.cobertura.reportPaths";
   private static final String SRC_DIR = "src/main/flex";
   private static final File PROJECT_DIR = new File("projects/coverage");
-
-  @Before
-  public void clean() {
-    orchestrator.resetData();
-  }
 
   @Test
   public void report_path_can_be_relative() throws Exception {

@@ -47,7 +47,6 @@ public class FlexSimpleProjectTest {
 
   @BeforeClass
   public static void init() {
-    orchestrator.resetData();
     SonarScanner runner = Tests.createSonarScanner()
       .setProjectDir(new File("projects/simple-project"))
       .setProperty("sonar.profile", "it-profile");

@@ -19,7 +19,7 @@ jobs:
           distribute: false
           publish_to_binaries: true
           run_rules_cov: true
-          slack_channel: #vb6-pli-flex
+          slack_channel: vb6-pli-flex
         env:
           ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY }}
           BINTRAY_USER: ${{ secrets.BINTRAY_USER }}

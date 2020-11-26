@@ -78,7 +78,7 @@
     <version.sslr-squid-bridge>2.7.0.377</version.sslr-squid-bridge>
     <analyzerCommons.version>1.6.0.219</analyzerCommons.version>
     <logback.version>1.0.13</logback.version>
-    <junit.version>4.12</junit.version>
+    <junit.version>4.13.1</junit.version>
     <fest.version>1.4</fest.version>
     <orchestrator.version>3.34.0.2692</orchestrator.version>
 

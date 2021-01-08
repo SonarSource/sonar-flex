@@ -19,8 +19,6 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Maps;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
@@ -29,6 +27,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Deque;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -39,6 +38,7 @@ import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Function;
+import org.sonar.flex.utils.Preconditions;
 
 @Rule(key = "S1172")
 public class UnusedFunctionParametersCheck extends FlexCheck {
@@ -53,7 +53,7 @@ public class UnusedFunctionParametersCheck extends FlexCheck {
     public Scope(Scope outerScope, AstNode functionDec) {
       this.outerScope = outerScope;
       this.functionDec = functionDec;
-      this.arguments = Maps.newLinkedHashMap();
+      this.arguments = new LinkedHashMap<>();
     }
 
     private void declare(AstNode astNode) {

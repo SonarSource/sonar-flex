@@ -19,8 +19,7 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.ImmutableList;
-
+import java.util.Arrays;
 import java.util.List;
 
 public final class CheckList {
@@ -33,7 +32,7 @@ public final class CheckList {
   }
 
   public static List<Class> getChecks() {
-    return ImmutableList.<Class>of(
+    return Arrays.asList(
       CommentRegularExpressionCheck.class,
       LineLengthCheck.class,
       ControlFlowStmtDepthCheck.class,

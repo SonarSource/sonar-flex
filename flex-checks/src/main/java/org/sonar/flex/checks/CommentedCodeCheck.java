@@ -19,7 +19,6 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.ImmutableSet;
 import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.Trivia;
@@ -31,6 +30,7 @@ import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexCommentAnalyser;
 import org.sonar.flex.FlexKeyword;
+import org.sonar.flex.utils.SetUtils;
 import org.sonar.squidbridge.recognizer.CodeRecognizer;
 import org.sonar.squidbridge.recognizer.ContainsDetector;
 import org.sonar.squidbridge.recognizer.Detector;
@@ -50,7 +50,7 @@ public class CommentedCodeCheck extends FlexCheck {
 
     @Override
     public Set<Detector> getDetectors() {
-      return ImmutableSet.of(
+      return SetUtils.immutableSetOf(
         new EndWithDetector(0.95, '}', ';', '{'),
         new KeywordsDetector(0.3, FlexKeyword.keywordValues()),
         new ContainsDetector(0.95, "++", "--"),

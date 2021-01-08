@@ -19,11 +19,11 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.Maps;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.sonar.check.Rule;
@@ -33,7 +33,7 @@ import org.sonar.flex.FlexGrammar;
 @Rule(key = "OneStatementPerLine")
 public class OneStatementPerLineCheck extends FlexCheck {
 
-  private final Map<Integer, Integer> statementsPerLine = Maps.newHashMap();
+  private final Map<Integer, Integer> statementsPerLine = new HashMap<>();
 
   @Override
   public List<AstNodeType> subscribedTo() {

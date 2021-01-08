@@ -19,13 +19,13 @@
  */
 package org.sonar.flex.checks.utils;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
+import java.util.ArrayList;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 
 import java.util.List;
+import org.sonar.flex.utils.Preconditions;
 
 public final class Variable {
 
@@ -74,7 +74,7 @@ public final class Variable {
 
   public static List<AstNode> getDeclaredIdentifiers(AstNode varDeclStatement) {
     Preconditions.checkArgument(varDeclStatement.is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT));
-    List<AstNode> identifiers = Lists.newArrayList();
+    List<AstNode> identifiers = new ArrayList<>();
     if (varDeclStatement.is(FlexGrammar.VARIABLE_DECLARATION_STATEMENT)) {
       AstNode varBindingList = varDeclStatement
         .getFirstChild(FlexGrammar.VARIABLE_DEF)

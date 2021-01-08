@@ -19,11 +19,11 @@
  */
 package org.sonar.flex.lexer;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.ImmutableSet;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.impl.Lexer;
 import org.sonar.flex.api.FlexTokenType;
+import org.sonar.flex.utils.SetUtils;
+import org.sonar.flex.utils.VisibleForTesting;
 import org.sonar.sslr.channel.Channel;
 import org.sonar.sslr.channel.CodeReader;
 
@@ -40,7 +40,7 @@ public class FlexRegularExpressionLiteralChannel extends Channel<Lexer> {
 
   private final Channel<Lexer> delegate;
 
-  private static final Set<String> WHOLE_TOKENS = ImmutableSet.of(
+  private static final Set<String> WHOLE_TOKENS = SetUtils.immutableSetOf(
     "break",
     "case",
     "continue",

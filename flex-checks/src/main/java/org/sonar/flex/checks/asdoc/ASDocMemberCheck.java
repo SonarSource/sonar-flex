@@ -19,10 +19,10 @@
  */
 package org.sonar.flex.checks.asdoc;
 
-import com.google.common.collect.Sets;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.Trivia;
 import java.text.MessageFormat;
+import java.util.HashSet;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
@@ -36,7 +36,7 @@ import java.util.Set;
 public class ASDocMemberCheck {
 
   public static class MethodASDoc {
-    Set<String> parameters = Sets.newHashSet();
+    Set<String> parameters = new HashSet<>();
     boolean hasReturn = false;
 
     public boolean isParameterDocumented(String paramName) {

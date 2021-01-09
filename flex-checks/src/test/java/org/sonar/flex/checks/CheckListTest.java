@@ -58,7 +58,7 @@ public class CheckListTest {
    */
   @Test
   public void test() throws IOException {
-    List<Class> checks = CheckList.getChecks();
+    List<Class<?>> checks = CheckList.getChecks();
 
     for (Class<?> cls : checks) {
       String testName = '/' + cls.getName().replace('.', '/') + "Test.class";

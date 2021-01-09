@@ -31,7 +31,7 @@ public final class CheckList {
   private CheckList() {
   }
 
-  public static List<Class> getChecks() {
+  public static List<Class<?>> getChecks() {
     return Arrays.asList(
       CommentRegularExpressionCheck.class,
       LineLengthCheck.class,

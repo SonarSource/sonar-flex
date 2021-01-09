@@ -75,8 +75,7 @@
 
     <sonar.version>7.9</sonar.version>
     <sslr.version>1.23</sslr.version>
-    <version.sslr-squid-bridge>2.7.0.377</version.sslr-squid-bridge>
-    <analyzerCommons.version>1.6.0.219</analyzerCommons.version>
+    <analyzerCommons.version>1.12.0.632</analyzerCommons.version>
     <logback.version>1.0.13</logback.version>
     <junit.version>4.13.1</junit.version>
     <fest.version>1.4</fest.version>
@@ -141,24 +140,14 @@
       </dependency>
       <dependency>
         <groupId>org.sonarsource.analyzer-commons</groupId>
+        <artifactId>sonar-analyzer-recognizers</artifactId>
+        <version>${analyzerCommons.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.sonarsource.analyzer-commons</groupId>
         <artifactId>sonar-analyzer-test-commons</artifactId>
         <version>${analyzerCommons.version}</version>
         <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.sonarsource.sslr-squid-bridge</groupId>
-        <artifactId>sslr-squid-bridge</artifactId>
-        <version>${version.sslr-squid-bridge}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.picocontainer</groupId>
-            <artifactId>picocontainer</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-          </exclusion>
-        </exclusions>
       </dependency>
 
       <dependency>

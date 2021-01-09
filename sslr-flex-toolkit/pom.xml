@@ -78,7 +78,6 @@
                 <include>ch.qos.logback:logback-core</include>
                 <include>commons-io:commons-io</include>
                 <include>commons-lang:commons-lang</include>
-                <include>com.google.guava:guava</include>
               </includes>
               <rules>
                 <keep>
@@ -102,8 +101,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <maxsize>4300000</maxsize>
-                  <minsize>4000000</minsize>
+                  <maxsize>1800000</maxsize>
+                  <minsize>1700000</minsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>

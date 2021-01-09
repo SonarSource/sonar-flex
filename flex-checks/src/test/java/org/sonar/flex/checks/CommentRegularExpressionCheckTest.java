@@ -34,4 +34,11 @@ public class CommentRegularExpressionCheckTest {
     FlexVerifier.verify(new File("src/test/resources/checks/CommentRegularExpression.as"), check);
   }
 
+  @Test
+  public void test_default_regex() {
+    CommentRegularExpressionCheck check = new CommentRegularExpressionCheck();
+
+    FlexVerifier.verifyNoIssue(new File("src/test/resources/checks/CommentRegularExpressionDefault.as"), check);
+  }
+
 }

@@ -77,7 +77,7 @@ public class CoberturaSensorTest {
       assertThat(tester.lineHits(componentKey, line)).as("line " + line).isEqualTo(expectedHits[line - 1]);
     }
 
-    assertThat(logTester.logs()).containsOnly("Analyzing Cobertura report: coverage.xml");
+    assertThat(logTester.logs()).contains("Analyzing Cobertura report: coverage.xml");
   }
 
   @Test

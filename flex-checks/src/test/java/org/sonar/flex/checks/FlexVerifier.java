@@ -22,8 +22,6 @@ package org.sonar.flex.checks;
 import com.google.common.io.Files;
 import com.sonar.sslr.api.RecognitionException;
 import com.sonar.sslr.impl.Parser;
-import com.sonarsource.checks.verifier.CommentParser;
-import com.sonarsource.checks.verifier.SingleFileVerifier;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -32,6 +30,8 @@ import org.sonar.flex.FlexVisitorContext;
 import org.sonar.flex.Issue;
 import org.sonar.flex.parser.FlexParser;
 import org.sonar.sslr.parser.LexerlessGrammar;
+import org.sonarsource.analyzer.commons.checks.verifier.CommentParser;
+import org.sonarsource.analyzer.commons.checks.verifier.SingleFileVerifier;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.assertj.core.api.Assertions.assertThat;

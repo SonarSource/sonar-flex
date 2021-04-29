@@ -32,8 +32,8 @@ public final class CheckList {
   private CheckList() {
   }
 
-  public static List<Class> getChecks() {
-    return ImmutableList.<Class>of(
+  public static List<Class<?>> getChecks() {
+    return ImmutableList.of(
       CommentRegularExpressionCheck.class,
       LineLengthCheck.class,
       ControlFlowStmtDepthCheck.class,

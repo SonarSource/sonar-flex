@@ -17,28 +17,21 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.flex.checks;
+package org.sonar.flex.utils;
 
-import java.io.File;
-import org.junit.Test;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
-public class CommentRegularExpressionCheckTest {
+import static java.lang.annotation.ElementType.CONSTRUCTOR;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
-  @Test
-  public void test() {
-    CommentRegularExpressionCheck check = new CommentRegularExpressionCheck();
-
-    check.regularExpression = "(?i).*TODO.*";
-    check.message = "Avoid TODO";
-
-    FlexVerifier.verify(new File("src/test/resources/checks/CommentRegularExpression.as"), check);
-  }
-
-  @Test
-  public void test_default_regex() {
-    CommentRegularExpressionCheck check = new CommentRegularExpressionCheck();
-
-    FlexVerifier.verifyNoIssue(new File("src/test/resources/checks/CommentRegularExpressionDefault.as"), check);
-  }
-
+/**
+ * This annotation should be placed on elements that exists, or is more widely visible than otherwise necessary, only for use in test code.
+ */
+@Retention(value = CLASS)
+@Target(value = {TYPE, METHOD, FIELD, CONSTRUCTOR})
+public @interface VisibleForTesting {
 }

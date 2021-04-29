@@ -19,7 +19,6 @@
  */
 package org.sonar.plugins.flex;
 
-import com.google.common.collect.Sets;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.GenericTokenType;
@@ -27,8 +26,8 @@ import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.TokenType;
 import com.sonar.sslr.api.Trivia;
 import com.sonar.sslr.impl.Lexer;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -47,7 +46,8 @@ public class FlexTokensVisitor extends FlexVisitor {
 
   private static final String NORMALIZED_CHARACTER_LITERAL = "$CHARS";
   private static final String NORMALIZED_NUMERIC_LITERAL = "$NUMBER";
-  private static final Set<FlexKeyword> KEYWORDS = Sets.immutableEnumSet(Arrays.asList(FlexKeyword.values()));
+  private static final Set<FlexKeyword> KEYWORDS = EnumSet.allOf(FlexKeyword.class);
+
 
   private final SensorContext context;
   private final Lexer lexer;

@@ -19,13 +19,14 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.io.Files;
 import com.sonar.sslr.api.RecognitionException;
 import com.sonar.sslr.impl.Parser;
 import com.sonarsource.checks.verifier.CommentParser;
 import com.sonarsource.checks.verifier.SingleFileVerifier;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexVisitorContext;
@@ -86,7 +87,7 @@ public class FlexVerifier {
     Parser<LexerlessGrammar> parser = FlexParser.create(UTF_8);
     String fileContent;
     try {
-      fileContent = Files.toString(file, UTF_8);
+      fileContent = new String(Files.readAllBytes(Paths.get(file.getPath())), UTF_8);
     } catch (IOException e) {
       throw new IllegalStateException("Cannot read " + file, e);
     }

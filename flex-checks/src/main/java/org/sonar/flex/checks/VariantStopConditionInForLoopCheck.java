@@ -19,12 +19,12 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.Sets;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.Nullable;
@@ -37,8 +37,8 @@ import org.sonar.flex.checks.utils.Expression;
 @Rule(key = "S127")
 public class VariantStopConditionInForLoopCheck extends FlexCheck {
 
-  Set<String> counters = Sets.newHashSet();
-  Set<String> pendingCounters = Sets.newHashSet();
+  Set<String> counters = new HashSet<>();
+  Set<String> pendingCounters = new HashSet<>();
 
   @Override
   public List<AstNodeType> subscribedTo() {
@@ -129,7 +129,7 @@ public class VariantStopConditionInForLoopCheck extends FlexCheck {
   }
 
   private static Set<String> getLoopsCounters(AstNode forStatement) {
-    Set<String> loopCounters = Sets.newHashSet();
+    Set<String> loopCounters = new HashSet<>();
     AstNode initialiser = forStatement.getFirstChild(FlexGrammar.FOR_INITIALISER);
 
     if (initialiser != null) {

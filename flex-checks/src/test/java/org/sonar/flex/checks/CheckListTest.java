@@ -58,9 +58,9 @@ public class CheckListTest {
    */
   @Test
   public void test() throws IOException {
-    List<Class> checks = CheckList.getChecks();
+    List<Class<?>> checks = CheckList.getChecks();
 
-    for (Class cls : checks) {
+    for (Class<?> cls : checks) {
       String testName = '/' + cls.getName().replace('.', '/') + "Test.class";
       assertThat(getClass().getResource(testName))
           .overridingErrorMessage("No plain_text_header for " + cls.getSimpleName())

@@ -19,9 +19,8 @@
  */
 package org.sonar.flex.toolkit;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.ImmutableList;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.List;
 import org.sonar.colorizer.CDocTokenizer;
 import org.sonar.colorizer.CppDocTokenizer;
@@ -31,6 +30,7 @@ import org.sonar.colorizer.StringTokenizer;
 import org.sonar.colorizer.Tokenizer;
 import org.sonar.flex.api.FlexKeyword;
 import org.sonar.flex.parser.FlexParser;
+import org.sonar.flex.utils.VisibleForTesting;
 import org.sonar.sslr.toolkit.Toolkit;
 
 public final class FlexToolkit {
@@ -45,7 +45,7 @@ public final class FlexToolkit {
 
   @VisibleForTesting
   static List<Tokenizer> getTokenizers() {
-    return ImmutableList.of(
+    return Arrays.asList(
         new StringTokenizer("<span class=\"s\">", "</span>"),
         new CDocTokenizer("<span class=\"cd\">", "</span>"),
         new JavadocTokenizer("<span class=\"cppd\">", "</span>"),

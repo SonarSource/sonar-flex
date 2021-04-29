@@ -19,7 +19,6 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.ImmutableSet;
 import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.Trivia;
@@ -31,12 +30,13 @@ import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexCommentAnalyser;
 import org.sonar.flex.FlexKeyword;
-import org.sonar.squidbridge.recognizer.CodeRecognizer;
-import org.sonar.squidbridge.recognizer.ContainsDetector;
-import org.sonar.squidbridge.recognizer.Detector;
-import org.sonar.squidbridge.recognizer.EndWithDetector;
-import org.sonar.squidbridge.recognizer.KeywordsDetector;
-import org.sonar.squidbridge.recognizer.LanguageFootprint;
+import org.sonar.flex.utils.SetUtils;
+import org.sonarsource.analyzer.recognizers.CodeRecognizer;
+import org.sonarsource.analyzer.recognizers.ContainsDetector;
+import org.sonarsource.analyzer.recognizers.Detector;
+import org.sonarsource.analyzer.recognizers.EndWithDetector;
+import org.sonarsource.analyzer.recognizers.KeywordsDetector;
+import org.sonarsource.analyzer.recognizers.LanguageFootprint;
 
 @Rule(key = "CommentedCode")
 public class CommentedCodeCheck extends FlexCheck {
@@ -50,7 +50,7 @@ public class CommentedCodeCheck extends FlexCheck {
 
     @Override
     public Set<Detector> getDetectors() {
-      return ImmutableSet.of(
+      return SetUtils.immutableSetOf(
         new EndWithDetector(0.95, '}', ';', '{'),
         new KeywordsDetector(0.3, FlexKeyword.keywordValues()),
         new ContainsDetector(0.95, "++", "--"),

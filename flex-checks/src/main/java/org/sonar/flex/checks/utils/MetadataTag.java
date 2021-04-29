@@ -19,14 +19,14 @@
  */
 package org.sonar.flex.checks.utils;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
+import java.util.ArrayList;
 import org.sonar.flex.FlexGrammar;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.sonar.flex.utils.Preconditions;
 
 public final class MetadataTag {
 
@@ -50,7 +50,7 @@ public final class MetadataTag {
   // [Metadata(tag="property, in, one, string")] --> [property, in, one, string]
   public static List<String> getSinglePropertyAsList(AstNode metadata) {
     Preconditions.checkArgument(metadata.is(FlexGrammar.METADATA_STATEMENT));
-    List<String> propertyList = Lists.newArrayList();
+    List<String> propertyList = new ArrayList<>();
 
     if (isNotEmpty(metadata) && hasProperty(metadata)) {
       AstNode properties = metadata

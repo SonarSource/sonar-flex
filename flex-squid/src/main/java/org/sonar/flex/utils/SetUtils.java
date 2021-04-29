@@ -17,28 +17,27 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.flex.checks;
+package org.sonar.flex.utils;
 
-import java.io.File;
-import org.junit.Test;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
-public class CommentRegularExpressionCheckTest {
+/**
+ * This class is used for Java < 9 to simplify the creation of maps.
+ * After moving to Java > 9, should be replaced by Immutable Set Static Factory Methods
+ * @see <a href="https://docs.oracle.com/javase/9/docs/api/java/util/Set.html#immutable">Immutable Set Static Factory Methods</a>
+ */
+public final class SetUtils {
 
-  @Test
-  public void test() {
-    CommentRegularExpressionCheck check = new CommentRegularExpressionCheck();
-
-    check.regularExpression = "(?i).*TODO.*";
-    check.message = "Avoid TODO";
-
-    FlexVerifier.verify(new File("src/test/resources/checks/CommentRegularExpression.as"), check);
+  private SetUtils() {
   }
 
-  @Test
-  public void test_default_regex() {
-    CommentRegularExpressionCheck check = new CommentRegularExpressionCheck();
-
-    FlexVerifier.verifyNoIssue(new File("src/test/resources/checks/CommentRegularExpressionDefault.as"), check);
+  @SafeVarargs
+  public static <T> Set<T> immutableSetOf(T ... elements) {
+    Set<T> set = new HashSet<>(Arrays.asList(elements));
+    return Collections.unmodifiableSet(set);
   }
 
 }

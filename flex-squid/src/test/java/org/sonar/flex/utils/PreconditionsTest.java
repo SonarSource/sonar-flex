@@ -17,28 +17,38 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.flex.checks;
+package org.sonar.flex.utils;
 
-import java.io.File;
+import org.junit.Assert;
 import org.junit.Test;
 
-public class CommentRegularExpressionCheckTest {
+public class PreconditionsTest {
 
   @Test
-  public void test() {
-    CommentRegularExpressionCheck check = new CommentRegularExpressionCheck();
-
-    check.regularExpression = "(?i).*TODO.*";
-    check.message = "Avoid TODO";
-
-    FlexVerifier.verify(new File("src/test/resources/checks/CommentRegularExpression.as"), check);
+  public void test_check_argument_condition_is_true() {
+    try {
+      Preconditions.checkArgument(true);
+    } catch (Exception ex) {
+      Assert.fail(String.format("Caught %s. No exception should be thrown!", ex.getClass()));
+    }
   }
 
   @Test
-  public void test_default_regex() {
-    CommentRegularExpressionCheck check = new CommentRegularExpressionCheck();
-
-    FlexVerifier.verifyNoIssue(new File("src/test/resources/checks/CommentRegularExpressionDefault.as"), check);
+  public void test_check_state_condition_is_true() {
+    try {
+      Preconditions.checkState(true);
+    } catch (Exception ex) {
+      Assert.fail(String.format("Caught %s. No exception should be thrown!", ex.getClass()));
+    }
   }
 
+  @Test
+  public void test_check_argument_condition_is_false() {
+    Assert.assertThrows(IllegalArgumentException.class, () -> Preconditions.checkArgument(false));
+  }
+
+  @Test
+  public void test_check_state_condition_is_false() {
+    Assert.assertThrows(IllegalStateException.class, () -> Preconditions.checkState(false));
+  }
 }

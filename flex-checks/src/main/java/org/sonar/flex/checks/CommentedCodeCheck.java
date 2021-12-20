@@ -19,11 +19,12 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.ImmutableSet;
 import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.Trivia;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -50,12 +51,12 @@ public class CommentedCodeCheck extends FlexCheck {
 
     @Override
     public Set<Detector> getDetectors() {
-      return ImmutableSet.of(
+      return Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
         new EndWithDetector(0.95, '}', ';', '{'),
         new KeywordsDetector(0.3, FlexKeyword.keywordValues()),
         new ContainsDetector(0.95, "++", "--"),
         new ContainsDetector(0.95, "*=", "/=", "%=", "+=", "-=", "<<=", ">>=", ">>>=", "&=", "^=", "|="),
-        new ContainsDetector(0.95, "==", "!=", "===", "!=="));
+        new ContainsDetector(0.95, "==", "!=", "===", "!=="))));
     }
 
   }

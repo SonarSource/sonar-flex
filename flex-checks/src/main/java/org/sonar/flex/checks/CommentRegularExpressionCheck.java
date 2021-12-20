@@ -25,12 +25,11 @@ import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.Trivia;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexCheck;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 @Rule(key = "CommentRegularExpression")
 public class CommentRegularExpressionCheck extends FlexCheck {
@@ -59,7 +58,7 @@ public class CommentRegularExpressionCheck extends FlexCheck {
 
   public Pattern pattern() {
     if (pattern == null) {
-      checkNotNull(regularExpression, "getRegularExpression() should not return null");
+      Objects.requireNonNull(regularExpression, "getRegularExpression() should not return null");
       if (!Strings.isNullOrEmpty(regularExpression)) {
         try {
           pattern = Pattern.compile(regularExpression, Pattern.DOTALL);

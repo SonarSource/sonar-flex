@@ -28,10 +28,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.sonarsource.sslr-squid-bridge</groupId>
-      <artifactId>sslr-squid-bridge</artifactId>
-    </dependency>
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>

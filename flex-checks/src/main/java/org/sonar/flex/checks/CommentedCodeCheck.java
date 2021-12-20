@@ -32,12 +32,12 @@ import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexCommentAnalyser;
 import org.sonar.flex.FlexKeyword;
-import org.sonar.squidbridge.recognizer.CodeRecognizer;
-import org.sonar.squidbridge.recognizer.ContainsDetector;
-import org.sonar.squidbridge.recognizer.Detector;
-import org.sonar.squidbridge.recognizer.EndWithDetector;
-import org.sonar.squidbridge.recognizer.KeywordsDetector;
-import org.sonar.squidbridge.recognizer.LanguageFootprint;
+import org.sonarsource.analyzer.commons.recognizers.CodeRecognizer;
+import org.sonarsource.analyzer.commons.recognizers.ContainsDetector;
+import org.sonarsource.analyzer.commons.recognizers.Detector;
+import org.sonarsource.analyzer.commons.recognizers.EndWithDetector;
+import org.sonarsource.analyzer.commons.recognizers.KeywordsDetector;
+import org.sonarsource.analyzer.commons.recognizers.LanguageFootprint;
 
 @Rule(key = "CommentedCode")
 public class CommentedCodeCheck extends FlexCheck {

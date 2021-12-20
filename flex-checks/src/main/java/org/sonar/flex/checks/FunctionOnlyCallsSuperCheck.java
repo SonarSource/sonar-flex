@@ -19,7 +19,6 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.base.Joiner;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
@@ -127,7 +126,7 @@ public class FunctionOnlyCallsSuperCheck extends FlexCheck {
     }
 
     String actual = sb.toString();
-    String expected = FlexKeyword.SUPER.getValue() + "." + methodName + "(" + Joiner.on(",").join(parameters) + ");";
+    String expected = FlexKeyword.SUPER.getValue() + "." + methodName + "(" + String.join(",", parameters) + ");";
 
     return actual.equals(expected) || actual.equals(FlexKeyword.RETURN.getValue() + expected);
   }

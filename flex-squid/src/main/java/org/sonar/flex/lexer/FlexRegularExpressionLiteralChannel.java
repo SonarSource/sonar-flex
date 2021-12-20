@@ -19,16 +19,14 @@
  */
 package org.sonar.flex.lexer;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableSet;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.impl.Lexer;
+import java.util.List;
+import java.util.Set;
 import org.sonar.flex.api.FlexTokenType;
 import org.sonar.sslr.channel.Channel;
 import org.sonar.sslr.channel.CodeReader;
-
-import java.util.List;
-import java.util.Set;
 
 import static com.sonar.sslr.impl.channel.RegexpChannelBuilder.regexp;
 
@@ -144,7 +142,7 @@ public class FlexRegularExpressionLiteralChannel extends Channel<Lexer> {
    *
    * @param preceder non-whitespace, non comment token preceding the slash
    */
-  @VisibleForTesting
+  // Visible for testing
   static boolean guessNextIsRegexp(String preceder) {
     if (WHOLE_TOKENS.contains(preceder)) {
       return true;

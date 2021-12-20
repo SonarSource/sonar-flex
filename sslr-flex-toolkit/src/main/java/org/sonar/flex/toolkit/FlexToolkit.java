@@ -19,7 +19,6 @@
  */
 package org.sonar.flex.toolkit;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import java.nio.charset.Charset;
 import java.util.List;
@@ -43,7 +42,7 @@ public final class FlexToolkit {
     new Toolkit(FlexParser.create(Charset.defaultCharset()), getTokenizers(), "SSLR Flex Toolkit").run();
   }
 
-  @VisibleForTesting
+  // Visible for testing
   static List<Tokenizer> getTokenizers() {
     return ImmutableList.of(
         new StringTokenizer("<span class=\"s\">", "</span>"),

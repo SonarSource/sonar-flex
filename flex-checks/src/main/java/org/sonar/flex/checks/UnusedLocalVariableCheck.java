@@ -19,11 +19,11 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.Maps;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
@@ -51,7 +51,7 @@ public class UnusedLocalVariableCheck extends FlexCheck {
 
     public Scope(Scope outerScope) {
       this.outerScope = outerScope;
-      this.variables = Maps.newHashMap();
+      this.variables = new HashMap<>();
     }
 
 

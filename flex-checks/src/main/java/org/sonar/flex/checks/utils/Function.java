@@ -19,7 +19,6 @@
  */
 package org.sonar.flex.checks.utils;
 
-import com.google.common.base.Preconditions;
 import com.sonar.sslr.api.AstNode;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,18 +31,18 @@ public class Function {
   }
 
   public static String getName(AstNode functionDef) {
-    Preconditions.checkArgument(functionDef.is(FlexGrammar.FUNCTION_DEF));
+    Preconditions.checkState(functionDef.is(FlexGrammar.FUNCTION_DEF));
     return functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild(FlexGrammar.IDENTIFIER).getTokenValue();
   }
 
   public static boolean isAccessor(AstNode functionDef) {
-    Preconditions.checkArgument(functionDef.is(FlexGrammar.FUNCTION_DEF));
+    Preconditions.checkState(functionDef.is(FlexGrammar.FUNCTION_DEF));
     return functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild(FlexKeyword.GET, FlexKeyword.SET) != null;
   }
 
 
   public static boolean isEmptyConstructor(AstNode functionDef, String className) {
-    Preconditions.checkArgument(functionDef.is(FlexGrammar.FUNCTION_DEF));
+    Preconditions.checkState(functionDef.is(FlexGrammar.FUNCTION_DEF));
     AstNode functionBlock = functionDef.getFirstChild(FlexGrammar.FUNCTION_COMMON).getFirstChild(FlexGrammar.BLOCK);
 
     return isConstructor(functionDef, className)
@@ -51,14 +50,14 @@ public class Function {
   }
 
   public static boolean isConstructor(AstNode functionDef, String className) {
-    Preconditions.checkArgument(functionDef.is(FlexGrammar.FUNCTION_DEF));
+    Preconditions.checkState(functionDef.is(FlexGrammar.FUNCTION_DEF));
     return functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getNumberOfChildren() == 1
       && functionDef.getFirstChild(FlexGrammar.FUNCTION_NAME).getFirstChild().getTokenValue().equals(className);
   }
 
 
   public static List<AstNode> getParametersIdentifiers(AstNode functionDef) {
-    Preconditions.checkArgument(functionDef.is(FlexGrammar.FUNCTION_DEF, FlexGrammar.FUNCTION_EXPR));
+    Preconditions.checkState(functionDef.is(FlexGrammar.FUNCTION_DEF, FlexGrammar.FUNCTION_EXPR));
     List<AstNode> paramIdentifier = new ArrayList<>();
     AstNode parameters = functionDef
       .getFirstChild(FlexGrammar.FUNCTION_COMMON)
@@ -76,7 +75,7 @@ public class Function {
   }
 
   public static boolean isOverriding(AstNode functionDef) {
-    Preconditions.checkArgument(functionDef.is(FlexGrammar.FUNCTION_DEF));
+    Preconditions.checkState(functionDef.is(FlexGrammar.FUNCTION_DEF));
     AstNode attributesNode = functionDef.getPreviousAstNode();
 
     if (attributesNode != null && attributesNode.is(FlexGrammar.ATTRIBUTES)) {

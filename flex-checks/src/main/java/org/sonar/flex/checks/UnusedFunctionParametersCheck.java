@@ -19,7 +19,6 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.base.Preconditions;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
@@ -39,6 +38,7 @@ import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.utils.Function;
+import org.sonar.flex.checks.utils.Preconditions;
 
 @Rule(key = "S1172")
 public class UnusedFunctionParametersCheck extends FlexCheck {

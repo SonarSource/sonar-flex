@@ -19,7 +19,6 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.base.Strings;
 import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.Trivia;
@@ -59,7 +58,7 @@ public class CommentRegularExpressionCheck extends FlexCheck {
   public Pattern pattern() {
     if (pattern == null) {
       Objects.requireNonNull(regularExpression, "getRegularExpression() should not return null");
-      if (!Strings.isNullOrEmpty(regularExpression)) {
+      if (!regularExpression.isEmpty()) {
         try {
           pattern = Pattern.compile(regularExpression, Pattern.DOTALL);
         } catch (RuntimeException e) {

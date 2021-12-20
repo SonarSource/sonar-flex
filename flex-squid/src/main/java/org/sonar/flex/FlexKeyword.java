@@ -19,9 +19,11 @@
  */
 package org.sonar.flex;
 
-import com.google.common.collect.ImmutableList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 import org.sonar.sslr.grammar.GrammarRuleKey;
 
 public enum FlexKeyword implements GrammarRuleKey {
@@ -108,13 +110,9 @@ public enum FlexKeyword implements GrammarRuleKey {
   }
 
   public static List<FlexKeyword> keywords() {
-    ImmutableList.Builder<FlexKeyword> keywords = ImmutableList.builder();
-    for (FlexKeyword keyword : values()) {
-      if (!keyword.syntactic) {
-        keywords.add(keyword);
-      }
-    }
-    return keywords.build();
+    return Collections.unmodifiableList(Arrays.stream(values())
+      .filter(flexKeyword -> !flexKeyword.syntactic)
+      .collect(Collectors.toList()));
   }
 
   public String getValue() {

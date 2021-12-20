@@ -19,8 +19,9 @@
  */
 package org.sonar.flex.toolkit;
 
-import com.google.common.collect.ImmutableList;
 import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.sonar.colorizer.CDocTokenizer;
 import org.sonar.colorizer.CppDocTokenizer;
@@ -44,12 +45,12 @@ public final class FlexToolkit {
 
   // Visible for testing
   static List<Tokenizer> getTokenizers() {
-    return ImmutableList.of(
-        new StringTokenizer("<span class=\"s\">", "</span>"),
-        new CDocTokenizer("<span class=\"cd\">", "</span>"),
-        new JavadocTokenizer("<span class=\"cppd\">", "</span>"),
-        new CppDocTokenizer("<span class=\"cppd\">", "</span>"),
-        new KeywordsTokenizer("<span class=\"k\">", "</span>", FlexKeyword.keywordValues()));
+    return Collections.unmodifiableList(Arrays.asList(
+      new StringTokenizer("<span class=\"s\">", "</span>"),
+      new CDocTokenizer("<span class=\"cd\">", "</span>"),
+      new JavadocTokenizer("<span class=\"cppd\">", "</span>"),
+      new CppDocTokenizer("<span class=\"cppd\">", "</span>"),
+      new KeywordsTokenizer("<span class=\"k\">", "</span>", FlexKeyword.keywordValues())));
   }
 
 }

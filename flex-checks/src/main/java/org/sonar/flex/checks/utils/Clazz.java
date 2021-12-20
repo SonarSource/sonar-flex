@@ -20,12 +20,11 @@
 package org.sonar.flex.checks.utils;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Nullable;
 import org.sonar.flex.FlexGrammar;
-
-import java.util.List;
 
 public final class Clazz {
 
@@ -42,7 +41,7 @@ public final class Clazz {
 
   public static List<AstNode> getFields(AstNode classDefNode) {
     Preconditions.checkArgument(classDefNode.is(FlexGrammar.CLASS_DEF));
-    List<AstNode> fields = Lists.newArrayList();
+    List<AstNode> fields = new ArrayList<>();
 
     for (AstNode directive : classDefNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES).getChildren()) {
       AstNode fieldDef = getFieldDefinition(directive);
@@ -90,7 +89,7 @@ public final class Clazz {
 
   public static List<AstNode> getFunctions(AstNode classDefNode) {
     Preconditions.checkArgument(classDefNode.is(FlexGrammar.CLASS_DEF));
-    List<AstNode> functions = Lists.newArrayList();
+    List<AstNode> functions = new ArrayList<>();
 
     for (AstNode directive : classDefNode.getFirstChild(FlexGrammar.BLOCK).getFirstChild(FlexGrammar.DIRECTIVES).getChildren()) {
       AstNode functionDef = getFunctionDefinition(directive.getFirstChild(FlexGrammar.ANNOTABLE_DIRECTIVE));

@@ -20,12 +20,11 @@
 package org.sonar.flex.checks.utils;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
+import java.util.ArrayList;
+import java.util.List;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
-
-import java.util.List;
 
 public class Function {
 
@@ -60,7 +59,7 @@ public class Function {
 
   public static List<AstNode> getParametersIdentifiers(AstNode functionDef) {
     Preconditions.checkArgument(functionDef.is(FlexGrammar.FUNCTION_DEF, FlexGrammar.FUNCTION_EXPR));
-    List<AstNode> paramIdentifier = Lists.newArrayList();
+    List<AstNode> paramIdentifier = new ArrayList<>();
     AstNode parameters = functionDef
       .getFirstChild(FlexGrammar.FUNCTION_COMMON)
       .getFirstChild(FlexGrammar.FUNCTION_SIGNATURE)

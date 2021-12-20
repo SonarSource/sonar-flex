@@ -20,11 +20,11 @@
 package org.sonar.flex.checks;
 
 import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.api.Token;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -98,7 +98,7 @@ public class FunctionOnlyCallsSuperCheck extends FlexCheck {
   }
 
   private static List<String> getParametersName(AstNode functionDef) {
-    List<String> parametersNames = Lists.newArrayList();
+    List<String> parametersNames = new ArrayList<>();
     for (AstNode identifier : Function.getParametersIdentifiers(functionDef)) {
       parametersNames.add(identifier.getTokenValue());
     }

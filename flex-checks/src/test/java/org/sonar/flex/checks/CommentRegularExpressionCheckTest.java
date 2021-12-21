@@ -22,6 +22,9 @@ package org.sonar.flex.checks;
 import java.io.File;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+
 public class CommentRegularExpressionCheckTest {
 
   @Test
@@ -32,6 +35,23 @@ public class CommentRegularExpressionCheckTest {
     check.message = "Avoid TODO";
 
     FlexVerifier.verify(new File("src/test/resources/checks/CommentRegularExpression.as"), check);
+  }
+
+  @Test
+  public void test_default_regex() {
+    FlexVerifier.verifyNoIssue(new File("src/test/resources/checks/CommentRegularExpressionDefault.as"), new CommentRegularExpressionCheck());
+  }
+
+  @Test
+  public void test_bad_regex() {
+    CommentRegularExpressionCheck check = new CommentRegularExpressionCheck();
+
+    check.regularExpression = "[a-z";
+    check.message = "Avoid TODO";
+
+    final File file = new File("src/test/resources/checks/CommentRegularExpression.as");
+    RuntimeException e = assertThrows(RuntimeException.class, () -> FlexVerifier.verify(file, check));
+    assertEquals("Unable to compile regular expression: [a-z", e.getMessage());
   }
 
 }

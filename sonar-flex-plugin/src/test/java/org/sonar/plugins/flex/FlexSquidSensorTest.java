@@ -28,6 +28,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.sonar.api.SonarEdition;
+import org.sonar.api.SonarQubeSide;
+import org.sonar.api.SonarRuntime;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
@@ -36,24 +39,29 @@ import org.sonar.api.batch.rule.ActiveRules;
 import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.rule.internal.ActiveRulesBuilder;
 import org.sonar.api.batch.rule.internal.NewActiveRule;
+import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
 import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
+import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.rule.RuleKey;
+import org.sonar.api.utils.Version;
 import org.sonar.api.utils.log.LogTester;
 import org.sonar.api.utils.log.LoggerLevel;
 import org.sonar.plugins.flex.core.Flex;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class FlexSquidSensorTest {
 
   private static final File TEST_DIR = new File("src/test/resources/org/sonar/plugins/flex/squid");
+  private static final SonarRuntime SONARQUBE_89 = SonarRuntimeImpl.forSonarQube(Version.create(8, 9), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER);
 
   private FlexSquidSensor sensor;
   private SensorContextTester tester;
@@ -62,7 +70,13 @@ public class FlexSquidSensorTest {
   public LogTester logTester = new LogTester();
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
+    createSensor(SONARQUBE_89);
+    tester = SensorContextTester.create(TEST_DIR);
+    logTester.clear();
+  }
+
+  private FlexSquidSensor createSensor(SonarRuntime sonarRuntime) {
     ActiveRulesBuilder activeRulesBuilder = new ActiveRulesBuilder();
     activeRulesBuilder.addRule(new NewActiveRule.Builder().setRuleKey(RuleKey.of("flex", "S1125")).setSeverity("BLOCKER").build());
     ActiveRules activeRules = activeRulesBuilder.build();
@@ -70,9 +84,8 @@ public class FlexSquidSensorTest {
     FileLinesContextFactory fileLinesContextFactory = mock(FileLinesContextFactory.class);
     FileLinesContext fileLinesContext = mock(FileLinesContext.class);
     when(fileLinesContextFactory.createFor(Mockito.any(InputFile.class))).thenReturn(fileLinesContext);
-    sensor = new FlexSquidSensor(checkFactory, fileLinesContextFactory);
-    tester = SensorContextTester.create(TEST_DIR);
-    logTester.clear();
+    sensor = new FlexSquidSensor(sonarRuntime, checkFactory, fileLinesContextFactory);
+    return sensor;
   }
 
   @Test
@@ -166,4 +179,37 @@ public class FlexSquidSensorTest {
     assertThat(descriptor.name()).isEqualTo("Flex");
     assertThat(descriptor.languages()).containsOnly("flex");
   }
+
+  @Test
+  public void test_descriptor_sonarlint() {
+    DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor();
+    createSensor(SonarRuntimeImpl.forSonarLint(Version.create(6, 5))).describe(descriptor);
+    assertThat(descriptor.name()).isEqualTo("Flex");
+    assertThat(descriptor.languages()).containsOnly("flex");
+  }
+
+  @Test
+  public void test_descriptor_sonarqube_9_3() {
+    final boolean[] called = {false};
+    DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor() {
+      public SensorDescriptor processesFilesIndependently() {
+        called[0] = true;
+        return this;
+      }
+    };
+    createSensor(SonarRuntimeImpl.forSonarQube(Version.create(9, 3), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER)).describe(descriptor);
+    assertThat(descriptor.name()).isEqualTo("Flex");
+    assertThat(descriptor.languages()).containsOnly("flex");
+    assertTrue(called[0]);
+  }
+
+  @Test
+  public void test_descriptor_sonarqube_9_3_reflection_failure() {
+    DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor();
+    createSensor(SonarRuntimeImpl.forSonarQube(Version.create(9, 3), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER)).describe(descriptor);
+    assertThat(descriptor.name()).isEqualTo("Flex");
+    assertThat(descriptor.languages()).containsOnly("flex");
+    assertTrue(logTester.logs().contains("Could not call SensorDescriptor.processesFilesIndependently() method"));
+  }
+
 }

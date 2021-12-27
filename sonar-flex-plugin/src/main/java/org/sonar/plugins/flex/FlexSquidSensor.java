@@ -23,11 +23,14 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.RecognitionException;
 import com.sonar.sslr.impl.Parser;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import org.sonar.api.SonarProduct;
+import org.sonar.api.SonarRuntime;
 import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
@@ -44,6 +47,7 @@ import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.rule.RuleKey;
+import org.sonar.api.utils.Version;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.sonar.flex.FlexCheck;
@@ -62,10 +66,12 @@ public class FlexSquidSensor implements Sensor {
 
   private static final Logger LOG = Loggers.get(FlexSquidSensor.class);
 
+  private final SonarRuntime sonarRuntime;
   private final Checks<FlexCheck> checks;
   private final FileLinesContextFactory fileLinesContextFactory;
 
-  public FlexSquidSensor(CheckFactory checkFactory, FileLinesContextFactory fileLinesContextFactory) {
+  public FlexSquidSensor(SonarRuntime sonarRuntime, CheckFactory checkFactory, FileLinesContextFactory fileLinesContextFactory) {
+    this.sonarRuntime = sonarRuntime;
     this.checks = checkFactory
       .<FlexCheck>create(CheckList.REPOSITORY_KEY)
       .addAnnotatedChecks((Iterable) CheckList.getChecks());
@@ -78,6 +84,20 @@ public class FlexSquidSensor implements Sensor {
       .name("Flex")
       .onlyOnFileType(InputFile.Type.MAIN)
       .onlyOnLanguage(Flex.KEY);
+    processesFilesIndependently(descriptor);
+  }
+
+  private void processesFilesIndependently(SensorDescriptor descriptor) {
+    if ((sonarRuntime.getProduct() == SonarProduct.SONARLINT)
+      || !sonarRuntime.getApiVersion().isGreaterThanOrEqual(Version.create(9, 3))) {
+      return;
+    }
+    try {
+      Method method = descriptor.getClass().getMethod("processesFilesIndependently");
+      method.invoke(descriptor);
+    } catch (ReflectiveOperationException e) {
+      LOG.warn("Could not call SensorDescriptor.processesFilesIndependently() method", e);
+    }
   }
 
   @Override

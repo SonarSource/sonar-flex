@@ -19,7 +19,6 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.Iterables;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.util.Collections;
@@ -63,8 +62,9 @@ public class NonEmptyCaseWithoutBreakCheck extends FlexCheck {
     }
     if (directive.getFirstChild().is(FlexGrammar.STATEMENT)
       && directive.getFirstChild().getFirstChild().isNot(JUMP_NODES)) {
+      List<AstNode> children = astNode.getChildren(FlexGrammar.CASE_LABEL);
       addIssue("Last statement in this switch-clause should be an unconditional break.",
-        Iterables.getLast(astNode.getChildren(FlexGrammar.CASE_LABEL)));
+        children.get(children.size() - 1));
     }
   }
 

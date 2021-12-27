@@ -17,29 +17,17 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.flex;
+package org.sonar.flex.checks.utils;
 
-import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.impl.Parser;
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import org.sonar.flex.parser.FlexParser;
-import org.sonar.sslr.parser.LexerlessGrammar;
+public class Preconditions {
 
-public class TestVisitorContext {
+  private Preconditions() {
+  }
 
-  public static FlexVisitorContext create(File file) {
-    String fileContent;
-    try {
-      fileContent = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
-    } catch (IOException e) {
-      throw new IllegalStateException("Cannot read " + file, e);
+  public static void checkState(boolean expression) {
+    if (!expression) {
+      throw new IllegalStateException();
     }
-    Parser<LexerlessGrammar> parser = FlexParser.create(StandardCharsets.UTF_8);
-    AstNode root = parser.parse(fileContent);
-    return new FlexVisitorContext(fileContent, root);
   }
 
 }

@@ -19,12 +19,12 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.Maps;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
@@ -53,7 +53,7 @@ public class UnusedPrivateFunctionCheck extends FlexCheck {
     private final Map<String, PrivateFunction> functions;
 
     public ClassState(AstNode classDef) {
-      this.functions = Maps.newHashMap();
+      this.functions = new HashMap<>();
       retrieveAllPrivateFunctions(classDef);
     }
 

@@ -19,7 +19,6 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.base.Strings;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import com.sonar.sslr.xpath.api.AstNodeXPathQuery;
@@ -59,7 +58,7 @@ public class XPathCheck extends FlexCheck {
 
   @CheckForNull
   public AstNodeXPathQuery<Object> query() {
-    if (query == null && !Strings.isNullOrEmpty(xpathQuery)) {
+    if (query == null && !(xpathQuery == null || xpathQuery.isEmpty())) {
       try {
         query = AstNodeXPathQuery.create(xpathQuery);
       } catch (RuntimeException e) {

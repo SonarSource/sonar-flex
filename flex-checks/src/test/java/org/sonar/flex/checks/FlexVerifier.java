@@ -19,11 +19,12 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.io.Files;
 import com.sonar.sslr.api.RecognitionException;
 import com.sonar.sslr.impl.Parser;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.List;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexVisitorContext;
@@ -33,7 +34,6 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonarsource.analyzer.commons.checks.verifier.CommentParser;
 import org.sonarsource.analyzer.commons.checks.verifier.SingleFileVerifier;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FlexVerifier {
@@ -58,7 +58,7 @@ public class FlexVerifier {
   }
 
   private static SingleFileVerifier createVerifier(File file, FlexCheck check, boolean addCommentsAsExpectedIssues) {
-    SingleFileVerifier verifier = SingleFileVerifier.create(file.toPath(), UTF_8);
+    SingleFileVerifier verifier = SingleFileVerifier.create(file.toPath(), StandardCharsets.UTF_8);
 
     FlexVisitorContext context = createContext(file);
 
@@ -83,10 +83,10 @@ public class FlexVerifier {
   }
 
   private static FlexVisitorContext createContext(File file) {
-    Parser<LexerlessGrammar> parser = FlexParser.create(UTF_8);
+    Parser<LexerlessGrammar> parser = FlexParser.create(StandardCharsets.UTF_8);
     String fileContent;
     try {
-      fileContent = Files.toString(file, UTF_8);
+      fileContent = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
     } catch (IOException e) {
       throw new IllegalStateException("Cannot read " + file, e);
     }

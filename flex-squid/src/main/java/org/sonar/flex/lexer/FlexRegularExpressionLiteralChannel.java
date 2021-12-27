@@ -19,16 +19,16 @@
  */
 package org.sonar.flex.lexer;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.ImmutableSet;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.impl.Lexer;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import org.sonar.flex.api.FlexTokenType;
 import org.sonar.sslr.channel.Channel;
 import org.sonar.sslr.channel.CodeReader;
-
-import java.util.List;
-import java.util.Set;
 
 import static com.sonar.sslr.impl.channel.RegexpChannelBuilder.regexp;
 
@@ -40,7 +40,7 @@ public class FlexRegularExpressionLiteralChannel extends Channel<Lexer> {
 
   private final Channel<Lexer> delegate;
 
-  private static final Set<String> WHOLE_TOKENS = ImmutableSet.of(
+  private static final Set<String> WHOLE_TOKENS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
     "break",
     "case",
     "continue",
@@ -67,7 +67,7 @@ public class FlexRegularExpressionLiteralChannel extends Channel<Lexer> {
     // Second binary operand cannot start a division.
     ",",
     // Ditto binary operand.
-    "*");
+    "*")));
 
   private static final String[] ENDS = new String[] {
     // ! prefix operator operand cannot start with a division
@@ -144,7 +144,7 @@ public class FlexRegularExpressionLiteralChannel extends Channel<Lexer> {
    *
    * @param preceder non-whitespace, non comment token preceding the slash
    */
-  @VisibleForTesting
+  // Visible for testing
   static boolean guessNextIsRegexp(String preceder) {
     if (WHOLE_TOKENS.contains(preceder)) {
       return true;

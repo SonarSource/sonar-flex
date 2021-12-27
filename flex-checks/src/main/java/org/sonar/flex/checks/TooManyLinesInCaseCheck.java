@@ -19,7 +19,6 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.Iterables;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.text.MessageFormat;
@@ -54,8 +53,9 @@ public class TooManyLinesInCaseCheck extends FlexCheck {
     linesVisitor.scanNode(astNode);
 
     // Lines which contain case labels are not taken into account in LoC
-    AstNode firstLabelNode = Iterables.getFirst(astNode.getChildren(FlexGrammar.CASE_LABEL), null);
-    AstNode lastLabelNode = Iterables.getLast(astNode.getChildren(FlexGrammar.CASE_LABEL));
+    List<AstNode> children = astNode.getChildren(FlexGrammar.CASE_LABEL);
+    AstNode firstLabelNode = children.get(0);
+    AstNode lastLabelNode = children.get(children.size() - 1);
     int caseLabelLines = lastLabelNode.getTokenLine() - firstLabelNode.getTokenLine();
 
     int lines = linesVisitor.linesOfCode().size() - caseLabelLines;

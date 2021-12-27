@@ -19,14 +19,13 @@
  */
 package org.sonar.flex.checks.utils;
 
-import com.google.common.collect.Sets;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
+import java.util.HashSet;
+import java.util.Set;
 import javax.annotation.Nullable;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
-
-import java.util.Set;
 
 public final class Modifiers {
 
@@ -34,7 +33,7 @@ public final class Modifiers {
   }
 
   public static Set<AstNodeType> getModifiers(@Nullable AstNode attributes) {
-    Set<AstNodeType> modifiersSet = Sets.newHashSet();
+    Set<AstNodeType> modifiersSet = new HashSet<>();
 
     if (attributes != null && attributes.is(FlexGrammar.ATTRIBUTES)) {
       for (AstNode attribute : attributes.getChildren(FlexGrammar.ATTRIBUTE)) {

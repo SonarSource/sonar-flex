@@ -64,7 +64,6 @@
                 <include>org.sonarsource.sslr:sslr-xpath</include>
                 <include>jaxen:jaxen</include>
                 <include>org.sonarsource.sslr:sslr-toolkit</include>
-                <include>org.sonarsource.sslr-squid-bridge:sslr-squid-bridge</include>
                 <include>org.codehaus.sonar:sonar-colorizer</include>
                 <include>org.codehaus.sonar:sonar-squid</include>
                 <include>org.codehaus.sonar:sonar-channel</include>
@@ -94,8 +93,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <maxsize>3500000</maxsize>
-                  <minsize>2600000</minsize>
+                  <maxsize>2400000</maxsize>
+                  <minsize>2300000</minsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>

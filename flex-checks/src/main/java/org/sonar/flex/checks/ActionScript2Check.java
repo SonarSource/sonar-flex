@@ -19,10 +19,11 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.ImmutableSet;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.sonar.check.Rule;
@@ -32,7 +33,7 @@ import org.sonar.flex.FlexGrammar;
 @Rule(key = "ActionScript2")
 public class ActionScript2Check extends FlexCheck {
 
-  private final Set<String> deprecatedOperators = ImmutableSet.of("or", "and", "ne", "eq", "ge", "gt", "le", "lt", "add", "<>");
+  private final Set<String> deprecatedOperators = Collections.unmodifiableSet(new HashSet<>(Arrays.asList("or", "and", "ne", "eq", "ge", "gt", "le", "lt", "add", "<>")));
 
   @Override
   public List<AstNodeType> subscribedTo() {

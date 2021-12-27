@@ -55,8 +55,8 @@ import org.sonar.flex.metrics.ComplexityVisitor;
 import org.sonar.flex.metrics.FileMetrics;
 import org.sonar.flex.parser.FlexParser;
 import org.sonar.plugins.flex.core.Flex;
-import org.sonar.squidbridge.ProgressReport;
 import org.sonar.sslr.parser.LexerlessGrammar;
+import org.sonarsource.analyzer.commons.ProgressReport;
 
 public class FlexSquidSensor implements Sensor {
 

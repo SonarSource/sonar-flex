@@ -22,6 +22,9 @@ package org.sonar.flex.checks;
 import java.io.File;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+
 public class XPathCheckTest {
 
   @Test
@@ -48,5 +51,14 @@ public class XPathCheckTest {
     check.xpathQuery = "//IDENTIFIER[string-length(@tokenValue) >= 10]";
     check.message = "message!";
     FlexVerifier.verifyNoIssueIgnoringExpected(new File("src/test/resources/checks/ParsingError.as"), check);
+  }
+
+  @Test
+  public void test_bad_regex() {
+    XPathCheck check = new XPathCheck();
+    check.xpathQuery = "[a-";
+    final File file = new File("src/test/resources/checks/ParsingError.as");
+    RuntimeException e = assertThrows(RuntimeException.class, () -> FlexVerifier.verifyNoIssueIgnoringExpected(file, check));
+    assertEquals("Unable to initialize the XPath engine, perhaps because of an invalid query: [a-", e.getMessage());
   }
 }

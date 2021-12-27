@@ -19,11 +19,11 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.Maps;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.text.MessageFormat;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.sonar.check.Rule;
@@ -35,7 +35,7 @@ import org.sonar.flex.checks.utils.Expression;
 @Rule(key = "S1950")
 public class DuplicateSwitchCaseConditionCheck extends FlexCheck {
 
-  private Map<String, AstNode> casesByCondition = Maps.newHashMap();
+  private Map<String, AstNode> casesByCondition = new HashMap<>();
 
   @Override
   public List<AstNodeType> subscribedTo() {

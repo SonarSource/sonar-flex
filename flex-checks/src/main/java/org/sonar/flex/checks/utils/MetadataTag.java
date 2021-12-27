@@ -19,14 +19,12 @@
  */
 package org.sonar.flex.checks.utils;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 import com.sonar.sslr.api.AstNode;
-import org.sonar.flex.FlexGrammar;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.sonar.flex.FlexGrammar;
 
 public final class MetadataTag {
 
@@ -34,7 +32,7 @@ public final class MetadataTag {
   }
 
   public static boolean isTag(AstNode metadata, String tagName) {
-    Preconditions.checkArgument(metadata.is(FlexGrammar.METADATA_STATEMENT));
+    Preconditions.checkState(metadata.is(FlexGrammar.METADATA_STATEMENT));
     if (isNotEmpty(metadata)) {
       AstNode postfixExpr = metadata
         .getFirstChild(FlexGrammar.ASSIGNMENT_EXPR)
@@ -49,8 +47,8 @@ public final class MetadataTag {
   // or
   // [Metadata(tag="property, in, one, string")] --> [property, in, one, string]
   public static List<String> getSinglePropertyAsList(AstNode metadata) {
-    Preconditions.checkArgument(metadata.is(FlexGrammar.METADATA_STATEMENT));
-    List<String> propertyList = Lists.newArrayList();
+    Preconditions.checkState(metadata.is(FlexGrammar.METADATA_STATEMENT));
+    List<String> propertyList = new ArrayList<>();
 
     if (isNotEmpty(metadata) && hasProperty(metadata)) {
       AstNode properties = metadata
@@ -75,7 +73,7 @@ public final class MetadataTag {
   }
 
   public static Map<String, String> getTagPropertiesMap(AstNode metadata) {
-    Preconditions.checkArgument(metadata.is(FlexGrammar.METADATA_STATEMENT));
+    Preconditions.checkState(metadata.is(FlexGrammar.METADATA_STATEMENT));
     if (isNotEmpty(metadata) && hasProperty(metadata)) {
 
       Map<String, String> properties = new HashMap<>();
@@ -102,7 +100,7 @@ public final class MetadataTag {
   }
 
   public static boolean hasProperty(AstNode metadata) {
-    Preconditions.checkArgument(metadata.is(FlexGrammar.METADATA_STATEMENT));
+    Preconditions.checkState(metadata.is(FlexGrammar.METADATA_STATEMENT));
     AstNode arguments = metadata
       .getFirstChild(FlexGrammar.ASSIGNMENT_EXPR)
       .getFirstChild(FlexGrammar.POSTFIX_EXPR)

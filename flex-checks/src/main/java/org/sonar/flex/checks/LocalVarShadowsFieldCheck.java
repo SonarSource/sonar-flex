@@ -19,13 +19,13 @@
  */
 package org.sonar.flex.checks;
 
-import com.google.common.collect.Maps;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.text.MessageFormat;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
@@ -48,7 +48,7 @@ public class LocalVarShadowsFieldCheck extends FlexCheck {
 
     public ClassState(AstNode classDef) {
       className = Clazz.getName(classDef);
-      this.classFields = Maps.newHashMap();
+      this.classFields = new HashMap<>();
       initFieldsMap(classDef);
     }
 

@@ -37,7 +37,7 @@ public class FlexRulingTest {
   public static Orchestrator ORCHESTRATOR = Orchestrator.builderEnv()
     .setSonarVersion(Configuration.createEnv().getString("sonar.runtimeVersion"))
     .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-flex-plugin/target"), "sonar-flex-plugin-*.jar"))
-    .addPlugin(MavenLocation.of("org.sonarsource.sonar-lits-plugin","sonar-lits-plugin", "0.8.0.1209"))
+    .addPlugin(MavenLocation.of("org.sonarsource.sonar-lits-plugin","sonar-lits-plugin", "0.10.0.2181"))
     .restoreProfileAtStartup(FileLocation.of("src/test/resources/profile.xml"))
     .build();
 
@@ -54,9 +54,9 @@ public class FlexRulingTest {
       .setSourceDirs(".")
       .setLanguage("flex")
       .setSourceEncoding("UTF-8")
-      .setProperty("dump.old", FileLocation.of("src/test/resources/expected").getFile().getAbsolutePath())
-      .setProperty("dump.new", FileLocation.of("target/actual").getFile().getAbsolutePath())
-      .setProperty("lits.differences", litsDifferencesFile.getAbsolutePath())
+      .setProperty("sonar.lits.dump.old", FileLocation.of("src/test/resources/expected").getFile().getAbsolutePath())
+      .setProperty("sonar.lits.dump.new", FileLocation.of("target/actual").getFile().getAbsolutePath())
+      .setProperty("sonar.lits.differences", litsDifferencesFile.getAbsolutePath())
       .setProperty("sonar.cpd.exclusions", "**/*")
       .setDebugLogs(true)
       .setEnvironmentVariable("SONAR_RUNNER_OPTS", "-Xmx1000m");

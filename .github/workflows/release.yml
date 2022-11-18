@@ -21,6 +21,7 @@ jobs:
         uses: SonarSource/gh-action_release/main@v4
         with:
           publish_to_binaries: true
+          slack_channel: team-lang-js-ts-css
         env:
           ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY }}
           BINARIES_AWS_DEPLOY: ${{ secrets.BINARIES_AWS_DEPLOY }}

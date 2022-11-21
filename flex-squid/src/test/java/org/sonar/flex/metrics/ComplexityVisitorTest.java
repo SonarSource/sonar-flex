@@ -34,7 +34,7 @@ public class ComplexityVisitorTest {
 
   @Test
   public void simple_statement() {
-    assertThat(complexity("a = 1;")).isEqualTo(0);
+    assertThat(complexity("a = 1;")).isZero();
   }
 
   @Test

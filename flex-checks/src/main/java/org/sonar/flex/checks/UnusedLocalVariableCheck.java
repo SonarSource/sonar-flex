@@ -57,9 +57,7 @@ public class UnusedLocalVariableCheck extends FlexCheck {
 
     private void declare(AstNode astNode) {
       String identifier = astNode.getTokenValue();
-      if (!variables.containsKey(identifier)) {
-        variables.put(identifier, new LocalVariable(astNode, 0));
-      }
+      variables.computeIfAbsent(identifier, key -> new LocalVariable(astNode, 0));
     }
 
     private void use(AstNode astNode) {
@@ -67,9 +65,9 @@ public class UnusedLocalVariableCheck extends FlexCheck {
       Scope scope = this;
 
       while (scope != null) {
-        LocalVariable var = scope.variables.get(identifier);
-        if (var != null) {
-          var.usages++;
+        LocalVariable variable = scope.variables.get(identifier);
+        if (variable != null) {
+          variable.usages++;
           return;
         }
         scope = scope.outerScope;

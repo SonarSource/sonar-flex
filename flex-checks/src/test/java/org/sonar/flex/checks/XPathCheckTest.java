@@ -61,4 +61,12 @@ public class XPathCheckTest {
     RuntimeException e = assertThrows(RuntimeException.class, () -> FlexVerifier.verifyNoIssueIgnoringExpected(file, check));
     assertEquals("Unable to initialize the XPath engine, perhaps because of an invalid query: [a-", e.getMessage());
   }
+
+  @Test
+  public void test_no_issue() {
+    XPathCheck check = new XPathCheck();
+    check.xpathQuery = "count(//IDENTIFIER)";
+    check.message = "message!";
+    FlexVerifier.verifyNoIssue(new File("src/test/resources/checks/Xpath-noissue.as"), check);
+  }
 }

@@ -74,7 +74,6 @@ public class UnusedPrivateFieldCheck extends FlexCheck {
 
       if (field != null) {
         field.usages++;
-        return;
       }
     }
   }

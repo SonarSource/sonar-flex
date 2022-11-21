@@ -78,7 +78,6 @@ public class UnusedPrivateFunctionCheck extends FlexCheck {
 
       if (function != null) {
         function.usages++;
-        return;
       }
     }
   }
@@ -115,7 +114,7 @@ public class UnusedPrivateFunctionCheck extends FlexCheck {
     if (astNode.is(FlexGrammar.CLASS_DEF)) {
       reportUnusedPrivateFunction();
       classStack.pop();
-      inClass = classStack.isEmpty() ? false : true;
+      inClass = !classStack.isEmpty();
     }
   }
 

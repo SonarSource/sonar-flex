@@ -27,6 +27,7 @@ import java.lang.reflect.Method;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.sonar.api.SonarProduct;
@@ -74,7 +75,7 @@ public class FlexSquidSensor implements Sensor {
     this.sonarRuntime = sonarRuntime;
     this.checks = checkFactory
       .<FlexCheck>create(CheckList.REPOSITORY_KEY)
-      .addAnnotatedChecks((Iterable) CheckList.getChecks());
+      .addAnnotatedChecks(CheckList.getChecks());
     this.fileLinesContextFactory = fileLinesContextFactory;
   }
 
@@ -166,7 +167,7 @@ public class FlexSquidSensor implements Sensor {
       if (cost != null) {
         issue.gap(cost);
       }
-      issue.at(location).forRule(ruleKey).save();
+      issue.at(location).forRule(Objects.requireNonNull(ruleKey)).save();
     }
   }
 
@@ -184,7 +185,7 @@ public class FlexSquidSensor implements Sensor {
     fileLinesContext.save();
 
     AstNode root = visitorContext.rootTree();
-    int fileComplexity = ComplexityVisitor.complexity(root);
+    int fileComplexity = ComplexityVisitor.complexity(Objects.requireNonNull(root));
     saveMeasure(context, inputFile, CoreMetrics.COMPLEXITY, fileComplexity);
   }
 

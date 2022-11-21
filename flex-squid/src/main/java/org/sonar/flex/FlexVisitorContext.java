@@ -22,6 +22,7 @@ package org.sonar.flex;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.RecognitionException;
 import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 
 public class FlexVisitorContext {
 
@@ -37,7 +38,7 @@ public class FlexVisitorContext {
     this(fileContent, null, parsingException);
   }
 
-  private FlexVisitorContext(String fileContent, AstNode rootTree, RecognitionException parsingException) {
+  private FlexVisitorContext(String fileContent, @Nullable AstNode rootTree, @Nullable RecognitionException parsingException) {
     this.fileContent = fileContent;
     this.rootTree = rootTree;
     this.parsingException = parsingException;

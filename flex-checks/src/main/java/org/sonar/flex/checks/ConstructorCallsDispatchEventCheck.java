@@ -94,7 +94,7 @@ public class ConstructorCallsDispatchEventCheck extends FlexCheck {
       classStack.peek().isInConstructor = false;
     } else if (isInClass && astNode.is(FlexGrammar.CLASS_DEF)) {
       classStack.pop();
-      isInClass = classStack.isEmpty() ? false : true;
+      isInClass = !classStack.isEmpty();
     }
   }
 }

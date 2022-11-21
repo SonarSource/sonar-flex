@@ -20,7 +20,6 @@
 package org.sonar.plugins.flex.cobertura;
 
 import java.io.File;
-import java.util.Optional;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.Sensor;

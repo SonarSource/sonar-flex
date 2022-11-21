@@ -20,6 +20,7 @@
 package org.sonar.flex;
 
 import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 
 public class Issue {
 
@@ -27,7 +28,7 @@ public class Issue {
   private final String message;
   private final Double cost;
 
-  private Issue(Integer line, String message, Double cost) {
+  private Issue(@Nullable Integer line, String message, @Nullable Double cost) {
     this.line = line;
     this.message = message;
     this.cost = cost;

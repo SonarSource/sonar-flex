@@ -76,7 +76,7 @@ public class XPathCheck extends FlexCheck {
         if (object instanceof AstNode) {
           AstNode astNode = (AstNode) object;
           addIssueAtLine(message, astNode.getTokenLine());
-        } else if (object instanceof Boolean && (Boolean) object) {
+        } else if (Boolean.TRUE.equals(object)) {
           addFileIssue(message);
         }
       }

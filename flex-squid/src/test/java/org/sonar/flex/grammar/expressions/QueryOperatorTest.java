@@ -17,12 +17,22 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.flex.api;
+package org.sonar.flex.grammar.expressions;
 
-import java.nio.charset.Charset;
+import org.junit.Test;
+import org.sonar.flex.FlexGrammar;
+import org.sonar.sslr.parser.LexerlessGrammar;
+import org.sonar.sslr.tests.Assertions;
 
-@FunctionalInterface
-public interface CharsetAwareVisitor {
+public class QueryOperatorTest {
 
-  void setCharset(Charset charset);
+  private final LexerlessGrammar g = FlexGrammar.createGrammar();
+
+  @Test
+  public void test() {
+    Assertions.assertThat(g.rule(FlexGrammar.QUERY_OPERATOR))
+      .matches("..a")
+      .matches(".(a,b,c)");
+  }
+
 }

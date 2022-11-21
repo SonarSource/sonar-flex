@@ -50,7 +50,7 @@ public class CheckListTest {
         count++;
       }
     }
-    assertThat(CheckList.getChecks().size()).isEqualTo(count);
+    assertThat(CheckList.getChecks()).hasSize(count);
   }
 
   /**

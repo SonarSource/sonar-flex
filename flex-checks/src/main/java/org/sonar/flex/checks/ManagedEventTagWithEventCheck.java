@@ -52,7 +52,7 @@ public class ManagedEventTagWithEventCheck extends FlexCheck {
     searchEventInNextTag(astNode);
 
     for (Map.Entry<String, Boolean> entry: isDeclaredInEventTag.entrySet()) {
-      if (!entry.getValue()) {
+      if (Boolean.FALSE.equals(entry.getValue())) {
         addIssue(MessageFormat.format("The managed event {0} is either misspelled or is missing a companion Event metadata tag", entry.getKey()), astNode);
       }
     }
@@ -92,9 +92,7 @@ public class ManagedEventTagWithEventCheck extends FlexCheck {
       String eventName = MetadataTag.getTagPropertiesMap(metadataStmt).get("name");
 
 
-      if (isDeclaredInEventTag.containsKey(eventName)) {
-        isDeclaredInEventTag.put(eventName, true);
-      }
+      isDeclaredInEventTag.computeIfPresent(eventName, (key, value) -> true);
     }
   }
 }

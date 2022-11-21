@@ -17,22 +17,21 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.flex.grammar.expressions;
+package org.sonar.flex.grammar.statements;
 
 import org.junit.Test;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class NonAttributeQualifierIdentifier {
+public class WithStatementTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
   public void test() {
-    Assertions.assertThat(g.rule(FlexGrammar.NON_ATTRIBUTE_QUALIFIED_IDENTIFIER))
-      .matches("identifier")
-      .matches("(null)::*");
+    Assertions.assertThat(g.rule(FlexGrammar.WITH_STATEMENT))
+      .matches("with (Math) { }");
   }
 
 }

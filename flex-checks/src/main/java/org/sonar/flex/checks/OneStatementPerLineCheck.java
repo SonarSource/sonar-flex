@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nullable;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
@@ -41,7 +42,7 @@ public class OneStatementPerLineCheck extends FlexCheck {
   }
 
   @Override
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     statementsPerLine.clear();
   }
 
@@ -54,7 +55,7 @@ public class OneStatementPerLineCheck extends FlexCheck {
   }
 
   @Override
-  public void leaveFile(AstNode astNode) {
+  public void leaveFile(@Nullable AstNode astNode) {
     for (Map.Entry<Integer, Integer> statementsAtLine : statementsPerLine.entrySet()) {
       if (statementsAtLine.getValue() > 1) {
         addIssueAtLine(

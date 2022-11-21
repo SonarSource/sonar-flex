@@ -24,15 +24,15 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class QueryOperator {
+public class NonAttributeQualifierIdentifierTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
   public void test() {
-    Assertions.assertThat(g.rule(FlexGrammar.QUERY_OPERATOR))
-      .matches("..a")
-      .matches(".(a,b,c)");
+    Assertions.assertThat(g.rule(FlexGrammar.NON_ATTRIBUTE_QUALIFIED_IDENTIFIER))
+      .matches("identifier")
+      .matches("(null)::*");
   }
 
 }

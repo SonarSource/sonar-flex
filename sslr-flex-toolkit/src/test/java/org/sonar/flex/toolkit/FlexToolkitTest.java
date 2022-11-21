@@ -27,7 +27,7 @@ public class FlexToolkitTest {
 
   @Test
   public void test() {
-    assertThat(FlexToolkit.getTokenizers().size()).isEqualTo(5);
+    assertThat(FlexToolkit.getTokenizers()).hasSize(5);
   }
 
 }

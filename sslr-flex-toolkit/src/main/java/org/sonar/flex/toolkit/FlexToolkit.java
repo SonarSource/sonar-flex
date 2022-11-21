@@ -35,6 +35,8 @@ import org.sonar.sslr.toolkit.Toolkit;
 
 public final class FlexToolkit {
 
+  public static final String SPAN_END_TAG = "</span>";
+
   private FlexToolkit() {
   }
 
@@ -46,11 +48,11 @@ public final class FlexToolkit {
   // Visible for testing
   static List<Tokenizer> getTokenizers() {
     return Collections.unmodifiableList(Arrays.asList(
-      new StringTokenizer("<span class=\"s\">", "</span>"),
-      new CDocTokenizer("<span class=\"cd\">", "</span>"),
-      new JavadocTokenizer("<span class=\"cppd\">", "</span>"),
-      new CppDocTokenizer("<span class=\"cppd\">", "</span>"),
-      new KeywordsTokenizer("<span class=\"k\">", "</span>", FlexKeyword.keywordValues())));
+      new StringTokenizer("<span class=\"s\">", SPAN_END_TAG),
+      new CDocTokenizer("<span class=\"cd\">", SPAN_END_TAG),
+      new JavadocTokenizer("<span class=\"cppd\">", SPAN_END_TAG),
+      new CppDocTokenizer("<span class=\"cppd\">", SPAN_END_TAG),
+      new KeywordsTokenizer("<span class=\"k\">", SPAN_END_TAG, FlexKeyword.keywordValues())));
   }
 
 }

@@ -196,7 +196,7 @@ public class ASDocMemberCheck {
     if (returnType == null) {
       return true;
     }
-    return returnType.getLastChild().is(FlexKeyword.VOID) ? true : false;
+    return returnType.getLastChild().is(FlexKeyword.VOID);
   }
 
   private static String getParamName(String paramDoc) {

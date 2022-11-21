@@ -68,7 +68,7 @@ public class CoverageTest {
     orchestrator.executeBuild(build);
 
     assertThat(getProjectMeasureAsInteger("lines_to_cover")).isEqualTo(2);
-    assertThat(getProjectMeasureAsInteger("uncovered_lines")).isEqualTo(0);
+    assertThat(getProjectMeasureAsInteger("uncovered_lines")).isZero();
     assertThat(getProjectMeasureAsInteger("conditions_to_cover")).isNull();
     assertThat(getProjectMeasureAsInteger("uncovered_conditions")).isNull();
   }

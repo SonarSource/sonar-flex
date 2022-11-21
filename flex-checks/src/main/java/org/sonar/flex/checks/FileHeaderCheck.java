@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.flex.FlexCheck;
@@ -73,7 +74,7 @@ public class FileHeaderCheck extends FlexCheck {
   }
 
   @Override
-  public void visitFile(AstNode astNode) {
+  public void visitFile(@Nullable AstNode astNode) {
     String fileContent = getContext().fileContent();
     boolean hasHeader = headerMatcher().test(fileContent);
     if (!hasHeader) {

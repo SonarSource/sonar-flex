@@ -148,16 +148,16 @@ public class FlexSquidSensorTest {
     sensor.execute(tester);
 
     String componentKey = inputFile.key();
-    assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(0);
+    assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isZero();
     assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(59);
-    assertThat(tester.measure(componentKey, CoreMetrics.STATEMENTS).value()).isEqualTo(0);
-    assertThat(tester.measure(componentKey, CoreMetrics.FUNCTIONS).value()).isEqualTo(0);
-    assertThat(tester.measure(componentKey, CoreMetrics.CLASSES).value()).isEqualTo(0);
-    assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY).value()).isEqualTo(0);
+    assertThat(tester.measure(componentKey, CoreMetrics.STATEMENTS).value()).isZero();
+    assertThat(tester.measure(componentKey, CoreMetrics.FUNCTIONS).value()).isZero();
+    assertThat(tester.measure(componentKey, CoreMetrics.CLASSES).value()).isZero();
+    assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY).value()).isZero();
 
-    assertThat(tester.cpdTokens(componentKey)).hasSize(0);
+    assertThat(tester.cpdTokens(componentKey)).isEmpty();
 
-    assertThat(tester.allIssues()).hasSize(0);
+    assertThat(tester.allIssues()).isEmpty();
   }
 
   @Test

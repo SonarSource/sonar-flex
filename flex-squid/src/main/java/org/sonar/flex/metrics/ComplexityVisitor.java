@@ -23,6 +23,7 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.util.Arrays;
 import java.util.List;
+import javax.annotation.Nullable;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.FlexPunctuator;
@@ -57,7 +58,7 @@ public class ComplexityVisitor extends FlexVisitor {
   }
 
   @Override
-  public void visitFile(AstNode node) {
+  public void visitFile(@Nullable AstNode node) {
     complexity = 0;
   }
 

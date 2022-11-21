@@ -6,11 +6,10 @@
     "func": "Constant\/Issue",
     "constantCost": "15min"
   },
-  "tags": [
-    
-  ],
+  "tags": [],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1950",
   "sqKey": "S1950",
-  "scope": "Main"
+  "scope": "Main",
+  "quickfix": "unknown"
 }

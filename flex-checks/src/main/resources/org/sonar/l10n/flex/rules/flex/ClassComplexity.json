@@ -8,11 +8,10 @@
     "linearOffset": "10min",
     "linearFactor": "1min"
   },
-  "tags": [
-    
-  ],
+  "tags": [],
   "defaultSeverity": "Critical",
   "ruleSpecification": "RSPEC-1311",
   "sqKey": "S1311",
-  "scope": "Main"
+  "scope": "Main",
+  "quickfix": "unknown"
 }

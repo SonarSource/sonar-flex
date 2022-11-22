@@ -32,7 +32,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import javax.annotation.Nullable;
-import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexGrammar;
@@ -130,21 +129,19 @@ public class UnusedFunctionParametersCheck extends FlexCheck {
 
   private void reportUnusedArgument() {
     int nbUnusedArgs = 0;
-    StringBuilder builder = new StringBuilder();
+    StringBuilder formatBuilder = new StringBuilder("Remove the unused function {0} \"");
 
     for (Map.Entry<String, Integer> entry : currentScope.arguments.entrySet()) {
       if (entry.getValue() == 0) {
-        builder.append(entry.getKey() + " ");
+        formatBuilder.append(entry.getKey()).append(", ");
         nbUnusedArgs++;
       }
     }
 
     if (nbUnusedArgs > 0) {
-      addIssue(
-        MessageFormat.format(
-          "Remove the unused function {0} \"{1}\".", nbUnusedArgs > 1 ? "parameters" : "parameter",
-          StringUtils.join(builder.toString().trim().split(" "), ", ")),
-        currentScope.functionDec);
+      formatBuilder.replace(formatBuilder.length() - 2, formatBuilder.length(), "\".");
+      String message = MessageFormat.format(formatBuilder.toString(), nbUnusedArgs > 1 ? "parameters" : "parameter");
+      addIssue(message, currentScope.functionDec);
     }
   }
 

@@ -20,6 +20,7 @@
 package org.sonar.plugins.flex.cobertura;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -55,14 +56,7 @@ public class CoberturaSensorTest {
 
   @Test
   public void shouldParseReport() throws Exception {
-    String content = new String(Files.readAllBytes(Paths.get(TEST_DIR, "src/example/File.as")), StandardCharsets.UTF_8);
-    DefaultInputFile inputFile = TestInputFileBuilder.create("key", "src/example/File.as")
-      .setLanguage(Flex.KEY)
-      .setType(InputFile.Type.MAIN)
-      .initMetadata(content)
-      .build();
-
-    tester.fileSystem().add(inputFile);
+    setUpInputFile();
 
     tester.settings().setProperty(FlexPlugin.COBERTURA_REPORT_PATHS, "coverage.xml");
     sensor.execute(tester);
@@ -101,6 +95,27 @@ public class CoberturaSensorTest {
     sensor.describe(descriptor);
     assertThat(descriptor.name()).isEqualTo("Flex Cobertura");
     assertThat(descriptor.languages()).containsOnly("flex");
+  }
+
+  @Test
+  public void reportWithBlankValues() throws IOException {
+    setUpInputFile();
+
+    tester.settings().setProperty(FlexPlugin.COBERTURA_REPORT_PATHS, "coverage-blank.xml");
+    sensor.execute(tester);
+
+    assertThat(logTester.logs()).containsOnly("Analyzing Cobertura report: coverage-blank.xml");
+  }
+
+  private void setUpInputFile() throws IOException {
+    String content = new String(Files.readAllBytes(Paths.get(TEST_DIR, "src/example/File.as")), StandardCharsets.UTF_8);
+    DefaultInputFile inputFile = TestInputFileBuilder.create("key", "src/example/File.as")
+      .setLanguage(Flex.KEY)
+      .setType(InputFile.Type.MAIN)
+      .initMetadata(content)
+      .build();
+
+    tester.fileSystem().add(inputFile);
   }
 
 }

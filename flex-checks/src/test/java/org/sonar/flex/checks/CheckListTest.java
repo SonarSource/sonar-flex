@@ -19,19 +19,19 @@
  */
 package org.sonar.flex.checks;
 
-import org.apache.commons.io.FileUtils;
-import org.junit.Test;
-import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
-
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.junit.Test;
+import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
@@ -42,15 +42,11 @@ public class CheckListTest {
    * Enforces that each check declared in list.
    */
   @Test
-  public void count() {
-    int count = 0;
-    List<File> files = (List<File>) FileUtils.listFiles(new File("src/main/java/org/sonar/flex/checks/"), new String[] {"java"}, false);
-    for (File file : files) {
-      if (file.getName().endsWith("Check.java")) {
-        count++;
-      }
+  public void count() throws IOException {
+    Path path = FileSystems.getDefault().getPath("src/main/java/org/sonar/flex/checks/");
+    try (Stream<Path> stream = Files.list(path).filter(file -> file.getFileName().toString().endsWith("Check.java"))) {
+      assertThat(CheckList.getChecks()).hasSize((int) stream.count());
     }
-    assertThat(CheckList.getChecks()).hasSize(count);
   }
 
   /**

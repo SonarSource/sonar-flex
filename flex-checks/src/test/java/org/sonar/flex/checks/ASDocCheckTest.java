@@ -21,7 +21,7 @@ package org.sonar.flex.checks;
 
 import java.io.File;
 import java.lang.reflect.Field;
-import org.apache.commons.lang.ArrayUtils;
+import java.util.Arrays;
 import org.junit.Test;
 
 public class ASDocCheckTest {
@@ -46,11 +46,7 @@ public class ASDocCheckTest {
       if (!f.getType().equals(boolean.class)) {
         continue;
       }
-      if (ArrayUtils.contains(fieldNames, f.getName())) {
-        f.setBoolean(check, true);
-      } else {
-        f.setBoolean(check, false);
-      }
+      f.setBoolean(check, Arrays.asList(fieldNames).contains(f.getName()));
     }
   }
 

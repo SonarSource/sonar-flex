@@ -39,7 +39,6 @@ import org.sonar.api.batch.rule.ActiveRules;
 import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.rule.internal.ActiveRulesBuilder;
 import org.sonar.api.batch.rule.internal.NewActiveRule;
-import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
 import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
@@ -54,8 +53,9 @@ import org.sonar.api.utils.log.LoggerLevel;
 import org.sonar.plugins.flex.core.Flex;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class FlexSquidSensorTest {
@@ -190,26 +190,12 @@ public class FlexSquidSensorTest {
 
   @Test
   public void test_descriptor_sonarqube_9_3() {
-    final boolean[] called = {false};
-    DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor() {
-      public SensorDescriptor processesFilesIndependently() {
-        called[0] = true;
-        return this;
-      }
-    };
+    DefaultSensorDescriptor descriptor = spy(new DefaultSensorDescriptor());
+    when(descriptor.processesFilesIndependently()).thenReturn(descriptor);
     createSensor(SonarRuntimeImpl.forSonarQube(Version.create(9, 3), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER)).describe(descriptor);
     assertThat(descriptor.name()).isEqualTo("Flex");
     assertThat(descriptor.languages()).containsOnly("flex");
-    assertTrue(called[0]);
-  }
-
-  @Test
-  public void test_descriptor_sonarqube_9_3_reflection_failure() {
-    DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor();
-    createSensor(SonarRuntimeImpl.forSonarQube(Version.create(9, 3), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER)).describe(descriptor);
-    assertThat(descriptor.name()).isEqualTo("Flex");
-    assertThat(descriptor.languages()).containsOnly("flex");
-    assertTrue(logTester.logs().contains("Could not call SensorDescriptor.processesFilesIndependently() method"));
+    verify(descriptor).processesFilesIndependently();
   }
 
 }

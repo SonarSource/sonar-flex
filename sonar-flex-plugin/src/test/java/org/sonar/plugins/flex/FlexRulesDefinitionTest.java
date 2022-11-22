@@ -20,22 +20,27 @@
 package org.sonar.plugins.flex;
 
 import org.junit.Test;
+import org.sonar.api.SonarRuntime;
+import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinition.Rule;
+import org.sonar.api.utils.Version;
 import org.sonar.flex.checks.CheckList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FlexRulesDefinitionTest {
 
+  private static final SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarLint(Version.create(9, 3));
+
   @Test
   public void test() {
-    FlexRulesDefinition rulesDefinition = new FlexRulesDefinition();
+    FlexRulesDefinition rulesDefinition = new FlexRulesDefinition(sonarRuntime);
     RulesDefinition.Context context = new RulesDefinition.Context();
     rulesDefinition.define(context);
     RulesDefinition.Repository repository = context.repository("flex");
 
-    assertThat(repository.name()).isEqualTo("SonarAnalyzer");
+    assertThat(repository.name()).isEqualTo("SonarQube");
     assertThat(repository.language()).isEqualTo("flex");
     assertThat(repository.rules()).hasSize(CheckList.getChecks().size());
 

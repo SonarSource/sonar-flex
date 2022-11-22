@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.sonarsource.parent</groupId>
     <artifactId>parent</artifactId>
-    <version>59.0.29</version>
+    <version>64.0.211</version>
   </parent>
 
   <groupId>org.sonarsource.flex</groupId>
@@ -73,9 +73,10 @@
     <license.title>SonarQube Flex Plugin</license.title>
     <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
 
-    <sonar.version>7.9</sonar.version>
+    <sonar.version>9.6.1.59531</sonar.version>
+    <sonar.api.version>9.10.0.269</sonar.api.version>
     <sslr.version>1.23</sslr.version>
-    <analyzerCommons.version>1.22.0.848</analyzerCommons.version>
+    <analyzerCommons.version>2.1.0.1111</analyzerCommons.version>
     <junit.version>4.13.2</junit.version>
     <fest.version>1.4</fest.version>
     <orchestrator.version>3.40.0.183</orchestrator.version>
@@ -102,10 +103,16 @@
       </dependency>
 
       <dependency>
-        <groupId>org.sonarsource.sonarqube</groupId>
+        <groupId>org.sonarsource.api.plugin</groupId>
         <artifactId>sonar-plugin-api</artifactId>
-        <version>${sonar.version}</version>
+        <version>${sonar.api.version}</version>
         <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.sonarsource.sonarqube</groupId>
+        <artifactId>sonar-plugin-api-impl</artifactId>
+        <version>${sonar.version}</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.sonarsource.sonarqube</groupId>

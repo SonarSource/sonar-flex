@@ -21,7 +21,6 @@ package org.sonar.plugins.flex.core;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.lang.StringUtils;
 import org.sonar.api.config.Configuration;
 import org.sonar.api.resources.AbstractLanguage;
 import org.sonar.plugins.flex.FlexPlugin;
@@ -55,7 +54,7 @@ public class Flex extends AbstractLanguage {
   public String[] getFileSuffixes() {
     String[] suffixes = filterEmptyStrings(config.getStringArray(FlexPlugin.FILE_SUFFIXES_KEY));
     if (suffixes.length == 0) {
-      suffixes = StringUtils.split(DEFAULT_FILE_SUFFIXES, ",");
+      suffixes = new String[] { DEFAULT_FILE_SUFFIXES };
     }
     return suffixes;
   }
@@ -63,7 +62,7 @@ public class Flex extends AbstractLanguage {
   private static String[] filterEmptyStrings(String[] stringArray) {
     List<String> nonEmptyStrings = new ArrayList<>();
     for (String string : stringArray) {
-      if (StringUtils.isNotBlank(string.trim())) {
+      if (string != null && !string.trim().isEmpty()) {
         nonEmptyStrings.add(string.trim());
       }
     }

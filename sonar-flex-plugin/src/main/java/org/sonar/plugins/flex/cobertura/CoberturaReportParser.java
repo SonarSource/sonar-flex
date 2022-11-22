@@ -30,7 +30,6 @@ import java.util.Map;
 import javax.annotation.CheckForNull;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
-import org.apache.commons.lang.StringUtils;
 import org.codehaus.staxmate.SMInputFactory;
 import org.codehaus.staxmate.in.SMHierarchicCursor;
 import org.codehaus.staxmate.in.SMInputCursor;
@@ -125,8 +124,9 @@ public class CoberturaReportParser {
 
       String isBranch = line.getAttrValue("branch");
       String text = line.getAttrValue("condition-coverage");
-      if (StringUtils.equals(isBranch, "true") && StringUtils.isNotBlank(text)) {
-        String[] conditions = StringUtils.split(StringUtils.substringBetween(text, "(", ")"), "/");
+      if ("true".equals(isBranch) && text != null && !text.trim().isEmpty()) {
+        String conditionCoverage = text.replaceFirst("^[^(]*+\\(([^)]*+)\\).*+$", "$1");
+        String[] conditions = conditionCoverage.split("/");
         newCoverage.conditions(lineId, Integer.parseInt(conditions[1]), Integer.parseInt(conditions[0]));
       }
     }

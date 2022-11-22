@@ -25,7 +25,6 @@ import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.apache.commons.lang.StringUtils;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.FlexKeyword;
 import org.sonar.flex.checks.ASDocCheck;
@@ -156,8 +155,9 @@ public class ASDocMemberCheck {
       }
     }
 
-    if (builder.length() > 0) {
-      String message = MessageFormat.format("Add the missing \"@param\" ASDoc for: {0}.", StringUtils.chop(builder.toString().trim()));
+    if (builder.length() >= 2) {
+      builder.setLength(builder.length() - 2);
+      String message = MessageFormat.format("Add the missing \"@param\" ASDoc for: {0}.", builder);
       check.addIssue(message, functionDef);
     }
   }

@@ -42,6 +42,9 @@ public class FlexTest {
 
     settings.setProperty(FlexPlugin.FILE_SUFFIXES_KEY, "as, swc");
     assertThat(flex.getFileSuffixes()).isEqualTo(new String[] {"as", "swc"});
+
+    settings.setProperty(FlexPlugin.FILE_SUFFIXES_KEY, ",as, ,, swc,");
+    assertThat(flex.getFileSuffixes()).isEqualTo(new String[] {"as", "swc"});
   }
 
 }

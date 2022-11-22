@@ -122,9 +122,9 @@ public class CoberturaReportParser {
         throw new IllegalStateException(e);
       }
 
-      String isBranch = line.getAttrValue("branch");
+      boolean isBranch = "true".equals(line.getAttrValue("branch"));
       String text = line.getAttrValue("condition-coverage");
-      if ("true".equals(isBranch) && text != null && !text.trim().isEmpty()) {
+      if (isBranch && text != null && !text.trim().isEmpty()) {
         String conditionCoverage = text.replaceFirst("^[^(]*+\\(([^)]*+)\\).*+$", "$1");
         String[] conditions = conditionCoverage.split("/");
         newCoverage.conditions(lineId, Integer.parseInt(conditions[1]), Integer.parseInt(conditions[0]));

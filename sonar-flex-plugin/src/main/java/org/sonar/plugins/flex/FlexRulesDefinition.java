@@ -22,6 +22,7 @@ package org.sonar.plugins.flex;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import org.sonar.api.SonarRuntime;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.flex.checks.CheckList;
 import org.sonar.plugins.flex.core.Flex;
@@ -33,13 +34,19 @@ public final class FlexRulesDefinition implements RulesDefinition {
   private static final String RESOURCE_BASE_PATH = "org/sonar/l10n/flex/rules/flex";
   private static final Set<String> TEMPLATE_RULE_KEYS = new HashSet<>(Arrays.asList("XPath", "CommentRegularExpression"));
 
+  private final SonarRuntime sonarRuntime;
+
+  public FlexRulesDefinition(SonarRuntime sonarRuntime) {
+    this.sonarRuntime = sonarRuntime;
+  }
+
   @Override
   public void define(Context context) {
     NewRepository repository = context
       .createRepository(CheckList.REPOSITORY_KEY, Flex.KEY)
       .setName(REPOSITORY_NAME);
 
-    RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader(RESOURCE_BASE_PATH, FlexProfile.SONAR_WAY_PROFILE_PATH);
+    RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader(RESOURCE_BASE_PATH, FlexProfile.SONAR_WAY_PROFILE_PATH, sonarRuntime);
     ruleMetadataLoader.addRulesByAnnotatedClass(repository, CheckList.getChecks());
 
     TEMPLATE_RULE_KEYS.forEach(key -> repository.rule(key).setTemplate(true));

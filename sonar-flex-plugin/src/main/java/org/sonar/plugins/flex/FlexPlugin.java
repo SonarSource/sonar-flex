@@ -44,7 +44,7 @@ public class FlexPlugin implements Plugin {
       PropertyDefinition.builder(FILE_SUFFIXES_KEY)
         .defaultValue(Flex.DEFAULT_FILE_SUFFIXES)
         .name("File suffixes")
-        .description("Comma-separated list of suffixes for files to analyze. To not filter, leave the list empty.")
+        .description("List of suffixes for files to analyze. To not filter, leave the list empty.")
         .onQualifiers(Qualifiers.MODULE, Qualifiers.PROJECT)
         .category(Flex.NAME)
         .multiValues(true)

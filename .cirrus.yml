@@ -25,6 +25,12 @@ container_definition: &CONTAINER_DEFINITION
   region: eu-central-1
   namespace: default
 
+qa_container_definition: &QA_CONTAINER_DEFINITION
+  image: ${CIRRUS_AWS_ACCOUNT}.dkr.ecr.eu-central-1.amazonaws.com/base:j17-latest
+  cluster_name: ${CIRRUS_CLUSTER_NAME}
+  region: eu-central-1
+  namespace: default
+
 only_sonarsource_qa: &ONLY_SONARSOURCE_QA
   only_if: $CIRRUS_USER_COLLABORATOR == 'true' && $CIRRUS_TAG == "" && ($CIRRUS_PR != "" || $CIRRUS_BRANCH == "master" || $CIRRUS_BRANCH =~ "branch-.*" || $CIRRUS_BRANCH =~ "dogfood-on-.*")
 
@@ -92,7 +98,7 @@ plugin_qa_task:
     - build
   <<: *ONLY_SONARSOURCE_QA
   eks_container:
-    <<: *CONTAINER_DEFINITION
+    <<: *QA_CONTAINER_DEFINITION
     cpu: 3
     memory: 8G
   env:
@@ -113,7 +119,7 @@ ruling_task:
     - build
   <<: *ONLY_SONARSOURCE_QA
   eks_container:
-    <<: *CONTAINER_DEFINITION
+    <<: *QA_CONTAINER_DEFINITION
     cpu: 4
     memory: 8G
   maven_cache:

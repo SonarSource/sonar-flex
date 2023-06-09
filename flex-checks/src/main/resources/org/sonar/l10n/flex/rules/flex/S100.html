@@ -1,10 +1,11 @@
-<p>Shared naming conventions allow teams to collaborate efficiently. This rule checks that all function names match a provided regular expression.</p>
-<h2>Noncompliant Code Example</h2>
-<p>With default provided regular expression: ^[a-z][a-zA-Z0-9]*$</p>
+<h2>Why is this an issue?</h2>
+<p>Shared naming conventions allow teams to collaborate efficiently.</p>
+<p>This rule raises an issue when a function name does not match a provided regular expression.</p>
+<p>For example, with the default provided regular expression <code>^[a-z][a-zA-Z0-9]*$</code>, the function:</p>
 <pre>
-function DoSomething(){...}
+function DoSomething(){...} /* Noncompliant */
 </pre>
-<h2>Compliant Solution</h2>
+<p>should be renamed to</p>
 <pre>
 function doSomething(){...}
 </pre>

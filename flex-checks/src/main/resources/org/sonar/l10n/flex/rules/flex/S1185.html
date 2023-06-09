@@ -1,5 +1,6 @@
+<h2>Why is this an issue?</h2>
 <p>Overriding a method just to call the same method from the super class without performing any other actions is useless and misleading.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <pre>
 override public function doSomething() : void
 {
@@ -11,7 +12,7 @@ override public function isLegal(action:Action) : Boolean
   return super.isLegal(action);
 }
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 override public function doSomething() : void
 {

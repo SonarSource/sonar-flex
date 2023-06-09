@@ -1,11 +1,12 @@
+<h2>Why is this an issue?</h2>
 <p>A <code>LocalConnection</code> object is used to invoke a method in another <code>LocalConnection</code> object, either within a single SWF file or
 between multiple SWF files. This kind of local connection should be authorized only when the origin (domain) of the other Flex applications is
 perfectly defined.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <pre>
 localConnection.allowDomain("*");
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 localConnection.allowDomain("www.myDomain.com");
 </pre>

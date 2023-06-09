@@ -1,10 +1,11 @@
+<h2>Why is this an issue?</h2>
 <p>Declaring the package and class together has been deprecated since ActionScript 3. The package definition should be declared outside of the class
 definition even if the old syntax is still supported.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <pre>
 class P.A {...}
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 package P {
     class A {...}

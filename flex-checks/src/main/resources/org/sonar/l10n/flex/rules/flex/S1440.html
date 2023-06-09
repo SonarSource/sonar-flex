@@ -1,11 +1,12 @@
+<h2>Why is this an issue?</h2>
 <p>The <code>==</code> and <code>!=</code> operators do type coercion before comparing values. This is bad because it can mask type errors. For
 example, it evaluates <code>' \t\r\n' == 0</code> as <code>true</code>.</p>
 <p>It is best to always use the side-effect-less <code>===</code> and <code>!==</code> operators instead.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <pre>
 if (var == 'howdy') {...} // Noncompliant
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 if (var === 'howdy') {...}
 </pre>

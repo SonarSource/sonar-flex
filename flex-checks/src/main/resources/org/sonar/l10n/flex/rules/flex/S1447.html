@@ -1,6 +1,7 @@
+<h2>Why is this an issue?</h2>
 <p>In ActionScript 3, constructor code is always interpreted rather than compiled by the JIT at runtime, which is why the body of a constructor should
 be as lightweight as possible. As soon as a constructor contains branches ("if", "for", "switch", …​) an issue is logged.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <pre>
 public class Foo
 {
@@ -12,7 +13,7 @@ public class Foo
   }
 }
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 public class Foo
 {

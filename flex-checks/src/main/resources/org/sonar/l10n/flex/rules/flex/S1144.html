@@ -1,6 +1,7 @@
+<h2>Why is this an issue?</h2>
 <p>Private functions that are never executed are dead code: unnecessary, inoperative code that should be removed. Cleaning out dead code decreases the
 size of the maintained codebase, making it easier to understand the program and preventing bugs from being introduced.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <pre>
 public class Foo
 {
@@ -13,7 +14,7 @@ public class Foo
   private function unusedPrivateFunction():void {...}
 }
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 public class Foo
 {

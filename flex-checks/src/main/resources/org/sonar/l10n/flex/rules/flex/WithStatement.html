@@ -1,12 +1,13 @@
+<h2>Why is this an issue?</h2>
 <p>Never use <code>with</code> statements, since they decrease readability. When you do not specify a variable’s scope, you do not always know where
 you are setting properties, so your code can be confusing.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <pre>
 with (foo) { // Noncompliant
   return x;  // is it a property of foo or local variable ?
 }
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 return foo.x;
 </pre>

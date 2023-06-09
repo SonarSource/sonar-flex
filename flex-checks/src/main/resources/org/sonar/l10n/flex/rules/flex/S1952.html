@@ -1,13 +1,14 @@
+<h2>Why is this an issue?</h2>
 <p>It can be expensive to instantiate a new object, and doing so inside a loop is typically an error. Instead, create the object once, before the
 loop.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <pre>
 for (var i:int = 0; i &lt; 10; i++) {
   var temp:MyObj = new MyObject();  // Noncompliant
   //...
 }
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 var temp:MyObj = new MyObject();
 for (var i:int = 0; i &lt; 10; i++) {

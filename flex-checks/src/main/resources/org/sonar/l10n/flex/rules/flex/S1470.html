@@ -1,14 +1,15 @@
+<h2>Why is this an issue?</h2>
 <p>Overriding Event.clone() is a required part of the API contract:</p>
 <blockquote>
   <p>You are required to override the Event.clone() method in your Event subclass. The clone() method returns a cloned copy of the event object by
   setting the type property and any new properties in the clone. Typically, you define the clone() method to return an event instance created with the
   new operator.</p>
 </blockquote>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <pre>
 public class MyEvent extends Event {...}
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 public class MyEvent extends Event
 {

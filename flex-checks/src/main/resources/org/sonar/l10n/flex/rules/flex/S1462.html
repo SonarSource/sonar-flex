@@ -1,6 +1,7 @@
+<h2>Why is this an issue?</h2>
 <p>Using plain string event names in even listeners is an anti-pattern; if the event is renamed, the application can start behaving unexpectedly. A
 constant variable should be used instead.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <pre>
 import flash.display.Sprite;
 import flash.events.MouseEvent;
@@ -20,7 +21,7 @@ function clickHandler(event:CustomEvent):void
     trace("the this keyword refers to: " + this);
 }
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 import flash.display.Sprite;
 import flash.events.MouseEvent;

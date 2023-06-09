@@ -1,9 +1,10 @@
+<h2>Why is this an issue?</h2>
 <p>Using several "--" or "++" unary operators in the same arithmetic expression can quickly make the expression unreadable.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <pre>
 var j:int = foo++ - --bar;
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 bar--;
 var j:int = foo++ - bar;

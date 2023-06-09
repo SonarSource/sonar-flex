@@ -1,20 +1,20 @@
+<p>This rule is deprecated; use {rule:flex:S4507} instead.</p>
+<h2>Why is this an issue?</h2>
 <p>The <code>trace()</code> function outputs debug statements, which can be read by anyone with a debug version of the Flash player. Because sensitive
 information could easily be exposed in this manner, <code>trace()</code> should never appear in production code.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <pre>
     var val:Number = doCalculation();
     trace("Calculation result: " + val);  // Noncompliant
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
     var val:Number = doCalculation();
 </pre>
-<h2>See</h2>
+<h2>Resources</h2>
 <ul>
   <li> <a href="https://www.owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure">OWASP Top 10 2017 Category A3</a> - Sensitive Data
   Exposure </li>
   <li> <a href="https://cwe.mitre.org/data/definitions/489">MITRE, CWE-489</a> - Active Debug Code </li>
 </ul>
-<h2>Deprecated</h2>
-<p>This rule is deprecated; use {rule:flex:S4507} instead.</p>
 

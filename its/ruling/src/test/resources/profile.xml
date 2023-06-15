@@ -277,7 +277,7 @@
     </rule>
     <rule>
       <repositoryKey>flex</repositoryKey>
-      <key>S1313</key> <!-- log should be private static const -->
+      <key>S1312</key> <!-- log should be private static const -->
       <priority>INFO</priority>
     </rule>
     <rule>

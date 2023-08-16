@@ -1,6 +1,12 @@
 {
   "title": "Public classes, methods, properties and metadata should be documented with ASDoc",
   "type": "CODE_SMELL",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "MEDIUM"
+    },
+    "attribute": "CLEAR"
+  },
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",

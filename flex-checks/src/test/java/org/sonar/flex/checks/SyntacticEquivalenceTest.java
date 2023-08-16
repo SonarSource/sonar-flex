@@ -22,7 +22,7 @@ package org.sonar.flex.checks;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.impl.Parser;
 import java.nio.charset.StandardCharsets;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.flex.parser.FlexParser;
 import org.sonar.sslr.parser.LexerlessGrammar;

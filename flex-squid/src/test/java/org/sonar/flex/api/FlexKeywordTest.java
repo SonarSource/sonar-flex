@@ -19,7 +19,7 @@
  */
 package org.sonar.flex.api;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.fest.assertions.Assertions.assertThat;
 

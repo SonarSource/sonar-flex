@@ -19,39 +19,33 @@
  */
 package org.sonar.plugins.flex.cobertura;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import java.io.File;
+import org.junit.jupiter.api.Test;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 
-import java.io.File;
-
-import static org.hamcrest.CoreMatchers.endsWith;
-import static org.hamcrest.CoreMatchers.startsWith;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CoberturaReportParserTest {
 
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
-
   @Test
   public void invalidXmlFile() throws Exception {
-    thrown.expect(IllegalStateException.class);
-    thrown.expectMessage(startsWith("com.ctc.wstx.exc.WstxEOFException: Unexpected EOF; was expecting a close tag for element <coverage>"));
-    thrown.expectMessage(endsWith(" at [row,col {unknown-source}]: [5,0]"));
-
-    CoberturaReportParser.parseReport(
-      new File("src/test/resources/org/sonar/plugins/flex/cobertura/coverage-invalid.xml"),
-      SensorContextTester.create(new File(".")));
+    IllegalStateException e = assertThrows(IllegalStateException.class, () ->
+      CoberturaReportParser.parseReport(
+        new File("src/test/resources/org/sonar/plugins/flex/cobertura/coverage-invalid.xml"),
+        SensorContextTester.create(new File("."))));
+    assertTrue(e.getMessage().startsWith("com.ctc.wstx.exc.WstxEOFException: Unexpected EOF; was expecting a close tag for element " +
+      "<coverage>"));
+    assertTrue(e.getMessage().endsWith(" at [row,col {unknown-source}]: [5,0]"));
   }
 
   @Test
   public void nonExistingFile() {
-    thrown.expect(IllegalStateException.class);
-    thrown.expectMessage("javax.xml.stream.XMLStreamException: java.io.FileNotFoundException: fakeFile.xml");
-
-    CoberturaReportParser.parseReport(
-      new File("fakeFile.xml"),
-      SensorContextTester.create(new File(".")));
+    IllegalStateException e = assertThrows(IllegalStateException.class, () ->
+      CoberturaReportParser.parseReport(
+        new File("fakeFile.xml"),
+        SensorContextTester.create(new File("."))));
+    assertTrue(e.getMessage().startsWith("javax.xml.stream.XMLStreamException: java.io.FileNotFoundException: fakeFile.xml"));
   }
 }

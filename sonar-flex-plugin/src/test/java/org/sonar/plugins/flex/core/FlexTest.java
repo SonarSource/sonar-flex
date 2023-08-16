@@ -19,7 +19,7 @@
  */
 package org.sonar.plugins.flex.core;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sonar.api.config.Configuration;
 import org.sonar.api.config.internal.ConfigurationBridge;
 import org.sonar.api.config.internal.MapSettings;

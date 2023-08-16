@@ -22,7 +22,7 @@ package org.sonar.flex.checks;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.Arrays;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ASDocCheckTest {
 

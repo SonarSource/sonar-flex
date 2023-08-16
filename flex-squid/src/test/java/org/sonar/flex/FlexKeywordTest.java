@@ -19,7 +19,7 @@
  */
 package org.sonar.flex;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import static org.fest.assertions.Assertions.assertThat;

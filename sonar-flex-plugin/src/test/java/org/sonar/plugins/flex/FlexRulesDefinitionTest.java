@@ -40,7 +40,7 @@ public class FlexRulesDefinitionTest {
     rulesDefinition.define(context);
     RulesDefinition.Repository repository = context.repository("flex");
 
-    assertThat(repository.name()).isEqualTo("SonarQube");
+    assertThat(repository.name()).isEqualTo("Sonar");
     assertThat(repository.language()).isEqualTo("flex");
     assertThat(repository.rules()).hasSize(CheckList.getChecks().size());
 

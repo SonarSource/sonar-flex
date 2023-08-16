@@ -1,6 +1,12 @@
 {
   "title": "Public constants and fields initialized at declaration should be \"const static\" rather than merely \"const\"",
   "type": "CODE_SMELL",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "LOW"
+    },
+    "attribute": "EFFICIENT"
+  },
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",

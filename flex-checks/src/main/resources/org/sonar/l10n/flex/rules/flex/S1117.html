@@ -1,13 +1,12 @@
 <h2>Why is this an issue?</h2>
 <p>Overriding or shadowing a variable declared in an outer scope can strongly impact the readability, and therefore the maintainability, of a piece of
 code. Further, it could lead maintainers to introduce bugs because they think they’re using one variable but are really using another.</p>
-<h3>Noncompliant code example</h3>
 <pre>
 class Foo {
   public var myField:int;
 
   public function doSomething():String {
-    var myField:int = 0;
+    var myField:int = 0; /* Noncompliant */
     ...
   }
 }

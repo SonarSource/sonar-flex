@@ -131,6 +131,15 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
+        <artifactId>sonar-packaging-maven-plugin</artifactId>
+        <configuration>
+          <!-- this value is translated to Sonar-Version property in META-INF/MANIFEST.MF file inside jar. It is used at runtime
+          by products to detect compatibility. We keep LTS -->
+          <sonarQubeMinVersion>9.9</sonarQubeMinVersion>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>

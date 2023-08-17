@@ -20,7 +20,7 @@
 package org.sonar.flex.checks;
 
 import java.io.File;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class FileHeaderCheckTest {
   private static final File FILE1 = new File("src/test/resources/checks/headercheck/file1.as");

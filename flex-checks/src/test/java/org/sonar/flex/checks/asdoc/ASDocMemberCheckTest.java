@@ -20,7 +20,7 @@
 package org.sonar.flex.checks.asdoc;
 
 import java.io.File;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sonar.flex.checks.ASDocCheckTest;
 import org.sonar.flex.checks.FlexVerifier;
 

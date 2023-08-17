@@ -19,7 +19,7 @@
  */
 package org.sonar.flex.grammar.statements;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;

@@ -20,7 +20,7 @@
 package org.sonar.plugins.flex;
 
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sonar.flex.checks.CheckList;
 import org.sonar.plugins.flex.core.Flex;
 

@@ -19,7 +19,7 @@
  */
 package org.sonar.plugins.flex;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sonar.api.SonarRuntime;
 import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.server.rule.RulesDefinition;

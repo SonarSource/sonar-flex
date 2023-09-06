@@ -21,7 +21,10 @@
       <groupId>org.sonarsource.sslr</groupId>
       <artifactId>sslr-toolkit</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
@@ -46,35 +49,18 @@
           </archive>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>jarjar-maven-plugin</artifactId>
-        <!-- TODO should be in parent -->
-        <version>1.9</version>
+     <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
         <executions>
           <execution>
             <phase>package</phase>
             <goals>
-              <goal>jarjar</goal>
+              <goal>shade</goal>
             </goals>
             <configuration>
-              <includes>
-                <include>${project.groupId}:flex-squid</include>
-                <include>org.sonarsource.sslr:sslr-core</include>
-                <include>org.sonarsource.sslr:sslr-xpath</include>
-                <include>jaxen:jaxen</include>
-                <include>org.sonarsource.sslr:sslr-toolkit</include>
-                <include>org.codehaus.sonar:sonar-colorizer</include>
-                <include>org.codehaus.sonar:sonar-squid</include>
-                <include>org.codehaus.sonar:sonar-channel</include>
-                <include>commons-io:commons-io</include>
-                <include>com.google.guava:guava</include>
-              </includes>
-              <rules>
-                <keep>
-                  <pattern>*.**</pattern>
-                </keep>
-              </rules>
+              <shadedArtifactAttached>false</shadedArtifactAttached>
+              <minimizeJar>true</minimizeJar>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
             </configuration>
           </execution>
         </executions>
@@ -93,7 +79,7 @@
               <rules>
                 <requireFilesSize>
                   <maxsize>2500000</maxsize>
-                  <minsize>2300000</minsize>
+                  <minsize>500000</minsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>

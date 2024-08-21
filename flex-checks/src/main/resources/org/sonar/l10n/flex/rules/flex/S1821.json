@@ -7,14 +7,12 @@
     },
     "attribute": "FOCUSED"
   },
-  "status": "ready",
+  "status": "deprecated",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "10min"
   },
-  "tags": [
-    "pitfall"
-  ],
+  "tags": [],
   "defaultSeverity": "Critical",
   "ruleSpecification": "RSPEC-1821",
   "sqKey": "S1821",

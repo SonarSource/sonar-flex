@@ -7,14 +7,12 @@
     },
     "attribute": "EFFICIENT"
   },
-  "status": "ready",
+  "status": "deprecated",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "20min"
   },
-  "tags": [
-    "performance"
-  ],
+  "tags": [],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1982",
   "sqKey": "S1982",

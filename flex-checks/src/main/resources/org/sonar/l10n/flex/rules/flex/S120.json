@@ -7,14 +7,12 @@
     },
     "attribute": "IDENTIFIABLE"
   },
-  "status": "ready",
+  "status": "deprecated",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "10min"
   },
-  "tags": [
-    "convention"
-  ],
+  "tags": [],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-120",
   "sqKey": "S120",

@@ -1,5 +1,5 @@
 {
-  "title": "Collapsible \"if\" statements should be merged",
+  "title": "Mergeable \"if\" statements should be combined",
   "type": "CODE_SMELL",
   "code": {
     "impacts": {
@@ -7,14 +7,12 @@
     },
     "attribute": "CLEAR"
   },
-  "status": "ready",
+  "status": "deprecated",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "5min"
   },
-  "tags": [
-    "clumsy"
-  ],
+  "tags": [],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-1066",
   "sqKey": "S1066",

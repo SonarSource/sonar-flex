@@ -1,5 +1,4 @@
 {
-  "title": "Local variables should not shadow class fields",
   "type": "CODE_SMELL",
   "code": {
     "impacts": {
@@ -7,18 +6,16 @@
     },
     "attribute": "CLEAR"
   },
-  "status": "ready",
+  "status": "deprecated",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "5min"
   },
-  "tags": [
-    "suspicious",
-    "pitfall"
-  ],
+  "tags": [],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-1117",
   "sqKey": "S1117",
   "scope": "All",
-  "quickfix": "unknown"
+  "quickfix": "unknown",
+  "title": "Local variables should not shadow class fields"
 }

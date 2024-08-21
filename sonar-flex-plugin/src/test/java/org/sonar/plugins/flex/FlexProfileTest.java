@@ -43,6 +43,6 @@ public class FlexProfileTest {
     assertThat(profile).isNotNull();
 
     List<BuiltInActiveRule> activeRules = profile.rules();
-    assertThat(activeRules.size()).isZero();
+    assertThat(activeRules).isEmpty();
   }
 }

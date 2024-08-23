@@ -65,6 +65,7 @@ public class FlexSquidSensorTest {
 
   private FlexSquidSensor sensor;
   private SensorContextTester tester;
+  private TestAnalysisWarnings analysisWarnings = new TestAnalysisWarnings();
 
   @RegisterExtension
   public LogTesterJUnit5 logTester = new LogTesterJUnit5();
@@ -83,7 +84,7 @@ public class FlexSquidSensorTest {
     FileLinesContextFactory fileLinesContextFactory = mock(FileLinesContextFactory.class);
     FileLinesContext fileLinesContext = mock(FileLinesContext.class);
     when(fileLinesContextFactory.createFor(Mockito.any(InputFile.class))).thenReturn(fileLinesContext);
-    sensor = new FlexSquidSensor(sonarRuntime, checkFactory, fileLinesContextFactory);
+    sensor = new FlexSquidSensor(sonarRuntime, checkFactory, fileLinesContextFactory, analysisWarnings);
     return sensor;
   }
 
@@ -121,6 +122,8 @@ public class FlexSquidSensorTest {
     componentKey = "key:bom.as";
     assertThat(tester.highlightingTypeAt(componentKey, 1, 0)).containsOnly(TypeOfText.COMMENT);
     assertThat(tester.highlightingTypeAt(componentKey, 2, 0)).containsOnly(TypeOfText.COMMENT);
+
+    assertThat(analysisWarnings.warnings).contains("The Flex analysis has been deprecated.");
   }
 
   private DefaultInputFile inputFile(String fileName) throws IOException {

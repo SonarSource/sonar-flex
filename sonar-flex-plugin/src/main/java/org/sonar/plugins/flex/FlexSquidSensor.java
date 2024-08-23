@@ -70,13 +70,15 @@ public class FlexSquidSensor implements Sensor {
   private final SonarRuntime sonarRuntime;
   private final Checks<FlexCheck> checks;
   private final FileLinesContextFactory fileLinesContextFactory;
+  private final AnalysisWarningsWrapper analysisWarnings;
 
-  public FlexSquidSensor(SonarRuntime sonarRuntime, CheckFactory checkFactory, FileLinesContextFactory fileLinesContextFactory) {
+  public FlexSquidSensor(SonarRuntime sonarRuntime, CheckFactory checkFactory, FileLinesContextFactory fileLinesContextFactory, AnalysisWarningsWrapper analysisWarnings) {
     this.sonarRuntime = sonarRuntime;
     this.checks = checkFactory
       .<FlexCheck>create(CheckList.REPOSITORY_KEY)
       .addAnnotatedChecks(CheckList.getChecks());
     this.fileLinesContextFactory = fileLinesContextFactory;
+    this.analysisWarnings = analysisWarnings;
   }
 
   @Override
@@ -103,6 +105,7 @@ public class FlexSquidSensor implements Sensor {
 
   @Override
   public void execute(SensorContext context) {
+    analysisWarnings.addUnique("The Flex analysis has been deprecated.");
     FileSystem fileSystem = context.fileSystem();
     FilePredicates predicates = fileSystem.predicates();
 

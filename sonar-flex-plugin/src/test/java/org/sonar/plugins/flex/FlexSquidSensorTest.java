@@ -83,7 +83,7 @@ public class FlexSquidSensorTest {
     FileLinesContextFactory fileLinesContextFactory = mock(FileLinesContextFactory.class);
     FileLinesContext fileLinesContext = mock(FileLinesContext.class);
     when(fileLinesContextFactory.createFor(Mockito.any(InputFile.class))).thenReturn(fileLinesContext);
-    sensor = new FlexSquidSensor(sonarRuntime, checkFactory, fileLinesContextFactory);
+    sensor = new FlexSquidSensor(sonarRuntime, checkFactory, fileLinesContextFactory, new AnalysisWarningsWrapper());
     return sensor;
   }
 

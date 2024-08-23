@@ -41,6 +41,8 @@ public class FlexPlugin implements Plugin {
       FlexRulesDefinition.class,
       FlexProfile.class,
 
+      AnalysisWarningsWrapper.class,
+
       PropertyDefinition.builder(FILE_SUFFIXES_KEY)
         .defaultValue(Flex.DEFAULT_FILE_SUFFIXES)
         .name("File suffixes")

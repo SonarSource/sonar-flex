@@ -1,4 +1,5 @@
-> [!WARNING] Deprecation Notice [!WARNING]
+> [!WARNING]
+> Deprecation Notice
 >
 > We are deprecating the SonarQube Flex analyzer.
 >

@@ -2,7 +2,7 @@
 
 This analyzer has been deprecated.
 We will stop shipping it with SonarQube 11.
-We will remove it from SonarCloud in early 2025.
+We will remove it from SonarCloud in early 2025.  
 
 It will stay open-source, but be archived. You will be able to fork the analyzer, and it as a plugin in your SonarQube instance.
 

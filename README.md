@@ -3,7 +3,7 @@
 >
 > We are deprecating the SonarQube Flex analyzer.
 >
-> Our plan is to eventually stop maintaining it ourselves, while leaving it available in Open Source, in case the community wants to take over it.
+> Our plan is to eventually stop maintaining it ourselves, while leaving it available in Open Source, in case the community wants to take it over.
 >
 > Timeline:
 > * August 2024: All rules are now deprecated to let users know of the change

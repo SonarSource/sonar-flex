@@ -38,7 +38,7 @@ build_task:
     #allow deployment of pull request artifacts to repox
     DEPLOY_PULL_REQUEST: true
   maven_cache:
-    folder: ${CIRRUS_WORKING_DIR}/.m2/repository 
+    folder: ${CIRRUS_WORKING_DIR}/.m2/repository
   build_script:
     - source cirrus-env BUILD
     - regular_mvn_build_deploy_analyze
@@ -70,7 +70,7 @@ ws_scan_task:
 win_task:
   ec2_instance:
     experimental: true # see https://github.com/cirruslabs/cirrus-ci-docs/issues/1051
-    image: base-windows-jdk11-v*        
+    image: base-windows-jdk17-v*
     platform: windows
     region: eu-central-1
     type: t3.xlarge
@@ -96,7 +96,7 @@ plugin_qa_task:
       - SQ_VERSION: LATEST_RELEASE
       - SQ_VERSION: DEV
   maven_cache:
-    folder: ${CIRRUS_WORKING_DIR}/.m2/repository 
+    folder: ${CIRRUS_WORKING_DIR}/.m2/repository
   qa_script:
     - source cirrus-env QA
     - source set_maven_build_version $BUILD_NUMBER
@@ -113,7 +113,7 @@ ruling_task:
     cpu: 4
     memory: 8G
   maven_cache:
-    folder: ${CIRRUS_WORKING_DIR}/.m2/repository 
+    folder: ${CIRRUS_WORKING_DIR}/.m2/repository
   submodules_script:
     - git submodule update --init
   ruling_script:
@@ -122,7 +122,7 @@ ruling_task:
     - cd its/ruling
     - mvn verify -Pit-ruling -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
   cleanup_before_cache_script: cleanup_maven_repository
- 
+
 promote_task:
   depends_on:
     - ws_scan
@@ -138,6 +138,6 @@ promote_task:
     ARTIFACTORY_PROMOTE_ACCESS_TOKEN: VAULT[development/artifactory/token/${CIRRUS_REPO_OWNER}-${CIRRUS_REPO_NAME}-promoter access_token]
     GITHUB_TOKEN: VAULT[development/github/token/${CIRRUS_REPO_OWNER}-${CIRRUS_REPO_NAME}-promotion token]
   maven_cache:
-    folder: ${CIRRUS_WORKING_DIR}/.m2/repository 
+    folder: ${CIRRUS_WORKING_DIR}/.m2/repository
   script: cirrus_promote_maven
   cleanup_before_cache_script: cleanup_maven_repository

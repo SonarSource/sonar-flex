@@ -24,4 +24,6 @@ This SonarSource project is a static code analyzer for Flex language. Informatio
 
 Copyright 2010-2020 SonarSource.
 
-Licensed under the [GNU Lesser General Public License, Version 3.0](http://www.gnu.org/licenses/lgpl.txt)
+SonarQube analyzers released after November 29, 2024, including patch fixes for prior versions, are published under the [Sonar Source-Available License Version 1 (SSALv1)](LICENSE.txt).
+
+See individual files for details that specify the license applicable to each file. Files subject to the SSALv1 will be noted in their headers.

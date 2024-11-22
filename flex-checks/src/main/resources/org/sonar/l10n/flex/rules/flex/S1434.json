@@ -7,12 +7,14 @@
     },
     "attribute": "CLEAR"
   },
-  "status": "deprecated",
+  "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "20min"
   },
-  "tags": [],
+  "tags": [
+    "suspicious"
+  ],
   "defaultSeverity": "Critical",
   "ruleSpecification": "RSPEC-1434",
   "sqKey": "S1434",

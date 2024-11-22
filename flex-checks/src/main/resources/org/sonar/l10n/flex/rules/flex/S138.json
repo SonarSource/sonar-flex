@@ -7,12 +7,14 @@
     },
     "attribute": "FOCUSED"
   },
-  "status": "deprecated",
+  "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "20min"
   },
-  "tags": [],
+  "tags": [
+    "brain-overload"
+  ],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-138",
   "sqKey": "S138",

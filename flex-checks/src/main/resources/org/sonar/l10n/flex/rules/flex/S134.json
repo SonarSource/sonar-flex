@@ -7,12 +7,14 @@
     },
     "attribute": "FOCUSED"
   },
-  "status": "deprecated",
+  "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "10min"
   },
-  "tags": [],
+  "tags": [
+    "brain-overload"
+  ],
   "defaultSeverity": "Critical",
   "ruleSpecification": "RSPEC-134",
   "sqKey": "S134",

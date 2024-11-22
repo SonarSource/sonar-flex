@@ -7,12 +7,14 @@
     },
     "attribute": "EFFICIENT"
   },
-  "status": "deprecated",
+  "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "2min"
   },
-  "tags": [],
+  "tags": [
+    "convention"
+  ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1170",
   "sqKey": "S1170",

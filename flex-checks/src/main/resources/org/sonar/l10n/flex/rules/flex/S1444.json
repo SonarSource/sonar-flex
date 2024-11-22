@@ -7,12 +7,14 @@
     },
     "attribute": "MODULAR"
   },
-  "status": "deprecated",
+  "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "20min"
   },
-  "tags": [],
+  "tags": [
+    "cwe"
+  ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1444",
   "sqKey": "S1444",

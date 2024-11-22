@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.sonarsource.parent</groupId>
     <artifactId>parent</artifactId>
-    <version>77.0.0.2082</version>
+    <version>81.0.0.2300</version>
   </parent>
 
   <groupId>org.sonarsource.flex</groupId>
@@ -22,8 +22,8 @@
   </organization>
   <licenses>
     <license>
-      <name>GNU LGPL 3</name>
-      <url>http://www.gnu.org/licenses/lgpl.txt</url>
+      <name>SSALv1</name>
+      <url>https://sonarsource.com/license/ssal/</url>
       <distribution>repo</distribution>
     </license>
   </licenses>

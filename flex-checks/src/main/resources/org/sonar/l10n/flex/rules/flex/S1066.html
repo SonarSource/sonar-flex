@@ -1,17 +1,14 @@
-<p>This rule is deprecated, and will eventually be removed.</p>
 <h2>Why is this an issue?</h2>
-<p>Nested code - blocks of code inside blocks of code - is eventually necessary, but increases complexity. This is why keeping the code as flat as
-possible, by avoiding unnecessary nesting, is considered a good practice.</p>
-<p>Merging <code>if</code> statements when possible will decrease the nesting of the code and improve its readability.</p>
-<p>Code like</p>
+<p>Merging collapsible <code>if</code> statements increases the code’s readability.</p>
+<h3>Noncompliant code example</h3>
 <pre>
 if (condition1) {
-  if (condition2) {             // Noncompliant
+  if (condition2) {             // NonCompliant
     ...
   }
 }
 </pre>
-<p>Is more readable as</p>
+<h3>Compliant solution</h3>
 <pre>
 if (condition1 &amp;&amp; condition2) {
   ...

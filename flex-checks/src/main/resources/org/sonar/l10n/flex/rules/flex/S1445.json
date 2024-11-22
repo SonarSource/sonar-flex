@@ -7,12 +7,14 @@
     },
     "attribute": "CLEAR"
   },
-  "status": "deprecated",
+  "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "5min"
   },
-  "tags": [],
+  "tags": [
+    "confusing"
+  ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1445",
   "sqKey": "S1445",

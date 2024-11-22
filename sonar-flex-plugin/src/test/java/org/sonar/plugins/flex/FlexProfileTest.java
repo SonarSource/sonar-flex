@@ -40,6 +40,11 @@ public class FlexProfileTest {
     assertThat(profile).isNotNull();
 
     List<BuiltInActiveRule> activeRules = profile.rules();
-    assertThat(activeRules).isEmpty();
+    assertThat(activeRules.size()).isGreaterThan(40);
+    assertThat(activeRules).extracting(BuiltInActiveRule::ruleKey)
+      .contains("S1871")
+      .contains("S101")
+      .doesNotContain("S1469")
+      .doesNotContain("S1176");
   }
 }

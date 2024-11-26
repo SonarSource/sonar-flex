@@ -74,7 +74,6 @@ win_task:
     platform: windows
     region: eu-central-1
     type: t3.xlarge
-    subnet_id: ${CIRRUS_AWS_SUBNET}
   maven_cache:
     #windows cache fails with ${CIRRUS_WORKING_DIR}
     folder: ~/.m2/repository

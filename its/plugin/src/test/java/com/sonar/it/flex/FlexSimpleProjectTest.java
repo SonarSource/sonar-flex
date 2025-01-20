@@ -24,7 +24,6 @@ import org.junit.ClassRule;
 import org.junit.Test;
 
 import static com.sonar.it.flex.Tests.getComponent;
-import static com.sonar.it.flex.Tests.getMeasure;
 import static com.sonar.it.flex.Tests.getMeasureAsInteger;
 import static org.assertj.core.api.Assertions.assertThat;
 

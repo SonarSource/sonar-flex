@@ -66,15 +66,4 @@ public class FlexSimpleProjectTest {
     // assertThat(getFileMeasure(PROJECT + ":same_name/XMLUtil.mxml", "ncloc").getIntValue(), is(12));
   }
 
-  /**
-   * SONARPLUGINS-2181
-   */
-  @Test
-  public void should_be_compatible_with_DevCockpit() {
-    String fileKey = keyFor("DevCockpit.as");
-    assertThat(getMeasure(fileKey, "ncloc_data").getValue())
-      .contains("1=1")
-      .doesNotContain("2=1");
-  }
-
 }

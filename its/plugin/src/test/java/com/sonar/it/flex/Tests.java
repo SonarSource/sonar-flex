@@ -16,10 +16,11 @@
  */
 package com.sonar.it.flex;
 
-import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.MavenBuild;
 import com.sonar.orchestrator.build.SonarScanner;
+import com.sonar.orchestrator.container.Edition;
 import com.sonar.orchestrator.config.Configuration;
+import com.sonar.orchestrator.junit4.OrchestratorRule;
 import com.sonar.orchestrator.locator.FileLocation;
 import java.io.File;
 import java.util.Collections;
@@ -46,7 +47,9 @@ import org.sonarqube.ws.client.measures.ComponentRequest;
 public class Tests {
 
   @ClassRule
-  public static final Orchestrator ORCHESTRATOR = Orchestrator.builderEnv()
+  public static final OrchestratorRule ORCHESTRATOR = OrchestratorRule.builderEnv()
+    .setEdition(Edition.ENTERPRISE_LW)
+    .activateLicense()
     .useDefaultAdminCredentialsForBuilds(true)
     .setSonarVersion(Configuration.createEnv().getString("sonar.runtimeVersion"))
     .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-flex-plugin/target"), "sonar-flex-plugin-*.jar"))

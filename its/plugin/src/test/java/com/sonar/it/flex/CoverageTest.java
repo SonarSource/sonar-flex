@@ -16,8 +16,8 @@
  */
 package com.sonar.it.flex;
 
-import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
+import com.sonar.orchestrator.junit4.OrchestratorRule;
 import java.io.File;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CoverageTest {
 
   @ClassRule
-  public static Orchestrator orchestrator = Tests.ORCHESTRATOR;
+  public static OrchestratorRule orchestrator = Tests.ORCHESTRATOR;
 
   private static final String REPORT_PATH = "reports/coverage/coverage.xml";
   private static final String REPORT_PATH2 = "reports/coverage/coverage2.xml";

@@ -16,9 +16,10 @@
  */
 package org.sonar.flex.it;
 
-import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
+import com.sonar.orchestrator.container.Edition;
 import com.sonar.orchestrator.config.Configuration;
+import com.sonar.orchestrator.junit4.OrchestratorRule;
 import com.sonar.orchestrator.locator.FileLocation;
 import com.sonar.orchestrator.locator.MavenLocation;
 import java.io.File;
@@ -31,7 +32,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class FlexRulingTest {
 
   @ClassRule
-  public static Orchestrator ORCHESTRATOR = Orchestrator.builderEnv()
+  public static final OrchestratorRule ORCHESTRATOR = OrchestratorRule.builderEnv()
+    .setEdition(Edition.ENTERPRISE_LW)
+    .activateLicense()
     .useDefaultAdminCredentialsForBuilds(true)
     .setSonarVersion(Configuration.createEnv().getString("sonar.runtimeVersion"))
     .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-flex-plugin/target"), "sonar-flex-plugin-*.jar"))
@@ -51,7 +54,6 @@ public class FlexRulingTest {
       .setProjectName("project")
       .setProjectVersion("1")
       .setSourceDirs(".")
-      .setLanguage("flex")
       .setSourceEncoding("UTF-8")
       .setProperty("sonar.lits.dump.old", FileLocation.of("src/test/resources/expected").getFile().getAbsolutePath())
       .setProperty("sonar.lits.dump.new", FileLocation.of("target/actual").getFile().getAbsolutePath())

@@ -16,8 +16,8 @@
  */
 package com.sonar.it.flex;
 
-import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
+import com.sonar.orchestrator.junit4.OrchestratorRule;
 import java.io.File;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
@@ -35,7 +35,7 @@ public class FlexSimpleProjectTest {
   private static final String PROJECT = "simple-project";
 
   @ClassRule
-  public static Orchestrator orchestrator = Tests.ORCHESTRATOR;
+  public static OrchestratorRule orchestrator = Tests.ORCHESTRATOR;
 
   private static String keyFor(String s) {
     return PROJECT + ":src/" + s;

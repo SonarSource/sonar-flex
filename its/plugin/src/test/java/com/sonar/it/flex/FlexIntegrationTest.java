@@ -16,8 +16,8 @@
  */
 package com.sonar.it.flex;
 
-import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.MavenBuild;
+import com.sonar.orchestrator.junit4.OrchestratorRule;
 import java.io.File;
 import org.junit.Assume;
 import org.junit.BeforeClass;
@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class FlexIntegrationTest {
 
   @ClassRule
-  public static Orchestrator orchestrator = Tests.ORCHESTRATOR;
+  public static OrchestratorRule orchestrator = Tests.ORCHESTRATOR;
 
   private static final String PROJECT_AS3COMMONS = "org.as3commons:as3commons-project";
   private static final String MODULE_COMMONS_LANG = "org.as3commons:as3commons-lang";

@@ -54,11 +54,13 @@ public class Tests {
     .build();
 
   public static MavenBuild createMavenBuild() {
-    return MavenBuild.create();
+    return MavenBuild.create()
+      .setProperty("sonar.scanner.skipJreProvisioning", "true");
   }
 
   public static SonarScanner createSonarScanner() {
-    return SonarScanner.create();
+    return SonarScanner.create()
+      .setProperty("sonar.scanner.skipJreProvisioning", "true");
   }
 
   @CheckForNull

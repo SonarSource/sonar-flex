@@ -92,7 +92,7 @@ analyze_task:
 
 run_iris_task:
   <<: *CONTAINER_DEFINITION
-  #only_if: $CIRRUS_CRON == "nightly"
+  only_if: $CIRRUS_CRON == "nightly"
   depends_on:
     - analyze
   env:

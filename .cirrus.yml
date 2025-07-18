@@ -46,6 +46,8 @@ java_coverage_cache_definition: &JAVA_COVERAGE_CACHE
 
 build_task:
   <<: *CONTAINER_DEFINITION
+  <<: *MAVEN_CACHE
+  <<: *JAVA_COVERAGE_CACHE
   env:
     # analysis on next
     SONAR_TOKEN: VAULT[development/kv/data/next data.token]

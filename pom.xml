@@ -237,6 +237,12 @@
         <maven.compiler.release>8</maven.compiler.release>
       </properties>
     </profile>
+    <profile>
+      <id>coverage-report</id>
+      <modules>
+        <module>coverage-report</module>
+      </modules>
+    </profile>
   </profiles>
 
 </project>

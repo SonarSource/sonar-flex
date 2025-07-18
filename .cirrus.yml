@@ -190,7 +190,6 @@ ruling_task:
 promote_task:
   depends_on:
     - build
-    - build_win
     - ws_scan
     - ruling
     - plugin_qa

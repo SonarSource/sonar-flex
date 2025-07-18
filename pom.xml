@@ -72,6 +72,8 @@
 
   <properties>
     <license.title>SonarQube Flex Plugin</license.title>
+    <sonar.coverage.jacoco.xmlReportPaths>${maven.multiModuleProjectDirectory}/coverage/java/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+
     <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
 
     <sonar.version>10.1.0.73491</sonar.version>

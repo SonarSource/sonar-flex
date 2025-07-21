@@ -29,8 +29,7 @@
     },
     {
       "matchPackageNames": ["org.sonarsource.flex:flex-its"],
-      "enabled": false,
-      "skipReason": "Local integration test module"
+      "enabled": false
     }
   ],
   "autoApprove": true,

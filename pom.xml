@@ -30,22 +30,17 @@
 
   <developers>
     <developer>
-      <id>ogaudin</id>
-      <name>Olivier Gaudin</name>
+      <id>zglicz</id>
+      <name>Michał Zgliczyński</name>
+      <organization>SonarSource</organization>
     </developer>
     <developer>
-      <id>godin</id>
-      <name>Evgeny Mandrikov</name>
-    </developer>
-    <developer>
-      <id>fabemn</id>
-      <name>Fabrice Bellingard</name>
-    </developer>
-    <developer>
-      <id>lindamartin</id>
-      <name>Linda Martin</name>
+      <id>vdiez</id>
+      <name>Victor Diez</name>
+      <organization>SonarSource</organization>
     </developer>
   </developers>
+
 
   <modules>
     <module>flex-squid</module>

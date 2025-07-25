@@ -71,10 +71,10 @@
 
     <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
 
-    <sonar.version>10.1.0.73491</sonar.version>
+    <sonar.version>25.7.0.110598</sonar.version>
     <sonar.api.version>13.0.0.3026</sonar.api.version>
     <sslr.version>1.24.0.633</sslr.version>
-    <analyzerCommons.version>2.7.0.1482</analyzerCommons.version>
+    <analyzerCommons.version>2.18.0.3393</analyzerCommons.version>
     <junit.version>4.13.2</junit.version>
     <fest.version>1.4</fest.version>
     <orchestrator.version>5.6.2.2625</orchestrator.version>
@@ -142,7 +142,7 @@
       <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
-        <version>32.1.2-jre</version>
+        <version>32.1.3-jre</version>
       </dependency>
       <dependency>
         <groupId>org.sonarsource.sslr</groupId>

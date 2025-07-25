@@ -18,7 +18,6 @@ package org.sonar.plugins.flex;
 
 import org.sonar.api.Plugin;
 import org.sonar.api.config.PropertyDefinition;
-import org.sonar.api.resources.Qualifiers;
 import org.sonar.plugins.flex.cobertura.CoberturaSensor;
 import org.sonar.plugins.flex.core.Flex;
 
@@ -42,7 +41,7 @@ public class FlexPlugin implements Plugin {
         .defaultValue(Flex.DEFAULT_FILE_SUFFIXES)
         .name("File suffixes")
         .description("List of suffixes for files to analyze. To not filter, leave the list empty.")
-        .onQualifiers(Qualifiers.MODULE, Qualifiers.PROJECT)
+        .onConfigScopes(PropertyDefinition.ConfigScope.MODULE, PropertyDefinition.ConfigScope.PROJECT)
         .category(Flex.NAME)
         .multiValues(true)
         .build(),
@@ -51,7 +50,7 @@ public class FlexPlugin implements Plugin {
         .deprecatedKey("sonar.flex.cobertura.reportPath")
         .name("Cobertura xml report paths")
         .description("Comma separated list of paths to the Cobertura coverage report file. The paths may be either absolute or relative to the project base directory.")
-        .onQualifiers(Qualifiers.MODULE, Qualifiers.PROJECT)
+        .onConfigScopes(PropertyDefinition.ConfigScope.MODULE, PropertyDefinition.ConfigScope.PROJECT)
         .category(Flex.NAME)
         .multiValues(true)
         .build());

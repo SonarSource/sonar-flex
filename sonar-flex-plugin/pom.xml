@@ -120,8 +120,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <maxsize>1300000</maxsize>
-                  <minsize>1200000</minsize>
+                  <maxsize>1500000</maxsize>
+                  <minsize>1300000</minsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>
@@ -160,7 +160,7 @@
               <licensesOutputDirectory>${project.basedir}/src/main/resources/licenses/THIRD_PARTY_LICENSES</licensesOutputDirectory>
               <licensesOutputFile>${project.build.directory}/licenses.xml</licensesOutputFile>
               <organizeLicensesByDependencies>true</organizeLicensesByDependencies>
-              <excludedGroups>org.sonarsource.flex|org.sonarsource.analyzer-commons|org.sonarsource.sslr|jaxen</excludedGroups>
+              <excludedGroups>jaxen</excludedGroups>
               <licenseUrlReplacements>
                 <licenseUrlReplacement>
                   <regexp>http://www.sun.com/cddl/cddl.html</regexp>
@@ -185,12 +185,12 @@
               </licenseUrlReplacements>
               <licenseUrlFileNameSanitizers>
                 <LicenseUrlReplacement>
-                  <regexp>.txt</regexp>
+                  <regexp>_.*\.txt</regexp>
                 </LicenseUrlReplacement>
-                <!--                 Append .txt -->
-                <LicenseUrlReplacement>
-                  <regexp>$</regexp>
-                  <replacement>.txt</replacement>
+                  <!--                 Append -LICENSE.txt -->
+                  <LicenseUrlReplacement>
+                    <regexp>$</regexp>
+                    <replacement>-LICENSE.txt</replacement>
                 </LicenseUrlReplacement>
               </licenseUrlFileNameSanitizers>
             </configuration>

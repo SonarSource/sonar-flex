@@ -1,0 +1,137 @@
+---
+name: QA
+on:
+  workflow_run:
+    workflows: [Build]
+    types: [completed]
+    branches:
+      - master
+      - 'branch-*'
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  plugin_qa:
+    name: Plugin QA (SQ ${{ matrix.sq_version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    if: |
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') ||
+      github.event_name == 'pull_request' ||
+      github.event_name == 'workflow_dispatch'
+    strategy:
+      matrix:
+        sq_version: [LATEST_RELEASE, DEV]
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup mise
+        uses: jdx/mise-action@v2.2.3
+        with:
+          experimental: true
+
+      - name: Get secrets from Vault
+        id: secrets
+        uses: SonarSource/vault-action-wrapper@3996073b47b49ac5c58c750d27ab4edf469401c8 # v3.0.1
+        with:
+          secrets: |
+            development/github/token/licenses-ro token | GITHUB_TOKEN;
+
+      - name: Run Plugin QA
+        env:
+          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).GITHUB_TOKEN }}
+          SQ_VERSION: ${{ matrix.sq_version }}
+        run: |
+          source cirrus-env QA
+          source set_maven_build_version ${{ github.run_number }}
+          cd its/plugin
+          mvn verify -Pit-plugin -Dsonar.runtimeVersion=${SQ_VERSION} -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+
+      - name: Cleanup Maven cache
+        if: always()
+        run: cleanup_maven_repository
+
+  ruling:
+    name: Ruling
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    if: |
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') ||
+      github.event_name == 'pull_request' ||
+      github.event_name == 'workflow_dispatch'
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - name: Setup mise
+        uses: jdx/mise-action@v2.2.3
+        with:
+          experimental: true
+
+      - name: Get secrets from Vault
+        id: secrets
+        uses: SonarSource/vault-action-wrapper@3996073b47b49ac5c58c750d27ab4edf469401c8 # v3.0.1
+        with:
+          secrets: |
+            development/github/token/licenses-ro token | GITHUB_TOKEN;
+
+      - name: Run Ruling tests
+        env:
+          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).GITHUB_TOKEN }}
+        run: |
+          source cirrus-env QA
+          source set_maven_build_version ${{ github.run_number }}
+          cd its/ruling
+          mvn verify -Pit-ruling -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+
+      - name: Cleanup Maven cache
+        if: always()
+        run: cleanup_maven_repository
+
+  win_build:
+    name: Windows Build
+    runs-on: windows-latest
+    timeout-minutes: 45
+    if: |
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') ||
+      github.event_name == 'pull_request' ||
+      github.event_name == 'workflow_dispatch'
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup mise
+        uses: jdx/mise-action@v2.2.3
+        with:
+          experimental: true
+
+      - name: Build on Windows
+        run: |
+          source cirrus-env CI
+          mvn.cmd clean verify
+
+      - name: Cleanup Maven cache
+        if: always()
+        run: cleanup_maven_repository

@@ -1,0 +1,151 @@
+---
+name: Nightly
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze_sonarcloud:
+    name: Analyze in Sonarcloud.io
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup mise
+        uses: jdx/mise-action@v2.2.3
+        with:
+          experimental: true
+
+      - name: Get secrets from Vault
+        id: secrets
+        uses: SonarSource/vault-action-wrapper@3996073b47b49ac5c58c750d27ab4edf469401c8 # v3.0.1
+        with:
+          secrets: |
+            development/kv/data/sonarcloud token | SONAR_TOKEN;
+
+      - name: Analyze with SonarCloud
+        env:
+          SONAR_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).SONAR_TOKEN }}
+        run: |
+          source cirrus-env BUILD
+          mvn verify sonar:sonar \
+            -P-deploy-sonarsource,-release,-sign \
+            -Dsonar.organization=sonarsource \
+            -Dsonar.projectKey=SonarSource_sonar-flex \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dcommercial \
+            -Dmaven.shade.skip=true \
+            -Dmaven.install.skip=true \
+            -Dmaven.deploy.skip=true \
+            -DskipTests
+
+  analyze_sonarqube_us:
+    name: Analyze in SonarQube.us
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup mise
+        uses: jdx/mise-action@v2.2.3
+        with:
+          experimental: true
+
+      - name: Get secrets from Vault
+        id: secrets
+        uses: SonarSource/vault-action-wrapper@3996073b47b49ac5c58c750d27ab4edf469401c8 # v3.0.1
+        with:
+          secrets: |
+            development/kv/data/sonarqube-us token | SONAR_TOKEN;
+
+      - name: Analyze with SonarQube.us
+        env:
+          SONAR_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).SONAR_TOKEN }}
+        run: |
+          source cirrus-env BUILD
+          mvn verify sonar:sonar \
+            -P-deploy-sonarsource,-release,-sign \
+            -Dsonar.organization=sonarsource \
+            -Dsonar.projectKey=SonarSource_sonar-flex \
+            -Dsonar.host.url=https://sonarqube.us \
+            -Dcommercial \
+            -Dmaven.shade.skip=true \
+            -Dmaven.install.skip=true \
+            -Dmaven.deploy.skip=true \
+            -DskipTests
+
+  iris_sonarcloud:
+    name: IRIS SQ NEXT → Sonarcloud.io
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: [analyze_sonarcloud]
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Get secrets from Vault
+        id: secrets
+        uses: SonarSource/vault-action-wrapper@3996073b47b49ac5c58c750d27ab4edf469401c8 # v3.0.1
+        with:
+          secrets: |
+            development/kv/data/iris next | SONAR_SOURCE_IRIS_TOKEN;
+            development/kv/data/iris sqc-eu | SONAR_TARGET_IRIS_TOKEN;
+
+      - name: Run IRIS
+        env:
+          SONAR_SOURCE_IRIS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).SONAR_SOURCE_IRIS_TOKEN }}
+          SONAR_TARGET_IRIS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).SONAR_TARGET_IRIS_TOKEN }}
+          SONAR_TARGET_URL: https://sonarcloud.io
+        run: source .cirrus/run-iris.sh
+
+  iris_sonarqube_us:
+    name: IRIS SQ NEXT → SonarQube.us
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: [analyze_sonarqube_us]
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Get secrets from Vault
+        id: secrets
+        uses: SonarSource/vault-action-wrapper@3996073b47b49ac5c58c750d27ab4edf469401c8 # v3.0.1
+        with:
+          secrets: |
+            development/kv/data/iris next | SONAR_SOURCE_IRIS_TOKEN;
+            development/kv/data/iris sqc-us | SONAR_TARGET_IRIS_TOKEN;
+
+      - name: Run IRIS
+        env:
+          SONAR_SOURCE_IRIS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).SONAR_SOURCE_IRIS_TOKEN }}
+          SONAR_TARGET_IRIS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).SONAR_TARGET_IRIS_TOKEN }}
+          SONAR_TARGET_URL: https://sonarqube.us
+        run: source .cirrus/run-iris.sh

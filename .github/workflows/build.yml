@@ -1,0 +1,138 @@
+---
+name: Build
+on:
+  push:
+    branches:
+      - master
+      - 'branch-*'
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and analyze
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup mise
+        uses: jdx/mise-action@v2.2.3
+        with:
+          experimental: true
+
+      - name: Build with Maven
+        uses: SonarSource/ci-github-actions/build-maven@v1
+        with:
+          deploy-pull-request: true
+          additional-maven-options: -Dsonar.skip=true -Pcoverage-report
+
+  analyze:
+    name: Analyze in SQ NEXT
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: [build]
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup mise
+        uses: jdx/mise-action@v2.2.3
+        with:
+          experimental: true
+
+      - name: Analyze with SonarQube
+        uses: SonarSource/ci-github-actions/analyze-maven@v1
+        with:
+          sonar-host-url: https://next.sonarqube.com/sonarqube
+          sonar-project-key: org.sonarsource.flex:flex
+          additional-maven-options: -P-deploy-sonarsource,-release,-sign -Dcommercial -Dmaven.shade.skip=true -Dmaven.install.skip=true -Dmaven.deploy.skip=true -DskipTests
+
+  ws_scan:
+    name: Mend (WhiteSource) scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: [build]
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/branch-'))
+    permissions:
+      id-token: write
+      contents: read
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup mise
+        uses: jdx/mise-action@v2.2.3
+        with:
+          experimental: true
+
+      - name: Get secrets from Vault
+        id: secrets
+        uses: SonarSource/vault-action-wrapper@3996073b47b49ac5c58c750d27ab4edf469401c8 # v3.0.1
+        with:
+          secrets: |
+            development/kv/data/mend apikey | WS_APIKEY;
+
+      - name: Run Mend scan
+        env:
+          WS_APIKEY: ${{ fromJSON(steps.secrets.outputs.vault).WS_APIKEY }}
+        run: |
+          source cirrus-env QA
+          source set_maven_build_version ${{ github.run_number }}
+          mvn clean install -DskipTests
+          source ws_scan.sh
+
+      - name: Upload Mend artifacts
+        if: always()
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        with:
+          name: whitesource-artifacts
+          path: whitesource/**/*
+
+  promote:
+    name: Promote
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: [build, ws_scan]
+    if: |
+      always() &&
+      needs.build.result == 'success' &&
+      (needs.ws_scan.result == 'success' || needs.ws_scan.result == 'skipped') &&
+      github.event_name != 'pull_request' &&
+      (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/branch-') || startsWith(github.ref, 'refs/heads/dogfood-on-'))
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup mise
+        uses: jdx/mise-action@v2.2.3
+        with:
+          experimental: true
+
+      - name: Promote Maven artifacts
+        uses: SonarSource/ci-github-actions/promote@v1

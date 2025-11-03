@@ -85,7 +85,7 @@ jobs:
         uses: SonarSource/vault-action-wrapper@v3
         with:
           secrets: |
-            ${{ matrix.sonar-token-path }} data.token | SONAR_TOKEN;
+            ${{ matrix.sonar-token-path }} token | SONAR_TOKEN;
             development/kv/data/repox url | ARTIFACTORY_URL;
             development/artifactory/token/SonarSource-sonar-flex-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
 
@@ -240,10 +240,10 @@ jobs:
         include:
           - target: "Sonarcloud.io"
             target-url: "https://sonarcloud.io"
-            target-token-path: "development/kv/data/iris data.sqc-eu"
+            target-token-field: "sqc-eu"
           - target: "SonarQube.us"
             target-url: "https://sonarqube.us"
-            target-token-path: "development/kv/data/iris data.sqc-us"
+            target-token-field: "sqc-us"
     steps:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -261,8 +261,8 @@ jobs:
         uses: SonarSource/vault-action-wrapper@v3
         with:
           secrets: |
-            development/kv/data/iris data.next | SONAR_SOURCE_IRIS_TOKEN;
-            ${{ matrix.target-token-path }} | SONAR_TARGET_IRIS_TOKEN;
+            development/kv/data/iris next | SONAR_SOURCE_IRIS_TOKEN;
+            development/kv/data/iris ${{ matrix.target-token-field }} | SONAR_TARGET_IRIS_TOKEN;
             development/kv/data/repox url | ARTIFACTORY_URL;
             development/artifactory/token/SonarSource-sonar-flex-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
 

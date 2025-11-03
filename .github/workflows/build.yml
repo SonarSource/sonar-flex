@@ -43,7 +43,7 @@ jobs:
           artifactory-deployer-role: qa-deployer
 
   analyze:
-    name: Analyze
+    name: Analyze (${{ matrix.name }})
     runs-on: github-ubuntu-latest-s
     needs: [build]
     permissions:
@@ -53,22 +53,21 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: "Analysis on SonarQube NEXT"
+          - name: "SonarQube NEXT"
             sonar-project-key: org.sonarsource.flex:flex
             sonar-host-url: https://next.sonarqube.com/sonarqube
             sonar-token-path: "development/kv/data/next"
             run-condition: "always"
-          - name: "Analysis on Sonarcloud.io"
+          - name: "Sonarcloud.io"
             sonar-project-key: SonarSource_sonar-flex
             sonar-host-url: https://sonarcloud.io
             sonar-token-path: "development/kv/data/sonarcloud"
             run-condition: "nightly"
-          - name: "Analysis on SonarQube.us"
+          - name: "SonarQube.us"
             sonar-project-key: SonarSource_sonar-flex
             sonar-host-url: https://sonarqube.us
             sonar-token-path: "development/kv/data/sonarqube-us"
             run-condition: "nightly"
-    if: matrix.run-condition == 'always' || github.event.schedule == '0 0 * * *'
     steps:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -82,6 +81,7 @@ jobs:
           cache_save: false
 
       - name: Get secrets from Vault
+        if: matrix.run-condition == 'always' || github.event_name == 'schedule'
         id: secrets
         uses: SonarSource/vault-action-wrapper@v3
         with:
@@ -91,6 +91,7 @@ jobs:
             development/artifactory/token/SonarSource-sonar-flex-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
 
       - name: Analyze with Maven
+        if: matrix.run-condition == 'always' || github.event_name == 'schedule'
         env:
           SONAR_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ matrix.sonar-host-url }}
@@ -231,7 +232,7 @@ jobs:
     name: IRIS (${{ matrix.target }})
     runs-on: github-ubuntu-latest-s
     needs: [analyze]
-    if: github.event.schedule == '0 0 * * *'
+    if: github.event_name == 'schedule'
     permissions:
       id-token: write
       contents: read

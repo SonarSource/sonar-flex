@@ -57,17 +57,17 @@ jobs:
             sonar-project-key: org.sonarsource.flex:flex
             sonar-host-url: https://next.sonarqube.com/sonarqube
             sonar-token-path: "development/kv/data/next"
-            run-condition: "always"
+            skip-unless-nightly: false
           - name: "Sonarcloud.io"
             sonar-project-key: SonarSource_sonar-flex
             sonar-host-url: https://sonarcloud.io
             sonar-token-path: "development/kv/data/sonarcloud"
-            run-condition: "nightly"
+            skip-unless-nightly: true
           - name: "SonarQube.us"
             sonar-project-key: SonarSource_sonar-flex
             sonar-host-url: https://sonarqube.us
             sonar-token-path: "development/kv/data/sonarqube-us"
-            run-condition: "nightly"
+            skip-unless-nightly: true
     steps:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -81,7 +81,6 @@ jobs:
           cache_save: false
 
       - name: Get secrets from Vault
-        if: matrix.run-condition == 'always' || github.event_name == 'schedule'
         id: secrets
         uses: SonarSource/vault-action-wrapper@v3
         with:
@@ -91,7 +90,7 @@ jobs:
             development/artifactory/token/SonarSource-sonar-flex-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
 
       - name: Analyze with Maven
-        if: matrix.run-condition == 'always' || github.event_name == 'schedule'
+        if: matrix.skip-unless-nightly == false || github.event_name == 'schedule'
         env:
           SONAR_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ matrix.sonar-host-url }}

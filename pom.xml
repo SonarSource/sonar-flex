@@ -75,7 +75,7 @@
     <sonar.version>25.10.0.114319</sonar.version>
     <sonar.api.version>13.3.0.3209</sonar.api.version>
     <sslr.version>1.24.0.633</sslr.version>
-    <analyzerCommons.version>2.18.0.3393</analyzerCommons.version>
+    <analyzerCommons.version>2.19.0.3575</analyzerCommons.version>
     <junit.version>4.13.2</junit.version>
     <fest.version>1.4</fest.version>
     <orchestrator.version>6.0.0.3852</orchestrator.version>

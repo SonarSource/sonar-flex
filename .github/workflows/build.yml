@@ -8,8 +8,6 @@ on:
   pull_request:
   merge_group:
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * *'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -38,7 +36,8 @@ jobs:
         uses: SonarSource/ci-github-actions/build-maven@v1
         with:
           deploy-pull-request: true
-          maven-args: -Dsonar.skip=true -Pcoverage-report
+          maven-args: -Pcoverage-report -Dcommercial
+          sonar-platform: next
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
 
@@ -49,74 +48,6 @@ jobs:
           path: sonar-flex-plugin/target/sonar-flex-plugin-*.jar
           if-no-files-found: error
           retention-days: 1
-
-  analyze:
-    name: Analyze (${{ matrix.name }})
-    runs-on: github-ubuntu-latest-s
-    needs: [build]
-    permissions:
-      id-token: write
-      contents: read
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: "SonarQube NEXT"
-            sonar-project-key: org.sonarsource.flex:flex
-            sonar-host-url: https://next.sonarqube.com/sonarqube
-            sonar-token-path: "development/kv/data/next"
-            skip-unless-nightly: false
-          - name: "Sonarcloud.io"
-            sonar-project-key: SonarSource_sonar-flex
-            sonar-host-url: https://sonarcloud.io
-            sonar-token-path: "development/kv/data/sonarcloud"
-            skip-unless-nightly: true
-          - name: "SonarQube.us"
-            sonar-project-key: SonarSource_sonar-flex
-            sonar-host-url: https://sonarqube.us
-            sonar-token-path: "development/kv/data/sonarqube-us"
-            skip-unless-nightly: true
-    steps:
-      - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-        with:
-          fetch-depth: 0
-
-      - name: Setup mise
-        uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
-        with:
-          version: 2025.7.12
-          cache_save: false
-
-      - name: Get secrets from Vault
-        id: secrets
-        uses: SonarSource/vault-action-wrapper@v3
-        with:
-          secrets: |
-            ${{ matrix.sonar-token-path }} token | SONAR_TOKEN;
-            development/kv/data/repox url | ARTIFACTORY_URL;
-            development/artifactory/token/SonarSource-sonar-flex-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
-
-      - name: Analyze with Maven
-        if: matrix.skip-unless-nightly == false || github.event_name == 'schedule'
-        env:
-          SONAR_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ matrix.sonar-host-url }}
-          SONAR_PROJECT_KEY: ${{ matrix.sonar-project-key }}
-          ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
-          ARTIFACTORY_PRIVATE_USERNAME: vault-SonarSource-sonar-flex-private-reader
-          ARTIFACTORY_PRIVATE_PASSWORD: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
-        run: |
-          mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar \
-            -P-deploy-sonarsource,-release,-sign \
-            -Dsonar.organization=sonarsource \
-            -Dsonar.projectKey="${SONAR_PROJECT_KEY}" \
-            -Dcommercial \
-            -Dmaven.shade.skip=true \
-            -Dmaven.install.skip=true \
-            -Dmaven.deploy.skip=true \
-            -DskipTests \
-            -B -e -V
 
   windows:
     name: Windows Build
@@ -244,94 +175,6 @@ jobs:
         run: |
           cd its/ruling
           mvn verify -Pit-ruling -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
-
-  iris:
-    name: IRIS (${{ matrix.target }})
-    runs-on: github-ubuntu-latest-s
-    needs: [analyze]
-    if: github.event_name == 'schedule'
-    permissions:
-      id-token: write
-      contents: read
-    strategy:
-      matrix:
-        include:
-          - target: "Sonarcloud.io"
-            target-url: "https://sonarcloud.io"
-            target-token-field: "sqc-eu"
-          - target: "SonarQube.us"
-            target-url: "https://sonarqube.us"
-            target-token-field: "sqc-us"
-    steps:
-      - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-        with:
-          fetch-depth: 0
-
-      - name: Setup mise
-        uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
-        with:
-          version: 2025.7.12
-          cache_save: false
-
-      - name: Get secrets from Vault
-        id: secrets
-        uses: SonarSource/vault-action-wrapper@v3
-        with:
-          secrets: |
-            development/kv/data/iris next | SONAR_SOURCE_IRIS_TOKEN;
-            development/kv/data/iris ${{ matrix.target-token-field }} | SONAR_TARGET_IRIS_TOKEN;
-            development/kv/data/repox url | ARTIFACTORY_URL;
-            development/artifactory/token/SonarSource-sonar-flex-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
-
-      - name: Run IRIS
-        env:
-          SONAR_SOURCE_IRIS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).SONAR_SOURCE_IRIS_TOKEN }}
-          SONAR_TARGET_IRIS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).SONAR_TARGET_IRIS_TOKEN }}
-          SONAR_TARGET_URL: ${{ matrix.target-url }}
-          ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
-          ARTIFACTORY_PRIVATE_USERNAME: vault-SonarSource-sonar-flex-private-reader
-          ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
-        run: |
-          set -euo pipefail
-
-          run_iris() {
-            java \
-              -Diris.source.projectKey="org.sonarsource.flex:flex" \
-              -Diris.source.url="https://next.sonarqube.com/sonarqube" \
-              -Diris.source.token="$SONAR_SOURCE_IRIS_TOKEN" \
-              -Diris.destination.projectKey="SonarSource_sonar-flex" \
-              -Diris.destination.organization="sonarsource" \
-              -Diris.destination.url="$SONAR_TARGET_URL" \
-              -Diris.destination.token="$SONAR_TARGET_IRIS_TOKEN" \
-              -Diris.dryrun=$1 \
-              -jar iris-[RELEASE]-jar-with-dependencies.jar
-          }
-
-          VERSION="[RELEASE]"
-          HTTP_CODE=$(curl \
-            --write-out '%{http_code}' \
-            --location \
-            --remote-name \
-            --user "$ARTIFACTORY_PRIVATE_USERNAME:$ARTIFACTORY_ACCESS_TOKEN" \
-            "$ARTIFACTORY_URL/sonarsource-private-releases/com/sonarsource/iris/iris/$VERSION/iris-$VERSION-jar-with-dependencies.jar")
-
-          if [ "$HTTP_CODE" != "200" ]; then
-            echo "Download $VERSION failed -> $HTTP_CODE"
-            exit 1
-          else
-            echo "Downloaded $VERSION"
-          fi
-
-          echo "===== Execute IRIS as dry-run"
-          run_iris "true"
-          if [ $? -ne 0 ]; then
-            echo "===== Failed to run IRIS dry-run"
-            exit 1
-          else
-            echo "===== Successful IRIS dry-run - executing IRIS for real."
-            run_iris "false"
-          fi
 
   promote:
     name: Promote

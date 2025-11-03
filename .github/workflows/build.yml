@@ -42,6 +42,14 @@ jobs:
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
 
+      - name: Upload plugin JAR
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: sonar-flex-plugin
+          path: sonar-flex-plugin/target/sonar-flex-plugin-*.jar
+          if-no-files-found: error
+          retention-days: 1
+
   analyze:
     name: Analyze (${{ matrix.name }})
     runs-on: github-ubuntu-latest-s
@@ -168,6 +176,12 @@ jobs:
           version: 2025.7.12
           cache_save: false
 
+      - name: Download plugin JAR
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        with:
+          name: sonar-flex-plugin
+          path: sonar-flex-plugin/target
+
       - name: Get secrets from Vault
         id: secrets
         uses: SonarSource/vault-action-wrapper@v3
@@ -207,6 +221,12 @@ jobs:
         with:
           version: 2025.7.12
           cache_save: false
+
+      - name: Download plugin JAR
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        with:
+          name: sonar-flex-plugin
+          path: sonar-flex-plugin/target
 
       - name: Get secrets from Vault
         id: secrets

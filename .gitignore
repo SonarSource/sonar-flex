@@ -32,3 +32,6 @@ Thumbs.db
 Desktop.ini
 
 coverage/
+
+# Claude Code
+.claude/

@@ -1,0 +1,204 @@
+name: Build
+on:
+  push:
+    branches:
+      - master
+      - branch-*
+      - dogfood-*
+  pull_request:
+  merge_group:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build
+    runs-on: github-ubuntu-latest-s
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Setup mise
+        uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
+        with:
+          version: 2025.7.12
+
+      - name: Build with Maven
+        uses: SonarSource/ci-github-actions/build-maven@v1
+        with:
+          deploy-pull-request: true
+          maven-args: -Pcoverage-report -Dcommercial
+          sonar-platform: next
+          artifactory-reader-role: private-reader
+          artifactory-deployer-role: qa-deployer
+
+      - name: Upload plugin JAR
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: sonar-flex-plugin
+          path: sonar-flex-plugin/target/sonar-flex-plugin-*.jar
+          if-no-files-found: error
+          retention-days: 1
+
+  windows:
+    name: Windows Build
+    runs-on: windows-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Setup mise
+        uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
+        with:
+          version: 2025.7.12
+
+      - name: Get secrets from Vault
+        id: secrets
+        uses: SonarSource/vault-action-wrapper@v3
+        with:
+          secrets: |
+            development/kv/data/repox url | ARTIFACTORY_URL;
+            development/artifactory/token/SonarSource-sonar-flex-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
+
+      - name: Build with Maven
+        env:
+          ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
+          ARTIFACTORY_PRIVATE_USERNAME: vault-SonarSource-sonar-flex-private-reader
+          ARTIFACTORY_PRIVATE_PASSWORD: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
+        shell: bash
+        run: mvn clean verify -B -e -V
+
+  plugin_qa:
+    name: Plugin QA (${{ matrix.sq_version }})
+    runs-on: github-ubuntu-latest-s
+    needs: [build]
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/branch-') || startsWith(github.ref, 'refs/heads/dogfood-')
+    permissions:
+      id-token: write
+      contents: read
+    strategy:
+      matrix:
+        sq_version:
+          - LATEST_RELEASE
+          - DEV
+    steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Setup mise
+        uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
+        with:
+          version: 2025.7.12
+          cache_save: false
+
+      - name: Download plugin JAR
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        with:
+          name: sonar-flex-plugin
+          path: sonar-flex-plugin/target
+
+      - name: Get secrets from Vault
+        id: secrets
+        uses: SonarSource/vault-action-wrapper@v3
+        with:
+          secrets: |
+            development/github/token/licenses-ro token | GITHUB_TOKEN;
+            development/kv/data/repox url | ARTIFACTORY_URL;
+            development/artifactory/token/SonarSource-sonar-flex-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
+
+      - name: Run Plugin QA
+        env:
+          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).GITHUB_TOKEN }}
+          ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
+          ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
+        run: |
+          cd its/plugin
+          mvn verify -Pit-plugin -Dsonar.runtimeVersion=${{ matrix.sq_version }} -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+
+  ruling:
+    name: Ruling
+    runs-on: github-ubuntu-latest-s
+    needs: [build]
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/branch-') || startsWith(github.ref, 'refs/heads/dogfood-')
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - name: Setup mise
+        uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
+        with:
+          version: 2025.7.12
+          cache_save: false
+
+      - name: Download plugin JAR
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        with:
+          name: sonar-flex-plugin
+          path: sonar-flex-plugin/target
+
+      - name: Get secrets from Vault
+        id: secrets
+        uses: SonarSource/vault-action-wrapper@v3
+        with:
+          secrets: |
+            development/github/token/licenses-ro token | GITHUB_TOKEN;
+            development/kv/data/repox url | ARTIFACTORY_URL;
+            development/artifactory/token/SonarSource-sonar-flex-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
+
+      - name: Run Ruling
+        env:
+          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).GITHUB_TOKEN }}
+          ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
+          ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
+        run: |
+          cd its/ruling
+          mvn verify -Pit-ruling -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+
+  promote:
+    name: Promote
+    runs-on: github-ubuntu-latest-s
+    needs: [build, ruling, plugin_qa]
+    if: |
+      needs.build.result == 'success' &&
+      (github.event_name == 'pull_request' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/branch-') || startsWith(github.ref, 'refs/heads/dogfood-'))
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Setup mise
+        uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
+        with:
+          version: 2025.7.12
+          cache_save: false
+
+      - name: Promote Maven artifacts
+        uses: SonarSource/ci-github-actions/promote@v1
+        with:
+          promote-pull-request: true

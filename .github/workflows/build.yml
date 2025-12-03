@@ -22,12 +22,14 @@ jobs:
       contents: write
       pull-requests: read
     steps:
-      - name: Checkout
+      - &checkout
+        name: Checkout
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           fetch-depth: 0
 
-      - name: Setup mise
+      - &mise
+        name: Setup mise
         uses: jdx/mise-action@146a28175021df8ca24f8ee1828cc2a60f980bd5 # v3.5.1
         with:
           version: 2025.7.12
@@ -36,7 +38,7 @@ jobs:
         uses: SonarSource/ci-github-actions/build-maven@v1
         with:
           deploy-pull-request: true
-          maven-args: -Pcoverage-report -Dcommercial
+          maven-args: -Pcoverage-report -Dcommercial -T1C
           sonar-platform: next
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
@@ -56,31 +58,16 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - *checkout
+      - *mise
+      - name: Build Maven (no deploy)
+        uses: SonarSource/ci-github-actions/build-maven@master
         with:
-          fetch-depth: 0
-
-      - name: Setup mise
-        uses: jdx/mise-action@146a28175021df8ca24f8ee1828cc2a60f980bd5 # v3.5.1
-        with:
-          version: 2025.7.12
-
-      - name: Get secrets from Vault
-        id: secrets
-        uses: SonarSource/vault-action-wrapper@v3
-        with:
-          secrets: |
-            development/kv/data/repox url | ARTIFACTORY_URL;
-            development/artifactory/token/SonarSource-sonar-flex-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
-
-      - name: Build with Maven
-        env:
-          ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
-          ARTIFACTORY_PRIVATE_USERNAME: vault-SonarSource-sonar-flex-private-reader
-          ARTIFACTORY_PRIVATE_PASSWORD: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
-        shell: bash
-        run: mvn clean verify -B -e -V
+          deploy: false
+          artifactory-reader-role: private-reader
+          artifactory-deployer-role: qa-deployer
+          sonar-platform: none
+          maven-args: '-T1C'
 
   plugin_qa:
     name: Plugin QA (${{ matrix.sq_version }})
@@ -96,24 +83,22 @@ jobs:
           - LATEST_RELEASE
           - DEV
     steps:
-      - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          fetch-depth: 0
-
-      - name: Setup mise
+      - *checkout
+      - &mise_no_cache
+        name: Setup mise
         uses: jdx/mise-action@146a28175021df8ca24f8ee1828cc2a60f980bd5 # v3.5.1
         with:
           version: 2025.7.12
           cache_save: false
-
-      - name: Download plugin JAR
+      - &download_jar
+        name: Download plugin JAR
         uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: sonar-flex-plugin
           path: sonar-flex-plugin/target
 
-      - name: Get secrets from Vault
+      - &secrets
+        name: Get secrets from Vault
         id: secrets
         uses: SonarSource/vault-action-wrapper@v3
         with:
@@ -123,7 +108,7 @@ jobs:
             development/artifactory/token/SonarSource-sonar-flex-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
 
       - name: Run Plugin QA
-        env:
+        env: &qa_env
           GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).GITHUB_TOKEN }}
           ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
           ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
@@ -145,33 +130,11 @@ jobs:
         with:
           fetch-depth: 0
           submodules: true
-
-      - name: Setup mise
-        uses: jdx/mise-action@146a28175021df8ca24f8ee1828cc2a60f980bd5 # v3.5.1
-        with:
-          version: 2025.7.12
-          cache_save: false
-
-      - name: Download plugin JAR
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
-        with:
-          name: sonar-flex-plugin
-          path: sonar-flex-plugin/target
-
-      - name: Get secrets from Vault
-        id: secrets
-        uses: SonarSource/vault-action-wrapper@v3
-        with:
-          secrets: |
-            development/github/token/licenses-ro token | GITHUB_TOKEN;
-            development/kv/data/repox url | ARTIFACTORY_URL;
-            development/artifactory/token/SonarSource-sonar-flex-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
-
+      - *mise_no_cache
+      - *download_jar
+      - *secrets
       - name: Run Ruling
-        env:
-          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).GITHUB_TOKEN }}
-          ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
-          ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
+        env: *qa_env
         run: |
           cd its/ruling
           mvn verify -Pit-ruling -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
@@ -187,17 +150,8 @@ jobs:
       id-token: write
       contents: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          fetch-depth: 0
-
-      - name: Setup mise
-        uses: jdx/mise-action@146a28175021df8ca24f8ee1828cc2a60f980bd5 # v3.5.1
-        with:
-          version: 2025.7.12
-          cache_save: false
-
+      - *checkout
+      - *mise_no_cache
       - name: Promote Maven artifacts
         uses: SonarSource/ci-github-actions/promote@v1
         with:

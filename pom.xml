@@ -78,7 +78,7 @@
     <analyzerCommons.version>2.21.0.4626</analyzerCommons.version>
     <junit.version>4.13.2</junit.version>
     <fest.version>1.4</fest.version>
-    <orchestrator.version>6.0.1.3892</orchestrator.version>
+    <orchestrator.version>6.0.2.3904</orchestrator.version>
     <slf4j.version>2.0.17</slf4j.version>
 
     <gitRepositoryName>sonar-flex</gitRepositoryName>

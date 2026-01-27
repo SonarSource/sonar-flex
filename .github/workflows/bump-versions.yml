@@ -21,13 +21,17 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v6
+      - name: Setup mise
+        uses: jdx/mise-action@6d1e696aa24c1aa1bcc1adea0212707c71ab78a8 # v3.6.1
+        with:
+          version: 2026.1.8
       - name: Update version in pom.xml
         env:
           VERSION: ${{ inputs.version }}
         run: |
           snapshot_version="${VERSION}-SNAPSHOT"
-          # Update only root pom.xml to the new snapshot version
-          sed -i "s/<version>.*-SNAPSHOT<\/version>/<version>${snapshot_version}<\/version>/" pom.xml
+          # Update version in root and all submodule pom.xml files
+          mvn versions:set -DnewVersion="${snapshot_version}" -DgenerateBackupFiles=false
       - uses: peter-evans/create-pull-request@v8
         with:
           author: ${{ github.actor }} <${{ github.actor }}>

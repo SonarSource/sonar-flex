@@ -29,6 +29,9 @@ jobs:
       contents: write
     uses: SonarSource/gh-action_release/.github/workflows/main.yaml@v5
     with:
+      version: ${{ inputs.version }}
+      releaseId: ${{ inputs.releaseId }}
+      dryRun: ${{ inputs.dryRun || false }}
       publishToBinaries: true
       mavenCentralSync: true
       slackChannel: ask-squad-web

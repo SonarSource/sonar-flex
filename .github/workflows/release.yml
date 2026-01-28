@@ -6,6 +6,7 @@ on:
   release:
     types:
       - published
+  workflow_dispatch:
 
 jobs:
   release:
@@ -16,4 +17,4 @@ jobs:
     with:
       publishToBinaries: true
       mavenCentralSync: true
-      slackChannel: squad-web
+      slackChannel: ask-squad-web

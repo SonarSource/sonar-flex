@@ -30,7 +30,7 @@ jobs:
 
       - &mise
         name: Setup mise
-        uses: jdx/mise-action@e79ddf65a11cec7b0e882bedced08d6e976efb2d # v3.6.2
+        uses: jdx/mise-action@5228313ee0372e111a38da051671ca30fc5a96db # v3.6.3
         with:
           version: 2025.7.12
 
@@ -87,7 +87,7 @@ jobs:
       - *checkout
       - &mise_no_cache
         name: Setup mise
-        uses: jdx/mise-action@e79ddf65a11cec7b0e882bedced08d6e976efb2d # v3.6.2
+        uses: jdx/mise-action@5228313ee0372e111a38da051671ca30fc5a96db # v3.6.3
         with:
           version: 2025.7.12
           cache_save: false

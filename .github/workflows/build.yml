@@ -108,6 +108,13 @@ jobs:
             development/kv/data/repox url | ARTIFACTORY_URL;
             development/artifactory/token/SonarSource-sonar-flex-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
 
+      - &config_maven
+        name: Configure Maven
+        uses: SonarSource/ci-github-actions/config-maven@master
+        with:
+          artifactory-reader-role: private-reader
+          disable-caching: 'true'
+
       - name: Run Plugin QA
         env: &qa_env
           GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).GITHUB_TOKEN }}
@@ -134,6 +141,7 @@ jobs:
       - *mise_no_cache
       - *download_jar
       - *secrets
+      - *config_maven
       - name: Run Ruling
         env: *qa_env
         run: |

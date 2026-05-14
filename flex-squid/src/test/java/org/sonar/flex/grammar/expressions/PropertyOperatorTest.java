@@ -21,12 +21,12 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class PropertyOperatorTest {
+class PropertyOperatorTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void test() {
+  void test() {
     Assertions.assertThat(g.rule(FlexGrammar.PROPERTY_OPERATOR))
       .matches(".a")
       .matches("[a, b, c]");

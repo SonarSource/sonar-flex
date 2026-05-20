@@ -26,7 +26,7 @@ public class XmlAttributesTest {
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void test() {
+  void test() {
     Assertions.assertThat(g.rule(FlexGrammar.XML_ATTRIBUTES))
       .matches(" {a, b, c}")
       .matches(" name={a,b, c}")

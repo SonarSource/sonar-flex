@@ -26,7 +26,7 @@ public class XmlTagNameTest {
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void test() {
+  void test() {
     Assertions.assertThat(g.rule(FlexGrammar.XML_TAG_NAME))
       .matches("tagname")
       .matches("{ tagname }");

@@ -27,7 +27,7 @@ public class EndOfStatementTest {
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void semicolon() {
+  void semicolon() {
     assertThat(g.rule(FlexGrammar.EOS))
       .matchesPrefix(";", "another-statement")
       .matchesPrefix("/* comment */ ;", "another-statement")
@@ -36,7 +36,7 @@ public class EndOfStatementTest {
   }
 
   @Test
-  public void line_terminator_sequence() {
+  void line_terminator_sequence() {
     assertThat(g.rule(FlexGrammar.EOS))
       .matchesPrefix("\n", "another-statement")
       .matchesPrefix("\r\n", "another-statement")

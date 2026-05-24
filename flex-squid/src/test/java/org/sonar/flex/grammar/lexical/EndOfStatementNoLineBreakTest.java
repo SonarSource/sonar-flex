@@ -22,12 +22,12 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 import static org.sonar.sslr.tests.Assertions.assertThat;
 
-public class EndOfStatementNoLineBreakTest {
+class EndOfStatementNoLineBreakTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void semicolon() {
+  void semicolon() {
     assertThat(g.rule(FlexGrammar.EOS_NO_LB))
       .matchesPrefix(";", "another-statement")
       .matchesPrefix("/* comment */ ;", "another-statement")
@@ -36,7 +36,7 @@ public class EndOfStatementNoLineBreakTest {
   }
 
   @Test
-  public void line_terminator_sequence() {
+  void line_terminator_sequence() {
     assertThat(g.rule(FlexGrammar.EOS_NO_LB))
       .matchesPrefix("\n", "another-statement")
       .matchesPrefix("\r\n", "another-statement")
@@ -48,7 +48,7 @@ public class EndOfStatementNoLineBreakTest {
   }
 
   @Test
-  public void right_curly_bracket() {
+  void right_curly_bracket() {
     assertThat(g.rule(FlexGrammar.EOS_NO_LB))
       .matchesPrefix("", "}")
       .matchesPrefix(" ", "}")
@@ -57,7 +57,7 @@ public class EndOfStatementNoLineBreakTest {
   }
 
   @Test
-  public void end_of_input() {
+  void end_of_input() {
     assertThat(g.rule(FlexGrammar.EOS_NO_LB))
       .matches("")
       .matches(" ")

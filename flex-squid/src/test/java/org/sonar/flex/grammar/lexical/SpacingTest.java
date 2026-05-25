@@ -22,7 +22,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 import static org.sonar.sslr.tests.Assertions.assertThat;
 
-public class SpacingTest {
+class SpacingTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
@@ -31,13 +31,13 @@ public class SpacingTest {
    * which leads to dramatic degradation of performance.
    */
   @Test
-  public void empty() {
+  void empty() {
     assertThat(g.rule(FlexGrammar.SPACING))
       .matches("");
   }
 
   @Test
-  public void whitespace() {
+  void whitespace() {
     assertThat(g.rule(FlexGrammar.SPACING))
       .matches(" ")
       .matches("\n")
@@ -46,14 +46,14 @@ public class SpacingTest {
   }
 
   @Test
-  public void single_line_comment() {
+  void single_line_comment() {
     assertThat(g.rule(FlexGrammar.SPACING))
       .matches(" // comment")
       .matches(" // comment \n");
   }
 
   @Test
-  public void multi_line_comment() {
+  void multi_line_comment() {
     assertThat(g.rule(FlexGrammar.SPACING))
       .matches(" /* comment */ /* comment */ ")
       .matches("/* comment \n */");

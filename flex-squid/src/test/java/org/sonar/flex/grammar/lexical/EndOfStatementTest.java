@@ -22,7 +22,7 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 import static org.sonar.sslr.tests.Assertions.assertThat;
 
-public class EndOfStatementTest {
+class EndOfStatementTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
@@ -47,7 +47,7 @@ public class EndOfStatementTest {
   }
 
   @Test
-  public void right_curly_bracket() {
+  void right_curly_bracket() {
     assertThat(g.rule(FlexGrammar.EOS))
       .matchesPrefix(" ", "}")
       .matchesPrefix("/* comment */ ", "}")
@@ -55,7 +55,7 @@ public class EndOfStatementTest {
   }
 
   @Test
-  public void end_of_input() {
+  void end_of_input() {
     assertThat(g.rule(FlexGrammar.EOS))
       .matches("")
       .matches(" ")

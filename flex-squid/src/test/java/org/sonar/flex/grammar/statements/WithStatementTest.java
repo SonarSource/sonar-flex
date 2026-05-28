@@ -26,7 +26,7 @@ public class WithStatementTest {
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void test() {
+  void test() {
     Assertions.assertThat(g.rule(FlexGrammar.WITH_STATEMENT))
       .matches("with (Math) { }");
   }

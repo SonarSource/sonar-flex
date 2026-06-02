@@ -21,7 +21,7 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class WithStatementTest {
+class WithStatementTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 

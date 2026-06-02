@@ -21,12 +21,12 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class ExpressionStatementTest {
+class ExpressionStatementTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void test() {
+  void test() {
     Assertions.assertThat(g.rule(FlexGrammar.EXPRESSION_STATEMENT))
       .matches("a = 1, b = 2")
       .notMatches("{ }")

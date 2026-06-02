@@ -22,18 +22,18 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 import static org.sonar.sslr.tests.Assertions.assertThat;
 
-public class SpacingNoLineBreakTest {
+class SpacingNoLineBreakTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void empty() {
+  void empty() {
     assertThat(g.rule(FlexGrammar.SPACING_NO_LB))
       .matches("");
   }
 
   @Test
-  public void whitespace() {
+  void whitespace() {
     assertThat(g.rule(FlexGrammar.SPACING_NO_LB))
       .matches(" ")
       .notMatches("\n")
@@ -42,13 +42,13 @@ public class SpacingNoLineBreakTest {
   }
 
   @Test
-  public void single_line_comment() {
+  void single_line_comment() {
     assertThat(g.rule(FlexGrammar.SPACING_NO_LB))
       .matchesPrefix(" // comment", "\n");
   }
 
   @Test
-  public void multi_line_comment() {
+  void multi_line_comment() {
     assertThat(g.rule(FlexGrammar.SPACING_NO_LB))
       .matches(" /* comment */ /* comment */ ")
       .notMatches("/* comment \n */");

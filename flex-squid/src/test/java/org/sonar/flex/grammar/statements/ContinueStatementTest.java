@@ -26,7 +26,7 @@ public class ContinueStatementTest {
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void eos_is_line_terminator() {
+  void eos_is_line_terminator() {
     Assertions.assertThat(g.rule(FlexGrammar.CONTINUE_STATEMENT))
       .matchesPrefix("continue \n", "another-statement ;")
       .matchesPrefix("continue label \n", "another-statement ;")
@@ -34,14 +34,14 @@ public class ContinueStatementTest {
   }
 
   @Test
-  public void eos_is_semicolon() {
+  void eos_is_semicolon() {
     Assertions.assertThat(g.rule(FlexGrammar.CONTINUE_STATEMENT))
       .matchesPrefix("continue ;", "another-statement")
       .matchesPrefix("continue label ;", "another-statement");
   }
 
   @Test
-  public void eos_before_right_curly_bracket() {
+  void eos_before_right_curly_bracket() {
     Assertions.assertThat(g.rule(FlexGrammar.CONTINUE_STATEMENT))
       .matchesPrefix("continue ", "}")
       .matchesPrefix("continue label ", "}");

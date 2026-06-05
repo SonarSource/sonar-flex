@@ -18,6 +18,7 @@ package org.sonar.flex.checks.utils;
 
 import com.sonar.sslr.api.AstNode;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,7 +89,7 @@ public final class MetadataTag {
       }
       return properties;
     }
-    return null;
+    return Collections.emptyMap();
   }
 
   public static boolean isNotEmpty(AstNode metadata) {

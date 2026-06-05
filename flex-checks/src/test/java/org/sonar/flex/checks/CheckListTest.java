@@ -70,12 +70,9 @@ public class CheckListTest {
           .overridingErrorMessage("No description for " + rule.key())
           .isNotNull();
 
-      try {
-        rule.setMarkdownDescription("-42");
-      } catch (IllegalStateException e) {
-        // it means that the html description was already set in Rule annotation
-        fail("Description of " + rule.key() + " should be in separate file");
-      }
+      assertThat(rule.markdownDescription())
+          .as("Description of " + rule.key() + " should be in separate file")
+          .isNull();
       ruleKeys.add(rule.key());
     }
     Set<String> nonLinkedFiles = Files.list(Paths.get("src/main/resources/org/sonar/l10n/flex/rules/flex"))

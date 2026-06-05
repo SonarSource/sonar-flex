@@ -40,7 +40,7 @@ public class EventMetadataShouldBeTypedCheck extends FlexCheck {
     if (MetadataTag.isTag(astNode, "Event")) {
       Map<String, String> properties = MetadataTag.getTagPropertiesMap(astNode);
 
-      if (properties != null && !properties.containsKey("type")) {
+      if (!properties.isEmpty() && !properties.containsKey("type")) {
         addIssue(MessageFormat.format("The {0} event type is missing in this metadata tag", properties.get("name")), astNode);
       }
     }

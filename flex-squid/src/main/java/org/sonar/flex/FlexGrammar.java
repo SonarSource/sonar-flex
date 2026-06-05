@@ -451,6 +451,12 @@ public enum FlexGrammar implements GrammarRuleKey {
   }
 
   private static void expressions(LexerlessGrammarBuilder b) {
+    identifierAndPrimaryExpressions(b);
+    assignmentAndPostfixExpressions(b);
+    operatorExpressions(b);
+  }
+
+  private static void identifierAndPrimaryExpressions(LexerlessGrammarBuilder b) {
     // Identifiers
     b.rule(IDENTIFIER).is(b.firstOf(
       DYNAMIC,
@@ -527,7 +533,9 @@ public enum FlexGrammar implements GrammarRuleKey {
     b.rule(ARRAY_INITIALISER).is(LBRAKET, b.optional(ELEMENT_LIST), RBRAKET);
     b.rule(ELEMENT_LIST).is(b.optional(COMMA), LITERAL_ELEMENT, b.zeroOrMore(COMMA, LITERAL_ELEMENT), b.optional(COMMA));
     b.rule(LITERAL_ELEMENT).is(ASSIGNMENT_EXPR);
+  }
 
+  private static void assignmentAndPostfixExpressions(LexerlessGrammarBuilder b) {
     // Assignement expressions
     b.rule(ASSIGNMENT_EXPR).is(b.firstOf(
       b.sequence(POSTFIX_EXPR, ASSIGNMENT_OPERATOR, ASSIGNMENT_EXPR),
@@ -585,7 +593,9 @@ public enum FlexGrammar implements GrammarRuleKey {
 
     // Call expresions
     b.rule(ARGUMENTS).is(LPARENTHESIS, b.optional(LIST_EXPRESSION), RPARENTHESIS);
+  }
 
+  private static void operatorExpressions(LexerlessGrammarBuilder b) {
     // Unary expression
     b.rule(UNARY_EXPR).is(b.firstOf(
       b.sequence(b.firstOf(DELETE, DOUBLE_PLUS, DOUBLE_MINUS), POSTFIX_EXPR),

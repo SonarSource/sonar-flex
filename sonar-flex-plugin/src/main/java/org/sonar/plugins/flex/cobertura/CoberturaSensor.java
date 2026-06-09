@@ -17,19 +17,19 @@
 package org.sonar.plugins.flex.cobertura;
 
 import java.io.File;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
-import org.sonar.api.utils.log.Logger;
-import org.sonar.api.utils.log.Loggers;
 import org.sonar.plugins.flex.FlexPlugin;
 import org.sonar.plugins.flex.core.Flex;
 
 public class CoberturaSensor implements Sensor {
 
-  private static final Logger LOGGER = Loggers.get(CoberturaSensor.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(CoberturaSensor.class);
 
   @Override
   public void describe(SensorDescriptor descriptor) {

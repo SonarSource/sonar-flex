@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.SonarProduct;
 import org.sonar.api.SonarRuntime;
 import org.sonar.api.batch.fs.FilePredicate;
@@ -46,8 +48,6 @@ import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.utils.Version;
-import org.sonar.api.utils.log.Logger;
-import org.sonar.api.utils.log.Loggers;
 import org.sonar.flex.FlexCheck;
 import org.sonar.flex.FlexVisitorContext;
 import org.sonar.flex.Issue;
@@ -62,7 +62,7 @@ import org.sonarsource.analyzer.commons.ProgressReport;
 
 public class FlexSquidSensor implements Sensor {
 
-  private static final Logger LOG = Loggers.get(FlexSquidSensor.class);
+  private static final Logger LOG = LoggerFactory.getLogger(FlexSquidSensor.class);
 
   private final SonarRuntime sonarRuntime;
   private final Checks<FlexCheck> checks;

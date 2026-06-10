@@ -90,7 +90,7 @@ public class FlexIntegrationTest {
     // SONARPLUGINS-670: Different number of violations reported on different OSs
     // 216 on Linux, 217 on Windows
     // TODO we should be sure that numbers are stable, whereas this is not the case, because profile may change
-    // assertThat(getProjectMeasure("violations"), anyOf(is(217), is(216)));
+    // 
   }
 
   @Test
@@ -114,7 +114,7 @@ public class FlexIntegrationTest {
 
 
     // TODO we should be sure that numbers are stable, whereas this is not the case, because profile may change
-    // assertThat(getModuleMeasure("violations")).isEqualTo(114);
+    // 
   }
 
   @Test
@@ -146,7 +146,7 @@ public class FlexIntegrationTest {
     assertThat(getPackageMeasureAsDouble("duplicated_files")).isZero();
 
     // TODO we should be sure that numbers are stable, whereas this is not the case, because profile may change
-    // assertThat(getPackageMeasure("violations")).isEqualTo(93);
+    // 
   }
 
   @Test
@@ -168,7 +168,7 @@ public class FlexIntegrationTest {
     assertThat(getFileMeasureAsDouble("complexity")).isEqualTo(18d);
 
     // TODO we should be sure that numbers are stable, whereas this is not the case, because profile may change
-    // assertThat(getFileMeasure("violations")).isEqualTo(24);
+    // 
   }
 
   /* Helper methods */

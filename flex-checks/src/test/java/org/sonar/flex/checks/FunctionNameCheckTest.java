@@ -25,7 +25,7 @@ public class FunctionNameCheckTest {
 
   @Test
   public void defaultFormat() {
-    FlexVerifier.verify(new File("src/test/resources/checks/FunctionName.as"), check);;
+    FlexVerifier.verify(new File("src/test/resources/checks/FunctionName.as"), check);
   }
 
   @Test

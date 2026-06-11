@@ -62,7 +62,7 @@ public class FlexSimpleProjectTest {
   public void projectTestMetrics() {
     assertThat(getMeasureAsInteger(keyFor("same_name/XMLUtil.as"), "ncloc")).isEqualTo(49);
     // TODO mxml support has been broken
-    // assertThat(getFileMeasure(PROJECT + ":same_name/XMLUtil.mxml", "ncloc").getIntValue(), is(12));
+    // 
   }
 
 }

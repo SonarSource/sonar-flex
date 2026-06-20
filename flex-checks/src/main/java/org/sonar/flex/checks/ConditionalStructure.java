@@ -76,14 +76,18 @@ class ConditionalStructure {
 
     for (BranchAndContent branch1 : branches) {
       if (!branch1.oneLiner || allEquivalentBranches) {
-        for (BranchAndContent branch2 : branches) {
-          if (branch1 == branch2) {
-            break;
-          }
-          if (SyntacticEquivalence.areEquivalent(branch1.content, branch2.content)) {
-            callback.accept(branch1.branch, branch2.branch);
-          }
-        }
+        reportDuplicatesOf(branch1, callback);
+      }
+    }
+  }
+
+  private void reportDuplicatesOf(BranchAndContent branch1, DuplicatedBranchCallback callback) {
+    for (BranchAndContent branch2 : branches) {
+      if (branch1 == branch2) {
+        break;
+      }
+      if (SyntacticEquivalence.areEquivalent(branch1.content, branch2.content)) {
+        callback.accept(branch1.branch, branch2.branch);
       }
     }
   }

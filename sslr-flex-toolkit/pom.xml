@@ -108,6 +108,8 @@
               <licensesOutputDirectory>${project.basedir}/src/main/resources/licenses/THIRD_PARTY_LICENSES</licensesOutputDirectory>
               <licensesOutputFile>${project.build.directory}/licenses.xml</licensesOutputFile>
               <organizeLicensesByDependencies>true</organizeLicensesByDependencies>
+              <!-- jaxen is excluded because jaxen.codehaus.org is a dead domain and the plugin cannot
+                   fetch its license. The license is instead committed manually as jaxen.jaxen-LICENSE.txt. -->
               <excludedGroups>jaxen</excludedGroups>
               <licenseUrlReplacements>
                 <licenseUrlReplacement>

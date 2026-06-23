@@ -1,11 +1,11 @@
 <h2>Why is this an issue?</h2>
 <p>Loggers should be:</p>
 <ul>
-  <li> <code>private</code>: not accessible outside of their parent classes. If another class needs to log something, it should instantiate its own
-  logger. </li>
-  <li> <code>static</code>: not dependent on an instance of a class (an object). When logging something, contextual information can of course be
-  provided in the messages but the logger should be created at class level to prevent creating a logger along with each object. </li>
-  <li> <code>const</code>: created once and only once per class. </li>
+  <li><code>private</code>: not accessible outside of their parent classes. If another class needs to log something, it should instantiate its own
+  logger.</li>
+  <li><code>static</code>: not dependent on an instance of a class (an object). When logging something, contextual information can of course be
+  provided in the messages but the logger should be created at class level to prevent creating a logger along with each object.</li>
+  <li><code>const</code>: created once and only once per class.</li>
 </ul>
 <h3>Noncompliant code example</h3>
 <p>With the default regular expression <code>LOG(?:GER)?</code>:</p>

@@ -17,5 +17,10 @@
   "ruleSpecification": "RSPEC-1468",
   "sqKey": "S1468",
   "scope": "Main",
-  "quickfix": "unknown"
+  "quickfix": "unknown",
+  "securityStandards": {
+    "CWE": [
+      942
+    ]
+  }
 }

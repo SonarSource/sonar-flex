@@ -30,4 +30,4 @@ jobs:
       dryRun: ${{ inputs.dryRun || false }}
       publishToBinaries: true
       mavenCentralSync: true
-      slackChannel: ask-squad-web
+      slackChannel: core-languages-releases

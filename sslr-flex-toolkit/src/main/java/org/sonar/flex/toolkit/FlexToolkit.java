@@ -16,6 +16,7 @@
  */
 package org.sonar.flex.toolkit;
 
+import com.sonar.sslr.impl.Parser;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Collections;
@@ -28,6 +29,8 @@ import org.sonar.colorizer.StringTokenizer;
 import org.sonar.colorizer.Tokenizer;
 import org.sonar.flex.api.FlexKeyword;
 import org.sonar.flex.parser.FlexParser;
+import org.sonar.sslr.toolkit.AbstractConfigurationModel;
+import org.sonar.sslr.toolkit.ConfigurationProperty;
 import org.sonar.sslr.toolkit.Toolkit;
 
 public final class FlexToolkit {
@@ -39,7 +42,24 @@ public final class FlexToolkit {
 
   public static void main(String[] args) {
     System.setProperty("com.apple.mrj.application.apple.menu.about.name", "SSDK");
-    new Toolkit(FlexParser.create(Charset.defaultCharset()), getTokenizers(), "SSLR Flex Toolkit").run();
+    new Toolkit("SSLR Flex Toolkit", new AbstractConfigurationModel() {
+
+      @Override
+      public List<ConfigurationProperty> getProperties() {
+        return Collections.emptyList();
+      }
+
+      @Override
+      public Parser doGetParser() {
+        return FlexParser.create(Charset.defaultCharset());
+      }
+
+      @Override
+      public List<Tokenizer> doGetTokenizers() {
+        return getTokenizers();
+      }
+
+    }).run();
   }
 
   // Visible for testing

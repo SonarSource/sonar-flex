@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CoberturaReportParserTest {
 
   @Test
-  public void invalidXmlFile() throws Exception {
+  public void invalidXmlFile() {
     IllegalStateException e = assertThrows(IllegalStateException.class, () ->
       CoberturaReportParser.parseReport(
         new File("src/test/resources/org/sonar/plugins/flex/cobertura/coverage-invalid.xml"),

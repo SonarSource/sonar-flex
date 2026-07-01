@@ -39,7 +39,7 @@ public class FileHeaderCheckTest {
   }
 
   @Test
-  public void regular_expression() throws Exception {
+  public void regular_expression() {
     String headerFormat = "// copyright 20[0-9][0-9]";
     assertHasIssue(createCheck(headerFormat, false), FILE1);
     assertHasIssue(createCheck(headerFormat, false), FILE3);

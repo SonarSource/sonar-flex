@@ -46,7 +46,7 @@ public class CoberturaSensorTest {
   public LogTesterJUnit5 logTester = new LogTesterJUnit5();
 
   @BeforeEach
-  public void setUp() throws Exception {
+  public void setUp() {
     sensor = new CoberturaSensor();
     tester = SensorContextTester.create(new File(TEST_DIR));
   }

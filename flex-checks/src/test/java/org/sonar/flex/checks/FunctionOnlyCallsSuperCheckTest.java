@@ -24,7 +24,7 @@ public class FunctionOnlyCallsSuperCheckTest {
   private FunctionOnlyCallsSuperCheck check = new FunctionOnlyCallsSuperCheck();
 
   @Test
-  public void test() throws Exception {
+  public void test() {
     FlexVerifier.verify(new File("src/test/resources/checks/FunctionOnlyCallsSuper.as"), check);
   }
 }

@@ -39,7 +39,7 @@ public class FlexLexerTest {
   }
 
   @Test
-  public void regular_expression_literal() throws Exception {
+  public void regular_expression_literal() {
     assertThat("simple", lexer.lex("/a/"), hasToken("/a/", FlexTokenType.REGULAR_EXPRESSION_LITERAL));
     assertThat("flags", lexer.lex("/a/g"), hasToken("/a/g", FlexTokenType.REGULAR_EXPRESSION_LITERAL));
     assertThat("escaped slash", lexer.lex("/\\/a/"), hasToken("/\\/a/", FlexTokenType.REGULAR_EXPRESSION_LITERAL));

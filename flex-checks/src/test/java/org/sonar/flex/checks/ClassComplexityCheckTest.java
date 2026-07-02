@@ -19,6 +19,7 @@ package org.sonar.flex.checks;
 import java.io.File;
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("java:S1874")
 public class ClassComplexityCheckTest {
 
   @Test

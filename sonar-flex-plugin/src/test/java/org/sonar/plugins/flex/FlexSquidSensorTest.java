@@ -44,9 +44,10 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.rule.RuleKey;
+import org.sonar.api.testfixtures.log.LogAndArguments;
 import org.sonar.api.testfixtures.log.LogTesterJUnit5;
 import org.sonar.api.utils.Version;
-import org.sonar.api.utils.log.LoggerLevel;
+import org.slf4j.event.Level;
 import org.sonar.plugins.flex.core.Flex;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -165,7 +166,7 @@ public class FlexSquidSensorTest {
     fs.add(inputFile);
     sensor.execute(tester);
     assertThat(tester.measure(inputFile.key(), CoreMetrics.NCLOC)).isNull();
-    assertThat(logTester.logs(LoggerLevel.ERROR).stream().filter(log -> log.startsWith("Unable to parse file: ") && log.endsWith("parse_error.as"))).isNotEmpty();
+    assertThat(logTester.getLogs(Level.ERROR).stream().map(LogAndArguments::getFormattedMsg).filter(log -> log.startsWith("Unable to parse file: ") && log.endsWith("parse_error.as"))).isNotEmpty();
   }
 
   @Test

@@ -18,7 +18,8 @@ package org.sonar.plugins.flex.cobertura;
 
 import java.io.File;
 import org.junit.jupiter.api.Test;
-import org.sonar.api.batch.sensor.internal.SensorContextTester;
+
+import com.sonarsource.scanner.engine.sensor.test.fixtures.SensorContextTester;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

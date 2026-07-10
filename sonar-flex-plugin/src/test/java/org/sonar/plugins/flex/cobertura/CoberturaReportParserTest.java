@@ -24,10 +24,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CoberturaReportParserTest {
+class CoberturaReportParserTest {
 
   @Test
-  public void invalidXmlFile() throws Exception {
+  void invalidXmlFile() {
     IllegalStateException e = assertThrows(IllegalStateException.class, () ->
       CoberturaReportParser.parseReport(
         new File("src/test/resources/org/sonar/plugins/flex/cobertura/coverage-invalid.xml"),
@@ -38,7 +38,7 @@ public class CoberturaReportParserTest {
   }
 
   @Test
-  public void nonExistingFile() {
+  void nonExistingFile() {
     IllegalStateException e = assertThrows(IllegalStateException.class, () ->
       CoberturaReportParser.parseReport(
         new File("fakeFile.xml"),

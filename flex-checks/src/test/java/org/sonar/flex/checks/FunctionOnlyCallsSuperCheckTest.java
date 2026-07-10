@@ -19,12 +19,12 @@ package org.sonar.flex.checks;
 import java.io.File;
 import org.junit.jupiter.api.Test;
 
-public class FunctionOnlyCallsSuperCheckTest {
+class FunctionOnlyCallsSuperCheckTest {
 
   private FunctionOnlyCallsSuperCheck check = new FunctionOnlyCallsSuperCheck();
 
   @Test
-  public void test() throws Exception {
+  void test() {
     FlexVerifier.verify(new File("src/test/resources/checks/FunctionOnlyCallsSuper.as"), check);
   }
 }

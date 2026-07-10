@@ -35,7 +35,7 @@ import org.sonar.plugins.flex.core.Flex;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CoberturaSensorTest {
+class CoberturaSensorTest {
 
   private static final String TEST_DIR = "src/test/resources/org/sonar/plugins/flex/cobertura/";
 
@@ -43,16 +43,16 @@ public class CoberturaSensorTest {
   private SensorContextTester tester;
 
   @RegisterExtension
-  public LogTesterJUnit5 logTester = new LogTesterJUnit5();
+  LogTesterJUnit5 logTester = new LogTesterJUnit5();
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     sensor = new CoberturaSensor();
     tester = SensorContextTester.create(new File(TEST_DIR));
   }
 
   @Test
-  public void shouldParseReport() throws Exception {
+  void shouldParseReport() throws Exception {
     setUpInputFile();
 
     tester.settings().setProperty(FlexPlugin.COBERTURA_REPORT_PATHS, "coverage.xml");
@@ -72,7 +72,7 @@ public class CoberturaSensorTest {
   }
 
   @Test
-  public void reportNotFound() {
+  void reportNotFound() {
     tester.settings().setProperty(FlexPlugin.COBERTURA_REPORT_PATHS, "/fake/path");
     sensor.execute(tester);
 
@@ -80,14 +80,14 @@ public class CoberturaSensorTest {
   }
 
   @Test
-  public void noReport() {
+  void noReport() {
     sensor.execute(tester);
 
     assertThat(logTester.logs()).containsOnly("No Cobertura report provided (see 'sonar.flex.cobertura.reportPaths' property)");
   }
 
   @Test
-  public void testDescriptor() {
+  void testDescriptor() {
     DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor();
     sensor.describe(descriptor);
     assertThat(descriptor.name()).isEqualTo("Flex Cobertura");
@@ -95,7 +95,7 @@ public class CoberturaSensorTest {
   }
 
   @Test
-  public void reportWithBlankValues() throws IOException {
+  void reportWithBlankValues() throws IOException {
     setUpInputFile();
 
     tester.settings().setProperty(FlexPlugin.COBERTURA_REPORT_PATHS, "coverage-blank.xml");

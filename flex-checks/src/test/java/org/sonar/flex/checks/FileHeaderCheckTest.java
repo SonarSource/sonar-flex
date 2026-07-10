@@ -19,13 +19,13 @@ package org.sonar.flex.checks;
 import java.io.File;
 import org.junit.jupiter.api.Test;
 
-public class FileHeaderCheckTest {
+class FileHeaderCheckTest {
   private static final File FILE1 = new File("src/test/resources/checks/headercheck/file1.as");
   private static final File FILE2 = new File("src/test/resources/checks/headercheck/file2.as");
   private static final File FILE3 = new File("src/test/resources/checks/headercheck/file3.as");
 
   @Test
-  public void plain_text_header() {
+  void plain_text_header() {
     assertNoIssue(createCheck("// copyright 2005", false), FILE1);
     assertHasIssue(createCheck("// copyright 20\\d\\d", false), FILE1);
     assertHasIssue(createCheck("// copyright 2005", false), FILE2);
@@ -39,7 +39,7 @@ public class FileHeaderCheckTest {
   }
 
   @Test
-  public void regular_expression() {
+  void regular_expression() {
     String headerFormat = "// copyright 20[0-9][0-9]";
     assertHasIssue(createCheck(headerFormat, false), FILE1);
     assertHasIssue(createCheck(headerFormat, false), FILE3);

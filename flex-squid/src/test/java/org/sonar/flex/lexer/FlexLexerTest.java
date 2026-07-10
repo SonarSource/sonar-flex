@@ -29,17 +29,17 @@ import static com.sonar.sslr.test.lexer.LexerMatchers.hasToken;
 import static com.sonar.sslr.test.lexer.LexerMatchers.hasTokens;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class FlexLexerTest {
+class FlexLexerTest {
 
   private static Lexer lexer;
 
   @BeforeAll
-  public static void init() {
+  static void init() {
     lexer = FlexLexer.create(StandardCharsets.UTF_8);
   }
 
   @Test
-  public void regular_expression_literal() {
+  void regular_expression_literal() {
     assertThat("simple", lexer.lex("/a/"), hasToken("/a/", FlexTokenType.REGULAR_EXPRESSION_LITERAL));
     assertThat("flags", lexer.lex("/a/g"), hasToken("/a/g", FlexTokenType.REGULAR_EXPRESSION_LITERAL));
     assertThat("escaped slash", lexer.lex("/\\/a/"), hasToken("/\\/a/", FlexTokenType.REGULAR_EXPRESSION_LITERAL));
@@ -47,36 +47,36 @@ public class FlexLexerTest {
   }
 
   @Test
-  public void multiline_comment() {
+  void multiline_comment() {
     assertThat(lexer.lex("/* My Comment \n*/"), hasComment("/* My Comment \n*/"));
     assertThat(lexer.lex("/**/"), hasComment("/**/"));
   }
 
   @Test
-  public void inline_comment() {
+  void inline_comment() {
     assertThat(lexer.lex("// My Comment \n new line"), hasComment("// My Comment "));
     assertThat(lexer.lex("//"), hasComment("//"));
   }
 
   @Test
-  public void decimal_literal() {
+  void decimal_literal() {
     assertThat(lexer.lex("0"), hasToken("0", FlexTokenType.NUMERIC_LITERAL));
     assertThat(lexer.lex("1239"), hasToken("1239", FlexTokenType.NUMERIC_LITERAL));
   }
 
   @Test
-  public void hex_literal() {
+  void hex_literal() {
     assertThat(lexer.lex("0xFF"), hasToken("0xFF", FlexTokenType.NUMERIC_LITERAL));
   }
 
   @Test
-  public void float_literal() {
+  void float_literal() {
     assertThat(lexer.lex("12.9E-1"), hasToken("12.9E-1", FlexTokenType.NUMERIC_LITERAL));
     assertThat(lexer.lex(".129e+1"), hasToken(".129e+1", FlexTokenType.NUMERIC_LITERAL));
   }
 
   @Test
-  public void string_literal() {
+  void string_literal() {
     assertThat("empty", lexer.lex("''"), hasToken("''", GenericTokenType.LITERAL));
     assertThat("empty", lexer.lex("\"\""), hasToken("\"\"", GenericTokenType.LITERAL));
 
@@ -88,14 +88,14 @@ public class FlexLexerTest {
   }
 
   @Test
-  public void identifier() {
+  void identifier() {
     assertThat(lexer.lex("$"), hasToken("$", GenericTokenType.IDENTIFIER));
     assertThat(lexer.lex("_"), hasToken("_", GenericTokenType.IDENTIFIER));
     assertThat(lexer.lex("identifier"), hasToken("identifier", GenericTokenType.IDENTIFIER));
   }
 
   @Test
-  public void bom() {
+  void bom() {
     assertThat(lexer.lex(Character.toString((char) BomCharacterChannel.BOM_CHAR)), hasTokens("EOF"));
   }
 

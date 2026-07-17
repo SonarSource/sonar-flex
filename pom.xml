@@ -107,12 +107,6 @@
       </dependency>
       <dependency>
         <groupId>org.sonarsource.sonarqube</groupId>
-        <artifactId>sonar-plugin-api-impl</artifactId>
-        <version>${sonar.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.sonarsource.sonarqube</groupId>
         <artifactId>sonar-testing-harness</artifactId>
         <version>${sonar.version}</version>
       </dependency>

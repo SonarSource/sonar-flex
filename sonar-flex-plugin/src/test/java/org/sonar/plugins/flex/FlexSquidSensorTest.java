@@ -16,6 +16,9 @@
  */
 package org.sonar.plugins.flex;
 
+import com.sonarsource.scanner.engine.sensor.test.fixtures.SensorContextTester;
+import com.sonarsource.scanner.engine.sensor.test.fixtures.TestInputFileBuilder;
+import com.sonarsource.scanner.engine.sensor.test.fixtures.TestSonarRuntime;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -32,7 +35,6 @@ import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.rule.ActiveRules;
 import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
-import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
@@ -47,9 +49,6 @@ import org.sonar.scanner.plugin.api.impl.rule.ActiveRulesBuilder;
 import org.sonar.scanner.plugin.api.impl.rule.NewActiveRule;
 import org.sonar.scanner.plugin.api.impl.sensor.DefaultSensorDescriptor;
 
-import com.sonarsource.scanner.engine.sensor.test.fixtures.SensorContextTester;
-import com.sonarsource.scanner.engine.sensor.test.fixtures.TestInputFileBuilder;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -59,7 +58,7 @@ import static org.mockito.Mockito.when;
 public class FlexSquidSensorTest {
 
   private static final File TEST_DIR = new File("src/test/resources/org/sonar/plugins/flex/squid");
-  private static final SonarRuntime SONARQUBE_89 = SonarRuntimeImpl.forSonarQube(Version.create(8, 9), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER);
+  private static final SonarRuntime SONARQUBE_89 = TestSonarRuntime.forSonarQube(Version.create(8, 9), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER);
 
   private FlexSquidSensor sensor;
   private SensorContextTester tester;
@@ -180,7 +179,7 @@ public class FlexSquidSensorTest {
   @Test
   public void test_descriptor_sonarlint() {
     DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor();
-    createSensor(SonarRuntimeImpl.forSonarLint(Version.create(6, 5))).describe(descriptor);
+    createSensor(TestSonarRuntime.forSonarLint(Version.create(6, 5))).describe(descriptor);
     assertThat(descriptor.name()).isEqualTo("Flex");
     assertThat(descriptor.languages()).containsOnly("flex");
   }
@@ -189,7 +188,7 @@ public class FlexSquidSensorTest {
   public void test_descriptor_sonarqube_9_3() {
     DefaultSensorDescriptor descriptor = spy(new DefaultSensorDescriptor());
     when(descriptor.processesFilesIndependently()).thenReturn(descriptor);
-    createSensor(SonarRuntimeImpl.forSonarQube(Version.create(9, 3), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER)).describe(descriptor);
+    createSensor(TestSonarRuntime.forSonarQube(Version.create(9, 3), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER)).describe(descriptor);
     assertThat(descriptor.name()).isEqualTo("Flex");
     assertThat(descriptor.languages()).containsOnly("flex");
     verify(descriptor).processesFilesIndependently();

@@ -18,9 +18,9 @@ package org.sonar.plugins.flex.core;
 
 import org.junit.jupiter.api.Test;
 import org.sonar.api.config.Configuration;
-import org.sonar.api.config.internal.ConfigurationBridge;
-import org.sonar.api.config.internal.MapSettings;
 import org.sonar.plugins.flex.FlexPlugin;
+import org.sonar.scanner.plugin.api.impl.config.ConfigurationBridge;
+import org.sonar.scanner.plugin.api.impl.config.MapSettings;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

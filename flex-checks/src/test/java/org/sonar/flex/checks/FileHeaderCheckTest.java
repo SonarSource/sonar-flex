@@ -23,6 +23,7 @@ class FileHeaderCheckTest {
   private static final File FILE1 = new File("src/test/resources/checks/headercheck/file1.as");
   private static final File FILE2 = new File("src/test/resources/checks/headercheck/file2.as");
   private static final File FILE3 = new File("src/test/resources/checks/headercheck/file3.as");
+  private static final File FILE1_WIN = new File("src/test/resources/checks/headercheck/file1_win.as");
 
   @Test
   void plain_text_header() {
@@ -51,7 +52,6 @@ class FileHeaderCheckTest {
     assertNoIssue(createCheck("// copyright 2005", true), FILE1);
     assertNoIssue(createCheck("// copyright 2005", false), FILE1);
 
-    File FILE1_WIN = new File("src/test/resources/checks/headercheck/file1_win.as");
     assertHasIssue(createCheck("// copyright", false), FILE1_WIN);
     assertHasIssue(createCheck("// copyright", true), FILE1_WIN);
     assertNoIssue(createCheck("// copyright 2005", true), FILE1_WIN);

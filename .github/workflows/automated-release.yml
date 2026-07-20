@@ -60,3 +60,4 @@ jobs:
       use-jira-sandbox: false
       is-draft-release: false
       bump-version: ${{ github.event.inputs.bump-version == 'true' }}
+      bump-version-tool: "maven"

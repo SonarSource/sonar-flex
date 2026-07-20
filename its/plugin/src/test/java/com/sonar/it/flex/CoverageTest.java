@@ -37,7 +37,7 @@ public class CoverageTest {
   private static final File PROJECT_DIR = new File("projects/coverage");
 
   @Test
-  public void report_path_can_be_relative() throws Exception {
+  public void report_path_can_be_relative() {
     SonarScanner build = Tests.createSonarScanner()
       .setProjectDir(PROJECT_DIR)
       .setProjectKey("project")
@@ -54,7 +54,7 @@ public class CoverageTest {
   }
 
   @Test
-  public void report_paths_can_have_multiple_values() throws Exception {
+  public void report_paths_can_have_multiple_values() {
     SonarScanner build = Tests.createSonarScanner()
       .setProjectDir(PROJECT_DIR)
       .setProjectKey("project")

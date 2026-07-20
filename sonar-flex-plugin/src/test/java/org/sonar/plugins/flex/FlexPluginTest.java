@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class FlexPluginTest {
 
   @Test
-  public void testGetExtensions() throws Exception {
+  public void testGetExtensions() {
     SonarRuntime sonarRuntime = TestSonarRuntime.forSonarQube(Version.create(7, 9), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER);
     Plugin.Context context = new Plugin.Context(sonarRuntime);
     new FlexPlugin().define(context);

@@ -23,6 +23,10 @@ on:
         description: "New version to release (without -SNAPSHOT; if left empty, the current minor version will be auto-incremented)"
         required: false
         type: string
+      bump-version:
+        description: "Bump the version and open a PR for the next development iteration after the release"
+        type: boolean
+        default: true
 
 jobs:
   release:
@@ -55,3 +59,4 @@ jobs:
       verbose: true
       use-jira-sandbox: false
       is-draft-release: false
+      bump-version: ${{ github.event.inputs.bump-version == 'true' }}

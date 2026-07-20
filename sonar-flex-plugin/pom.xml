@@ -26,7 +26,7 @@
     <sonar.pluginClass>org.sonar.plugins.flex.FlexPlugin</sonar.pluginClass>
     <sonar.pluginName>Flex Code Quality and Security</sonar.pluginName>
     <sonar.skipDependenciesPackaging>true</sonar.skipDependenciesPackaging>
-    <scanner.engine.version>13.4.0.3968</scanner.engine.version>
+    <scanner.engine.version>13.4.1.4007</scanner.engine.version>
   </properties>
 
   <dependencies>
@@ -35,11 +35,6 @@
       <artifactId>sonar-plugin-api</artifactId>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>org.sonarsource.sonarqube</groupId>
-      <artifactId>sonar-plugin-api-impl</artifactId>
-    </dependency>
-
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>flex-squid</artifactId>

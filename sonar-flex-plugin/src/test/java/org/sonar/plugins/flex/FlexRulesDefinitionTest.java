@@ -16,11 +16,11 @@
  */
 package org.sonar.plugins.flex;
 
+import com.sonarsource.scanner.engine.sensor.test.fixtures.TestSonarRuntime;
 import org.junit.jupiter.api.Test;
 import org.sonar.api.SonarRuntime;
-import org.sonar.api.internal.SonarRuntimeImpl;
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinition.Rule;
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.utils.Version;
 import org.sonar.flex.checks.CheckList;
 
@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class FlexRulesDefinitionTest {
 
-  private static final SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarLint(Version.create(9, 3));
+  private static final SonarRuntime sonarRuntime = TestSonarRuntime.forSonarLint(Version.create(9, 3));
 
   @Test
   public void test() {

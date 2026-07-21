@@ -26,7 +26,7 @@ public class TryStatementTest {
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void test() {
+  void test() {
     Assertions.assertThat(g.rule(FlexGrammar.TRY_STATEMENT))
       .matches("try { } catch (error) { }")
       .matches("try { } catch (error:ErrorType1) { } catch (error:ErrorType2) { }")

@@ -26,7 +26,7 @@ public class ThrowStatementTest {
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void eos_is_line_terminator() {
+  void eos_is_line_terminator() {
     Assertions.assertThat(g.rule(FlexGrammar.THROW_STATEMENT))
       .matchesPrefix("throw \n", "another-statement ;")
       .matchesPrefix("throw expression \n", "another-statement ;")
@@ -34,7 +34,7 @@ public class ThrowStatementTest {
   }
 
   @Test
-  public void eos_is_semicolon() {
+  void eos_is_semicolon() {
     Assertions.assertThat(g.rule(FlexGrammar.THROW_STATEMENT))
       .matchesPrefix("throw ;", "another-statement")
       .matchesPrefix("throw expression ;", "another-statement");

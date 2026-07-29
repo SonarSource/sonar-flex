@@ -21,12 +21,12 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class BreakStatementTest {
+class BreakStatementTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void eos_is_line_terminator() {
+  void eos_is_line_terminator() {
     Assertions.assertThat(g.rule(FlexGrammar.BREAK_STATEMENT))
       .matchesPrefix("break \n", "another-statement ;")
       .matchesPrefix("break label \n", "another-statement ;")
@@ -34,21 +34,21 @@ public class BreakStatementTest {
   }
 
   @Test
-  public void eos_is_semicolon() {
+  void eos_is_semicolon() {
     Assertions.assertThat(g.rule(FlexGrammar.BREAK_STATEMENT))
       .matchesPrefix("break ;", "another-statement")
       .matchesPrefix("break label ;", "another-statement");
   }
 
   @Test
-  public void eos_before_right_curly_bracket() {
+  void eos_before_right_curly_bracket() {
     Assertions.assertThat(g.rule(FlexGrammar.BREAK_STATEMENT))
       .matchesPrefix("break ", "}")
       .matchesPrefix("break label ", "}");
   }
 
   @Test
-  public void eos_is_end_of_input() {
+  void eos_is_end_of_input() {
     Assertions.assertThat(g.rule(FlexGrammar.BREAK_STATEMENT))
       .matches("break ")
       .matches("break label ");

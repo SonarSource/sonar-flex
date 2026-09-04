@@ -78,7 +78,7 @@
     <analyzerCommons.version>2.31.0.5284</analyzerCommons.version>
     <junit.version>4.13.2</junit.version>
     <fest.version>1.4</fest.version>
-    <orchestrator.version>6.4.2.4626</orchestrator.version>
+    <orchestrator.version>6.4.3.4676</orchestrator.version>
 
     <gitRepositoryName>sonar-flex</gitRepositoryName>
     <artifactsToPublish>${project.groupId}:sonar-flex-plugin:jar,${project.groupId}:sslr-flex-toolkit:jar</artifactsToPublish>

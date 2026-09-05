@@ -19,12 +19,12 @@ package org.sonar.flex.checks;
 import java.io.File;
 import org.junit.jupiter.api.Test;
 
-public class LocalVarAndParameterNameCheckTest {
+class LocalVarAndParameterNameCheckTest {
 
   private LocalVarAndParameterNameCheck check = new LocalVarAndParameterNameCheck();
 
   @Test
-  public void defaults(){
+  void defaults(){
     FlexVerifier.verify(new File("src/test/resources/checks/LocalVarAndParameterName.as"), check);
   }
 }

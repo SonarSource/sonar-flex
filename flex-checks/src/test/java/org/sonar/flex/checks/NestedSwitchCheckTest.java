@@ -24,7 +24,7 @@ public class NestedSwitchCheckTest {
   private NestedSwitchCheck check = new NestedSwitchCheck();
 
   @Test
-  public void defaultFormat() {
+  void defaultFormat() {
     FlexVerifier.verify(new File("src/test/resources/checks/NestedSwitch.as"), check);
   }
 

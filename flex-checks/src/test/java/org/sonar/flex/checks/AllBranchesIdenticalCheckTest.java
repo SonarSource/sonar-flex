@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 public class AllBranchesIdenticalCheckTest {
 
   @Test
-  public void test() {
+  void test() {
     FlexVerifier.verify(new File("src/test/resources/checks/AllBranchesIdentical.as"), new AllBranchesIdenticalCheck());
   }
 

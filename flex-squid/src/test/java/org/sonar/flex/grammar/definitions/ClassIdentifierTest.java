@@ -26,7 +26,7 @@ public class ClassIdentifierTest {
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void classWithStaticAtribute() {
+  void classWithStaticAtribute() {
     Assertions.assertThat(g.rule(FlexGrammar.CLASS_IDENTIFIERS))
       .matches("a")
       .matches("a.b.c");

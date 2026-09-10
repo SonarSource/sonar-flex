@@ -35,7 +35,7 @@ jobs:
           version: 2026.9.1
 
       - name: Build with Maven
-        uses: SonarSource/ci-github-actions/build-maven@v1
+        uses: SonarSource/ci-github-actions/build-maven@v2
         with:
           deploy-pull-request: true
           maven-args: -Pcoverage-report -Dcommercial -T1C
@@ -62,7 +62,7 @@ jobs:
       - *checkout
       - *mise
       - name: Build Maven (no deploy)
-        uses: SonarSource/ci-github-actions/build-maven@master
+        uses: SonarSource/ci-github-actions/build-maven@v2
         with:
           deploy: false
           artifactory-reader-role: private-reader
@@ -110,7 +110,7 @@ jobs:
 
       - &config_maven
         name: Configure Maven
-        uses: SonarSource/ci-github-actions/config-maven@master
+        uses: SonarSource/ci-github-actions/config-maven@v2
         with:
           artifactory-reader-role: private-reader
           disable-caching: 'true'
@@ -162,7 +162,7 @@ jobs:
       - *checkout
       - *mise_no_cache
       - name: Promote Maven artifacts
-        uses: SonarSource/ci-github-actions/promote@v1
+        uses: SonarSource/ci-github-actions/promote@v2
         with:
           promote-pull-request: true
 

@@ -31,6 +31,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class FlexRulingTest {
 
+  private static final String PROJECT_KEY = "project";
+
   @ClassRule
   public static final OrchestratorRule ORCHESTRATOR = OrchestratorRule.builderEnv()
     .setEdition(Edition.ENTERPRISE_LW)
@@ -44,18 +46,18 @@ public class FlexRulingTest {
 
   @Test
   public void test() throws Exception {
-    ORCHESTRATOR.getServer().provisionProject("project", "project");
-    ORCHESTRATOR.getServer().associateProjectToQualityProfile("project", "flex", "rules");
+    ORCHESTRATOR.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);
+    ORCHESTRATOR.getServer().associateProjectToQualityProfile(PROJECT_KEY, "flex", "rules");
     File litsDifferencesFile = FileLocation.of("target/differences").getFile();
 
     SonarScanner build = SonarScanner.create(FileLocation.of("../sources/src").getFile())
       .setProperty("sonar.scanner.skipJreProvisioning", "true")
-      .setProjectKey("project")
-      .setProjectName("project")
+      .setProjectKey(PROJECT_KEY)
+      .setProjectName(PROJECT_KEY)
       .setProjectVersion("1")
       .setSourceDirs(".")
       .setSourceEncoding("UTF-8")
-      .setProperty("sonar.lits.dump.old", FileLocation.of("src/test/resources/expected/project").getFile().getAbsolutePath())
+      .setProperty("sonar.lits.dump.old", FileLocation.of("src/test/resources/expected/" + PROJECT_KEY).getFile().getAbsolutePath())
       .setProperty("sonar.lits.dump.new", FileLocation.of("target/actual").getFile().getAbsolutePath())
       .setProperty("sonar.lits.differences", litsDifferencesFile.getAbsolutePath())
       .setProperty("sonar.cpd.exclusions", "**/*")

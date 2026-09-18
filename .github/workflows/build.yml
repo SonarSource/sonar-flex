@@ -86,6 +86,7 @@ jobs:
       id-token: write
       contents: write
     strategy:
+      fail-fast: false
       matrix:
         sq_version:
           - LATEST_RELEASE

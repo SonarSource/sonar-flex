@@ -17,6 +17,8 @@ jobs:
   build:
     name: Build
     runs-on: github-ubuntu-latest-s
+    outputs:
+      build-number: ${{ steps.build.outputs.BUILD_NUMBER }}
     permissions:
       id-token: write
       contents: write
@@ -35,13 +37,21 @@ jobs:
           version: 2026.9.11
 
       - name: Build with Maven
+        id: build
         uses: SonarSource/ci-github-actions/build-maven@v2
         with:
           deploy-pull-request: true
           maven-args: -Pcoverage-report -Dcommercial -T1C
-          sonar-platform: next
+          sonar-platform: none
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
+
+      - name: Upload build output for scanning
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: build-output-${{ steps.build.outputs.BUILD_NUMBER }}
+          path: '**/target'
+          retention-days: 3
 
       # Publish the plugin version for the PVF.
       - run: printf '%s\n' "$PROJECT_VERSION" > candidate-version.txt
@@ -57,6 +67,30 @@ jobs:
           path: sonar-flex-plugin/target/sonar-flex-plugin-*.jar
           if-no-files-found: error
           retention-days: 1
+
+  scan:
+    name: Scan
+    needs: build
+    runs-on: github-ubuntu-latest-s
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      BUILD_NUMBER: ${{ needs.build.outputs.build-number }}
+    steps:
+      - *checkout
+      - *mise
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: build-output-${{ needs.build.outputs.build-number }}
+      - uses: SonarSource/ci-github-actions/build-maven@66c890622c26a71ea49efeb7e269bd58be455e77 # PR 348; re-pin to @v2 once merged
+        with:
+          deploy: false
+          skip-build: true
+          maven-args: -Pcoverage-report -Dcommercial -T1C
+          sonar-platform: next
+          artifactory-reader-role: private-reader
+          artifactory-deployer-role: qa-deployer
 
   windows:
     name: Windows Build
@@ -159,7 +193,7 @@ jobs:
   promote:
     name: Promote
     runs-on: github-ubuntu-latest-s
-    needs: [build, ruling, plugin_qa]
+    needs: [build, scan, ruling, plugin_qa]
     if: |
       needs.build.result == 'success' &&
       (github.event_name == 'pull_request' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/branch-') || startsWith(github.ref, 'refs/heads/dogfood-'))

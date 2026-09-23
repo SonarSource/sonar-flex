@@ -41,7 +41,7 @@ jobs:
         uses: SonarSource/ci-github-actions/build-maven@v2
         with:
           deploy-pull-request: true
-          maven-args: -Pcoverage-report -Dcommercial -T1C
+          maven-args: -Pcoverage -Pcoverage-report -Dcommercial -T1C
           sonar-platform: none
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
@@ -50,7 +50,9 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: build-output-${{ steps.build.outputs.BUILD_NUMBER }}
-          path: '**/target'
+          path: |
+            **/target
+            coverage/java/jacoco.xml
           retention-days: 3
 
       # Publish the plugin version for the PVF.

@@ -54,6 +54,7 @@ jobs:
             **/target
             coverage/java/jacoco.xml
           retention-days: 3
+          overwrite: true
 
       # Publish the plugin version for the PVF.
       - run: printf '%s\n' "$PROJECT_VERSION" > candidate-version.txt

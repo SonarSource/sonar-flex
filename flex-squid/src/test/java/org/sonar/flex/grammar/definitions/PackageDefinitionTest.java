@@ -34,7 +34,7 @@ public class PackageDefinitionTest {
   }
 
   @Test
-  public void packageWithBody() {
+  void packageWithBody() {
     Assertions.assertThat(g.rule(FlexGrammar.PACKAGE_DEF))
       .matches("package samples\n"
       + "{\n"

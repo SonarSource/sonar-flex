@@ -49,11 +49,11 @@ public class CommentedCodeCheck extends FlexCheck {
     @Override
     public Set<Detector> getDetectors() {
       return Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
-        new EndWithDetector(0.95, '}', ';', '{'),
-        new KeywordsDetector(0.3, FlexKeyword.keywordValues()),
-        new ContainsDetector(0.95, "++", "--"),
-        new ContainsDetector(0.95, "*=", "/=", "%=", "+=", "-=", "<<=", ">>=", ">>>=", "&=", "^=", "|="),
-        new ContainsDetector(0.95, "==", "!=", "===", "!=="))));
+        new EndWithDetector(0, '}', ';', '{'),
+        new KeywordsDetector(0, FlexKeyword.keywordValues()),
+        new ContainsDetector(0, "++", "--"),
+        new ContainsDetector(0, "*=", "/=", "%=", "+=", "-=", "<<=", ">>=", ">>>=", "&=", "^=", "|="),
+        new ContainsDetector(0, "==", "!=", "===", "!=="))));
     }
 
   }

@@ -21,12 +21,12 @@ import org.sonar.flex.FlexGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class PackageDefinitionTest {
+class PackageDefinitionTest {
 
   private final LexerlessGrammar g = FlexGrammar.createGrammar();
 
   @Test
-  public void emptyPackage() {
+  void emptyPackage() {
     Assertions.assertThat(g.rule(FlexGrammar.PACKAGE_DEF))
       .matches("package p {}")
       .matches("package   parent.child {   }")
@@ -34,7 +34,7 @@ public class PackageDefinitionTest {
   }
 
   @Test
-  public void packageWithBody() {
+  void packageWithBody() {
     Assertions.assertThat(g.rule(FlexGrammar.PACKAGE_DEF))
       .matches("package samples\n"
       + "{\n"
@@ -50,7 +50,7 @@ public class PackageDefinitionTest {
   }
 
   @Test
-  public void childPackages() {
+  void childPackages() {
     Assertions.assertThat(g.rule(FlexGrammar.PACKAGE_DEF))
       .matches("package flash.xml\n"
       + "{\n"

@@ -32,7 +32,7 @@ import org.sonar.flex.checks.utils.Modifiers;
 public class ClassWithTooManyFieldsCheck extends FlexCheck {
 
 
-  public static final int DEFAULT_MAX = 20;
+  public static final int DEFAULT_MAX = 1;
   public static final boolean DEFAULT_COUNT_NON_PUBLIC = true;
 
   @RuleProperty(

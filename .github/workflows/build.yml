@@ -122,6 +122,14 @@ jobs:
           artifactory-reader-role: private-reader
           disable-caching: 'true'
 
+      - &edge_preflight
+        name: Wait for Artifactory token federation
+        uses: ./.github/actions/wait-for-artifactory-token-federation
+        with:
+          probe-path: "api/search/versions?g=com.sonarsource.sonarqube&a=sonarqube-enterprise-lw&remote=1&repos=sonarsource-releases&v=*"
+        env:
+          ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
+
       - name: Run Plugin QA
         env: &qa_env
           GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).GITHUB_TOKEN }}
@@ -129,7 +137,7 @@ jobs:
           ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
         run: |
           cd its/plugin
-          mvn verify -Pit-plugin -Dsonar.runtimeVersion=${{ matrix.sq_version }} -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+          mvn verify -Pit-plugin -Dsonar.runtimeVersion=${{ matrix.sq_version }} -Dorchestrator.artifactory.url=https://repox-internal.dev.sonar.build/artifactory "-Dorchestrator.artifactory.accessToken=${ARTIFACTORY_ACCESS_TOKEN}" -Dmaven.test.redirectTestOutputToFile=false -B -e -V
 
   ruling:
     name: Ruling
@@ -149,11 +157,12 @@ jobs:
       - *download_jar
       - *secrets
       - *config_maven
+      - *edge_preflight
       - name: Run Ruling
         env: *qa_env
         run: |
           cd its/ruling
-          mvn verify -Pit-ruling -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+          mvn verify -Pit-ruling -Dsonar.runtimeVersion=LATEST_RELEASE -Dorchestrator.artifactory.url=https://repox-internal.dev.sonar.build/artifactory "-Dorchestrator.artifactory.accessToken=${ARTIFACTORY_ACCESS_TOKEN}" -Dmaven.test.redirectTestOutputToFile=false -B -e -V
 
   promote:
     name: Promote

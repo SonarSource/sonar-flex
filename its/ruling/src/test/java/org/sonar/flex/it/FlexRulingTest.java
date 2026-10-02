@@ -58,7 +58,7 @@ public class FlexRulingTest {
       .setSourceDirs(".")
       .setSourceEncoding("UTF-8")
       .setProperty("sonar.lits.dump.old", FileLocation.of("src/test/resources/expected/" + PROJECT_KEY).getFile().getAbsolutePath())
-      .setProperty("sonar.lits.dump.new", FileLocation.of("target/actual").getFile().getAbsolutePath())
+      .setProperty("sonar.lits.dump.new", FileLocation.of("target/actual/" + PROJECT_KEY).getFile().getAbsolutePath())
       .setProperty("sonar.lits.differences", litsDifferencesFile.getAbsolutePath())
       .setProperty("sonar.cpd.exclusions", "**/*")
       .setDebugLogs(true)

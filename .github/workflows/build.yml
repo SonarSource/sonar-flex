@@ -138,7 +138,9 @@ jobs:
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/branch-') || startsWith(github.ref, 'refs/heads/dogfood-')
     permissions:
       id-token: write
-      contents: write
+      contents: write # Required for fix branches
+      pull-requests: write
+      actions: read
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -150,10 +152,23 @@ jobs:
       - *secrets
       - *config_maven
       - name: Run Ruling
+        id: ruling
+        continue-on-error: true
         env: *qa_env
         run: |
           cd its/ruling
           mvn verify -Pit-ruling -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+      - name: Prepare ruling artifact
+        if: ${{ always() && steps.ruling.outcome == 'failure' }}
+        uses: SonarSource/core-languages-tooling-public/prepare-ruling-artifact@romain/rc-354
+      - name: Update ruling and notify
+        if: ${{ always() && (steps.ruling.outcome == 'success' || steps.ruling.outcome == 'failure') }}
+        uses: SonarSource/core-languages-tooling-public/ruling-update-and-notify@romain/rc-354
+        with:
+          ruling-failed: ${{ steps.ruling.outcome == 'failure' }}
+      - name: Preserve ruling test failure
+        if: ${{ always() && steps.ruling.outcome == 'failure' }}
+        run: exit 1
 
   promote:
     name: Promote

@@ -1,18 +1,18 @@
 {
-'project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTASProject.as':[
-273,
+"project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTASProject.as": [
+273
 ],
-'project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/LinkedSet.as':[
-165,
+"project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/LinkedSet.as": [
+165
 ],
-'project:as3-commons/as3-commons-collections/src/main/examples/CollectionEventIteratorExample.as':[
+"project:as3-commons/as3-commons-collections/src/main/examples/CollectionEventIteratorExample.as": [
 30,
-36,
+36
 ],
-'project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/JSONTypeProvider.as':[
-242,
+"project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/JSONTypeProvider.as": [
+242
 ],
-'project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/stage/DefaultSpringObjectSelector.as':[
-56,
-],
+"project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/stage/DefaultSpringObjectSelector.as": [
+56
+]
 }

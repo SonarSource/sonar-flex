@@ -1,5 +1,5 @@
 {
-'project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as':[
+"project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as": [
 406,
 411,
 483,
@@ -792,9 +792,9 @@
 16073,
 16115,
 16195,
-16199,
+16199
 ],
-'project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as':[
+"project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as": [
 118,
 120,
 126,
@@ -864,9 +864,9 @@
 995,
 996,
 997,
-998,
+998
 ],
-'project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XParser.as':[
+"project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XParser.as": [
 98,
 102,
 141,
@@ -938,9 +938,9 @@
 1304,
 1305,
 1306,
-1307,
+1307
 ],
-'project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/regexsimple/RegexSimpleParser.as':[
+"project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/regexsimple/RegexSimpleParser.as": [
 98,
 101,
 107,
@@ -955,49 +955,49 @@
 345,
 347,
 349,
-350,
+350
 ],
-'project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTMetaTag.as':[
-116,
+"project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTMetaTag.as": [
+116
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/IAbcBuilder.as':[
-72,
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/IAbcBuilder.as": [
+72
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/IPackageBuilder.as':[
-55,
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/IPackageBuilder.as": [
+55
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/AbcBuilder.as':[
-212,
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/AbcBuilder.as": [
+212
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/PackageBuilder.as':[
-98,
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/PackageBuilder.as": [
+98
 ],
-'project:as3-commons/as3-commons-reflect/src/test/actionscript/org/as3commons/reflect/FieldTest.as':[
-25,
+"project:as3-commons/as3-commons-reflect/src/test/actionscript/org/as3commons/reflect/FieldTest.as": [
+25
 ],
-'project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/ITextFilesLoader.as':[
+"project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/ITextFilesLoader.as": [
 24,
-26,
+26
 ],
-'project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/metadata/MetadataObjectDefinitionsProvider.as':[
-299,
+"project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/metadata/MetadataObjectDefinitionsProvider.as": [
+299
 ],
-'project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/XMLObjectDefinitionsProvider.as':[
-330,
+"project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/XMLObjectDefinitionsProvider.as": [
+330
 ],
-'project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/nodeparser/EventHandlerNodeParser.as':[
-63,
+"project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/nodeparser/EventHandlerNodeParser.as": [
+63
 ],
-'project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/nodeparser/EventInterceptorNodeParser.as':[
-69,
+"project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/nodeparser/EventInterceptorNodeParser.as": [
+69
 ],
-'project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/nodeparser/EventListenerInterceptorNodeParser.as':[
-74,
+"project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/nodeparser/EventListenerInterceptorNodeParser.as": [
+74
 ],
-'project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/nodeparser/EventRouterNodeParser.as':[
-65,
+"project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/nodeparser/EventRouterNodeParser.as": [
+65
 ],
-'project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/property/TextFileURI.as':[
-30,
-],
+"project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/property/TextFileURI.as": [
+30
+]
 }

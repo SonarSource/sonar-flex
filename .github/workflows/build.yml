@@ -160,10 +160,10 @@ jobs:
           mvn verify -Pit-ruling -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
       - name: Prepare ruling artifact
         if: ${{ always() && steps.ruling.outcome == 'failure' }}
-        uses: SonarSource/core-languages-tooling-public/prepare-ruling-artifact@romain/rc-354
+        uses: SonarSource/core-languages-tooling-public/prepare-ruling-artifact@master
       - name: Update ruling and notify
         if: ${{ always() && (steps.ruling.outcome == 'success' || steps.ruling.outcome == 'failure') }}
-        uses: SonarSource/core-languages-tooling-public/ruling-update-and-notify@romain/rc-354
+        uses: SonarSource/core-languages-tooling-public/ruling-update-and-notify@master
         with:
           ruling-failed: ${{ steps.ruling.outcome == 'failure' }}
       - name: Preserve ruling test failure

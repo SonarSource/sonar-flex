@@ -138,7 +138,7 @@ jobs:
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/branch-') || startsWith(github.ref, 'refs/heads/dogfood-')
     permissions:
       id-token: write
-      contents: write # Required for fix branches
+      contents: write
       pull-requests: write
       actions: read
     steps:

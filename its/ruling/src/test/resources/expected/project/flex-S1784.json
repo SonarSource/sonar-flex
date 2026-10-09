@@ -1,21 +1,21 @@
 {
-'project:as3-commons/as3-commons-aop/src/main/actionscript/org/as3commons/aop/advice/util/AdviceUtil.as':[
+"project:as3-commons/as3-commons-aop/src/main/actionscript/org/as3commons/aop/advice/util/AdviceUtil.as": [
 56,
-63,
+63
 ],
-'project:as3-commons/as3-commons-aop/src/main/actionscript/org/as3commons/aop/intercept/impl/AdvisorInterceptor.as':[
+"project:as3-commons/as3-commons-aop/src/main/actionscript/org/as3commons/aop/intercept/impl/AdvisorInterceptor.as": [
 167,
-175,
+175
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/AbcFile.as':[
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/AbcFile.as": [
 187,
 195,
 203,
 211,
 219,
-227,
+227
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/ConstantPool.as':[
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/ConstantPool.as": [
 179,
 192,
 205,
@@ -23,51 +23,51 @@
 232,
 246,
 260,
-268,
+268
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/AccessorBuilder.as':[
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/AccessorBuilder.as": [
 67,
-72,
+72
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/BaseTypeBuilder.as':[
-64,
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/BaseTypeBuilder.as": [
+64
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/ClassBuilder.as':[
-77,
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/ClassBuilder.as": [
+77
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/MetadataBuilder.as':[
-36,
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/MetadataBuilder.as": [
+36
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/MethodArgument.as':[
-37,
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/MethodArgument.as": [
+37
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/MethodBodyBuilder.as':[
-165,
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/MethodBodyBuilder.as": [
+165
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/MethodBuilder.as':[
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/MethodBuilder.as": [
 315,
-319,
+319
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/PropertyBuilder.as':[
-85,
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/PropertyBuilder.as": [
+85
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ByteCodeAccessor.as':[
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ByteCodeAccessor.as": [
 110,
 114,
 118,
 122,
 126,
 130,
-134,
+134
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ByteCodeConstant.as':[
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ByteCodeConstant.as": [
 84,
 88,
 92,
 96,
-100,
+100
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ByteCodeMethod.as':[
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ByteCodeMethod.as": [
 118,
 122,
 126,
@@ -79,14 +79,14 @@
 150,
 154,
 158,
-162,
+162
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ByteCodeParameter.as':[
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ByteCodeParameter.as": [
 54,
 58,
-62,
+62
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ByteCodeType.as':[
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ByteCodeType.as": [
 274,
 333,
 363,
@@ -95,64 +95,64 @@
 375,
 379,
 383,
-387,
+387
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ByteCodeTypeCache.as':[
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ByteCodeTypeCache.as": [
 115,
-133,
+133
 ],
-'project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ByteCodeVariable.as':[
+"project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ByteCodeVariable.as": [
 80,
 84,
 88,
 92,
-96,
+96
 ],
-'project:as3-commons/as3-commons-bytecode/src/test/actionscript/org/as3commons/bytecode/testclasses/EventDispatcherSubclass3.as':[
-61,
+"project:as3-commons/as3-commons-bytecode/src/test/actionscript/org/as3commons/bytecode/testclasses/EventDispatcherSubclass3.as": [
+61
 ],
-'project:as3-commons/as3-commons-bytecode/src/test/actionscript/org/as3commons/bytecode/testclasses/SimpleClassWithCustomNamespaceMethod.as':[
+"project:as3-commons/as3-commons-bytecode/src/test/actionscript/org/as3commons/bytecode/testclasses/SimpleClassWithCustomNamespaceMethod.as": [
 28,
 32,
-36,
+36
 ],
-'project:as3-commons/as3-commons-bytecode/src/test/resources/assets/abc/FullClassDefinition.as':[
-91,
+"project:as3-commons/as3-commons-bytecode/src/test/resources/assets/abc/FullClassDefinition.as": [
+91
 ],
-'project:as3-commons/as3-commons-bytecode/src/test/resources/assets/template/DynamicSubClass.as':[
+"project:as3-commons/as3-commons-bytecode/src/test/resources/assets/template/DynamicSubClass.as": [
 31,
-35,
+35
 ],
-'project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/LinkedList.as':[
+"project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/LinkedList.as": [
 122,
-132,
+132
 ],
-'project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/Treap.as':[
+"project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/Treap.as": [
 297,
 312,
 327,
 347,
-366,
+366
 ],
-'project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/framework/core/AbstractLinkedCollection.as':[
+"project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/framework/core/AbstractLinkedCollection.as": [
 204,
-211,
+211
 ],
-'project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/framework/core/AbstractList.as':[
-220,
+"project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/framework/core/AbstractList.as": [
+220
 ],
-'project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/framework/core/AbstractSortedCollection.as':[
+"project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/framework/core/AbstractSortedCollection.as": [
 234,
 249,
 264,
 284,
-303,
+303
 ],
-'project:as3-commons/as3-commons-eventbus/src/main/actionscript/org/as3commons/eventbus/impl/collection/WeakLinkedList.as':[
+"project:as3-commons/as3-commons-eventbus/src/main/actionscript/org/as3commons/eventbus/impl/collection/WeakLinkedList.as": [
 52,
-62,
+62
 ],
-'project:as3-commons/as3-commons-lang/src/test/actionscript/org/as3commons/lang/testclasses/PropertiesClass.as':[
+"project:as3-commons/as3-commons-lang/src/test/actionscript/org/as3commons/lang/testclasses/PropertiesClass.as": [
 22,
 25,
 26,
@@ -160,9 +160,9 @@
 44,
 47,
 48,
-51,
+51
 ],
-'project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/log4j/Log4JStyleSetup.as':[
+"project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/log4j/Log4JStyleSetup.as": [
 202,
 207,
 211,
@@ -173,32 +173,32 @@
 326,
 331,
 345,
-350,
+350
 ],
-'project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/util/HereTest.as':[
-33,
+"project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/util/HereTest.as": [
+33
 ],
-'project:as3-commons/as3-commons-metadata/src/test/actionscript/org/as3commons/metadata/test/AnonMetadataProcessorWithCustomNamespacedProcessMethod.as':[
-31,
+"project:as3-commons/as3-commons-metadata/src/test/actionscript/org/as3commons/metadata/test/AnonMetadataProcessorWithCustomNamespacedProcessMethod.as": [
+31
 ],
-'project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/AbstractMember.as':[
+"project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/AbstractMember.as": [
 235,
 239,
 243,
 247,
-251,
+251
 ],
-'project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Accessor.as':[
-169,
+"project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Accessor.as": [
+169
 ],
-'project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/BaseParameter.as':[
+"project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/BaseParameter.as": [
 104,
-108,
+108
 ],
-'project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Metadata.as':[
-165,
+"project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Metadata.as": [
+165
 ],
-'project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Method.as':[
+"project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Method.as": [
 174,
 211,
 215,
@@ -206,88 +206,88 @@
 224,
 229,
 233,
-238,
+238
 ],
-'project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Type.as':[
-774,
+"project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Type.as": [
+774
 ],
-'project:as3-commons/as3-commons-reflect/src/test/actionscript/org/as3commons/reflect/testclasses/ComplexerClass.as':[
-36,
+"project:as3-commons/as3-commons-reflect/src/test/actionscript/org/as3commons/reflect/testclasses/ComplexerClass.as": [
+36
 ],
-'project:as3-commons/as3-commons-reflect/src/test/actionscript/org/as3commons/reflect/testclasses/ProxiedClass.as':[
+"project:as3-commons/as3-commons-reflect/src/test/actionscript/org/as3commons/reflect/testclasses/ProxiedClass.as": [
 42,
-46,
+46
 ],
-'project:as3-commons/as3-commons-swc/src/main/actionscript/org/as3commons/swc/SWC.as':[
+"project:as3-commons/as3-commons-swc/src/main/actionscript/org/as3commons/swc/SWC.as": [
 129,
 153,
 162,
-166,
+166
 ],
-'project:as3-commons/as3-commons-swc/src/main/actionscript/org/as3commons/swc/SWCFile.as':[
-56,
+"project:as3-commons/as3-commons-swc/src/main/actionscript/org/as3commons/swc/SWCFile.as": [
+56
 ],
-'project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/focus/FocusAdapter.as':[
+"project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/focus/FocusAdapter.as": [
 104,
 115,
-130,
+130
 ],
-'project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/framework/uiservice/AbstractUIAdapter.as':[
+"project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/framework/uiservice/AbstractUIAdapter.as": [
 41,
-46,
+46
 ],
-'project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/framework/uiservice/AbstractUIService.as':[
+"project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/framework/uiservice/AbstractUIService.as": [
 38,
-43,
+43
 ],
-'project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/layer/tooltip/ToolTipAdapter.as':[
+"project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/layer/tooltip/ToolTipAdapter.as": [
 123,
 133,
 144,
-164,
+164
 ],
-'project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/framework/core/AbstractLayout.as':[
-298,
+"project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/framework/core/AbstractLayout.as": [
+298
 ],
-'project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/framework/core/AbstractLayoutItem.as':[
-415,
+"project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/framework/core/AbstractLayoutItem.as": [
+415
 ],
-'project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/lifecycle/i10n/I10N.as':[
+"project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/lifecycle/i10n/I10N.as": [
 167,
 202,
-211,
+211
 ],
-'project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/lifecycle/i10n/I10NAdapter.as':[
+"project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/lifecycle/i10n/I10NAdapter.as": [
 107,
 113,
 121,
 145,
 149,
 153,
-157,
+157
 ],
-'project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/lifecycle/lifecycle/LifeCycleAdapter.as':[
+"project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/lifecycle/lifecycle/LifeCycleAdapter.as": [
 100,
 109,
 113,
 117,
 121,
 125,
-134,
+134
 ],
-'project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/lifecycle/lifecycle/LifeCycleView.as':[
+"project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/lifecycle/lifecycle/LifeCycleView.as": [
 88,
 93,
 97,
 101,
 105,
-109,
+109
 ],
-'project:as3-commons/as3-commons-ui/src/test/actionscript/org/as3commons/ui/framework/uiservice/testhelper/TestAdapter.as':[
+"project:as3-commons/as3-commons-ui/src/test/actionscript/org/as3commons/ui/framework/uiservice/testhelper/TestAdapter.as": [
 19,
-25,
+25
 ],
-'project:spring-actionscript/spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/TestInjectionClass.as':[
-51,
-],
+"project:spring-actionscript/spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/TestInjectionClass.as": [
+51
+]
 }

@@ -36,6 +36,13 @@ jobs:
         with:
           version: 2026.9.12
 
+      # Build-number refs only track a number; use the existing base commit so
+      # claiming a PR number does not create refs containing workflow changes.
+      - name: Claim PR build number
+        if: github.event_name == 'pull_request'
+        uses: SonarSource/ci-github-actions/get-build-number@v2
+        env:
+          GITHUB_SHA: ${{ github.event.pull_request.base.sha }}
       - name: Build with Maven
         id: build
         uses: SonarSource/ci-github-actions/build-maven@v2
@@ -73,6 +80,12 @@ jobs:
   analysis:
     name: NEXT analysis
     needs: build
+    # Match build-maven's should_scan policy; other refs only build and deploy.
+    if: >-
+      github.event_name == 'pull_request' ||
+      github.ref_name == github.event.repository.default_branch ||
+      startsWith(github.ref_name, 'branch-') ||
+      startsWith(github.ref_name, 'feature/long/')
     runs-on: github-ubuntu-latest-s
     permissions:
       id-token: write
@@ -210,9 +223,13 @@ jobs:
     name: Promote
     runs-on: github-ubuntu-latest-s
     needs: [build, analysis, ruling, plugin_qa]
-    if: |
-      needs.build.result == 'success' &&
-      (github.event_name == 'pull_request' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/branch-') || startsWith(github.ref, 'refs/heads/dogfood-'))
+    if: >-
+      !cancelled()
+      && needs.build.result == 'success'
+      && needs.ruling.result == 'success'
+      && needs.plugin_qa.result == 'success'
+      && (needs.analysis.result == 'success' || needs.analysis.result == 'skipped')
+      && (needs.build.result == 'success' && (github.event_name == 'pull_request' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/branch-') || startsWith(github.ref, 'refs/heads/dogfood-')))
     permissions:
       id-token: write
       contents: write
@@ -245,7 +262,7 @@ jobs:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 
   notify-build-failure:
-    needs: [build, windows, plugin_qa, ruling, promote]
+    needs: [build, analysis, windows, plugin_qa, ruling, promote]
     if: >-
       always()
       && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/branch-') || startsWith(github.ref, 'refs/heads/dogfood-'))

@@ -77,19 +77,13 @@ jobs:
           maven-args: '-T1C'
 
   plugin_qa:
-    name: Plugin QA (${{ matrix.sq_version }})
+    name: Plugin QA
     runs-on: github-ubuntu-latest-s
     needs: [build]
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/branch-') || startsWith(github.ref, 'refs/heads/dogfood-')
     permissions:
       id-token: write
       contents: write
-    strategy:
-      fail-fast: false
-      matrix:
-        sq_version:
-          - LATEST_RELEASE
-          - DEV
     steps:
       - *checkout
       - &mise_no_cache
@@ -129,7 +123,7 @@ jobs:
           ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
         run: |
           cd its/plugin
-          mvn verify -Pit-plugin -Dsonar.runtimeVersion=${{ matrix.sq_version }} -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+          mvn verify -Pit-plugin -Dsonar.runtimeVersion=DEV -Dmaven.test.redirectTestOutputToFile=false -B -e -V
 
   ruling:
     name: Ruling
@@ -157,7 +151,7 @@ jobs:
         env: *qa_env
         run: |
           cd its/ruling
-          mvn verify -Pit-ruling -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+          mvn verify -Pit-ruling -Dsonar.runtimeVersion=DEV -Dmaven.test.redirectTestOutputToFile=false -B -e -V
       - name: Prepare ruling artifact
         if: ${{ always() && steps.ruling.outcome == 'failure' }}
         uses: SonarSource/core-languages-tooling-public/prepare-ruling-artifact@61120a5cf23942b1ed2d8cbf10cd5a84e30c7c11 # master

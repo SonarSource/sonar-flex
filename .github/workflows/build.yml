@@ -139,6 +139,8 @@ jobs:
     permissions:
       id-token: write
       contents: write
+      pull-requests: write
+      actions: read
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -150,10 +152,23 @@ jobs:
       - *secrets
       - *config_maven
       - name: Run Ruling
+        id: ruling
+        continue-on-error: true
         env: *qa_env
         run: |
           cd its/ruling
           mvn verify -Pit-ruling -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+      - name: Prepare ruling artifact
+        if: ${{ always() && steps.ruling.outcome == 'failure' }}
+        uses: SonarSource/core-languages-tooling-public/prepare-ruling-artifact@61120a5cf23942b1ed2d8cbf10cd5a84e30c7c11 # master
+      - name: Update ruling and notify
+        if: ${{ always() && (steps.ruling.outcome == 'success' || steps.ruling.outcome == 'failure') }}
+        uses: SonarSource/core-languages-tooling-public/ruling-update-and-notify@61120a5cf23942b1ed2d8cbf10cd5a84e30c7c11 # master
+        with:
+          ruling-failed: ${{ steps.ruling.outcome == 'failure' }}
+      - name: Preserve ruling test failure
+        if: ${{ always() && steps.ruling.outcome == 'failure' }}
+        run: exit 1
 
   promote:
     name: Promote

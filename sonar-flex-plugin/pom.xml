@@ -26,7 +26,7 @@
     <sonar.pluginClass>org.sonar.plugins.flex.FlexPlugin</sonar.pluginClass>
     <sonar.pluginName>Flex Code Quality and Security</sonar.pluginName>
     <sonar.skipDependenciesPackaging>true</sonar.skipDependenciesPackaging>
-    <scanner.engine.version>13.14.0.6149</scanner.engine.version>
+    <scanner.engine.version>13.15.0.6376</scanner.engine.version>
   </properties>
 
   <dependencies>
@@ -143,9 +143,6 @@
         <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
         <artifactId>sonar-packaging-maven-plugin</artifactId>
         <configuration>
-          <!-- this value is translated to Sonar-Version property in META-INF/MANIFEST.MF file inside jar. It is used at runtime
-          by products to detect compatibility. We keep LTS -->
-          <pluginApiMinVersion>9.9</pluginApiMinVersion>
           <requiredForLanguages>flex</requiredForLanguages>
         </configuration>
       </plugin>

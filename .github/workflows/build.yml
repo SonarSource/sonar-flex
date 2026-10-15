@@ -202,7 +202,17 @@ jobs:
           mvn verify -Pit-ruling -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
       - name: Prepare ruling artifact
         if: ${{ always() && steps.ruling.outcome == 'failure' }}
-        uses: SonarSource/core-languages-tooling-public/prepare-ruling-artifact@61120a5cf23942b1ed2d8cbf10cd5a84e30c7c11 # master
+        run: |
+          compgen -G 'its/ruling/target/actual/project/*.sarif' > /dev/null
+          mkdir -p "$RUNNER_TEMP/ruling-artifact"
+          cp -R its/ruling/target/actual "$RUNNER_TEMP/ruling-artifact/expected"
+      - name: Upload ruling artifact
+        if: ${{ always() && steps.ruling.outcome == 'failure' }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: actual_ruling
+          path: ${{ runner.temp }}/ruling-artifact/
+          if-no-files-found: error
       - name: Update ruling and notify
         if: ${{ always() && (steps.ruling.outcome == 'success' || steps.ruling.outcome == 'failure') }}
         uses: SonarSource/core-languages-tooling-public/ruling-update-and-notify@61120a5cf23942b1ed2d8cbf10cd5a84e30c7c11 # master

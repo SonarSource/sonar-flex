@@ -24,7 +24,7 @@ public class UnusedPrivateFunctionCheckTest {
   private UnusedPrivateFunctionCheck check = new UnusedPrivateFunctionCheck();
 
   @Test
-  public void test() {
+  void test() {
     FlexVerifier.verify(new File("src/test/resources/checks/UnusedPrivateFunction.as"), check);
   }
 }

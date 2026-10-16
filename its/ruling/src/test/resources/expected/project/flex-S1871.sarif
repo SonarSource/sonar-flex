@@ -1,0 +1,186 @@
+{
+  "$schema" : "https://json.schemastore.org/sarif-2.1.0.json",
+  "version" : "2.1.0",
+  "runs" : [ {
+    "tool" : {
+      "driver" : {
+        "name" : "LITS",
+        "language" : "en-US",
+        "contents" : [ "localizedData", "nonLocalizedData" ],
+        "isComprehensive" : false
+      }
+    },
+    "language" : "en-US",
+    "results" : [ {
+      "ruleId" : "flex:S1871",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Either merge this case with the identical one on line \"266\" or change one of the implementations."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTASProject.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 273,
+            "startColumn" : 1,
+            "endLine" : 273,
+            "endColumn" : 62,
+            "charOffset" : 7494,
+            "charLength" : 61,
+            "byteOffset" : 7494,
+            "byteLength" : 61
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1871",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Either merge this case with the identical one on line \"164\" or change one of the implementations."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/LinkedSet.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 165,
+            "startColumn" : 1,
+            "endLine" : 165,
+            "endColumn" : 54,
+            "charOffset" : 4958,
+            "charLength" : 53,
+            "byteOffset" : 4958,
+            "byteLength" : 53
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1871",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Either merge this case with the identical one on line \"24\" or change one of the implementations."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/examples/CollectionEventIteratorExample.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 30,
+            "startColumn" : 1,
+            "endLine" : 30,
+            "endColumn" : 55,
+            "charOffset" : 987,
+            "charLength" : 54,
+            "byteOffset" : 987,
+            "byteLength" : 54
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1871",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Either merge this case with the identical one on line \"24\" or change one of the implementations."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/examples/CollectionEventIteratorExample.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 36,
+            "startColumn" : 1,
+            "endLine" : 36,
+            "endColumn" : 52,
+            "charOffset" : 1170,
+            "charLength" : 51,
+            "byteOffset" : 1170,
+            "byteLength" : 51
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1871",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Either merge this case with the identical one on line \"240\" or change one of the implementations."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/JSONTypeProvider.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 242,
+            "startColumn" : 1,
+            "endLine" : 242,
+            "endColumn" : 79,
+            "charOffset" : 9137,
+            "charLength" : 78,
+            "byteOffset" : 9138,
+            "byteLength" : 78
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1871",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Either merge this case with the identical one on line \"54\" or change one of the implementations."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/stage/DefaultSpringObjectSelector.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 56,
+            "startColumn" : 1,
+            "endLine" : 56,
+            "endColumn" : 52,
+            "charOffset" : 1909,
+            "charLength" : 51,
+            "byteOffset" : 1909,
+            "byteLength" : 51
+          }
+        }
+      } ],
+      "rank" : -1.0
+    } ],
+    "newlineSequences" : [ "\r\n", "\n" ],
+    "columnKind" : "utf16CodeUnits"
+  } ]
+}

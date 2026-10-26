@@ -1,0 +1,125 @@
+{
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/impl/DefaultEventBusUserRegistry.as": [
+157,
+160
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/process/RouteEventsMetaDataProcessor.as": [
+159
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/autowire/impl/DefaultAutowireProcessor.as": [
+257,
+411,
+544,
+550,
+575,
+582
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/metadata/MetadataObjectDefinitionsProvider.as": [
+200,
+329,
+384,
+473,
+478
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/metadata/util/MetadataConfigUtils.as": [
+181,
+219
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/XMLObjectDefinitionsProvider.as": [
+281,
+325
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/ParsingUtils.as": [
+77,
+98,
+103
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/nodeparser/EventHandlerNodeParser.as": [
+78
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/nodeparser/EventRouterNodeParser.as": [
+70
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/task/nodeparser/CompositeCommandNodeParser.as": [
+51
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/XMLObjectDefinitionsParser.as": [
+387
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/DictionaryNodeParser.as": [
+62,
+64
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/VectorNodeParser.as": [
+71,
+73
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/property/impl/PropertyPlaceholderResolver.as": [
+117
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/DefaultInstanceCache.as": [
+112
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/factory/ObjectDefinitionFactoryPostProcessor.as": [
+122
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/factory/PropertyPlaceholderConfigurerFactoryPostProcessor.as": [
+148,
+148,
+165,
+165,
+204,
+228,
+253
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/impl/DefaultDependencyChecker.as": [
+97
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/impl/DefaultDependencyInjector.as": [
+122,
+176,
+464
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/impl/DefaultLazyDependencyManager.as": [
+86,
+102
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/objectdefinition/impl/DefaultObjectDefinitionRegistry.as": [
+168,
+198,
+212,
+227,
+242,
+256,
+391
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/stage/DefaultObjectDefinitionResolver.as": [
+128
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/component/Interface.as": [
+53
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/component/MXMLObjectDefinition.as": [
+743,
+779,
+790
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/custom/bootstrap/Bootstrap.as": [
+81
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/custom/eventbus/EventHandler.as": [
+51
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/custom/eventbus/EventInterceptor.as": [
+50
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/custom/eventbus/EventListenerInterceptor.as": [
+49
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/custom/eventbus/EventRouter.as": [
+51
+],
+"spring-actionscript:spring-actionscript-flex/src/test/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/component/MXMLObjectDefinitionTest.as": [
+66
+]
+}

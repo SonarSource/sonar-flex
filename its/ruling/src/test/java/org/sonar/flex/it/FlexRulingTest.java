@@ -31,8 +31,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class FlexRulingTest {
 
-  private static final String PROJECT_KEY = "project";
-
   @ClassRule
   public static final OrchestratorRule ORCHESTRATOR = OrchestratorRule.builderEnv()
     .setEdition(Edition.ENTERPRISE_LW)
@@ -45,20 +43,29 @@ public class FlexRulingTest {
     .build();
 
   @Test
-  public void test() throws Exception {
-    ORCHESTRATOR.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);
-    ORCHESTRATOR.getServer().associateProjectToQualityProfile(PROJECT_KEY, "flex", "rules");
-    File litsDifferencesFile = FileLocation.of("target/differences").getFile();
+  public void as3_commons() throws Exception {
+    runRulingTest("as3-commons");
+  }
 
-    SonarScanner build = SonarScanner.create(FileLocation.of("../sources").getFile())
+  @Test
+  public void spring_actionscript() throws Exception {
+    runRulingTest("spring-actionscript");
+  }
+
+  private static void runRulingTest(String projectKey) throws Exception {
+    ORCHESTRATOR.getServer().provisionProject(projectKey, projectKey);
+    ORCHESTRATOR.getServer().associateProjectToQualityProfile(projectKey, "flex", "rules");
+    File litsDifferencesFile = FileLocation.of("target/differences-" + projectKey).getFile();
+
+    SonarScanner build = SonarScanner.create(FileLocation.of("../sources/" + projectKey).getFile())
       .setProperty("sonar.scanner.skipJreProvisioning", "true")
-      .setProjectKey(PROJECT_KEY)
-      .setProjectName(PROJECT_KEY)
+      .setProjectKey(projectKey)
+      .setProjectName(projectKey)
       .setProjectVersion("1")
       .setSourceDirs(".")
       .setSourceEncoding("UTF-8")
-      .setProperty("sonar.lits.dump.old", FileLocation.of("src/test/resources/expected/" + PROJECT_KEY).getFile().getAbsolutePath())
-      .setProperty("sonar.lits.dump.new", FileLocation.of("target/actual/" + PROJECT_KEY).getFile().getAbsolutePath())
+      .setProperty("sonar.lits.dump.old", FileLocation.of("src/test/resources/expected/" + projectKey).getFile().getAbsolutePath())
+      .setProperty("sonar.lits.dump.new", FileLocation.of("target/actual/" + projectKey).getFile().getAbsolutePath())
       .setProperty("sonar.lits.differences", litsDifferencesFile.getAbsolutePath())
       .setProperty("sonar.cpd.exclusions", "**/*")
       .setDebugLogs(true)

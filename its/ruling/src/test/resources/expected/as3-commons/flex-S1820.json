@@ -1,0 +1,59 @@
+{
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/dom/BinaryOperator.as": [
+41
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as": [
+8
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as": [
+21
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocLexer.as": [
+8
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as": [
+15
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XLexer.as": [
+9
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XParser.as": [
+12
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/regexsimple/RegexSimpleLexer.as": [
+10
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/regexsimple/RegexSimpleParser.as": [
+20
+],
+"as3-commons:as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/test/AllTests.as": [
+59
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/ConstantPool.as": [
+50
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/enum/Opcode.as": [
+36
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/proxy/impl/ProxyFactory.as": [
+132
+],
+"as3-commons:as3-commons-collections/src/test/actionscript/org/as3commons/collections/testhelpers/TestItems.as": [
+22
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/LogMessageFormatter.as": [
+83
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/org/as3commons/logging/LoggingTests.as": [
+49
+],
+"as3-commons:as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Type.as": [
+56
+],
+"as3-commons:as3-commons-stageprocessing/src/main/actionscript/org/as3commons/stageprocessing/impl/FlashStageObjectProcessorRegistry.as": [
+38
+],
+"as3-commons:as3-commons-zip/src/main/actionscript/org/as3commons/zip/ZipFile.as": [
+27
+]
+}

@@ -1,0 +1,81 @@
+{
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/context/impl/ApplicationContext.as": [
+272
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/context/impl/DefaultApplicationContextInitializer.as": [
+341
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/context/impl/DefaultChildContextManager.as": [
+100,
+118
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/process/EventInterceptorMetadataProcessor.as": [
+60
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/metadata/MetadataObjectDefinitionsProvider.as": [
+516
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/ParsingUtils.as": [
+90
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/task/nodeparser/IfNodeParser.as": [
+41
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/task/nodeparser/TaskNodeParser.as": [
+131,
+135
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/factory/ObjectDefinitionFactoryPostProcessor.as": [
+228,
+250
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/context/impl/DefaultApplicationContextInitializerTest.as": [
+162
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/ioc/config/impl/metadata/MetadataObjectDefinitionsProviderTest.as": [
+90
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedComponentWithConstructor.as": [
+27
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/MXMLObjectDefinitionsProvider.as": [
+107,
+139
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/custom/eventbus/EventHandlerMethod.as": [
+165
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/custom/eventbus/EventRouterConfiguration.as": [
+137
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/custom/eventbus/InterceptionConfiguration.as": [
+151
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/custom/stage/StageObjectProcessor.as": [
+57
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/custom/util/FactorObjectDefinition.as": [
+48
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/localization/LocalizationStageProcessor.as": [
+164
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-bootstrap/src/main/actionscript/org/springextensions/actionscript/domain/NamedEntity.as": [
+40
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-metadata-config/src/main/actionscript/org/springextensions/actionscript/domain/NamedEntity.as": [
+40
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-multi-module/src/main/actionscript/org/springextensions/actionscript/domain/NamedEntity.as": [
+40
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-mxml-config/src/main/actionscript/org/springextensions/actionscript/domain/NamedEntity.as": [
+40
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend/src/main/actionscript/org/springextensions/actionscript/domain/NamedEntity.as": [
+40
+],
+"spring-actionscript:spring-actionscript-security/src/main/actionscript/org/springextensions/actionscript/security/impl/SimpleStageSecurityManager.as": [
+148
+]
+}

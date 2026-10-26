@@ -1,0 +1,233 @@
+{
+"as3-commons:as3-commons-aop/src/main/actionscript/org/as3commons/aop/factory/impl/AOPProxyFactory.as": [
+129
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTASClassType.as": [
+95,
+134,
+197,
+226,
+241,
+259
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTASDeclarationStatement.as": [
+56
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTASInterfaceType.as": [
+82,
+117
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTASMember.as": [
+165
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTASMetaTag.as": [
+79,
+94
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTASProject.as": [
+334
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTDocTag.as": [
+61,
+119
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTFunctionCommon.as": [
+45,
+118
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTLiteralBuilder.as": [
+133
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTPrinter.as": [
+29
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTUtils.as": [
+73,
+174,
+434,
+440,
+487,
+584,
+649,
+673,
+765,
+792,
+860
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/DocumentationUtils.as": [
+264,
+277,
+296
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/MethodAwareUtils.as": [
+15,
+28,
+43
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ModifierUtils.as": [
+55,
+67,
+81,
+95,
+138,
+168,
+210,
+214
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/SourceFolderResourceRoot.as": [
+64,
+92
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3ParserHelper.as": [
+89
+],
+"as3-commons:as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/CodeMirror.as": [
+62,
+95,
+112,
+137
+],
+"as3-commons:as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_DocComment.as": [
+258
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/NamespaceSet.as": [
+54
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/util/MultinameUtil.as": [
+62,
+70
+],
+"as3-commons:as3-commons-bytecode/src/test/actionscript/org/as3commons/bytecode/testclasses/interceptors/RestMethodInterceptor.as": [
+29
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/SortedList.as": [
+266
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/framework/core/AbstractLinkedCollection.as": [
+368,
+369
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/framework/core/AbstractList.as": [
+148
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/utils/ArrayUtils.as": [
+109
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/utils/CollectionUtils.as": [
+49
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/utils/LinkedLists.as": [
+75
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/utils/Lists.as": [
+116
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/utils/Maps.as": [
+146,
+159
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/utils/Sets.as": [
+135
+],
+"as3-commons:as3-commons-collections/src/test/actionscript/org/as3commons/collections/testhelpers/AbstractCollectionTestCase.as": [
+197,
+203
+],
+"as3-commons:as3-commons-collections/src/test/actionscript/org/as3commons/collections/testhelpers/CollectionEventListener.as": [
+86,
+110,
+130,
+141
+],
+"as3-commons:as3-commons-collections/src/test/actionscript/org/as3commons/collections/testhelpers/CollectionTest.as": [
+71,
+77
+],
+"as3-commons:as3-commons-collections/src/test/actionscript/org/as3commons/collections/testhelpers/TestItems.as": [
+88,
+96,
+104,
+113,
+122,
+131
+],
+"as3-commons:as3-commons-collections/src/test/actionscript/org/as3commons/collections/units/fx/IDuplicatesFxTests.as": [
+141,
+161
+],
+"as3-commons:as3-commons-collections/src/test/actionscript/org/as3commons/collections/units/fx/IMapFxTests.as": [
+233,
+265,
+297
+],
+"as3-commons:as3-commons-lang/src/main/actionscript/org/as3commons/lang/ArrayUtils.as": [
+382
+],
+"as3-commons:as3-commons-lang/src/main/actionscript/org/as3commons/lang/ClassUtils.as": [
+220,
+233
+],
+"as3-commons:as3-commons-lang/src/main/actionscript/org/as3commons/lang/StringUtils.as": [
+822,
+1500,
+2588
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/log4j/log4jPropertiesToSetup.as": [
+54
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/removeDuplicates.as": [
+40
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/org/as3commons/logging/util/AlikeMatcher.as": [
+33
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/org/as3commons/logging/util/RestAnalyzer.as": [
+25
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/org/as3commons/logging/util/xml/XMLTargetTest.as": [
+363
+],
+"as3-commons:as3-commons-serialization/src/main/actionscript/com/dynamicflash/util/Base64.as": [
+58,
+79,
+105,
+108,
+118
+],
+"as3-commons:as3-commons-stageprocessing/src/main/actionscript/org/as3commons/stageprocessing/impl/selector/NameBasedObjectSelector.as": [
+122
+],
+"as3-commons:as3-commons-swc/src/main/actionscript/org/as3commons/swc/SWC.as": [
+89,
+91,
+114
+],
+"as3-commons:as3-commons-swc/src/main/actionscript/org/as3commons/swc/catalog/reader/impl/XMLCatalogReader.as": [
+68,
+94,
+109,
+165
+],
+"as3-commons:as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/framework/core/AbstractLayout.as": [
+150,
+184,
+190,
+389
+],
+"as3-commons:as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/framework/core/init/AbstractLayoutItemInitializer.as": [
+51,
+55
+],
+"as3-commons:as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/framework/core/parser/DynTableParser.as": [
+152
+],
+"as3-commons:as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/framework/core/parser/TableParser.as": [
+94
+],
+"as3-commons:as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/shortcut/cellconfig.as": [
+29
+],
+"as3-commons:as3-commons-zip/src/main/actionscript/org/as3commons/zip/Zip.as": [
+231
+]
+}

@@ -1,0 +1,80 @@
+{
+"as3-commons:as3-commons-async-flex/src/main/actionscript/org/as3commons/async/operation/impl/LoadResourceBundleOperation.as": [
+37
+],
+"as3-commons:as3-commons-async/src/main/actionscript/org/as3commons/async/operation/trigger/impl/AbstractCompositeOperationCompleteTrigger.as": [
+27
+],
+"as3-commons:as3-commons-async/src/main/actionscript/org/as3commons/async/operation/trigger/impl/AbstractParallelOperationCompleteTrigger.as": [
+26
+],
+"as3-commons:as3-commons-async/src/main/actionscript/org/as3commons/async/operation/trigger/impl/AndOperationCompleteTrigger.as": [
+24
+],
+"as3-commons:as3-commons-async/src/main/actionscript/org/as3commons/async/operation/trigger/impl/OrOperationCompleteTrigger.as": [
+24
+],
+"as3-commons:as3-commons-async/src/main/actionscript/org/as3commons/async/operation/trigger/impl/TimeBasedOperationCompleteTrigger.as": [
+25
+],
+"as3-commons:as3-commons-eventbus/src/main/actionscript/org/as3commons/eventbus/impl/EventBus.as": [
+48
+],
+"as3-commons:as3-commons-eventbus/src/main/actionscript/org/as3commons/eventbus/impl/SimpleEventBus.as": [
+35
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/integration/FlexUnitListener.as": [
+52,
+53
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/integration/OSMFIntegration.as": [
+70
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/integration/SpiceLibIntegration.as": [
+73
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/integration/YUILoggerFactory.as": [
+87
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/target/AbstractHttpTarget.as": [
+40
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/target/LSHttpTarget.as": [
+47
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/FirebugTest.as": [
+31
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/LSTest.as": [
+23
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/SizeAS3Min.as": [
+15
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/SizeFlexMin.as": [
+12
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/SizeMateMin.as": [
+13
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/org/as3commons/logging/setup/LogSetupTest.as": [
+26
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/org/as3commons/logging/util/xml/XMLRuleTest.as": [
+17,
+18,
+19
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/org/as3commons/logging/util/xml/XMLSetupTest.as": [
+15
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/perf/FlexPerformance.as": [
+12
+],
+"as3-commons:as3-commons-stageprocessing/src/main/actionscript/org/as3commons/stageprocessing/impl/FlashStageObjectProcessorRegistry.as": [
+46
+],
+"as3-commons:as3-commons-swc/src/main/actionscript/org/as3commons/swc/SWC.as": [
+220
+]
+}

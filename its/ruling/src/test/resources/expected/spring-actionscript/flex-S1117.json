@@ -1,0 +1,17 @@
+{
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/context/impl/ApplicationContextTest.as": [
+95
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/factory/ObjectDefinitonFactoryPostProcessorTest.as": [
+189
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/metadata/MetadataProcessorObjectFactoryPostProcessorTest.as": [
+45,
+46,
+63,
+64,
+83,
+84,
+85
+]
+}

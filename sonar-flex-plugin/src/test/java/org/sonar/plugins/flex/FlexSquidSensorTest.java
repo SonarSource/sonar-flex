@@ -55,7 +55,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class FlexSquidSensorTest {
+class FlexSquidSensorTest {
 
   private static final File TEST_DIR = new File("src/test/resources/org/sonar/plugins/flex/squid");
   private static final SonarRuntime SONARQUBE_89 = TestSonarRuntime.forSonarQube(Version.create(8, 9), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER);
@@ -67,7 +67,7 @@ public class FlexSquidSensorTest {
   public LogTesterJUnit5 logTester = new LogTesterJUnit5();
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     createSensor(SONARQUBE_89);
     tester = SensorContextTester.create(TEST_DIR);
   }
@@ -85,7 +85,7 @@ public class FlexSquidSensorTest {
   }
 
   @Test
-  public void analyse() throws IOException {
+  void analyse() throws IOException {
     DefaultFileSystem fs = new DefaultFileSystem(TEST_DIR);
     fs.setEncoding(StandardCharsets.UTF_8);
     tester.setFileSystem(fs);
@@ -134,7 +134,7 @@ public class FlexSquidSensorTest {
   }
 
   @Test
-  public void analyse2() throws IOException {
+  void analyse2() throws IOException {
     DefaultFileSystem fs = new DefaultFileSystem(TEST_DIR);
     fs.setEncoding(StandardCharsets.UTF_8);
     tester.setFileSystem(fs);
@@ -157,7 +157,7 @@ public class FlexSquidSensorTest {
   }
 
   @Test
-  public void parse_error() throws IOException {
+  void parse_error() throws IOException {
     DefaultFileSystem fs = new DefaultFileSystem(TEST_DIR);
     fs.setEncoding(StandardCharsets.UTF_8);
     tester.setFileSystem(fs);
@@ -169,7 +169,7 @@ public class FlexSquidSensorTest {
   }
 
   @Test
-  public void testDescriptor() {
+  void testDescriptor() {
     DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor();
     sensor.describe(descriptor);
     assertThat(descriptor.name()).isEqualTo("Flex");
@@ -177,7 +177,7 @@ public class FlexSquidSensorTest {
   }
 
   @Test
-  public void test_descriptor_sonarlint() {
+  void test_descriptor_sonarlint() {
     DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor();
     createSensor(TestSonarRuntime.forSonarLint(Version.create(6, 5))).describe(descriptor);
     assertThat(descriptor.name()).isEqualTo("Flex");
@@ -185,7 +185,7 @@ public class FlexSquidSensorTest {
   }
 
   @Test
-  public void test_descriptor_sonarqube_9_3() {
+  void test_descriptor_sonarqube_9_3() {
     DefaultSensorDescriptor descriptor = spy(new DefaultSensorDescriptor());
     when(descriptor.processesFilesIndependently()).thenReturn(descriptor);
     createSensor(TestSonarRuntime.forSonarQube(Version.create(9, 3), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER)).describe(descriptor);

@@ -26,12 +26,12 @@ import org.sonar.flex.checks.CheckList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FlexRulesDefinitionTest {
+class FlexRulesDefinitionTest {
 
   private static final SonarRuntime sonarRuntime = TestSonarRuntime.forSonarLint(Version.create(9, 3));
 
   @Test
-  public void test() {
+  void test() {
     FlexRulesDefinition rulesDefinition = new FlexRulesDefinition(sonarRuntime);
     RulesDefinition.Context context = new RulesDefinition.Context();
     rulesDefinition.define(context);

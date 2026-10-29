@@ -26,10 +26,10 @@ import org.sonar.api.utils.Version;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FlexPluginTest {
+class FlexPluginTest {
 
   @Test
-  public void testGetExtensions() {
+  void testGetExtensions() {
     SonarRuntime sonarRuntime = TestSonarRuntime.forSonarQube(Version.create(7, 9), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER);
     Plugin.Context context = new Plugin.Context(sonarRuntime);
     new FlexPlugin().define(context);

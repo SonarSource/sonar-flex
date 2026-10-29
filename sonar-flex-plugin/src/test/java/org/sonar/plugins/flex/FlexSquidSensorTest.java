@@ -55,7 +55,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class FlexSquidSensorTest {
+class FlexSquidSensorTest {
 
   private static final File TEST_DIR = new File("src/test/resources/org/sonar/plugins/flex/squid");
   private static final SonarRuntime SONARQUBE_89 = TestSonarRuntime.forSonarQube(Version.create(8, 9), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER);
@@ -67,7 +67,7 @@ public class FlexSquidSensorTest {
   public LogTesterJUnit5 logTester = new LogTesterJUnit5();
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     createSensor(SONARQUBE_89);
     tester = SensorContextTester.create(TEST_DIR);
   }
@@ -85,7 +85,7 @@ public class FlexSquidSensorTest {
   }
 
   @Test
-  public void analyse() throws IOException {
+  void analyse() throws IOException {
     DefaultFileSystem fs = new DefaultFileSystem(TEST_DIR);
     fs.setEncoding(StandardCharsets.UTF_8);
     tester.setFileSystem(fs);

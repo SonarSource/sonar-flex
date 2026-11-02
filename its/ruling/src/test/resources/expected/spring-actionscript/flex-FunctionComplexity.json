@@ -1,0 +1,71 @@
+{
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/context/impl/DefaultChildContextManager.as": [
+86,
+141
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/impl/DefaultEventBusUserRegistry.as": [
+189
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/process/EventInterceptorMetadataDestroyer.as": [
+49
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/process/EventInterceptorMetadataProcessor.as": [
+60
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/autowire/impl/DefaultAutowireProcessor.as": [
+224,
+427,
+518,
+559
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/metadata/util/MetadataConfigUtils.as": [
+141
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/DefaultObjectFactory.as": [
+452,
+539
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/FieldRetrievingFactoryObject.as": [
+137
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/factory/ObjectDefinitionFactoryPostProcessor.as": [
+188
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/factory/PropertyPlaceholderConfigurerFactoryPostProcessor.as": [
+121,
+181
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/impl/DefaultDependencyChecker.as": [
+71
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/impl/DefaultObjectDestroyer.as": [
+81
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/objectdefinition/impl/DefaultObjectDefinitionRegistry.as": [
+311
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/stage/StageProcessorFactoryPostprocessor.as": [
+59
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/util/TypeUtils.as": [
+47
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/component/MXMLObjectDefinition.as": [
+713
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-bootstrap/src/main/actionscript/org/springextensions/actionscript/domain/BaseObject.as": [
+192
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-metadata-config/src/main/actionscript/org/springextensions/actionscript/domain/BaseObject.as": [
+192
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-multi-module/src/main/actionscript/org/springextensions/actionscript/domain/BaseObject.as": [
+192
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-mxml-config/src/main/actionscript/org/springextensions/actionscript/domain/BaseObject.as": [
+192
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend/src/main/actionscript/org/springextensions/actionscript/domain/BaseObject.as": [
+192
+]
+}

@@ -1,0 +1,30 @@
+{
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/EventBusShareKind.as": [
+67
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/autowire/impl/DefaultAutowireProcessor.as": [
+445,
+468
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/stageprocessing/nodeparser/StageProcessorNodeParser.as": [
+56
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/preprocess/impl/PropertyImportPreprocessor.as": [
+90
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/preprocess/impl/ScopeAttributePreprocessor.as": [
+60
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/impl/DefaultDependencyInjector.as": [
+471
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/metadata/MetadataProcessorObjectFactoryPostProcessor.as": [
+57
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/stage/PopupAndTooltipWireManager.as": [
+197
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/Person.as": [
+92
+]
+}

@@ -1,0 +1,40 @@
+{
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/stage/DefaultSpringObjectSelectorTest.as": [
+36
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-bootstrap/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/EmployeeListPresentationModel.as": [
+198
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-bootstrap/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/EmployeeLoginPresentationModel.as": [
+182,
+188
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-metadata-config/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/EmployeeListPresentationModel.as": [
+199
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-metadata-config/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/EmployeeLoginPresentationModel.as": [
+181,
+187
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-multi-module/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/EmployeeListPresentationModel.as": [
+198
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-multi-module/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/EmployeeLoginPresentationModel.as": [
+182,
+188
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-mxml-config/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/EmployeeListPresentationModel.as": [
+198
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-mxml-config/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/EmployeeLoginPresentationModel.as": [
+182,
+188
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/EmployeeListPresentationModel.as": [
+198
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/EmployeeLoginPresentationModel.as": [
+182,
+188
+]
+}

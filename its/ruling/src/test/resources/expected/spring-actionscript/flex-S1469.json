@@ -1,0 +1,44 @@
+{
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/XMLObjectDefinitionsProvider.as": [
+78
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/event/ObjectFactoryEvent.as": [
+42
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/MethodInvokingFactoryObject.as": [
+138
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/objectdefinition/impl/MethodInvocation.as": [
+40
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/objectdefinition/impl/ObjectDefinition.as": [
+84
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/util/MultilineString.as": [
+46
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/Person.as": [
+35,
+37,
+38
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/context/impl/mxml/MXMLApplicationContext.as": [
+71
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/context/impl/mxml/xml/FlexXMLApplicationContext.as": [
+44
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/component/MXMLObjectDefinition.as": [
+143,
+147
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/component/MethodInvocation.as": [
+41
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/custom/bootstrap/Bootstrap.as": [
+42
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/custom/eventbus/AbstractEventBusComponent.as": [
+37
+]
+}

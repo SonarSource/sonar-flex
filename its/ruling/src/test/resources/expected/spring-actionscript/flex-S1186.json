@@ -1,0 +1,168 @@
+{
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/context/impl/DefaultChildContextManagerTest.as": [
+77
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/ioc/factory/impl/MethodInvokingFactoryObjectTest.as": [
+22
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/stage/DefaultSpringObjectSelectorTest.as": [
+11
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/AutowiredAnnotatedClass.as": [
+24
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/AutowiredExternalPropertyAnnotatedClass.as": [
+23
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/ClassWithStaticFactoryMethod.as": [
+23
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/EmbeddedContexts.as": [
+23
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/MockDefinitionProviderResultOperation.as": [
+23
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/Person.as": [
+67
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/TestClassFactory.as": [
+23
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/TestClassWithMetadata.as": [
+23
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/TestFactoryObject.as": [
+37
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/TestInjectionClass.as": [
+26
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/TestInvalidFactoryObject.as": [
+37
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/eventbus/TestEventHandler.as": [
+33,
+37
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedComponent.as": [
+23,
+26
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedComponentInOtherPackage.as": [
+23,
+26,
+29
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedComponentWithAutowired.as": [
+23,
+26
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedComponentWithConstructor.as": [
+24
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedComponentWithDependencyCheck.as": [
+23,
+26
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedComponentWithDependsOn.as": [
+23
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedComponentWithDestroyMethod.as": [
+23,
+26,
+29
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedComponentWithMethodInvocations.as": [
+23,
+31,
+36
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedComponentWithPrimaryLazyInitAndFactoryMethod.as": [
+23,
+26
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedComponentWithPropertiesWithExplicitValues.as": [
+23,
+26
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedComponentWithPropertiesWithPlaceholders.as": [
+23,
+26
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedComponentWithPropertiesWithRefs.as": [
+23,
+26
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedComponentWithSkips.as": [
+23
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedLazyInitPrototypeComponent.as": [
+23,
+26
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedNamedComponent.as": [
+23,
+26
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedNamedComponent2.as": [
+23,
+26
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/AnnotatedScopedComponent.as": [
+23,
+26
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/ComponentWithConstructorArguments.as": [
+26
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/ComponentWithConstructorArgumentsTypedToInterface.as": [
+26
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/ComponentWithProperties.as": [
+26,
+32
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/metadatascan/TestConfigurationClass.as": [
+49
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/messaging/nodeparser/AMFChannelNodeParser.as": [
+41
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/messaging/nodeparser/AbstractProducerNodeParser.as": [
+44
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/messaging/nodeparser/ChannelSetNodeParser.as": [
+40
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/messaging/nodeparser/ConsumerNodeParser.as": [
+39
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/messaging/nodeparser/MessageAgentNodeParser.as": [
+37
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/messaging/nodeparser/SubscriptionInfoNodeParser.as": [
+42
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/ApplicationPropertiesObjectFactoryPostProcessor.as": [
+100
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-bootstrap/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/infrastructure/service/InMemoryAuthenticationService.as": [
+20
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-metadata-config/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/infrastructure/service/InMemoryAuthenticationService.as": [
+21
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-metadata-config/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/MainViewPresentationModel.as": [
+40
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-multi-module/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/infrastructure/service/InMemoryAuthenticationService.as": [
+20
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-mxml-config/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/infrastructure/service/InMemoryAuthenticationService.as": [
+20
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/infrastructure/service/InMemoryAuthenticationService.as": [
+20
+]
+}

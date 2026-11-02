@@ -1,0 +1,204 @@
+{
+"as3-commons:as3-commons-aop/src/main/actionscript/org/as3commons/aop/factory/impl/AOPProxyFactory.as": [
+45
+],
+"as3-commons:as3-commons-aop/src/main/actionscript/org/as3commons/aop/intercept/invocation/impl/ConstructorInvocationWithInterceptors.as": [
+30
+],
+"as3-commons:as3-commons-aop/src/main/actionscript/org/as3commons/aop/intercept/invocation/impl/MethodInvocationWithInterceptors.as": [
+33
+],
+"as3-commons:as3-commons-aop/src/main/actionscript/org/as3commons/aop/intercept/invocation/impl/SetterInvocationWithInterceptors.as": [
+37
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/dom/Visibility.as": [
+68
+],
+"as3-commons:as3-commons-async-flex/src/main/actionscript/org/as3commons/async/rpc/AbstractRPC.as": [
+41
+],
+"as3-commons:as3-commons-async/src/main/actionscript/org/as3commons/async/command/impl/GenericOperationCommand.as": [
+60
+],
+"as3-commons:as3-commons-async/src/main/actionscript/org/as3commons/async/operation/impl/NetConnectionOperation.as": [
+81
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/MultinameG.as": [
+23
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/NamespaceSet.as": [
+30
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/Op.as": [
+32
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/enum/Opcode.as": [
+263
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/BaseTypeBuilder.as": [
+69,
+70,
+72
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/ClassBuilder.as": [
+56,
+57
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/InterfaceBuilder.as": [
+40
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/PackageBuilder.as": [
+49,
+50,
+51
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/interception/impl/BasicMethodInvocation.as": [
+30
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/interception/impl/BasicMethodInvocationInterceptor.as": [
+28
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/proxy/event/ProxyCreationEvent.as": [
+31
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/proxy/event/ProxyFactoryEvent.as": [
+36
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/proxy/impl/ClassProxyInfo.as": [
+62,
+64
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ByteCodeTypeCache.as": [
+37
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/swf/SWFFile.as": [
+36
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/tags/struct/ShapeWithStyle.as": [
+20,
+21,
+24
+],
+"as3-commons:as3-commons-bytecode/src/test/actionscript/org/as3commons/bytecode/testclasses/Flavour.as": [
+29
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/framework/core/AbstractList.as": [
+31
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/fx/events/CollectionEvent.as": [
+240
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/iterators/ArrayIterator.as": [
+35
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/iterators/RecursiveFilterIterator.as": [
+102
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/iterators/RecursiveFilterIterator2.as": [
+111
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/iterators/RecursiveIterator.as": [
+62
+],
+"as3-commons:as3-commons-collections/src/main/examples/DumpAsStringExample.as": [
+43
+],
+"as3-commons:as3-commons-collections/src/main/examples/RecursiveFilterIteratorExample.as": [
+169
+],
+"as3-commons:as3-commons-collections/src/main/examples/RecursiveIteratorExample.as": [
+54
+],
+"as3-commons:as3-commons-collections/src/test/actionscript/org/as3commons/collections/testhelpers/CollectionEventListener.as": [
+32,
+33
+],
+"as3-commons:as3-commons-lang/src/main/actionscript/org/as3commons/lang/HashArray.as": [
+41
+],
+"as3-commons:as3-commons-lang/src/main/actionscript/org/as3commons/lang/StringBuffer.as": [
+23
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/integration/MateIntegration.as": [
+53
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/target/AbstractClassicTarget.as": [
+14
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/target/FirebugTarget.as": [
+90
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/target/LSHttpTarget.as": [
+50
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/org/as3commons/logging/api/LoggerTest.as": [
+241
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/org/as3commons/logging/integration/SpiceLibIntegrationTest.as": [
+141,
+210
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/org/as3commons/logging/setup/HierarchicalSetupTest.as": [
+188
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/org/as3commons/logging/setup/target/AirTargetTest.as": [
+27
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/org/as3commons/logging/setup/target/FrameBufferTest.as": [
+21
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/org/as3commons/logging/util/xml/XMLTargetTest.as": [
+429
+],
+"as3-commons:as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Metadata.as": [
+90
+],
+"as3-commons:as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Method.as": [
+152
+],
+"as3-commons:as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/MethodInvoker.as": [
+47
+],
+"as3-commons:as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Type.as": [
+404,
+414,
+452,
+506,
+530,
+554,
+578,
+599
+],
+"as3-commons:as3-commons-reflect/src/test/actionscript/org/as3commons/reflect/testclasses/ComplexerClass.as": [
+31
+],
+"as3-commons:as3-commons-rpc/src/main/actionscript/org/as3commons/rpc/impl/AsyncOperationToken.as": [
+47
+],
+"as3-commons:as3-commons-rpc/src/main/actionscript/org/as3commons/rpc/utils/deferExec.as": [
+36
+],
+"as3-commons:as3-commons-stageprocessing/src/main/actionscript/org/as3commons/stageprocessing/impl/selector/NameBasedObjectSelector.as": [
+39
+],
+"as3-commons:as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/framework/core/parser/TableParser.as": [
+39,
+44
+],
+"as3-commons:as3-commons-ui/src/test/actionscript/org/as3commons/ui/lifecycle/i10n/testhelper/I10NCallbackWatcher.as": [
+10,
+11,
+12
+],
+"as3-commons:as3-commons-ui/src/test/actionscript/org/as3commons/ui/lifecycle/lifecycle/testhelper/LifeCycleCallbackWatcher.as": [
+11,
+12,
+13,
+15,
+17,
+18
+],
+"as3-commons:as3-commons-zip/src/main/actionscript/org/as3commons/zip/Zip.as": [
+110
+]
+}

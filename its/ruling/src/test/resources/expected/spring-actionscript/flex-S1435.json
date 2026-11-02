@@ -1,0 +1,241 @@
+{
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/impl/DefaultEventBusUserRegistry.as": [
+450,
+463
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/autowire/impl/DefaultAutowireProcessor.as": [
+268,
+649
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/metadata/ConfigurationClassScanner.as": [
+129
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/metadata/MetadataObjectDefinitionsProvider.as": [
+284
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/customconfiguration/EventHandlerCustomConfigurator.as": [
+123
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/XMLObjectDefinitionsParser.as": [
+406,
+442
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/ArrayCollectionNodeParser.as": [
+68
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/ArrayNodeParser.as": [
+50
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/DictionaryNodeParser.as": [
+63,
+65
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/KeyValueNodeParser.as": [
+58
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/VectorNodeParser.as": [
+66
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/event/InstanceCacheEvent.as": [
+83,
+84
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/event/ObjectFactoryEvent.as": [
+40
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/DefaultInstanceCache.as": [
+210,
+229
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/DefaultObjectFactory.as": [
+348,
+416,
+506,
+524,
+540,
+602
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/FieldRetrievingFactoryObject.as": [
+70,
+197
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/GenericFactoryObject.as": [
+35,
+60
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/MethodInvokingFactoryObject.as": [
+65
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/referenceresolver/DictionaryReferenceResolver.as": [
+64
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/referenceresolver/VectorReferenceResolver.as": [
+58
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/impl/DefaultDependencyInjector.as": [
+157,
+262,
+302,
+320,
+470
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/impl/DefaultLazyDependencyManager.as": [
+90
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/objectdefinition/impl/ObjectDefinition.as": [
+85
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/objectdefinition/impl/PropertyDefinition.as": [
+30
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/object/SimpleTypeConverter.as": [
+51
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/object/propertyeditor/AbstractPropertyEditor.as": [
+30
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/stage/StageProcessorFactoryPostprocessor.as": [
+112
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/util/ContextUtils.as": [
+49
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/util/customconfiguration/FactoryObjectCustomConfiguratorTest.as": [
+43
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/ArrayCollectionNodeParserTest.as": [
+54,
+65
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/NanNodeParserTest.as": [
+45
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/NullNodeParserTest.as": [
+45
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/RefNodeParserTest.as": [
+47
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/UndefinedNodeParserTest.as": [
+46
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/VectorNodeParserTest.as": [
+59,
+73
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/ioc/factory/impl/GenericFactoryObjectTest.as": [
+40,
+42,
+50,
+52
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/ioc/factory/impl/referenceresolver/ObjectReferenceResolverTest.as": [
+55,
+69,
+83,
+93
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/object/ApplicationContextAwareObjectPostProcessorTest.as": [
+59,
+68
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/object/ApplicationDomainAwarePostProcessorTest.as": [
+65,
+73
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/object/ObjectFactoryAwarePostProcessorTest.as": [
+58,
+66
+],
+"spring-actionscript:spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/object/SimpleTypeConverterTest.as": [
+35,
+41,
+48,
+54,
+60,
+67,
+74,
+81,
+89,
+96,
+103
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/MXMLObjectDefinitionsProvider.as": [
+108,
+141
+],
+"spring-actionscript:spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/component/Arg.as": [
+41,
+43
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-bootstrap/src/main/actionscript/org/springextensions/actionscript/domain/BaseObject.as": [
+95,
+137,
+144,
+163
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-bootstrap/src/main/actionscript/org/springextensions/actionscript/domain/Entity.as": [
+45
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-bootstrap/src/main/actionscript/org/springextensions/actionscript/domain/ManagedEntity.as": [
+45,
+142,
+143
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-metadata-config/src/main/actionscript/org/springextensions/actionscript/domain/BaseObject.as": [
+95,
+137,
+144,
+163
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-metadata-config/src/main/actionscript/org/springextensions/actionscript/domain/Entity.as": [
+45
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-metadata-config/src/main/actionscript/org/springextensions/actionscript/domain/ManagedEntity.as": [
+45,
+142,
+143
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-multi-module/src/main/actionscript/org/springextensions/actionscript/domain/BaseObject.as": [
+95,
+137,
+144,
+163
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-multi-module/src/main/actionscript/org/springextensions/actionscript/domain/Entity.as": [
+45
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-multi-module/src/main/actionscript/org/springextensions/actionscript/domain/ManagedEntity.as": [
+45,
+142,
+143
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-mxml-config/src/main/actionscript/org/springextensions/actionscript/domain/BaseObject.as": [
+95,
+137,
+144,
+163
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-mxml-config/src/main/actionscript/org/springextensions/actionscript/domain/Entity.as": [
+45
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend-mxml-config/src/main/actionscript/org/springextensions/actionscript/domain/ManagedEntity.as": [
+45,
+142,
+143
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend/src/main/actionscript/org/springextensions/actionscript/domain/BaseObject.as": [
+95,
+137,
+144,
+163
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend/src/main/actionscript/org/springextensions/actionscript/domain/Entity.as": [
+45
+],
+"spring-actionscript:spring-actionscript-samples/cafe-townsend/src/main/actionscript/org/springextensions/actionscript/domain/ManagedEntity.as": [
+45,
+142,
+143
+]
+}

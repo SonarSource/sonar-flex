@@ -1,0 +1,10 @@
+{
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/process/EventHandlerProxy.as": [
+136
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/metadata/util/MetadataConfigUtils.as": [
+172,
+177,
+192
+]
+}

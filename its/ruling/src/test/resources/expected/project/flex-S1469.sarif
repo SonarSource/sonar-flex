@@ -1,0 +1,2818 @@
+{
+  "$schema" : "https://json.schemastore.org/sarif-2.1.0.json",
+  "version" : "2.1.0",
+  "runs" : [ {
+    "tool" : {
+      "driver" : {
+        "name" : "LITS",
+        "language" : "en-US",
+        "contents" : [ "localizedData", "nonLocalizedData" ],
+        "isComprehensive" : false
+      }
+    },
+    "language" : "en-US",
+    "results" : [ {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_adviceAndAdvisors' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-aop/src/main/actionscript/org/as3commons/aop/factory/impl/AOPProxyFactory.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 45,
+            "startColumn" : 1,
+            "endLine" : 45,
+            "endColumn" : 40,
+            "charOffset" : 1536,
+            "charLength" : 39,
+            "byteOffset" : 1536,
+            "byteLength" : 39
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_args' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-aop/src/main/actionscript/org/as3commons/aop/intercept/invocation/impl/ConstructorInvocationWithInterceptors.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 30,
+            "startColumn" : 1,
+            "endLine" : 30,
+            "endColumn" : 27,
+            "charOffset" : 1109,
+            "charLength" : 26,
+            "byteOffset" : 1109,
+            "byteLength" : 26
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_args' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-aop/src/main/actionscript/org/as3commons/aop/intercept/invocation/impl/MethodInvocationWithInterceptors.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 33,
+            "startColumn" : 1,
+            "endLine" : 33,
+            "endColumn" : 27,
+            "charOffset" : 1180,
+            "charLength" : 26,
+            "byteOffset" : 1180,
+            "byteLength" : 26
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_args' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-aop/src/main/actionscript/org/as3commons/aop/intercept/invocation/impl/SetterInvocationWithInterceptors.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 37,
+            "startColumn" : 1,
+            "endLine" : 37,
+            "endColumn" : 27,
+            "charOffset" : 1436,
+            "charLength" : 26,
+            "byteOffset" : 1436,
+            "byteLength" : 26
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this 'list' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/dom/Visibility.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 68,
+            "startColumn" : 1,
+            "endLine" : 68,
+            "endColumn" : 32,
+            "charOffset" : 1986,
+            "charLength" : 31,
+            "byteOffset" : 1986,
+            "byteLength" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_parameters' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-async-flex/src/main/actionscript/org/as3commons/async/rpc/AbstractRPC.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 41,
+            "startColumn" : 1,
+            "endLine" : 41,
+            "endColumn" : 33,
+            "charOffset" : 1316,
+            "charLength" : 32,
+            "byteOffset" : 1316,
+            "byteLength" : 32
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_constructorArguments' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-async/src/main/actionscript/org/as3commons/async/command/impl/GenericOperationCommand.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 60,
+            "startColumn" : 1,
+            "endLine" : 60,
+            "endColumn" : 43,
+            "charOffset" : 2254,
+            "charLength" : 42,
+            "byteOffset" : 2254,
+            "byteLength" : 42
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_parameters' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-async/src/main/actionscript/org/as3commons/async/operation/impl/NetConnectionOperation.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 81,
+            "startColumn" : 1,
+            "endLine" : 81,
+            "endColumn" : 33,
+            "charOffset" : 2571,
+            "charLength" : 32,
+            "byteOffset" : 2571,
+            "byteLength" : 32
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_parameters' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/MultinameG.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 23,
+            "startColumn" : 1,
+            "endLine" : 23,
+            "endColumn" : 33,
+            "charOffset" : 853,
+            "charLength" : 32,
+            "byteOffset" : 853,
+            "byteLength" : 32
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_namespaces' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/NamespaceSet.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 30,
+            "startColumn" : 1,
+            "endLine" : 30,
+            "endColumn" : 33,
+            "charOffset" : 1150,
+            "charLength" : 32,
+            "byteOffset" : 1150,
+            "byteLength" : 32
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_parameters' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/Op.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 1,
+            "endLine" : 32,
+            "endColumn" : 33,
+            "charOffset" : 1170,
+            "charLength" : 32,
+            "byteOffset" : 1170,
+            "byteLength" : 32
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_argumentTypes' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/enum/Opcode.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 263,
+            "startColumn" : 1,
+            "endLine" : 263,
+            "endColumn" : 36,
+            "charOffset" : 18282,
+            "charLength" : 35,
+            "byteOffset" : 18282,
+            "byteLength" : 35
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_methodBuilders' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/BaseTypeBuilder.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 69,
+            "startColumn" : 1,
+            "endLine" : 69,
+            "endColumn" : 37,
+            "charOffset" : 2975,
+            "charLength" : 36,
+            "byteOffset" : 2975,
+            "byteLength" : 36
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_accessorBuilders' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/BaseTypeBuilder.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 70,
+            "startColumn" : 1,
+            "endLine" : 70,
+            "endColumn" : 39,
+            "charOffset" : 3012,
+            "charLength" : 38,
+            "byteOffset" : 3012,
+            "byteLength" : 38
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_metadata' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/BaseTypeBuilder.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 72,
+            "startColumn" : 1,
+            "endLine" : 72,
+            "endColumn" : 31,
+            "charOffset" : 3091,
+            "charLength" : 30,
+            "byteOffset" : 3091,
+            "byteLength" : 30
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_propertyBuilders' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/ClassBuilder.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 56,
+            "startColumn" : 1,
+            "endLine" : 56,
+            "endColumn" : 39,
+            "charOffset" : 2373,
+            "charLength" : 38,
+            "byteOffset" : 2373,
+            "byteLength" : 38
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_implementedInterfaceNames' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/ClassBuilder.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 57,
+            "startColumn" : 1,
+            "endLine" : 57,
+            "endColumn" : 48,
+            "charOffset" : 2412,
+            "charLength" : 47,
+            "byteOffset" : 2412,
+            "byteLength" : 47
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_extendingInterfacesNames' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/InterfaceBuilder.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 40,
+            "startColumn" : 1,
+            "endLine" : 40,
+            "endColumn" : 47,
+            "charOffset" : 1700,
+            "charLength" : 46,
+            "byteOffset" : 1700,
+            "byteLength" : 46
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_classBuilders' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/PackageBuilder.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 49,
+            "startColumn" : 1,
+            "endLine" : 49,
+            "endColumn" : 36,
+            "charOffset" : 2031,
+            "charLength" : 35,
+            "byteOffset" : 2031,
+            "byteLength" : 35
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_namespaceBuilders' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/PackageBuilder.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 50,
+            "startColumn" : 1,
+            "endLine" : 50,
+            "endColumn" : 40,
+            "charOffset" : 2067,
+            "charLength" : 39,
+            "byteOffset" : 2067,
+            "byteLength" : 39
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_interfaceBuilders' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/PackageBuilder.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 51,
+            "startColumn" : 1,
+            "endLine" : 51,
+            "endColumn" : 40,
+            "charOffset" : 2107,
+            "charLength" : 39,
+            "byteOffset" : 2107,
+            "byteLength" : 39
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_arguments' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/interception/impl/BasicMethodInvocation.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 30,
+            "startColumn" : 1,
+            "endLine" : 30,
+            "endColumn" : 32,
+            "charOffset" : 1040,
+            "charLength" : 31,
+            "byteOffset" : 1040,
+            "byteLength" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_interceptors' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/interception/impl/BasicMethodInvocationInterceptor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 28,
+            "startColumn" : 1,
+            "endLine" : 28,
+            "endColumn" : 35,
+            "charOffset" : 1037,
+            "charLength" : 34,
+            "byteOffset" : 1037,
+            "byteLength" : 34
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this 'proxyConstructorArgs' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/proxy/event/ProxyCreationEvent.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 31,
+            "startColumn" : 1,
+            "endLine" : 31,
+            "endColumn" : 41,
+            "charOffset" : 1015,
+            "charLength" : 40,
+            "byteOffset" : 1015,
+            "byteLength" : 40
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_constructorArguments' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/proxy/event/ProxyFactoryEvent.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 36,
+            "startColumn" : 1,
+            "endLine" : 36,
+            "endColumn" : 43,
+            "charOffset" : 1373,
+            "charLength" : 42,
+            "byteOffset" : 1373,
+            "byteLength" : 42
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_proxyAccessorNamespaces' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/proxy/impl/ClassProxyInfo.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 62,
+            "startColumn" : 1,
+            "endLine" : 62,
+            "endColumn" : 46,
+            "charOffset" : 2414,
+            "charLength" : 45,
+            "byteOffset" : 2414,
+            "byteLength" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_proxyMethodNamespaces' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/proxy/impl/ClassProxyInfo.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 64,
+            "startColumn" : 1,
+            "endLine" : 64,
+            "endColumn" : 44,
+            "charOffset" : 2507,
+            "charLength" : 43,
+            "byteOffset" : 2507,
+            "byteLength" : 43
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_definitionNames' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ByteCodeTypeCache.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 37,
+            "startColumn" : 1,
+            "endLine" : 37,
+            "endColumn" : 38,
+            "charOffset" : 1347,
+            "charLength" : 37,
+            "byteOffset" : 1347,
+            "byteLength" : 37
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_tags' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/swf/SWFFile.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 36,
+            "startColumn" : 1,
+            "endLine" : 36,
+            "endColumn" : 27,
+            "charOffset" : 1122,
+            "charLength" : 26,
+            "byteOffset" : 1122,
+            "byteLength" : 26
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_fillStyles' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/tags/struct/ShapeWithStyle.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 20,
+            "startColumn" : 1,
+            "endLine" : 20,
+            "endColumn" : 33,
+            "charOffset" : 700,
+            "charLength" : 32,
+            "byteOffset" : 700,
+            "byteLength" : 32
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_lineStyles' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/tags/struct/ShapeWithStyle.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 21,
+            "startColumn" : 1,
+            "endLine" : 21,
+            "endColumn" : 33,
+            "charOffset" : 733,
+            "charLength" : 32,
+            "byteOffset" : 733,
+            "byteLength" : 32
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_shapeRecords' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/tags/struct/ShapeWithStyle.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 24,
+            "startColumn" : 1,
+            "endLine" : 24,
+            "endColumn" : 35,
+            "charOffset" : 832,
+            "charLength" : 34,
+            "byteOffset" : 832,
+            "byteLength" : 34
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_ingredients' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/test/actionscript/org/as3commons/bytecode/testclasses/Flavour.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 29,
+            "startColumn" : 1,
+            "endLine" : 29,
+            "endColumn" : 34,
+            "charOffset" : 783,
+            "charLength" : 33,
+            "byteOffset" : 783,
+            "byteLength" : 33
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_array' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/framework/core/AbstractList.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 31,
+            "startColumn" : 1,
+            "endLine" : 31,
+            "endColumn" : 32,
+            "charOffset" : 1023,
+            "charLength" : 31,
+            "byteOffset" : 1023,
+            "byteLength" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this 'items' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/fx/events/CollectionEvent.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 240,
+            "startColumn" : 1,
+            "endLine" : 240,
+            "endColumn" : 28,
+            "charOffset" : 8820,
+            "charLength" : 27,
+            "byteOffset" : 8820,
+            "byteLength" : 27
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_array' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/iterators/ArrayIterator.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 35,
+            "startColumn" : 1,
+            "endLine" : 35,
+            "endColumn" : 32,
+            "charOffset" : 1197,
+            "charLength" : 31,
+            "byteOffset" : 1197,
+            "byteLength" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_parentItems' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/iterators/RecursiveFilterIterator.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 102,
+            "startColumn" : 1,
+            "endLine" : 102,
+            "endColumn" : 36,
+            "charOffset" : 3294,
+            "charLength" : 35,
+            "byteOffset" : 3294,
+            "byteLength" : 35
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_parentItems' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/iterators/RecursiveFilterIterator2.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 111,
+            "startColumn" : 1,
+            "endLine" : 111,
+            "endColumn" : 36,
+            "charOffset" : 3816,
+            "charLength" : 35,
+            "byteOffset" : 3816,
+            "byteLength" : 35
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_parentItems' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/iterators/RecursiveIterator.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 62,
+            "startColumn" : 1,
+            "endLine" : 62,
+            "endColumn" : 36,
+            "charOffset" : 1982,
+            "charLength" : 35,
+            "byteOffset" : 1982,
+            "byteLength" : 35
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this 'children' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/examples/DumpAsStringExample.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 43,
+            "startColumn" : 1,
+            "endLine" : 43,
+            "endColumn" : 30,
+            "charOffset" : 1216,
+            "charLength" : 29,
+            "byteOffset" : 1216,
+            "byteLength" : 29
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this 'children' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/examples/RecursiveFilterIteratorExample.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 169,
+            "startColumn" : 1,
+            "endLine" : 169,
+            "endColumn" : 30,
+            "charOffset" : 3852,
+            "charLength" : 29,
+            "byteOffset" : 3852,
+            "byteLength" : 29
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this 'children' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/examples/RecursiveIteratorExample.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 54,
+            "startColumn" : 1,
+            "endLine" : 54,
+            "endColumn" : 30,
+            "charOffset" : 1522,
+            "charLength" : 29,
+            "byteOffset" : 1522,
+            "byteLength" : 29
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_events' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/test/actionscript/org/as3commons/collections/testhelpers/CollectionEventListener.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 1,
+            "endLine" : 32,
+            "endColumn" : 31,
+            "charOffset" : 1178,
+            "charLength" : 30,
+            "byteOffset" : 1178,
+            "byteLength" : 30
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_sizes' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/test/actionscript/org/as3commons/collections/testhelpers/CollectionEventListener.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 33,
+            "startColumn" : 1,
+            "endLine" : 33,
+            "endColumn" : 30,
+            "charOffset" : 1209,
+            "charLength" : 29,
+            "byteOffset" : 1209,
+            "byteLength" : 29
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_list' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-lang/src/main/actionscript/org/as3commons/lang/HashArray.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 41,
+            "startColumn" : 1,
+            "endLine" : 41,
+            "endColumn" : 27,
+            "charOffset" : 1526,
+            "charLength" : 26,
+            "byteOffset" : 1526,
+            "byteLength" : 26
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_string' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-lang/src/main/actionscript/org/as3commons/lang/StringBuffer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 23,
+            "startColumn" : 1,
+            "endLine" : 23,
+            "endColumn" : 29,
+            "charOffset" : 730,
+            "charLength" : 28,
+            "byteOffset" : 730,
+            "byteLength" : 28
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_filters' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/integration/MateIntegration.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 53,
+            "startColumn" : 1,
+            "endLine" : 53,
+            "endColumn" : 31,
+            "charOffset" : 2020,
+            "charLength" : 30,
+            "byteOffset" : 2020,
+            "byteLength" : 30
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_params' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/target/AbstractClassicTarget.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14,
+            "startColumn" : 1,
+            "endLine" : 14,
+            "endColumn" : 29,
+            "charOffset" : 396,
+            "charLength" : 28,
+            "byteOffset" : 396,
+            "byteLength" : 28
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_params' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/target/FirebugTarget.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 90,
+            "startColumn" : 1,
+            "endLine" : 90,
+            "endColumn" : 29,
+            "charOffset" : 3399,
+            "charLength" : 28,
+            "byteOffset" : 3399,
+            "byteLength" : 28
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_header' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/target/LSHttpTarget.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 50,
+            "startColumn" : 1,
+            "endLine" : 50,
+            "endColumn" : 29,
+            "charOffset" : 2132,
+            "charLength" : 28,
+            "byteOffset" : 2132,
+            "byteLength" : 28
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this 'parameters' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/api/LoggerTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 241,
+            "startColumn" : 1,
+            "endLine" : 241,
+            "endColumn" : 31,
+            "charOffset" : 7873,
+            "charLength" : 30,
+            "byteOffset" : 7873,
+            "byteLength" : 30
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_log' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/integration/SpiceLibIntegrationTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 141,
+            "startColumn" : 1,
+            "endLine" : 141,
+            "endColumn" : 26,
+            "charOffset" : 5477,
+            "charLength" : 25,
+            "byteOffset" : 5477,
+            "byteLength" : 25
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this 'args' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/integration/SpiceLibIntegrationTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 210,
+            "startColumn" : 1,
+            "endLine" : 210,
+            "endColumn" : 25,
+            "charOffset" : 6836,
+            "charLength" : 24,
+            "byteOffset" : 6836,
+            "byteLength" : 24
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_target' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/setup/HierarchicalSetupTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 188,
+            "startColumn" : 1,
+            "endLine" : 188,
+            "endColumn" : 30,
+            "charOffset" : 5759,
+            "charLength" : 29,
+            "byteOffset" : 5759,
+            "byteLength" : 29
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_filesToDelete' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/setup/target/AirTargetTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 27,
+            "startColumn" : 1,
+            "endLine" : 27,
+            "endColumn" : 38,
+            "charOffset" : 685,
+            "charLength" : 37,
+            "byteOffset" : 685,
+            "byteLength" : 37
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_arr2' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/setup/target/FrameBufferTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 21,
+            "startColumn" : 1,
+            "endLine" : 21,
+            "endColumn" : 27,
+            "charOffset" : 627,
+            "charLength" : 26,
+            "byteOffset" : 627,
+            "byteLength" : 26
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this 'arrProp' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/util/xml/XMLTargetTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 429,
+            "startColumn" : 1,
+            "endLine" : 429,
+            "endColumn" : 28,
+            "charOffset" : 13973,
+            "charLength" : 27,
+            "byteOffset" : 13973,
+            "byteLength" : 27
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_arguments' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Metadata.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 90,
+            "startColumn" : 1,
+            "endLine" : 90,
+            "endColumn" : 32,
+            "charOffset" : 3222,
+            "charLength" : 31,
+            "byteOffset" : 3222,
+            "byteLength" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_parameters' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Method.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 152,
+            "startColumn" : 1,
+            "endLine" : 152,
+            "endColumn" : 35,
+            "charOffset" : 4354,
+            "charLength" : 34,
+            "byteOffset" : 4354,
+            "byteLength" : 34
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_arguments' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/MethodInvoker.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 47,
+            "startColumn" : 1,
+            "endLine" : 47,
+            "endColumn" : 32,
+            "charOffset" : 1925,
+            "charLength" : 31,
+            "byteOffset" : 1925,
+            "byteLength" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_parameters' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Type.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 404,
+            "startColumn" : 1,
+            "endLine" : 404,
+            "endColumn" : 33,
+            "charOffset" : 10567,
+            "charLength" : 32,
+            "byteOffset" : 10567,
+            "byteLength" : 32
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_interfaces' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Type.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 414,
+            "startColumn" : 1,
+            "endLine" : 414,
+            "endColumn" : 33,
+            "charOffset" : 10757,
+            "charLength" : 32,
+            "byteOffset" : 10757,
+            "byteLength" : 32
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_accessors' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Type.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 452,
+            "startColumn" : 1,
+            "endLine" : 452,
+            "endColumn" : 32,
+            "charOffset" : 11569,
+            "charLength" : 31,
+            "byteOffset" : 11569,
+            "byteLength" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_staticConstants' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Type.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 506,
+            "startColumn" : 1,
+            "endLine" : 506,
+            "endColumn" : 38,
+            "charOffset" : 12987,
+            "charLength" : 37,
+            "byteOffset" : 12987,
+            "byteLength" : 37
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_constants' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Type.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 530,
+            "startColumn" : 1,
+            "endLine" : 530,
+            "endColumn" : 32,
+            "charOffset" : 13562,
+            "charLength" : 31,
+            "byteOffset" : 13562,
+            "byteLength" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_staticVariables' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Type.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 554,
+            "startColumn" : 1,
+            "endLine" : 554,
+            "endColumn" : 38,
+            "charOffset" : 14106,
+            "charLength" : 37,
+            "byteOffset" : 14106,
+            "byteLength" : 37
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_extendsClasses' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Type.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 578,
+            "startColumn" : 1,
+            "endLine" : 578,
+            "endColumn" : 53,
+            "charOffset" : 14684,
+            "charLength" : 52,
+            "byteOffset" : 14684,
+            "byteLength" : 52
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_variables' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Type.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 599,
+            "startColumn" : 1,
+            "endLine" : 599,
+            "endColumn" : 32,
+            "charOffset" : 15305,
+            "charLength" : 31,
+            "byteOffset" : 15305,
+            "byteLength" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this 'otherParameters' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-reflect/src/test/actionscript/org/as3commons/reflect/testclasses/ComplexerClass.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 31,
+            "startColumn" : 1,
+            "endLine" : 31,
+            "endColumn" : 36,
+            "charOffset" : 1428,
+            "charLength" : 35,
+            "byteOffset" : 1428,
+            "byteLength" : 35
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this 'responders' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-rpc/src/main/actionscript/org/as3commons/rpc/impl/AsyncOperationToken.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 47,
+            "startColumn" : 1,
+            "endLine" : 47,
+            "endColumn" : 34,
+            "charOffset" : 1542,
+            "charLength" : 33,
+            "byteOffset" : 1542,
+            "byteLength" : 33
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this 'args' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-rpc/src/main/actionscript/org/as3commons/rpc/utils/deferExec.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 36,
+            "startColumn" : 1,
+            "endLine" : 36,
+            "endColumn" : 24,
+            "charOffset" : 1147,
+            "charLength" : 23,
+            "byteOffset" : 1147,
+            "byteLength" : 23
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_nameRegexpArray' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-stageprocessing/src/main/actionscript/org/as3commons/stageprocessing/impl/selector/NameBasedObjectSelector.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 39,
+            "startColumn" : 1,
+            "endLine" : 39,
+            "endColumn" : 38,
+            "charOffset" : 1459,
+            "charLength" : 37,
+            "byteOffset" : 1459,
+            "byteLength" : 37
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_cache' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/framework/core/parser/TableParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 39,
+            "startColumn" : 1,
+            "endLine" : 39,
+            "endColumn" : 32,
+            "charOffset" : 1358,
+            "charLength" : 31,
+            "byteOffset" : 1358,
+            "byteLength" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_cellSizes' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/framework/core/parser/TableParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 44,
+            "startColumn" : 1,
+            "endLine" : 44,
+            "endColumn" : 36,
+            "charOffset" : 1428,
+            "charLength" : 35,
+            "byteOffset" : 1428,
+            "byteLength" : 35
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_logValidate' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-ui/src/test/actionscript/org/as3commons/ui/lifecycle/i10n/testhelper/I10NCallbackWatcher.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10,
+            "startColumn" : 1,
+            "endLine" : 10,
+            "endColumn" : 36,
+            "charOffset" : 177,
+            "charLength" : 35,
+            "byteOffset" : 177,
+            "byteLength" : 35
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_logAdded' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-ui/src/test/actionscript/org/as3commons/ui/lifecycle/i10n/testhelper/I10NCallbackWatcher.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11,
+            "startColumn" : 1,
+            "endLine" : 11,
+            "endColumn" : 33,
+            "charOffset" : 213,
+            "charLength" : 32,
+            "byteOffset" : 213,
+            "byteLength" : 32
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_logRemoved' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-ui/src/test/actionscript/org/as3commons/ui/lifecycle/i10n/testhelper/I10NCallbackWatcher.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12,
+            "startColumn" : 1,
+            "endLine" : 12,
+            "endColumn" : 35,
+            "charOffset" : 246,
+            "charLength" : 34,
+            "byteOffset" : 246,
+            "byteLength" : 34
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_logValidate' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-ui/src/test/actionscript/org/as3commons/ui/lifecycle/lifecycle/testhelper/LifeCycleCallbackWatcher.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11,
+            "startColumn" : 1,
+            "endLine" : 11,
+            "endColumn" : 36,
+            "charOffset" : 242,
+            "charLength" : 35,
+            "byteOffset" : 242,
+            "byteLength" : 35
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_logCalculate' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-ui/src/test/actionscript/org/as3commons/ui/lifecycle/lifecycle/testhelper/LifeCycleCallbackWatcher.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12,
+            "startColumn" : 1,
+            "endLine" : 12,
+            "endColumn" : 37,
+            "charOffset" : 278,
+            "charLength" : 36,
+            "byteOffset" : 278,
+            "byteLength" : 36
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_logRender' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-ui/src/test/actionscript/org/as3commons/ui/lifecycle/lifecycle/testhelper/LifeCycleCallbackWatcher.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 13,
+            "startColumn" : 1,
+            "endLine" : 13,
+            "endColumn" : 34,
+            "charOffset" : 315,
+            "charLength" : 33,
+            "byteOffset" : 315,
+            "byteLength" : 33
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_phasesLog' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-ui/src/test/actionscript/org/as3commons/ui/lifecycle/lifecycle/testhelper/LifeCycleCallbackWatcher.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15,
+            "startColumn" : 1,
+            "endLine" : 15,
+            "endColumn" : 34,
+            "charOffset" : 352,
+            "charLength" : 33,
+            "byteOffset" : 352,
+            "byteLength" : 33
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_logAdded' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-ui/src/test/actionscript/org/as3commons/ui/lifecycle/lifecycle/testhelper/LifeCycleCallbackWatcher.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 17,
+            "startColumn" : 1,
+            "endLine" : 17,
+            "endColumn" : 33,
+            "charOffset" : 387,
+            "charLength" : 32,
+            "byteOffset" : 387,
+            "byteLength" : 32
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_logRemoved' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-ui/src/test/actionscript/org/as3commons/ui/lifecycle/lifecycle/testhelper/LifeCycleCallbackWatcher.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 18,
+            "startColumn" : 1,
+            "endLine" : 18,
+            "endColumn" : 35,
+            "charOffset" : 420,
+            "charLength" : 34,
+            "byteOffset" : 420,
+            "byteLength" : 34
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this 'filesList' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-zip/src/main/actionscript/org/as3commons/zip/Zip.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 110,
+            "startColumn" : 1,
+            "endLine" : 110,
+            "endColumn" : 33,
+            "charOffset" : 3494,
+            "charLength" : 32,
+            "byteOffset" : 3494,
+            "byteLength" : 32
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_locations' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/XMLObjectDefinitionsProvider.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 78,
+            "startColumn" : 1,
+            "endLine" : 78,
+            "endColumn" : 32,
+            "charOffset" : 4348,
+            "charLength" : 31,
+            "byteOffset" : 4348,
+            "byteLength" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_constructorArguments' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/event/ObjectFactoryEvent.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 42,
+            "startColumn" : 1,
+            "endLine" : 42,
+            "endColumn" : 43,
+            "charOffset" : 1240,
+            "charLength" : 42,
+            "byteOffset" : 1240,
+            "byteLength" : 42
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_arguments' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/MethodInvokingFactoryObject.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 138,
+            "startColumn" : 1,
+            "endLine" : 138,
+            "endColumn" : 32,
+            "charOffset" : 4122,
+            "charLength" : 31,
+            "byteOffset" : 4122,
+            "byteLength" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_arguments' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/objectdefinition/impl/MethodInvocation.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 40,
+            "startColumn" : 1,
+            "endLine" : 40,
+            "endColumn" : 32,
+            "charOffset" : 1481,
+            "charLength" : 31,
+            "byteOffset" : 1481,
+            "byteLength" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_constructorArguments' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/objectdefinition/impl/ObjectDefinition.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 84,
+            "startColumn" : 1,
+            "endLine" : 84,
+            "endColumn" : 43,
+            "charOffset" : 3767,
+            "charLength" : 42,
+            "byteOffset" : 3767,
+            "byteLength" : 42
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_lines' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/util/MultilineString.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 46,
+            "startColumn" : 1,
+            "endLine" : 46,
+            "endColumn" : 28,
+            "charOffset" : 1795,
+            "charLength" : 27,
+            "byteOffset" : 1795,
+            "byteLength" : 27
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this 'anArray' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/Person.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 35,
+            "startColumn" : 1,
+            "endLine" : 35,
+            "endColumn" : 28,
+            "charOffset" : 1096,
+            "charLength" : 27,
+            "byteOffset" : 1096,
+            "byteLength" : 27
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_friends' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/Person.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 37,
+            "startColumn" : 1,
+            "endLine" : 37,
+            "endColumn" : 30,
+            "charOffset" : 1154,
+            "charLength" : 29,
+            "byteOffset" : 1154,
+            "byteLength" : 29
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_siblings' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/test/actionscript/org/springextensions/actionscript/test/testtypes/Person.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 38,
+            "startColumn" : 1,
+            "endLine" : 38,
+            "endColumn" : 31,
+            "charOffset" : 1184,
+            "charLength" : 30,
+            "byteOffset" : 1184,
+            "byteLength" : 30
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_configurations' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/context/impl/mxml/MXMLApplicationContext.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 71,
+            "startColumn" : 1,
+            "endLine" : 71,
+            "endColumn" : 37,
+            "charOffset" : 3520,
+            "charLength" : 36,
+            "byteOffset" : 3520,
+            "byteLength" : 36
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_configLocations' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/context/impl/mxml/xml/FlexXMLApplicationContext.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 44,
+            "startColumn" : 1,
+            "endLine" : 44,
+            "endColumn" : 38,
+            "charOffset" : 1806,
+            "charLength" : 37,
+            "byteOffset" : 1806,
+            "byteLength" : 37
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_childContent' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/component/MXMLObjectDefinition.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 143,
+            "startColumn" : 1,
+            "endLine" : 143,
+            "endColumn" : 35,
+            "charOffset" : 7990,
+            "charLength" : 34,
+            "byteOffset" : 7990,
+            "byteLength" : 34
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_constructorArguments' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/component/MXMLObjectDefinition.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 147,
+            "startColumn" : 1,
+            "endLine" : 147,
+            "endColumn" : 43,
+            "charOffset" : 8128,
+            "charLength" : 42,
+            "byteOffset" : 8128,
+            "byteLength" : 42
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_arguments' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/component/MethodInvocation.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 41,
+            "startColumn" : 1,
+            "endLine" : 41,
+            "endColumn" : 32,
+            "charOffset" : 1575,
+            "charLength" : 31,
+            "byteOffset" : 1575,
+            "byteLength" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_childContent' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/custom/bootstrap/Bootstrap.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 42,
+            "startColumn" : 1,
+            "endLine" : 42,
+            "endColumn" : 35,
+            "charOffset" : 1783,
+            "charLength" : 34,
+            "byteOffset" : 1783,
+            "byteLength" : 34
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1469",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Define the element type for this '_childContent' array"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/custom/eventbus/AbstractEventBusComponent.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 37,
+            "startColumn" : 1,
+            "endLine" : 37,
+            "endColumn" : 35,
+            "charOffset" : 1619,
+            "charLength" : 34,
+            "byteOffset" : 1619,
+            "byteLength" : 34
+          }
+        }
+      } ],
+      "rank" : -1.0
+    } ],
+    "newlineSequences" : [ "\r\n", "\n" ],
+    "columnKind" : "utf16CodeUnits"
+  } ]
+}

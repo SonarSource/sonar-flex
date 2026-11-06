@@ -1,0 +1,326 @@
+{
+  "$schema" : "https://json.schemastore.org/sarif-2.1.0.json",
+  "version" : "2.1.0",
+  "runs" : [ {
+    "tool" : {
+      "driver" : {
+        "name" : "LITS",
+        "language" : "en-US",
+        "contents" : [ "localizedData", "nonLocalizedData" ],
+        "isComprehensive" : false
+      }
+    },
+    "language" : "en-US",
+    "results" : [ {
+      "ruleId" : "flex:S1144",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Remove the declaration of the unused 'getAbsoluteOutputLocation' function."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTASProject.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 135,
+            "startColumn" : 1,
+            "endLine" : 135,
+            "endColumn" : 52,
+            "charOffset" : 3893,
+            "charLength" : 51,
+            "byteOffset" : 3893,
+            "byteLength" : 51
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1144",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Remove the declaration of the unused 'addFile' function."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTASProject.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 310,
+            "startColumn" : 1,
+            "endLine" : 310,
+            "endColumn" : 68,
+            "charOffset" : 8449,
+            "charLength" : 67,
+            "byteOffset" : 8449,
+            "byteLength" : 67
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1144",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Remove the declaration of the unused 'findBlock' function."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTStatementList.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 515,
+            "startColumn" : 1,
+            "endLine" : 515,
+            "endColumn" : 70,
+            "charOffset" : 15653,
+            "charLength" : 69,
+            "byteOffset" : 15653,
+            "byteLength" : 69
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1144",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Remove the declaration of the unused 'stringifyIdentAux_' function."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTUtils.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 845,
+            "startColumn" : 1,
+            "endLine" : 845,
+            "endColumn" : 71,
+            "charOffset" : 21440,
+            "charLength" : 70,
+            "byteOffset" : 21440,
+            "byteLength" : 70
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1144",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Remove the declaration of the unused 'assertExtraction' function."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/io/AbcDeserializer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 89,
+            "startColumn" : 1,
+            "endLine" : 89,
+            "endColumn" : 110,
+            "charOffset" : 3787,
+            "charLength" : 109,
+            "byteOffset" : 3787,
+            "byteLength" : 109
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1144",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Remove the declaration of the unused 'createBuffer' function."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/io/AbcSerializer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 679,
+            "startColumn" : 1,
+            "endLine" : 679,
+            "endColumn" : 46,
+            "charOffset" : 24616,
+            "charLength" : 45,
+            "byteOffset" : 24620,
+            "byteLength" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1144",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Remove the declaration of the unused 'privateFunc' function."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/test/actionscript/org/as3commons/bytecode/testclasses/ProxySubClass.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 38,
+            "startColumn" : 1,
+            "endLine" : 38,
+            "endColumn" : 40,
+            "charOffset" : 1700,
+            "charLength" : 39,
+            "byteOffset" : 1700,
+            "byteLength" : 39
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1144",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Remove the declaration of the unused 'addMetadataToProperty' function."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-serialization/src/main/actionscript/org/as3commons/serialization/xml/core/XMLToAS.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 60,
+            "startColumn" : 1,
+            "endLine" : 60,
+            "endColumn" : 110,
+            "charOffset" : 1916,
+            "charLength" : 109,
+            "byteOffset" : 1916,
+            "byteLength" : 109
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1144",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Remove the declaration of the unused 'injectEventBus' function."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/context/impl/DefaultApplicationContextInitializer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 244,
+            "startColumn" : 1,
+            "endLine" : 244,
+            "endColumn" : 43,
+            "charOffset" : 10383,
+            "charLength" : 42,
+            "byteOffset" : 10383,
+            "byteLength" : 42
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1144",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Remove the declaration of the unused 'removeEventClassListener' function."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/impl/DefaultEventBusUserRegistry.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 448,
+            "startColumn" : 1,
+            "endLine" : 448,
+            "endColumn" : 92,
+            "charOffset" : 16051,
+            "charLength" : 91,
+            "byteOffset" : 16051,
+            "byteLength" : 91
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1144",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Remove the declaration of the unused 'getObjectFromParentFactory' function."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/DefaultObjectFactory.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 630,
+            "startColumn" : 1,
+            "endLine" : 630,
+            "endColumn" : 97,
+            "charOffset" : 21786,
+            "charLength" : 96,
+            "byteOffset" : 21786,
+            "byteLength" : 96
+          }
+        }
+      } ],
+      "rank" : -1.0
+    } ],
+    "newlineSequences" : [ "\r\n", "\n" ],
+    "columnKind" : "utf16CodeUnits"
+  } ]
+}

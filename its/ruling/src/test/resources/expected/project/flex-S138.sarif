@@ -1,0 +1,1474 @@
+{
+  "$schema" : "https://json.schemastore.org/sarif-2.1.0.json",
+  "version" : "2.1.0",
+  "runs" : [ {
+    "tool" : {
+      "driver" : {
+        "name" : "LITS",
+        "language" : "en-US",
+        "contents" : [ "localizedData", "nonLocalizedData" ],
+        "isComprehensive" : false
+      }
+    },
+    "language" : "en-US",
+    "results" : [ {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 140 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2688,
+            "startColumn" : 1,
+            "endLine" : 2688,
+            "endColumn" : 52,
+            "charOffset" : 116236,
+            "charLength" : 51,
+            "byteOffset" : 116236,
+            "byteLength" : 51
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 117 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3643,
+            "startColumn" : 1,
+            "endLine" : 3643,
+            "endColumn" : 54,
+            "charOffset" : 161853,
+            "charLength" : 53,
+            "byteOffset" : 161853,
+            "byteLength" : 53
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 591 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4523,
+            "startColumn" : 1,
+            "endLine" : 4523,
+            "endColumn" : 50,
+            "charOffset" : 202052,
+            "charLength" : 49,
+            "byteOffset" : 202052,
+            "byteLength" : 49
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 130 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 925,
+            "startColumn" : 1,
+            "endLine" : 925,
+            "endColumn" : 74,
+            "charOffset" : 48730,
+            "charLength" : 73,
+            "byteOffset" : 48730,
+            "byteLength" : 73
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 103 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1261,
+            "startColumn" : 1,
+            "endLine" : 1261,
+            "endColumn" : 67,
+            "charOffset" : 65288,
+            "charLength" : 66,
+            "byteOffset" : 65288,
+            "byteLength" : 66
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 145 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1804,
+            "startColumn" : 1,
+            "endLine" : 1804,
+            "endColumn" : 69,
+            "charOffset" : 92633,
+            "charLength" : 68,
+            "byteOffset" : 92633,
+            "byteLength" : 68
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 139 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3418,
+            "startColumn" : 1,
+            "endLine" : 3418,
+            "endColumn" : 76,
+            "charOffset" : 173096,
+            "charLength" : 75,
+            "byteOffset" : 173096,
+            "byteLength" : 75
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 232 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4954,
+            "startColumn" : 1,
+            "endLine" : 4954,
+            "endColumn" : 70,
+            "charOffset" : 253956,
+            "charLength" : 69,
+            "byteOffset" : 253956,
+            "byteLength" : 69
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 107 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 6129,
+            "startColumn" : 1,
+            "endLine" : 6129,
+            "endColumn" : 69,
+            "charOffset" : 313661,
+            "charLength" : 68,
+            "byteOffset" : 313661,
+            "byteLength" : 68
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 198 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 6582,
+            "startColumn" : 1,
+            "endLine" : 6582,
+            "endColumn" : 64,
+            "charOffset" : 335617,
+            "charLength" : 63,
+            "byteOffset" : 335617,
+            "byteLength" : 63
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 123 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 7075,
+            "startColumn" : 1,
+            "endLine" : 7075,
+            "endColumn" : 69,
+            "charOffset" : 359147,
+            "charLength" : 68,
+            "byteOffset" : 359147,
+            "byteLength" : 68
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 104 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 8502,
+            "startColumn" : 1,
+            "endLine" : 8502,
+            "endColumn" : 61,
+            "charOffset" : 430449,
+            "charLength" : 60,
+            "byteOffset" : 430449,
+            "byteLength" : 60
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 103 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 9048,
+            "startColumn" : 1,
+            "endLine" : 9048,
+            "endColumn" : 74,
+            "charOffset" : 455912,
+            "charLength" : 73,
+            "byteOffset" : 455912,
+            "byteLength" : 73
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 149 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 9206,
+            "startColumn" : 1,
+            "endLine" : 9206,
+            "endColumn" : 62,
+            "charOffset" : 464810,
+            "charLength" : 61,
+            "byteOffset" : 464810,
+            "byteLength" : 61
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 232 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 9702,
+            "startColumn" : 1,
+            "endLine" : 9702,
+            "endColumn" : 75,
+            "charOffset" : 489249,
+            "charLength" : 74,
+            "byteOffset" : 489249,
+            "byteLength" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 174 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10920,
+            "startColumn" : 1,
+            "endLine" : 10920,
+            "endColumn" : 75,
+            "charOffset" : 552276,
+            "charLength" : 74,
+            "byteOffset" : 552276,
+            "byteLength" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 205 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11741,
+            "startColumn" : 1,
+            "endLine" : 11741,
+            "endColumn" : 72,
+            "charOffset" : 594064,
+            "charLength" : 71,
+            "byteOffset" : 594064,
+            "byteLength" : 71
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 234 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12040,
+            "startColumn" : 1,
+            "endLine" : 12040,
+            "endColumn" : 84,
+            "charOffset" : 609120,
+            "charLength" : 83,
+            "byteOffset" : 609120,
+            "byteLength" : 83
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 299 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12570,
+            "startColumn" : 1,
+            "endLine" : 12570,
+            "endColumn" : 79,
+            "charOffset" : 636277,
+            "charLength" : 78,
+            "byteOffset" : 636277,
+            "byteLength" : 78
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 188 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 13274,
+            "startColumn" : 1,
+            "endLine" : 13274,
+            "endColumn" : 80,
+            "charOffset" : 675723,
+            "charLength" : 79,
+            "byteOffset" : 675723,
+            "byteLength" : 79
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 143 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 13637,
+            "startColumn" : 1,
+            "endLine" : 13637,
+            "endColumn" : 65,
+            "charOffset" : 692403,
+            "charLength" : 64,
+            "byteOffset" : 692403,
+            "byteLength" : 64
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 101 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15094,
+            "startColumn" : 1,
+            "endLine" : 15094,
+            "endColumn" : 82,
+            "charOffset" : 764002,
+            "charLength" : 81,
+            "byteOffset" : 764002,
+            "byteLength" : 81
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 138 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 17459,
+            "startColumn" : 1,
+            "endLine" : 17459,
+            "endColumn" : 98,
+            "charOffset" : 880145,
+            "charLength" : 97,
+            "byteOffset" : 880145,
+            "byteLength" : 97
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 103 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 317,
+            "startColumn" : 1,
+            "endLine" : 317,
+            "endColumn" : 65,
+            "charOffset" : 14883,
+            "charLength" : 64,
+            "byteOffset" : 14883,
+            "byteLength" : 64
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 102 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 458,
+            "startColumn" : 1,
+            "endLine" : 458,
+            "endColumn" : 70,
+            "charOffset" : 21746,
+            "charLength" : 69,
+            "byteOffset" : 21746,
+            "byteLength" : 69
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 114 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 595,
+            "startColumn" : 1,
+            "endLine" : 595,
+            "endColumn" : 72,
+            "charOffset" : 28823,
+            "charLength" : 71,
+            "byteOffset" : 28823,
+            "byteLength" : 71
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 108 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 980,
+            "startColumn" : 1,
+            "endLine" : 980,
+            "endColumn" : 73,
+            "charOffset" : 48499,
+            "charLength" : 72,
+            "byteOffset" : 48499,
+            "byteLength" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 318 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1374,
+            "startColumn" : 1,
+            "endLine" : 1374,
+            "endColumn" : 97,
+            "charOffset" : 68486,
+            "charLength" : 96,
+            "byteOffset" : 68486,
+            "byteLength" : 96
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 318 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1972,
+            "startColumn" : 1,
+            "endLine" : 1972,
+            "endColumn" : 97,
+            "charOffset" : 92990,
+            "charLength" : 96,
+            "byteOffset" : 92990,
+            "byteLength" : 96
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 162 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 281,
+            "startColumn" : 1,
+            "endLine" : 281,
+            "endColumn" : 67,
+            "charOffset" : 11697,
+            "charLength" : 66,
+            "byteOffset" : 11697,
+            "byteLength" : 66
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 164 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/asm/Asm.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 56,
+            "startColumn" : 1,
+            "endLine" : 56,
+            "endColumn" : 35,
+            "charOffset" : 2180,
+            "charLength" : 34,
+            "byteOffset" : 2180,
+            "byteLength" : 34
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 101 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/io/AbcDeserializer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 472,
+            "startColumn" : 1,
+            "endLine" : 472,
+            "endColumn" : 94,
+            "charOffset" : 18460,
+            "charLength" : 93,
+            "byteOffset" : 18464,
+            "byteLength" : 93
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 138 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/io/AbstractAbcDeserializer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 88,
+            "startColumn" : 1,
+            "endLine" : 88,
+            "endColumn" : 78,
+            "charOffset" : 2690,
+            "charLength" : 77,
+            "byteOffset" : 2690,
+            "byteLength" : 77
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 148 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ClassMetadataDeserializer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 82,
+            "startColumn" : 1,
+            "endLine" : 82,
+            "endColumn" : 187,
+            "charOffset" : 2703,
+            "charLength" : 186,
+            "byteOffset" : 2703,
+            "byteLength" : 186
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 204 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ReflectionDeserializer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 257,
+            "startColumn" : 1,
+            "endLine" : 257,
+            "endColumn" : 228,
+            "charOffset" : 9197,
+            "charLength" : 227,
+            "byteOffset" : 9197,
+            "byteLength" : 227
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 155 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ReflectionDeserializer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 514,
+            "startColumn" : 1,
+            "endLine" : 514,
+            "endColumn" : 178,
+            "charOffset" : 19842,
+            "charLength" : 177,
+            "byteOffset" : 19842,
+            "byteLength" : 177
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 119 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/test/actionscript/org/as3commons/bytecode/io/AbcSerializerTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 187,
+            "startColumn" : 1,
+            "endLine" : 187,
+            "endColumn" : 53,
+            "charOffset" : 9704,
+            "charLength" : 52,
+            "byteOffset" : 9704,
+            "byteLength" : 52
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 103 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/examples/ArrayListIteratorExample.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 8,
+            "startColumn" : 1,
+            "endLine" : 8,
+            "endColumn" : 47,
+            "charOffset" : 211,
+            "charLength" : 46,
+            "byteOffset" : 211,
+            "byteLength" : 46
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 139 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/test/actionscript/org/as3commons/collections/iterators/RecursiveFilterIterator2Test.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 168,
+            "startColumn" : 1,
+            "endLine" : 168,
+            "endColumn" : 41,
+            "charOffset" : 4406,
+            "charLength" : 40,
+            "byteOffset" : 4406,
+            "byteLength" : 40
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 115 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/test/actionscript/org/as3commons/collections/iterators/RecursiveFilterIterator2Test.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 477,
+            "startColumn" : 1,
+            "endLine" : 477,
+            "endColumn" : 42,
+            "charOffset" : 10991,
+            "charLength" : 41,
+            "byteOffset" : 10991,
+            "byteLength" : 41
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 149 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/test/actionscript/org/as3commons/collections/iterators/RecursiveFilterIterator2Test.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 657,
+            "startColumn" : 1,
+            "endLine" : 657,
+            "endColumn" : 49,
+            "charOffset" : 14486,
+            "charLength" : 48,
+            "byteOffset" : 14486,
+            "byteLength" : 48
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 136 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/test/actionscript/org/as3commons/collections/iterators/RecursiveFilterIterator2Test.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 861,
+            "startColumn" : 1,
+            "endLine" : 861,
+            "endColumn" : 58,
+            "charOffset" : 18101,
+            "charLength" : 57,
+            "byteOffset" : 18101,
+            "byteLength" : 57
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 124 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/test/actionscript/org/as3commons/collections/iterators/RecursiveFilterIteratorTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 167,
+            "startColumn" : 1,
+            "endLine" : 167,
+            "endColumn" : 41,
+            "charOffset" : 4399,
+            "charLength" : 40,
+            "byteOffset" : 4399,
+            "byteLength" : 40
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 111 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/test/actionscript/org/as3commons/collections/iterators/RecursiveFilterIteratorTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 346,
+            "startColumn" : 1,
+            "endLine" : 346,
+            "endColumn" : 42,
+            "charOffset" : 7674,
+            "charLength" : 41,
+            "byteOffset" : 7674,
+            "byteLength" : 41
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 149 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/test/actionscript/org/as3commons/collections/iterators/RecursiveFilterIteratorTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 522,
+            "startColumn" : 1,
+            "endLine" : 522,
+            "endColumn" : 49,
+            "charOffset" : 11093,
+            "charLength" : 48,
+            "byteOffset" : 11093,
+            "byteLength" : 48
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 126 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/test/actionscript/org/as3commons/collections/iterators/RecursiveFilterIteratorTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 726,
+            "startColumn" : 1,
+            "endLine" : 726,
+            "endColumn" : 58,
+            "charOffset" : 14708,
+            "charLength" : 57,
+            "byteOffset" : 14708,
+            "byteLength" : 57
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 107 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/test/actionscript/org/as3commons/collections/units/fx/ICollectionFxTests.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 72,
+            "startColumn" : 1,
+            "endLine" : 72,
+            "endColumn" : 38,
+            "charOffset" : 2153,
+            "charLength" : 37,
+            "byteOffset" : 2153,
+            "byteLength" : 37
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 109 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/test/actionscript/org/as3commons/collections/units/fx/ICollectionFxTests.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 251,
+            "startColumn" : 1,
+            "endLine" : 251,
+            "endColumn" : 50,
+            "charOffset" : 8126,
+            "charLength" : 49,
+            "byteOffset" : 8126,
+            "byteLength" : 49
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 102 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/LogMessageFormatter.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 162,
+            "startColumn" : 1,
+            "endLine" : 162,
+            "endColumn" : 55,
+            "charOffset" : 5467,
+            "charLength" : 54,
+            "byteOffset" : 5467,
+            "byteLength" : 54
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 146 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/LogMessageFormatter.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 292,
+            "startColumn" : 1,
+            "endLine" : 292,
+            "endColumn" : 67,
+            "charOffset" : 8655,
+            "charLength" : 66,
+            "byteOffset" : 8655,
+            "byteLength" : 66
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 130 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/xml/xmlToSetup.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 270,
+            "startColumn" : 1,
+            "endLine" : 270,
+            "endColumn" : 93,
+            "charOffset" : 9061,
+            "charLength" : 92,
+            "byteOffset" : 9061,
+            "byteLength" : 92
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S138",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "This function has 193 lines of code, which is greater than the 100 lines authorized. Split it into smaller functions."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/setup/LogSetupTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 72,
+            "startColumn" : 1,
+            "endLine" : 72,
+            "endColumn" : 49,
+            "charOffset" : 2581,
+            "charLength" : 48,
+            "byteOffset" : 2581,
+            "byteLength" : 48
+          }
+        }
+      } ],
+      "rank" : -1.0
+    } ],
+    "newlineSequences" : [ "\r\n", "\n" ],
+    "columnKind" : "utf16CodeUnits"
+  } ]
+}

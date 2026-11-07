@@ -58,7 +58,7 @@ jobs:
 
       # Publish the plugin version for the PVF.
       - name: Prepare PVF candidate version
-        uses: SonarSource/core-languages-tooling-public/prepare-pvf@master
+        uses: SonarSource/core-languages-tooling-public/prepare-pvf@a04d15c9fe09880db6870b01875e184ed57ca242
         with:
           build-version: ${{ env.PROJECT_VERSION }}
 
@@ -202,10 +202,10 @@ jobs:
           mvn verify -Pit-ruling -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
       - name: Prepare ruling artifact
         if: ${{ always() && steps.ruling.outcome == 'failure' }}
-        uses: SonarSource/core-languages-tooling-public/prepare-ruling-artifact@61120a5cf23942b1ed2d8cbf10cd5a84e30c7c11 # master
+        uses: SonarSource/core-languages-tooling-public/prepare-ruling-artifact@a04d15c9fe09880db6870b01875e184ed57ca242 # master
       - name: Update ruling and notify
         if: ${{ always() && (steps.ruling.outcome == 'success' || steps.ruling.outcome == 'failure') }}
-        uses: SonarSource/core-languages-tooling-public/ruling-update-and-notify@61120a5cf23942b1ed2d8cbf10cd5a84e30c7c11 # master
+        uses: SonarSource/core-languages-tooling-public/ruling-update-and-notify@a04d15c9fe09880db6870b01875e184ed57ca242 # master
         with:
           ruling-failed: ${{ steps.ruling.outcome == 'failure' }}
       - name: Preserve ruling test failure
@@ -266,7 +266,7 @@ jobs:
       id-token: write # required for vault-action-wrapper in the shared slack-notify action
     steps:
       - name: Slack Notification
-        uses: SonarSource/core-languages-tooling-public/common-actions/slack-notify@v1
+        uses: SonarSource/core-languages-tooling-public/common-actions/slack-notify@a04d15c9fe09880db6870b01875e184ed57ca242
         with:
           slack-channel: squad-corelang-notifs
           branch-patterns: ${{ format('{0},branch-*,dogfood-*', github.event.repository.default_branch) }}

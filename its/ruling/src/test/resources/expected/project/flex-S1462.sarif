@@ -1,0 +1,746 @@
+{
+  "$schema" : "https://json.schemastore.org/sarif-2.1.0.json",
+  "version" : "2.1.0",
+  "runs" : [ {
+    "tool" : {
+      "driver" : {
+        "name" : "LITS",
+        "language" : "en-US",
+        "contents" : [ "localizedData", "nonLocalizedData" ],
+        "isComprehensive" : false
+      }
+    },
+    "language" : "en-US",
+    "results" : [ {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 119,
+            "startColumn" : 1,
+            "endLine" : 119,
+            "endColumn" : 59,
+            "charOffset" : 5176,
+            "charLength" : 58,
+            "byteOffset" : 5176,
+            "byteLength" : 58
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 121,
+            "startColumn" : 1,
+            "endLine" : 121,
+            "endColumn" : 59,
+            "charOffset" : 5300,
+            "charLength" : 58,
+            "byteOffset" : 5300,
+            "byteLength" : 58
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 229,
+            "startColumn" : 1,
+            "endLine" : 229,
+            "endColumn" : 73,
+            "charOffset" : 10457,
+            "charLength" : 72,
+            "byteOffset" : 10457,
+            "byteLength" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 231,
+            "startColumn" : 1,
+            "endLine" : 231,
+            "endColumn" : 73,
+            "charOffset" : 10602,
+            "charLength" : 72,
+            "byteOffset" : 10602,
+            "byteLength" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 234,
+            "startColumn" : 1,
+            "endLine" : 234,
+            "endColumn" : 73,
+            "charOffset" : 10772,
+            "charLength" : 72,
+            "byteOffset" : 10772,
+            "byteLength" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 284,
+            "startColumn" : 1,
+            "endLine" : 284,
+            "endColumn" : 65,
+            "charOffset" : 12798,
+            "charLength" : 64,
+            "byteOffset" : 12798,
+            "byteLength" : 64
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 330,
+            "startColumn" : 1,
+            "endLine" : 330,
+            "endColumn" : 65,
+            "charOffset" : 14451,
+            "charLength" : 64,
+            "byteOffset" : 14451,
+            "byteLength" : 64
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 339,
+            "startColumn" : 1,
+            "endLine" : 339,
+            "endColumn" : 79,
+            "charOffset" : 14772,
+            "charLength" : 78,
+            "byteOffset" : 14772,
+            "byteLength" : 78
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 348,
+            "startColumn" : 1,
+            "endLine" : 348,
+            "endColumn" : 79,
+            "charOffset" : 15108,
+            "charLength" : 78,
+            "byteOffset" : 15108,
+            "byteLength" : 78
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 410,
+            "startColumn" : 1,
+            "endLine" : 410,
+            "endColumn" : 59,
+            "charOffset" : 17663,
+            "charLength" : 58,
+            "byteOffset" : 17663,
+            "byteLength" : 58
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 456,
+            "startColumn" : 1,
+            "endLine" : 456,
+            "endColumn" : 46,
+            "charOffset" : 20005,
+            "charLength" : 45,
+            "byteOffset" : 20005,
+            "byteLength" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 515,
+            "startColumn" : 1,
+            "endLine" : 515,
+            "endColumn" : 60,
+            "charOffset" : 22710,
+            "charLength" : 59,
+            "byteOffset" : 22710,
+            "byteLength" : 59
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 543,
+            "startColumn" : 1,
+            "endLine" : 543,
+            "endColumn" : 72,
+            "charOffset" : 24014,
+            "charLength" : 71,
+            "byteOffset" : 24014,
+            "byteLength" : 71
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType2\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 544,
+            "startColumn" : 1,
+            "endLine" : 544,
+            "endColumn" : 73,
+            "charOffset" : 24086,
+            "charLength" : 72,
+            "byteOffset" : 24086,
+            "byteLength" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 556,
+            "startColumn" : 1,
+            "endLine" : 556,
+            "endColumn" : 79,
+            "charOffset" : 24545,
+            "charLength" : 78,
+            "byteOffset" : 24545,
+            "byteLength" : 78
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType2\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 557,
+            "startColumn" : 1,
+            "endLine" : 557,
+            "endColumn" : 73,
+            "charOffset" : 24624,
+            "charLength" : 72,
+            "byteOffset" : 24624,
+            "byteLength" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 574,
+            "startColumn" : 1,
+            "endLine" : 574,
+            "endColumn" : 79,
+            "charOffset" : 25249,
+            "charLength" : 78,
+            "byteOffset" : 25249,
+            "byteLength" : 78
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType2\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 575,
+            "startColumn" : 1,
+            "endLine" : 575,
+            "endColumn" : 73,
+            "charOffset" : 25328,
+            "charLength" : 72,
+            "byteOffset" : 25328,
+            "byteLength" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 592,
+            "startColumn" : 1,
+            "endLine" : 592,
+            "endColumn" : 65,
+            "charOffset" : 26006,
+            "charLength" : 64,
+            "byteOffset" : 26006,
+            "byteLength" : 64
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType2\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 593,
+            "startColumn" : 1,
+            "endLine" : 593,
+            "endColumn" : 66,
+            "charOffset" : 26071,
+            "charLength" : 65,
+            "byteOffset" : 26071,
+            "byteLength" : 65
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 601,
+            "startColumn" : 1,
+            "endLine" : 601,
+            "endColumn" : 79,
+            "charOffset" : 26475,
+            "charLength" : 78,
+            "byteOffset" : 26475,
+            "byteLength" : 78
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"testType\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/test/actionscript/org/as3commons/eventbus/impl/EventBusTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 602,
+            "startColumn" : 1,
+            "endLine" : 602,
+            "endColumn" : 65,
+            "charOffset" : 26554,
+            "charLength" : 64,
+            "byteOffset" : 26554,
+            "byteLength" : 64
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"exiting\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/target/AirFileTarget.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 149,
+            "startColumn" : 1,
+            "endLine" : 149,
+            "endColumn" : 80,
+            "charOffset" : 5644,
+            "charLength" : 79,
+            "byteOffset" : 5644,
+            "byteLength" : 79
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"uncaughtError\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/captureUncaughtErrors.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 37,
+            "startColumn" : 1,
+            "endLine" : 37,
+            "endColumn" : 70,
+            "charOffset" : 1662,
+            "charLength" : 69,
+            "byteOffset" : 1662,
+            "byteLength" : 69
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"addedPopUp\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/stage/PopupAndTooltipWireManager.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 100,
+            "startColumn" : 1,
+            "endLine" : 100,
+            "endColumn" : 101,
+            "charOffset" : 3394,
+            "charLength" : 100,
+            "byteOffset" : 3394,
+            "byteLength" : 100
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1462",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "The event name \"addChild\" should be defined in a constant variable."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/stage/PopupAndTooltipWireManager.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 105,
+            "startColumn" : 1,
+            "endLine" : 105,
+            "endColumn" : 101,
+            "charOffset" : 3698,
+            "charLength" : 100,
+            "byteOffset" : 3698,
+            "byteLength" : 100
+          }
+        }
+      } ],
+      "rank" : -1.0
+    } ],
+    "newlineSequences" : [ "\r\n", "\n" ],
+    "columnKind" : "utf16CodeUnits"
+  } ]
+}

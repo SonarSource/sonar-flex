@@ -32,9 +32,10 @@ jobs:
 
       - &mise
         name: Setup mise
-        uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785 # v5.2.8
+        uses: SonarSource/mise-action-wrapper@65aa289d3f408f4999d13a52a14cde4f54b48442 # 2.0.0
         with:
           version: 2026.9.12
+          persist_github_token: false
 
       - name: Build with Maven
         id: build
@@ -136,7 +137,7 @@ jobs:
       - *checkout
       - &mise_no_cache
         name: Setup mise
-        uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785 # v5.2.8
+        uses: step-security/mise-action@a225bbd7c202ddf57dd76dff22bb7992f6314173 # v5.1.2
         with:
           version: 2026.9.12
           cache_save: false

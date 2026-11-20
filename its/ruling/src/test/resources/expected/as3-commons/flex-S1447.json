@@ -1,0 +1,167 @@
+{
+"as3-commons:as3-commons-aop/src/main/actionscript/org/as3commons/aop/pointcut/impl/name/NameRegistry.as": [
+37
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/dom/ASQName.as": [
+80
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTASMethod.as": [
+77
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTIterator.as": [
+20
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/LinkedListTree.as": [
+24
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/LinkedListTreeAdaptor.as": [
+18
+],
+"as3-commons:as3-commons-async/src/main/actionscript/org/as3commons/async/operation/impl/AbstractOperation.as": [
+57
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/proxy/error/ProxyBuildError.as": [
+90
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/framework/core/AbstractLinkedCollectionIterator.as": [
+59
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/framework/core/AbstractSortedCollectionIterator.as": [
+62
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/framework/core/LinkedMapIterator.as": [
+42
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/framework/core/LinkedSetIterator.as": [
+42
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/framework/core/TreapIterator.as": [
+65
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/iterators/CollectionFilterIterator.as": [
+91
+],
+"as3-commons:as3-commons-collections/src/main/examples/ArrayListExample.as": [
+12
+],
+"as3-commons:as3-commons-collections/src/main/examples/ArrayListIteratorExample.as": [
+8
+],
+"as3-commons:as3-commons-collections/src/main/examples/CollectionFilterIteratorExample.as": [
+9
+],
+"as3-commons:as3-commons-collections/src/main/examples/CollectionIteratorExample.as": [
+8
+],
+"as3-commons:as3-commons-collections/src/main/examples/FilterIteratorExample.as": [
+9
+],
+"as3-commons:as3-commons-collections/src/main/examples/LinkedListExample.as": [
+11
+],
+"as3-commons:as3-commons-collections/src/main/examples/LinkedMapExample.as": [
+11
+],
+"as3-commons:as3-commons-collections/src/main/examples/LinkedSetExample.as": [
+11
+],
+"as3-commons:as3-commons-collections/src/main/examples/MapExample.as": [
+10
+],
+"as3-commons:as3-commons-collections/src/main/examples/MapsAddFromExample.as": [
+10
+],
+"as3-commons:as3-commons-collections/src/main/examples/RecursiveFilterIteratorExample.as": [
+8
+],
+"as3-commons:as3-commons-collections/src/main/examples/RecursiveIteratorExample.as": [
+8
+],
+"as3-commons:as3-commons-collections/src/main/examples/SetExample.as": [
+10
+],
+"as3-commons:as3-commons-collections/src/main/examples/SortedListExample.as": [
+11
+],
+"as3-commons:as3-commons-collections/src/main/examples/SortedMapExample.as": [
+11
+],
+"as3-commons:as3-commons-collections/src/main/examples/SortedSetExample.as": [
+10
+],
+"as3-commons:as3-commons-collections/src/main/examples/TreapExample.as": [
+11
+],
+"as3-commons:as3-commons-concurrency/src/main/actionscript/org/as3commons/concurrency/thread/PseudoThread.as": [
+121
+],
+"as3-commons:as3-commons-eventbus/src/main/actionscript/org/as3commons/eventbus/impl/collection/WeakLinkedNode.as": [
+35
+],
+"as3-commons:as3-commons-lang/src/main/actionscript/org/as3commons/lang/ObjectIterator.as": [
+82
+],
+"as3-commons:as3-commons-lang/src/main/actionscript/org/as3commons/lang/SoftReference.as": [
+38
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/api/Logger.as": [
+80
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/LogSetupLevel.as": [
+98
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/MergedSetup.as": [
+45
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/SimpleRegExpSetup.as": [
+68
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/WrapperRegExpSetup.as": [
+57
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/target/BufferTarget.as": [
+75
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/target/TrazzleTarget.as": [
+71
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/LogMessageFormatter.as": [
+162
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/Base64.as": [
+21
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/LogTests.as": [
+88
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/org/as3commons/logging/util/TimesRange.as": [
+13
+],
+"as3-commons:as3-commons-metadata/src/main/actionscript/org/as3commons/metadata/process/impl/GenericMetadataProcessor.as": [
+44
+],
+"as3-commons:as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/Constructor.as": [
+45
+],
+"as3-commons:as3-commons-rpc/src/main/actionscript/org/as3commons/rpc/utils/deferExec.as": [
+38
+],
+"as3-commons:as3-commons-rpc/src/main/actionscript/org/as3commons/rpc/utils/queueURLLoader.as": [
+74
+],
+"as3-commons:as3-commons-stageprocessing/src/main/actionscript/org/as3commons/stageprocessing/impl/AbstractStageObjectProcessor.as": [
+35
+],
+"as3-commons:as3-commons-stageprocessing/src/main/actionscript/org/as3commons/stageprocessing/impl/selector/ClassNameBasedObjectSelector.as": [
+42
+],
+"as3-commons:as3-commons-ui/src/main/actionscript/org/as3commons/ui/layer/PopUpManager.as": [
+70
+],
+"as3-commons:as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/debugger/LayoutDebugger.as": [
+57
+],
+"as3-commons:as3-commons-ui/src/main/actionscript/org/as3commons/ui/lifecycle/lifecycle/errors/InvalidationNotAllowedHereError.as": [
+37
+]
+}

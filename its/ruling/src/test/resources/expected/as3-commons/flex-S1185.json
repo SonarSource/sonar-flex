@@ -1,0 +1,23 @@
+{
+"as3-commons:as3-commons-bytecode/src/test/actionscript/org/as3commons/bytecode/testclasses/EventDispatcherSubclass.as": [
+27,
+31
+],
+"as3-commons:as3-commons-bytecode/src/test/actionscript/org/as3commons/bytecode/testclasses/EventDispatcherSubclass2.as": [
+27,
+31
+],
+"as3-commons:as3-commons-logging/src/test/actionscript/perf/SpiceLibPerformance.as": [
+43
+],
+"as3-commons:as3-commons-reflect/src/test/actionscript/org/as3commons/reflect/AccessorTest.as": [
+20,
+24
+],
+"as3-commons:as3-commons-ui/src/test/actionscript/org/as3commons/ui/lifecycle/i10n/testhelper/TestI10NAdapter.as": [
+65
+],
+"as3-commons:as3-commons-ui/src/test/actionscript/org/as3commons/ui/lifecycle/lifecycle/testhelper/TestLifeCycleAdapter.as": [
+81
+]
+}

@@ -1,0 +1,12 @@
+{
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/metadata/util/MetadataConfigUtils.as": [
+179
+],
+"spring-actionscript:spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/task/nodeparser/BlockNodeParser.as": [
+78,
+85
+],
+"spring-actionscript:spring-actionscript-security/src/main/actionscript/org/springextensions/actionscript/security/impl/SimpleStageSecurityManager.as": [
+176
+]
+}

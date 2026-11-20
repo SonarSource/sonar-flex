@@ -25,4 +25,4 @@ jobs:
       dryRun: ${{ inputs.dryRun || false }}
       publishToBinaries: true
       mavenCentralSync: true
-      slackChannel: "C0BFBRNJCM8" # #ops-language-coverage
+      slackChannel: "C0BFBRNJCM8" # #ops-language-expansion

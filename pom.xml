@@ -82,7 +82,6 @@
 
     <gitRepositoryName>sonar-flex</gitRepositoryName>
     <artifactsToPublish>${project.groupId}:sonar-flex-plugin:jar,${project.groupId}:sslr-flex-toolkit:jar</artifactsToPublish>
-    <!-- FIXME fix javadoc warnings -->
     <doclint>none</doclint>
   </properties>
 

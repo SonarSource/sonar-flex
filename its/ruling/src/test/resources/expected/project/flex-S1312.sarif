@@ -1,0 +1,3090 @@
+{
+  "$schema" : "https://json.schemastore.org/sarif-2.1.0.json",
+  "version" : "2.1.0",
+  "runs" : [ {
+    "tool" : {
+      "driver" : {
+        "name" : "LITS",
+        "language" : "en-US",
+        "contents" : [ "localizedData", "nonLocalizedData" ],
+        "isComprehensive" : false
+      }
+    },
+    "language" : "en-US",
+    "results" : [ {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-async-flex/src/main/actionscript/org/as3commons/async/operation/impl/LoadResourceBundleOperation.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 37,
+            "startColumn" : 1,
+            "endLine" : 37,
+            "endColumn" : 83
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-async/src/main/actionscript/org/as3commons/async/operation/trigger/impl/AbstractCompositeOperationCompleteTrigger.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 27,
+            "startColumn" : 1,
+            "endLine" : 27,
+            "endColumn" : 99
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-async/src/main/actionscript/org/as3commons/async/operation/trigger/impl/AbstractParallelOperationCompleteTrigger.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 26,
+            "startColumn" : 1,
+            "endLine" : 26,
+            "endColumn" : 98
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-async/src/main/actionscript/org/as3commons/async/operation/trigger/impl/AndOperationCompleteTrigger.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 24,
+            "startColumn" : 1,
+            "endLine" : 24,
+            "endColumn" : 85
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-async/src/main/actionscript/org/as3commons/async/operation/trigger/impl/OrOperationCompleteTrigger.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 24,
+            "startColumn" : 1,
+            "endLine" : 24,
+            "endColumn" : 84
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-async/src/main/actionscript/org/as3commons/async/operation/trigger/impl/TimeBasedOperationCompleteTrigger.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 25,
+            "startColumn" : 1,
+            "endLine" : 25,
+            "endColumn" : 91
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"LOGGER\" private static const."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/main/actionscript/org/as3commons/eventbus/impl/EventBus.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 48,
+            "startColumn" : 1,
+            "endLine" : 48,
+            "endColumn" : 59
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"LOGGER\" private static const."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-eventbus/src/main/actionscript/org/as3commons/eventbus/impl/SimpleEventBus.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 35,
+            "startColumn" : 1,
+            "endLine" : 35,
+            "endColumn" : 65
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"statusLogger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/integration/FlexUnitListener.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 52,
+            "startColumn" : 1,
+            "endLine" : 52,
+            "endColumn" : 88
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"resultLogger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/integration/FlexUnitListener.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 53,
+            "startColumn" : 1,
+            "endLine" : 53,
+            "endColumn" : 88
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"_target\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/integration/OSMFIntegration.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 70,
+            "startColumn" : 1,
+            "endLine" : 70,
+            "endColumn" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"_logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/integration/SpiceLibIntegration.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 73,
+            "startColumn" : 1,
+            "endLine" : 73,
+            "endColumn" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"_target\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/integration/YUILoggerFactory.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 87,
+            "startColumn" : 1,
+            "endLine" : 87,
+            "endColumn" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/target/AbstractHttpTarget.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 40,
+            "startColumn" : 1,
+            "endLine" : 40,
+            "endColumn" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/target/LSHttpTarget.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 47,
+            "startColumn" : 1,
+            "endLine" : 47,
+            "endColumn" : 63
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/FirebugTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 31,
+            "startColumn" : 1,
+            "endLine" : 31,
+            "endColumn" : 60
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/LSTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 23,
+            "startColumn" : 1,
+            "endLine" : 23,
+            "endColumn" : 59
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/SizeAS3Min.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15,
+            "startColumn" : 1,
+            "endLine" : 15,
+            "endColumn" : 63
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/SizeFlexMin.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12,
+            "startColumn" : 1,
+            "endLine" : 12,
+            "endColumn" : 92
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/SizeMateMin.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 13,
+            "startColumn" : 1,
+            "endLine" : 13,
+            "endColumn" : 91
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"_logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/setup/LogSetupTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 26,
+            "startColumn" : 1,
+            "endLine" : 26,
+            "endColumn" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/util/xml/XMLRuleTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 17,
+            "startColumn" : 1,
+            "endLine" : 17,
+            "endColumn" : 66
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"loggerCustom\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/util/xml/XMLRuleTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 18,
+            "startColumn" : 1,
+            "endLine" : 18,
+            "endColumn" : 68
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"loggerMartin\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/util/xml/XMLRuleTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 19,
+            "startColumn" : 1,
+            "endLine" : 19,
+            "endColumn" : 82
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/util/xml/XMLSetupTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15,
+            "startColumn" : 1,
+            "endLine" : 15,
+            "endColumn" : 66
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/perf/FlexPerformance.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12,
+            "startColumn" : 1,
+            "endLine" : 12,
+            "endColumn" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"LOGGER\" private static const."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-stageprocessing/src/main/actionscript/org/as3commons/stageprocessing/impl/FlashStageObjectProcessorRegistry.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 46,
+            "startColumn" : 1,
+            "endLine" : 46,
+            "endColumn" : 88
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-swc/src/main/actionscript/org/as3commons/swc/SWC.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 220,
+            "startColumn" : 1,
+            "endLine" : 220,
+            "endColumn" : 77
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/process/AbstractEventBusMetadataProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 46,
+            "startColumn" : 1,
+            "endLine" : 46,
+            "endColumn" : 89
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/process/EventBusAwareObjectPostProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 31,
+            "startColumn" : 1,
+            "endLine" : 31,
+            "endColumn" : 88
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/process/EventHandlerMetadataDestroyer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 1,
+            "endLine" : 32,
+            "endColumn" : 85
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/process/EventHandlerMetadataProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 89,
+            "startColumn" : 1,
+            "endLine" : 89,
+            "endColumn" : 85
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/process/EventInterceptorMetadataDestroyer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 33,
+            "startColumn" : 1,
+            "endLine" : 33,
+            "endColumn" : 89
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/process/EventInterceptorMetadataProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "startColumn" : 1,
+            "endLine" : 34,
+            "endColumn" : 89
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/process/RouteEventsMetaDataDestroyer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 35,
+            "startColumn" : 1,
+            "endLine" : 35,
+            "endColumn" : 84
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/autowire/impl/DefaultAutowireProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 100,
+            "startColumn" : 1,
+            "endLine" : 100,
+            "endColumn" : 82
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/TextFilesLoader.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 39,
+            "startColumn" : 1,
+            "endLine" : 39,
+            "endColumn" : 73
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/metadata/MetadataObjectDefinitionsProvider.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 69,
+            "startColumn" : 1,
+            "endLine" : 69,
+            "endColumn" : 91
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/XMLObjectDefinitionsProvider.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 65,
+            "startColumn" : 1,
+            "endLine" : 65,
+            "endColumn" : 86
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/AbstractNamespaceHandler.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 37,
+            "startColumn" : 1,
+            "endLine" : 37,
+            "endColumn" : 82
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/AbstractObjectDefinitionParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 36,
+            "startColumn" : 1,
+            "endLine" : 36,
+            "endColumn" : 88
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/AttributeToPropertyMapping.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 31,
+            "startColumn" : 1,
+            "endLine" : 31,
+            "endColumn" : 84
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/customconfiguration/EventInterceptorCustomConfigurator.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 1,
+            "endLine" : 32,
+            "endColumn" : 92
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/customconfiguration/EventListenerInterceptorCustomConfigurator.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 31,
+            "startColumn" : 1,
+            "endLine" : 31,
+            "endColumn" : 100
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/nodeparser/AbstractEventBusNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 49,
+            "startColumn" : 1,
+            "endLine" : 49,
+            "endColumn" : 84
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/nodeparser/EventHandlerNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 42,
+            "startColumn" : 1,
+            "endLine" : 42,
+            "endColumn" : 80
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/nodeparser/EventInterceptorNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 42,
+            "startColumn" : 1,
+            "endLine" : 42,
+            "endColumn" : 84
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/nodeparser/EventListenerInterceptorNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 42,
+            "startColumn" : 1,
+            "endLine" : 42,
+            "endColumn" : 92
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/eventbus/nodeparser/EventRouterNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 40,
+            "startColumn" : 1,
+            "endLine" : 40,
+            "endColumn" : 79
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/stageprocessing/nodeparser/AutowiringStageProcessorNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 36,
+            "startColumn" : 1,
+            "endLine" : 36,
+            "endColumn" : 92
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/stageprocessing/nodeparser/GenericStageProcessorNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 47,
+            "startColumn" : 1,
+            "endLine" : 47,
+            "endColumn" : 89
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/stageprocessing/nodeparser/StageProcessorNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 39,
+            "startColumn" : 1,
+            "endLine" : 39,
+            "endColumn" : 82
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/task/TaskElementsPreprocessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 31,
+            "startColumn" : 1,
+            "endLine" : 31,
+            "endColumn" : 82
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/task/TaskNamespaceHandler.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 146,
+            "startColumn" : 1,
+            "endLine" : 146,
+            "endColumn" : 78
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/task/nodeparser/BlockNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 37,
+            "startColumn" : 1,
+            "endLine" : 37,
+            "endColumn" : 73
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/task/nodeparser/CompositeCommandNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 39,
+            "startColumn" : 1,
+            "endLine" : 39,
+            "endColumn" : 84
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/task/nodeparser/CountProviderNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "startColumn" : 1,
+            "endLine" : 34,
+            "endColumn" : 81
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/task/nodeparser/LoadURLNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 26,
+            "startColumn" : 1,
+            "endLine" : 26,
+            "endColumn" : 75
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/task/nodeparser/LoadURLStreamNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 27,
+            "startColumn" : 1,
+            "endLine" : 27,
+            "endColumn" : 81
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/task/nodeparser/PauseCommandNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "startColumn" : 1,
+            "endLine" : 34,
+            "endColumn" : 80
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/task/nodeparser/TaskNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 43,
+            "startColumn" : 1,
+            "endLine" : 43,
+            "endColumn" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/util/customconfiguration/FactoryObjectCustomConfigurator.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 1,
+            "endLine" : 32,
+            "endColumn" : 89
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/util/nodeparser/ConstantNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 38,
+            "startColumn" : 1,
+            "endLine" : 38,
+            "endColumn" : 76
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/util/nodeparser/FactoryNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 44,
+            "startColumn" : 1,
+            "endLine" : 44,
+            "endColumn" : 75
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/namespacehandler/impl/util/nodeparser/InvokeNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 36,
+            "startColumn" : 1,
+            "endLine" : 36,
+            "endColumn" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/XMLObjectDefinitionsParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 102,
+            "startColumn" : 1,
+            "endLine" : 102,
+            "endColumn" : 84
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/AbstractNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 35,
+            "startColumn" : 1,
+            "endLine" : 35,
+            "endColumn" : 76
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/ArrayCollectionNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 38,
+            "startColumn" : 1,
+            "endLine" : 38,
+            "endColumn" : 83
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/ArrayNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 30,
+            "startColumn" : 1,
+            "endLine" : 30,
+            "endColumn" : 73
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/DictionaryNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 33,
+            "startColumn" : 1,
+            "endLine" : 33,
+            "endColumn" : 78
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/KeyValueNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 38,
+            "startColumn" : 1,
+            "endLine" : 38,
+            "endColumn" : 76
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/NanNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 26,
+            "startColumn" : 1,
+            "endLine" : 26,
+            "endColumn" : 71
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/NullNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 28,
+            "startColumn" : 1,
+            "endLine" : 28,
+            "endColumn" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/ObjectNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 1,
+            "endLine" : 32,
+            "endColumn" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/RefNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 31,
+            "startColumn" : 1,
+            "endLine" : 31,
+            "endColumn" : 71
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/UndefinedNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 30,
+            "startColumn" : 1,
+            "endLine" : 30,
+            "endColumn" : 77
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/parser/impl/nodeparser/VectorNodeParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 36,
+            "startColumn" : 1,
+            "endLine" : 36,
+            "endColumn" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/preprocess/impl/AttributeToElementPreprocessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 42,
+            "startColumn" : 1,
+            "endLine" : 42,
+            "endColumn" : 88
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/preprocess/impl/IdAttributePreprocessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 36,
+            "startColumn" : 1,
+            "endLine" : 36,
+            "endColumn" : 81
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/preprocess/impl/InnerObjectsPreprocessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 36,
+            "startColumn" : 1,
+            "endLine" : 36,
+            "endColumn" : 82
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/preprocess/impl/PropertyElementsPreprocessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 37,
+            "startColumn" : 1,
+            "endLine" : 37,
+            "endColumn" : 86
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/preprocess/impl/PropertyImportPreprocessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 38,
+            "startColumn" : 1,
+            "endLine" : 38,
+            "endColumn" : 84
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/preprocess/impl/ScopeAttributePreprocessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 39,
+            "startColumn" : 1,
+            "endLine" : 39,
+            "endColumn" : 84
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/xml/preprocess/impl/SpringNamesPreprocessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 35,
+            "startColumn" : 1,
+            "endLine" : 35,
+            "endColumn" : 81
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/property/impl/KeyValuePropertiesParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 69,
+            "startColumn" : 1,
+            "endLine" : 69,
+            "endColumn" : 82
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/property/impl/Properties.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 1,
+            "endLine" : 32,
+            "endColumn" : 68
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/property/impl/PropertyPlaceholderResolver.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 35,
+            "startColumn" : 1,
+            "endLine" : 35,
+            "endColumn" : 85
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/DefaultInstanceCache.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 55,
+            "startColumn" : 1,
+            "endLine" : 55,
+            "endColumn" : 76
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/DefaultObjectFactory.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 83,
+            "startColumn" : 1,
+            "endLine" : 83,
+            "endColumn" : 76
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/GenericFactoryObject.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 38,
+            "startColumn" : 1,
+            "endLine" : 38,
+            "endColumn" : 76
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/factory/ClassScannerObjectFactoryPostProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 55,
+            "startColumn" : 1,
+            "endLine" : 55,
+            "endColumn" : 94
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/factory/FactoryObjectFactoryPostProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 40,
+            "startColumn" : 1,
+            "endLine" : 40,
+            "endColumn" : 89
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/factory/ObjectDefinitionFactoryPostProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 46,
+            "startColumn" : 1,
+            "endLine" : 46,
+            "endColumn" : 92
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/factory/ObjectDestroyerObjectFactoryPostProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 1,
+            "endLine" : 32,
+            "endColumn" : 97
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/factory/PropertyPlaceholderConfigurerFactoryPostProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 42,
+            "startColumn" : 1,
+            "endLine" : 42,
+            "endColumn" : 105
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/factory/RegisterObjectFactoryPostProcessorsFactoryPostProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 1,
+            "endLine" : 32,
+            "endColumn" : 111
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/factory/RegisterObjectPostProcessorsFactoryPostProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "startColumn" : 1,
+            "endLine" : 34,
+            "endColumn" : 104
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/object/ApplicationContextAwareObjectPostProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "startColumn" : 1,
+            "endLine" : 34,
+            "endColumn" : 98
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/object/ApplicationDomainAwarePostProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 1,
+            "endLine" : 32,
+            "endColumn" : 91
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/object/ObjectDefinitionRegistryAwareObjectPostProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 1,
+            "endLine" : 32,
+            "endColumn" : 104
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/object/ObjectFactoryAwarePostProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "startColumn" : 1,
+            "endLine" : 34,
+            "endColumn" : 87
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/impl/DefaultDependencyChecker.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 41,
+            "startColumn" : 1,
+            "endLine" : 41,
+            "endColumn" : 80
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/impl/DefaultDependencyInjector.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 63,
+            "startColumn" : 1,
+            "endLine" : 63,
+            "endColumn" : 81
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/impl/DefaultLazyDependencyManager.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 39,
+            "startColumn" : 1,
+            "endLine" : 39,
+            "endColumn" : 84
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/impl/DefaultObjectDestroyer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 54,
+            "startColumn" : 1,
+            "endLine" : 54,
+            "endColumn" : 78
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/objectdefinition/impl/DefaultObjectDefinitionRegistry.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 48,
+            "startColumn" : 1,
+            "endLine" : 48,
+            "endColumn" : 87
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/objectdefinition/impl/ObjectDefinition.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 45,
+            "startColumn" : 1,
+            "endLine" : 45,
+            "endColumn" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"LOGGER\" private static const."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/metadata/MetadataProcessorObjectPostProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 35,
+            "startColumn" : 1,
+            "endLine" : 35,
+            "endColumn" : 92
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/stage/DefaultAutowiringStageProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 37,
+            "startColumn" : 1,
+            "endLine" : 37,
+            "endColumn" : 87
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/stage/DefaultObjectDefinitionResolver.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 46,
+            "startColumn" : 1,
+            "endLine" : 46,
+            "endColumn" : 87
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/stage/PopupAndTooltipWireManager.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 43,
+            "startColumn" : 1,
+            "endLine" : 43,
+            "endColumn" : 82
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/stage/StageProcessorFactoryPostprocessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 42,
+            "startColumn" : 1,
+            "endLine" : 42,
+            "endColumn" : 90
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/MXMLObjectDefinitionsProvider.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 42,
+            "startColumn" : 1,
+            "endLine" : 42,
+            "endColumn" : 85
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/custom/bootstrap/customconfiguration/BootstrapCustomConfigurator.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 45,
+            "startColumn" : 1,
+            "endLine" : 45,
+            "endColumn" : 83
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/custom/eventbus/EventRouterConfiguration.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 48,
+            "startColumn" : 1,
+            "endLine" : 48,
+            "endColumn" : 81
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/custom/util/FactorObjectDefinition.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "startColumn" : 1,
+            "endLine" : 34,
+            "endColumn" : 80
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/ApplicationPropertiesObjectFactoryPostProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 92,
+            "startColumn" : 1,
+            "endLine" : 92,
+            "endColumn" : 105
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename the \"logger\" logger to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/stage/DefaultFlexAutowiringStageProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 33,
+            "startColumn" : 1,
+            "endLine" : 33,
+            "endColumn" : 93
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-samples/cafe-townsend-bootstrap/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/EmployeeLoginPresentationModel.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 1,
+            "endLine" : 32,
+            "endColumn" : 86
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-samples/cafe-townsend-bootstrap/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/MainViewPresentationModel.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "startColumn" : 1,
+            "endLine" : 34,
+            "endColumn" : 81
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-samples/cafe-townsend-metadata-config/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/EmployeeLoginPresentationModel.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 1,
+            "endLine" : 32,
+            "endColumn" : 86
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-samples/cafe-townsend-metadata-config/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/MainViewPresentationModel.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 1,
+            "endLine" : 32,
+            "endColumn" : 81
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-samples/cafe-townsend-multi-module/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/EmployeeLoginPresentationModel.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 1,
+            "endLine" : 32,
+            "endColumn" : 86
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-samples/cafe-townsend-multi-module/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/MainViewPresentationModel.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 19,
+            "startColumn" : 1,
+            "endLine" : 19,
+            "endColumn" : 81
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-samples/cafe-townsend-mxml-config/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/EmployeeLoginPresentationModel.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 1,
+            "endLine" : 32,
+            "endColumn" : 86
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-samples/cafe-townsend-mxml-config/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/MainViewPresentationModel.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "startColumn" : 1,
+            "endLine" : 34,
+            "endColumn" : 81
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-samples/cafe-townsend/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/EmployeeLoginPresentationModel.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 1,
+            "endLine" : 32,
+            "endColumn" : 86
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1312",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Make the logger \"logger\" private static const and rename it to comply with the format \"LOG(?:GER)?\"."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-samples/cafe-townsend/src/main/actionscript/org/springextensions/actionscript/samples/cafetownsend/presentation/MainViewPresentationModel.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "startColumn" : 1,
+            "endLine" : 34,
+            "endColumn" : 81
+          }
+        }
+      } ],
+      "rank" : -1.0
+    } ],
+    "newlineSequences" : [ "\r\n", "\n" ],
+    "columnKind" : "utf16CodeUnits"
+  } ]
+}

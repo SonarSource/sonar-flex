@@ -1,0 +1,810 @@
+{
+  "$schema" : "https://json.schemastore.org/sarif-2.1.0.json",
+  "version" : "2.1.0",
+  "runs" : [ {
+    "tool" : {
+      "driver" : {
+        "name" : "LITS",
+        "language" : "en-US",
+        "contents" : [ "localizedData", "nonLocalizedData" ],
+        "isComprehensive" : false
+      }
+    },
+    "language" : "en-US",
+    "results" : [ {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTUtils.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 585,
+            "startColumn" : 1,
+            "endLine" : 585,
+            "endColumn" : 17
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2817,
+            "startColumn" : 1,
+            "endLine" : 2817,
+            "endColumn" : 44
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3362,
+            "startColumn" : 1,
+            "endLine" : 3362,
+            "endColumn" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3413,
+            "startColumn" : 1,
+            "endLine" : 3413,
+            "endColumn" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3561,
+            "startColumn" : 1,
+            "endLine" : 3561,
+            "endColumn" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3678,
+            "startColumn" : 1,
+            "endLine" : 3678,
+            "endColumn" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3708,
+            "startColumn" : 1,
+            "endLine" : 3708,
+            "endColumn" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3729,
+            "startColumn" : 1,
+            "endLine" : 3729,
+            "endColumn" : 41
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3759,
+            "startColumn" : 1,
+            "endLine" : 3759,
+            "endColumn" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3784,
+            "startColumn" : 1,
+            "endLine" : 3784,
+            "endColumn" : 41
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4066,
+            "startColumn" : 1,
+            "endLine" : 4066,
+            "endColumn" : 41
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 991,
+            "startColumn" : 1,
+            "endLine" : 991,
+            "endColumn" : 49
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1020,
+            "startColumn" : 1,
+            "endLine" : 1020,
+            "endColumn" : 40
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1722,
+            "startColumn" : 1,
+            "endLine" : 1722,
+            "endColumn" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2785,
+            "startColumn" : 1,
+            "endLine" : 2785,
+            "endColumn" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2986,
+            "startColumn" : 1,
+            "endLine" : 2986,
+            "endColumn" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3499,
+            "startColumn" : 1,
+            "endLine" : 3499,
+            "endColumn" : 49
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3545,
+            "startColumn" : 1,
+            "endLine" : 3545,
+            "endColumn" : 41
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 6609,
+            "startColumn" : 1,
+            "endLine" : 6609,
+            "endColumn" : 49
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 7152,
+            "startColumn" : 1,
+            "endLine" : 7152,
+            "endColumn" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 7182,
+            "startColumn" : 1,
+            "endLine" : 7182,
+            "endColumn" : 41
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11031,
+            "startColumn" : 1,
+            "endLine" : 11031,
+            "endColumn" : 49
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11068,
+            "startColumn" : 1,
+            "endLine" : 11068,
+            "endColumn" : 41
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14300,
+            "startColumn" : 1,
+            "endLine" : 14300,
+            "endColumn" : 38
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14937,
+            "startColumn" : 1,
+            "endLine" : 14937,
+            "endColumn" : 46
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 368,
+            "startColumn" : 1,
+            "endLine" : 368,
+            "endColumn" : 44
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 402,
+            "startColumn" : 1,
+            "endLine" : 402,
+            "endColumn" : 40
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1054,
+            "startColumn" : 1,
+            "endLine" : 1054,
+            "endColumn" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 374,
+            "startColumn" : 1,
+            "endLine" : 374,
+            "endColumn" : 44
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 410,
+            "startColumn" : 1,
+            "endLine" : 410,
+            "endColumn" : 44
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 440,
+            "startColumn" : 1,
+            "endLine" : 440,
+            "endColumn" : 44
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 475,
+            "startColumn" : 1,
+            "endLine" : 475,
+            "endColumn" : 40
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S1821",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Move this \"switch\" to a function or refactor the code to eliminate it."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/test/actionscript/org/as3commons/bytecode/testclasses/interceptors/EventDispatcherExInterceptor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 41,
+            "startColumn" : 1,
+            "endLine" : 41,
+            "endColumn" : 52
+          }
+        }
+      } ],
+      "rank" : -1.0
+    } ],
+    "newlineSequences" : [ "\r\n", "\n" ],
+    "columnKind" : "utf16CodeUnits"
+  } ]
+}

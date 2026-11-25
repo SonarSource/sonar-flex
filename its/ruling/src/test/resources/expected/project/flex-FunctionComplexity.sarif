@@ -1,0 +1,6330 @@
+{
+  "$schema" : "https://json.schemastore.org/sarif-2.1.0.json",
+  "version" : "2.1.0",
+  "runs" : [ {
+    "tool" : {
+      "driver" : {
+        "name" : "LITS",
+        "language" : "en-US",
+        "contents" : [ "localizedData", "nonLocalizedData" ],
+        "isComprehensive" : false
+      }
+    },
+    "language" : "en-US",
+    "results" : [ {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-aop/src/main/actionscript/org/as3commons/aop/pointcut/impl/name/NameMatcher.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 68,
+            "startColumn" : 1,
+            "endLine" : 68,
+            "endColumn" : 77
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 41 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTBuilder.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 73,
+            "startColumn" : 1,
+            "endLine" : 73,
+            "endColumn" : 59
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/DocumentationUtils.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 55,
+            "startColumn" : 1,
+            "endLine" : 55,
+            "endColumn" : 81
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 62 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ExpressionBuilder.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11,
+            "startColumn" : 1,
+            "endLine" : 11,
+            "endColumn" : 64
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ParentheticUpdateFactory.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 20,
+            "startColumn" : 1,
+            "endLine" : 20,
+            "endColumn" : 77
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 22 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/StatementBuilder.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15,
+            "startColumn" : 1,
+            "endLine" : 15,
+            "endColumn" : 63
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/BasicListUpdateDelegate.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 66,
+            "startColumn" : 1,
+            "endLine" : 66,
+            "endColumn" : 63
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/LinkedListTokenStream.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 75,
+            "startColumn" : 1,
+            "endLine" : 75,
+            "endColumn" : 50
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 231,
+            "startColumn" : 1,
+            "endLine" : 231,
+            "endColumn" : 49
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 16 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2430,
+            "startColumn" : 1,
+            "endLine" : 2430,
+            "endColumn" : 55
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 22 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2474,
+            "startColumn" : 1,
+            "endLine" : 2474,
+            "endColumn" : 54
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 71 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2527,
+            "startColumn" : 1,
+            "endLine" : 2527,
+            "endColumn" : 51
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 68 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2688,
+            "startColumn" : 1,
+            "endLine" : 2688,
+            "endColumn" : 52
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 27 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2887,
+            "startColumn" : 1,
+            "endLine" : 2887,
+            "endColumn" : 54
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3005,
+            "startColumn" : 1,
+            "endLine" : 3005,
+            "endColumn" : 59
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 41 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3053,
+            "startColumn" : 1,
+            "endLine" : 3053,
+            "endColumn" : 53
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 19 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3119,
+            "startColumn" : 1,
+            "endLine" : 3119,
+            "endColumn" : 52
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 19 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3179,
+            "startColumn" : 1,
+            "endLine" : 3179,
+            "endColumn" : 50
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 27 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3263,
+            "startColumn" : 1,
+            "endLine" : 3263,
+            "endColumn" : 46
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 62 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3324,
+            "startColumn" : 1,
+            "endLine" : 3324,
+            "endColumn" : 55
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 16 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3457,
+            "startColumn" : 1,
+            "endLine" : 3457,
+            "endColumn" : 52
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3516,
+            "startColumn" : 1,
+            "endLine" : 3516,
+            "endColumn" : 56
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 36 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3643,
+            "startColumn" : 1,
+            "endLine" : 3643,
+            "endColumn" : 54
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3809,
+            "startColumn" : 1,
+            "endLine" : 3809,
+            "endColumn" : 43
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3869,
+            "startColumn" : 1,
+            "endLine" : 3869,
+            "endColumn" : 44
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3938,
+            "startColumn" : 1,
+            "endLine" : 3938,
+            "endColumn" : 44
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 27 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3995,
+            "startColumn" : 1,
+            "endLine" : 3995,
+            "endColumn" : 51
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 17 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4098,
+            "startColumn" : 1,
+            "endLine" : 4098,
+            "endColumn" : 51
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 17 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4161,
+            "startColumn" : 1,
+            "endLine" : 4161,
+            "endColumn" : 49
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 27 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4281,
+            "startColumn" : 1,
+            "endLine" : 4281,
+            "endColumn" : 44
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4361,
+            "startColumn" : 1,
+            "endLine" : 4361,
+            "endColumn" : 53
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 26 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4386,
+            "startColumn" : 1,
+            "endLine" : 4386,
+            "endColumn" : 50
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 235 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4523,
+            "startColumn" : 1,
+            "endLine" : 4523,
+            "endColumn" : 50
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 81 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 5491,
+            "startColumn" : 1,
+            "endLine" : 5491,
+            "endColumn" : 98
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 81 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 5603,
+            "startColumn" : 1,
+            "endLine" : 5603,
+            "endColumn" : 98
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 29 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Lexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 6349,
+            "startColumn" : 1,
+            "endLine" : 6349,
+            "endColumn" : 98
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 21 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 479,
+            "startColumn" : 1,
+            "endLine" : 479,
+            "endColumn" : 71
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 37 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 574,
+            "startColumn" : 1,
+            "endLine" : 574,
+            "endColumn" : 64
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 21 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 669,
+            "startColumn" : 1,
+            "endLine" : 669,
+            "endColumn" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 20 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 745,
+            "startColumn" : 1,
+            "endLine" : 745,
+            "endColumn" : 68
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 25 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 818,
+            "startColumn" : 1,
+            "endLine" : 818,
+            "endColumn" : 69
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 48 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 925,
+            "startColumn" : 1,
+            "endLine" : 925,
+            "endColumn" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 16 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1140,
+            "startColumn" : 1,
+            "endLine" : 1140,
+            "endColumn" : 68
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 23 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1261,
+            "startColumn" : 1,
+            "endLine" : 1261,
+            "endColumn" : 67
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 19 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1533,
+            "startColumn" : 1,
+            "endLine" : 1533,
+            "endColumn" : 70
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 35 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1666,
+            "startColumn" : 1,
+            "endLine" : 1666,
+            "endColumn" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 35 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1804,
+            "startColumn" : 1,
+            "endLine" : 1804,
+            "endColumn" : 69
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2165,
+            "startColumn" : 1,
+            "endLine" : 2165,
+            "endColumn" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 37 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2248,
+            "startColumn" : 1,
+            "endLine" : 2248,
+            "endColumn" : 66
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 20 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2420,
+            "startColumn" : 1,
+            "endLine" : 2420,
+            "endColumn" : 61
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 17 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2549,
+            "startColumn" : 1,
+            "endLine" : 2549,
+            "endColumn" : 91
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2730,
+            "startColumn" : 1,
+            "endLine" : 2730,
+            "endColumn" : 78
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2830,
+            "startColumn" : 1,
+            "endLine" : 2830,
+            "endColumn" : 95
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2931,
+            "startColumn" : 1,
+            "endLine" : 2931,
+            "endColumn" : 79
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 19 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3031,
+            "startColumn" : 1,
+            "endLine" : 3031,
+            "endColumn" : 94
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 20 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3164,
+            "startColumn" : 1,
+            "endLine" : 3164,
+            "endColumn" : 94
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 26 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3303,
+            "startColumn" : 1,
+            "endLine" : 3303,
+            "endColumn" : 71
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 52 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3418,
+            "startColumn" : 1,
+            "endLine" : 3418,
+            "endColumn" : 76
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 21 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3609,
+            "startColumn" : 1,
+            "endLine" : 3609,
+            "endColumn" : 75
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 27 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3724,
+            "startColumn" : 1,
+            "endLine" : 3724,
+            "endColumn" : 80
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 27 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3852,
+            "startColumn" : 1,
+            "endLine" : 3852,
+            "endColumn" : 73
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 41 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3977,
+            "startColumn" : 1,
+            "endLine" : 3977,
+            "endColumn" : 73
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 20 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4159,
+            "startColumn" : 1,
+            "endLine" : 4159,
+            "endColumn" : 113
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 23 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4299,
+            "startColumn" : 1,
+            "endLine" : 4299,
+            "endColumn" : 119
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 22 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4446,
+            "startColumn" : 1,
+            "endLine" : 4446,
+            "endColumn" : 112
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 26 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4586,
+            "startColumn" : 1,
+            "endLine" : 4586,
+            "endColumn" : 77
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 42 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4731,
+            "startColumn" : 1,
+            "endLine" : 4731,
+            "endColumn" : 62
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 65 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4954,
+            "startColumn" : 1,
+            "endLine" : 4954,
+            "endColumn" : 70
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 16 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 5334,
+            "startColumn" : 1,
+            "endLine" : 5334,
+            "endColumn" : 75
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 5818,
+            "startColumn" : 1,
+            "endLine" : 5818,
+            "endColumn" : 68
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 16 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 6029,
+            "startColumn" : 1,
+            "endLine" : 6029,
+            "endColumn" : 73
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 24 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 6129,
+            "startColumn" : 1,
+            "endLine" : 6129,
+            "endColumn" : 69
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 16 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 6300,
+            "startColumn" : 1,
+            "endLine" : 6300,
+            "endColumn" : 77
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 29 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 6424,
+            "startColumn" : 1,
+            "endLine" : 6424,
+            "endColumn" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 154 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 6582,
+            "startColumn" : 1,
+            "endLine" : 6582,
+            "endColumn" : 64
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 30 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 6830,
+            "startColumn" : 1,
+            "endLine" : 6830,
+            "endColumn" : 64
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 30 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 6925,
+            "startColumn" : 1,
+            "endLine" : 6925,
+            "endColumn" : 64
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 28 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 7075,
+            "startColumn" : 1,
+            "endLine" : 7075,
+            "endColumn" : 69
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 19 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 7262,
+            "startColumn" : 1,
+            "endLine" : 7262,
+            "endColumn" : 67
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 19 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 7492,
+            "startColumn" : 1,
+            "endLine" : 7492,
+            "endColumn" : 68
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 7631,
+            "startColumn" : 1,
+            "endLine" : 7631,
+            "endColumn" : 70
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 39 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 7747,
+            "startColumn" : 1,
+            "endLine" : 7747,
+            "endColumn" : 76
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 7907,
+            "startColumn" : 1,
+            "endLine" : 7907,
+            "endColumn" : 73
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 31 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 8109,
+            "startColumn" : 1,
+            "endLine" : 8109,
+            "endColumn" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 17 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 8182,
+            "startColumn" : 1,
+            "endLine" : 8182,
+            "endColumn" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 17 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 8255,
+            "startColumn" : 1,
+            "endLine" : 8255,
+            "endColumn" : 71
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 16 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 8328,
+            "startColumn" : 1,
+            "endLine" : 8328,
+            "endColumn" : 85
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 31 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 8502,
+            "startColumn" : 1,
+            "endLine" : 8502,
+            "endColumn" : 61
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 20 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 8720,
+            "startColumn" : 1,
+            "endLine" : 8720,
+            "endColumn" : 78
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 27 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 8802,
+            "startColumn" : 1,
+            "endLine" : 8802,
+            "endColumn" : 70
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 8928,
+            "startColumn" : 1,
+            "endLine" : 8928,
+            "endColumn" : 70
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 33 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 9048,
+            "startColumn" : 1,
+            "endLine" : 9048,
+            "endColumn" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 43 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 9206,
+            "startColumn" : 1,
+            "endLine" : 9206,
+            "endColumn" : 62
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 15 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 9521,
+            "startColumn" : 1,
+            "endLine" : 9521,
+            "endColumn" : 71
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 9624,
+            "startColumn" : 1,
+            "endLine" : 9624,
+            "endColumn" : 77
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 62 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 9702,
+            "startColumn" : 1,
+            "endLine" : 9702,
+            "endColumn" : 75
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10039,
+            "startColumn" : 1,
+            "endLine" : 10039,
+            "endColumn" : 78
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10215,
+            "startColumn" : 1,
+            "endLine" : 10215,
+            "endColumn" : 76
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10339,
+            "startColumn" : 1,
+            "endLine" : 10339,
+            "endColumn" : 77
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10463,
+            "startColumn" : 1,
+            "endLine" : 10463,
+            "endColumn" : 76
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10546,
+            "startColumn" : 1,
+            "endLine" : 10546,
+            "endColumn" : 77
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10629,
+            "startColumn" : 1,
+            "endLine" : 10629,
+            "endColumn" : 77
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10712,
+            "startColumn" : 1,
+            "endLine" : 10712,
+            "endColumn" : 75
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10842,
+            "startColumn" : 1,
+            "endLine" : 10842,
+            "endColumn" : 77
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 42 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10920,
+            "startColumn" : 1,
+            "endLine" : 10920,
+            "endColumn" : 75
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 60 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11163,
+            "startColumn" : 1,
+            "endLine" : 11163,
+            "endColumn" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 21 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11271,
+            "startColumn" : 1,
+            "endLine" : 11271,
+            "endColumn" : 70
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11405,
+            "startColumn" : 1,
+            "endLine" : 11405,
+            "endColumn" : 75
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 37 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11535,
+            "startColumn" : 1,
+            "endLine" : 11535,
+            "endColumn" : 81
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 17 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11628,
+            "startColumn" : 1,
+            "endLine" : 11628,
+            "endColumn" : 79
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 72 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11741,
+            "startColumn" : 1,
+            "endLine" : 11741,
+            "endColumn" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 75 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12040,
+            "startColumn" : 1,
+            "endLine" : 12040,
+            "endColumn" : 84
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 15 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12453,
+            "startColumn" : 1,
+            "endLine" : 12453,
+            "endColumn" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 68 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12570,
+            "startColumn" : 1,
+            "endLine" : 12570,
+            "endColumn" : 79
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 41 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 13107,
+            "startColumn" : 1,
+            "endLine" : 13107,
+            "endColumn" : 73
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 57 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 13274,
+            "startColumn" : 1,
+            "endLine" : 13274,
+            "endColumn" : 80
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 19 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 13563,
+            "startColumn" : 1,
+            "endLine" : 13563,
+            "endColumn" : 73
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 34 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 13637,
+            "startColumn" : 1,
+            "endLine" : 13637,
+            "endColumn" : 65
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 35 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 13905,
+            "startColumn" : 1,
+            "endLine" : 13905,
+            "endColumn" : 69
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 31 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14005,
+            "startColumn" : 1,
+            "endLine" : 14005,
+            "endColumn" : 68
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 25 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14151,
+            "startColumn" : 1,
+            "endLine" : 14151,
+            "endColumn" : 70
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 24 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14251,
+            "startColumn" : 1,
+            "endLine" : 14251,
+            "endColumn" : 66
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 27 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14426,
+            "startColumn" : 1,
+            "endLine" : 14426,
+            "endColumn" : 66
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14658,
+            "startColumn" : 1,
+            "endLine" : 14658,
+            "endColumn" : 71
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 29 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14881,
+            "startColumn" : 1,
+            "endLine" : 14881,
+            "endColumn" : 81
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 19 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15019,
+            "startColumn" : 1,
+            "endLine" : 15019,
+            "endColumn" : 77
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 21 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15094,
+            "startColumn" : 1,
+            "endLine" : 15094,
+            "endColumn" : 82
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 18 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15308,
+            "startColumn" : 1,
+            "endLine" : 15308,
+            "endColumn" : 81
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 44 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15403,
+            "startColumn" : 1,
+            "endLine" : 15403,
+            "endColumn" : 69
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15550,
+            "startColumn" : 1,
+            "endLine" : 15550,
+            "endColumn" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 19 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15723,
+            "startColumn" : 1,
+            "endLine" : 15723,
+            "endColumn" : 70
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 21 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15843,
+            "startColumn" : 1,
+            "endLine" : 15843,
+            "endColumn" : 79
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 16065,
+            "startColumn" : 1,
+            "endLine" : 16065,
+            "endColumn" : 77
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 40 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 16111,
+            "startColumn" : 1,
+            "endLine" : 16111,
+            "endColumn" : 68
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 26 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 16191,
+            "startColumn" : 1,
+            "endLine" : 16191,
+            "endColumn" : 69
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 54 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 16757,
+            "startColumn" : 1,
+            "endLine" : 16757,
+            "endColumn" : 98
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 21 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 16927,
+            "startColumn" : 1,
+            "endLine" : 16927,
+            "endColumn" : 98
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 62 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 17234,
+            "startColumn" : 1,
+            "endLine" : 17234,
+            "endColumn" : 98
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 54 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 17459,
+            "startColumn" : 1,
+            "endLine" : 17459,
+            "endColumn" : 98
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 24 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 17704,
+            "startColumn" : 1,
+            "endLine" : 17704,
+            "endColumn" : 98
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 35 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 17822,
+            "startColumn" : 1,
+            "endLine" : 17822,
+            "endColumn" : 98
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 71 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 17946,
+            "startColumn" : 1,
+            "endLine" : 17946,
+            "endColumn" : 98
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 69 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3Parser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 18083,
+            "startColumn" : 1,
+            "endLine" : 18083,
+            "endColumn" : 98
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/as3/AS3ParserHelper.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 52,
+            "startColumn" : 1,
+            "endLine" : 52,
+            "endColumn" : 66
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 238,
+            "startColumn" : 1,
+            "endLine" : 238,
+            "endColumn" : 43
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 379,
+            "startColumn" : 1,
+            "endLine" : 379,
+            "endColumn" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 25 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 407,
+            "startColumn" : 1,
+            "endLine" : 407,
+            "endColumn" : 50
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 73 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 563,
+            "startColumn" : 1,
+            "endLine" : 563,
+            "endColumn" : 97
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 16 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 114,
+            "startColumn" : 1,
+            "endLine" : 114,
+            "endColumn" : 68
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 24 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 317,
+            "startColumn" : 1,
+            "endLine" : 317,
+            "endColumn" : 65
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 23 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 458,
+            "startColumn" : 1,
+            "endLine" : 458,
+            "endColumn" : 70
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 26 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 595,
+            "startColumn" : 1,
+            "endLine" : 595,
+            "endColumn" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 18 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 747,
+            "startColumn" : 1,
+            "endLine" : 747,
+            "endColumn" : 66
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 24 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 980,
+            "startColumn" : 1,
+            "endLine" : 980,
+            "endColumn" : 73
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 126 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1374,
+            "startColumn" : 1,
+            "endLine" : 1374,
+            "endColumn" : 97
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 126 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/asdoc/ASDocParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1972,
+            "startColumn" : 1,
+            "endLine" : 1972,
+            "endColumn" : 97
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 237,
+            "startColumn" : 1,
+            "endLine" : 237,
+            "endColumn" : 47
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 292,
+            "startColumn" : 1,
+            "endLine" : 292,
+            "endColumn" : 49
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 19 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 337,
+            "startColumn" : 1,
+            "endLine" : 337,
+            "endColumn" : 60
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 439,
+            "startColumn" : 1,
+            "endLine" : 439,
+            "endColumn" : 47
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 18 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 499,
+            "startColumn" : 1,
+            "endLine" : 499,
+            "endColumn" : 52
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 18 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 568,
+            "startColumn" : 1,
+            "endLine" : 568,
+            "endColumn" : 50
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 17 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 754,
+            "startColumn" : 1,
+            "endLine" : 754,
+            "endColumn" : 50
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 51 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 935,
+            "startColumn" : 1,
+            "endLine" : 935,
+            "endColumn" : 97
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 18 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 281,
+            "startColumn" : 1,
+            "endLine" : 281,
+            "endColumn" : 67
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/e4x/E4XParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1170,
+            "startColumn" : 1,
+            "endLine" : 1170,
+            "endColumn" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 16 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/regexsimple/RegexSimpleLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 66,
+            "startColumn" : 1,
+            "endLine" : 66,
+            "endColumn" : 52
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/regexsimple/RegexSimpleLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 121,
+            "startColumn" : 1,
+            "endLine" : 121,
+            "endColumn" : 52
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/regexsimple/RegexSimpleLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 189,
+            "startColumn" : 1,
+            "endLine" : 189,
+            "endColumn" : 61
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/regexsimple/RegexSimpleLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 268,
+            "startColumn" : 1,
+            "endLine" : 268,
+            "endColumn" : 77
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 49 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/parser/antlr/regexsimple/RegexSimpleLexer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 516,
+            "startColumn" : 1,
+            "endLine" : 516,
+            "endColumn" : 97
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-async/src/main/actionscript/org/as3commons/async/operation/impl/OperationHandler.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 159,
+            "startColumn" : 1,
+            "endLine" : 159,
+            "endColumn" : 76
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 15 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/InstanceInfo.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 60,
+            "startColumn" : 1,
+            "endLine" : 60,
+            "endColumn" : 58
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 18 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/MethodBody.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 107,
+            "startColumn" : 1,
+            "endLine" : 107,
+            "endColumn" : 49
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/Op.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 107,
+            "startColumn" : 1,
+            "endLine" : 107,
+            "endColumn" : 49
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/SlotOrConstantTrait.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 60,
+            "startColumn" : 1,
+            "endLine" : 60,
+            "endColumn" : 58
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 17 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/ClassBuilder.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 253,
+            "startColumn" : 1,
+            "endLine" : 253,
+            "endColumn" : 104
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 49 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/MethodBodyBuilder.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 256,
+            "startColumn" : 1,
+            "endLine" : 256,
+            "endColumn" : 81
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/interception/impl/BasicMethodInvocationInterceptor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 43,
+            "startColumn" : 1,
+            "endLine" : 43,
+            "endColumn" : 140
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 23 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/io/AbcDeserializer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 472,
+            "startColumn" : 1,
+            "endLine" : 472,
+            "endColumn" : 94
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/io/AbcDeserializer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 624,
+            "startColumn" : 1,
+            "endLine" : 624,
+            "endColumn" : 155
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 16 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/io/AbcSerializer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 172,
+            "startColumn" : 1,
+            "endLine" : 172,
+            "endColumn" : 85
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 22 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/io/AbcSerializer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 352,
+            "startColumn" : 1,
+            "endLine" : 352,
+            "endColumn" : 62
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/io/AbcSerializer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 518,
+            "startColumn" : 1,
+            "endLine" : 518,
+            "endColumn" : 89
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 26 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/io/AbstractAbcDeserializer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 88,
+            "startColumn" : 1,
+            "endLine" : 88,
+            "endColumn" : 78
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/proxy/impl/MethodProxyFactory.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 106,
+            "startColumn" : 1,
+            "endLine" : 106,
+            "endColumn" : 140
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 15 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/proxy/impl/ProxyFactory.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 428,
+            "startColumn" : 1,
+            "endLine" : 428,
+            "endColumn" : 118
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 15 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/proxy/impl/ProxyFactory.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 607,
+            "startColumn" : 1,
+            "endLine" : 607,
+            "endColumn" : 112
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 43 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ClassMetadataDeserializer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 82,
+            "startColumn" : 1,
+            "endLine" : 82,
+            "endColumn" : 187
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/PlayerGlobalData.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 122,
+            "startColumn" : 1,
+            "endLine" : 122,
+            "endColumn" : 83
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 48 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ReflectionDeserializer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 257,
+            "startColumn" : 1,
+            "endLine" : 257,
+            "endColumn" : 228
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 21 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ReflectionDeserializer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 514,
+            "startColumn" : 1,
+            "endLine" : 514,
+            "endColumn" : 178
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/swf/AbcClassLoader.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 132,
+            "startColumn" : 1,
+            "endLine" : 132,
+            "endColumn" : 48
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/util/MultinameUtil.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 146,
+            "startColumn" : 1,
+            "endLine" : 146,
+            "endColumn" : 115
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/util/OpcodeIO.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 106,
+            "startColumn" : 1,
+            "endLine" : 106,
+            "endColumn" : 159
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 15 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/util/OpcodeIO.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 313,
+            "startColumn" : 1,
+            "endLine" : 313,
+            "endColumn" : 189
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/framework/core/AbstractLinkedCollection.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 355,
+            "startColumn" : 1,
+            "endLine" : 355,
+            "endColumn" : 66
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/framework/core/AbstractSortedCollection.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 322,
+            "startColumn" : 1,
+            "endLine" : 322,
+            "endColumn" : 60
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/actionscript/org/as3commons/collections/iterators/RecursiveFilterIterator2.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 162,
+            "startColumn" : 1,
+            "endLine" : 162,
+            "endColumn" : 40
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 15 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/examples/ArrayListIteratorExample.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 8,
+            "startColumn" : 1,
+            "endLine" : 8,
+            "endColumn" : 47
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/examples/LinkedMapFxExample.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 61,
+            "startColumn" : 1,
+            "endLine" : 61,
+            "endColumn" : 57
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/main/examples/LinkedSetFxExample.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 58,
+            "startColumn" : 1,
+            "endLine" : 58,
+            "endColumn" : 57
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 17 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-collections/src/test/actionscript/org/as3commons/collections/testhelpers/TestComparator.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 36,
+            "startColumn" : 1,
+            "endLine" : 36,
+            "endColumn" : 56
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-lang/src/main/actionscript/org/as3commons/lang/ClassUtils.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 386,
+            "startColumn" : 1,
+            "endLine" : 386,
+            "endColumn" : 134
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-lang/src/main/actionscript/org/as3commons/lang/ClassUtils.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 481,
+            "startColumn" : 1,
+            "endLine" : 481,
+            "endColumn" : 71
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 24 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-lang/src/main/actionscript/org/as3commons/lang/StringUtils.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2274,
+            "startColumn" : 1,
+            "endLine" : 2274,
+            "endColumn" : 66
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-lang/src/main/actionscript/org/as3commons/lang/StringUtils.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2372,
+            "startColumn" : 1,
+            "endLine" : 2372,
+            "endColumn" : 65
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-lang/src/main/actionscript/org/as3commons/lang/StringUtils.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2558,
+            "startColumn" : 1,
+            "endLine" : 2558,
+            "endColumn" : 86
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-lang/src/main/actionscript/org/as3commons/lang/builder/EqualsBuilder.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 76,
+            "startColumn" : 1,
+            "endLine" : 76,
+            "endColumn" : 61
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 17 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/integration/Log5FIntegration.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 84,
+            "startColumn" : 1,
+            "endLine" : 84,
+            "endColumn" : 60
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/integration/MateIntegration.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 118,
+            "startColumn" : 1,
+            "endLine" : 118,
+            "endColumn" : 55
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/target/FirebugTarget.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 172,
+            "startColumn" : 1,
+            "endLine" : 172,
+            "endColumn" : 79
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/target/LSHttpTarget.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 134,
+            "startColumn" : 1,
+            "endLine" : 134,
+            "endColumn" : 78
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/target/LogMeisterTarget.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 66,
+            "startColumn" : 1,
+            "endLine" : 66,
+            "endColumn" : 78
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 22 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/LogMessageFormatter.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 162,
+            "startColumn" : 1,
+            "endLine" : 162,
+            "endColumn" : 55
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 28 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/LogMessageFormatter.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 292,
+            "startColumn" : 1,
+            "endLine" : 292,
+            "endColumn" : 67
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/base64enc.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 42,
+            "startColumn" : 1,
+            "endLine" : 42,
+            "endColumn" : 72
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 26 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/clone.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 49,
+            "startColumn" : 1,
+            "endLine" : 49,
+            "endColumn" : 71
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 21 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/instantiate.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 35,
+            "startColumn" : 1,
+            "endLine" : 35,
+            "endColumn" : 69
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/jsonXify.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 51,
+            "startColumn" : 1,
+            "endLine" : 51,
+            "endColumn" : 95
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 25 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/objectify.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 38,
+            "startColumn" : 1,
+            "endLine" : 38,
+            "endColumn" : 77
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 37 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/xml/xmlToSetup.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 270,
+            "startColumn" : 1,
+            "endLine" : 270,
+            "endColumn" : 93
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 16 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/xml/xmlToTarget.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 99,
+            "startColumn" : 1,
+            "endLine" : 99,
+            "endColumn" : 100
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/xml/xmlToTarget.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 167,
+            "startColumn" : 1,
+            "endLine" : 167,
+            "endColumn" : 84
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 56 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/setup/LogSetupTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 72,
+            "startColumn" : 1,
+            "endLine" : 72,
+            "endColumn" : 49
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/util/ByteArrayCopyTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 58,
+            "startColumn" : 1,
+            "endLine" : 58,
+            "endColumn" : 50
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 23 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-logging/src/test/actionscript/org/as3commons/logging/util/ByteArrayCopyTest.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 109,
+            "startColumn" : 1,
+            "endLine" : 109,
+            "endColumn" : 71
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-serialization/src/main/actionscript/org/as3commons/serialization/xml/core/ASToXML.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 36,
+            "startColumn" : 1,
+            "endLine" : 36,
+            "endColumn" : 57
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-serialization/src/main/actionscript/org/as3commons/serialization/xml/mapper/Mapper.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 63,
+            "startColumn" : 1,
+            "endLine" : 63,
+            "endColumn" : 86
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 17 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/layer/placement/AbstractPlacement.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 242,
+            "startColumn" : 1,
+            "endLine" : 242,
+            "endColumn" : 76
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/framework/core/config/CellConfigMerge.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "startColumn" : 1,
+            "endLine" : 34,
+            "endColumn" : 94
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/framework/core/parser/DynTableParser.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 138,
+            "startColumn" : 1,
+            "endLine" : 138,
+            "endColumn" : 49
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 17 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/framework/core/row/AbstractRow.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 227,
+            "startColumn" : 1,
+            "endLine" : 227,
+            "endColumn" : 75
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-ui/src/main/actionscript/org/as3commons/ui/lifecycle/i10n/I10N.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 363,
+            "startColumn" : 1,
+            "endLine" : 363,
+            "endColumn" : 39
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-zip/src/main/actionscript/org/as3commons/zip/Zip.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 426,
+            "startColumn" : 1,
+            "endLine" : 426,
+            "endColumn" : 65
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 24 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-zip/src/main/actionscript/org/as3commons/zip/ZipFile.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 278,
+            "startColumn" : 1,
+            "endLine" : 278,
+            "endColumn" : 130
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/context/impl/DefaultChildContextManager.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 86,
+            "startColumn" : 1,
+            "endLine" : 86,
+            "endColumn" : 146
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/context/impl/DefaultChildContextManager.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 141,
+            "startColumn" : 1,
+            "endLine" : 141,
+            "endColumn" : 113
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 16 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/impl/DefaultEventBusUserRegistry.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 189,
+            "startColumn" : 1,
+            "endLine" : 189,
+            "endColumn" : 35
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/process/EventInterceptorMetadataDestroyer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 49,
+            "startColumn" : 1,
+            "endLine" : 49,
+            "endColumn" : 100
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/eventbus/process/EventInterceptorMetadataProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 60,
+            "startColumn" : 1,
+            "endLine" : 60,
+            "endColumn" : 89
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 17 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/autowire/impl/DefaultAutowireProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 224,
+            "startColumn" : 1,
+            "endLine" : 224,
+            "endColumn" : 88
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 17 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/autowire/impl/DefaultAutowireProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 427,
+            "startColumn" : 1,
+            "endLine" : 427,
+            "endColumn" : 77
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/autowire/impl/DefaultAutowireProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 518,
+            "startColumn" : 1,
+            "endLine" : 518,
+            "endColumn" : 131
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/autowire/impl/DefaultAutowireProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 559,
+            "startColumn" : 1,
+            "endLine" : 559,
+            "endColumn" : 122
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 20 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/metadata/util/MetadataConfigUtils.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 141,
+            "startColumn" : 1,
+            "endLine" : 141,
+            "endColumn" : 129
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/DefaultObjectFactory.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 452,
+            "startColumn" : 1,
+            "endLine" : 452,
+            "endColumn" : 65
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/DefaultObjectFactory.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 539,
+            "startColumn" : 1,
+            "endLine" : 539,
+            "endColumn" : 76
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/impl/FieldRetrievingFactoryObject.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 137,
+            "startColumn" : 1,
+            "endLine" : 137,
+            "endColumn" : 46
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/factory/ObjectDefinitionFactoryPostProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 188,
+            "startColumn" : 1,
+            "endLine" : 188,
+            "endColumn" : 127
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 25 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/factory/PropertyPlaceholderConfigurerFactoryPostProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 121,
+            "startColumn" : 1,
+            "endLine" : 121,
+            "endColumn" : 121
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 24 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/factory/process/impl/factory/PropertyPlaceholderConfigurerFactoryPostProcessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 181,
+            "startColumn" : 1,
+            "endLine" : 181,
+            "endColumn" : 125
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 21 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/impl/DefaultDependencyChecker.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 71,
+            "startColumn" : 1,
+            "endLine" : 71,
+            "endColumn" : 202
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/impl/DefaultObjectDestroyer.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 81,
+            "startColumn" : 1,
+            "endLine" : 81,
+            "endColumn" : 50
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 13 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/ioc/objectdefinition/impl/DefaultObjectDefinitionRegistry.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 311,
+            "startColumn" : 1,
+            "endLine" : 311,
+            "endColumn" : 128
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 16 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/stage/StageProcessorFactoryPostprocessor.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 59,
+            "startColumn" : 1,
+            "endLine" : 59,
+            "endColumn" : 86
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 11 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-core/src/main/actionscript/org/springextensions/actionscript/util/TypeUtils.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 47,
+            "startColumn" : 1,
+            "endLine" : 47,
+            "endColumn" : 63
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 14 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-flex/src/main/actionscript/org/springextensions/actionscript/ioc/config/impl/mxml/component/MXMLObjectDefinition.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 713,
+            "startColumn" : 1,
+            "endLine" : 713,
+            "endColumn" : 121
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-samples/cafe-townsend-bootstrap/src/main/actionscript/org/springextensions/actionscript/domain/BaseObject.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 192,
+            "startColumn" : 1,
+            "endLine" : 192,
+            "endColumn" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-samples/cafe-townsend-metadata-config/src/main/actionscript/org/springextensions/actionscript/domain/BaseObject.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 192,
+            "startColumn" : 1,
+            "endLine" : 192,
+            "endColumn" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-samples/cafe-townsend-multi-module/src/main/actionscript/org/springextensions/actionscript/domain/BaseObject.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 192,
+            "startColumn" : 1,
+            "endLine" : 192,
+            "endColumn" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-samples/cafe-townsend-mxml-config/src/main/actionscript/org/springextensions/actionscript/domain/BaseObject.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 192,
+            "startColumn" : 1,
+            "endLine" : 192,
+            "endColumn" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:FunctionComplexity",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Function has a complexity of 12 which is greater than 10 authorized."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:spring-actionscript/spring-actionscript-samples/cafe-townsend/src/main/actionscript/org/springextensions/actionscript/domain/BaseObject.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 192,
+            "startColumn" : 1,
+            "endLine" : 192,
+            "endColumn" : 74
+          }
+        }
+      } ],
+      "rank" : -1.0
+    } ],
+    "newlineSequences" : [ "\r\n", "\n" ],
+    "columnKind" : "utf16CodeUnits"
+  } ]
+}

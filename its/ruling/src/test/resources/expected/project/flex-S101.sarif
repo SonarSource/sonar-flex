@@ -1,0 +1,930 @@
+{
+  "$schema" : "https://json.schemastore.org/sarif-2.1.0.json",
+  "version" : "2.1.0",
+  "runs" : [ {
+    "tool" : {
+      "driver" : {
+        "name" : "LITS",
+        "language" : "en-US",
+        "contents" : [ "localizedData", "nonLocalizedData" ],
+        "isComprehensive" : false
+      }
+    },
+    "language" : "en-US",
+    "results" : [ {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Suite_asblocks_impl.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 7,
+            "startColumn" : 1,
+            "endLine" : 7,
+            "endColumn" : 33
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASArrayAccessExpression.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 29,
+            "startColumn" : 1,
+            "endLine" : 29,
+            "endColumn" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASAssignmentExpression.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11,
+            "startColumn" : 1,
+            "endLine" : 11,
+            "endColumn" : 44
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASBinaryExpression.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11,
+            "startColumn" : 1,
+            "endLine" : 11,
+            "endColumn" : 40
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASClassType.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 21,
+            "startColumn" : 1,
+            "endLine" : 21,
+            "endColumn" : 33
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASConditionalExpression.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 16,
+            "startColumn" : 1,
+            "endLine" : 16,
+            "endColumn" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASConfigStatement.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14,
+            "startColumn" : 1,
+            "endLine" : 14,
+            "endColumn" : 39
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASFieldAccessExpression.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12,
+            "startColumn" : 1,
+            "endLine" : 12,
+            "endColumn" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASFunctionExpression.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15,
+            "startColumn" : 1,
+            "endLine" : 15,
+            "endColumn" : 42
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASFunctionType.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11,
+            "startColumn" : 1,
+            "endLine" : 11,
+            "endColumn" : 36
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASInterfaceType.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12,
+            "startColumn" : 1,
+            "endLine" : 12,
+            "endColumn" : 37
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASInvocationExpression.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15,
+            "startColumn" : 1,
+            "endLine" : 15,
+            "endColumn" : 44
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASLiteral.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 45,
+            "startColumn" : 1,
+            "endLine" : 45,
+            "endColumn" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASMethod.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 19,
+            "startColumn" : 1,
+            "endLine" : 19,
+            "endColumn" : 30
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASNamespaceType.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11,
+            "startColumn" : 1,
+            "endLine" : 11,
+            "endColumn" : 37
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASPackage.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 16,
+            "startColumn" : 1,
+            "endLine" : 16,
+            "endColumn" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASPostfixExpression.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12,
+            "startColumn" : 1,
+            "endLine" : 12,
+            "endColumn" : 41
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASPrefixExpression.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14,
+            "startColumn" : 1,
+            "endLine" : 14,
+            "endColumn" : 40
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTASProject.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 29,
+            "startColumn" : 1,
+            "endLine" : 29,
+            "endColumn" : 31
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTMetaTag.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 17,
+            "startColumn" : 1,
+            "endLine" : 17,
+            "endColumn" : 29
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_ASTStatementList.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 53,
+            "startColumn" : 1,
+            "endLine" : 53,
+            "endColumn" : 35
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_BasicUnit.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 20,
+            "startColumn" : 1,
+            "endLine" : 20,
+            "endColumn" : 28
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/impl/Test_DocComment.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 21,
+            "startColumn" : 1,
+            "endLine" : 21,
+            "endColumn" : 29
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/parser/antlr/Test_AST.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 30,
+            "startColumn" : 1,
+            "endLine" : 30,
+            "endColumn" : 22
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/parser/antlr/Test_BasicListUpdateDelegate.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 29,
+            "startColumn" : 1,
+            "endLine" : 29,
+            "endColumn" : 42
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/parser/antlr/Test_LinkedListToken.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 25,
+            "startColumn" : 1,
+            "endLine" : 25,
+            "endColumn" : 34
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/parser/antlr/Test_LinkedListTokenStream.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12,
+            "startColumn" : 1,
+            "endLine" : 12,
+            "endColumn" : 40
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/parser/antlr/as3/Suite_asblocks_parser_antlr_as3.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 6,
+            "startColumn" : 1,
+            "endLine" : 6,
+            "endColumn" : 45
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/parser/antlr/as3/TestAS3Parser_CompilationUnit.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 28,
+            "startColumn" : 1,
+            "endLine" : 28,
+            "endColumn" : 69
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/parser/antlr/as3/TestAS3Parser_Function.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4,
+            "startColumn" : 1,
+            "endLine" : 4,
+            "endColumn" : 36
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/parser/antlr/as3/TestAS3Parser_Proto.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14,
+            "startColumn" : 1,
+            "endLine" : 14,
+            "endColumn" : 33
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/parser/antlr/as3/TestAS3Parser_Statements.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 13,
+            "startColumn" : 1,
+            "endLine" : 13,
+            "endColumn" : 64
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/parser/antlr/as3/Test_AS3ParserModes.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12,
+            "startColumn" : 1,
+            "endLine" : 12,
+            "endColumn" : 33
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/parser/antlr/as3/Test_Annotations.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3,
+            "startColumn" : 1,
+            "endLine" : 3,
+            "endColumn" : 30
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/parser/antlr/as3/Test_Expression.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10,
+            "startColumn" : 1,
+            "endLine" : 10,
+            "endColumn" : 55
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/parser/antlr/as3/Test_Package.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4,
+            "startColumn" : 1,
+            "endLine" : 4,
+            "endColumn" : 52
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/parser/antlr/as3/Test_PrimaryExpression.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 7,
+            "startColumn" : 1,
+            "endLine" : 7,
+            "endColumn" : 62
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "flex:S101",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Rename this class name to match the regular expression ^[A-Z][a-zA-Z0-9]*$"
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:as3-commons/as3-commons-asblocks/src/test/actionscript/org/as3commons/asblocks/parser/antlr/as3/Test_TypeExpression.as",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 7,
+            "startColumn" : 1,
+            "endLine" : 7,
+            "endColumn" : 59
+          }
+        }
+      } ],
+      "rank" : -1.0
+    } ],
+    "newlineSequences" : [ "\r\n", "\n" ],
+    "columnKind" : "utf16CodeUnits"
+  } ]
+}

@@ -32,7 +32,7 @@ jobs:
 
       - &mise
         name: Setup mise
-        uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785 # v5.2.8
+        uses: jdx/mise-action@90f833d396d0cc3674b631d2d225e306476c303a # v5.2.10
         with:
           version: 2026.9.12
 
@@ -58,7 +58,7 @@ jobs:
 
       # Publish the plugin version for the PVF.
       - name: Prepare PVF candidate version
-        uses: SonarSource/core-languages-tooling-public/prepare-pvf@master
+        uses: SonarSource/core-languages-tooling-public/prepare-pvf@v1
         with:
           build-version: ${{ env.PROJECT_VERSION }}
 
@@ -136,7 +136,7 @@ jobs:
       - *checkout
       - &mise_no_cache
         name: Setup mise
-        uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785 # v5.2.8
+        uses: jdx/mise-action@90f833d396d0cc3674b631d2d225e306476c303a # v5.2.10
         with:
           version: 2026.9.12
           cache_save: false
@@ -202,10 +202,10 @@ jobs:
           mvn verify -Pit-ruling -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
       - name: Prepare ruling artifact
         if: ${{ always() && steps.ruling.outcome == 'failure' }}
-        uses: SonarSource/core-languages-tooling-public/prepare-ruling-artifact@61120a5cf23942b1ed2d8cbf10cd5a84e30c7c11 # master
+        uses: SonarSource/core-languages-tooling-public/prepare-ruling-artifact@v1
       - name: Update ruling and notify
-        if: ${{ always() && github.event_name == 'pull_request' && (steps.ruling.outcome == 'success' || steps.ruling.outcome == 'failure') }}
-        uses: SonarSource/core-languages-tooling-public/ruling-update-and-notify@61120a5cf23942b1ed2d8cbf10cd5a84e30c7c11 # master
+        if: ${{ always() && github.event_name == 'pull_request' && (steps.ruling.outcome == 'success' || steps.ruling.outcome == 'fail
+        uses: SonarSource/core-languages-tooling-public/ruling-update-and-notify@v1
         with:
           ruling-failed: ${{ steps.ruling.outcome == 'failure' }}
       - name: Preserve ruling test failure
@@ -268,7 +268,7 @@ jobs:
       - name: Slack Notification
         uses: SonarSource/core-languages-tooling-public/common-actions/slack-notify@v1
         with:
-          slack-channel: squad-corelang-notifs
+          slack-channel: "C0BFBRNJCM8" # #ops-language-expansion
           branch-patterns: ${{ format('{0},branch-*,dogfood-*', github.event.repository.default_branch) }}
           github-token: ${{ github.token }}
           branch: ${{ github.ref_name }}

@@ -204,7 +204,7 @@ jobs:
         if: ${{ always() && steps.ruling.outcome == 'failure' }}
         uses: SonarSource/core-languages-tooling-public/prepare-ruling-artifact@v1
       - name: Update ruling and notify
-        if: ${{ always() && (steps.ruling.outcome == 'success' || steps.ruling.outcome == 'failure') }}
+        if: ${{ always() && github.event_name == 'pull_request' && (steps.ruling.outcome == 'success' || steps.ruling.outcome == 'failure') }}
         uses: SonarSource/core-languages-tooling-public/ruling-update-and-notify@v1
         with:
           ruling-failed: ${{ steps.ruling.outcome == 'failure' }}

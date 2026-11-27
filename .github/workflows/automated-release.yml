@@ -41,7 +41,7 @@ jobs:
     with:
       project-name: "SonarFlex"
       plugin-name: "flex"
-      jira-project-key: "SONARFLEX"
+      jira-project-key: "FLEX"
       rule-props-changed: false
       short-description: ${{ github.event.inputs.short-description }}
       new-version: ${{ github.event.inputs.new-version }}

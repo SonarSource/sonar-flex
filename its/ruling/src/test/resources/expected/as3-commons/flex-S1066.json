@@ -1,0 +1,99 @@
+{
+"as3-commons:as3-commons-aop/src/examples/shared/org/as3commons/aop/intercept/StringToUpperCaseConstructorInterceptor.as": [
+17
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/ASTASMetaTag.as": [
+99
+],
+"as3-commons:as3-commons-asblocks/src/main/actionscript/org/as3commons/asblocks/impl/MetaTagUtils.as": [
+54
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/ConstantPool.as": [
+436
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/InstanceInfo.as": [
+72
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/Multiname.as": [
+45,
+46
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/MultinameG.as": [
+60,
+61
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/MultinameL.as": [
+51,
+52
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/NamedMultiname.as": [
+54,
+55
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/abc/QualifiedName.as": [
+70,
+71,
+72
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/BaseTypeBuilder.as": [
+145,
+166
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/emit/impl/ClassBuilder.as": [
+329
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/reflect/ReflectionDeserializer.as": [
+485
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/util/Assertions.as": [
+69,
+70
+],
+"as3-commons:as3-commons-bytecode/src/main/actionscript/org/as3commons/bytecode/util/OpcodeIO.as": [
+229
+],
+"as3-commons:as3-commons-bytecode/src/test/actionscript/org/as3commons/bytecode/testclasses/interceptors/InterfaceMethodInterceptorImpl.as": [
+39
+],
+"as3-commons:as3-commons-bytecode/src/test/actionscript/org/as3commons/bytecode/testclasses/interceptors/MethodInterceptorImpl.as": [
+38
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/iterators/RecursiveFilterIterator.as": [
+198
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/iterators/RecursiveFilterIterator2.as": [
+179
+],
+"as3-commons:as3-commons-collections/src/main/actionscript/org/as3commons/collections/iterators/RecursiveIterator.as": [
+127
+],
+"as3-commons:as3-commons-lang/src/main/actionscript/org/as3commons/lang/StringUtils.as": [
+2334,
+2347
+],
+"as3-commons:as3-commons-lang/src/main/actionscript/org/as3commons/lang/XMLUtils.as": [
+102
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/setup/target/XMLSocketGateway.as": [
+91
+],
+"as3-commons:as3-commons-logging/src/main/actionscript/org/as3commons/logging/util/objectifyLimited.as": [
+45
+],
+"as3-commons:as3-commons-reflect/src/main/actionscript/org/as3commons/reflect/MethodInvoker.as": [
+161
+],
+"as3-commons:as3-commons-stageprocessing/src/main/actionscript/org/as3commons/stageprocessing/impl/FlashStageObjectProcessorRegistry.as": [
+193,
+295,
+490,
+554
+],
+"as3-commons:as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/framework/core/cell/AbstractCell.as": [
+194,
+208
+],
+"as3-commons:as3-commons-ui/src/main/actionscript/org/as3commons/ui/layout/framework/core/parser/DynTableParser.as": [
+241
+]
+}

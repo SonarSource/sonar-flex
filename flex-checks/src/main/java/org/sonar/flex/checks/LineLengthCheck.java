@@ -46,12 +46,13 @@ public class LineLengthCheck extends FlexCheck {
   public void visitFile(@Nullable AstNode astNode) {
     String fileContent = getContext().fileContent();
     String[] lines = fileContent.split("\\r?\\n");
+    long effectiveMaximumLineLength = 2L * maximumLineLength;
 
     for (int i = 0; i < lines.length; i++) {
       String line = lines[i];
-      if (line.length() > maximumLineLength) {
+      if (line.length() > effectiveMaximumLineLength) {
         addIssueAtLine(
-          MessageFormat.format("Split this {0} characters long line (which is greater than {1} authorized).", line.length(), maximumLineLength),
+          MessageFormat.format("Split this {0} characters long line (which is greater than {1} authorized).", line.length(), effectiveMaximumLineLength),
           i + 1);
       }
     }

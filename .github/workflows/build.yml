@@ -201,7 +201,7 @@ jobs:
           cd its/ruling
           mvn verify -Pit-ruling -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
       - name: Prepare ruling artifact
-        if: ${{ always() && steps.ruling.outcome == 'failure' }}
+        if: ${{ always() && github.event_name == 'pull_request' && steps.ruling.outcome == 'failure' }}
         uses: SonarSource/core-languages-tooling-public/prepare-ruling-artifact@v1
       - name: Update ruling and notify
         if: ${{ always() && github.event_name == 'pull_request' && (steps.ruling.outcome == 'success' || steps.ruling.outcome == 'failure') }}
